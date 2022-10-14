@@ -20,6 +20,18 @@ enum class OBJECTORDER
 //};
 
 
+typedef struct UnitInfo
+{
+	float m_Hp;
+	float m_MaxHp;
+	int Gold;
+	float Dammage;
+
+
+}UINFO;
+
+
+
 // Ό³Έν :
 class GlobalContentsValue
 {

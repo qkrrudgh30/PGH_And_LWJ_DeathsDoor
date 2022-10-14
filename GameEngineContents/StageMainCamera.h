@@ -19,7 +19,7 @@ protected:
 	void Update(float _DeltaTime);
 	void End() {}
 
-private:
-
+public:
+	Player* m_Player;
 };
 

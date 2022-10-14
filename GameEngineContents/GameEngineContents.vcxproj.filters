@@ -97,6 +97,9 @@
     <ClInclude Include="PlayLevel.h">
       <Filter>01.Level\01.Stage</Filter>
     </ClInclude>
+    <ClInclude Include="UnitBase.h">
+      <Filter>00.Actor\02.Unit</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -126,6 +129,9 @@
     </ClCompile>
     <ClCompile Include="PlayLevel.cpp">
       <Filter>01.Level\01.Stage</Filter>
+    </ClCompile>
+    <ClCompile Include="UnitBase.cpp">
+      <Filter>00.Actor\02.Unit</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

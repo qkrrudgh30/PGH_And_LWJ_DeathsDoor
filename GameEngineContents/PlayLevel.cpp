@@ -43,10 +43,6 @@ void PlayLevel::Start()
 
 
 
-	{
-		StageMainCamera* CameraMain = CreateActor<StageMainCamera>(OBJECTORDER::MainCamera);
-		
-	}
 
 
 
@@ -76,10 +72,11 @@ void PlayLevel::LevelStartEvent()
 			Player* NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
 			NewPlayer->SetLevelOverOn();
 
-
-
-
-
+			
+			StageMainCamera* CameraMain = CreateActor<StageMainCamera>(OBJECTORDER::MainCamera);
+			CameraMain->m_Player = NewPlayer;
+			CameraMain->SetLevelOverOn();
+			
 			
 		}
 	}

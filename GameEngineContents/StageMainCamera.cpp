@@ -1,7 +1,10 @@
 #include "PreCompile.h"
 #include "StageMainCamera.h"
+#include "Player.h"
 
-StageMainCamera::StageMainCamera() 
+
+StageMainCamera::StageMainCamera() :
+	m_Player(nullptr)
 {
 }
 
@@ -25,7 +28,7 @@ void StageMainCamera::Update(float _DeltaTime)
 		return;
 	}
 
-
+	GetTransform().SetWorldPosition(m_Player->GetTransform().GetWorldPosition());
 	float4 WorldPos = GetTransform().GetWorldPosition();
 	float4 CameraWorldPos = WorldPos;
 	CameraWorldPos.y += 700.f;

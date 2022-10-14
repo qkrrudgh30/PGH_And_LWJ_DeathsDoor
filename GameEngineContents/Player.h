@@ -1,10 +1,12 @@
 #pragma once
 #include <GameEngineCore/CoreMinimal.h>
 
+#include "UnitBase.h"
 // 설명 :
 class GameEngineCollision;
 class GameEngineTextureRenderer;
-class Player : public GameEngineActor
+class UnitBase;
+class Player : public UnitBase
 {
 private:
 	static Player* MainPlayer;
@@ -33,10 +35,7 @@ protected:
 	void Update(float _DeltaTime);
 	void End()  {}
 
-	GameEngineTextureRenderer* Renderer;
-	GameEngineCollision* Collision;
-	GameEngineTextureRenderer* HPRenderer;
-
+	
 	void IdleStart(const StateInfo& _Info);
 	void IdleUpdate(float _DeltaTime, const StateInfo& _Info);
 
@@ -47,39 +46,6 @@ private:
 	float Speed;
 
 	float4 ResultColor;
-
-	GameEngineStateManager StateManager;
+	
 };
 
-
-//class 잔상 : public GameEngineActor
-//{
-//	std::vector<GameEngineTextureRenderer*> AllPartsRenderer;
-//
-//public:
-//	void Start() 
-//	{
-//		Death(0.2f);
-//
-//		// 
-//		//HPRenderer->renderOption.Option00 = 1;
-//	}
-//
-//	텍스처세팅(Player* _Player) 
-//	{
-//		for (size_t i = 0; i < _Player->AllPartsRenderer.size(); i++)
-//		{
-//			AllPartsRenderer[i]->SetTexture(_Player->AllPartsRenderer[i]->GetCurTexture());
-//		}
-//	}
-//
-//	업데이트() 
-//	{
-//		for (size_t i = 0; i < _Player->AllPartsRenderer.size(); i++)
-//		{
-//			AllPartsRenderer[i]->GetPixelData().PlusColor.a -= 델타타임;
-//		}
-//
-//		// 점점 
-//	}
-//};

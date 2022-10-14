@@ -9,8 +9,7 @@
 Player* Player::MainPlayer = nullptr;
 
 Player::Player()
-	: Speed(50.0f)
-	, Renderer(nullptr)
+	: Speed(200.0f)
 {
 	MainPlayer = this;
 }
@@ -22,14 +21,25 @@ Player::~Player()
 
 void Player::Start()
 {
+
+	GetTransform().SetWorldRotation({0.f,180.,0.f});
+
 	if (false == GameEngineInput::GetInst()->IsKey("PlayerLeft"))
 	{
-		GameEngineInput::GetInst()->CreateKey("PlayerLeft", VK_NUMPAD4);
-		GameEngineInput::GetInst()->CreateKey("PlayerRight", VK_NUMPAD6);
-		GameEngineInput::GetInst()->CreateKey("PlayerUp", VK_NUMPAD9);
-		GameEngineInput::GetInst()->CreateKey("PlayerDown", VK_NUMPAD7);
-		GameEngineInput::GetInst()->CreateKey("PlayerF", VK_NUMPAD1);
-		GameEngineInput::GetInst()->CreateKey("PlayerB", VK_NUMPAD2);
+
+		GameEngineInput::GetInst()->CreateKey("PlayerF", 'W');
+		GameEngineInput::GetInst()->CreateKey("PlayerB", 'S');
+		GameEngineInput::GetInst()->CreateKey("PlayerUp", 'Q');
+		GameEngineInput::GetInst()->CreateKey("PlayerDown", 'E');
+		GameEngineInput::GetInst()->CreateKey("PlayerLeft", 'A');
+		GameEngineInput::GetInst()->CreateKey("PlayerRight", 'D');
+
+		GameEngineInput::GetInst()->CreateKey("PlayerCamera", VK_LSHIFT);
+
+		GameEngineInput::GetInst()->CreateKey("PlayerSlide", VK_SPACE);
+
+
+
 	}
 
 	GetTransform().SetLocalScale({ 1, 1, 1 });
@@ -43,14 +53,14 @@ void Player::Start()
 		, std::bind(&Player::IdleStart, this, std::placeholders::_1)
 	);
 
-	int MyValue = 10;
+	
 
 	StateManager.CreateStateMember("Move"
 		, std::bind(&Player::MoveUpdate, this, std::placeholders::_1, std::placeholders::_2)
 		, [/*&*/=](const StateInfo& _Info)
 		{
-			int Test = MyValue;
-			Renderer->ChangeFrameAnimation("Move");
+		
+			
 
 		});
 
@@ -58,18 +68,7 @@ void Player::Start()
 
 
 	{
-	/*	GameEngineDefaultRenderer* Renderer = CreateComponent<GameEngineDefaultRenderer>();
-		Renderer->SetPipeLine("Color");
-		Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f ,100.0f });
-		ResultColor.x = 0.f;
-		ResultColor.y = 1.f;
-		ResultColor.z = 0.f;
-		Renderer->GetShaderResources().SetConstantBufferLink("ResultColor", ResultColor);*/
-
-	}
-
-	{
-		GameEngineTextureRenderer* Renderer = CreateComponent<GameEngineTextureRenderer>();
+		Renderer = CreateComponent<GameEngineTextureRenderer>();
 		Renderer->GetTransform().SetLocalScale({100.0f, 100.0f ,100.0f });
 		// Renderer->ScaleToTexture();
 	}
@@ -78,7 +77,7 @@ void Player::Start()
 
 void Player::IdleStart(const StateInfo& _Info)
 {
-	// Renderer->ChangeFrameAnimation("Idle");
+
 }
 
 void Player::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
@@ -87,9 +86,11 @@ void Player::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft") ||
 		true == GameEngineInput::GetInst()->IsPress("PlayerRight") ||
 		true == GameEngineInput::GetInst()->IsPress("PlayerUp") ||
-		true == GameEngineInput::GetInst()->IsPress("PlayerDown"))
+		true == GameEngineInput::GetInst()->IsPress("PlayerDown") ||
+			true == GameEngineInput::GetInst()->IsPress("PlayerF") ||
+			true == GameEngineInput::GetInst()->IsPress("PlayerB"))
 	{
-
+		StateManager.ChangeState("Move");
 	}
 }
 
@@ -98,7 +99,9 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	if (false == GameEngineInput::GetInst()->IsPress("PlayerLeft") &&
 		false == GameEngineInput::GetInst()->IsPress("PlayerRight") &&
 		false == GameEngineInput::GetInst()->IsPress("PlayerUp") &&
-		false == GameEngineInput::GetInst()->IsPress("PlayerDown"))
+		false == GameEngineInput::GetInst()->IsPress("PlayerDown") &&
+		false == GameEngineInput::GetInst()->IsPress("PlayerF") &&
+		false == GameEngineInput::GetInst()->IsPress("PlayerB"))
 	{
 		StateManager.ChangeState("Idle");
 		return;
@@ -107,14 +110,11 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft"))
 	{
 		GetTransform().SetWorldMove(GetTransform().GetLeftVector() * Speed * _DeltaTime);
-		Renderer->GetTransform().PixLocalNegativeX();
 	}
 
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerRight"))
 	{
 		GetTransform().SetWorldMove(GetTransform().GetRightVector() * Speed * _DeltaTime);
-		Renderer->GetTransform().PixLocalPositiveX();
-		// Renderer->GetColorData().MulColor.a -= _DeltaTime;
 	}
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerUp"))
 	{
@@ -123,6 +123,14 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerDown"))
 	{
 		GetTransform().SetWorldMove(GetTransform().GetDownVector() * Speed * _DeltaTime);
+	}
+	if (true == GameEngineInput::GetInst()->IsPress("PlayerF"))
+	{
+		GetTransform().SetWorldMove(GetTransform().GetForwardVector() * Speed * _DeltaTime);
+	}
+	if (true == GameEngineInput::GetInst()->IsPress("PlayerB"))
+	{
+		GetTransform().SetWorldMove(GetTransform().GetBackVector() * Speed * _DeltaTime);
 	}
 }
 
@@ -134,10 +142,6 @@ CollisionReturn Player::MonsterCollision(GameEngineCollision* _This, GameEngineC
 void Player::Update(float _DeltaTime)
 {
 	
-
-	// StateManager 기능으로 
 	StateManager.Update(_DeltaTime);
-	//Collision->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::UI, CollisionType::CT_OBB2D,
-	//	std::bind(&Player::MonsterCollision, this, std::placeholders::_1, std::placeholders::_2)
-	//);
+
 }
