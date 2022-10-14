@@ -2,12 +2,19 @@
 #include "ContentsCore.h"
 #include "GameEngineContents/LoginLevel.h"
 #include "GameEngineContents/PlayLevel.h"
+#include "GameEngineContents/TestLevel.h"
+#include "GameEngineContents/EditLevel.h"
+#include "GameEngineContents/EditGUIWindow.h"
+
 
 
 #include <GameEngineBase/magic_enum.hpp>
 
 
 #pragma comment(lib, "GameEngineBase.lib")
+
+#define ENGINE
+// #define CLIENT
 
 ContentsCore::ContentsCore() 
 	: GameEngineCore()
@@ -74,9 +81,17 @@ void ContentsCore::Start()
 	// RTTI 런 타임 타입 인포메이션
 	CreateLevel<LoginLevel>("Login");
 	CreateLevel<PlayLevel>("Play");
+	CreateLevel<TestLevel>("Test");
+	CreateLevel<EditLevel>("Edit");
+
+#ifdef ENGINE
+	ChangeLevel("Edit");
+#else
 	ChangeLevel("Login");
+#endif
 	
 	GameEngineGUI::CreateGUIWindow<GameEngineStatusWindow>("EngineStatus", nullptr);
+	GameEngineGUI::CreateGUIWindow<EditGUIWindow>("EditGUIWindow", nullptr);
 
 }
 

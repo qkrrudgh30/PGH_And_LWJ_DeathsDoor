@@ -109,6 +109,9 @@
     <ClInclude Include="EditLevel.h">
       <Filter>01.Level\99.Engine</Filter>
     </ClInclude>
+    <ClInclude Include="EditGUIWindow.h">
+      <Filter>97.Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -147,6 +150,9 @@
     </ClCompile>
     <ClCompile Include="EditLevel.cpp">
       <Filter>01.Level\99.Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="EditGUIWindow.cpp">
+      <Filter>97.Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
