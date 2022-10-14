@@ -167,13 +167,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="MapEditorLevel.h" />
-    <ClInclude Include="MapEditorWindow.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="MetaSpriteWindow.h" />
-    <ClInclude Include="MetaLevel.h" />
     <ClInclude Include="Monster.h">
       <SubType>
       </SubType>
@@ -198,15 +191,11 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="TileMapActor.h">
+    <ClInclude Include="StageMainCamera.h">
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="TileMapRenderer.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
-    <ClInclude Include="YNoiseEffect.h">
+    <ClInclude Include="TsetBackGround.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -220,13 +209,6 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="MapEditorLevel.cpp" />
-    <ClCompile Include="MapEditorWindow.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="MetaSpriteWindow.cpp" />
-    <ClCompile Include="MetaLevel.cpp" />
     <ClCompile Include="Monster.cpp">
       <SubType>
       </SubType>
@@ -253,15 +235,11 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TileMapActor.cpp">
+    <ClCompile Include="StageMainCamera.cpp">
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="TileMapRenderer.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="YNoiseEffect.cpp">
+    <ClCompile Include="TsetBackGround.cpp">
       <SubType>
       </SubType>
     </ClCompile>

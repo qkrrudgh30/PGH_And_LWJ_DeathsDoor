@@ -5,6 +5,8 @@
 enum class OBJECTORDER
 {
 	TileMap,
+	MainCamera,
+	BackGround,
 	Player,
 	Monster,
 	UI = 1000,

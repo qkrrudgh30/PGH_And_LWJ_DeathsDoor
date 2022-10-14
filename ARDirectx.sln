@@ -12,36 +12,23 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngineApp", "GameEngine
 		{056025FA-EE6B-4D5A-A2F0-CA4FC17C0C6E} = {056025FA-EE6B-4D5A-A2F0-CA4FC17C0C6E}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Level0", "Level0", "{7BB0694E-4040-43B0-8FBB-5DD773CCA42C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "00.GameEngineBase", "00.GameEngineBase", "{7BB0694E-4040-43B0-8FBB-5DD773CCA42C}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Level5", "Level5", "{5ABE74F9-610B-45F9-AF87-2C4AE533DC89}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "99.GaneEngineMain", "99.GaneEngineMain", "{5ABE74F9-610B-45F9-AF87-2C4AE533DC89}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Level1", "Level1", "{51BEBFE5-34AF-42EB-BDB0-C8833E95F59C}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "01.GameEngineCore", "01.GameEngineCore", "{51BEBFE5-34AF-42EB-BDB0-C8833E95F59C}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngineCore", "GameEngineCore\GameEngineCore.vcxproj", "{056025FA-EE6B-4D5A-A2F0-CA4FC17C0C6E}"
 	ProjectSection(ProjectDependencies) = postProject
 		{33315545-4554-4677-8527-7C61BEDA9CF4} = {33315545-4554-4677-8527-7C61BEDA9CF4}
 	EndProjectSection
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Level2", "Level2", "{6045CFDA-D6DC-4EA2-B3C6-E61DEFDC5F09}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "02.GameEngineContents", "02.GameEngineContents", "{6045CFDA-D6DC-4EA2-B3C6-E61DEFDC5F09}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngineContents", "GameEngineContents\GameEngineContents.vcxproj", "{0D143CBD-F9FD-4345-ACAB-083421FC48DE}"
 	ProjectSection(ProjectDependencies) = postProject
 		{33315545-4554-4677-8527-7C61BEDA9CF4} = {33315545-4554-4677-8527-7C61BEDA9CF4}
 		{056025FA-EE6B-4D5A-A2F0-CA4FC17C0C6E} = {056025FA-EE6B-4D5A-A2F0-CA4FC17C0C6E}
-	EndProjectSection
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "DOC", "DOC", "{9394E016-14F3-4D7A-AA01-3A295E5DC1C9}"
-	ProjectSection(SolutionItems) = preProject
-		Directx.txt = Directx.txt
-		게임코드파악.txt = 게임코드파악.txt
-		공간변환.txt = 공간변환.txt
-		랜더링파이프라인.txt = 랜더링파이프라인.txt
-		랜파.jpg = 랜파.jpg
-		문자열 인코딩.txt = 문자열 인코딩.txt
-		이벤트.txt = 이벤트.txt
-		프로젝트 구성이유.txt = 프로젝트 구성이유.txt
-		프로젝트 구조.txt = 프로젝트 구조.txt
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "GameEngineShader", "GameEngineResources\GameEngineShader\GameEngineShader.vcxproj", "{688CB3C2-7CC3-4E51-B028-9614041DA912}"

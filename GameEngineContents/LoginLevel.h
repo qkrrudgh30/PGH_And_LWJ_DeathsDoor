@@ -15,7 +15,7 @@ public:
 	LoginLevel& operator=(const LoginLevel& _Other) = delete;
 	LoginLevel& operator=(LoginLevel&& _Other) noexcept = delete;
 
-	class YNoiseEffect* YEffect;
+
 	class LoginUI* UI;
 
 protected:

@@ -5,7 +5,7 @@
 #include "Player.h"
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
-#include "YNoiseEffect.h"
+
 
 LoginLevel::LoginLevel()
 {
@@ -18,15 +18,6 @@ LoginLevel::~LoginLevel()
 
 void LoginLevel::Start()
 {
-	if (false == GameEngineInput::GetInst()->IsKey("LevelChange"))
-	{
-		GameEngineInput::GetInst()->CreateKey("LevelChange", 'P');
-	}
-
-	if (false == GameEngineInput::GetInst()->IsKey("YEffect"))
-	{
-		GameEngineInput::GetInst()->CreateKey("YEffect", 'T');
-	}
 
 
 	// ¡‹¿Œ ¡‹æ∆øÙµµ ¿Ã≥‡ºÆ¿∏∑Œ «“ºˆ ¿÷Ω¿¥œ¥Ÿ.
@@ -70,50 +61,18 @@ void LoginLevel::LevelStartEvent()
 	}
 
 
-	//{
-
-	//	if (nullptr == Player::GetMainPlayer())
-	//	{
-	//		Player* NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
-	//		NewPlayer->SetLevelOverOn();
-	//	}
-
-	//}
 
 	UI = CreateActor<LoginUI>(GameObjectGroup::UI);
 	UI->CreateComponent<GameEngineCollision>();
 
-	YEffect = GetMainCamera()->GetCameraRenderTarget()->AddEffect<YNoiseEffect>();
-	YEffect->Off();
+
 }
 
 void LoginLevel::Update(float _DeltaTime)
 {
-	if (GameEngineInput::GetInst()->IsDown("FreeCameaOnOff"))
-	{
-		// ;
-		GetMainCameraActor()->FreeCameraModeOnOff();
-	}
 
 
-	if (true == GameEngineInput::GetInst()->IsDown("LevelChange"))
-	{
-		GEngine::ChangeLevel("Play");
-	}
 
-	if (true == GameEngineInput::GetInst()->IsDown("YEffect"))
-	{
-		YEffect->On();
-	}
-
-	if (nullptr != YEffect->CopyTarget)
-	{
-		if (nullptr != UI)
-		{
-			UI->Death();
-			UI = nullptr;
-		}
-	}
 }
 
 void LoginLevel::End()

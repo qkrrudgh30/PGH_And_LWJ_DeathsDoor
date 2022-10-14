@@ -58,16 +58,19 @@ void Player::Start()
 
 
 	{
-		GameEngineDefaultRenderer* Renderer = CreateComponent<GameEngineDefaultRenderer>();
+	/*	GameEngineDefaultRenderer* Renderer = CreateComponent<GameEngineDefaultRenderer>();
 		Renderer->SetPipeLine("Color");
 		Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f ,100.0f });
+		ResultColor.x = 0.f;
+		ResultColor.y = 1.f;
+		ResultColor.z = 0.f;
+		Renderer->GetShaderResources().SetConstantBufferLink("ResultColor", ResultColor);*/
 
-		Renderer->GetShaderResources().SetConstantBufferLink("ResultColor", ResultColor);
 	}
 
 	{
-		// GameEngineTextureRenderer* Renderer = CreateComponent<GameEngineTextureRenderer>();
-		// Renderer->GetTransform().SetLocalScale({100.0f, 100.0f ,100.0f });
+		GameEngineTextureRenderer* Renderer = CreateComponent<GameEngineTextureRenderer>();
+		Renderer->GetTransform().SetLocalScale({100.0f, 100.0f ,100.0f });
 		// Renderer->ScaleToTexture();
 	}
 
@@ -130,13 +133,7 @@ CollisionReturn Player::MonsterCollision(GameEngineCollision* _This, GameEngineC
 
 void Player::Update(float _DeltaTime)
 {
-	if (true == GetLevel()->GetMainCameraActor()->IsFreeCameraMode())
-	{
-		return;
-	}
-
-	GetLevel()->GetMainCameraActorTransform().SetLocalPosition(GetTransform().GetLocalPosition() + float4::BACK * 100.0f);
-
+	
 
 	// StateManager 기능으로 
 	StateManager.Update(_DeltaTime);
