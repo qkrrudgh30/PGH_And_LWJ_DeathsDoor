@@ -64,6 +64,9 @@
     <Filter Include="01.Level\01.Stage">
       <UniqueIdentifier>{8402f9af-8626-471c-b148-0149fefd5d45}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Level\99.Engine">
+      <UniqueIdentifier>{254115b4-8224-4240-bd76-46c1b1bbb8eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -100,6 +103,12 @@
     <ClInclude Include="UnitBase.h">
       <Filter>00.Actor\02.Unit</Filter>
     </ClInclude>
+    <ClInclude Include="TestLevel.h">
+      <Filter>01.Level\99.Engine</Filter>
+    </ClInclude>
+    <ClInclude Include="EditLevel.h">
+      <Filter>01.Level\99.Engine</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -132,6 +141,12 @@
     </ClCompile>
     <ClCompile Include="UnitBase.cpp">
       <Filter>00.Actor\02.Unit</Filter>
+    </ClCompile>
+    <ClCompile Include="TestLevel.cpp">
+      <Filter>01.Level\99.Engine</Filter>
+    </ClCompile>
+    <ClCompile Include="EditLevel.cpp">
+      <Filter>01.Level\99.Engine</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
