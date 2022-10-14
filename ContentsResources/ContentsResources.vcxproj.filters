@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Texture">
+      <UniqueIdentifier>{a847383f-12f5-41a4-9758-2cb3b0342838}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture\Test">
+      <UniqueIdentifier>{82e44ce0-4f50-415c-8a3e-d5120aa07051}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Texture\Meta">
+      <UniqueIdentifier>{e066e0ac-09f6-46c6-b999-2b2d6a80bca7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader">
+      <UniqueIdentifier>{4cc2f42b-61d5-45b3-b9d2-aa6b1a199c2d}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <Image Include="Texture\Test\4.png">
+      <Filter>Texture\Test</Filter>
+    </Image>
+    <Image Include="Texture\Test\0.png">
+      <Filter>Texture\Test</Filter>
+    </Image>
+    <Image Include="Texture\Test\1.png">
+      <Filter>Texture\Test</Filter>
+    </Image>
+    <Image Include="Texture\Test\2.png">
+      <Filter>Texture\Test</Filter>
+    </Image>
+    <Image Include="Texture\Test\3.png">
+      <Filter>Texture\Test</Filter>
+    </Image>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Texture\Meta\death_anim_blood.png.meta">
+      <Filter>Texture\Meta</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <FxCompile Include="Shader\YEffect.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
+  </ItemGroup>
+</Project>

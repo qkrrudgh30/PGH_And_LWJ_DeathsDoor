@@ -1,0 +1,39 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <FxCompile Include="TransformHeader.fx" />
+    <FxCompile Include="Debug3D.hlsl">
+      <Filter>Debug</Filter>
+    </FxCompile>
+    <FxCompile Include="DebugTexture.hlsl">
+      <Filter>Debug</Filter>
+    </FxCompile>
+    <FxCompile Include="RenderOption.fx" />
+    <FxCompile Include="TargetMerge.hlsl">
+      <Filter>TargetEffect</Filter>
+    </FxCompile>
+    <FxCompile Include="Color.hlsl">
+      <Filter>Object</Filter>
+    </FxCompile>
+    <FxCompile Include="Texture.hlsl">
+      <Filter>Object</Filter>
+    </FxCompile>
+    <FxCompile Include="TextureAtlas.hlsl">
+      <Filter>Object</Filter>
+    </FxCompile>
+    <FxCompile Include="Blur.hlsl">
+      <Filter>TargetEffect</Filter>
+    </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Debug">
+      <UniqueIdentifier>{b8f9371e-7241-4f0d-aa6e-ac5475aece1f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Object">
+      <UniqueIdentifier>{da5c9941-be85-4f49-844e-479ca1d7231e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="TargetEffect">
+      <UniqueIdentifier>{ae7b6a6e-95f0-4707-af5c-a8e2aed6810a}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+</Project>

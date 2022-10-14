@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Level">
+      <UniqueIdentifier>{5df23444-ca8f-40f8-8c39-0d7d75f58b7d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor">
+      <UniqueIdentifier>{1c74ed1c-9761-412c-93d3-abef363512d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Global">
+      <UniqueIdentifier>{5c0d327c-f680-4cd4-a5c1-9a7caec22b46}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="PreCompile">
+      <UniqueIdentifier>{439c0504-814e-4f90-8507-3f4dacd0226c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Renderer">
+      <UniqueIdentifier>{b7304beb-32a2-4805-a1d7-c8e1e6ac65d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\00.Global">
+      <UniqueIdentifier>{828ce4dd-5565-42a5-b49d-37856d1a3cf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\02.Play">
+      <UniqueIdentifier>{f046c344-41c5-461f-9a13-3bf9f04d9882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\99.MapEditor">
+      <UniqueIdentifier>{6f5fe833-4274-409f-ab99-3d2895e9d3db}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\01.Login">
+      <UniqueIdentifier>{804cf31e-d3ed-4dc6-9803-e76637ce47a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\00.Global\GUI">
+      <UniqueIdentifier>{0bc7bf56-c9aa-4e76-9f75-cdadc405ae1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\00.Global\Actor">
+      <UniqueIdentifier>{9823138e-82d2-40ae-b814-573be140ad5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Core">
+      <UniqueIdentifier>{eee3c248-3814-48af-b1f4-f221fa7a0ee6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Actor\03.PostEffect">
+      <UniqueIdentifier>{ce45c873-2c11-4a3a-a16f-775018d59f58}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="ContentsCore.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Actor\02.Play</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginUI.h">
+      <Filter>Actor\01.Login</Filter>
+    </ClInclude>
+    <ClInclude Include="Enums.h">
+      <Filter>Global</Filter>
+    </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>Actor\02.Play</Filter>
+    </ClInclude>
+    <ClInclude Include="GlobalContentsValue.h" />
+    <ClInclude Include="PreCompile.h">
+      <Filter>PreCompile</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEditorLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapRenderer.h">
+      <Filter>Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="MapEditorWindow.h">
+      <Filter>Actor\00.Global\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="TileMapActor.h">
+      <Filter>Actor\00.Global\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="MetaLevel.h">
+      <Filter>Level</Filter>
+    </ClInclude>
+    <ClInclude Include="MetaSpriteWindow.h">
+      <Filter>Actor\00.Global\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="YNoiseEffect.h">
+      <Filter>Actor\03.PostEffect</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="ContentsCore.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Actor\02.Play</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginUI.cpp">
+      <Filter>Actor\01.Login</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>Actor\02.Play</Filter>
+    </ClCompile>
+    <ClCompile Include="GlobalContentsValue.cpp" />
+    <ClCompile Include="PreCompile.cpp">
+      <Filter>PreCompile</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEditorLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMapRenderer.cpp">
+      <Filter>Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="MapEditorWindow.cpp">
+      <Filter>Actor\00.Global\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="TileMapActor.cpp">
+      <Filter>Actor\00.Global\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="MetaLevel.cpp">
+      <Filter>Level</Filter>
+    </ClCompile>
+    <ClCompile Include="MetaSpriteWindow.cpp">
+      <Filter>Actor\00.Global\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="YNoiseEffect.cpp">
+      <Filter>Actor\03.PostEffect</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>
