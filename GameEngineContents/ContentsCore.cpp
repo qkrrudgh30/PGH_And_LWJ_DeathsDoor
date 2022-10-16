@@ -14,7 +14,7 @@
 #pragma comment(lib, "GameEngineBase.lib")
 
 #define ENGINE
-// #define CLIENT 우정님 개발할때 주석 풀고, 위에 ENGINE은 주석처리
+// #define CLIENT //우정님 개발할때 주석 풀고, 위에 ENGINE은 주석처리
 
 ContentsCore::ContentsCore() 
 	: GameEngineCore()
@@ -87,7 +87,7 @@ void ContentsCore::Start()
 #ifdef ENGINE
 	ChangeLevel("Edit");
 #else
-	ChangeLevel("Login");
+	ChangeLevel("Play");
 #endif
 	
 	GameEngineGUI::CreateGUIWindow<GameEngineStatusWindow>("EngineStatus", nullptr);

@@ -11,6 +11,8 @@ EditLevel::~EditLevel()
 
 void EditLevel::Start()
 {
+	GetMainCameraActor()->FreeCameraModeOnOff();
+
 }
 
 void EditLevel::Update(float _DeltaTime)

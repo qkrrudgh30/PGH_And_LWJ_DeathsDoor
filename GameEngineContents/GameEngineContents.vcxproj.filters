@@ -67,6 +67,9 @@
     <Filter Include="01.Level\99.Engine">
       <UniqueIdentifier>{254115b4-8224-4240-bd76-46c1b1bbb8eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.Actor\01.UI\99.EditUI">
+      <UniqueIdentifier>{a5828328-240f-4058-bbe0-9ad37f368d2b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -112,6 +115,9 @@
     <ClInclude Include="EditGUIWindow.h">
       <Filter>97.Core</Filter>
     </ClInclude>
+    <ClInclude Include="MouseSlot.h">
+      <Filter>00.Actor\01.UI\99.EditUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -153,6 +159,9 @@
     </ClCompile>
     <ClCompile Include="EditGUIWindow.cpp">
       <Filter>97.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="MouseSlot.cpp">
+      <Filter>00.Actor\01.UI\99.EditUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -15,6 +15,7 @@ void TestLevel::Start()
 
 void TestLevel::Update(float _DeltaTime)
 {
+	GetMainCameraActor()->FreeCameraModeOnOff();
 }
 
 void TestLevel::End()
