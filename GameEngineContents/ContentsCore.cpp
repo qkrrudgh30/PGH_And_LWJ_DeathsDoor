@@ -28,7 +28,7 @@ ContentsCore::~ContentsCore()
 void ContentsCore::Start()
 {
 
-	GameEngineTime::SetLimitFrame(60);
+	GameEngineTime::SetLimitFrame(200);
 	std::string_view Value = magic_enum::enum_name(OBJECTORDER::Player);
 	std::string Name = Value.data();
 
