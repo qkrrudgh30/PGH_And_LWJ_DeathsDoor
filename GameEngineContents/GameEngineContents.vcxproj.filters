@@ -76,6 +76,9 @@
     <Filter Include="00.Actor\02.Unit\03.Bullet\00.Player\00.Sword">
       <UniqueIdentifier>{ec877df5-ec51-4b92-82de-89c01cb0e1bb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.Actor\02.Unit\03.Bullet\00.Player\01.Arrow">
+      <UniqueIdentifier>{47f4316c-fd00-435d-8042-8ed1e78480bf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">

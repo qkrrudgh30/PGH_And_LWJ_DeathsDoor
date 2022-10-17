@@ -580,4 +580,39 @@ void Player::Update(float _DeltaTime)
 
 	StateManager.Update(_DeltaTime);
 
+
+
+
+	if (true == GetLevel()->GetMainCameraActor()->IsFreeCameraMode())
+	{
+		return;
+	}
+
+	//float4 WorldPos = GetTransform().GetWorldPosition();
+	//float4 CameraWorldPos = WorldPos;
+
+
+
+	//CameraWorldPos.y += 1700.f;
+	//CameraWorldPos.z -= 1700.f;
+
+
+	//GetLevel()->GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
+
+
+
+
+	float4 CameraWorldPos = GetLevel()->GetMainCameraActorTransform().GetWorldPosition();
+	float4 WorldPos = GetTransform().GetWorldPosition();
+	WorldPos.y += 1700.f;
+	WorldPos.z -= 1700.f;
+
+
+	float4 LerpPos = float4::Lerp(CameraWorldPos, WorldPos, _DeltaTime * 10.f);
+	
+	GetLevel()->GetMainCameraActorTransform().SetWorldPosition(LerpPos);
+
+
+
+
 }

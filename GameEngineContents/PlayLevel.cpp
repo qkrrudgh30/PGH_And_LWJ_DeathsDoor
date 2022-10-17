@@ -23,6 +23,11 @@ PlayLevel::~PlayLevel()
 void PlayLevel::Start() 
 {
 
+	GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
+	float4 CameraWorldPos = GetMainCameraActorTransform().GetWorldPosition();
+	CameraWorldPos.y += 1700.f;
+	CameraWorldPos.z -= 1700.f;
+	GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
 
 
 	if (false == GameEngineInput::GetInst()->IsKey("FreeCameaOnOff"))
@@ -65,10 +70,10 @@ void PlayLevel::LevelStartEvent()
 			NewPlayer->SetLevelOverOn();
 
 			
-			StageMainCamera* CameraMain = CreateActor<StageMainCamera>(OBJECTORDER::MainCamera);
+		/*	StageMainCamera* CameraMain = CreateActor<StageMainCamera>(OBJECTORDER::MainCamera);
 			CameraMain->m_Player = NewPlayer;
 			CameraMain->SetLevelOverOn();
-			CameraMain->GetTransform().SetParentTransform(NewPlayer->GetTransform());
+			CameraMain->GetTransform().SetParentTransform(NewPlayer->GetTransform());*/
 			
 		}
 	}

@@ -15,7 +15,7 @@ StageMainCamera::~StageMainCamera()
 void StageMainCamera::Start()
 {
 	
-	GetLevel()->GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
+//	GetLevel()->GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
 }
 
 void StageMainCamera::Update(float _DeltaTime)
@@ -25,14 +25,14 @@ void StageMainCamera::Update(float _DeltaTime)
 		return;
 	}
 
-	GetTransform().SetWorldPosition(m_Player->GetTransform().GetWorldPosition());
-	float4 WorldPos = GetTransform().GetWorldPosition();
-	float4 CameraWorldPos = WorldPos;
-	CameraWorldPos.y += 700.f;
-	CameraWorldPos.z -= 700.f;
+	//GetTransform().SetWorldPosition(m_Player->GetTransform().GetWorldPosition());
+	//float4 WorldPos = GetTransform().GetWorldPosition();
+	//float4 CameraWorldPos = WorldPos;
+	//CameraWorldPos.y += 1700.f;
+	//CameraWorldPos.z -= 1700.f;
 
 
-	GetLevel()->GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
+	//GetLevel()->GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
 	
 
 }
