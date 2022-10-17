@@ -8,6 +8,7 @@ class GameEngineTextureRenderer;
 class PlayerSWAtt1;
 class PlayerSWAtt2;
 class PlayerSWAtt3;
+class PlayerSWAttSlide;
 class Player : public UnitBase
 {
 private:
@@ -63,6 +64,11 @@ protected:
 	void SlideUpdate(float _DeltaTime, const StateInfo& _Info);
 
 
+	void SlideAttStart(const StateInfo& _Info);
+	void SlideAttEnd(const StateInfo& _Info);
+	void SlideAttUpdate(float _DeltaTime, const StateInfo& _Info);
+
+
 
 
 	// void MoveStart(const StateInfo& _Info);
@@ -72,6 +78,7 @@ private:
 	bool m_bSWAcheck;
 	bool m_bSWA2check;
 	bool m_bSWA3check;
+	bool m_bSWASlidecheck;
 
 
 	float Speed;
@@ -88,6 +95,13 @@ private:
 	float m_fSlideCTime;
 	float m_fSlideCTimeMax;
 
+
+	bool m_bSAttccheck;
+	float m_fAttCTime;
+	float m_fAttCTimeMax;
+
+
+
 private:
 	void ChangeRendererRotation(float _DeltaTime, int _Ratate);
 	
@@ -98,6 +112,6 @@ private:
 	PlayerSWAtt1* m_CSWAtt1;
 	PlayerSWAtt2* m_CSWAtt2;
 	PlayerSWAtt3* m_CSWAtt3;
-
+	PlayerSWAttSlide* m_CSWAttSlide;
 };
 

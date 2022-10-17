@@ -136,6 +136,9 @@
     <ClInclude Include="PlayerSWAtt3.h">
       <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerSWAttSlide.h">
+      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -188,6 +191,9 @@
       <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClCompile>
     <ClCompile Include="PlayerSWAtt3.cpp">
+      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSWAttSlide.cpp">
       <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClCompile>
   </ItemGroup>

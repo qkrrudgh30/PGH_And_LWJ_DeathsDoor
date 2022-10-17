@@ -20,12 +20,12 @@ void GameEngineCameraActor::Start()
 	if (false == GameEngineInput::GetInst()->IsKey("CamMoveForward"))
 	{
 
-		GameEngineInput::GetInst()->CreateKey("CamMoveForward", VK_NUMPAD8);
-		GameEngineInput::GetInst()->CreateKey("CamMoveBack", VK_NUMPAD5);
-		GameEngineInput::GetInst()->CreateKey("CamMoveUp", VK_NUMPAD7);
-		GameEngineInput::GetInst()->CreateKey("CamMoveDown", VK_NUMPAD9);
-		GameEngineInput::GetInst()->CreateKey("CamMoveLeft", VK_NUMPAD4);
-		GameEngineInput::GetInst()->CreateKey("CamMoveRight", VK_NUMPAD6);
+		GameEngineInput::GetInst()->CreateKey("CamMoveForward", 'I');
+		GameEngineInput::GetInst()->CreateKey("CamMoveBack", 'K');
+		GameEngineInput::GetInst()->CreateKey("CamMoveUp", 'U');
+		GameEngineInput::GetInst()->CreateKey("CamMoveDown", 'O');
+		GameEngineInput::GetInst()->CreateKey("CamMoveLeft", 'J');
+		GameEngineInput::GetInst()->CreateKey("CamMoveRight", 'L');
 
 
 

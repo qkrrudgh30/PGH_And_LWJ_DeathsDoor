@@ -5,6 +5,7 @@
 #include "PlayerSWAtt1.h"
 #include "PlayerSWAtt2.h"
 #include "PlayerSWAtt3.h"
+#include "PlayerSWAttSlide.h"
 
 
 
@@ -28,7 +29,11 @@ Player::Player()
 	, m_bSWAcheck(false)
 	, m_bSWA2check(false)
 	, m_bSWA3check(false)
-
+	, m_CSWAttSlide(nullptr)
+	, m_bSWASlidecheck(false)
+	, m_bSAttccheck(false)
+	, m_fAttCTime(0.f)
+	, m_fAttCTimeMax(0.5f)
 {
 	MainPlayer = this;
 }
@@ -105,6 +110,16 @@ void Player::Start()
 	);
 
 
+
+	StateManager.CreateStateMember("SlideAtt"
+		, std::bind(&Player::SlideAttUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SlideAttStart, this, std::placeholders::_1)
+		, std::bind(&Player::SlideAttEnd, this, std::placeholders::_1)
+	);
+
+
+
+
 	StateManager.CreateStateMember("Move"
 		, std::bind(&Player::MoveUpdate, this, std::placeholders::_1, std::placeholders::_2)
 		, [/*&*/=](const StateInfo& _Info){});
@@ -141,7 +156,10 @@ void Player::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerSworldAtt"))
 	{
-		StateManager.ChangeState("SworldAtt");
+		if (!m_bSAttccheck)
+		{
+			StateManager.ChangeState("SworldAtt");
+		}
 
 	}
 
@@ -222,6 +240,7 @@ void Player::SworldAttUpdate(float _DeltaTime, const StateInfo& _Info)
 		else
 		{
 			StateManager.ChangeState("Idle");
+			m_bSAttccheck = true;
 		}
 		
 	}
@@ -304,6 +323,7 @@ void Player::SworldAttUpdate2(float _DeltaTime, const StateInfo& _Info)
 		else
 		{
 			StateManager.ChangeState("Idle");
+			m_bSAttccheck = true;
 		}
 
 	}
@@ -359,6 +379,7 @@ void Player::SworldAttUpdate3(float _DeltaTime, const StateInfo& _Info)
 	{
 		m_fAttTestTime = 0.f;
 		StateManager.ChangeState("Idle");
+		m_bSAttccheck = true;
 	}
 }
 
@@ -386,11 +407,17 @@ void Player::SworldAttUpdate3(float _DeltaTime, const StateInfo& _Info)
 void Player::SlideStart(const StateInfo& _Info)
 {
 	m_fSlideSpeed = 700.f;
-	
+	m_bSWASlidecheck = false;
 }
 
 void Player::SlideEnd(const StateInfo& _Info)
 {
+
+
+	//슬라이드 끝나자 마자 공격 불가
+	m_bSAttccheck = true;
+
+
 	m_bSlideCCheck = true;
 	m_fSlideSpeed = 700.f;
 }
@@ -398,6 +425,19 @@ void Player::SlideEnd(const StateInfo& _Info)
 void Player::SlideUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 	float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+
+
+//	if (m_fAttTestTime >= 0.2f)
+	{
+		if (true == GameEngineInput::GetInst()->IsPress("PlayerSworldAtt"))
+		{
+			m_bSWASlidecheck = true;
+
+		}
+	}
+
+
+
 
 	m_fSlideSpeed += _DeltaTime * 2000;
 
@@ -416,10 +456,69 @@ void Player::SlideUpdate(float _DeltaTime, const StateInfo& _Info)
 	if (m_fAttTestTime >= 0.3f)
 	{
 		m_fAttTestTime = 0.f;
+
+
+		if (m_bSWASlidecheck)
+		{
+			StateManager.ChangeState("SlideAtt");
+		}
+		else
+		{
+			StateManager.ChangeState("Idle");
+		}
+		
+	}
+
+
+
+}
+
+
+
+
+
+void Player::SlideAttStart(const StateInfo& _Info)
+{
+
+	float4 MyWorldPos = GetTransform().GetWorldPosition();
+	float4 RenderFoward = Renderer->GetTransform().GetForwardVector();
+	RenderFoward = RenderFoward * 100.f;
+
+
+	RenderFoward = MyWorldPos + RenderFoward;
+
+	m_CSWAttSlide = GetLevel()->CreateActor<PlayerSWAttSlide>(OBJECTORDER::PlayerAtt);
+	m_CSWAttSlide->GetTransform().SetLocalPosition(RenderFoward);
+	m_CSWAttSlide->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+
+}
+
+void Player::SlideAttEnd(const StateInfo& _Info)
+{
+
+	m_CSWAttSlide->Death();
+
+	
+}
+
+void Player::SlideAttUpdate(float _DeltaTime, const StateInfo& _Info)
+{
+
+
+	m_fAttTestTime += _DeltaTime;
+
+
+	if (m_fAttTestTime >= 0.3f)
+	{
+		m_fAttTestTime = 0.f;
 		StateManager.ChangeState("Idle");
 	}
 
 
+	float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+
+	GetTransform().SetWorldMove(MoveDir * m_fSlideSpeed * _DeltaTime);
+	m_CSWAttSlide->GetTransform().SetWorldMove(MoveDir * m_fSlideSpeed * _DeltaTime);
 
 }
 
@@ -532,8 +631,11 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerSworldAtt"))
 	{
-		StateManager.ChangeState("SworldAtt");
 
+		if (!m_bSAttccheck)
+		{
+			StateManager.ChangeState("SworldAtt");
+		}
 	}
 
 
@@ -578,6 +680,25 @@ void Player::Update(float _DeltaTime)
 		}
 	}
 
+
+	if (m_bSAttccheck)
+	{
+		m_fAttCTime += _DeltaTime;
+
+		if (m_fAttCTime >= m_fAttCTimeMax)
+		{
+			m_fAttCTime = 0.f;
+			m_bSAttccheck = false;
+		}
+	}
+
+
+
+
+	
+
+
+
 	StateManager.Update(_DeltaTime);
 
 
@@ -604,6 +725,7 @@ void Player::Update(float _DeltaTime)
 
 	float4 CameraWorldPos = GetLevel()->GetMainCameraActorTransform().GetWorldPosition();
 	float4 WorldPos = GetTransform().GetWorldPosition();
+	//WorldPos.x -= 1200.f;
 	WorldPos.y += 1700.f;
 	WorldPos.z -= 1700.f;
 
