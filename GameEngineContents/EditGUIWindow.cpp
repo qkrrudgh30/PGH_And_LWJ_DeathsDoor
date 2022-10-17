@@ -1,5 +1,9 @@
 #include "PreCompile.h"
 #include "EditGUIWindow.h"
+#include "EditLevel.h"
+#include "TestActor.h"
+
+#include <filesystem>
 
 EditGUIWindow::EditGUIWindow() 
 {
@@ -11,47 +15,151 @@ EditGUIWindow::~EditGUIWindow()
 
 void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 {
+	m_CurrentDirectory.MoveParentToExitsChildDirectory("ContentsResources");
+	m_CurrentDirectory.Move("ContentsResources");
+	m_CurrentDirectory.Move("Texture");
+	m_CurrentDirectory.Move("EditLevel");
+	m_CurrentDirectory.Move("Actor");
+	std::filesystem::directory_iterator dirIter1(m_CurrentDirectory.GetFullPath());
+	for (const std::filesystem::directory_entry& entry : dirIter1)
+	{
+		std::string Ext(entry.path().string());
+		if (true == entry.is_directory())
+		{
+			size_t idx = Ext.rfind("\\");
+			std::string strTemp(entry.path().string());
+			std::string strTemp2(strTemp.substr(idx + 1));
+			m_vLoadedFromActor.push_back(strTemp2);
+		}
+	}
+
+	m_CurrentDirectory.Move("..\\");
+	m_CurrentDirectory.Move("Tile");
+	std::filesystem::directory_iterator dirIter2(m_CurrentDirectory.GetFullPath());
+	
+	for (const std::filesystem::directory_entry& entry : dirIter2)
+	{
+		std::string Ext(entry.path().string());
+		if (true == entry.is_directory())
+		{
+			size_t idx = Ext.rfind("\\");
+			std::string strTemp(entry.path().string());
+			std::string strTemp2(strTemp.substr(idx + 1));
+			m_vLoadedFromTile.push_back(strTemp2);
+		}
+	}
 }
 
 void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 {
-	ImGui::Text("Create landscape");	
-	/*if (true == ImGui::BeginMenu("Landscape"))
-	{
-		if (ImGui::MenuItem("Landscape01", "Ctrl+O")) 
-		{ 
-			int a = 10;
-		}
-		if (ImGui::MenuItem("Landscape02", "Ctrl+S")) 
-		{ 
-			int a = 10;
-		}
-		if (ImGui::MenuItem("Landscape03", "Ctrl+W")) 
-		{ 
-			int a = 10;
-		}
-		ImGui::EndMenu();
-	}*/
+	if (nullptr == EditLevelPipe::GetInst()->GetEditLevel()) { return; }
+	else { m_ptrEditLevel = EditLevelPipe::GetInst()->GetEditLevel(); }
 
+	// Edit Level인지 체크 필요.
+	ImGui::Text("Create landscape");	
+
+#pragma region SelectLandscapePannel
 	static int selected = 0;
-	ImGui::BeginChild("left pane", ImVec2(150, 100), true);
-	for (int i = 0; i < 100; i++)
+	static int selectedPannel = ACTORPANNEL;
+	if (true == ImGui::Button("Actor"))
 	{
-		char label[128];
-		sprintf(label, "MyObject %d", i);
-		if (ImGui::Selectable(label, selected == i))
+		selectedPannel = ACTORPANNEL;
+	}
+	ImGui::SameLine();
+	if (true == ImGui::Button("Tile"))
+	{
+		selectedPannel = TILEPANNEL;
+	}
+
+	if (ACTORPANNEL == selectedPannel)
+	{
+		ImGui::BeginChild("left pane", ImVec2(150, 100), true);
+		for (int i = 0; i < m_vLoadedFromActor.size(); ++i)
 		{
-			selected = i;
+			char label[1024] = { '\0', };
+			const char* temp = (const char*)(m_vLoadedFromActor[i].c_str());
+			sprintf(label, temp);
+			if (ImGui::Selectable(label, selected == i))
+			{
+				selected = i;
+			}
+		}
+		ImGui::EndChild();
+	}
+	else if (TILEPANNEL == selectedPannel)
+	{
+		ImGui::BeginChild("left pane", ImVec2(150, 100), true);
+		for (int i = 0; i < m_vLoadedFromTile.size(); ++i)
+		{
+			char label[1024] = { '\0', };
+			const char* temp = (const char*)(m_vLoadedFromTile[i].c_str());
+			sprintf(label, temp);
+			if (ImGui::Selectable(label, selected == i))
+			{
+				selected = i;
+			}
+		}
+		ImGui::EndChild();
+	}
+
+	ImGui::SameLine();
+#pragma endregion	
+
+#pragma region CreatedActorsPannel
+	static int selectedActor = 0;
+	ImGui::BeginChild("left pane2", ImVec2(150, 100), true);
+
+	if (0 == m_vCreatedActors.size())
+	{
+		if (ImGui::Selectable("Empty...", selectedActor == 0))
+		{
+			selectedActor = 0;
+		}
+	}
+	else
+	{
+		for (int i = 0; i < m_vCreatedActors.size(); ++i)
+		{
+			char label[1024] = { '\0', };
+			const char* temp = (const char*)(m_vCreatedActors[i].first.c_str());
+			sprintf(label, temp);
+			if (ImGui::Selectable(label, selectedActor == i))
+			{
+				selectedActor = i;
+			}
 		}
 	}
 	ImGui::EndChild();
+#pragma endregion
 
 	static int s_iXcount, s_iYCount, s_iZCount;
 	ImGui::InputInt("X COUNT", &s_iXcount);
 	ImGui::InputInt("Y COUNT", &s_iYCount);
 	ImGui::InputInt("Z COUNT", &s_iZCount);
 
-	if (ImGui::Button("Create"))
+	if (true == ImGui::Button("Create"))
+	{
+		// SendInfoToMouseSlotFunction();
+		std::string tempStr;
+		if (ACTORPANNEL == selectedPannel) { tempStr = m_vLoadedFromActor[selected]; }
+		else if (TILEPANNEL == selectedPannel) { tempStr = m_vLoadedFromTile[selected]; }
+		GameEngineActor* temp = m_ptrEditLevel->CreateActor<TestActor>();
+
+		std::pair tempPair(tempStr, temp);
+		m_vCreatedActors.push_back(tempPair);
+
+	}
+
+	ImGui::SameLine();
+
+	if (true == ImGui::Button("Load"))
+	{
+		// SendInfoToMouseSlotFunction();
+	}
+
+	ImGui::SameLine();
+
+	if (true == ImGui::Button("Save"))
 	{
 		// SendInfoToMouseSlotFunction();
 	}
