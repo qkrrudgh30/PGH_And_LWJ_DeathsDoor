@@ -730,10 +730,16 @@ void Player::Update(float _DeltaTime)
 	WorldPos.z -= 1700.f;
 
 
-	float4 LerpPos = float4::Lerp(CameraWorldPos, WorldPos, _DeltaTime * 10.f);
-	
-	GetLevel()->GetMainCameraActorTransform().SetWorldPosition(LerpPos);
+	if (CameraWorldPos.x != WorldPos.x || CameraWorldPos.y != WorldPos.y || CameraWorldPos.z != WorldPos.z)
+	{
 
+		float4 LerpPos = float4::Lerp(CameraWorldPos, WorldPos, _DeltaTime * 10.f);
+
+		GetLevel()->GetMainCameraActorTransform().SetWorldPosition(LerpPos);
+
+	}
+
+	
 
 
 

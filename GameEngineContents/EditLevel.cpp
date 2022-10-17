@@ -22,7 +22,7 @@ void EditLevel::Start()
 
 void EditLevel::Update(float _DeltaTime)
 {
-	if (true == GetMainCameraActor()->IsFreeCameraMode())
+	if (false == GetMainCameraActor()->IsFreeCameraMode())
 	{
 		GetMainCameraActor()->FreeCameraModeOnOff();
 	}

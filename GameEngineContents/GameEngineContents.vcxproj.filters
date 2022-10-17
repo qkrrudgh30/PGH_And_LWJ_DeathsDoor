@@ -79,6 +79,9 @@
     <Filter Include="00.Actor\02.Unit\03.Bullet\00.Player\01.Arrow">
       <UniqueIdentifier>{47f4316c-fd00-435d-8042-8ed1e78480bf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.Actor\01.UI\01.PlayerUI">
+      <UniqueIdentifier>{f22b554d-6d63-4e59-895e-411dce81ab92}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -139,6 +142,7 @@
     <ClInclude Include="PlayerSWAttSlide.h">
       <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClInclude>
+    <ClInclude Include="TestActor.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -196,5 +200,6 @@
     <ClCompile Include="PlayerSWAttSlide.cpp">
       <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClCompile>
+    <ClCompile Include="TestActor.cpp" />
   </ItemGroup>
 </Project>
