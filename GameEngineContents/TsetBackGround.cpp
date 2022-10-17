@@ -15,7 +15,7 @@ void TsetBackGround::Start()
 	{
 		GameEngineTextureRenderer* Renderer = CreateComponent<GameEngineTextureRenderer>();
 		Renderer->GetTransform().SetWorldScale({ 1000.f,1000.f,1000.f });
-		Renderer->GetTransform().SetWorldRotation({90.f, 0.f, 0.f});
+		Renderer->GetTransform().SetWorldRotation({90.f, 45.f, 0.f});
 
 	}
 	

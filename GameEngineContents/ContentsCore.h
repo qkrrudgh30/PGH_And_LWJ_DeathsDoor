@@ -24,7 +24,7 @@ public:
 
 	std::string GetWindowTitle() override
 	{
-		return "MyGame";
+		return "DeathDoor";
 	}
 
 protected:

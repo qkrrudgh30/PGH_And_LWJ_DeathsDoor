@@ -23,11 +23,12 @@ PlayLevel::~PlayLevel()
 void PlayLevel::Start() 
 {
 
-	//GameEngineDirectory Dir;
-	//Dir.MoveParentToExitsChildDirectory("ContentsResources");
-	//Dir.Move("ContentsResources");
-	//Dir.Move("Texture");
-	//Dir.Move("Test");
+	GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
+	float4 CameraWorldPos = GetMainCameraActorTransform().GetWorldPosition();
+	//CameraWorldPos.x -= 1700.f;
+	CameraWorldPos.y += 1700.f;
+	CameraWorldPos.z -= 1700.f;
+	GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
 
 
 	if (false == GameEngineInput::GetInst()->IsKey("FreeCameaOnOff"))
@@ -36,7 +37,7 @@ void PlayLevel::Start()
 	}
 
 
-	/*GameEngineFolderTexture::Load(Dir.GetFullPath());*/
+
 
 	// 내가 직접 설정해줘야 합니다.
 	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
@@ -53,9 +54,6 @@ void PlayLevel::Start()
 
 	
 
-	{
-		TsetBackGround* TestBack = CreateActor<TsetBackGround>(OBJECTORDER::BackGround);
-	}
 
 	//{
 	//	Monster* actor = CreateActor<Monster>(OBJECTORDER::Monster);
@@ -73,10 +71,10 @@ void PlayLevel::LevelStartEvent()
 			NewPlayer->SetLevelOverOn();
 
 			
-			StageMainCamera* CameraMain = CreateActor<StageMainCamera>(OBJECTORDER::MainCamera);
+		/*	StageMainCamera* CameraMain = CreateActor<StageMainCamera>(OBJECTORDER::MainCamera);
 			CameraMain->m_Player = NewPlayer;
 			CameraMain->SetLevelOverOn();
-			CameraMain->GetTransform().SetParentTransform(NewPlayer->GetTransform());
+			CameraMain->GetTransform().SetParentTransform(NewPlayer->GetTransform());*/
 			
 		}
 	}

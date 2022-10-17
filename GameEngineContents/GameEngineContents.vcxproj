@@ -187,6 +187,13 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PlayerSWAtt1.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerSWAtt2.h" />
+    <ClInclude Include="PlayerSWAtt3.h" />
+    <ClInclude Include="PlayerSWAttSlide.h" />
     <ClInclude Include="PlayLevel.h">
       <SubType>
       </SubType>
@@ -253,6 +260,13 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="PlayerSWAtt1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerSWAtt2.cpp" />
+    <ClCompile Include="PlayerSWAtt3.cpp" />
+    <ClCompile Include="PlayerSWAttSlide.cpp" />
     <ClCompile Include="PlayLevel.cpp">
       <SubType>
       </SubType>

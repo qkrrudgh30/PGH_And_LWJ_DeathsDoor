@@ -1,4 +1,6 @@
 #pragma once
+
+
 #include "Player.h"
 #include "Monster.h"
 
@@ -8,6 +10,7 @@ enum class OBJECTORDER
 	MainCamera,
 	BackGround,
 	Player,
+	PlayerAtt,
 	Monster,
 	UI = 1000,
 };
@@ -19,16 +22,6 @@ enum class OBJECTORDER
 //	UI = 1000,
 //};
 
-
-typedef struct UnitInfo
-{
-	float m_Hp;
-	float m_MaxHp;
-	int Gold;
-	float Dammage;
-
-
-}UINFO;
 
 
 
@@ -43,7 +36,7 @@ public:
 	class Actors 
 	{
 	public:
-		static Monster* TestMonster;
+	//	static Monster* TestMonster;
 
 	private:
 		Actors() {		}
