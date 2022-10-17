@@ -76,7 +76,7 @@ void PlayLevel::LevelStartEvent()
 			StageMainCamera* CameraMain = CreateActor<StageMainCamera>(OBJECTORDER::MainCamera);
 			CameraMain->m_Player = NewPlayer;
 			CameraMain->SetLevelOverOn();
-			
+			CameraMain->GetTransform().SetParentTransform(NewPlayer->GetTransform());
 			
 		}
 	}

@@ -39,13 +39,21 @@ protected:
 	void IdleStart(const StateInfo& _Info);
 	void IdleUpdate(float _DeltaTime, const StateInfo& _Info);
 
+	void SworldAttStart(const StateInfo& _Info);
+	void SworldAttEnd(const StateInfo& _Info);
+	void SworldAttUpdate(float _DeltaTime, const StateInfo& _Info);
+
+
 	// void MoveStart(const StateInfo& _Info);
 	void MoveUpdate(float _DeltaTime, const StateInfo& _Info);
 
 private:
 	float Speed;
-
+	float m_fAttTestTime;
 	float4 ResultColor;
+
+private:
+	void ChangeRendererRotation(float _DeltaTime, int _Ratate);
 	
 };
 

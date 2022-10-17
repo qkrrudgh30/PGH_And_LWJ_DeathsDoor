@@ -15,10 +15,7 @@ StageMainCamera::~StageMainCamera()
 void StageMainCamera::Start()
 {
 	
-
-
-	GetLevel()->GetMainCameraActorTransform().SetLocalPosition({ 0.f,300.f,-300.f });
-
+	GetLevel()->GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
 }
 
 void StageMainCamera::Update(float _DeltaTime)
@@ -36,6 +33,6 @@ void StageMainCamera::Update(float _DeltaTime)
 
 
 	GetLevel()->GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
-	GetLevel()->GetMainCameraActorTransform().SetWorldRotation({45.f,0.f,0.f});
+	
 
 }

@@ -18,6 +18,7 @@ public:
 protected:
 	GameEngineTextureRenderer* Renderer;
 	GameEngineCollision* Collision;
+	GameEngineCollision* AttCollision;
 	//UINFO	m_Info;
 	GameEngineStateManager StateManager;
 
