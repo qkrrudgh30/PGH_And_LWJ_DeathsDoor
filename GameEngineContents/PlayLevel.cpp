@@ -23,11 +23,6 @@ PlayLevel::~PlayLevel()
 void PlayLevel::Start() 
 {
 
-	GameEngineDirectory Dir;
-	Dir.MoveParentToExitsChildDirectory("ContentsResources");
-	Dir.Move("ContentsResources");
-	Dir.Move("Texture");
-	Dir.Move("Test");
 
 
 	if (false == GameEngineInput::GetInst()->IsKey("FreeCameaOnOff"))
@@ -36,7 +31,7 @@ void PlayLevel::Start()
 	}
 
 
-	GameEngineFolderTexture::Load(Dir.GetFullPath());
+
 
 	// 내가 직접 설정해줘야 합니다.
 	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
@@ -53,9 +48,6 @@ void PlayLevel::Start()
 
 	
 
-	{
-		TsetBackGround* TestBack = CreateActor<TsetBackGround>(OBJECTORDER::BackGround);
-	}
 
 	//{
 	//	Monster* actor = CreateActor<Monster>(OBJECTORDER::Monster);

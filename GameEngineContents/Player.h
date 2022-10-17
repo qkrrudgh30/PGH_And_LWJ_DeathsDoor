@@ -5,7 +5,9 @@
 // Ό³Έν :
 class GameEngineCollision;
 class GameEngineTextureRenderer;
-class UnitBase;
+class PlayerSWAtt1;
+class PlayerSWAtt2;
+class PlayerSWAtt3;
 class Player : public UnitBase
 {
 private:
@@ -43,17 +45,59 @@ protected:
 	void SworldAttEnd(const StateInfo& _Info);
 	void SworldAttUpdate(float _DeltaTime, const StateInfo& _Info);
 
+	void SworldAttStart2(const StateInfo& _Info);
+	void SworldAttEnd2(const StateInfo& _Info);
+	void SworldAttUpdate2(float _DeltaTime, const StateInfo& _Info);
+
+
+
+	void SworldAttStart3(const StateInfo& _Info);
+	void SworldAttEnd3(const StateInfo& _Info);
+	void SworldAttUpdate3(float _DeltaTime, const StateInfo& _Info);
+
+
+
+
+	void SlideStart(const StateInfo& _Info);
+	void SlideEnd(const StateInfo& _Info);
+	void SlideUpdate(float _DeltaTime, const StateInfo& _Info);
+
+
+
 
 	// void MoveStart(const StateInfo& _Info);
 	void MoveUpdate(float _DeltaTime, const StateInfo& _Info);
 
 private:
+	bool m_bSWAcheck;
+	bool m_bSWA2check;
+	bool m_bSWA3check;
+
+
 	float Speed;
 	float m_fAttTestTime;
 	float4 ResultColor;
 
+
+	float m_fSlideTime;
+	float m_fSlideSpeed;
+	float m_fSlideMaxSpeed;
+
+
+	bool m_bSlideCCheck;
+	float m_fSlideCTime;
+	float m_fSlideCTimeMax;
+
 private:
 	void ChangeRendererRotation(float _DeltaTime, int _Ratate);
 	
+
+
+
+private:
+	PlayerSWAtt1* m_CSWAtt1;
+	PlayerSWAtt2* m_CSWAtt2;
+	PlayerSWAtt3* m_CSWAtt3;
+
 };
 

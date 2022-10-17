@@ -70,6 +70,12 @@
     <Filter Include="00.Actor\01.UI\99.EditUI">
       <UniqueIdentifier>{a5828328-240f-4058-bbe0-9ad37f368d2b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.Actor\02.Unit\03.Bullet\00.Player">
+      <UniqueIdentifier>{5631f43b-54a7-4944-b967-f566466c687e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="00.Actor\02.Unit\03.Bullet\00.Player\00.Sword">
+      <UniqueIdentifier>{ec877df5-ec51-4b92-82de-89c01cb0e1bb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -118,6 +124,15 @@
     <ClInclude Include="MouseSlot.h">
       <Filter>00.Actor\01.UI\99.EditUI</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerSWAtt1.h">
+      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSWAtt2.h">
+      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerSWAtt3.h">
+      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -162,6 +177,15 @@
     </ClCompile>
     <ClCompile Include="MouseSlot.cpp">
       <Filter>00.Actor\01.UI\99.EditUI</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSWAtt1.cpp">
+      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSWAtt2.cpp">
+      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerSWAtt3.cpp">
+      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

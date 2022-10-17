@@ -1,6 +1,15 @@
 #include "PreCompile.h"
 #include "Player.h"
 
+
+#include "PlayerSWAtt1.h"
+#include "PlayerSWAtt2.h"
+#include "PlayerSWAtt3.h"
+
+
+
+
+
 #include <GameEngineContents/GlobalContentsValue.h>
 #include <iostream>
 #include <GameEngineCore/GameEngineFont.h>
@@ -10,6 +19,16 @@ Player* Player::MainPlayer = nullptr;
 
 Player::Player()
 	: Speed(200.0f)
+	, m_fSlideSpeed(700.f)
+	, m_fSlideMaxSpeed(900.f)
+	, m_fSlideCTime(0.f)
+	, m_fSlideCTimeMax(2.f)
+	, m_bSlideCCheck(false)
+	, m_CSWAtt1(nullptr)
+	, m_bSWAcheck(false)
+	, m_bSWA2check(false)
+	, m_bSWA3check(false)
+
 {
 	MainPlayer = this;
 }
@@ -48,10 +67,6 @@ void Player::Start()
 	Collision->ChangeOrder(OBJECTORDER::Player);
 
 
-	AttCollision = CreateComponent<GameEngineCollision>();
-	AttCollision->GetTransform().SetLocalScale({ 150.0f, 50.0f, 50.0f });
-	AttCollision->ChangeOrder(OBJECTORDER::Player);
-	AttCollision->Off();
 
 	StateManager.CreateStateMember("Idle"
 		, std::bind(&Player::IdleUpdate, this, std::placeholders::_1, std::placeholders::_2)
@@ -65,6 +80,29 @@ void Player::Start()
 		, std::bind(&Player::SworldAttEnd, this, std::placeholders::_1)
 	);
 
+
+	StateManager.CreateStateMember("SworldAtt2"
+		, std::bind(&Player::SworldAttUpdate2, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SworldAttStart2, this, std::placeholders::_1)
+		, std::bind(&Player::SworldAttEnd2, this, std::placeholders::_1)
+	);
+
+
+
+	StateManager.CreateStateMember("SworldAtt3"
+		, std::bind(&Player::SworldAttUpdate3, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SworldAttStart3, this, std::placeholders::_1)
+		, std::bind(&Player::SworldAttEnd3, this, std::placeholders::_1)
+	);
+
+
+
+
+	StateManager.CreateStateMember("Slide"
+		, std::bind(&Player::SlideUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SlideStart, this, std::placeholders::_1)
+		, std::bind(&Player::SlideEnd, this, std::placeholders::_1)
+	);
 
 
 	StateManager.CreateStateMember("Move"
@@ -110,36 +148,279 @@ void Player::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 
 }
 
+
+
+
+//소드 공격 1번 
 void Player::SworldAttStart(const StateInfo& _Info)
 {
 
-	AttCollision->On();
+	//AttCollision->On();
 
+
+	float4 MyWorldPos = GetTransform().GetWorldPosition();
 	float4 RenderFoward = Renderer->GetTransform().GetForwardVector();
+	RenderFoward = RenderFoward * 100.f;
+	
 
-	AttCollision->GetTransform().SetLocalPosition(RenderFoward * 100.f);
-	AttCollision->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
 
-	int a = 0;
+	RenderFoward = MyWorldPos + RenderFoward;
+
+	m_CSWAtt1 = GetLevel()->CreateActor<PlayerSWAtt1>(OBJECTORDER::PlayerAtt);
+	m_CSWAtt1->GetTransform().SetLocalPosition(RenderFoward);
+	m_CSWAtt1->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+	
+	
+	//AttCollision->GetTransform().SetLocalPosition(RenderFoward * 100.f);
+//	AttCollision->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+
+	
 }
 
 void Player::SworldAttEnd(const StateInfo& _Info)
 {
-	AttCollision->GetTransform().SetLocalPosition({0.f,0.f, 0.f, });
-	AttCollision->Off();
+	//AttCollision->GetTransform().SetLocalPosition({0.f,0.f, 0.f, });
+	//AttCollision->Off();
 
-	int a = 0;
+
+	m_CSWAtt1->Death();
+
+	m_bSWA2check = false;
+
+
+
+
 }
 
 void Player::SworldAttUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 	m_fAttTestTime += _DeltaTime;
 
-	if (m_fAttTestTime >= 1.f)
+
+	//2타격 체크
+
+	if (m_fAttTestTime >= 0.2f)
+	{
+
+		if (true == GameEngineInput::GetInst()->IsPress("PlayerSworldAtt"))
+		{
+			m_bSWA2check = true;
+
+		}
+
+	}
+
+
+	if (m_fAttTestTime >= 0.5f)
+	{
+		m_fAttTestTime = 0.f;
+
+		if (m_bSWA2check)
+		{
+			StateManager.ChangeState("SworldAtt2");
+		}
+		else
+		{
+			StateManager.ChangeState("Idle");
+		}
+		
+	}
+}
+
+
+
+
+
+
+
+
+
+//소드 공격 2번 
+void Player::SworldAttStart2(const StateInfo& _Info)
+{
+
+	//AttCollision->On();
+
+
+	m_bSWA2check = false;
+
+	float4 MyWorldPos = GetTransform().GetWorldPosition();
+	float4 RenderFoward = Renderer->GetTransform().GetForwardVector();
+	RenderFoward = RenderFoward * 100.f;
+
+
+
+	RenderFoward = MyWorldPos + RenderFoward;
+
+	m_CSWAtt2 = GetLevel()->CreateActor<PlayerSWAtt2>(OBJECTORDER::PlayerAtt);
+	m_CSWAtt2->GetTransform().SetLocalPosition(RenderFoward);
+	m_CSWAtt2->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+
+
+	//AttCollision->GetTransform().SetLocalPosition(RenderFoward * 100.f);
+//	AttCollision->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+
+
+}
+
+void Player::SworldAttEnd2(const StateInfo& _Info)
+{
+	//AttCollision->GetTransform().SetLocalPosition({0.f,0.f, 0.f, });
+	//AttCollision->Off();
+
+
+	m_CSWAtt2->Death();
+	m_bSWA3check = false;
+}
+
+void Player::SworldAttUpdate2(float _DeltaTime, const StateInfo& _Info)
+{
+	m_fAttTestTime += _DeltaTime;
+
+
+	//3타격 체크
+
+	if (m_fAttTestTime >= 0.2f)
+	{
+		if (true == GameEngineInput::GetInst()->IsPress("PlayerSworldAtt"))
+		{
+			m_bSWA3check = true;
+
+		}
+	}
+
+
+
+
+	if (m_fAttTestTime >= 0.5f)
+	{
+		m_fAttTestTime = 0.f;
+
+		if (m_bSWA3check)
+		{
+			StateManager.ChangeState("SworldAtt3");
+
+		}
+		else
+		{
+			StateManager.ChangeState("Idle");
+		}
+
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+//소드 공격 3번 
+void Player::SworldAttStart3(const StateInfo& _Info)
+{
+
+	//AttCollision->On();
+
+	m_bSWA3check = false;
+
+	float4 MyWorldPos = GetTransform().GetWorldPosition();
+	float4 RenderFoward = Renderer->GetTransform().GetForwardVector();
+	RenderFoward = RenderFoward * 100.f;
+
+
+
+	RenderFoward = MyWorldPos + RenderFoward;
+
+	m_CSWAtt3 = GetLevel()->CreateActor<PlayerSWAtt3>(OBJECTORDER::PlayerAtt);
+	m_CSWAtt3->GetTransform().SetLocalPosition(RenderFoward);
+	m_CSWAtt3->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+
+
+
+}
+
+void Player::SworldAttEnd3(const StateInfo& _Info)
+{
+	
+	m_CSWAtt3->Death();
+
+}
+
+void Player::SworldAttUpdate3(float _DeltaTime, const StateInfo& _Info)
+{
+	m_fAttTestTime += _DeltaTime;
+
+
+	if (m_fAttTestTime >= 0.5f)
 	{
 		m_fAttTestTime = 0.f;
 		StateManager.ChangeState("Idle");
 	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void Player::SlideStart(const StateInfo& _Info)
+{
+	m_fSlideSpeed = 700.f;
+	
+}
+
+void Player::SlideEnd(const StateInfo& _Info)
+{
+	m_bSlideCCheck = true;
+	m_fSlideSpeed = 700.f;
+}
+
+void Player::SlideUpdate(float _DeltaTime, const StateInfo& _Info)
+{
+	float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+
+	m_fSlideSpeed += _DeltaTime * 2000;
+
+	if (m_fSlideSpeed >= m_fSlideMaxSpeed)
+	{
+		m_fSlideSpeed = m_fSlideMaxSpeed;
+	}
+
+
+
+
+	GetTransform().SetWorldMove(MoveDir * m_fSlideSpeed * _DeltaTime);
+
+	m_fAttTestTime += _DeltaTime;
+
+	if (m_fAttTestTime >= 0.3f)
+	{
+		m_fAttTestTime = 0.f;
+		StateManager.ChangeState("Idle");
+	}
+
+
+
 }
 
 
@@ -156,39 +437,98 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 		return;
 	}
 
-	if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft"))
-	{
-		GetTransform().SetWorldMove(GetTransform().GetLeftVector() * Speed * _DeltaTime);
-		
-		Renderer->GetTransform().SetLocalRotation({0.f,270.f,0.f});
-		
-	}
-
-	if (true == GameEngineInput::GetInst()->IsPress("PlayerRight"))
-	{
-		GetTransform().SetWorldMove(GetTransform().GetRightVector() * Speed * _DeltaTime);
-		Renderer->GetTransform().SetLocalRotation({ 0.f,90.f,0.f });
-	}
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerUp"))
 	{
 		GetTransform().SetWorldMove(GetTransform().GetUpVector() * Speed * _DeltaTime);
-		
+
 	}
-	if (true == GameEngineInput::GetInst()->IsPress("PlayerDown"))
+	else if (true == GameEngineInput::GetInst()->IsPress("PlayerDown"))
 	{
 		GetTransform().SetWorldMove(GetTransform().GetDownVector() * Speed * _DeltaTime);
+
+	}
+	
+
+	//키 같이 입력
+	else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight")  && true == GameEngineInput::GetInst()->IsPress("PlayerF"))
+	{
 		
+		Renderer->GetTransform().SetLocalRotation({ 0.f,45.f,0.f });
+
+		float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
+
+
+
 	}
-	if (true == GameEngineInput::GetInst()->IsPress("PlayerF"))
+	else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight") && true == GameEngineInput::GetInst()->IsPress("PlayerB"))
 	{
-		GetTransform().SetWorldMove(GetTransform().GetForwardVector() * Speed * _DeltaTime);
+		
+		Renderer->GetTransform().SetLocalRotation({ 0.f,135.f,0.f });
+
+
+		float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
+	}
+	else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft") && true == GameEngineInput::GetInst()->IsPress("PlayerF"))
+	{
+		Renderer->GetTransform().SetLocalRotation({ 0.f,315.f,0.f });
+
+		float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
+	}
+	else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft") && true == GameEngineInput::GetInst()->IsPress("PlayerB"))
+	{
+		
+		Renderer->GetTransform().SetLocalRotation({ 0.f,225.f,0.f });
+
+		float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
+	}
+	
+	
+	
+	else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft"))
+	{
+	
+
+		Renderer->GetTransform().SetLocalRotation({ 0.f,270.f,0.f });
+
+		float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
+
+	}
+
+	else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight"))
+	{
+		
+		Renderer->GetTransform().SetLocalRotation({ 0.f,90.f,0.f });
+
+		float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
+
+	}
+	else if (true == GameEngineInput::GetInst()->IsPress("PlayerF"))
+	{
+		
 		Renderer->GetTransform().SetLocalRotation({ 0.f,0.f,0.f });
+
+		float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
+
 	}
-	if (true == GameEngineInput::GetInst()->IsPress("PlayerB"))
+	else if (true == GameEngineInput::GetInst()->IsPress("PlayerB"))
 	{
-		GetTransform().SetWorldMove(GetTransform().GetBackVector() * Speed * _DeltaTime);
+		
 		Renderer->GetTransform().SetLocalRotation({ 0.f,180.f,0.f });
+
+		float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
+
 	}
+
+
+
 
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerSworldAtt"))
 	{
@@ -197,6 +537,20 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	}
 
 
+	if (true == GameEngineInput::GetInst()->IsPress("PlayerSlide"))
+	{
+
+		if (!m_bSlideCCheck)
+		{
+			StateManager.ChangeState("Slide");
+		}
+			
+
+	}
+
+
+
+	
 
 }
 
@@ -213,8 +567,16 @@ CollisionReturn Player::MonsterCollision(GameEngineCollision* _This, GameEngineC
 
 void Player::Update(float _DeltaTime)
 {
-	
+	if (m_bSlideCCheck)
+	{
+		m_fSlideCTime += _DeltaTime;
 
+		if (m_fSlideCTime >= m_fSlideCTimeMax)
+		{
+			m_fSlideCTime = 0.f;
+			m_bSlideCCheck = false;
+		}
+	}
 
 	StateManager.Update(_DeltaTime);
 
