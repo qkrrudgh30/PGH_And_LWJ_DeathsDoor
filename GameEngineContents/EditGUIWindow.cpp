@@ -132,10 +132,15 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	ImGui::EndChild();
 #pragma endregion
 
-	static int s_iXcount, s_iYCount, s_iZCount;
-	ImGui::InputInt("X COUNT", &s_iXcount);
-	ImGui::InputInt("Y COUNT", &s_iYCount);
-	ImGui::InputInt("Z COUNT", &s_iZCount);
+	static int s_iXCount, s_iYCount, s_iZCount;
+	ImGui::InputInt("X Count", &s_iXCount);
+	ImGui::InputInt("Y Count", &s_iYCount);
+	ImGui::InputInt("Z Count", &s_iZCount);
+
+	static float s_iXScale, s_iYScale, s_iZScale;
+	ImGui::InputFloat("X Scale", &s_iXScale);
+	ImGui::InputFloat("Y Scale", &s_iYScale);
+	ImGui::InputFloat("Z Scale", &s_iZScale);
 
 	if (true == ImGui::Button("Create"))
 	{
@@ -144,6 +149,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		if (ACTORPANNEL == selectedPannel) { tempStr = m_vLoadedFromActor[selected]; }
 		else if (TILEPANNEL == selectedPannel) { tempStr = m_vLoadedFromTile[selected]; }
 		GameEngineActor* temp = m_ptrEditLevel->CreateActor<TestActor>();
+		temp->GetTransform().SetWorldScale(float4{ s_iXScale, s_iYScale, s_iZScale , 1.f});
 
 		std::pair tempPair(tempStr, temp);
 		m_vCreatedActors.push_back(tempPair);

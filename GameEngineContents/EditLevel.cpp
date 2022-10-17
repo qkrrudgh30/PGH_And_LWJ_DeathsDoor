@@ -22,9 +22,15 @@ void EditLevel::Start()
 
 void EditLevel::Update(float _DeltaTime)
 {
-	if (true == GetMainCameraActor()->IsFreeCameraMode())
+	if (false == GetMainCameraActor()->IsFreeCameraMode())
 	{
 		GetMainCameraActor()->FreeCameraModeOnOff();
+
+		GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
+		float4 CameraWorldPos = GetMainCameraActorTransform().GetWorldPosition();
+		CameraWorldPos.y += 1700.f;
+		CameraWorldPos.z -= 1700.f;
+		GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
 	}
 }
 
