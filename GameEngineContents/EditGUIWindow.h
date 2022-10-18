@@ -36,6 +36,8 @@ private:
 	void Initialize(class GameEngineLevel* _Level) override;
 	void OnGUI(GameEngineLevel* _Level, float _DeltaTime) override;
 
+	void CreateMultiple(int _XCount, int Y);
+
 	GameEngineDirectory m_CurrentDirectory;
 	std::vector<std::string> m_vLoadedFromActor;
 	std::vector<std::string> m_vLoadedFromTile;
