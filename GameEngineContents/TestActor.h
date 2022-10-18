@@ -24,10 +24,7 @@ protected:
 	void End() {}
 
 private:
-	float m_fHeight;
-	float m_fWidth;
-	float m_fDepth;
-
+	float4 ResultColor;
 
 };
 
