@@ -30,6 +30,14 @@ public:
 	EditGUIWindow& operator=(const EditGUIWindow& _Other) = delete;
 	EditGUIWindow& operator=(EditGUIWindow&& _Other) noexcept = delete;
 
+	void Save();
+	void SaveTileData(const std::string& _strTitle);
+	// void SaveTileData(const std::wstring& _strFilePath, const std::string& _strTitle);
+
+
+	void Load();
+	void LoadTileData(const std::string& _strFilePath);
+
 protected:
 
 private:
@@ -39,6 +47,7 @@ private:
 	void CreateMultiple(int _XCount, int Y);
 
 	GameEngineDirectory m_CurrentDirectory;
+	GameEngineDirectory m_ProjectDirectory;
 	std::vector<std::string> m_vLoadedFromActor;
 	std::vector<std::string> m_vLoadedFromTile;
 
