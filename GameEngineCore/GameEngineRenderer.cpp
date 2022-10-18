@@ -186,7 +186,6 @@ GameEngineRenderer::GameEngineRenderer()
 
 GameEngineRenderer::~GameEngineRenderer() 
 {
-	int a = 0;
 }
 
 void GameEngineRenderer::Start() 

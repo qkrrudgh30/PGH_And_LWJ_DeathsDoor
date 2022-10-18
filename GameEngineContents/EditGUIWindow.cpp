@@ -139,10 +139,15 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	ImGui::InputInt("Y Count", &s_iYCount);
 	ImGui::InputInt("Z Count", &s_iZCount);
 
-	static float s_iXScale, s_iYScale, s_iZScale;
-	ImGui::InputFloat("X Scale", &s_iXScale);
-	ImGui::InputFloat("Y Scale", &s_iYScale);
-	ImGui::InputFloat("Z Scale", &s_iZScale);
+	static float s_fXScale, s_fYScale, s_fZScale;
+	ImGui::InputFloat("X Scale", &s_fXScale);
+	ImGui::InputFloat("Y Scale", &s_fYScale);
+	ImGui::InputFloat("Z Scale", &s_fZScale);
+
+	static float s_fXPos, s_fYPos, s_fZPos;
+	ImGui::InputFloat("X Position", &s_fXPos);
+	ImGui::InputFloat("Y Position", &s_fYPos);
+	ImGui::InputFloat("Z Position", &s_fZPos);
 
 	if (true == ImGui::Button("Create"))
 	{
@@ -151,7 +156,8 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		if (ACTORPANNEL == selectedPannel) { tempStr = m_vLoadedFromActor[selected]; }
 		else if (TILEPANNEL == selectedPannel) { tempStr = m_vLoadedFromTile[selected]; }
 		GameEngineActor* temp = m_ptrEditLevel->CreateActor<TestActor>();
-		temp->GetTransform().SetWorldScale(float4{ s_iXScale, s_iYScale, s_iZScale , 1.f});
+		temp->GetTransform().SetWorldScale(float4{ s_fXScale, s_fYScale, s_fZScale , 1.f});
+		temp->GetTransform().SetWorldPosition(float4{ s_fXPos, s_fYPos, s_fZPos , 1.f});
 
 		std::pair tempPair(tempStr, temp);
 		m_vCreatedActors.push_back(tempPair);
