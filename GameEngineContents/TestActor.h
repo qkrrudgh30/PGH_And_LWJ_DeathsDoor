@@ -28,7 +28,6 @@ private:
 	float m_fWidth;
 	float m_fDepth;
 
-	GameEngineDefaultRenderer* m_ptrRenderer;
 
 };
 
