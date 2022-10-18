@@ -8,6 +8,7 @@ GameEngineRenderTarget::GameEngineRenderTarget()
 	: DepthStencilView(nullptr)
 	, DepthTexture(nullptr)
 {
+	MergeUnit.SetMesh("FullRect");
 	MergeUnit.SetPipeLine("TargetMerge");
 }
 
