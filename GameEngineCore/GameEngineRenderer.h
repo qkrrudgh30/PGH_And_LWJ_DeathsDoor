@@ -4,6 +4,7 @@
 #include "GameEngineLevel.h"
 #include "GameEngineRenderingPipeLine.h"
 #include "GameEngineShaderResourcesHelper.h"
+#include "GameEngineMesh.h"
 
 struct RenderOption 
 {
@@ -18,14 +19,14 @@ struct RenderOption
 class GameEngineRenderUnit 
 {
 public:
-	GameEngineShaderResourcesHelper ShaderResources;
+	GameEngineRenderUnit();
+
+	void SetMesh(const std::string& _Name);
 
 	void SetPipeLine(const std::string& _Name);
 
 	// 우리 엔진에서는 이런 이름을 가진x는 무조건 이렇게 세팅하기로 했어.
 	void EngineShaderResourcesSetting(GameEngineRenderer* _Renderer);
-
-	GameEngineRenderUnit();
 
 	void Render(float _DeltaTime);
 
@@ -37,10 +38,15 @@ public:
 
 	GameEngineRenderingPipeLine* ClonePipeLine(GameEngineRenderingPipeLine* _Rendering);
 
+	GameEngineShaderResourcesHelper ShaderResources;
+
 private:
 	GameEngineRenderer* ParentRenderer;
-
-	GameEngineRenderingPipeLine* PipeLine;
+	GameEngineMesh* Mesh; // 이 메쉬를
+	GameEngineRenderingPipeLine* PipeLine; // 이 설정으로
+	GameEngineInputLayOut* InputLayOut; // 인풋어셈블러1 세팅
+	// 	GameEngineShaderResourcesHelper ShaderResources; // 이 데이터를 가지고
+	D3D11_PRIMITIVE_TOPOLOGY Topology;// 이렇게 그린다.
 };
 
 

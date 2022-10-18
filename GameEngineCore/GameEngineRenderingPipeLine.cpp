@@ -13,18 +13,16 @@
 
 
 GameEngineRenderingPipeLine::GameEngineRenderingPipeLine() 
-	: InputLayOut(nullptr)
-	, VertexBuffer(nullptr)
-	, VertexShader(nullptr)
-	, IndexBuffer(nullptr)
+	: // InputLayOut(nullptr)
+	// , VertexBuffer(nullptr)
+	VertexShader(nullptr)
+	// , IndexBuffer(nullptr)
 	, Rasterizer(nullptr)
 	, PixelShader(nullptr)
 	, DepthStencil(nullptr)
 	, Blend(nullptr)
-	, Topology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 {
-	VertexBuffer = GameEngineVertexBuffer::Find("rect");
-	IndexBuffer = GameEngineIndexBuffer::Find("rect");
+
 	Rasterizer = GameEngineRasterizer::Find("EngineRasterizer");
 	Blend = GameEngineBlend::Find("AlphaBlend");
 	DepthStencil = GameEngineDepthStencil::Find("EngineBaseDepth");
@@ -65,23 +63,6 @@ GameEngineRenderingPipeLine* GameEngineRenderingPipeLine::Create(const std::stri
 	return CreateResName(_Name);
 }
 
-void GameEngineRenderingPipeLine::SetInputAssembler1VertexBuffer(const std::string& _Name) 
-{
-	VertexBuffer = GameEngineVertexBuffer::Find(_Name);
-
-	if (nullptr == VertexBuffer)
-	{
-		MsgBoxAssert("존재하지 않는 버텍스 버퍼를 세팅하려고 했습니다.");
-		return;
-	}
-
-
-	if (nullptr == InputLayOut && nullptr != VertexShader)
-	{
-		InputLayOut = GameEngineInputLayOut::Create(*VertexBuffer->GetLayOutDesc(), VertexShader);
-	}
-}
-
 void GameEngineRenderingPipeLine::SetVertexShader(const std::string& _Name)
 {
 	VertexShader = GameEngineVertexShader::Find(_Name);
@@ -92,11 +73,11 @@ void GameEngineRenderingPipeLine::SetVertexShader(const std::string& _Name)
 		return;
 	}
 
-	// 인풋레이아웃이 만들어지지 않았는데.
-	if (nullptr == InputLayOut && nullptr != VertexBuffer)
-	{
-		InputLayOut = GameEngineInputLayOut::Create(*VertexBuffer->GetLayOutDesc(), VertexShader);
-	}
+	//// 인풋레이아웃이 만들어지지 않았는데.
+	//if (nullptr == InputLayOut && nullptr != VertexBuffer)
+	//{
+	//	InputLayOut = GameEngineInputLayOut::Create(*VertexBuffer->GetLayOutDesc(), VertexShader);
+	//}
 }
 
 void GameEngineRenderingPipeLine::SetVertexShader(GameEngineVertexShader* _Shader)
@@ -105,23 +86,13 @@ void GameEngineRenderingPipeLine::SetVertexShader(GameEngineVertexShader* _Shade
 
 	// 인풋레이아웃이 만들어지지 않았는데.
 	// 인스턴싱때 문제될수 있다.
-	if (nullptr == InputLayOut && nullptr != VertexBuffer)
-	{
-		InputLayOut = GameEngineInputLayOut::Create(*VertexBuffer->GetLayOutDesc(), VertexShader);
-	}
+	//if (nullptr == InputLayOut && nullptr != VertexBuffer)
+	//{
+	//	InputLayOut = GameEngineInputLayOut::Create(*VertexBuffer->GetLayOutDesc(), VertexShader);
+	//}
 
 }
 
-void GameEngineRenderingPipeLine::SetInputAssembler2IndexBuffer(const std::string& _Name) 
-{
-	IndexBuffer = GameEngineIndexBuffer::Find(_Name);
-
-	if (nullptr == IndexBuffer)
-	{
-		MsgBoxAssert("존재하지 않는 인덱스버퍼를 세팅하려고 했습니다.");
-		return;
-	}
-}
 
 void GameEngineRenderingPipeLine::SetRasterizer(const std::string& _Name)
 {
@@ -174,13 +145,13 @@ void GameEngineRenderingPipeLine::SetOutputMergerBlend(const std::string& _Name)
 	}
 }
 
-void GameEngineRenderingPipeLine::Rendering()
+void GameEngineRenderingPipeLine::Setting()
 {
-	InputAssembler1VertexBufferSetting();
+	// InputAssembler1VertexBufferSetting();
 
 	VertexShaderSetting();
 
-	InputAssembler2IndexBufferSetting();
+	// InputAssembler2IndexBufferSetting();
 
 	RasterizerSetting();
 
@@ -190,7 +161,7 @@ void GameEngineRenderingPipeLine::Rendering()
 
 	OutputMergerDepthStencilSetting();
 
-	Draw();
+	// Draw();
 
 }
 
@@ -200,7 +171,7 @@ void GameEngineRenderingPipeLine::RenderingInstancing(int _RenderingCount, class
 
 	VertexShaderSetting();
 
-	InputAssembler2IndexBufferSetting();
+	// InputAssembler2IndexBufferSetting();
 
 	RasterizerSetting();
 
@@ -221,18 +192,11 @@ void GameEngineRenderingPipeLine::InstancingDataCollect()
 
 // 실직적으로 세팅의 순서는 그다지 중요하지 않다.
 
-void GameEngineRenderingPipeLine::InputAssembler1VertexBufferSetting()
-{
-	InputLayOut->Setting();
-
-	VertexBuffer->Setting();
-}
-
 void GameEngineRenderingPipeLine::InputAssembler1InstancingVertexBufferSetting(GameEngineInstancingBuffer* _Buffer)
 {
 	// 그래픽리소스에 Setting이라는 함수가 존재한다면
 // 그건 이제부터 그 설정으로 랜더링 파이프라인이 돌아가게 된다는 뜻이 됩니다.
-	InputLayOut->Setting();
+	// InputLayOut->Setting();
 	// 버텍스 버퍼는 세팅할게 없다.
 	// VertexBuffer->Setting();
 
@@ -240,13 +204,13 @@ void GameEngineRenderingPipeLine::InputAssembler1InstancingVertexBufferSetting(G
 
 	// GameEngineVertexBuffer* InstancingBuffer;
 
-	ID3D11Buffer* ArrBuffer[2] = { VertexBuffer->GetBuffer(), _Buffer->GetBuffer() };
-	UINT ArrVertexSize[2] = { VertexBuffer->GetVertexSize(), _Buffer->GetDataSize()};
-	UINT ArrOffset[2] = { 0, 0 };
+	//ID3D11Buffer* ArrBuffer[2] = { VertexBuffer->GetBuffer(), _Buffer->GetBuffer() };
+	//UINT ArrVertexSize[2] = { VertexBuffer->GetVertexSize(), _Buffer->GetDataSize()};
+	//UINT ArrOffset[2] = { 0, 0 };
 
-	GameEngineDevice::GetContext()->IASetVertexBuffers(
-		0, // 버텍스 버퍼를 이중포인터로 세팅해줬을대의 사용시작 인덱스
-		2, ArrBuffer, ArrVertexSize, ArrOffset);
+	//GameEngineDevice::GetContext()->IASetVertexBuffers(
+	//	0, // 버텍스 버퍼를 이중포인터로 세팅해줬을대의 사용시작 인덱스
+	//	2, ArrBuffer, ArrVertexSize, ArrOffset);
 }
 
 void GameEngineRenderingPipeLine::VertexShaderSetting() 
@@ -256,12 +220,6 @@ void GameEngineRenderingPipeLine::VertexShaderSetting()
 	// D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
 }
 
-void GameEngineRenderingPipeLine::InputAssembler2IndexBufferSetting() 
-{
-	GameEngineDevice::GetContext()->IASetPrimitiveTopology(Topology);
-
-	IndexBuffer->Setting();
-}
 
 void GameEngineRenderingPipeLine::RasterizerSetting() 
 {
@@ -284,10 +242,10 @@ void GameEngineRenderingPipeLine::OutputMergerDepthStencilSetting()
 }
 
 
-void GameEngineRenderingPipeLine::Draw()
-{
-	GameEngineDevice::GetContext()->DrawIndexed(IndexBuffer->GetIndexCount(), 0, 0);
-}
+//void GameEngineRenderingPipeLine::Draw(GameEngineMesh* _Mesh)
+//{
+//	GameEngineDevice::GetContext()->DrawIndexed(IndexBuffer->GetIndexCount(), 0, 0);
+//}
 
 void GameEngineRenderingPipeLine::InstancingDraw(int _RenderingCount)
 {
@@ -308,16 +266,16 @@ void GameEngineRenderingPipeLine::InstancingDraw(int _RenderingCount)
 	//정점 버퍼에서 인스턴스별 데이터를 읽기 전에 각 인덱스에 추가된 값입니다.
 
 	// 그냥 4가 들어간다.
-	GameEngineDevice::GetContext()->DrawIndexedInstanced(IndexBuffer->GetIndexCount(), _RenderingCount, 0, 0, 0);
+	// GameEngineDevice::GetContext()->DrawIndexedInstanced(IndexBuffer->GetIndexCount(), _RenderingCount, 0, 0, 0);
 }
 
 void GameEngineRenderingPipeLine::Copy(GameEngineRenderingPipeLine* _Original)
 {
-	InputLayOut			= _Original->InputLayOut;
-	VertexBuffer			= _Original->VertexBuffer;
+	// InputLayOut			= _Original->InputLayOut;
+	// VertexBuffer			= _Original->VertexBuffer;
 	VertexShader			= _Original->VertexShader;
-	IndexBuffer			= _Original->IndexBuffer;
-	Topology				= _Original->Topology;
+	// IndexBuffer			= _Original->IndexBuffer;
+	// Topology				= _Original->Topology;
 	Rasterizer				= _Original->Rasterizer;
 	PixelShader			= _Original->PixelShader;
 	DepthStencil			= _Original->DepthStencil;

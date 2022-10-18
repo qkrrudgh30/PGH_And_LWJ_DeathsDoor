@@ -15,7 +15,7 @@ EditGUIWindow::~EditGUIWindow()
 
 void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 {
-	int a = 300;
+#pragma region PushPannel
 	m_CurrentDirectory.MoveParentToExitsChildDirectory("ContentsResources");
 	m_CurrentDirectory.Move("ContentsResources");
 	m_CurrentDirectory.Move("Texture");
@@ -37,7 +37,7 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 	m_CurrentDirectory.Move("..\\");
 	m_CurrentDirectory.Move("Tile");
 	std::filesystem::directory_iterator dirIter2(m_CurrentDirectory.GetFullPath());
-	
+
 	for (const std::filesystem::directory_entry& entry : dirIter2)
 	{
 		std::string Ext(entry.path().string());
@@ -49,6 +49,7 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 			m_vLoadedFromTile.push_back(strTemp2);
 		}
 	}
+#pragma endregion	
 }
 
 void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)

@@ -28,6 +28,8 @@ public:
 
 	virtual void Render(float _DeltaTime);
 
+
+	void SetMesh(const std::string& _Name);
 	void SetPipeLine(const std::string& _Name);
 
 	virtual void InstancingOn();

@@ -2,7 +2,8 @@
 #include "GameEngineBlend.h"
 
 GameEngineBlend::GameEngineBlend() 
-	: Mask(0xffffffff)
+	: State(nullptr)
+	, Mask(0xffffffff)
 {
 }
 

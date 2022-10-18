@@ -132,6 +132,8 @@ void GameEngineCore::CoreEnd(GameEngineCore* _UserCore)
 	// gui에서 텍스처라던가 이런거 쓰다가
 	GameEngineGUI::GUIDestroy();
 
+	GameEngineDebug::Debug3DDestroy();
+
 	EngineResourcesDestroy();
 
 	GameEngineWindow::Destroy();

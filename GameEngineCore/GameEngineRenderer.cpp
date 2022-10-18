@@ -10,6 +10,9 @@
 
 #include "GameEngineVertexBuffer.h"
 #include "GameEngineIndexBuffer.h"
+#include "GameEngineMesh.h"
+
+#include "GameEngineInputLayOut.h"
 
 
 //////////////////////////////////////////////////////// GameEngineRenderUnit 
@@ -17,8 +20,9 @@
 GameEngineRenderUnit::GameEngineRenderUnit() 
 	: ParentRenderer(nullptr)
 	, PipeLine(nullptr)
+	, Topology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 {
-
+	SetMesh("rect");
 }
 
 void GameEngineRenderUnit::EngineShaderResourcesSetting(GameEngineRenderer* _Renderer)
@@ -43,6 +47,25 @@ void GameEngineRenderUnit::EngineShaderResourcesSetting(GameEngineRenderer* _Ren
 
 }
 
+void GameEngineRenderUnit::SetMesh(const std::string& _Name)
+{
+	Mesh = GameEngineMesh::Find(_Name);
+
+	if (nullptr == Mesh)
+	{
+		MsgBoxAssert("존재하지 않는 매쉬를 세팅하려고 했습니다.");
+		return;
+	}
+
+	if (nullptr == InputLayOut && nullptr != PipeLine)
+	{
+		// 파이프라인의 버텍스 쉐이더와
+		// 매쉬의 버텍스 정보가 다 모여있으므로
+		// 인풋 레이아웃을 만들수가 있다.
+		InputLayOut = GameEngineInputLayOut::Create(Mesh->GetLayOutDesc(), PipeLine->GetVertexShader());
+	}
+
+}
 
 void GameEngineRenderUnit::SetPipeLine(const std::string& _Name)
 {
@@ -54,7 +77,18 @@ void GameEngineRenderUnit::SetPipeLine(const std::string& _Name)
 		return;
 	}
 
+
+	if (nullptr == InputLayOut && nullptr != Mesh)
+	{
+		// 파이프라인의 버텍스 쉐이더와
+		// 매쉬의 버텍스 정보가 다 모여있으므로
+		// 인풋 레이아웃을 만들수가 있다.
+		InputLayOut = GameEngineInputLayOut::Create(Mesh->GetLayOutDesc(), PipeLine->GetVertexShader());
+	}
+
+
 	ShaderResources.ResourcesCheck(PipeLine);
+
 }
 
 void GameEngineRenderUnit::SetRenderer(GameEngineRenderer* _Renderer)
@@ -100,12 +134,37 @@ void GameEngineRenderUnit::Render(float _DeltaTime)
 		MsgBoxAssert("랜더링 파이프라인이 세팅되지 않으면 랜더링을 할수 없습니다.");
 	}
 
+	if (nullptr == Mesh)
+	{
+		MsgBoxAssert("매쉬가 없으므로 랜더링을 할수 없습니다.");
+	}
+
+	if (nullptr == InputLayOut)
+	{
+		MsgBoxAssert("인풋 레이아웃이 없으므로 랜더링을 할수 없습니다.");
+	}
+
 	//if (false == IsInstancing(GetPipeLine()))
 	//{
 		// 준비된 모든 리소스들을 다 세팅해준다.
-		ShaderResources.AllResourcesSetting();
-		PipeLine->Rendering();
-		ShaderResources.AllResourcesReset();
+
+	// 이 매쉬를 
+	Mesh->Setting();
+
+	InputLayOut->Setting();
+
+	// 이 그리는 방식으로
+	GameEngineDevice::GetContext()->IASetPrimitiveTopology(Topology);
+	// 이 쉐이더와 색깔로 
+	PipeLine->Setting();
+	// 이 데이터를 기반으로
+	ShaderResources.AllResourcesSetting();
+	// 그려라
+	Mesh->Render();
+
+	// 그려라
+
+	ShaderResources.AllResourcesReset();
 	//}
 	//else
 	//{

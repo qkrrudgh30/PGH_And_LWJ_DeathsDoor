@@ -1,6 +1,5 @@
 #pragma once
 #include "GameEngineRenderTarget.h"
-#include "GameEngineRenderSet.h"
 
 // Ό³Έν :
 class GameEngineBlur : public GameEnginePostEffect
@@ -21,7 +20,7 @@ public:
 
 protected:
 	GameEngineRenderTarget* CopyTarget;
-	GameEngineRenderSet EffectSet;
+	GameEngineRenderUnit EffectSet;
 
 private:
 };

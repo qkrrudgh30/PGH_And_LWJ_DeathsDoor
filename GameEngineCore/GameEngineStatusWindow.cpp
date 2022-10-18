@@ -77,31 +77,31 @@ void GameEngineStatusWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	}
 
 	ImGui::NewLine();
-	//std::string AllRenderTarget = "AllRenderTarget";
-	//ImGui::Text(AllRenderTarget.c_str());
+	std::string AllRenderTarget = "AllRenderTarget";
+	ImGui::Text(AllRenderTarget.c_str());
 
-	//for (std::pair<std::string, GameEngineRenderTarget*> RenderTargetPair : DebugRenderTarget)
-	//{
-	//	// ImGui::Text(RenderTarget.first.c_str());
+	for (std::pair<std::string, GameEngineRenderTarget*> RenderTargetPair : DebugRenderTarget)
+	{
+		// ImGui::Text(RenderTarget.first.c_str());
 
-	//	if (true == ImGui::TreeNodeEx(RenderTargetPair.first.c_str(), 0))
-	//	{
-	//		GameEngineRenderTarget* RenderTarget = RenderTargetPair.second;
+		if (true == ImGui::TreeNodeEx(RenderTargetPair.first.c_str(), 0))
+		{
+			GameEngineRenderTarget* RenderTarget = RenderTargetPair.second;
 
-	//		for (ID3D11ShaderResourceView* _View : RenderTarget->ShaderResourceViews)
-	//		{
-	//			float4 Scale = GameEngineWindow::GetScale() * 0.2f;
+			for (ID3D11ShaderResourceView* _View : RenderTarget->ShaderResourceViews)
+			{
+				float4 Scale = GameEngineWindow::GetScale() * 0.2f;
 
-	//			if (true == ImGui::ImageButton(static_cast<ImTextureID>(_View), { Scale.x, Scale.y }))
-	//			{
-	//				GameEngineImageShotWindow* NewWindow = GameEngineGUI::CreateGUIWindow<GameEngineImageShotWindow>("ImageShot", nullptr);
-	//				NewWindow->RenderTextureSetting(static_cast<ImTextureID>(_View), { GameEngineWindow::GetScale().x ,GameEngineWindow::GetScale().y } );
-	//			}
-	//		}
+				if (true == ImGui::ImageButton(static_cast<ImTextureID>(_View), { Scale.x, Scale.y }))
+				{
+					GameEngineImageShotWindow* NewWindow = GameEngineGUI::CreateGUIWindow<GameEngineImageShotWindow>("ImageShot", nullptr);
+					NewWindow->RenderTextureSetting(static_cast<ImTextureID>(_View), { GameEngineWindow::GetScale().x ,GameEngineWindow::GetScale().y } );
+				}
+			}
 
-	//		ImGui::TreePop();
-	//	}
-	//}
+			ImGui::TreePop();
+		}
+	}
 
 	DebugRenderTarget.clear();
 

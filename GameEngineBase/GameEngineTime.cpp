@@ -77,12 +77,8 @@ void GameEngineTime::Update()
 			SumFPS = 0;
 			SumFPSCount = 0;
 		}
-		SumDeltaTimef = FrameTime - CurFrameTime;
 		CurFrameTime += FrameTime;
-		
-
-
-
+		SumDeltaTimef -= FrameTime;
 	}
 
 

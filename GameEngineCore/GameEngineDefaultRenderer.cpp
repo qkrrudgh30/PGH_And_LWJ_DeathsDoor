@@ -18,6 +18,11 @@ void GameEngineDefaultRenderer::Start()
 	// 뭔가 또 할일이 있다면 여기서 해라.
 }
 
+void GameEngineDefaultRenderer::SetMesh(const std::string& _Name)
+{
+	Unit.SetMesh(_Name);
+}
+
 void GameEngineDefaultRenderer::SetPipeLine(const std::string& _Name)
 {
 	Unit.SetPipeLine(_Name);

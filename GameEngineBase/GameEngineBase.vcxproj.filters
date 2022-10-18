@@ -1,158 +1,158 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="01.Debug">
+    <Filter Include="Debug">
       <UniqueIdentifier>{bfbef790-e313-49e8-9096-193fd6a5d2f4}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.Enum">
-      <UniqueIdentifier>{40c2ed13-cf85-4feb-8fb6-47dd2686b9be}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="03.IO">
+    <Filter Include="IO">
       <UniqueIdentifier>{1af8f908-ed83-4d0b-b7a9-95bc1102a96e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="04.Math">
+    <Filter Include="Math">
       <UniqueIdentifier>{22eb4c60-290a-4ac8-aad5-50713bbf9056}</UniqueIdentifier>
     </Filter>
-    <Filter Include="05.Object">
+    <Filter Include="Object">
       <UniqueIdentifier>{0dc35c84-7f4f-4030-b718-d0b175763a61}</UniqueIdentifier>
     </Filter>
-    <Filter Include="06.PreCompile">
-      <UniqueIdentifier>{bd9eb880-afe9-4dca-9caf-46b430f6193d}</UniqueIdentifier>
+    <Filter Include="WindowsOS">
+      <UniqueIdentifier>{6efdbf21-50aa-48e2-bb08-42d3348a2eab}</UniqueIdentifier>
     </Filter>
-    <Filter Include="07.String">
+    <Filter Include="String">
       <UniqueIdentifier>{37986fae-e9d4-47ce-a9f2-5ef40e6c278d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08.ThirdParty">
+    <Filter Include="ThirdParty">
       <UniqueIdentifier>{331122df-8ae3-4038-aacf-a14d7726e170}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08.ThirdParty\Sound">
+    <Filter Include="ThirdParty\Sound">
       <UniqueIdentifier>{86af6b30-6553-442b-b937-277e57b299fb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="08.ThirdParty\Lib">
+    <Filter Include="ThirdParty\Lib">
       <UniqueIdentifier>{717e7171-bed7-419b-9890-ed59b834d286}</UniqueIdentifier>
     </Filter>
-    <Filter Include="09.WindowsOS">
-      <UniqueIdentifier>{6efdbf21-50aa-48e2-bb08-42d3348a2eab}</UniqueIdentifier>
+    <Filter Include="PreCompile">
+      <UniqueIdentifier>{bd9eb880-afe9-4dca-9caf-46b430f6193d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Enum">
+      <UniqueIdentifier>{40c2ed13-cf85-4feb-8fb6-47dd2686b9be}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineDebug.cpp">
-      <Filter>01.Debug</Filter>
+      <Filter>Debug</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineFile.cpp">
-      <Filter>03.IO</Filter>
+      <Filter>IO</Filter>
     </ClCompile>
     <ClCompile Include="GameEnginePath.cpp">
-      <Filter>03.IO</Filter>
+      <Filter>IO</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineDirectory.cpp">
-      <Filter>03.IO</Filter>
+      <Filter>IO</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineNameObject.cpp">
-      <Filter>05.Object</Filter>
+      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineRandom.cpp">
-      <Filter>04.Math</Filter>
+      <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineMath.cpp">
-      <Filter>04.Math</Filter>
+      <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineTime.cpp">
-      <Filter>04.Math</Filter>
+      <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineInput.cpp">
-      <Filter>09.WindowsOS</Filter>
+      <Filter>WindowsOS</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineWindow.cpp">
-      <Filter>09.WindowsOS</Filter>
+      <Filter>WindowsOS</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineString.cpp">
-      <Filter>07.String</Filter>
+      <Filter>String</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineSound.cpp">
-      <Filter>08.ThirdParty\Sound</Filter>
+      <Filter>ThirdParty\Sound</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineTransform.cpp">
-      <Filter>04.Math</Filter>
+      <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineDebugObject.cpp">
-      <Filter>05.Object</Filter>
+      <Filter>Object</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineTransform_Collision.cpp">
-      <Filter>04.Math</Filter>
+      <Filter>Math</Filter>
     </ClCompile>
     <ClCompile Include="PreCompile.cpp">
-      <Filter>06.PreCompile</Filter>
+      <Filter>PreCompile</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameEngineDebug.h">
-      <Filter>01.Debug</Filter>
+      <Filter>Debug</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineDirectory.h">
-      <Filter>03.IO</Filter>
+      <Filter>IO</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineFile.h">
-      <Filter>03.IO</Filter>
+      <Filter>IO</Filter>
     </ClInclude>
     <ClInclude Include="GameEnginePath.h">
-      <Filter>03.IO</Filter>
+      <Filter>IO</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineNameObject.h">
-      <Filter>05.Object</Filter>
+      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineMath.h">
-      <Filter>04.Math</Filter>
+      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineRandom.h">
-      <Filter>04.Math</Filter>
+      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineTime.h">
-      <Filter>04.Math</Filter>
+      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineInput.h">
-      <Filter>09.WindowsOS</Filter>
+      <Filter>WindowsOS</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineWindow.h">
-      <Filter>09.WindowsOS</Filter>
+      <Filter>WindowsOS</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineString.h">
-      <Filter>07.String</Filter>
+      <Filter>String</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineSound.h">
-      <Filter>08.ThirdParty\Sound</Filter>
+      <Filter>ThirdParty\Sound</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineTransform.h">
-      <Filter>04.Math</Filter>
+      <Filter>Math</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineDebugObject.h">
-      <Filter>05.Object</Filter>
+      <Filter>Object</Filter>
     </ClInclude>
     <ClInclude Include="PreCompile.h">
-      <Filter>06.PreCompile</Filter>
+      <Filter>PreCompile</Filter>
     </ClInclude>
     <ClInclude Include="magic_enum_fuse.hpp">
-      <Filter>02.Enum</Filter>
+      <Filter>Enum</Filter>
     </ClInclude>
     <ClInclude Include="magic_enum_format.hpp">
-      <Filter>02.Enum</Filter>
+      <Filter>Enum</Filter>
     </ClInclude>
     <ClInclude Include="magic_enum.hpp">
-      <Filter>02.Enum</Filter>
+      <Filter>Enum</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="ThirdParty\bin\fmod.dll">
-      <Filter>08.ThirdParty\Lib</Filter>
+      <Filter>ThirdParty\Lib</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\bin\fmod_vc.lib">
-      <Filter>08.ThirdParty\Lib</Filter>
+      <Filter>ThirdParty\Lib</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\bin\fmodL.dll">
-      <Filter>08.ThirdParty\Lib</Filter>
+      <Filter>ThirdParty\Lib</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\bin\fmodL_vc.lib">
-      <Filter>08.ThirdParty\Lib</Filter>
+      <Filter>ThirdParty\Lib</Filter>
     </CopyFileToFolders>
   </ItemGroup>
 </Project>

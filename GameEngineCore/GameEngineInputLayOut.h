@@ -9,7 +9,6 @@ class GameEngineInputLayOut : public GameEngineRes<GameEngineInputLayOut>
 {
 public:
 	static GameEngineInputLayOut* Create(const GameEngineLayOutDesc& _Desc, GameEngineVertexShader* _Shader);
-	
 
 public:
 	// constrcuter destructer
@@ -23,6 +22,8 @@ public:
 	GameEngineInputLayOut& operator=(GameEngineInputLayOut&& _Other) noexcept = delete;
 
 	void CreateRes(const GameEngineLayOutDesc& _Desc, GameEngineVertexShader* _Shader);
+
+	void CreateRes(const GameEngineLayOutDesc& _Desc);
 
 	void Setting();
 

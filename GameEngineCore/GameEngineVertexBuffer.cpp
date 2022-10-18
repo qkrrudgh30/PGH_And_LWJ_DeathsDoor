@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "GameEngineVertexBuffer.h"
+#include "GameEngineInputLayOut.h"
 #include <GameEngineBase/GameEngineString.h>
+
 
 GameEngineVertexBuffer::GameEngineVertexBuffer() 
 	: Buffer(nullptr)
@@ -28,6 +30,7 @@ GameEngineVertexBuffer* GameEngineVertexBuffer::Create(
 	GameEngineVertexBuffer* NewRes = CreateResName(_Name);
 	NewRes->LayOutDesc = &_LayOut;
 	NewRes->BufferCreate(_Data, _VertexSize, _VertexCount);
+
 	return NewRes;
 }
 

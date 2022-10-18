@@ -1,15 +1,14 @@
 #include "PreCompile.h"
 #include "GameEngineRenderTarget.h"
-#include "GameEngineRenderSet.h"
 
 ID3D11RenderTargetView* GameEngineRenderTarget::PrevRenderTargetViews = nullptr;
 ID3D11DepthStencilView* GameEngineRenderTarget::PrevDepthStencilView = nullptr;
 
 GameEngineRenderTarget::GameEngineRenderTarget() 
 	: DepthStencilView(nullptr)
+	, DepthTexture(nullptr)
 {
-	MergePipeLine = GameEngineRenderingPipeLine::Find("TargetMerge");
-	MergeShaderResourcesHelper.ResourcesCheck(MergePipeLine);
+	MergeUnit.SetPipeLine("TargetMerge");
 }
 
 GameEngineRenderTarget::~GameEngineRenderTarget() 
@@ -41,11 +40,6 @@ void GameEngineRenderTarget::SetPrevRenderTarget()
 	}
 }
 
-//GameEngineRenderTarget* GameEngineRenderTarget::Create(const std::string& _Name, ID3D11Texture2D* _Texture) 
-//{
-//
-//}
-
 GameEngineRenderTarget* GameEngineRenderTarget::Create(const std::string& _Name)
 {
 	return CreateResName(_Name);
@@ -71,29 +65,22 @@ void GameEngineRenderTarget::Copy(GameEngineRenderTarget* _Other, int _Index )
 {
 	Clear();
 
-	MergeShaderResourcesHelper.SetTexture("Tex", _Other->GetRenderTargetTexture(_Index));
+	MergeUnit.ShaderResources.SetTexture("Tex", _Other->GetRenderTargetTexture(_Index));
 
-	Effect(GameEngineRenderingPipeLine::Find("TargetMerge"), &MergeShaderResourcesHelper);
+	Effect(MergeUnit);
 }
 
 void GameEngineRenderTarget::Merge(GameEngineRenderTarget* _Other, int _Index)
 {
-	MergeShaderResourcesHelper.SetTexture("Tex", _Other->GetRenderTargetTexture(_Index));
+	MergeUnit.ShaderResources.SetTexture("Tex", _Other->GetRenderTargetTexture(_Index));
 
-	Effect(GameEngineRenderingPipeLine::Find("TargetMerge"), &MergeShaderResourcesHelper);
+	Effect(MergeUnit);
 }
 
-void GameEngineRenderTarget::Effect(GameEngineRenderSet& _RenderSet)
-{
-	Effect(_RenderSet.PipeLine, &_RenderSet.ShaderResources);
-}
-
-void GameEngineRenderTarget::Effect(GameEngineRenderingPipeLine* _Other, GameEngineShaderResourcesHelper* _ShaderResourcesHelper)
+void GameEngineRenderTarget::Effect(GameEngineRenderUnit& _RenderSet)
 {
 	Setting();
-	_ShaderResourcesHelper->AllResourcesSetting();
-	_Other->Rendering();
-	_ShaderResourcesHelper->AllResourcesReset();
+	_RenderSet.Render(GameEngineTime::GetDeltaTime());
 }
 
 void GameEngineRenderTarget::CreateRenderTargetTexture(ID3D11Texture2D* _Texture, float4 _Color)

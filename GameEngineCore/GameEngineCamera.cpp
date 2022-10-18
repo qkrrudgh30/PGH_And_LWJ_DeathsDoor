@@ -13,6 +13,7 @@
 
 
 GameEngineCamera::GameEngineCamera() 
+	: CameraRenderTarget(nullptr)
 {
 	// 윈도우가 여러분들 생각하기 가장 쉬운 비율이라서 여기서 하는거고.
 	Size = GameEngineWindow::GetInst()->GetScale();
@@ -166,44 +167,44 @@ GameEngineInstancing* GameEngineCamera::GetInstancing(GameEngineRenderingPipeLin
 	std::unordered_map<GameEngineRenderingPipeLine*, GameEngineInstancing>::iterator FindIter
 		= InstancingMap.find(_Pipe);
 
-	// 여태까지 인스턴싱을 켜거나 시도하지 않았던 녀석인데
-	// 이제부터 인스턴싱을 할거니까 달라고 할수도 있죠?
-	if (FindIter == InstancingMap.end())
-	{
-		GameEngineInstancing& Instancing = InstancingMap[_Pipe];
-		GameEngineVertexBuffer* Buffer = _Pipe->GetVertexBuffer();
-		// InstancingMap[_Pipe].
-		Instancing.InstancingPipeLine = GameEngineRenderingPipeLine::Create();
-		Instancing.InstancingPipeLine->Copy(_Pipe);
-		Instancing.InstancingPipeLine->SetVertexShader(_Pipe->GetVertexShader()->GetInstancingShader());
+	//// 여태까지 인스턴싱을 켜거나 시도하지 않았던 녀석인데
+	//// 이제부터 인스턴싱을 할거니까 달라고 할수도 있죠?
+	//if (FindIter == InstancingMap.end())
+	//{
+	//	GameEngineInstancing& Instancing = InstancingMap[_Pipe];
+	//	GameEngineVertexBuffer* Buffer = _Pipe->GetVertexBuffer();
+	//	// InstancingMap[_Pipe].
+	//	Instancing.InstancingPipeLine = GameEngineRenderingPipeLine::Create();
+	//	Instancing.InstancingPipeLine->Copy(_Pipe);
+	//	Instancing.InstancingPipeLine->SetVertexShader(_Pipe->GetVertexShader()->GetInstancingShader());
 
-		Instancing.ShaderResources.ResourcesCheck(Instancing.InstancingPipeLine);
-		Instancing.ShaderResources.AllConstantBufferNew();
+	//	Instancing.ShaderResources.ResourcesCheck(Instancing.InstancingPipeLine);
+	//	Instancing.ShaderResources.AllConstantBufferNew();
 
-		Instancing.Size = Buffer->GetLayOutDesc()->InstancingSize;
-		Instancing.Buffer = GameEngineInstancingBuffer::Create(GameEngineInstancing::StartInstancingCount, Buffer->GetLayOutDesc()->InstancingSize);
-		Instancing.DataBuffer.resize(GameEngineInstancing::StartInstancingCount * Instancing.Size);
-		Instancing.MaxDataCount = GameEngineInstancing::StartInstancingCount;
+	//	Instancing.Size = Buffer->GetLayOutDesc()->InstancingSize;
+	//	Instancing.Buffer = GameEngineInstancingBuffer::Create(GameEngineInstancing::StartInstancingCount, Buffer->GetLayOutDesc()->InstancingSize);
+	//	Instancing.DataBuffer.resize(GameEngineInstancing::StartInstancingCount * static_cast<unsigned int>(Instancing.Size));
+	//	Instancing.MaxDataCount = GameEngineInstancing::StartInstancingCount;
 
-		// 엔진에서 책임진다.
-		if (Instancing.ShaderResources.IsStructuredBuffer("AllInstancingTransformData"))
-		{
-			GameEngineStructuredBufferSetter* Setter = Instancing.ShaderResources.GetStructuredBuffer("AllInstancingTransformData");
+	//	// 엔진에서 책임진다.
+	//	if (Instancing.ShaderResources.IsStructuredBuffer("AllInstancingTransformData"))
+	//	{
+	//		GameEngineStructuredBufferSetter* Setter = Instancing.ShaderResources.GetStructuredBuffer("AllInstancingTransformData");
 
-			if (nullptr != Setter->Res)
-			{
-				Setter->Resize(Instancing.MaxDataCount);
-			}
-			else
-			{
-				MsgBoxAssert("인스턴싱용 구조화 버퍼가 만들어지지 않았습니다.");
-			}
-		}
+	//		if (nullptr != Setter->Res)
+	//		{
+	//			Setter->Resize(Instancing.MaxDataCount);
+	//		}
+	//		else
+	//		{
+	//			MsgBoxAssert("인스턴싱용 구조화 버퍼가 만들어지지 않았습니다.");
+	//		}
+	//	}
 
 
 
-		FindIter = InstancingMap.find(_Pipe);
-	}
+	//	FindIter = InstancingMap.find(_Pipe);
+	//}
 
 	return &FindIter->second;
 }
@@ -222,52 +223,52 @@ void GameEngineCamera::PushInstancing(GameEngineRenderingPipeLine* _Pipe, int Co
 
 	Instancing.Count += Count;
 
-	if (GameEngineInstancing::MinInstancingCount <= Instancing.Count
-		&& nullptr == Instancing.Buffer)
-	{
+	//if (GameEngineInstancing::MinInstancingCount <= Instancing.Count
+	//	&& nullptr == Instancing.Buffer)
+	//{
 
-		GameEngineVertexBuffer* Buffer = _Pipe->GetVertexBuffer();
-		// InstancingMap[_Pipe].
-		Instancing.InstancingPipeLine = GameEngineRenderingPipeLine::Create();
-		Instancing.InstancingPipeLine->Copy(_Pipe);
-		Instancing.InstancingPipeLine->SetVertexShader(_Pipe->GetVertexShader()->GetInstancingShader());
+	//	GameEngineVertexBuffer* Buffer = _Pipe->GetVertexBuffer();
+	//	// InstancingMap[_Pipe].
+	//	Instancing.InstancingPipeLine = GameEngineRenderingPipeLine::Create();
+	//	Instancing.InstancingPipeLine->Copy(_Pipe);
+	//	Instancing.InstancingPipeLine->SetVertexShader(_Pipe->GetVertexShader()->GetInstancingShader());
 
-		// 스트럭처드 버퍼가 만들어졌을뿐
-		Instancing.ShaderResources.ResourcesCheck(Instancing.InstancingPipeLine);
-		Instancing.ShaderResources.AllConstantBufferNew();
+	//	// 스트럭처드 버퍼가 만들어졌을뿐
+	//	Instancing.ShaderResources.ResourcesCheck(Instancing.InstancingPipeLine);
+	//	Instancing.ShaderResources.AllConstantBufferNew();
 
 
-		// 이 단계 다음에 어떤 상수버퍼를 가지고있고 그걸 세팅해야한다는 정보가 만들어진다.
-		// 세팅을 해줘야.
+	//	// 이 단계 다음에 어떤 상수버퍼를 가지고있고 그걸 세팅해야한다는 정보가 만들어진다.
+	//	// 세팅을 해줘야.
 
-		Instancing.Size = Buffer->GetLayOutDesc()->InstancingSize;
-		Instancing.Buffer = GameEngineInstancingBuffer::Create(GameEngineInstancing::StartInstancingCount, Buffer->GetLayOutDesc()->InstancingSize);
-		Instancing.DataBuffer.resize(GameEngineInstancing::StartInstancingCount * Instancing.Size);
-	}
-	else if(nullptr != Instancing.Buffer
-		&& Instancing.Count > Instancing.Buffer->GetBufferCount())
-	{
-		//           105                           100
-		GameEngineVertexBuffer* Buffer = _Pipe->GetVertexBuffer();
-		int NextBufferSize = static_cast<int>(Instancing.Count * 1.5);
-		Instancing.Buffer->BufferCreate(NextBufferSize, Buffer->GetLayOutDesc()->InstancingSize);
-		Instancing.DataBuffer.resize(NextBufferSize * Instancing.Size);
+	//	Instancing.Size = Buffer->GetLayOutDesc()->InstancingSize;
+	//	Instancing.Buffer = GameEngineInstancingBuffer::Create(GameEngineInstancing::StartInstancingCount, Buffer->GetLayOutDesc()->InstancingSize);
+	//	Instancing.DataBuffer.resize(GameEngineInstancing::StartInstancingCount * Instancing.Size);
+	//}
+	//else if(nullptr != Instancing.Buffer
+	//	&& Instancing.Count > Instancing.Buffer->GetBufferCount())
+	//{
+	//	//           105                           100
+	//	GameEngineVertexBuffer* Buffer = _Pipe->GetVertexBuffer();
+	//	int NextBufferSize = static_cast<int>(Instancing.Count * 1.5);
+	//	Instancing.Buffer->BufferCreate(NextBufferSize, Buffer->GetLayOutDesc()->InstancingSize);
+	//	Instancing.DataBuffer.resize(NextBufferSize * Instancing.Size);
 
-		if (Instancing.ShaderResources.IsStructuredBuffer("AllInstancingTransformData"))
-		{
-			GameEngineStructuredBufferSetter* Setter = Instancing.ShaderResources.GetStructuredBuffer("AllInstancingTransformData");
+	//	if (Instancing.ShaderResources.IsStructuredBuffer("AllInstancingTransformData"))
+	//	{
+	//		GameEngineStructuredBufferSetter* Setter = Instancing.ShaderResources.GetStructuredBuffer("AllInstancingTransformData");
 
-			if (nullptr != Setter->Res)
-			{
-				Setter->Resize(Instancing.MaxDataCount);
-			}
-			else
-			{
-				MsgBoxAssert("인스턴싱용 구조화 버퍼가 만들어지지 않았습니다.");
-			}
-		}
+	//		if (nullptr != Setter->Res)
+	//		{
+	//			Setter->Resize(Instancing.MaxDataCount);
+	//		}
+	//		else
+	//		{
+	//			MsgBoxAssert("인스턴싱용 구조화 버퍼가 만들어지지 않았습니다.");
+	//		}
+	//	}
 
-	}
+	//}
 }
 
 int GameEngineCamera::PushInstancingIndex(GameEngineRenderingPipeLine* _Pipe)

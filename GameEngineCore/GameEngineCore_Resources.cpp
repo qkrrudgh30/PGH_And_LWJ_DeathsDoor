@@ -241,16 +241,10 @@ void EngineRenderingPipeLine()
 		// NewPipe->InstancingSetting();
 	}
 
-	//{
-	//	GameEngineRenderingPipeLine* NewPipe = GameEngineRenderingPipeLine::Create("TextureAtlas_Inst");
-	//	NewPipe->SetVertexShader("TextureAtlas_Inst.hlsl");
-	//	NewPipe->SetPixelShader("TextureAtlas_Inst.hlsl");
-	//}
-
 	{
 		GameEngineRenderingPipeLine* NewPipe = GameEngineRenderingPipeLine::Create("3DDebug");
-		NewPipe->SetInputAssembler1VertexBuffer("Box");
-		NewPipe->SetInputAssembler2IndexBuffer("Box");
+		//NewPipe->SetInputAssembler1VertexBuffer("Box");
+		//NewPipe->SetInputAssembler2IndexBuffer("Box");
 		NewPipe->SetVertexShader("Debug3D.hlsl");
 		NewPipe->SetPixelShader("Debug3D.hlsl");
 		NewPipe->SetOutputMergerDepthStencil("AlwaysDepth");
@@ -258,8 +252,8 @@ void EngineRenderingPipeLine()
 
 	{
 		GameEngineRenderingPipeLine* NewPipe = GameEngineRenderingPipeLine::Create("TargetMerge");
-		NewPipe->SetInputAssembler1VertexBuffer("FullRect");
-		NewPipe->SetInputAssembler2IndexBuffer("FullRect");
+		//NewPipe->SetInputAssembler1VertexBuffer("FullRect");
+		//NewPipe->SetInputAssembler2IndexBuffer("FullRect");
 		NewPipe->SetVertexShader("TargetMerge.hlsl");
 		NewPipe->SetPixelShader("TargetMerge.hlsl");
 		NewPipe->SetOutputMergerDepthStencil("AlwaysDepth");
@@ -274,8 +268,8 @@ void EngineRenderingPipeLine()
 	// PostEffect
 	{
 		GameEngineRenderingPipeLine* NewPipe = GameEngineRenderingPipeLine::Create("Blur");
-		NewPipe->SetInputAssembler1VertexBuffer("FullRect");
-		NewPipe->SetInputAssembler2IndexBuffer("FullRect");
+		//NewPipe->SetInputAssembler1VertexBuffer("FullRect");
+		//NewPipe->SetInputAssembler2IndexBuffer("FullRect");
 		NewPipe->SetVertexShader("Blur.hlsl");
 		NewPipe->SetPixelShader("Blur.hlsl");
 	}
@@ -283,6 +277,40 @@ void EngineRenderingPipeLine()
 
 void EngineMesh() 
 {
+
+	{
+		std::vector<GameEngineVertex> Vertex;
+		Vertex.push_back({ float4(-0.5f, 0.5f)	, float4(0.0f, 0.0f) }); // 왼쪽 위
+		Vertex.push_back({ float4(0.5f, 0.5f)	, float4(1.0f, 0.0f) });  // 오른쪽 위점
+		Vertex.push_back({ float4(0.5f, -0.5f)	, float4(1.0f, 1.0f) }); // 오른쪽 아래점
+		Vertex.push_back({ float4(-0.5f, -0.5f)	, float4(0.0f, 1.0f) }); // 왼쪽 아래점
+		GameEngineVertexBuffer::Create("Rect", Vertex);
+	}
+
+
+	{
+		std::vector<int> Index;
+
+		// 첫번째 삼각형
+		// 디폴트 생성자로 인자를 뒤에 추가해주는 요소 추가 함수.
+		Index.resize(6);
+
+		// 첫번째
+		Index[0] = 0;
+		Index[1] = 1;
+		Index[2] = 2;
+
+		// 두번째
+		Index[3] = 0;
+		Index[4] = 2;
+		Index[5] = 3;
+
+		GameEngineIndexBuffer::Create("Rect", Index);
+	}
+
+	{
+		GameEngineMesh::Create("rect");
+	}
 
 	{
 		std::vector<GameEngineVertex> Vertex;
@@ -315,34 +343,11 @@ void EngineMesh()
 	}
 
 	{
-		std::vector<GameEngineVertex> Vertex;
-		Vertex.push_back({ float4(-0.5f, 0.5f)	, float4(0.0f, 0.0f)	}); // 왼쪽 위
-		Vertex.push_back({ float4(0.5f, 0.5f)	, float4(1.0f, 0.0f)	});  // 오른쪽 위점
-		Vertex.push_back({ float4(0.5f, -0.5f)	, float4(1.0f, 1.0f)	 }); // 오른쪽 아래점
-		Vertex.push_back({ float4(-0.5f, -0.5f)	, float4(0.0f, 1.0f)	 }); // 왼쪽 아래점
-		GameEngineVertexBuffer::Create("Rect", Vertex);
+		GameEngineMesh::Create("FullRect");
 	}
 
 
-	{
-		std::vector<int> Index;
 
-		// 첫번째 삼각형
-		// 디폴트 생성자로 인자를 뒤에 추가해주는 요소 추가 함수.
-		Index.resize(6);
-
-		// 첫번째
-		Index[0] = 0;
-		Index[1] = 1;
-		Index[2] = 2;
-
-		// 두번째
-		Index[3] = 0;
-		Index[4] = 2;
-		Index[5] = 3;
-
-		GameEngineIndexBuffer::Create("Rect", Index);
-	}
 
 	{
 		std::vector<GameEngineVertex> Vertex;
@@ -404,6 +409,10 @@ void EngineMesh()
 		GameEngineIndexBuffer::Create("Box", Index);
 	}
 
+	{
+		GameEngineMesh::Create("box");
+	}
+
 	GameEngineFont::Load("돋움");
 }
 
@@ -435,6 +444,8 @@ void GameEngineCore::EngineResourcesDestroy()
 	GameEngineInputLayOut::ResourcesDestroy();
 	GameEngineVertexBuffer::ResourcesDestroy();
 	GameEngineIndexBuffer::ResourcesDestroy();
+	GameEngineMesh::ResourcesDestroy();
+
 	GameEngineRenderTarget::ResourcesDestroy();
 	GameEngineTexture::ResourcesDestroy();
 	GameEngineDepthStencil::ResourcesDestroy();

@@ -30,7 +30,8 @@ public:
 
 public:
 	GameEngineLayOutDesc()
-		: LayOutOffset(0)
+		: InstancingSize(0)
+		, LayOutOffset(0)
 	{
 
 	}
@@ -45,5 +46,5 @@ public:
 	float4 POSITION;
 	float4 TEXCOORD;
 	float4 COLOR;
+	// float4 TENGENT;
 };
-

@@ -5,6 +5,7 @@
 namespace GameEngineDebug
 {
 	void Debug3DInitialize();
+	void Debug3DDestroy();
 
 	void DrawBox(const GameEngineTransform& _Trans, const float4& _Color);
 	void DrawBox(const GameEngineTransform& _Trans, GameEngineCamera* _Camera, const float4& _Color);
