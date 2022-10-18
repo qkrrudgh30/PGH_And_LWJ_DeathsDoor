@@ -13,8 +13,8 @@ TestActor::~TestActor()
 void TestActor::Start()
 {
 	Renderer = CreateComponent<GameEngineDefaultRenderer>();
-	Renderer->SetMesh("Box");
 	Renderer->SetPipeLine("Color");
+	Renderer->SetMesh("Box");
 
 	float4 ResultColor = float4{ 1.f, 0.f, 0.f, 1.f};
 	Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f ,100.0f });

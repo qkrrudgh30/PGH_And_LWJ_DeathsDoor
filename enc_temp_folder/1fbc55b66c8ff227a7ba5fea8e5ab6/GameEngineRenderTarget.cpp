@@ -10,6 +10,7 @@ GameEngineRenderTarget::GameEngineRenderTarget()
 {
 	MergeUnit.SetMesh("FullRect");
 	MergeUnit.SetPipeLine("TargetMerge");
+	MergeUnit.SetMesh("FullRect");
 }
 
 GameEngineRenderTarget::~GameEngineRenderTarget() 
