@@ -128,8 +128,18 @@ void Player::Start()
 
 
 	{
-		Renderer = CreateComponent<GameEngineTextureRenderer>();
-		Renderer->GetTransform().SetLocalScale({100.0f, 100.0f ,100.0f });
+	//	Renderer = CreateComponent<GameEngineTextureRenderer>();
+	//	Renderer->GetTransform().SetLocalScale({100.0f, 100.0f ,100.0f });
+
+
+
+		Renderer = CreateComponent<GameEngineDefaultRenderer>();
+		Renderer->SetPipeLine("Color");
+		Renderer->GetRenderUnit().SetMesh("Box");
+
+		Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f ,100.0f });
+		Renderer->GetShaderResources().SetConstantBufferLink("ResultColor", ResultColor);
+
 		// Renderer->ScaleToTexture();
 	}
 	
@@ -699,8 +709,6 @@ void Player::Update(float _DeltaTime)
 
 
 
-	StateManager.Update(_DeltaTime);
-
 
 
 
@@ -720,6 +728,8 @@ void Player::Update(float _DeltaTime)
 
 	//GetLevel()->GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
 
+
+	StateManager.Update(_DeltaTime);
 
 
 

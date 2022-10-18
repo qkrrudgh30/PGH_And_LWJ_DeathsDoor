@@ -33,7 +33,7 @@ public:
 	UnitBase& operator=(UnitBase&& _Other) noexcept = delete;
 
 protected:
-	GameEngineTextureRenderer* Renderer;
+	GameEngineDefaultRenderer* Renderer;
 	GameEngineCollision* Collision;
 	GameEngineCollision* AttCollision;
 	UINFO	m_Info;

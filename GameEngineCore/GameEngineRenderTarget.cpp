@@ -9,6 +9,7 @@ GameEngineRenderTarget::GameEngineRenderTarget()
 	, DepthTexture(nullptr)
 {
 	MergeUnit.SetPipeLine("TargetMerge");
+	MergeUnit.SetMesh("FullRect");
 }
 
 GameEngineRenderTarget::~GameEngineRenderTarget() 
