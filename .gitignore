@@ -92,7 +92,7 @@ StyleCopReport.xml
 *.pidb
 *.svclog
 *.scc
-
+*.ini
 # Chutzpah Test files
 _Chutzpah*
 
@@ -348,7 +348,3 @@ MigrationBackup/
 
 # Ionide (cross platform F# VS Code tools) working folder
 .ionide/
-
-
-
-imgui.ini

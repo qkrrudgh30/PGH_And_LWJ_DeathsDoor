@@ -15,7 +15,7 @@ EditGUIWindow::~EditGUIWindow()
 
 void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 {
-	int a = 100;
+	int a = 300;
 	m_CurrentDirectory.MoveParentToExitsChildDirectory("ContentsResources");
 	m_CurrentDirectory.Move("ContentsResources");
 	m_CurrentDirectory.Move("Texture");

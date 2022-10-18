@@ -23,6 +23,8 @@ PlayLevel::~PlayLevel()
 void PlayLevel::Start() 
 {
 
+
+	int a = 0;
 	GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
 	float4 CameraWorldPos = GetMainCameraActorTransform().GetWorldPosition();
 	//CameraWorldPos.x -= 1700.f;
