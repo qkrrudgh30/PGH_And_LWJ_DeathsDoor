@@ -154,10 +154,10 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 #pragma endregion
 
 #pragma region TransformSelectedObject
-	static int s_iXCount, s_iYCount, s_iZCount;
-	ImGui::InputInt("X Count", &s_iXCount);
-	ImGui::InputInt("Y Count", &s_iYCount);
-	ImGui::InputInt("Z Count", &s_iZCount);
+	// static int s_iXCount, s_iYCount, s_iZCount;
+	// ImGui::InputInt("X Count", &s_iXCount);
+	// ImGui::InputInt("Y Count", &s_iYCount);
+	// ImGui::InputInt("Z Count", &s_iZCount);
 
 	static float s_fXScale, s_fYScale, s_fZScale;
 	ImGui::InputFloat("X Scale", &s_fXScale);
@@ -175,7 +175,6 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	ImGui::InputFloat("Z Position", &s_fZPos);
 #pragma endregion
 
-
 	if (true == ImGui::Button("Create"))
 	{
 		// SendInfoToMouseSlotFunction();
@@ -190,6 +189,24 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		std::pair tempPair(tempStr, temp);
 		m_vCreatedActors.push_back(tempPair);
 
+	}
+
+	ImGui::SameLine();
+
+	if (true == ImGui::Button("Delete"))
+	{
+		auto iterBeg = m_vCreatedActors.begin();
+		auto iterEnd = m_vCreatedActors.end();
+		for (int i = 0; iterBeg != iterEnd; ++i)
+		{
+			if (selectedActor == i) 
+			{ 
+				m_vCreatedActors[i].second->Death();
+				m_vCreatedActors.erase(iterBeg); 
+				break; 
+			}
+			++iterBeg;
+		}
 	}
 
 	ImGui::SameLine();
