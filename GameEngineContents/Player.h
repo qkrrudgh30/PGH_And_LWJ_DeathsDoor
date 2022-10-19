@@ -1,5 +1,5 @@
 #pragma once
-#include <GameEngineCore/CoreMinimal.h>
+//#include <GameEngineCore/CoreMinimal.h>
 
 #include "UnitBase.h"
 // Ό³Έν :
@@ -9,6 +9,7 @@ class PlayerSWAtt1;
 class PlayerSWAtt2;
 class PlayerSWAtt3;
 class PlayerSWAttSlide;
+class PlayerMainUI;
 class Player : public UnitBase
 {
 private:
@@ -113,5 +114,10 @@ private:
 	PlayerSWAtt2* m_CSWAtt2;
 	PlayerSWAtt3* m_CSWAtt3;
 	PlayerSWAttSlide* m_CSWAttSlide;
+
+
+
+
+	PlayerMainUI* MainUI;
 };
 

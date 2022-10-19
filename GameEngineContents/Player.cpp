@@ -8,6 +8,7 @@
 #include "PlayerSWAttSlide.h"
 
 
+#include "PlayerMainUI.h"
 
 
 
@@ -45,7 +46,9 @@ Player::~Player()
 
 void Player::Start()
 {
-	
+
+	MainUI = GetLevel()->CreateActor<PlayerMainUI>(OBJECTORDER::UI);
+	MainUI->m_Player = this;
 
 	if (false == GameEngineInput::GetInst()->IsKey("PlayerLeft"))
 	{
@@ -136,6 +139,7 @@ void Player::Start()
 		Renderer = CreateComponent<GameEngineDefaultRenderer>();
 		Renderer->SetPipeLine("Color");
 		Renderer->GetRenderUnit().SetMesh("Box");
+		ResultColor = {1.f,1.f,1.f,1.f};
 
 		Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f ,100.0f });
 		Renderer->GetShaderResources().SetConstantBufferLink("ResultColor", ResultColor);
@@ -704,7 +708,7 @@ void Player::Update(float _DeltaTime)
 
 
 
-
+	Collision->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
 	
 
 

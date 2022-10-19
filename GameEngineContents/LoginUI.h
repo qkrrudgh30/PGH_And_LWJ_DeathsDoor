@@ -21,7 +21,22 @@ protected:
 	void End() override;
 
 private:
+	GameEngineUIRenderer* RendererButton1;
+	GameEngineUIRenderer* RendererButton2;
 
+	int m_ILevelType;
+	int m_ILevelTypeCheck;
+
+	bool m_bButtoncheck;
+
+	float4 m_fPlayPos2;
+	float4 m_fPlayPos1;
+	float4 m_fEditPos1;
+	float4 m_fEditPos2;
+
+
+	GameEngineFontRenderer* FontPlay;
+	GameEngineFontRenderer* FontEdit;
 	float TimeAngle;
 };
 

@@ -66,6 +66,27 @@ void PlayLevel::Start()
 
 void PlayLevel::LevelStartEvent()
 {
+
+
+	if (nullptr == GameEngineTexture::Find("cutCursor.png"))
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToExitsChildDirectory("ContentsResources");
+		Dir.Move("ContentsResources");
+		Dir.Move("Texture");
+		Dir.Move("MainUI");
+
+		std::vector<GameEngineFile> Shaders = Dir.GetAllFile();
+
+		for (size_t i = 0; i < Shaders.size(); i++)
+		{
+			GameEngineTexture::Load(Shaders[i].GetFullPath());
+		}
+	}
+
+
+
+
 	{
 		if (nullptr == Player::GetMainPlayer())
 		{
