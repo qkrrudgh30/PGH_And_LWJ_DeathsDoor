@@ -1,6 +1,7 @@
 #pragma once
 #include <GameEngineBase/GameEngineString.h>
 #include <GameEngineBase/GameEngineDebug.h>
+#include <GameEngineBase/GameEngineThreadPool.h>
 #include <map>
 
 // Ό³Έν :
@@ -10,6 +11,8 @@ class GameEngineCore
 	friend class GameEngineStatusWindow;
 
 public:
+	static GameEngineThreadPool EngineThreadPool;
+
 	template<typename CoreType>
 	static void Start()
 	{
@@ -25,7 +28,6 @@ public:
 	{
 		return CurrentLevel;
 	}
-
 
 protected:
 	virtual std::string GetWindowTitle() { return "MainWindow"; }
@@ -60,6 +62,7 @@ protected:
 	static bool ChangeLevel(const std::string& _Name);
 
 private:
+
 	static std::map<std::string, class GameEngineLevel*> AllLevels;
 	static GameEngineLevel* CurrentLevel;
 	static GameEngineLevel* NextLevel;
