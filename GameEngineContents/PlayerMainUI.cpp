@@ -350,3 +350,225 @@ void PlayerMainUI::Start()
 
 
 }
+
+void PlayerMainUI::Update(float _DeltaTime)
+{
+
+	PlayerInfoCheck();
+
+
+}
+
+void PlayerMainUI::PlayerInfoCheck()
+{
+	PlayerInfoHPCheck();
+	PlayerInfoWeaponCheck();
+	PlayerInfoArrowCheck();
+
+
+
+}
+
+void PlayerMainUI::PlayerInfoHPCheck()
+{
+	if (m_Player->m_Info.m_Hp == 0)
+	{
+		RendererHp1->Off();
+		RendererHp2->Off();
+		RendererHp3->Off();
+		RendererHp4->Off();
+		RendererHp5->Off();
+		RendererHp6->Off();
+		RendererHp7->Off();
+		RendererHp8->Off();
+	}
+	else if (m_Player->m_Info.m_Hp == 1)
+	{
+		RendererHp1->On();
+		RendererHp2->Off();
+		RendererHp3->Off();
+		RendererHp4->Off();
+		RendererHp5->Off();
+		RendererHp6->Off();
+		RendererHp7->Off();
+		RendererHp8->Off();
+	}
+	else if (m_Player->m_Info.m_Hp == 2)
+	{
+		RendererHp1->On();
+		RendererHp2->On();
+		RendererHp3->Off();
+		RendererHp4->Off();
+		RendererHp5->Off();
+		RendererHp6->Off();
+		RendererHp7->Off();
+		RendererHp8->Off();
+	}
+	else if (m_Player->m_Info.m_Hp == 3)
+	{
+		RendererHp1->On();
+		RendererHp2->On();
+		RendererHp3->On();
+		RendererHp4->Off();
+		RendererHp5->Off();
+		RendererHp6->Off();
+		RendererHp7->Off();
+		RendererHp8->Off();
+	}
+	else if (m_Player->m_Info.m_Hp == 4)
+	{
+		RendererHp1->On();
+		RendererHp2->On();
+		RendererHp3->On();
+		RendererHp4->On();
+		RendererHp5->Off();
+		RendererHp6->Off();
+		RendererHp7->Off();
+		RendererHp8->Off();
+	}
+	else if (m_Player->m_Info.m_Hp == 5)
+	{
+		RendererHp1->On();
+		RendererHp2->On();
+		RendererHp3->On();
+		RendererHp4->On();
+		RendererHp5->On();
+		RendererHp6->Off();
+		RendererHp7->Off();
+		RendererHp8->Off();
+	}
+	else if (m_Player->m_Info.m_Hp == 6)
+	{
+		RendererHp1->On();
+		RendererHp2->On();
+		RendererHp3->On();
+		RendererHp4->On();
+		RendererHp5->On();
+		RendererHp6->On();
+		RendererHp7->Off();
+		RendererHp8->Off();
+	}
+	else if (m_Player->m_Info.m_Hp == 7)
+	{
+		RendererHp1->On();
+		RendererHp2->On();
+		RendererHp3->On();
+		RendererHp4->On();
+		RendererHp5->On();
+		RendererHp6->On();
+		RendererHp7->On();
+		RendererHp8->Off();
+	}
+	else if (m_Player->m_Info.m_Hp == 8)
+	{
+		RendererHp1->On();
+		RendererHp2->On();
+		RendererHp3->On();
+		RendererHp4->On();
+		RendererHp5->On();
+		RendererHp6->On();
+		RendererHp7->On();
+		RendererHp8->On();
+	}
+
+
+}
+
+void PlayerMainUI::PlayerInfoWeaponCheck()
+{
+	if (m_Player->m_Info.Weapontype == WEAPONTYPE::Sword)
+	{
+		RendererArrowSet->GetPixelData().MulColor.a = 0.5f;
+		RendererFireSet->GetPixelData().MulColor.a = 0.5f;
+		RendererHookSet->GetPixelData().MulColor.a = 0.5f;
+		RendererSwordSet->GetPixelData().MulColor.a = 1.f;
+
+		RendererArrow->GetPixelData().MulColor.a = 0.5f;
+		RendererFire->GetPixelData().MulColor.a = 0.5f;
+		RendererHook->GetPixelData().MulColor.a = 0.5f;
+		RendererSword->GetPixelData().MulColor.a = 1.f;
+	}
+	else if (m_Player->m_Info.Weapontype == WEAPONTYPE::Arrow)
+	{
+		RendererArrowSet->GetPixelData().MulColor.a = 1.f;
+		RendererFireSet->GetPixelData().MulColor.a = 0.5f;
+		RendererHookSet->GetPixelData().MulColor.a = 0.5f;
+		RendererSwordSet->GetPixelData().MulColor.a = 0.5f;
+
+		RendererArrow->GetPixelData().MulColor.a = 1.f;
+		RendererFire->GetPixelData().MulColor.a = 0.5f;
+		RendererHook->GetPixelData().MulColor.a = 0.5f;
+		RendererSword->GetPixelData().MulColor.a = 0.5f;
+	}
+	else if (m_Player->m_Info.Weapontype == WEAPONTYPE::Fire)
+	{
+		RendererArrowSet->GetPixelData().MulColor.a = 0.5f;
+		RendererFireSet->GetPixelData().MulColor.a = 1.f;
+		RendererHookSet->GetPixelData().MulColor.a = 0.5f;
+		RendererSwordSet->GetPixelData().MulColor.a = 0.5f;
+
+		RendererArrow->GetPixelData().MulColor.a = 0.5f;
+		RendererFire->GetPixelData().MulColor.a = 1.f;
+		RendererHook->GetPixelData().MulColor.a = 0.5f;
+		RendererSword->GetPixelData().MulColor.a = 0.5f;
+	}
+	else if (m_Player->m_Info.Weapontype == WEAPONTYPE::Hook)
+	{
+		RendererArrowSet->GetPixelData().MulColor.a = 0.5f;
+		RendererFireSet->GetPixelData().MulColor.a = 0.5f;
+		RendererHookSet->GetPixelData().MulColor.a = 1.f;
+		RendererSwordSet->GetPixelData().MulColor.a = 0.5f;
+
+		RendererArrow->GetPixelData().MulColor.a = 0.5f;
+		RendererFire->GetPixelData().MulColor.a = 0.5f;
+		RendererHook->GetPixelData().MulColor.a = 1.f;
+		RendererSword->GetPixelData().MulColor.a = 0.5f;
+	}
+
+
+
+}
+
+void PlayerMainUI::PlayerInfoArrowCheck()
+{
+
+	if (m_Player->m_Info.ArrowCount == 0)
+	{
+		RendererArrow1->Off();
+		RendererArrow2->Off();
+		RendererArrow3->Off();
+		RendererArrow4->Off();
+	}
+	else if (m_Player->m_Info.ArrowCount == 1)
+	{
+		RendererArrow1->On();
+		RendererArrow2->Off();
+		RendererArrow3->Off();
+		RendererArrow4->Off();
+	}
+	else if (m_Player->m_Info.ArrowCount == 2)
+	{
+		RendererArrow1->On();
+		RendererArrow2->On();
+		RendererArrow3->Off();
+		RendererArrow4->Off();
+	}
+
+	else if (m_Player->m_Info.ArrowCount == 3)
+	{
+		RendererArrow1->On();
+		RendererArrow2->On();
+		RendererArrow3->On();
+		RendererArrow4->Off();
+	}
+
+	else if (m_Player->m_Info.ArrowCount == 4)
+	{
+		RendererArrow1->On();
+		RendererArrow2->On();
+		RendererArrow3->On();
+		RendererArrow4->On();
+	}
+
+
+}

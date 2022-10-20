@@ -7,16 +7,6 @@
 
 
 
-typedef struct UnitInfo
-{
-	float m_Hp;
-	float m_MaxHp;
-	int Gold;
-	float Dammage;
-
-
-}UINFO;
-
 
 // Ό³Έν :
 class UnitBase : public GameEngineActor
@@ -36,10 +26,11 @@ protected:
 	GameEngineDefaultRenderer* Renderer;
 	GameEngineCollision* Collision;
 	GameEngineCollision* AttCollision;
-	UINFO	m_Info;
+
 	GameEngineStateManager StateManager;
 
-
+public:
+	UINFO	m_Info;
 private:
 
 };

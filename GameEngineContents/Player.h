@@ -2,6 +2,10 @@
 //#include <GameEngineCore/CoreMinimal.h>
 
 #include "UnitBase.h"
+
+
+
+
 // Ό³Έν :
 class GameEngineCollision;
 class GameEngineTextureRenderer;
@@ -74,7 +78,9 @@ protected:
 
 	// void MoveStart(const StateInfo& _Info);
 	void MoveUpdate(float _DeltaTime, const StateInfo& _Info);
+public:
 
+	
 private:
 	bool m_bSWAcheck;
 	bool m_bSWA2check;

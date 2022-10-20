@@ -187,7 +187,8 @@ void Player::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 void Player::SworldAttStart(const StateInfo& _Info)
 {
 
-	//AttCollision->On();
+
+	m_Info.Weapontype = WEAPONTYPE::Sword;
 
 
 	float4 MyWorldPos = GetTransform().GetWorldPosition();

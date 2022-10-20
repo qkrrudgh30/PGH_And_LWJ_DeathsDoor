@@ -1,5 +1,25 @@
 #pragma once
 
+enum class WEAPONTYPE
+{
+	Sword,
+	Arrow,
+	Fire,
+	Hook,
+
+};
+typedef struct UnitInfo
+{
+	int m_Hp;
+	int m_MaxHp;
+	int Gold;
+	int ArrowCount;
+	float Dammage;
+	WEAPONTYPE Weapontype;
+
+}UINFO;
+
+
 
 #include "Player.h"
 #include "Monster.h"

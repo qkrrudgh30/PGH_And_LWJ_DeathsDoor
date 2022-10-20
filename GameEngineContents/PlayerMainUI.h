@@ -21,9 +21,14 @@ public:
 
 protected:
 	void Start() override;
-	void Update(float _DeltaTime) {}
+	void Update(float _DeltaTime);
 	void End() {}
 
+
+	void PlayerInfoCheck();
+	void PlayerInfoHPCheck();
+	void PlayerInfoWeaponCheck();
+	void PlayerInfoArrowCheck();
 
 	GameEngineUIRenderer* RendererArrowSet;
 	GameEngineUIRenderer* RendererFireSet;
