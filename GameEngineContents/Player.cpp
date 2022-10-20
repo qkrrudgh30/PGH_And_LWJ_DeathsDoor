@@ -9,6 +9,7 @@
 
 
 #include "PlayerMainUI.h"
+#include "PlayerUpgradeUI.h"
 
 
 
@@ -49,6 +50,12 @@ void Player::Start()
 
 	MainUI = GetLevel()->CreateActor<PlayerMainUI>(OBJECTORDER::UI);
 	MainUI->m_Player = this;
+
+
+
+	UpgradeUI = GetLevel()->CreateActor<PlayerUpgradeUI>(OBJECTORDER::UI);
+	UpgradeUI->m_Player = this;
+
 
 	if (false == GameEngineInput::GetInst()->IsKey("PlayerLeft"))
 	{

@@ -14,6 +14,9 @@ class PlayerSWAtt2;
 class PlayerSWAtt3;
 class PlayerSWAttSlide;
 class PlayerMainUI;
+class PlayerUpgradeUI;
+
+
 class Player : public UnitBase
 {
 private:
@@ -123,7 +126,7 @@ private:
 
 
 
-
+	PlayerUpgradeUI* UpgradeUI;
 	PlayerMainUI* MainUI;
 };
 

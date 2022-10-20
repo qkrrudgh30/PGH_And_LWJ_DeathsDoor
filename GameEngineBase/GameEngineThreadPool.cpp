@@ -61,7 +61,7 @@ void GameEngineThreadPool::ThreadPoolFunction(GameEngineThread* _Thread, HANDLE 
 
 	while (*_Run)
 	{
-		GetQueuedCompletionStatus(_IocpHandle,);
+	//	GetQueuedCompletionStatus(_IocpHandle,);
 
 		//Sleep(1);
 
@@ -72,7 +72,7 @@ void GameEngineThreadPool::ThreadPoolFunction(GameEngineThread* _Thread, HANDLE 
 		//	continue;
 		//}
 
-		일하는 코드
+		//일하는 코드
 	}
 }
 
