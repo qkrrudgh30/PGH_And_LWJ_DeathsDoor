@@ -12,6 +12,10 @@
 #include "TsetBackGround.h"
 #include "StageMainCamera.h"
 
+
+#include "UIMouse.h"
+
+
 PlayLevel::PlayLevel() 
 {
 }
@@ -46,6 +50,10 @@ void PlayLevel::Start()
 
 
 
+
+	{
+		UIMouse* m_UIMouse = CreateActor<UIMouse>(OBJECTORDER::MouseUI);
+	}
 
 
 

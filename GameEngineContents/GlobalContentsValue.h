@@ -28,6 +28,7 @@ enum class OBJECTORDER
 {
 	TileMap,
 	MainCamera,
+	MouseUI,
 	BackGround,
 	Player,
 	PlayerAtt,

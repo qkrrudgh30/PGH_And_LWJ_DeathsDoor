@@ -48,6 +48,17 @@ protected:
 	GameEngineUIRenderer* RendererSwordUp[5];
 
 
+	GameEngineCollision* CollisionArrowUp[5];
+	GameEngineCollision* CollisionFireUp[5];
+	GameEngineCollision* CollisionHookUp[5];
+	GameEngineCollision* CollisionSwordUp[5];
+
+
+
+	CollisionReturn CollisionArrowUp1(GameEngineCollision* _This, GameEngineCollision* _Other);
+
+
+
 public:
 	Player* m_Player;
 
