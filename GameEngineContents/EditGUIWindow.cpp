@@ -32,7 +32,7 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 	for (const std::filesystem::directory_entry& entry : dirIter1)
 	{
 		std::string Ext(entry.path().string());
-		if (true == entry.is_directory())
+		if (false == entry.is_directory())
 		{
 			size_t idx = Ext.rfind("\\");
 			std::string strTemp(entry.path().string());
@@ -48,7 +48,7 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 	for (const std::filesystem::directory_entry& entry : dirIter2)
 	{
 		std::string Ext(entry.path().string());
-		if (true == entry.is_directory())
+		if (false == entry.is_directory())
 		{
 			size_t idx = Ext.rfind("\\");
 			std::string strTemp(entry.path().string());
@@ -159,17 +159,17 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	// ImGui::InputInt("Y Count", &s_iYCount);
 	// ImGui::InputInt("Z Count", &s_iZCount);
 
-	static float s_fXScale, s_fYScale, s_fZScale;
+	static float s_fXScale = 1.f, s_fYScale = 1.f, s_fZScale = 1.f;
 	ImGui::InputFloat("X Scale", &s_fXScale);
 	ImGui::InputFloat("Y Scale", &s_fYScale);
 	ImGui::InputFloat("Z Scale", &s_fZScale);
 
-	static float s_fXRot, s_fYRot, s_fZRot;
+	static float s_fXRot = 0.f, s_fYRot = 0.f, s_fZRot = 0.f;
 	ImGui::InputFloat("X Rotation", &s_fXRot);
 	ImGui::InputFloat("Y Rotation", &s_fYRot);
 	ImGui::InputFloat("Z Rotation", &s_fZRot);
 
-	static float s_fXPos, s_fYPos, s_fZPos;
+	static float s_fXPos = 0.f, s_fYPos = 0.f, s_fZPos = 0.f;
 	ImGui::InputFloat("X Position", &s_fXPos);
 	ImGui::InputFloat("Y Position", &s_fYPos);
 	ImGui::InputFloat("Z Position", &s_fZPos);
@@ -319,7 +319,7 @@ void EditGUIWindow::Save()
 	ofn.lpstrInitialDir = strTileFolder.c_str();       // 초기경로. 
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST; // 스타일
 
-	if (true == GetSaveFileName(&ofn))
+	if (TRUE == GetSaveFileName(&ofn))
 	{
 		std::filesystem::path p(ofn.lpstrFile);
 		SaveTileData(p.filename().string());
@@ -373,7 +373,7 @@ void EditGUIWindow::Load()
 	ofn.lpstrInitialDir = strTileFolder.c_str(); 
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST; 
 
-	if (true == GetSaveFileName(&ofn))
+	if (TRUE == GetSaveFileName(&ofn))
 	{
 		std::filesystem::path p(ofn.lpstrFile);
 
