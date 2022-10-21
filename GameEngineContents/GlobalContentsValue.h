@@ -33,6 +33,7 @@ enum class OBJECTORDER
 	Player,
 	PlayerAtt,
 	Monster,
+	NPC,
 	UI = 1000,
 };
 

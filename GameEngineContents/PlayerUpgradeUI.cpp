@@ -147,7 +147,7 @@ void PlayerUpgradeUI::Start()
 
 
 		CollisionSwordUp[i] = CreateComponent<GameEngineCollision>();
-		CollisionSwordUp[i]->GetTransform().SetLocalScale({ 50.f,50.f,1.f });
+		CollisionSwordUp[i]->GetTransform().SetLocalScale({ 30.f,30.f,1.f });
 		CollisionSwordUp[i]->GetTransform().SetLocalPosition({ -250.f + (i * 50.f),140.f,-10.f });
 		CollisionSwordUp[i]->ChangeOrder(OBJECTORDER::UI);
 
@@ -170,7 +170,7 @@ void PlayerUpgradeUI::Start()
 		RendererArrowUp[i]->Off();
 
 		CollisionArrowUp[i] = CreateComponent<GameEngineCollision>();
-		CollisionArrowUp[i]->GetTransform().SetLocalScale({ 50.f,50.f,1.f });
+		CollisionArrowUp[i]->GetTransform().SetLocalScale({ 30.f,30.f,1.f });
 		CollisionArrowUp[i]->GetTransform().SetLocalPosition({ -250.f + (i * 50.f),50.f,-10.f });
 		CollisionArrowUp[i]->ChangeOrder(OBJECTORDER::UI);
 
@@ -194,7 +194,7 @@ void PlayerUpgradeUI::Start()
 		RendererHookUp[i]->Off();
 
 		CollisionHookUp[i] = CreateComponent<GameEngineCollision>();
-		CollisionHookUp[i]->GetTransform().SetLocalScale({ 50.f,50.f,1.f });
+		CollisionHookUp[i]->GetTransform().SetLocalScale({ 30.f,30.f,1.f });
 		CollisionHookUp[i]->GetTransform().SetLocalPosition({ -250.f + (i * 50.f),-40.f,-10.f });
 		CollisionHookUp[i]->ChangeOrder(OBJECTORDER::UI);
 
@@ -217,7 +217,7 @@ void PlayerUpgradeUI::Start()
 		RendererFireUp[i]->Off();
 
 		CollisionFireUp[i] = CreateComponent<GameEngineCollision>();
-		CollisionFireUp[i]->GetTransform().SetLocalScale({ 50.f,50.f,1.f });
+		CollisionFireUp[i]->GetTransform().SetLocalScale({ 30.f,30.f,1.f });
 		CollisionFireUp[i]->GetTransform().SetLocalPosition({ -250.f + (i * 50.f),-130.f,-10.f });
 		CollisionFireUp[i]->ChangeOrder(OBJECTORDER::UI);
 

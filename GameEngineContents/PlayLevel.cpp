@@ -13,6 +13,10 @@
 #include "StageMainCamera.h"
 
 
+#include "ShopNPC.h"
+
+
+
 #include "UIMouse.h"
 
 
@@ -58,12 +62,17 @@ void PlayLevel::Start()
 
 
 	{
-		TsetBackGround* TestBack = CreateActor<TsetBackGround>(OBJECTORDER::BackGround);
+		//TsetBackGround* TestBack = CreateActor<TsetBackGround>(OBJECTORDER::BackGround);
 	}
 
+	{
+		ShopNPC* cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
+	//	cShopNPC->GetTransform().SetWorl
+
+	}
 
 	
-
+	
 
 	//{
 	//	Monster* actor = CreateActor<Monster>(OBJECTORDER::Monster);
@@ -76,21 +85,6 @@ void PlayLevel::LevelStartEvent()
 {
 
 
-	if (nullptr == GameEngineTexture::Find("cutCursor.png"))
-	{
-		GameEngineDirectory Dir;
-		Dir.MoveParentToExitsChildDirectory("ContentsResources");
-		Dir.Move("ContentsResources");
-		Dir.Move("Texture");
-		Dir.Move("MainUI");
-
-		std::vector<GameEngineFile> Shaders = Dir.GetAllFile();
-
-		for (size_t i = 0; i < Shaders.size(); i++)
-		{
-			GameEngineTexture::Load(Shaders[i].GetFullPath());
-		}
-	}
 
 
 
@@ -101,12 +95,13 @@ void PlayLevel::LevelStartEvent()
 			Player* NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
 			NewPlayer->SetLevelOverOn();
 
-			
-		/*	StageMainCamera* CameraMain = CreateActor<StageMainCamera>(OBJECTORDER::MainCamera);
-			CameraMain->m_Player = NewPlayer;
-			CameraMain->SetLevelOverOn();
-			CameraMain->GetTransform().SetParentTransform(NewPlayer->GetTransform());*/
-			
+	
+		}
+		else
+		{
+			Player* NewPlayer = Player::GetMainPlayer();
+			NewPlayer->UIOn();
+
 		}
 	}
 }

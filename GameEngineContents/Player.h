@@ -83,7 +83,11 @@ protected:
 	void MoveUpdate(float _DeltaTime, const StateInfo& _Info);
 public:
 
-	
+	void UIOff();
+	void UIOn();
+
+	PlayerUpgradeUI* UpgradeUI;
+	PlayerMainUI* MainUI;
 private:
 	bool m_bSWAcheck;
 	bool m_bSWA2check;
@@ -124,9 +128,5 @@ private:
 	PlayerSWAtt3* m_CSWAtt3;
 	PlayerSWAttSlide* m_CSWAttSlide;
 
-
-
-	PlayerUpgradeUI* UpgradeUI;
-	PlayerMainUI* MainUI;
 };
 

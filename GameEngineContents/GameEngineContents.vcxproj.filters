@@ -85,6 +85,9 @@
     <Filter Include="02.Mouse">
       <UniqueIdentifier>{6c854ae0-1113-4cc6-b2ba-9cc26edf7612}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.Actor\02.Unit\04.NPC">
+      <UniqueIdentifier>{94c09978-aade-4b1f-bb31-b85a5b33c870}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -155,6 +158,9 @@
     <ClInclude Include="UIMouse.h">
       <Filter>02.Mouse</Filter>
     </ClInclude>
+    <ClInclude Include="ShopNPC.h">
+      <Filter>00.Actor\02.Unit\04.NPC</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -221,6 +227,9 @@
     </ClCompile>
     <ClCompile Include="UIMouse.cpp">
       <Filter>02.Mouse</Filter>
+    </ClCompile>
+    <ClCompile Include="ShopNPC.cpp">
+      <Filter>00.Actor\02.Unit\04.NPC</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
