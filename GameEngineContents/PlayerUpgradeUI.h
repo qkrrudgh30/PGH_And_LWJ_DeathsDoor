@@ -56,6 +56,32 @@ protected:
 
 
 	CollisionReturn CollisionArrowUp1(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionArrowUp2(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionArrowUp3(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionArrowUp4(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionArrowUp5(GameEngineCollision* _This, GameEngineCollision* _Other);
+
+	CollisionReturn CollisionFireUp1(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionFireUp2(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionFireUp3(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionFireUp4(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionFireUp5(GameEngineCollision* _This, GameEngineCollision* _Other);
+
+
+	CollisionReturn CollisionHookUp1(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionHookUp2(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionHookUp3(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionHookUp4(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionHookUp5(GameEngineCollision* _This, GameEngineCollision* _Other);
+
+
+	CollisionReturn CollisionSword1(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionSword2(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionSword3(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionSword4(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionSword5(GameEngineCollision* _This, GameEngineCollision* _Other);
+
+
 
 
 
