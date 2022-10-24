@@ -21,12 +21,13 @@
 #include "GameEngineDepthStencil.h"
 #include "GameEngineFont.h"
 #include "GameEngineInputLayOut.h"
+#include "GameEngineFBXMesh.h"
 
 #include "GameEngineVertexShader.h"
 #include "GameEnginePixelShader.h"
 #include "GameEngineRasterizer.h"
 #include "GameEngineBlend.h"
-#include "GameEngineRenderingPipeLine.h"
+#include "GameEngineMaterial.h"
 
 void EngineInputLayOut() 
 {
@@ -223,26 +224,26 @@ void ShaderCompile()
 void EngineRenderingPipeLine()
 {
 	{
-		GameEngineRenderingPipeLine* NewPipe = GameEngineRenderingPipeLine::Create("Color");
+		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("Color");
 		NewPipe->SetVertexShader("Color.hlsl");
 		NewPipe->SetPixelShader("Color.hlsl");
 	}
 
 	{
-		GameEngineRenderingPipeLine* NewPipe = GameEngineRenderingPipeLine::Create("Texture");
+		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("Texture");
 		NewPipe->SetVertexShader("Texture.hlsl");
 		NewPipe->SetPixelShader("Texture.hlsl");
 	}
 
 	{
-		GameEngineRenderingPipeLine* NewPipe = GameEngineRenderingPipeLine::Create("TextureAtlas");
+		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("TextureAtlas");
 		NewPipe->SetVertexShader("TextureAtlas.hlsl");
 		NewPipe->SetPixelShader("TextureAtlas.hlsl");
 		// NewPipe->InstancingSetting();
 	}
 
 	{
-		GameEngineRenderingPipeLine* NewPipe = GameEngineRenderingPipeLine::Create("3DDebug");
+		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("3DDebug");
 		//NewPipe->SetInputAssembler1VertexBuffer("Box");
 		//NewPipe->SetInputAssembler2IndexBuffer("Box");
 		NewPipe->SetVertexShader("Debug3D.hlsl");
@@ -251,7 +252,7 @@ void EngineRenderingPipeLine()
 	}
 
 	{
-		GameEngineRenderingPipeLine* NewPipe = GameEngineRenderingPipeLine::Create("TargetMerge");
+		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("TargetMerge");
 		//NewPipe->SetInputAssembler1VertexBuffer("FullRect");
 		//NewPipe->SetInputAssembler2IndexBuffer("FullRect");
 		NewPipe->SetVertexShader("TargetMerge.hlsl");
@@ -260,14 +261,14 @@ void EngineRenderingPipeLine()
 	}
 
 	{
-		GameEngineRenderingPipeLine* NewPipe = GameEngineRenderingPipeLine::Create("DebugTexture");
+		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("DebugTexture");
 		NewPipe->SetVertexShader("DebugTexture.hlsl");
 		NewPipe->SetPixelShader("DebugTexture.hlsl");
 	}
 
 	// PostEffect
 	{
-		GameEngineRenderingPipeLine* NewPipe = GameEngineRenderingPipeLine::Create("Blur");
+		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("Blur");
 		//NewPipe->SetInputAssembler1VertexBuffer("FullRect");
 		//NewPipe->SetInputAssembler2IndexBuffer("FullRect");
 		NewPipe->SetVertexShader("Blur.hlsl");
@@ -436,7 +437,7 @@ void GameEngineCore::EngineResourcesInitialize()
 
 void GameEngineCore::EngineResourcesDestroy()
 {
-	GameEngineRenderingPipeLine::ResourcesDestroy();
+	GameEngineMaterial::ResourcesDestroy();
 
 	GameEnginePixelShader::ResourcesDestroy();
 	GameEngineVertexShader::ResourcesDestroy();
@@ -445,6 +446,7 @@ void GameEngineCore::EngineResourcesDestroy()
 	GameEngineVertexBuffer::ResourcesDestroy();
 	GameEngineIndexBuffer::ResourcesDestroy();
 	GameEngineMesh::ResourcesDestroy();
+	GameEngineFBXMesh::ResourcesDestroy();
 
 	GameEngineRenderTarget::ResourcesDestroy();
 	GameEngineTexture::ResourcesDestroy();

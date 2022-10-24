@@ -5,20 +5,44 @@
 #include <GameEngineBase/GameEngineNameObject.h>
 #include <GameEngineBase/GameEngineString.h>
 
+//class MyLock
+//{
+//public:
+//	std::mutex& LockInst;
+//
+//public:
+//	MyLock(std::mutex& _Lock)
+//		: LockInst(_Lock)
+//	{
+//		LockInst.lock();
+//	}
+//
+//	~MyLock()
+//	{
+//		LockInst.unlock();
+//	}
+//};
+
 // Ό³Έν :
 template<typename ResType>
 class GameEngineRes : public GameEngineNameObject
 {
-protected:
-	bool Original;
-
 public:
+	void SetPath(const std::string& _Path)
+	{
+		Path = _Path;
+	}
+
+	std::string GetPath()
+	{
+		return Path;
+	}
+
 	bool IsOriginal() 
 	{
 		return Original;
 	}
 
-public:
 	// constrcuter destructer
 	GameEngineRes() 
 		: Original(true)
@@ -41,11 +65,16 @@ public:
 	{
 		std::string UpperName = GameEngineString::ToUpperReturn(_Name);
 
-		typename std::map<std::string, ResType*>::iterator Iter =  NamedRes.find(UpperName);
+		typename std::map<std::string, ResType*>::iterator Iter;
 
-		if (NamedRes.end() == Iter)
 		{
-			return nullptr;
+			std::lock_guard<std::mutex> LockInst(NamedResLock);
+			Iter = NamedRes.find(UpperName);
+
+			if (NamedRes.end() == Iter)
+			{
+				return nullptr;
+			}
 		}
 		
 		return Iter->second;
@@ -65,9 +94,6 @@ public:
 	}
 
 protected:
-	static std::map<std::string, ResType*> NamedRes;
-	static std::list<ResType*> UnNamedRes;
-
 	static ResType* CreateResName(const std::string& _Name = "") 
 	{
 		if (NamedRes.end() != NamedRes.find(GameEngineString::ToUpperReturn(_Name)))
@@ -77,6 +103,7 @@ protected:
 
 		ResType* Res = CreateRes(_Name);
 
+		std::lock_guard<std::mutex> LockInst(NamedResLock);
 		NamedRes.insert(std::make_pair(Res->GetNameCopy(), Res));
 		return Res;
 	}
@@ -84,6 +111,7 @@ protected:
 	static ResType* CreateResUnName()
 	{
 		ResType* Res = CreateRes();
+		std::lock_guard<std::mutex> LockInst(UnNamedResLock);
 		UnNamedRes.push_back(Res);
 		return Res;
 	}
@@ -98,8 +126,16 @@ protected:
 		return NewRes;
 	}
 
+	bool Original;
+	std::string Path;
 
 private:
+	static std::map<std::string, ResType*> NamedRes;
+	static std::list<ResType*> UnNamedRes;
+
+	static std::mutex NamedResLock;
+	static std::mutex UnNamedResLock;
+
 };
 
 template<typename ResType>
@@ -107,4 +143,11 @@ std::map<std::string, ResType*> GameEngineRes<ResType>::NamedRes;
 
 template<typename ResType>
 std::list<ResType*> GameEngineRes<ResType>::UnNamedRes;
+
+template<typename ResType>
+std::mutex GameEngineRes<ResType>::NamedResLock;
+
+template<typename ResType>
+std::mutex GameEngineRes<ResType>::UnNamedResLock;
+
 

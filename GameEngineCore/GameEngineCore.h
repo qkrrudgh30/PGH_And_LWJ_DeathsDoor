@@ -11,7 +11,7 @@ class GameEngineCore
 	friend class GameEngineStatusWindow;
 
 public:
-//	static GameEngineThreadPool EngineThreadPool;
+	static GameEngineThreadPool EngineThreadPool;
 
 	template<typename CoreType>
 	static void Start()

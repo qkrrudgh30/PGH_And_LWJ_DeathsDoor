@@ -25,7 +25,7 @@ public:
 	int DataInsert;
 	std::vector<char> DataBuffer;
 	GameEngineShaderResourcesHelper ShaderResources;
-	GameEngineRenderingPipeLine* InstancingPipeLine;
+	GameEngineMaterial* InstancingPipeLine;
 	int Size;
 	unsigned int Count;
 	int MaxDataCount;

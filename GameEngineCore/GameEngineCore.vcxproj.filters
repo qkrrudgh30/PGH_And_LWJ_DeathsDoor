@@ -45,7 +45,7 @@
     <ClInclude Include="GameEngineTransformBase.h">
       <Filter>Object\Component</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineRenderingPipeLine.h">
+    <ClInclude Include="GameEngineMaterial.h">
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="GameEngineIndexBuffer.h">
@@ -168,6 +168,15 @@
     <ClInclude Include="GameEngineMesh.h">
       <Filter>Resources\InputAssembler</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineFBX.h">
+      <Filter>Resources\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineFBXMesh.h">
+      <Filter>Resources\FBX</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineFBXAnimation.h">
+      <Filter>Resources\FBX</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineActor.cpp">
@@ -216,7 +225,7 @@
     <ClCompile Include="GameEngineTransformBase.cpp">
       <Filter>Object\Component</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineRenderingPipeLine.cpp">
+    <ClCompile Include="GameEngineMaterial.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineIndexBuffer.cpp">
@@ -327,6 +336,15 @@
     <ClCompile Include="GameEngineMesh.cpp">
       <Filter>Resources\InputAssembler</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineFBX.cpp">
+      <Filter>Resources\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineFBXMesh.cpp">
+      <Filter>Resources\FBX</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineFBXAnimation.cpp">
+      <Filter>Resources\FBX</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
@@ -413,6 +431,9 @@
     <Filter Include="Object\Component\Rendering\Instancing">
       <UniqueIdentifier>{3a3bf4d0-95cd-440d-bf1c-69a00a292dd1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Resources\FBX">
+      <UniqueIdentifier>{fc7acf9f-14f5-4be4-8a07-77bd9cc92e77}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <CopyFileToFolders Include="ThirdParty\bin\Release\DirectXTex.lib">
@@ -433,5 +454,55 @@
     <CopyFileToFolders Include="ThirdParty\bin\Debug\FW1FontWrapper.dll">
       <Filter>ThirdParty\Lib\Debug</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Release\libfbxsdk.dll">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Debug\libfbxsdk.dll">
+      <Filter>ThirdParty\Lib\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Debug\libfbxsdk.lib">
+      <Filter>ThirdParty\Lib\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Debug\libfbxsdk-md.lib">
+      <Filter>ThirdParty\Lib\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Debug\libfbxsdk-mt.lib">
+      <Filter>ThirdParty\Lib\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Debug\libxml2-md.lib">
+      <Filter>ThirdParty\Lib\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Debug\libxml2-mt.lib">
+      <Filter>ThirdParty\Lib\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Debug\zlib-md.lib">
+      <Filter>ThirdParty\Lib\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Debug\zlib-mt.lib">
+      <Filter>ThirdParty\Lib\Debug</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Release\libfbxsdk.lib">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </CopyFileToFolders>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="ThirdParty\bin\Release\libfbxsdk-md.lib">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </Library>
+    <Library Include="ThirdParty\bin\Release\libfbxsdk-mt.lib">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </Library>
+    <Library Include="ThirdParty\bin\Release\libxml2-md.lib">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </Library>
+    <Library Include="ThirdParty\bin\Release\libxml2-mt.lib">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </Library>
+    <Library Include="ThirdParty\bin\Release\zlib-md.lib">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </Library>
+    <Library Include="ThirdParty\bin\Release\zlib-mt.lib">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </Library>
   </ItemGroup>
 </Project>

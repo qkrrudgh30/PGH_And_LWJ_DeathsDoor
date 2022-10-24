@@ -122,7 +122,7 @@ public:
 
 	void Merge(GameEngineRenderTarget* _Other, int _Index = 0);
 	
-	// void Effect(GameEngineRenderingPipeLine* _Other, GameEngineShaderResourcesHelper* _ShaderResourcesHelper);
+	// void Effect(GameEngineMaterial* _Other, GameEngineShaderResourcesHelper* _ShaderResourcesHelper);
 
 	void Effect(class GameEngineRenderUnit& _RenderSet);
 
@@ -142,7 +142,7 @@ protected:
 	GameEngineRenderUnit MergeUnit;
 
 	//GameEngineShaderResourcesHelper MergeShaderResourcesHelper;
-	//GameEngineRenderingPipeLine* MergePipeLine;
+	//GameEngineMaterial* MergePipeLine;
 
 	GameEngineTexture* DepthTexture;
 

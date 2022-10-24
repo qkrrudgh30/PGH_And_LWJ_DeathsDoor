@@ -62,7 +62,12 @@ float4 Debug3D_PS(Output _Input) : SV_Target0
     // 원을 그리거나
     // 박스를 그릴수도 있죠?
     
-
+    
+    if (Type.x == 0 && length(_Input.PosWorld.xyz) > 0.7f)
+    {
+        clip(-1);
+    }
+        
     
     return Color;
 }

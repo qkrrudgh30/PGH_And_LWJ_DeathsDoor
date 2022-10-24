@@ -2,7 +2,7 @@
 #include "GameEngineCoreDebug.h"
 #include <GameEngineBase/GameEngineTransform.h>
 #include "GameEngineShaderResourcesHelper.h"
-#include "GameEngineRenderingPipeLine.h"
+#include "GameEngineMaterial.h"
 #include "GameEngineCore.h"
 #include "GameEngineCamera.h"
 #include "GameEngineTexture.h"
@@ -160,14 +160,14 @@ namespace GameEngineDebug
 		DebugRenderUnit->SetMesh("Box");
 		DebugRenderUnit->SetPipeLine("3DDebug");
 
-		//DebugRenderingPipeLine = GameEngineRenderingPipeLine::Find("3DDebug");
+		//DebugRenderingPipeLine = GameEngineMaterial::Find("3DDebug");
 		//DebugShaderResources.ResourcesCheck(DebugRenderingPipeLine);
 
 		DebugTextureRenderUnit = new GameEngineRenderUnit();
 
 		DebugTextureRenderUnit->SetPipeLine("3DDebug");
 
-		//TextureRenderingPipeLine = GameEngineRenderingPipeLine::Find("DebugTexture");
+		//TextureRenderingPipeLine = GameEngineMaterial::Find("DebugTexture");
 		//TextureShaderResources.ResourcesCheck(TextureRenderingPipeLine);
 
 		IsOnce = true;

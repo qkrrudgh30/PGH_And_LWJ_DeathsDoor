@@ -16,7 +16,7 @@ class GameEngineLevel;
 class GameEngineCamera;
 class GameEngineInstancing;
 class GameEngineRenderTarget;
-class GameEngineRenderingPipeLine;
+class GameEngineMaterial;
 class GameEngineCamera : public GameEngineTransformComponent
 {
 	friend GameEngineLevel;
@@ -85,10 +85,10 @@ public:
 	//                  개수
 
 	GameEngineInstancing* GetInstancing(const std::string& _Name);
-	GameEngineInstancing* GetInstancing(GameEngineRenderingPipeLine* _Pipe);
-	void PushInstancing(GameEngineRenderingPipeLine* _Pipe, int Count);
-	int PushInstancingData(GameEngineRenderingPipeLine* _Pipe, void* _DataPtr, int _Size);
-	int PushInstancingIndex(GameEngineRenderingPipeLine* _Pipe);
+	GameEngineInstancing* GetInstancing(GameEngineMaterial* _Pipe);
+	void PushInstancing(GameEngineMaterial* _Pipe, int Count);
+	int PushInstancingData(GameEngineMaterial* _Pipe, void* _DataPtr, int _Size);
+	int PushInstancingIndex(GameEngineMaterial* _Pipe);
 
 protected:
 	void Start();
@@ -112,7 +112,7 @@ private:
 
 	std::map<int, std::list<class GameEngineRenderer*>> AllRenderer_;
 
-	std::unordered_map<GameEngineRenderingPipeLine*, GameEngineInstancing> InstancingMap;
+	std::unordered_map<GameEngineMaterial*, GameEngineInstancing> InstancingMap;
 
 	float4x4 View; // 바라보는것
 	float4x4 Projection;

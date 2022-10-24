@@ -29,5 +29,15 @@ public:
 	{
 		return Transform.GetTransformData();
 	}
+
+	//GameEngineTransform& GetScreenPosition(GameEngineCamera* _Caemra)
+	//{
+	//	return Transform;
+	//}
+
+	//GameEngineTransform& GetMainCamera(GameEngineCamera* _Caemra)
+	//{
+	//	return Transform;
+	//}
 };
 

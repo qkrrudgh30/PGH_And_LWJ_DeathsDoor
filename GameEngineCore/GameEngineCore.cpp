@@ -16,7 +16,7 @@
 GameEngineLevel* GameEngineCore::CurrentLevel = nullptr;
 GameEngineLevel* GameEngineCore::NextLevel = nullptr;
 
-//GameEngineThreadPool GameEngineCore::EngineThreadPool;
+GameEngineThreadPool GameEngineCore::EngineThreadPool;
 
 
 std::map<std::string, class GameEngineLevel*> GameEngineCore::AllLevels;
@@ -62,7 +62,7 @@ void GameEngineCore::CoreStart(GameEngineCore* _UserCore)
 	// 엔진 리소스는 완성되어야 합니다.
 	EngineResourcesInitialize();
 
-	//EngineThreadPool.Initialize("GameEngineThread");
+	EngineThreadPool.Initialize("GameEngineThread");
 
 	// 
 	GameEngineDevice::CreateSwapChain();

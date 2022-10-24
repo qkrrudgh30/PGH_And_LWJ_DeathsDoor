@@ -12,9 +12,39 @@
 // 그렇게 미리 객체를 많이 만들어 놓고 지우거나 더이상 만들지 않고
 // 필요할때 마다 사용하는 방식 => pool 방식
 
+enum ThreadWorkType
+{
+	UserWork = -1,
+	Destroy = -2,
+};
+
+
 // 설명 :
 class GameEngineThreadPool
 {
+private:
+	class GameEngineThreadJob
+	{
+	public:
+		virtual void Process() = 0;
+	};
+
+	class GameEngineThreadCallBackJob : public GameEngineThreadJob
+	{
+	public:
+		std::function<void()> Work;
+
+		void Process()
+		{
+			if (nullptr == Work)
+			{
+				return;
+			}
+			Work();
+		}
+	};
+
+
 public:
 	// constrcuter destructer
 	GameEngineThreadPool(const std::string& _ThreadName, int _ThreadCount = 0);
@@ -30,7 +60,7 @@ public:
 	GameEngineThreadPool& operator=(GameEngineThreadPool&& _Other) noexcept = delete;
 
 	// 함수를 넘기면 쓰레드가 알아서 처리한다.
-	void Work(std::function<void()> _Job);
+	void Work(std::function<void()> _CallBack);
 
 	void Initialize(const std::string& _ThreadName, int _ThreadCount = 0);
 
@@ -40,8 +70,9 @@ private:
 	HANDLE IocpHandle;
 	int ThreadCount;
 	std::atomic<bool> IsRun;
+	std::atomic<int> DestroyThreadCount;
 
-	static void ThreadPoolFunction(GameEngineThread* _Thread, HANDLE _IocpHandle, std::atomic<bool>* _Run);
+	static void ThreadPoolFunction(GameEngineThreadPool* _ThreadPool, GameEngineThread* _Thread, HANDLE _IocpHandle);
 
 	std::vector<GameEngineThread*> Threads;
 

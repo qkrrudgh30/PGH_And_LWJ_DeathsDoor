@@ -1,5 +1,5 @@
 #pragma once
-#include "GameEngineRenderingPipeLine.h"
+#include "GameEngineMaterial.h"
 #include "GameEngineConstantBuffer.h"
 #include "GameEngineShader.h"
 
@@ -29,7 +29,7 @@ public:
 
 	void AllResourcesReset();
 
-	void ResourcesCheck(GameEngineRenderingPipeLine* _Line);
+	void ResourcesCheck(GameEngineMaterial* _Line);
 
 	template<typename Res>
 	void SetConstantBufferLink(const std::string& _Name, const Res& Data) 

@@ -54,6 +54,21 @@ void GameEngineStatusWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	std::string Name = "FPS : " + std::to_string(GameEngineTime::GetFPS());
 	ImGui::Text(Name.c_str());
 
+	if (true == ImGui::Button("Thread깨우기"))
+	{
+		for (size_t i = 0; i < 100; i++)
+		{
+			// GameEngineTexture::Load
+
+			//GameEngineCore::EngineThreadPool.Work(
+			//	[]
+			//	{
+			//		GameEngineDebug::OutPutString("쓰레드입니다.");
+			//	}
+			//);
+		}
+	}
+
 	if (true == ImGui::Button("CollisionDebugSwtich"))
 	{
 		GEngine::CollisionDebugSwitch();

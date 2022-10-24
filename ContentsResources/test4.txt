@@ -1,3 +1,0 @@
-2
-ElevatorBase.fbx 1 1 1 12 12 12 304.057 64.0278 -50.7156 
-Lantern_SmallPlaceable (4).fbx 2 2 1 -51.1549 0 0 -164.445 0 0 

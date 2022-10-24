@@ -74,7 +74,7 @@ void GameEngineFontRenderer::Render(float _DeltaTime)
 	FontTarget->Clear();
 	FontTarget->Setting();
 	Font->FontDraw(Text, FontSize, Pos, Color, static_cast<int>(LR) | static_cast<int>(TB));
-	GameEngineRenderingPipeLine::AllShaderReset();
+	GameEngineMaterial::AllShaderReset();
 	Camera->GetCameraRenderTarget()->Merge(FontTarget);
 
 	//GameEngineRenderTarget::SetPrevRenderTarget();

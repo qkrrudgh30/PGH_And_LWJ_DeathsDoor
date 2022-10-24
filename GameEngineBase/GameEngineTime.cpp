@@ -77,6 +77,11 @@ void GameEngineTime::Update()
 			SumFPS = 0;
 			SumFPSCount = 0;
 		}
+		// 1 / 10 == FrameTime 
+		// CurFrameTime == 0.01
+		// CurFrameTime += 0.1
+		// 그건 고려 안함.
+
 		CurFrameTime += FrameTime;
 		SumDeltaTimef -= FrameTime;
 	}

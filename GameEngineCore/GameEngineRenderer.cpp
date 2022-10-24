@@ -69,7 +69,7 @@ void GameEngineRenderUnit::SetMesh(const std::string& _Name)
 
 void GameEngineRenderUnit::SetPipeLine(const std::string& _Name)
 {
-	PipeLine = GameEngineRenderingPipeLine::Find(_Name);
+	PipeLine = GameEngineMaterial::Find(_Name);
 
 	if (nullptr == PipeLine)
 	{
@@ -99,12 +99,12 @@ void GameEngineRenderUnit::SetRenderer(GameEngineRenderer* _Renderer)
 }
 
 
-GameEngineRenderingPipeLine* GameEngineRenderUnit::GetPipeLine()
+GameEngineMaterial* GameEngineRenderUnit::GetPipeLine()
 {
 	return PipeLine;
 }
 
-GameEngineRenderingPipeLine* GameEngineRenderUnit::GetClonePipeLine()
+GameEngineMaterial* GameEngineRenderUnit::GetClonePipeLine()
 {
 	if (false == PipeLine->IsOriginal())
 	{
@@ -116,10 +116,10 @@ GameEngineRenderingPipeLine* GameEngineRenderUnit::GetClonePipeLine()
 }
 
 
-GameEngineRenderingPipeLine* GameEngineRenderUnit::ClonePipeLine(GameEngineRenderingPipeLine* _Rendering)
+GameEngineMaterial* GameEngineRenderUnit::ClonePipeLine(GameEngineMaterial* _Rendering)
 {
 	// 이름없는 녀석으로 만든다.
-	GameEngineRenderingPipeLine* Clone = GameEngineRenderingPipeLine::Create();
+	GameEngineMaterial* Clone = GameEngineMaterial::Create();
 	Clone->Copy(_Rendering);
 	return Clone;
 }
@@ -208,9 +208,9 @@ void GameEngineRenderer::PushRendererToUICamera()
 }
 
 
-bool GameEngineRenderer::IsInstancing(GameEngineRenderingPipeLine* _Rendering)
+bool GameEngineRenderer::IsInstancing(GameEngineMaterial* _Rendering)
 {
-	std::unordered_map<GameEngineRenderingPipeLine*, GameEngineInstancing>::iterator InstancingIter = Camera->InstancingMap.find(_Rendering);
+	std::unordered_map<GameEngineMaterial*, GameEngineInstancing>::iterator InstancingIter = Camera->InstancingMap.find(_Rendering);
 
 	if (InstancingIter == Camera->InstancingMap.end())
 	{
@@ -221,7 +221,7 @@ bool GameEngineRenderer::IsInstancing(GameEngineRenderingPipeLine* _Rendering)
 }
 
 // 우리 엔진에서 인스턴싱을 한다면 무조건 숫자하나만 인스턴싱을 했으니까. 이건 ok
-void GameEngineRenderer::InstancingDataSetting(GameEngineRenderingPipeLine* _Line)
+void GameEngineRenderer::InstancingDataSetting(GameEngineMaterial* _Line)
 {
 	// 몇번째 순서인지 알려주고 있어요
 	// 이녀석을 통해서 

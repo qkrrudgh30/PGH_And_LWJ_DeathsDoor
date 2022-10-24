@@ -3,7 +3,7 @@
 #include "GameEngineShaderResourcesHelper.h"
 
 // 설명 :
-class GameEngineRenderingPipeLine;
+class GameEngineMaterial;
 class GameEngineDefaultRenderer : public GameEngineRenderer
 {
 	// 하나의 랜더링 파이프라인은
@@ -54,7 +54,7 @@ private:
 	GameEngineRenderUnit Unit;
 
 	// 공통적인 메모리 공유하는 메로리들을 들고 있고
-	// GameEngineRenderingPipeLine* PipeLine;
+	// GameEngineMaterial* PipeLine;
 
 
 };

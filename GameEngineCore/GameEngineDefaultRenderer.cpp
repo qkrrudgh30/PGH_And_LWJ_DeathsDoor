@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "GameEngineDefaultRenderer.h"
-#include "GameEngineRenderingPipeLine.h"
+#include "GameEngineMaterial.h"
 #include "GameEngineVertexShader.h"
 
 GameEngineDefaultRenderer::GameEngineDefaultRenderer() 

@@ -2,9 +2,10 @@
 #include <thread>
 #include <functional>
 #include <Windows.h>
+#include "GameEngineNameObject.h"
 
 // Ό³Έν :
-class GameEngineThread
+class GameEngineThread : public GameEngineNameObject
 {
 public:
 	GameEngineThread();
