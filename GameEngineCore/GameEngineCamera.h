@@ -55,6 +55,8 @@ public:
 
 	float4 GetMouseWorldPosition();
 
+	float4 GetActorScreenPosition(float4 _Pos);
+
 	float4 GetMouseWorldPositionToActor();
 
 	inline float4x4 GetView() 

@@ -35,7 +35,21 @@ void ShopNPC::Start()
 void ShopNPC::Update(float _DeltaTime)
 {
 
+	/*Collision->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::Player, CollisionType::CT_OBB2D,
+		std::bind(&ShopNPC::CollisionPlayer, this, std::placeholders::_1, std::placeholders::_2)
+	);*/
 
 
+}
+
+CollisionReturn ShopNPC::CollisionPlayer(GameEngineCollision* _This, GameEngineCollision* _Other)
+{
+
+
+
+
+
+
+	return CollisionReturn::ContinueCheck;
 }
 

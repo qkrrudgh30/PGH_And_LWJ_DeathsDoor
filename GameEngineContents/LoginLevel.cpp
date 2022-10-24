@@ -73,6 +73,7 @@ void LoginLevel::LevelStartEvent()
 		if (nullptr == Player::GetMainPlayer())
 		{
 			Player* NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
+			NewPlayer->GetTransform().SetWorldPosition({100.f,100.f,100.f});
 			NewPlayer->SetLevelOverOn();
 			NewPlayer->UIOff();
 

@@ -36,6 +36,8 @@ Player::Player()
 	, m_bSAttccheck(false)
 	, m_fAttCTime(0.f)
 	, m_fAttCTimeMax(0.5f)
+	, m_bUpgradeUIcheck(false)
+	, m_bUpgradeUICoolcheck(false)
 {
 	MainPlayer = this;
 }
@@ -55,7 +57,7 @@ void Player::Start()
 
 	UpgradeUI = GetLevel()->CreateActor<PlayerUpgradeUI>(OBJECTORDER::UI);
 	UpgradeUI->m_Player = this;
-
+	UpgradeUI->Off();
 
 	UpgradeUI->SetLevelOverOn();
 	MainUI->SetLevelOverOn();
@@ -71,6 +73,10 @@ void Player::Start()
 		GameEngineInput::GetInst()->CreateKey("PlayerDown", 'E');
 		GameEngineInput::GetInst()->CreateKey("PlayerLeft", 'A');
 		GameEngineInput::GetInst()->CreateKey("PlayerRight", 'D');
+
+
+		GameEngineInput::GetInst()->CreateKey("NPCClick", 'V');
+
 
 		GameEngineInput::GetInst()->CreateKey("PlayerCamera", VK_LSHIFT);
 
@@ -143,10 +149,7 @@ void Player::Start()
 
 
 	{
-	//	Renderer = CreateComponent<GameEngineTextureRenderer>();
-	//	Renderer->GetTransform().SetLocalScale({100.0f, 100.0f ,100.0f });
-
-
+	
 
 		Renderer = CreateComponent<GameEngineDefaultRenderer>();
 		Renderer->SetPipeLine("Color");
@@ -156,8 +159,13 @@ void Player::Start()
 		Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f ,100.0f });
 		Renderer->GetShaderResources().SetConstantBufferLink("ResultColor", ResultColor);
 
-		// Renderer->ScaleToTexture();
 	}
+
+
+
+
+
+
 	
 
 }
@@ -689,6 +697,36 @@ void Player::ChangeRendererRotation(float _DeltaTime, int _Ratate)
 
 }
 
+CollisionReturn Player::CollisionNPC(GameEngineCollision* _This, GameEngineCollision* _Other)
+{
+
+
+	if (!m_bUpgradeUICoolcheck)
+	{
+		if (m_bUpgradeUIcheck)
+		{
+			m_bUpgradeUIcheck = false;
+
+
+			UpgradeUI->Off();
+
+		}
+		else
+		{
+			m_bUpgradeUIcheck = true;
+
+			UpgradeUI->On();
+		}
+
+	}
+	
+		
+	
+
+
+	return CollisionReturn::ContinueCheck;
+}
+
 CollisionReturn Player::MonsterCollision(GameEngineCollision* _This, GameEngineCollision* _Other)
 {
 	return CollisionReturn::Break;
@@ -723,17 +761,38 @@ void Player::Update(float _DeltaTime)
 
 	Collision->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
 	
+	float4 WoprldPos = GetTransform().GetWorldPosition();
 
+	float4 ScreenPos = GetLevel()->GetMainCameraActor()->GetCameraComponent()->GetActorScreenPosition(WoprldPos);
 
-
-
-
+	
 
 	if (true == GetLevel()->GetMainCameraActor()->IsFreeCameraMode())
 	{
 		return;
 	}
+	
+	if (true == GameEngineInput::GetInst()->IsPress("NPCClick"))
+	{
+		Collision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::NPC, CollisionType::CT_OBB,
+			std::bind(&Player::CollisionNPC, this, std::placeholders::_1, std::placeholders::_2)
+		);
 
+		m_bUpgradeUICoolcheck = true;
+	}
+	if (true == GameEngineInput::GetInst()->IsUp("NPCClick"))
+	{
+		m_bUpgradeUICoolcheck = false;
+	}
+
+
+
+
+
+	if (m_bUpgradeUIcheck)
+	{
+		return;
+	}
 	//float4 WorldPos = GetTransform().GetWorldPosition();
 	//float4 CameraWorldPos = WorldPos;
 
@@ -775,10 +834,10 @@ void Player::Update(float _DeltaTime)
 void Player::UIOff()
 {
 	MainUI->Off();
-	UpgradeUI->Off();
+	
 }
 void Player::UIOn()
 {
 	MainUI->On();
-	UpgradeUI->On();
+
 }

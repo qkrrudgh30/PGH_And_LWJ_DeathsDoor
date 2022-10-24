@@ -4,7 +4,7 @@
 UnitBase::UnitBase() 
 {
 	m_Info.Dammage = 1.f;
-	m_Info.Gold = 100000;
+	m_Info.Gold = 1000;
 	m_Info.m_Hp = 8;
 	m_Info.ArrowCount = 4;
 	m_Info.m_MaxHp = 8;

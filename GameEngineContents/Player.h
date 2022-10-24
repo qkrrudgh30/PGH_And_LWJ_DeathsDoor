@@ -115,10 +115,12 @@ private:
 	float m_fAttCTimeMax;
 
 
-
+	bool m_bUpgradeUIcheck;
+	bool m_bUpgradeUICoolcheck;
 private:
 	void ChangeRendererRotation(float _DeltaTime, int _Ratate);
 	
+	CollisionReturn CollisionNPC(GameEngineCollision* _This, GameEngineCollision* _Other);
 
 
 

@@ -24,6 +24,7 @@ protected:
 
 
 private:
+	CollisionReturn CollisionPlayer(GameEngineCollision* _This, GameEngineCollision* _Other);
 
 };
 
