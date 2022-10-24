@@ -12,7 +12,7 @@ enum
 
 struct EditItem
 {
-
+	
 };
 
 class EditLevel;
