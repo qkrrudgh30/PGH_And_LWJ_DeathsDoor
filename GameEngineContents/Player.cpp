@@ -56,8 +56,11 @@ void Player::Start()
 	UpgradeUI = GetLevel()->CreateActor<PlayerUpgradeUI>(OBJECTORDER::UI);
 	UpgradeUI->m_Player = this;
 
-	UpgradeUI->SetParent(this);
-	MainUI->SetParent(this);
+
+	UpgradeUI->SetLevelOverOn();
+	MainUI->SetLevelOverOn();
+	//UpgradeUI->SetParent(this);
+	//MainUI->SetParent(this);
 
 	if (false == GameEngineInput::GetInst()->IsKey("PlayerLeft"))
 	{
