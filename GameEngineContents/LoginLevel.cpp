@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
+#include "UIMouse.h"
 
 LoginLevel::LoginLevel()
 {
@@ -18,6 +19,11 @@ LoginLevel::~LoginLevel()
 
 void LoginLevel::Start()
 {
+
+	{
+		UIMouse* m_UIMouse = CreateActor<UIMouse>(OBJECTORDER::MouseUI);
+		m_UIMouse->SetLevelOverOn();
+	}
 
 
 }
@@ -73,7 +79,6 @@ void LoginLevel::LevelStartEvent()
 		if (nullptr == Player::GetMainPlayer())
 		{
 			Player* NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
-			NewPlayer->GetTransform().SetWorldPosition({100.f,100.f,100.f});
 			NewPlayer->SetLevelOverOn();
 			NewPlayer->UIOff();
 

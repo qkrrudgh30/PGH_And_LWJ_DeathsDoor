@@ -49,6 +49,23 @@ void ContentsCore::Start()
 
 	}
 
+	{
+		GameEngineDirectory Dir;
+		Dir.MoveParentToExitsChildDirectory("ContentsResources");
+		Dir.Move("ContentsResources");
+		Dir.Move("Texture");
+		Dir.Move("PrevTexture");
+
+		std::vector<GameEngineFile> Shaders = Dir.GetAllFile();
+
+		for (size_t i = 0; i < Shaders.size(); i++)
+		{
+			GameEngineTexture::Load(Shaders[i].GetFullPath());
+		}
+
+
+	}
+
 
 	{
 		GameEngineDirectory Dir;

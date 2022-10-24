@@ -76,6 +76,11 @@ protected:
 	void SlideAttEnd(const StateInfo& _Info);
 	void SlideAttUpdate(float _DeltaTime, const StateInfo& _Info);
 
+	void ArrowAttStart(const StateInfo& _Info);
+	void ArrowAttEnd(const StateInfo& _Info);
+	void ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info);
+
+
 
 
 
@@ -114,9 +119,22 @@ private:
 	float m_fAttCTime;
 	float m_fAttCTimeMax;
 
+	bool m_bArrowCCheck;
+	float m_fArrowCTime;
+	float m_fArrowCTimeMax;
+
 
 	bool m_bUpgradeUIcheck;
 	bool m_bUpgradeUICoolcheck;
+
+
+
+	bool m_bArrowCameraCheck;
+	float4 m_fArrowCameraActionPos;
+
+	float m_fCameraLenZ;
+	float m_fCameraLenY;
+
 private:
 	void ChangeRendererRotation(float _DeltaTime, int _Ratate);
 	

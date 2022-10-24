@@ -236,7 +236,7 @@ void PlayerUpgradeUI::Update(float _DeltaTime)
 {
 
 
-	if (true == GameEngineInput::GetInst()->IsPress("UIMouseClick"))
+	if (true == GameEngineInput::GetInst()->IsDown("UIMouseClick"))
 	{
 
 		//Į

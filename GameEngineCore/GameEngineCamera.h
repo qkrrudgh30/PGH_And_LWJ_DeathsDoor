@@ -57,7 +57,6 @@ public:
 
 	float4 GetActorScreenPosition(float4 _Pos)
 	{
-
 		float4 Pos = _Pos;
 
 		float4x4 ViewPort;

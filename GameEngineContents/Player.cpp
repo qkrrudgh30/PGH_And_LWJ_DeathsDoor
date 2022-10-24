@@ -38,6 +38,13 @@ Player::Player()
 	, m_fAttCTimeMax(0.5f)
 	, m_bUpgradeUIcheck(false)
 	, m_bUpgradeUICoolcheck(false)
+	, m_fArrowCTime(0.f)
+	, m_fArrowCTimeMax(1.f)
+	, m_bArrowCCheck(false)
+	, m_bArrowCameraCheck(false)
+	, m_fCameraLenZ(0.f)
+	,m_fCameraLenY(0.f)
+	, m_fArrowCameraActionPos(0.f)
 {
 	MainPlayer = this;
 }
@@ -81,9 +88,10 @@ void Player::Start()
 		GameEngineInput::GetInst()->CreateKey("PlayerCamera", VK_LSHIFT);
 
 		GameEngineInput::GetInst()->CreateKey("PlayerSlide", VK_SPACE);
+
 		GameEngineInput::GetInst()->CreateKey("PlayerSworldAtt", VK_LBUTTON);
 
-
+		GameEngineInput::GetInst()->CreateKey("PlayerArrowAtt", VK_RBUTTON);
 	}
 
 	GetTransform().SetLocalScale({ 1, 1, 1 });
@@ -139,6 +147,11 @@ void Player::Start()
 	);
 
 
+	StateManager.CreateStateMember("ArrowAtt"
+		, std::bind(&Player::ArrowAttUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::ArrowAttStart, this, std::placeholders::_1)
+		, std::bind(&Player::ArrowAttEnd, this, std::placeholders::_1)
+	);
 
 
 	StateManager.CreateStateMember("Move"
@@ -188,7 +201,7 @@ void Player::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 		StateManager.ChangeState("Move");
 	}
 
-	if (true == GameEngineInput::GetInst()->IsPress("PlayerSworldAtt"))
+	if (true == GameEngineInput::GetInst()->IsDown("PlayerSworldAtt"))
 	{
 		if (!m_bSAttccheck)
 		{
@@ -196,6 +209,41 @@ void Player::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 		}
 
 	}
+
+
+
+	if (true == GameEngineInput::GetInst()->IsDown("PlayerSlide"))
+	{
+
+		if (!m_bSlideCCheck)
+		{
+			StateManager.ChangeState("Slide");
+		}
+
+
+	}
+
+
+	if (true == GameEngineInput::GetInst()->IsDown("PlayerArrowAtt"))
+	{
+
+		if (!m_bArrowCCheck)
+		{
+			if (m_Info.ArrowCount > 0)
+			{
+				StateManager.ChangeState("ArrowAtt");
+			}
+		}
+
+
+	}
+
+
+
+
+
+
+
 
 
 }
@@ -207,7 +255,7 @@ void Player::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 void Player::SworldAttStart(const StateInfo& _Info)
 {
 
-
+	m_Info.ArrowCount += 1;
 	m_Info.Weapontype = WEAPONTYPE::Sword;
 
 
@@ -255,7 +303,7 @@ void Player::SworldAttUpdate(float _DeltaTime, const StateInfo& _Info)
 	if (m_fAttTestTime >= 0.2f)
 	{
 
-		if (true == GameEngineInput::GetInst()->IsPress("PlayerSworldAtt"))
+		if (true == GameEngineInput::GetInst()->IsDown("PlayerSworldAtt"))
 		{
 			m_bSWA2check = true;
 
@@ -294,7 +342,7 @@ void Player::SworldAttStart2(const StateInfo& _Info)
 {
 
 	//AttCollision->On();
-
+	m_Info.ArrowCount += 1;
 
 	m_bSWA2check = false;
 
@@ -336,7 +384,7 @@ void Player::SworldAttUpdate2(float _DeltaTime, const StateInfo& _Info)
 
 	if (m_fAttTestTime >= 0.2f)
 	{
-		if (true == GameEngineInput::GetInst()->IsPress("PlayerSworldAtt"))
+		if (true == GameEngineInput::GetInst()->IsDown("PlayerSworldAtt"))
 		{
 			m_bSWA3check = true;
 
@@ -378,6 +426,8 @@ void Player::SworldAttUpdate2(float _DeltaTime, const StateInfo& _Info)
 void Player::SworldAttStart3(const StateInfo& _Info)
 {
 
+
+	m_Info.ArrowCount += 1;
 	//AttCollision->On();
 
 	m_bSWA3check = false;
@@ -427,6 +477,94 @@ void Player::SworldAttUpdate3(float _DeltaTime, const StateInfo& _Info)
 
 
 
+void Player::ArrowAttStart(const StateInfo& _Info)
+{
+
+	m_Info.Weapontype = WEAPONTYPE::Arrow;
+
+	m_bArrowCameraCheck = true;
+}
+
+void Player::ArrowAttEnd(const StateInfo& _Info)
+{
+	//화살 생성
+	m_bArrowCameraCheck = false;
+
+	m_Info.ArrowCount -= 1;
+	m_Info.Weapontype = WEAPONTYPE::Sword;
+}
+
+void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
+{
+	//카메라 줌 + 플레이어 로테이션
+
+	if (true == GameEngineInput::GetInst()->IsPress("PlayerArrowAtt"))
+	{
+
+		m_fCameraLenY += 600.f * _DeltaTime;
+		m_fCameraLenZ += 600.f * _DeltaTime;
+		if (m_fCameraLenY >= 2100.f)
+		{
+			m_fCameraLenY = 2100.f;
+		}
+
+		if (m_fCameraLenZ >= 2100.f)
+		{
+			m_fCameraLenZ = 2100.f;
+		}
+
+	}
+	else if (true == GameEngineInput::GetInst()->IsUp("PlayerArrowAtt"))
+	{
+		StateManager.ChangeState("Idle");
+
+	}
+	else if (true == GameEngineInput::GetInst()->IsFree("PlayerArrowAtt"))
+	{
+		StateManager.ChangeState("Idle");
+	}
+
+
+
+
+
+	float4 MousePos = GetLevel()->GetMainCamera()->GetMouseScreenPosition();
+
+
+	float4 MyPos = GetLevel()->GetMainCamera()->GetActorScreenPosition(GetTransform().GetWorldPosition());
+
+
+
+	float4 RenderDir = (MousePos - MyPos);
+	RenderDir.Normalize();
+
+
+
+	m_fArrowCameraActionPos = RenderDir * 500.f;
+
+	float m_fAngle = acos(RenderDir.x);
+	m_fAngle *= (180.f / 3.141592f);
+
+	if (MousePos.y < MyPos.y)
+		m_fAngle = 360.f - m_fAngle;
+
+
+
+
+	Renderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
+
+
+
+
+
+
+
+}
+
+
+
+
+
 
 
 
@@ -464,7 +602,7 @@ void Player::SlideUpdate(float _DeltaTime, const StateInfo& _Info)
 
 //	if (m_fAttTestTime >= 0.2f)
 	{
-		if (true == GameEngineInput::GetInst()->IsPress("PlayerSworldAtt"))
+		if (true == GameEngineInput::GetInst()->IsDown("PlayerSworldAtt"))
 		{
 			m_bSWASlidecheck = true;
 
@@ -664,7 +802,7 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 
 
-	if (true == GameEngineInput::GetInst()->IsPress("PlayerSworldAtt"))
+	if (true == GameEngineInput::GetInst()->IsDown("PlayerSworldAtt"))
 	{
 
 		if (!m_bSAttccheck)
@@ -674,7 +812,7 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	}
 
 
-	if (true == GameEngineInput::GetInst()->IsPress("PlayerSlide"))
+	if (true == GameEngineInput::GetInst()->IsDown("PlayerSlide"))
 	{
 
 		if (!m_bSlideCCheck)
@@ -685,6 +823,21 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	}
 
+	if (true == GameEngineInput::GetInst()->IsDown("PlayerArrowAtt"))
+	{
+
+		if (!m_bArrowCCheck)
+		{
+
+			if (m_Info.ArrowCount > 0)
+			{
+				StateManager.ChangeState("ArrowAtt");
+			}
+			
+		}
+
+
+	}
 
 
 	
@@ -758,6 +911,16 @@ void Player::Update(float _DeltaTime)
 	}
 
 
+	if (m_Info.ArrowCount >= 4)
+	{
+		m_Info.ArrowCount = 4;
+	}
+	else if (m_Info.ArrowCount <= 0)
+	{
+		m_Info.ArrowCount = 0;
+	}
+
+
 
 	Collision->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
 	
@@ -806,14 +969,24 @@ void Player::Update(float _DeltaTime)
 
 
 	StateManager.Update(_DeltaTime);
+	float4 WorldPos;
+	if (!m_bArrowCameraCheck)
+	{
 
-
+		m_fCameraLenZ = 1700.f;
+		m_fCameraLenY = 1700.f;
+		WorldPos = GetTransform().GetWorldPosition();
+	}
+	else
+	{
+		WorldPos = m_fArrowCameraActionPos; //* -1.f;
+	}
 
 	float4 CameraWorldPos = GetLevel()->GetMainCameraActorTransform().GetWorldPosition();
-	float4 WorldPos = GetTransform().GetWorldPosition();
+
 	//WorldPos.x -= 1200.f;
-	WorldPos.y += 1700.f;
-	WorldPos.z -= 1700.f;
+	WorldPos.y += m_fCameraLenY;
+	WorldPos.z -= m_fCameraLenZ;
 
 
 	//if (CameraWorldPos.x != WorldPos.x || CameraWorldPos.y != WorldPos.y || CameraWorldPos.z != WorldPos.z)
