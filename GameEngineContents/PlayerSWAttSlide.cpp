@@ -17,18 +17,44 @@ void PlayerSWAttSlide::Start()
 	AttCollision->GetTransform().SetLocalScale({ 50.0f, 50.0f, 150.0f });
 	AttCollision->ChangeOrder(OBJECTORDER::PlayerAtt);
 	
+	{
+
+
+		Renderer = CreateComponent<GameEngineDefaultRenderer>();
+		Renderer->SetPipeLine("Color");
+		Renderer->GetRenderUnit().SetMesh("Box");
+		float4 ResultColor = { 1.f,1.f,1.f,1.f };
+
+		Renderer->GetTransform().SetLocalScale({ 50.0f, 50.0f, 150.0f });
+		Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
+
+	}
 
 
 }
 
 void PlayerSWAttSlide::Update(float _DeltaTime)
 {
+
+
+
+	AttCollision->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::Monster, CollisionType::CT_OBB2D,
+		std::bind(&PlayerSWAttSlide::MonsterCollision, this, std::placeholders::_1, std::placeholders::_2)
+	);
+
+
+
+
+
+
 }
 
 CollisionReturn PlayerSWAttSlide::MonsterCollision(GameEngineCollision* _This, GameEngineCollision* _Other)
 {
 
 
-	return CollisionReturn();
+	
+
+	return CollisionReturn::Break;
 }
 

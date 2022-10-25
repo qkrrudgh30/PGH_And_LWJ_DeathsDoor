@@ -26,11 +26,20 @@ protected:
 	GameEngineDefaultRenderer* Renderer;
 	GameEngineCollision* Collision;
 	GameEngineCollision* AttCollision;
-
+public:
 	GameEngineStateManager StateManager;
 
 public:
 	UINFO	m_Info;
+	float m_fLifeTime;
+	float m_fSpeed;
+
+
+	float4 m_fHitPos = {0};
+	bool m_bHitCheck = false;
+	float4 m_fHitDir = {0};
+	float hitTime = 0.f;
+
 private:
 
 };

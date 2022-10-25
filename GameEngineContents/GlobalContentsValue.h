@@ -14,7 +14,7 @@ typedef struct UnitInfo
 	int m_MaxHp;
 	int Gold;
 	int ArrowCount;
-	float Dammage;
+	int Dammage;
 	WEAPONTYPE Weapontype;
 
 }UINFO;

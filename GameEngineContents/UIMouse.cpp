@@ -18,8 +18,9 @@ void UIMouse::Start()
 
 	{
 		Collision = CreateComponent<GameEngineCollision>();
-		Collision->GetTransform().SetLocalScale({ 1.f, 1.f, 1.f });
+		Collision->GetTransform().SetLocalScale({ 5.f, 5.f, 5.f });
 		Collision->ChangeOrder(OBJECTORDER::MouseUI);
+		Collision->SetUIDebugCamera();
 	}
 
 	Renderer = CreateComponent<GameEngineUIRenderer>();

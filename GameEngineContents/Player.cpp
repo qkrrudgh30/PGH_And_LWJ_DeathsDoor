@@ -6,6 +6,7 @@
 #include "PlayerSWAtt2.h"
 #include "PlayerSWAtt3.h"
 #include "PlayerSWAttSlide.h"
+#include "PlayerArrowAtt.h"
 
 
 #include "PlayerMainUI.h"
@@ -173,6 +174,7 @@ void Player::Start()
 		Renderer->GetShaderResources().SetConstantBufferLink("ResultColor", ResultColor);
 
 	}
+
 
 
 
@@ -483,11 +485,22 @@ void Player::ArrowAttStart(const StateInfo& _Info)
 	m_Info.Weapontype = WEAPONTYPE::Arrow;
 
 	m_bArrowCameraCheck = true;
+
+
 }
 
 void Player::ArrowAttEnd(const StateInfo& _Info)
 {
 	//화살 생성
+
+
+	PlayerArrowAtt* m_ArrowAtt = GetLevel()->CreateActor<PlayerArrowAtt>(OBJECTORDER::PlayerAtt);
+	m_ArrowAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+	m_ArrowAtt->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+
+
+
+
 	m_bArrowCameraCheck = false;
 
 	m_Info.ArrowCount -= 1;
@@ -501,14 +514,14 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerArrowAtt"))
 	{
 
-		m_fCameraLenY += 600.f * _DeltaTime;
-		m_fCameraLenZ += 600.f * _DeltaTime;
-		if (m_fCameraLenY >= 2100.f)
+		//m_fCameraLenY += 600.f * _DeltaTime;
+	//	m_fCameraLenZ += 600.f * _DeltaTime;
+		//if (m_fCameraLenY >= 2100.f)
 		{
 			m_fCameraLenY = 2100.f;
 		}
 
-		if (m_fCameraLenZ >= 2100.f)
+	//	if (m_fCameraLenZ >= 2100.f)
 		{
 			m_fCameraLenZ = 2100.f;
 		}
@@ -526,37 +539,51 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 
 
-
-
 	float4 MousePos = GetLevel()->GetMainCamera()->GetMouseScreenPosition();
-
+	MousePos.z = 0.f;
 
 	float4 MyPos = GetLevel()->GetMainCamera()->GetActorScreenPosition(GetTransform().GetWorldPosition());
+	MyPos.z = 0.f;
 
 
 
 	float4 RenderDir = (MousePos - MyPos);
+	
+	float Len = RenderDir.Length();
 	RenderDir.Normalize();
+	RenderDir.z = 0;
+	
+	if (Len >= 500.f)
+	{
+		Len = 500.f;
+	}
 
 
 
-	m_fArrowCameraActionPos = RenderDir * 500.f;
+	float m_fAngle = float4::VectorXYtoDegree(MyPos, MousePos);
+	m_fAngle += 90.f;
 
-	float m_fAngle = acos(RenderDir.x);
-	m_fAngle *= (180.f / 3.141592f);
+	if (m_fAngle >= 360.f)
+	{
+		m_fAngle -= 360.f;
+	}
+	std::string A2 = std::to_string(m_fAngle);
+	
 
-	if (MousePos.y < MyPos.y)
-		m_fAngle = 360.f - m_fAngle;
+	A2 += " : ANGLE";
+
+	GameEngineDebug::OutPutString(A2);
+
 
 
 
 
 	Renderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
 
+	m_fArrowCameraActionPos = Renderer->GetTransform().GetWorldPosition() + Renderer->GetTransform().GetForwardVector() * Len;
 
 
-
-
+	
 
 
 }
@@ -922,6 +949,55 @@ void Player::Update(float _DeltaTime)
 
 
 
+
+
+
+
+	/// <summary>
+	/// 
+	/// 
+	/// 
+
+	float4 MousePos = GetLevel()->GetMainCamera()->GetMouseScreenPosition();
+
+
+
+
+	std::string A = std::to_string(MousePos.x);
+	std::string B = std::to_string(MousePos.y);
+
+	A += " : X";
+	B += " : Y";
+	GameEngineDebug::OutPutString(A);
+	GameEngineDebug::OutPutString(B);
+
+
+	MousePos.z = 0.f;
+	//	MousePos.x -= 640.f;
+		//MousePos.y = -MousePos.y;
+	//	MousePos.y += 360.f;
+
+
+
+	float4 MyPos = GetLevel()->GetMainCamera()->GetActorScreenPosition(GetTransform().GetWorldPosition());
+	MyPos.z = 0.f;
+
+
+
+	std::string A2 = std::to_string(MyPos.x);
+	std::string B2 = std::to_string(MyPos.y);
+
+	A2 += " : PX";
+	B2 += " : PY";
+	GameEngineDebug::OutPutString(A2);
+	GameEngineDebug::OutPutString(B2);
+
+
+
+
+
+	//
+
 	Collision->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
 	
 	float4 WoprldPos = GetTransform().GetWorldPosition();
@@ -982,6 +1058,8 @@ void Player::Update(float _DeltaTime)
 		WorldPos = m_fArrowCameraActionPos; //* -1.f;
 	}
 
+
+//	WorldPos = GetTransform().GetWorldPosition();
 	float4 CameraWorldPos = GetLevel()->GetMainCameraActorTransform().GetWorldPosition();
 
 	//WorldPos.x -= 1200.f;

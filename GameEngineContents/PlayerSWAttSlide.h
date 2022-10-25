@@ -23,7 +23,7 @@ protected:
 	void End() {}
 private:
 
-
+	
 	CollisionReturn MonsterCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
 
 

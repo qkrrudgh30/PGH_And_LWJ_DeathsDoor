@@ -1,5 +1,7 @@
 #pragma once
-#include <GameEngineCore/GameEngineActor.h>
+#include <GameEngineCore/CoreMinimal.h>
+
+#include "UnitBase.h"
 
 // 자신이 맨처음 서있던 위치를 기억
 // 업데이트에서 DeathUpdate에서 death 애니메이션이 종료되면 자신의 모든 랜더러를 off
@@ -7,7 +9,8 @@
 // // dj
 
 // 설명 :
-class Monster : public GameEngineActor
+class Player;
+class Monster : public UnitBase
 {
 public:
 	// constrcuter destructer
@@ -20,28 +23,36 @@ public:
 	Monster& operator=(const Monster& _Other) = delete;
 	Monster& operator=(Monster&& _Other) noexcept = delete;
 
+
+
+	Player* m_Player;
+	
 protected:
 	void Start() override;
 
-	GameEngineActor* NewActor;
+
 	float4 StartPostion;
 	float4 DirPower;
 
-	//void Update(float _DeltaTime) 
-	//{
-	//	if (hp가 0이라면)
-	//	{
-	//		LiveTime -= 델타타임
-	//		if (0.0 >= LiveTime)
-	//		{
-	//			랜더러를 다시 다 켜고
-	//			GetTransform()->worldpostition(StartPostion);
-	//			Renderer->ChangeAnimation(idle);
-	//		}
-	//		return;
-	//	}
-	//	// 일반적인 코드
-	//}
+
+	void IdleUpdate(float _DeltaTime, const StateInfo& _Info);
+	void IdleStart(const StateInfo& _Info);
+
+
+	void MoveStart(const StateInfo& _Info);
+	void MoveEnd(const StateInfo& _Info);
+	void MoveUpdate(float _DeltaTime, const StateInfo& _Info);
+
+
+	void StunStart(const StateInfo& _Info);
+	void StunEnd(const StateInfo& _Info);
+	void StunUpdate(float _DeltaTime, const StateInfo& _Info);
+
+	void AttStart(const StateInfo& _Info);
+	void AttEnd(const StateInfo& _Info);
+	void AttUpdate(float _DeltaTime, const StateInfo& _Info);
+
+
 
 	void End() {}
 
