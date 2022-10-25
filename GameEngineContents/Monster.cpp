@@ -17,8 +17,8 @@ void Monster::Start()
 	m_Info.m_Hp = 10;
 	m_Info.m_MaxHp = 10;
 	m_Info.Dammage = 1;
-
-
+	m_fSpeed = 150.f;
+	
 
 
 	{
@@ -80,7 +80,10 @@ void Monster::Start()
 void Monster::Update(float _DeltaTime) 
 {
 
-	StateManager.Update(_DeltaTime);
+	
+
+
+
 
 
 
@@ -88,6 +91,8 @@ void Monster::Update(float _DeltaTime)
 	{
 		Death();
 	}
+
+	StateManager.Update(_DeltaTime);
 
 }
 
@@ -106,6 +111,32 @@ void Monster::MoveEnd(const StateInfo& _Info)
 }
 void Monster::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 {
+
+
+	if (m_bHitCheck)
+	{
+		StateManager.ChangeState("Stun");
+		m_bHitCheck = false;
+	}
+
+
+	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
+
+	float Len = TarGetDir.Length();
+	TarGetDir = TarGetDir.NormalizeReturn();
+
+
+	GetTransform().SetWorldMove(TarGetDir * m_fSpeed * _DeltaTime);
+
+
+	if (Len <= 150.f)
+	{
+		StateManager.ChangeState("Att");
+	}
+	else if (Len >= 600.f)
+	{
+		StateManager.ChangeState("Idle");
+	}
 
 }
 
@@ -127,14 +158,20 @@ void Monster::StunUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	hitTime += _DeltaTime;
 
-	if (hitTime >= 0.1f)
+	if (hitTime <= 0.2f)
+	{
+	//	hitTime = 0.f;
+		GetTransform().SetWorldMove(m_fHitDir * 500.f * _DeltaTime);
+	//	StateManager.ChangeState("Idle");
+	}
+	else if (hitTime >= 0.5f)
 	{
 		hitTime = 0.f;
-
 		StateManager.ChangeState("Idle");
 	}
+	
 
-	GetTransform().SetWorldMove(m_fHitDir * 500.f * _DeltaTime);
+	
 
 
 
@@ -147,16 +184,35 @@ void Monster::StunUpdate(float _DeltaTime, const StateInfo& _Info)
 
 void Monster::AttStart(const StateInfo& _Info)
 {
-
+	m_bhitCheck = true;
 }
 void Monster::AttEnd(const StateInfo& _Info)
 {
-
+	m_bhitCheck = false;
 }
 void Monster::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 {
+	m_fHitTime += _DeltaTime;
+
+	if (m_fHitTime >= 1.f)
+	{
+		m_fHitTime = 0.f;
+		StateManager.ChangeState("Idle");
+
+	}
+
+
+	//삭제 예정
+	if (m_bHitCheck)
+	{
+		StateManager.ChangeState("Stun");
+		m_bHitCheck = false;
+	}
 
 }
+
+
+
 
 void Monster::IdleStart(const StateInfo& _Info)
 {
@@ -169,5 +225,21 @@ void Monster::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 		StateManager.ChangeState("Stun");
 		m_bHitCheck = false;
 	}
+
+
+
+
+	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
+
+	float Len = TarGetDir.Length();
+	TarGetDir = TarGetDir.NormalizeReturn();
+
+
+	if (Len <= 600.f)
+	{
+		StateManager.ChangeState("Move");
+	}
+
+
 
 }

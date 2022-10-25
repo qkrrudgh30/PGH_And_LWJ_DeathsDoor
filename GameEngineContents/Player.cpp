@@ -302,7 +302,7 @@ void Player::SworldAttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	//2타격 체크
 
-	if (m_fAttTestTime >= 0.2f)
+	if (m_fAttTestTime >= 0.05f)
 	{
 
 		if (true == GameEngineInput::GetInst()->IsDown("PlayerSworldAtt"))
@@ -314,7 +314,7 @@ void Player::SworldAttUpdate(float _DeltaTime, const StateInfo& _Info)
 	}
 
 
-	if (m_fAttTestTime >= 0.5f)
+	if (m_fAttTestTime >= 0.2f)
 	{
 		m_fAttTestTime = 0.f;
 
@@ -384,7 +384,7 @@ void Player::SworldAttUpdate2(float _DeltaTime, const StateInfo& _Info)
 
 	//3타격 체크
 
-	if (m_fAttTestTime >= 0.2f)
+	if (m_fAttTestTime >= 0.05f)
 	{
 		if (true == GameEngineInput::GetInst()->IsDown("PlayerSworldAtt"))
 		{
@@ -396,7 +396,7 @@ void Player::SworldAttUpdate2(float _DeltaTime, const StateInfo& _Info)
 
 
 
-	if (m_fAttTestTime >= 0.5f)
+	if (m_fAttTestTime >= 0.2f)
 	{
 		m_fAttTestTime = 0.f;
 
@@ -462,7 +462,7 @@ void Player::SworldAttUpdate3(float _DeltaTime, const StateInfo& _Info)
 	m_fAttTestTime += _DeltaTime;
 
 
-	if (m_fAttTestTime >= 0.5f)
+	if (m_fAttTestTime >= 0.2f)
 	{
 		m_fAttTestTime = 0.f;
 		StateManager.ChangeState("Idle");

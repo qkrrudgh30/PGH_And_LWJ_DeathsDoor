@@ -69,7 +69,7 @@ void PlayLevel::Start()
 	{
 		Monster* cMonster = CreateActor<Monster>(OBJECTORDER::Monster);
 		cMonster->GetTransform().SetWorldPosition({500.f,0.f,-500.f});
-		cMonster->m_Player = Player::GetMainPlayer();
+		
 
 	}
 	

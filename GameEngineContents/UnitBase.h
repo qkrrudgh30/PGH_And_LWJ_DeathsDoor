@@ -40,6 +40,10 @@ public:
 	float4 m_fHitDir = {0};
 	float hitTime = 0.f;
 
+
+	float m_fHitTime = 0.f;
+	bool m_bhitCheck = false;
+
 private:
 
 };

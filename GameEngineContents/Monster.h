@@ -25,7 +25,6 @@ public:
 
 
 
-	Player* m_Player;
 	
 protected:
 	void Start() override;

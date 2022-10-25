@@ -66,7 +66,7 @@ CollisionReturn PlayerArrowAtt::MonsterCollision(GameEngineCollision* _This, Gam
 {
 
 
-	dynamic_cast<UnitBase*>(_Other->GetParent())->m_Info.m_Hp -= m_Info.Dammage;
+//	dynamic_cast<UnitBase*>(_Other->GetParent())->m_Info.m_Hp -= m_Info.Dammage;
 	dynamic_cast<UnitBase*>(_Other->GetParent())->m_bHitCheck = true;
 	dynamic_cast<UnitBase*>(_Other->GetParent())->m_fHitPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
 

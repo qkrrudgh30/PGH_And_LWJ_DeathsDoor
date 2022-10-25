@@ -12,11 +12,11 @@ PlayerSWAtt2::~PlayerSWAtt2()
 void PlayerSWAtt2::Start()
 {
 
-
+	m_Info.Dammage = 1;
 	AttCollision = CreateComponent<GameEngineCollision>();
 	AttCollision->GetTransform().SetLocalScale({ 100.0f, 50.0f, 50.0f });
 	AttCollision->ChangeOrder(OBJECTORDER::PlayerAtt);
-	
+	AttCollision->SetCollisionMode(CollisionMode::Ex);
 
 	{
 
@@ -39,10 +39,9 @@ void PlayerSWAtt2::Start()
 void PlayerSWAtt2::Update(float _DeltaTime)
 {
 
-	AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Monster, CollisionType::CT_OBB,
+	AttCollision->IsCollisionEnterBase(CollisionType::CT_OBB, static_cast<int>(OBJECTORDER::Monster), CollisionType::CT_OBB,
 		std::bind(&PlayerSWAtt2::MonsterCollision, this, std::placeholders::_1, std::placeholders::_2)
 	);
-
 
 }
 
