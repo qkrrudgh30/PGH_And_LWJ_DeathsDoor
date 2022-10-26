@@ -85,7 +85,7 @@ void GameEngineFile::Open(OpenMode _OpenMode, FileMode _FileMode)
 	}
 }
 
-void GameEngineFile::Write(void* _WriteData, size_t _DataSize)
+void GameEngineFile::Write(const void* _WriteData, size_t _DataSize)
 {
 	// openmode "wt"
 	
@@ -97,11 +97,49 @@ void GameEngineFile::Write(void* _WriteData, size_t _DataSize)
 	fwrite(_WriteData, _DataSize, 1, FilePtr);
 }
 
+void GameEngineFile::Write(const std::string& _Data)
+{
+	// 크기를 저장해줘야 합니다.
+// string은? 크기가 일정한 데이터를 가지고 있나요?
+	int Size = static_cast<int>(_Data.size());
+	Write(&Size, sizeof(int));
+	Write(_Data.c_str(), _Data.size());
+}
+
+void GameEngineFile::Write(const float4& _Data)
+{
+	Write(&_Data, sizeof(float4));
+}
+
 void GameEngineFile::Read(void* _Buffer, size_t _BufferSize, size_t _ReadSize)
 {
 	// 
 	fread_s(_Buffer, _BufferSize, _ReadSize, 1, FilePtr);
 }
+
+void GameEngineFile::Read(std::string& _Data)
+{
+	int Size = 0;
+	Read(&Size, sizeof(int), sizeof(int));
+	_Data.resize(Size);
+	Read(&_Data[0], Size, Size);
+}
+
+void GameEngineFile::Read(float& _Data)
+{
+	Read(&_Data, sizeof(float), sizeof(float));
+}
+
+void GameEngineFile::Read(float4x4& _Data)
+{
+	Read(&_Data, sizeof(float4x4), sizeof(float4x4));
+}
+
+void GameEngineFile::Read(float4& _Data)
+{
+	Read(&_Data, sizeof(float4), sizeof(float4));
+}
+
 
 std::string GameEngineFile::GetString()
 {

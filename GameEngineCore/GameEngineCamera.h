@@ -55,28 +55,6 @@ public:
 
 	float4 GetMouseWorldPosition();
 
-	float4 GetActorScreenPosition(float4 _Pos)
-	{
-		float4 Pos = _Pos;
-
-		float4x4 ViewPort;
-		ViewPort.ViewPort(Size.x, Size.y, 0, 0, 0, 1);
-
-
-		Pos = Pos * View;
-		Pos = Pos * Projection;
-
-		Pos /= Pos.w;
-
-		Pos = Pos * ViewPort;
-
-
-
-
-
-		return Pos;
-	}
-
 	float4 GetMouseWorldPositionToActor();
 
 	inline float4x4 GetView() 
@@ -112,6 +90,8 @@ public:
 	int PushInstancingData(GameEngineMaterial* _Pipe, void* _DataPtr, int _Size);
 	int PushInstancingIndex(GameEngineMaterial* _Pipe);
 
+	float4 GetWorldPositionToScreenPosition(const float4& _Pos);
+
 protected:
 	void Start();
 
@@ -121,8 +101,6 @@ private:
 	void Render(float _DeltaTime);
 
 	void PushRenderer(GameEngineRenderer* _Renderer);
-
-
 
 	void Release(float _DelataTime);
 

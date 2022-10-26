@@ -542,7 +542,7 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 	float4 MousePos = GetLevel()->GetMainCamera()->GetMouseScreenPosition();
 	MousePos.z = 0.f;
 
-	float4 MyPos = GetLevel()->GetMainCamera()->GetActorScreenPosition(GetTransform().GetWorldPosition());
+	float4 MyPos = GetLevel()->GetMainCamera()->GetWorldPositionToScreenPosition(GetTransform().GetWorldPosition());
 	MyPos.z = 0.f;
 
 
@@ -979,7 +979,7 @@ void Player::Update(float _DeltaTime)
 
 
 
-	float4 MyPos = GetLevel()->GetMainCamera()->GetActorScreenPosition(GetTransform().GetWorldPosition());
+	float4 MyPos = GetLevel()->GetMainCamera()->GetWorldPositionToScreenPosition(GetTransform().GetWorldPosition());
 	MyPos.z = 0.f;
 
 
@@ -1002,7 +1002,7 @@ void Player::Update(float _DeltaTime)
 	
 	float4 WoprldPos = GetTransform().GetWorldPosition();
 
-	float4 ScreenPos = GetLevel()->GetMainCameraActor()->GetCameraComponent()->GetActorScreenPosition(WoprldPos);
+	float4 ScreenPos = GetLevel()->GetMainCameraActor()->GetCameraComponent()->GetWorldPositionToScreenPosition(WoprldPos);
 
 	
 

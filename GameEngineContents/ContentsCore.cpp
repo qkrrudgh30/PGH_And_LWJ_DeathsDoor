@@ -32,7 +32,7 @@ void ContentsCore::Start()
 	std::string_view Value = magic_enum::enum_name(OBJECTORDER::Player);
 	std::string Name = Value.data();
 
-	{
+	{   // 파란색, 디버그 충돌체 3dbox, getworld
 		GameEngineDirectory Dir;
 		Dir.MoveParentToExitsChildDirectory("ContentsResources");
 		Dir.Move("ContentsResources");

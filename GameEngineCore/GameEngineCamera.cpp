@@ -413,3 +413,18 @@ void GameEngineCamera::OverRenderer(GameEngineCamera* _NextCamera)
 		}
 	}
 }
+
+float4 GameEngineCamera::GetWorldPositionToScreenPosition(const float4& _Pos)
+{
+	float4 Pos = _Pos;
+
+	float4x4 ViewPort;
+	ViewPort.ViewPort(Size.x, Size.y, 0, 0, 0, 1);
+
+	Pos = Pos * View;
+	Pos = Pos * Projection;
+	Pos /= Pos.w;
+
+	Pos = Pos * ViewPort;
+	return Pos;
+}
