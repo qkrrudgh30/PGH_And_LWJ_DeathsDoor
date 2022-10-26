@@ -26,7 +26,7 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 	m_CurrentDirectory.MoveParentToExitsChildDirectory("ContentsResources");
 	m_CurrentDirectory.Move("ContentsResources");
 	m_CurrentDirectory.Move("Texture");
-	m_CurrentDirectory.Move("EditLevel");
+	m_CurrentDirectory.Move("07_EditLevel");
 	m_CurrentDirectory.Move("Actor");
 	std::filesystem::directory_iterator dirIter1(m_CurrentDirectory.GetFullPath());
 	for (const std::filesystem::directory_entry& entry : dirIter1)

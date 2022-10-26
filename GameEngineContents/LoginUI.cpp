@@ -26,14 +26,7 @@ void LoginUI::Start()
 		GameEngineInput::GetInst()->CreateKey("LevelDownButton", VK_DOWN);
 	}
 
-	{
-		GameEngineUIRenderer* Renderer = CreateComponent<GameEngineUIRenderer>();
-		Renderer->SetTexture("DeathOpen.jpg");
-		Renderer->ScaleToTexture();
-		Renderer->GetTransform().SetLocalScale({ 1280, 762, 1 });
-		Renderer->GetTransform().SetLocalPosition({ 0.f,0.f, -240.f });
-		Renderer->ChangeCamera(CAMERAORDER::UICAMERA);
-	}
+
 
 
 	{

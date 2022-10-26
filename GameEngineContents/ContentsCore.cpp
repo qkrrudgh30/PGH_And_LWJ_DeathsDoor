@@ -54,7 +54,7 @@ void ContentsCore::Start()
 		Dir.MoveParentToExitsChildDirectory("ContentsResources");
 		Dir.Move("ContentsResources");
 		Dir.Move("Texture");
-		Dir.Move("PrevTexture");
+		Dir.Move("GlobalUI");
 
 		std::vector<GameEngineFile> Shaders = Dir.GetAllFile();
 

@@ -8,7 +8,8 @@
 
 #include "UIMouse.h"
 
-LoginLevel::LoginLevel()
+LoginLevel::LoginLevel()	:
+	UI(nullptr)
 {
 }
 
@@ -32,20 +33,9 @@ void LoginLevel::LevelStartEvent()
 {
 
 
-	if (nullptr == GameEngineTexture::Find("ClickButton.png"))
+	if (nullptr == UI)
 	{
-		GameEngineDirectory Dir;
-		Dir.MoveParentToExitsChildDirectory("ContentsResources");
-		Dir.Move("ContentsResources");
-		Dir.Move("Texture");
-		Dir.Move("LogoUI");
-
-		std::vector<GameEngineFile> Shaders = Dir.GetAllFile();
-
-		for (size_t i = 0; i < Shaders.size(); i++)
-		{
-			GameEngineTexture::Load(Shaders[i].GetFullPath());
-		}
+	
 
 
 		UI = CreateActor<LoginUI>(GameObjectGroup::UI);
@@ -55,7 +45,7 @@ void LoginLevel::LevelStartEvent()
 	}
 
 
-	if (nullptr == GameEngineTexture::Find("cutCursor.png"))
+	/*if (nullptr == GameEngineTexture::Find("cutCursor.png"))
 	{
 		GameEngineDirectory Dir;
 		Dir.MoveParentToExitsChildDirectory("ContentsResources");
@@ -69,7 +59,7 @@ void LoginLevel::LevelStartEvent()
 		{
 			GameEngineTexture::Load(Shaders[i].GetFullPath());
 		}
-	}
+	}*/
 
 
 

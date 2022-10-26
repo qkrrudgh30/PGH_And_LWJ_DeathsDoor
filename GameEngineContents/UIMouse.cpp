@@ -24,7 +24,7 @@ void UIMouse::Start()
 	}
 
 	Renderer = CreateComponent<GameEngineUIRenderer>();
-	Renderer->SetTexture("Mousetarget.png");
+	Renderer->SetTexture("target.png");
 	Renderer->GetTransform().SetLocalScale({50.f,50.f,1.f});
 	Renderer->GetTransform().SetLocalPosition({ 0.f,0.f,-300.f });
 	Renderer->ChangeCamera(CAMERAORDER::UICAMERA);
