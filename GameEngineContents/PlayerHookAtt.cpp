@@ -1,6 +1,7 @@
 
 #include "PreCompile.h"
 #include "PlayerHookAtt.h"
+#include "PlayerHookTrail.h"
 
 PlayerHookAtt::PlayerHookAtt()
 {
@@ -62,6 +63,8 @@ void PlayerHookAtt::Update(float _DeltaTime)
 
 
 	m_fLifeTime += _DeltaTime;
+	m_ftrailTime += _DeltaTime;
+
 
 	if (m_fLifeTime >= 0.5f)
 	{
@@ -71,9 +74,10 @@ void PlayerHookAtt::Update(float _DeltaTime)
 			std::bind(&PlayerHookAtt::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
 		);
 
-		AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::PlayerHookTrail, CollisionType::CT_OBB,
-			std::bind(&PlayerHookAtt::TrailCollision, this, std::placeholders::_1, std::placeholders::_2)
-		);
+
+		m_bHookBack = true;
+
+
 
 
 		if (m_fLifeTime >= 1.3f)
@@ -86,6 +90,15 @@ void PlayerHookAtt::Update(float _DeltaTime)
 		AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Monster, CollisionType::CT_OBB,
 			std::bind(&PlayerHookAtt::MonsterCollision, this, std::placeholders::_1, std::placeholders::_2)
 		);
+
+		if (m_ftrailTime >= 0.1f)
+		{
+			PlayerHookTrail* HookTrail = GetLevel()->CreateActor<PlayerHookTrail>(OBJECTORDER::PlayerHookTrail);
+			HookTrail->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+			HookTrail->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+			HookTrail->m_cHook = this;
+		}
+
 
 	}
 	
@@ -124,7 +137,7 @@ CollisionReturn PlayerHookAtt::TrailCollision(GameEngineCollision* _This, GameEn
 {
 
 
-
+	_Other->GetParent()->Death();
 
 
 	return CollisionReturn::Break;

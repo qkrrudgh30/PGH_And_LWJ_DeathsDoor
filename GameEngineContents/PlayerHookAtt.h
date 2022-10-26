@@ -17,14 +17,15 @@ public:
 	PlayerHookAtt(PlayerHookAtt&& _Other) noexcept = delete;
 	PlayerHookAtt& operator=(const PlayerHookAtt& _Other) = delete;
 	PlayerHookAtt& operator=(PlayerHookAtt&& _Other) noexcept = delete;
-
+public:
+	bool m_bHookBack = false;
 protected:
 	void Start() override;
 	void Update(float _DeltaTime);
 	void End() {}
 private:
 	bool	m_bHitCheck = false;
-
+	float m_ftrailTime = 0.f;
 	CollisionReturn MonsterCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
 	CollisionReturn PlayerCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
 	CollisionReturn TrailCollision(GameEngineCollision* _This, GameEngineCollision* _Other);

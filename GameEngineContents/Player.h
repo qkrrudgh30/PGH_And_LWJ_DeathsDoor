@@ -154,6 +154,7 @@ private:
 	void ChangeRendererRotation(float _DeltaTime, int _Ratate);
 	
 	CollisionReturn CollisionNPC(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn TrailCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
 
 
 

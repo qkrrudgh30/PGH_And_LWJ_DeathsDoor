@@ -766,8 +766,11 @@ void Player::HookAttUpdate(float _DeltaTime, const StateInfo& _Info)
 	if (m_bHookHitcheck)
 	{
 		
-		/*float4 HookDir = m_fHookPoint - GetTransform().GetWorldPosition();
-		HookDir = HookDir.NormalizeReturn();*/
+	/*	Collision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::PlayerHookTrail, CollisionType::CT_OBB,
+			std::bind(&Player::TrailCollision, this, std::placeholders::_1, std::placeholders::_2)
+		);*/
+
+
 		m_fSpeed = 1500.f;
 		float4 MoveDir = Renderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * m_fSpeed * _DeltaTime);
@@ -1316,3 +1319,15 @@ void Player::UIOn()
 	MainUI->On();
 
 }
+
+
+CollisionReturn Player::TrailCollision(GameEngineCollision* _This, GameEngineCollision* _Other)
+{
+
+
+//	_Other->GetParent()->Death();
+
+
+	return CollisionReturn::Break;
+}
+

@@ -1,7 +1,13 @@
+
+
 #pragma once
+#include <GameEngineCore/CoreMinimal.h>
+
+#include "UnitBase.h"
 
 // Ό³Έν :
-class PlayerHookTrail
+class PlayerHookAtt;
+class PlayerHookTrail : public UnitBase
 {
 public:
 	// constrcuter destructer
@@ -15,8 +21,10 @@ public:
 	PlayerHookTrail& operator=(PlayerHookTrail&& _Other) noexcept = delete;
 
 protected:
-
-private:
-
+	void Start() override;
+	void Update(float _DeltaTime);
+	void End() {}
+public:
+	PlayerHookAtt* m_cHook;
 };
 
