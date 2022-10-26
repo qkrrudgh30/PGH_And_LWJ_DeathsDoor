@@ -44,7 +44,17 @@ void PlayerHookAtt::Update(float _DeltaTime)
 {
 
 
+	if (m_bHitCheck)
+	{
 
+		AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
+			std::bind(&PlayerHookAtt::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
+		);
+
+
+		return;
+
+	}
 
 
 
@@ -58,13 +68,18 @@ void PlayerHookAtt::Update(float _DeltaTime)
 		MoveDir = MoveDir * -1.f;
 
 		AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
-			std::bind(&PlayerHookAtt::MonsterCollision, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerHookAtt::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
 		);
 
 		AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::PlayerHookTrail, CollisionType::CT_OBB,
-			std::bind(&PlayerHookAtt::MonsterCollision, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerHookAtt::TrailCollision, this, std::placeholders::_1, std::placeholders::_2)
 		);
 
+
+		if (m_fLifeTime >= 1.3f)
+		{
+			Death();
+		}
 	}
 	else
 	{
@@ -87,20 +102,31 @@ CollisionReturn PlayerHookAtt::MonsterCollision(GameEngineCollision* _This, Game
 {
 
 
-//	dynamic_cast<UnitBase*>(_Other->GetParent())->m_bHitCheck = true;
-	
+	Player::GetMainPlayer()->m_bHookHitcheck = true;
+	m_bHitCheck = true;
+	Player::GetMainPlayer()->m_fHookPoint = GetTransform().GetWorldPosition();
 
-	
+
 	return CollisionReturn::Break;
 }
 
 CollisionReturn PlayerHookAtt::PlayerCollision(GameEngineCollision* _This, GameEngineCollision* _Other)
 {
-	return CollisionReturn();
+
+
+	Death();
+	Player::GetMainPlayer()->m_bHookEndcheck = true;
+
+	return CollisionReturn::Break;
 }
 
 CollisionReturn PlayerHookAtt::TrailCollision(GameEngineCollision* _This, GameEngineCollision* _Other)
 {
-	return CollisionReturn();
+
+
+
+
+
+	return CollisionReturn::Break;
 }
 

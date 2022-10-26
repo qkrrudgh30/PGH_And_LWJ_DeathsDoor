@@ -95,6 +95,12 @@ public:
 	void UIOff();
 	void UIOn();
 
+
+	bool	m_bHookEndcheck = false;
+	bool	m_bHookHitcheck = false;
+	float4 m_fHookPoint;
+
+
 	PlayerUpgradeUI* UpgradeUI;
 	PlayerMainUI* MainUI;
 private:

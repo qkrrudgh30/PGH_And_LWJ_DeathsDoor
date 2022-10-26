@@ -23,7 +23,7 @@ protected:
 	void Update(float _DeltaTime);
 	void End() {}
 private:
-
+	bool	m_bHitCheck = false;
 
 	CollisionReturn MonsterCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
 	CollisionReturn PlayerCollision(GameEngineCollision* _This, GameEngineCollision* _Other);

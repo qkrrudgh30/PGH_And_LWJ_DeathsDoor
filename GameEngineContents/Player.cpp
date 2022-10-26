@@ -743,18 +743,36 @@ void Player::HookAttStart(const StateInfo& _Info)
 
 //애니메이션 변경
 
+
+
 }
 
 void Player::HookAttEnd(const StateInfo& _Info)
 {
 	//후크 삭제
 
-
+	m_bHookEndcheck = false;
+	m_bHookHitcheck = false;
 }
 
 void Player::HookAttUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-	
+	if (m_bHookEndcheck)
+	{
+		StateManager.ChangeState("Idle");
+	}
+
+
+	if (m_bHookHitcheck)
+	{
+		
+		/*float4 HookDir = m_fHookPoint - GetTransform().GetWorldPosition();
+		HookDir = HookDir.NormalizeReturn();*/
+		m_fSpeed = 1500.f;
+		float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+		GetTransform().SetWorldMove(MoveDir * m_fSpeed * _DeltaTime);
+	}
+
 	//대기 or  이동
 
 }
