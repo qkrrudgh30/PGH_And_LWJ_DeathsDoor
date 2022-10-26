@@ -32,6 +32,8 @@ enum class OBJECTORDER
 	BackGround,
 	Player,
 	PlayerAtt,
+	PlayerHook,
+	PlayerHookTrail,
 	Monster,
 	NPC,
 	UI = 1000,

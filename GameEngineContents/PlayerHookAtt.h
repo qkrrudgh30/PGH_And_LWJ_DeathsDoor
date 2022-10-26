@@ -26,7 +26,8 @@ private:
 
 
 	CollisionReturn MonsterCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
-
+	CollisionReturn PlayerCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn TrailCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
 
 
 };

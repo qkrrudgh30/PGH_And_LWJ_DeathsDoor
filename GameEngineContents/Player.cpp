@@ -159,6 +159,13 @@ void Player::Start()
 		, std::bind(&Player::ArrowAttEnd, this, std::placeholders::_1)
 	);
 
+	StateManager.CreateStateMember("HookAtt"
+		, std::bind(&Player::HookAttUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::HookAttStart, this, std::placeholders::_1)
+		, std::bind(&Player::HookAttEnd, this, std::placeholders::_1)
+	);
+
+
 
 	StateManager.CreateStateMember("Move"
 		, std::bind(&Player::MoveUpdate, this, std::placeholders::_1, std::placeholders::_2)
@@ -236,13 +243,30 @@ void Player::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 
 		if (!m_bArrowCCheck)
 		{
-			if (m_Info.Weapontype == WEAPONTYPE::Arrow)
+
+			if (m_Info.Weapontype != WEAPONTYPE::Sword)
 			{
-				if (m_Info.ArrowCount > 0)
+
+				if (m_Info.Weapontype == WEAPONTYPE::Arrow)
 				{
+					if (m_Info.ArrowCount > 0)
+					{
+						StateManager.ChangeState("ArrowAtt");
+					}
+				}
+				else if (m_Info.Weapontype == WEAPONTYPE::Hook)
+				{
+
 					StateManager.ChangeState("ArrowAtt");
 				}
+				else if (m_Info.Weapontype == WEAPONTYPE::Fire)
+				{
+
+					StateManager.ChangeState("ArrowAtt");
+				}
+
 			}
+
 		}
 
 
@@ -549,10 +573,20 @@ void Player::SworldAttUpdate3(float _DeltaTime, const StateInfo& _Info)
 void Player::ArrowAttStart(const StateInfo& _Info)
 {
 
-	m_Info.Weapontype = WEAPONTYPE::Arrow;
-
 	m_bArrowCameraCheck = true;
 
+	if (m_Info.Weapontype == WEAPONTYPE::Arrow)
+	{
+
+	}
+	else if (m_Info.Weapontype == WEAPONTYPE::Hook)
+	{
+
+	}
+	else if (m_Info.Weapontype == WEAPONTYPE::Fire)
+	{
+
+	}
 
 }
 
@@ -560,35 +594,47 @@ void Player::ArrowAttEnd(const StateInfo& _Info)
 {
 	//화살 생성
 
+	if (m_Info.Weapontype == WEAPONTYPE::Arrow)
+	{
+		PlayerArrowAtt* m_ArrowAtt = GetLevel()->CreateActor<PlayerArrowAtt>(OBJECTORDER::PlayerAtt);
+		m_ArrowAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+		m_ArrowAtt->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+		m_bArrowCameraCheck = false;
+		m_Info.ArrowCount -= 1;
+	}
+	else if (m_Info.Weapontype == WEAPONTYPE::Hook)
+	{
 
-	PlayerArrowAtt* m_ArrowAtt = GetLevel()->CreateActor<PlayerArrowAtt>(OBJECTORDER::PlayerAtt);
-	m_ArrowAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-	m_ArrowAtt->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+		m_CHookAtt = GetLevel()->CreateActor<PlayerHookAtt>(OBJECTORDER::PlayerAtt);
+		m_CHookAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+		m_CHookAtt->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
 
 
+		m_bArrowCameraCheck = false;
+	}
+	else if (m_Info.Weapontype == WEAPONTYPE::Fire)
+	{
 
 
-	m_bArrowCameraCheck = false;
-
-	m_Info.ArrowCount -= 1;
-	//m_Info.Weapontype = WEAPONTYPE::Sword;
+		m_bArrowCameraCheck = false;
+	}
+	
 }
 
 void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 	//카메라 줌 + 플레이어 로테이션
 
+
+
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerArrowAtt"))
 	{
 
-		//m_fCameraLenY += 600.f * _DeltaTime;
-	//	m_fCameraLenZ += 600.f * _DeltaTime;
-		//if (m_fCameraLenY >= 2100.f)
+
 		{
 			m_fCameraLenY = 2100.f;
 		}
 
-	//	if (m_fCameraLenZ >= 2100.f)
 		{
 			m_fCameraLenZ = 2100.f;
 		}
@@ -596,12 +642,40 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 	}
 	else if (true == GameEngineInput::GetInst()->IsUp("PlayerArrowAtt"))
 	{
-		StateManager.ChangeState("Idle");
+		
+		if (m_Info.Weapontype == WEAPONTYPE::Arrow)
+		{
+			StateManager.ChangeState("Idle");
+		}
+		else if (m_Info.Weapontype == WEAPONTYPE::Hook)
+		{
+			StateManager.ChangeState("HookAtt");
+		}
+		else if (m_Info.Weapontype == WEAPONTYPE::Fire)
+		{
+			StateManager.ChangeState("Idle");
+		}
+
+
 
 	}
 	else if (true == GameEngineInput::GetInst()->IsFree("PlayerArrowAtt"))
 	{
-		StateManager.ChangeState("Idle");
+
+		if (m_Info.Weapontype == WEAPONTYPE::Arrow)
+		{
+			StateManager.ChangeState("Idle");
+		}
+		else if (m_Info.Weapontype == WEAPONTYPE::Hook)
+		{
+
+		}
+		else if (m_Info.Weapontype == WEAPONTYPE::Fire)
+		{
+
+		}
+
+
 	}
 
 
@@ -667,109 +741,21 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 void Player::HookAttStart(const StateInfo& _Info)
 {
 
-	m_Info.Weapontype = WEAPONTYPE::Arrow;
-
-	m_bArrowCameraCheck = true;
-
+//애니메이션 변경
 
 }
 
 void Player::HookAttEnd(const StateInfo& _Info)
 {
-	//화살 생성
+	//후크 삭제
 
 
-	PlayerArrowAtt* m_ArrowAtt = GetLevel()->CreateActor<PlayerArrowAtt>(OBJECTORDER::PlayerAtt);
-	m_ArrowAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-	m_ArrowAtt->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
-
-
-
-
-	m_bArrowCameraCheck = false;
-
-	m_Info.ArrowCount -= 1;
-	//m_Info.Weapontype = WEAPONTYPE::Sword;
 }
 
 void Player::HookAttUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-	//카메라 줌 + 플레이어 로테이션
-
-	if (true == GameEngineInput::GetInst()->IsPress("PlayerArrowAtt"))
-	{
-
-		//m_fCameraLenY += 600.f * _DeltaTime;
-	//	m_fCameraLenZ += 600.f * _DeltaTime;
-		//if (m_fCameraLenY >= 2100.f)
-		{
-			m_fCameraLenY = 2100.f;
-		}
-
-		//	if (m_fCameraLenZ >= 2100.f)
-		{
-			m_fCameraLenZ = 2100.f;
-		}
-
-	}
-	else if (true == GameEngineInput::GetInst()->IsUp("PlayerArrowAtt"))
-	{
-		StateManager.ChangeState("Idle");
-
-	}
-	else if (true == GameEngineInput::GetInst()->IsFree("PlayerArrowAtt"))
-	{
-		StateManager.ChangeState("Idle");
-	}
-
-
-
-	float4 MousePos = GetLevel()->GetMainCamera()->GetMouseScreenPosition();
-	MousePos.z = 0.f;
-
-	float4 MyPos = GetLevel()->GetMainCamera()->GetWorldPositionToScreenPosition(GetTransform().GetWorldPosition());
-	MyPos.z = 0.f;
-
-
-
-	float4 RenderDir = (MousePos - MyPos);
-
-	float Len = RenderDir.Length();
-	RenderDir.Normalize();
-	RenderDir.z = 0;
-
-	if (Len >= 500.f)
-	{
-		Len = 500.f;
-	}
-
-
-
-	float m_fAngle = float4::VectorXYtoDegree(MyPos, MousePos);
-	m_fAngle += 90.f;
-
-	if (m_fAngle >= 360.f)
-	{
-		m_fAngle -= 360.f;
-	}
-	std::string A2 = std::to_string(m_fAngle);
-
-
-	A2 += " : ANGLE";
-
-	GameEngineDebug::OutPutString(A2);
-
-
-
-
-
-	Renderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
-
-	m_fArrowCameraActionPos = Renderer->GetTransform().GetWorldPosition() + Renderer->GetTransform().GetForwardVector() * Len;
-
-
-
-
+	
+	//대기 or  이동
 
 }
 
@@ -1031,23 +1017,37 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	}
 
+
 	if (true == GameEngineInput::GetInst()->IsDown("PlayerArrowAtt"))
 	{
 
-		if (!m_bArrowCCheck)
-		{
-			if (m_Info.Weapontype == WEAPONTYPE::Arrow)
+			if (m_Info.Weapontype != WEAPONTYPE::Sword )
 			{
-				if (m_Info.ArrowCount > 0)
+
+				if (m_Info.Weapontype == WEAPONTYPE::Arrow)
 				{
+					if (m_Info.ArrowCount > 0)
+					{
+						StateManager.ChangeState("ArrowAtt");
+					}
+				}
+				else if(m_Info.Weapontype == WEAPONTYPE::Hook)
+				{
+
 					StateManager.ChangeState("ArrowAtt");
 				}
+				else if (m_Info.Weapontype == WEAPONTYPE::Fire)
+				{
+
+					StateManager.ChangeState("ArrowAtt");
+				}
+
 			}
-			
-		}
+		
 
 
 	}
+
 
 
 	if (true == GameEngineInput::GetInst()->IsDown("PlayerWeapomSwap"))
