@@ -15,7 +15,7 @@ class PlayerSWAtt3;
 class PlayerSWAttSlide;
 class PlayerMainUI;
 class PlayerUpgradeUI;
-
+class PlayerHookAtt;
 
 class Player : public UnitBase
 {
@@ -81,6 +81,10 @@ protected:
 	void ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info);
 
 
+	void HookAttStart(const StateInfo& _Info);
+	void HookAttEnd(const StateInfo& _Info);
+	void HookAttUpdate(float _DeltaTime, const StateInfo& _Info);
+
 
 
 
@@ -135,6 +139,11 @@ private:
 	float m_fCameraLenZ;
 	float m_fCameraLenY;
 
+
+
+	WEAPONTYPE	m_eBeforeType;
+
+
 private:
 	void ChangeRendererRotation(float _DeltaTime, int _Ratate);
 	
@@ -147,6 +156,6 @@ private:
 	PlayerSWAtt2* m_CSWAtt2;
 	PlayerSWAtt3* m_CSWAtt3;
 	PlayerSWAttSlide* m_CSWAttSlide;
-
+	PlayerHookAtt* m_CHookAtt;
 };
 

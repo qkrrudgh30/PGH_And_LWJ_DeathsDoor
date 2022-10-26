@@ -171,6 +171,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="FlowerMonster.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GlobalContentsValue.h">
       <SubType>
       </SubType>
@@ -188,6 +192,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="PlayerArrowAtt.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerHookAtt.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerHookTrail.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -264,6 +276,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="FlowerMonster.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GlobalContentsValue.cpp">
       <SubType>
       </SubType>
@@ -281,6 +297,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PlayerArrowAtt.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerHookAtt.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerHookTrail.cpp">
       <SubType>
       </SubType>
     </ClCompile>

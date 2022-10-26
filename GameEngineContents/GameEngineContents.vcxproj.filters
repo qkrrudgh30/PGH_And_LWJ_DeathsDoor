@@ -88,6 +88,9 @@
     <Filter Include="00.Actor\02.Unit\04.NPC">
       <UniqueIdentifier>{94c09978-aade-4b1f-bb31-b85a5b33c870}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.Actor\02.Unit\03.Bullet\00.Player\02.Hook">
+      <UniqueIdentifier>{f4637ab5-6376-467a-8601-caa7e9b4800b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -164,6 +167,15 @@
     <ClInclude Include="PlayerArrowAtt.h">
       <Filter>00.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
     </ClInclude>
+    <ClInclude Include="FlowerMonster.h">
+      <Filter>00.Actor\02.Unit\02.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHookAtt.h">
+      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerHookTrail.h">
+      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -236,6 +248,15 @@
     </ClCompile>
     <ClCompile Include="PlayerArrowAtt.cpp">
       <Filter>00.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowerMonster.cpp">
+      <Filter>00.Actor\02.Unit\02.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHookAtt.cpp">
+      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerHookTrail.cpp">
+      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
