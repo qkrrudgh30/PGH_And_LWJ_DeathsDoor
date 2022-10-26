@@ -58,15 +58,6 @@
     <Filter Include="00.Actor\00.MainCamera">
       <UniqueIdentifier>{fbc489a8-8695-4dcc-bfda-325d2a5a1695}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Level\00.Logo">
-      <UniqueIdentifier>{270da837-fb43-4417-91ae-ecc5e48d4516}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.Level\01.Stage">
-      <UniqueIdentifier>{8402f9af-8626-471c-b148-0149fefd5d45}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.Level\99.Engine">
-      <UniqueIdentifier>{254115b4-8224-4240-bd76-46c1b1bbb8eb}</UniqueIdentifier>
-    </Filter>
     <Filter Include="00.Actor\01.UI\99.EditUI">
       <UniqueIdentifier>{a5828328-240f-4058-bbe0-9ad37f368d2b}</UniqueIdentifier>
     </Filter>
@@ -90,6 +81,33 @@
     </Filter>
     <Filter Include="00.Actor\02.Unit\03.Bullet\00.Player\02.Hook">
       <UniqueIdentifier>{f4637ab5-6376-467a-8601-caa7e9b4800b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Level\08.TestLevel">
+      <UniqueIdentifier>{8402f9af-8626-471c-b148-0149fefd5d45}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Level\00.LoginLevel">
+      <UniqueIdentifier>{270da837-fb43-4417-91ae-ecc5e48d4516}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Level\07.EditLevel">
+      <UniqueIdentifier>{254115b4-8224-4240-bd76-46c1b1bbb8eb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Level\06.BossLevel">
+      <UniqueIdentifier>{e5ae9c92-5105-46ed-8cd4-d33144c49128}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Level\05.HuntingLevel5">
+      <UniqueIdentifier>{88b3e6cc-752b-48f1-a66f-7b735dc2c317}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Level\04.HuntingLevel4">
+      <UniqueIdentifier>{d8a79d83-22b4-4dce-b57e-072b29fe0b00}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Level\03.HuntingLevel3">
+      <UniqueIdentifier>{de1daf68-95ca-43e7-86c8-1be5c6a442a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Level\02.HuntingLevel2">
+      <UniqueIdentifier>{13aa80c3-64a8-408e-b67d-0817ebf6e10d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Level\01.HuntingLevel1">
+      <UniqueIdentifier>{74a5acf5-1db7-46e1-b23f-6cc4a78e8723}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -119,19 +137,16 @@
       <Filter>00.Actor\00.MainCamera</Filter>
     </ClInclude>
     <ClInclude Include="LoginLevel.h">
-      <Filter>01.Level\00.Logo</Filter>
+      <Filter>01.Level\00.LoginLevel</Filter>
     </ClInclude>
-    <ClInclude Include="PlayLevel.h">
-      <Filter>01.Level\01.Stage</Filter>
+    <ClInclude Include="TestLevel.h">
+      <Filter>01.Level\08.TestLevel</Filter>
     </ClInclude>
     <ClInclude Include="UnitBase.h">
       <Filter>00.Actor\02.Unit</Filter>
     </ClInclude>
-    <ClInclude Include="TestLevel.h">
-      <Filter>01.Level\99.Engine</Filter>
-    </ClInclude>
     <ClInclude Include="EditLevel.h">
-      <Filter>01.Level\99.Engine</Filter>
+      <Filter>01.Level\07.EditLevel</Filter>
     </ClInclude>
     <ClInclude Include="EditGUIWindow.h">
       <Filter>97.Core</Filter>
@@ -201,19 +216,16 @@
       <Filter>00.Actor\00.MainCamera</Filter>
     </ClCompile>
     <ClCompile Include="LoginLevel.cpp">
-      <Filter>01.Level\00.Logo</Filter>
+      <Filter>01.Level\00.LoginLevel</Filter>
     </ClCompile>
-    <ClCompile Include="PlayLevel.cpp">
-      <Filter>01.Level\01.Stage</Filter>
+    <ClCompile Include="TestLevel.cpp">
+      <Filter>01.Level\08.TestLevel</Filter>
     </ClCompile>
     <ClCompile Include="UnitBase.cpp">
       <Filter>00.Actor\02.Unit</Filter>
     </ClCompile>
-    <ClCompile Include="TestLevel.cpp">
-      <Filter>01.Level\99.Engine</Filter>
-    </ClCompile>
     <ClCompile Include="EditLevel.cpp">
-      <Filter>01.Level\99.Engine</Filter>
+      <Filter>01.Level\07.EditLevel</Filter>
     </ClCompile>
     <ClCompile Include="EditGUIWindow.cpp">
       <Filter>97.Core</Filter>

@@ -1,7 +1,6 @@
 #include "PreCompile.h"
 #include "ContentsCore.h"
 #include "GameEngineContents/LoginLevel.h"
-#include "GameEngineContents/PlayLevel.h"
 #include "GameEngineContents/TestLevel.h"
 #include "GameEngineContents/EditLevel.h"
 #include "GameEngineContents/EditGUIWindow.h"
@@ -12,9 +11,6 @@
 
 
 #pragma comment(lib, "GameEngineBase.lib")
-
-#define ENGINE
-// #define CLIENT //우정님 개발할때 주석 풀고, 위에 ENGINE은 주석처리
 
 ContentsCore::ContentsCore() 
 	: GameEngineCore()
@@ -97,16 +93,10 @@ void ContentsCore::Start()
 
 	// RTTI 런 타임 타입 인포메이션
 	CreateLevel<LoginLevel>("Login");
-	CreateLevel<PlayLevel>("Play");
 	CreateLevel<TestLevel>("Test");
 	CreateLevel<EditLevel>("Edit");
+	ChangeLevel("Login");
 
-#ifdef ENGINE
-	ChangeLevel("Edit");
-#else
-	ChangeLevel("Play");
-#endif
-	
 	GameEngineGUI::CreateGUIWindow<GameEngineStatusWindow>("EngineStatus", nullptr);
 	GameEngineGUI::CreateGUIWindow<EditGUIWindow>("EditGUIWindow", nullptr);
 
