@@ -1271,14 +1271,27 @@ void Player::Update(float _DeltaTime)
 	//GetLevel()->GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
 
 
+	if (m_bLogoLevelCheck)
+	{
+	
+		return;
+	}
+	
+
+
 	StateManager.Update(_DeltaTime);
+
+
 	float4 WorldPos;
 	if (!m_bArrowCameraCheck)
 	{
-
-		m_fCameraLenZ = 1700.f;
-		m_fCameraLenY = 1700.f;
-		WorldPos = GetTransform().GetWorldPosition();
+		
+		{
+			m_fCameraLenZ = 1700.f;
+			m_fCameraLenY = 1700.f;
+			WorldPos = GetTransform().GetWorldPosition();
+		}
+		
 	}
 	else
 	{

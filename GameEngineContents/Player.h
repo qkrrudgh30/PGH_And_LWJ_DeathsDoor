@@ -96,6 +96,8 @@ public:
 	void UIOn();
 
 
+	bool   m_bLogoLevelCheck = false;
+
 	bool	m_bHookEndcheck = false;
 	bool	m_bHookHitcheck = false;
 	float4 m_fHookPoint;

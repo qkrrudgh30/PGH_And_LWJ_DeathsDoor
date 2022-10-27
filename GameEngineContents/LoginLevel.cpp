@@ -21,6 +21,27 @@ LoginLevel::~LoginLevel()
 void LoginLevel::Start()
 {
 
+	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
+
+
+	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
+	GetMainCameraActorTransform().SetWorldRotation({ 25.f,0.f,0.f });
+	float4 CameraWorldPos = GetMainCameraActorTransform().GetWorldPosition();
+	CameraWorldPos.y += 700.f;
+	CameraWorldPos.z -= 1200.f;;
+	GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
+
+
+
+	if (false == GameEngineInput::GetInst()->IsKey("FreeCameaOnOff"))
+	{
+		GameEngineInput::GetInst()->CreateKey("FreeCameaOnOff", 'O');
+	}
+
+
+
+
+
 	{
 		UIMouse* m_UIMouse = CreateActor<UIMouse>(OBJECTORDER::MouseUI);
 		m_UIMouse->SetLevelOverOn();
@@ -72,7 +93,7 @@ void LoginLevel::LevelStartEvent()
 			NewPlayer->GetTransform().SetWorldPosition({1.F,0.F,1.F});
 			NewPlayer->SetLevelOverOn();
 			NewPlayer->UIOff();
-
+			NewPlayer->m_bLogoLevelCheck = true;
 
 
 		}

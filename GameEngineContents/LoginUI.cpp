@@ -19,6 +19,8 @@ LoginUI::~LoginUI()
 void LoginUI::Start()
 {
 
+	//DeathDoorName
+
 	if (false == GameEngineInput::GetInst()->IsKey("LevelselectButton"))
 	{
 		GameEngineInput::GetInst()->CreateKey("LevelselectButton", VK_RETURN);
@@ -28,13 +30,24 @@ void LoginUI::Start()
 
 
 
+	{
+		GameEngineUIRenderer * RendererLogo = CreateComponent<GameEngineUIRenderer>();
+		RendererLogo->SetTexture("DeathDoorlogo.png");
+		RendererLogo->ScaleToTexture();
+		RendererLogo->GetTransform().SetLocalScale({ 500, 300, 1 });
+		RendererLogo->GetTransform().SetLocalPosition({ 0.f,100.f, -250.f });
+		RendererLogo->ChangeCamera(CAMERAORDER::UICAMERA);
+
+	}
+
+
 
 	{
 		RendererButton1 = CreateComponent<GameEngineUIRenderer>();
 		RendererButton1->SetTexture("ClickButton.png");
 		RendererButton1->ScaleToTexture();
 		RendererButton1->GetTransform().SetLocalScale({ 50, 50, 1 });
-		RendererButton1->GetTransform().SetLocalPosition({ -450.f,-200.f, -250.f });
+		RendererButton1->GetTransform().SetLocalPosition({ -100.f,-200.f, -250.f });
 		RendererButton1->GetTransform().SetLocalRotation({ 0.f,0.f,-90.f });
 		RendererButton1->ChangeCamera(CAMERAORDER::UICAMERA);
 
@@ -47,18 +60,18 @@ void LoginUI::Start()
 		RendererButton2->SetTexture("ClickButton.png");
 		RendererButton2->ScaleToTexture();
 		RendererButton2->GetTransform().SetLocalScale({ 50, 50, 1 });
-		RendererButton2->GetTransform().SetLocalPosition({ -250.f,-200.f, -250.f });
+		RendererButton2->GetTransform().SetLocalPosition({ 100.f,-200.f, -250.f });
 		RendererButton2->GetTransform().SetLocalRotation({ 0.f,0.f,90.f });
 		RendererButton2->ChangeCamera(CAMERAORDER::UICAMERA);
 
 	}
 
 
-	m_fPlayPos1 = { -450.f,-200.f, -250.f };
-	m_fEditPos1 = { -450.f,-250.f, -250.f };
+	m_fPlayPos1 = { -100.f,-200.f, -250.f };
+	m_fEditPos1 = { -100.f,-250.f, -250.f };
 
-	m_fPlayPos2 = { -250.f,-200.f, -250.f };
-	m_fEditPos2 = { -250.f,-250.f, -250.f };
+	m_fPlayPos2 = { 100.f,-200.f, -250.f };
+	m_fEditPos2 = { 100.f,-250.f, -250.f };
 
 
 
@@ -104,8 +117,8 @@ void LoginUI::Update(float _DeltaTime)
 		}
 		m_ILevelType = 0;
 		m_ILevelTypeCheck = 0;
-		RendererButton2->GetTransform().SetLocalPosition({ -250.f,-200.f, -250.f });
-		RendererButton1->GetTransform().SetLocalPosition({ -450.f,-200.f, -250.f });
+		RendererButton2->GetTransform().SetLocalPosition({ 100.f,-200.f, -250.f });
+		RendererButton1->GetTransform().SetLocalPosition({ -100.f,-200.f, -250.f });
 
 
 	}
@@ -209,18 +222,6 @@ void LoginUI::Update(float _DeltaTime)
 
 	}
 
-
-	//if (m_ILevelType == 0)
-	//{
-	//	RendererButton1->GetTransform().SetLocalPosition({ -450.f,-200.f, -250.f });
-	//	RendererButton2->GetTransform().SetLocalPosition({ -250.f,-200.f, -250.f });
-
-	//}
-	//else if (m_ILevelType == 1)
-	//{
-	//	RendererButton1->GetTransform().SetLocalPosition({ -450.f,-250.f, -250.f });
-	//	RendererButton2->GetTransform().SetLocalPosition({ -250.f,-250.f, -250.f });
-	//}
 
 
 

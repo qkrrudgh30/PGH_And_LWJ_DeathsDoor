@@ -31,27 +31,11 @@ void TestLevel::Start()
 {
 
 
-	int a = 0;
-	GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
-	float4 CameraWorldPos = GetMainCameraActorTransform().GetWorldPosition();
-	//CameraWorldPos.x -= 1700.f;
-	CameraWorldPos.y += 1700.f;
-	CameraWorldPos.z -= 1700.f;
-	GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
-
-
-	if (false == GameEngineInput::GetInst()->IsKey("FreeCameaOnOff"))
-	{
-		GameEngineInput::GetInst()->CreateKey("FreeCameaOnOff", 'O');
-	}
-
 
 
 
 	// 내가 직접 설정해줘야 합니다.
-	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
-
-
+	
 
 
 
@@ -100,7 +84,19 @@ void TestLevel::LevelStartEvent()
 		else
 		{
 			Player* NewPlayer = Player::GetMainPlayer();
+			NewPlayer->GetTransform().SetWorldPosition({1.F,0.F,1.F});
 			NewPlayer->UIOn();
+			NewPlayer->m_bLogoLevelCheck = false;
+
+			GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
+			GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
+			float4 CameraWorldPos = GetMainCameraActorTransform().GetWorldPosition();
+			CameraWorldPos.y += 1700.f;
+			CameraWorldPos.z -= 1700.f;
+			GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
+
+
+
 
 		}
 	}
