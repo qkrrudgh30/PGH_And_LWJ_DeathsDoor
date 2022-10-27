@@ -96,7 +96,7 @@ void LoginUI::Update(float _DeltaTime)
 	
 		if (m_ILevelType == 0)
 		{
-			GEngine::ChangeLevel("Play");
+			GEngine::ChangeLevel("Test");
 		}
 		else
 		{
