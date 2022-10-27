@@ -230,32 +230,32 @@ public:
 
 	inline float4 GetForwardVector() const
 	{
-		return Data.WorldWorldMatrix.ArrV[2].NormalizeReturn();
+		return Data.WorldWorldMatrix.ArrV[2].Normalize3DReturn();
 	}
 
 	inline float4 GetBackVector() const
 	{
-		return -(Data.WorldWorldMatrix.ArrV[2].NormalizeReturn());
+		return -(Data.WorldWorldMatrix.ArrV[2].Normalize3DReturn());
 	}
 
 	inline float4 GetUpVector() const
 	{
-		return Data.WorldWorldMatrix.ArrV[1].NormalizeReturn();
+		return Data.WorldWorldMatrix.ArrV[1].Normalize3DReturn();
 	}
 
 	inline float4 GetDownVector() const
 	{
-		return -(Data.WorldWorldMatrix.ArrV[1].NormalizeReturn());
+		return -(Data.WorldWorldMatrix.ArrV[1].Normalize3DReturn());
 	}
 
 	inline float4 GetRightVector() const
 	{
-		return Data.WorldWorldMatrix.ArrV[0].NormalizeReturn();
+		return Data.WorldWorldMatrix.ArrV[0].Normalize3DReturn();
 	}
 
 	inline float4 GetLeftVector() const
 	{
-		return -(Data.WorldWorldMatrix.ArrV[0].NormalizeReturn());
+		return -(Data.WorldWorldMatrix.ArrV[0].Normalize3DReturn());
 	}
 
 	void CalculateWorld();

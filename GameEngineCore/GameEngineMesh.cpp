@@ -85,6 +85,7 @@ void GameEngineMesh::SetInputAssembler2IndexBuffer(const std::string& _Name)
 }
 
 
+
 void GameEngineMesh::Render()
 {
 	GameEngineDevice::GetContext()->DrawIndexed(IndexBuffer->GetIndexCount(), 0, 0);

@@ -124,6 +124,10 @@ public:
 	int IsLodLv;
 	bool IsLod;
 
+	float4 MinBoundBox;
+	float4 MaxBoundBox;
+	float4 BoundScaleBox;
+
 	//       자신의 정보를 
 	//       들고 있던 node
 	//       의 mesh
@@ -137,6 +141,11 @@ public:
 
 	std::vector<GameEngineVertex> Vertexs;
 
+	      //     서브셋
+	// 사람      머리
+	//           다리
+	//           몸통
+	// 대검
 	std::vector<std::vector<std::vector<unsigned int>>> Indexs;
 
 	std::vector<std::vector<FbxExMaterialSettingData>> MaterialData;
@@ -188,6 +197,7 @@ public:
 };
 
 
+class GameEngineMesh;
 // 설명 :
 class GameEngineFBXMesh : public GameEngineFBX, public GameEngineRes<GameEngineFBXMesh>
 {
@@ -209,6 +219,7 @@ public:
 
 	static GameEngineFBXMesh* Load(const std::string& _Path, const std::string& _Name);
 
+	GameEngineMesh* GetGameEngineMesh(int _SubIndex);
 
 protected:
 	std::vector<FbxExMeshInfo> MeshInfos;
@@ -231,6 +242,12 @@ private:
 	float4 MaterialColor(fbxsdk::FbxSurfaceMaterial* pMtrl, const char* _ColorName, const char* _FactorName);
 	float MaterialFactor(fbxsdk::FbxSurfaceMaterial* pMtrl, const char* _FactorName);
 	std::string MaterialTex(fbxsdk::FbxSurfaceMaterial* pMtrl, const char* _FactorName);
+
+	void LoadBinormal(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshMatrix, std::vector<GameEngineVertex>& _ArrVtx, int VtxId, int _Index);
+	void LoadTangent(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshMatrix, std::vector<GameEngineVertex>& _ArrVtx, int VtxId, int _Index);
+	void LoadNormal(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshMatrix, std::vector<GameEngineVertex>& _ArrVtx, int VtxId, int _Index);
+	void DrawSetWeightAndIndexSetting(FbxRenderUnit* _DrawSet, fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxCluster* _Cluster, int _BoneIndex);
+	void LoadUv(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshMatrix, std::vector<GameEngineVertex>& _ArrVtx, int VtxId, int VertexCount, int _Index);
 
 };
 

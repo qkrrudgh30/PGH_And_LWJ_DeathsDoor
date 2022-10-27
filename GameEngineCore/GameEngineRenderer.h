@@ -21,6 +21,8 @@ class GameEngineRenderUnit
 public:
 	GameEngineRenderUnit();
 
+	GameEngineRenderUnit(const GameEngineRenderUnit& _Render);
+
 	void SetMesh(const std::string& _Name);
 
 	void SetPipeLine(const std::string& _Name);

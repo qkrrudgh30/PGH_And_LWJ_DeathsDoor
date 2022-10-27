@@ -177,6 +177,9 @@
     <ClInclude Include="GameEngineFBXAnimation.h">
       <Filter>Resources\FBX</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineFBXRenderer.h">
+      <Filter>Object\Component\Rendering\Content</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineActor.cpp">
@@ -345,6 +348,9 @@
     <ClCompile Include="GameEngineFBXAnimation.cpp">
       <Filter>Resources\FBX</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineFBXRenderer.cpp">
+      <Filter>Object\Component\Rendering\Content</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
@@ -484,25 +490,11 @@
     <CopyFileToFolders Include="ThirdParty\bin\Release\libfbxsdk.lib">
       <Filter>ThirdParty\Lib\Release</Filter>
     </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
-    <Library Include="ThirdParty\bin\Release\libfbxsdk-md.lib">
-      <Filter>ThirdParty\Lib\Release</Filter>
-    </Library>
-    <Library Include="ThirdParty\bin\Release\libfbxsdk-mt.lib">
-      <Filter>ThirdParty\Lib\Release</Filter>
-    </Library>
-    <Library Include="ThirdParty\bin\Release\libxml2-md.lib">
-      <Filter>ThirdParty\Lib\Release</Filter>
-    </Library>
-    <Library Include="ThirdParty\bin\Release\libxml2-mt.lib">
-      <Filter>ThirdParty\Lib\Release</Filter>
-    </Library>
-    <Library Include="ThirdParty\bin\Release\zlib-md.lib">
-      <Filter>ThirdParty\Lib\Release</Filter>
-    </Library>
-    <Library Include="ThirdParty\bin\Release\zlib-mt.lib">
-      <Filter>ThirdParty\Lib\Release</Filter>
-    </Library>
+    <CopyFileToFolders Include="ThirdParty\bin\Release\libfbxsdk-md.lib" />
+    <CopyFileToFolders Include="ThirdParty\bin\Release\libfbxsdk-mt.lib" />
+    <CopyFileToFolders Include="ThirdParty\bin\Release\libxml2-md.lib" />
+    <CopyFileToFolders Include="ThirdParty\bin\Release\libxml2-mt.lib" />
+    <CopyFileToFolders Include="ThirdParty\bin\Release\zlib-md.lib" />
+    <CopyFileToFolders Include="ThirdParty\bin\Release\zlib-mt.lib" />
   </ItemGroup>
 </Project>

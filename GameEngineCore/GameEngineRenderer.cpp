@@ -25,6 +25,17 @@ GameEngineRenderUnit::GameEngineRenderUnit()
 	SetMesh("rect");
 }
 
+GameEngineRenderUnit::GameEngineRenderUnit(const GameEngineRenderUnit& _Render)
+{
+	ParentRenderer = _Render.ParentRenderer;
+	Mesh = _Render.Mesh;
+	PipeLine = _Render.PipeLine;
+	InputLayOut = _Render.InputLayOut;
+	Topology = _Render.Topology;
+
+	ShaderResources.ResourcesCheck(PipeLine);
+}
+
 void GameEngineRenderUnit::EngineShaderResourcesSetting(GameEngineRenderer* _Renderer)
 {
 	if (nullptr == _Renderer)

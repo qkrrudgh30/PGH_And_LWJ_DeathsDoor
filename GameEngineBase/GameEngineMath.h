@@ -137,10 +137,10 @@ public:
 
 
 
-	static float4 NormalizeReturn(const float4& _Value)
+	static float4 Normalize3DReturn(const float4& _Value)
 	{
 		float4 Return = _Value;
-		Return.Normalize();
+		Return.Normalize3D();
 		return Return;
 	}
 
@@ -157,7 +157,7 @@ public:
 	static float VectorXYtoRadian(const float4& _Postion, const float4& _Target)
 	{
 		float4 Dir = _Target - _Postion;
-		Dir.Normalize();
+		Dir.Normalize3D();
 		// cos(90) => 1.5
 		// acos(1.5) => 90
 		float Angle = acosf(Dir.x);
@@ -406,9 +406,9 @@ public:
 		return sqrtf((x * x) + (y * y) + (z * z));
 	}
 
-	void Normalize()
+	void Normalize3D()
 	{
-		float Len = Length();
+		/*float Len = Length();
 		if (0 == Len)
 		{
 			return;
@@ -416,22 +416,24 @@ public:
 
 		x /= Len;
 		y /= Len;
-		z /= Len;
+		z /= Len;*/
+
+		DirectVector = DirectX::XMVector3Normalize(DirectVector);
 
 		// sqrtf 제곱근 구해줍니다.
 		return;
 	}
 
-	float4 NormalizeReturn() const
+	float4 Normalize3DReturn() const
 	{
 		float4 Return = *this;
-		Return.Normalize();
+		Return.Normalize3D();
 		return Return;
 	}
 
 	void Range2D(float _Max)
 	{
-		Normalize();
+		Normalize3D();
 
 		x *= _Max;
 		y *= _Max;
@@ -946,88 +948,88 @@ public:
 	}
 
 	//               바라보고 있는 위치
-	void LookToLH(const float4& _EyePostion, const float4& _EyeFocus, const float4& _Up)
+	void LookAtLH(const float4& _EyePostion, const float4& _EyeFocus, const float4& _Up)
 	{
 		// DirectX::XMMatrixLookAtLH
 
 		// float4 EyeDir = (_EyeFocus - _EyePostion);
 		// EyeDir.Normalize();
 
-		LookAtLH(_EyePostion, (_EyeFocus - _EyePostion), _Up);
+		LookToLH(_EyePostion, (_EyeFocus - _EyePostion), _Up);
 	}
 
-	void LookAtLH(const float4& _EyePostion, const float4& _EyeDir, const float4& _Up)
+	void LookToLH(const float4& _EyePostion, const float4& _EyeDir, const float4& _Up)
 	{
+		DirectMatrix = DirectX::XMMatrixLookToLH(_EyePostion.DirectVector, _EyeDir.DirectVector, _Up.DirectVector);
+		//// DirectX::XMMatrixLookAtLH
+		//// View
 
-		// DirectX::XMMatrixLookAtLH
-		// View
+		////assert(!XMVector3Equal(EyeDirection, XMVectorZero()));
+		////assert(!XMVector3IsInfinite(EyeDirection));
+		////assert(!XMVector3Equal(UpDirection, XMVectorZero()));
+		////assert(!XMVector3IsInfinite(UpDirection));
 
-		//assert(!XMVector3Equal(EyeDirection, XMVectorZero()));
-		//assert(!XMVector3IsInfinite(EyeDirection));
-		//assert(!XMVector3Equal(UpDirection, XMVectorZero()));
-		//assert(!XMVector3IsInfinite(UpDirection));
+		////XMVECTOR R2 = XMVector3Normalize(EyeDirection);
+		//// 길이 1짜리 벡터로 만들고
+		//float4 R2 = float4::NormalizeReturn(_EyeDir);
 
-		//XMVECTOR R2 = XMVector3Normalize(EyeDirection);
-		// 길이 1짜리 벡터로 만들고
-		float4 R2 = float4::NormalizeReturn(_EyeDir);
+		////XMVECTOR R0 = XMVector3Cross(UpDirection, R2);
+		////R0 = XMVector3Normalize(R0);
+		//
+		//// 혹시나 넣어준 사람이 길이를 1로 만들지 않고 넣어줬을수 있으니까.
+		//// 길이 1짜리 벡터로 만들고
+		//float4 R0 = float4::Cross(_Up, R2);
+		//R0.Normalize();
 
-		//XMVECTOR R0 = XMVector3Cross(UpDirection, R2);
-		//R0 = XMVector3Normalize(R0);
-		
-		// 혹시나 넣어준 사람이 길이를 1로 만들지 않고 넣어줬을수 있으니까.
-		// 길이 1짜리 벡터로 만들고
-		float4 R0 = float4::Cross(_Up, R2);
-		R0.Normalize();
+		////XMVECTOR R1 = XMVector3Cross(R2, R0);
+		//// 길이가 1인 벡터 2개를 외적하면 무조건 길이 1짜리 벡터가 나온다.
+		//float4 R1 = float4::Cross(R2, R0);
 
-		//XMVECTOR R1 = XMVector3Cross(R2, R0);
-		// 길이가 1인 벡터 2개를 외적하면 무조건 길이 1짜리 벡터가 나온다.
-		float4 R1 = float4::Cross(R2, R0);
+		////XMVECTOR NegEyePosition = XMVectorNegate(EyePosition);
+		//float4 NegEyePosition = -_EyePostion;
 
-		//XMVECTOR NegEyePosition = XMVectorNegate(EyePosition);
-		float4 NegEyePosition = -_EyePostion;
+		////XMVECTOR D0 = XMVector3Dot(R0, NegEyePosition);
+		////XMVECTOR D1 = XMVector3Dot(R1, NegEyePosition);
+		////XMVECTOR D2 = XMVector3Dot(R2, NegEyePosition);
+		//// 
+		//float D0Value = float4::DotProduct3D(R0, NegEyePosition);
+		//float D1Value = float4::DotProduct3D(R1, NegEyePosition);
+		//float D2Value = float4::DotProduct3D(R2, NegEyePosition);
 
-		//XMVECTOR D0 = XMVector3Dot(R0, NegEyePosition);
-		//XMVECTOR D1 = XMVector3Dot(R1, NegEyePosition);
-		//XMVECTOR D2 = XMVector3Dot(R2, NegEyePosition);
-		// 
-		float D0Value = float4::DotProduct3D(R0, NegEyePosition);
-		float D1Value = float4::DotProduct3D(R1, NegEyePosition);
-		float D2Value = float4::DotProduct3D(R2, NegEyePosition);
+		//float4 D0 = { D0Value , D0Value , D0Value , D0Value };
+		//float4 D1 = { D1Value , D1Value , D1Value , D1Value };
+		//float4 D2 = { D2Value , D2Value , D2Value , D2Value };
 
-		float4 D0 = { D0Value , D0Value , D0Value , D0Value };
-		float4 D1 = { D1Value , D1Value , D1Value , D1Value };
-		float4 D2 = { D2Value , D2Value , D2Value , D2Value };
+		////XMMATRIX M;
+		//// g_XMSelect1110
+		//// 0xff, 0xff, 0xff, 00
 
-		//XMMATRIX M;
-		// g_XMSelect1110
-		// 0xff, 0xff, 0xff, 00
+		//// 전치행렬
+		//// 대각선 기준으로 뒤바꾸는것.
+		//// [R0.x][R0.y][R0.z][D0.w]   [R0.x][R1.x][R2.x][   0]
+		//// [R1.x][R1.y][R1.z][D1.w]	> [R0.y][R1.y][R2.y][   0]
+		//// [R2.x][R2.y][R2.z][D2.w]	  [R0.z][R1.z][R2.z][   0]
+		//// [0   ][0   ][0   ][   1]	  [D0.w][D1.w][D2.w][   1]
 
-		// 전치행렬
-		// 대각선 기준으로 뒤바꾸는것.
-		// [R0.x][R0.y][R0.z][D0.w]   [R0.x][R1.x][R2.x][   0]
-		// [R1.x][R1.y][R1.z][D1.w]	> [R0.y][R1.y][R2.y][   0]
-		// [R2.x][R2.y][R2.z][D2.w]	  [R0.z][R1.z][R2.z][   0]
-		// [0   ][0   ][0   ][   1]	  [D0.w][D1.w][D2.w][   1]
+		//// 90 => ~90도 하려면 회전행렬을 전치하면 된다.
 
-		// 90 => ~90도 하려면 회전행렬을 전치하면 된다.
+		//float4 Control = {0xff, 0xff , 0xff , 0};
+		//float4x4 Mat;
+		//Mat.ArrV[0] = float4::Select(D0, R0, Control);
+		//Mat.ArrV[1] = float4::Select(D1, R1, Control);
+		//Mat.ArrV[2] = float4::Select(D2, R2, Control);
+		//Mat.ArrV[3] = float4(0.0f, 0.0f, 0.0f, 1.0f);
 
-		float4 Control = {0xff, 0xff , 0xff , 0};
-		float4x4 Mat;
-		Mat.ArrV[0] = float4::Select(D0, R0, Control);
-		Mat.ArrV[1] = float4::Select(D1, R1, Control);
-		Mat.ArrV[2] = float4::Select(D2, R2, Control);
-		Mat.ArrV[3] = float4(0.0f, 0.0f, 0.0f, 1.0f);
+		////M.r[0] = XMVectorSelect(D0, R0, g_XMSelect1110.v);
+		////M.r[1] = XMVectorSelect(D1, R1, g_XMSelect1110.v);
+		////M.r[2] = XMVectorSelect(D2, R2, g_XMSelect1110.v);
+		////M.r[3] = g_XMIdentityR3.v;
 
-		//M.r[0] = XMVectorSelect(D0, R0, g_XMSelect1110.v);
-		//M.r[1] = XMVectorSelect(D1, R1, g_XMSelect1110.v);
-		//M.r[2] = XMVectorSelect(D2, R2, g_XMSelect1110.v);
-		//M.r[3] = g_XMIdentityR3.v;
+		//Mat.Transpose();
 
-		Mat.Transpose();
+		////M = XMMatrixTranspose(M);
 
-		//M = XMMatrixTranspose(M);
-
-		*this = Mat;
+		//*this = Mat;
 
 		//return M;
 

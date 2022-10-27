@@ -54,7 +54,7 @@ void GameEngineCamera::Render(float _DeltaTime)
 	GameEngineDevice::GetContext()->RSSetViewports(1, &ViewPortDesc);
 
 	// 랜더하기 전에 
-	View.LookAtLH(
+	View.LookToLH(
 		GetActor()->GetTransform().GetLocalPosition(), 
 		GetActor()->GetTransform().GetForwardVector(), 
 		GetActor()->GetTransform().GetUpVector());

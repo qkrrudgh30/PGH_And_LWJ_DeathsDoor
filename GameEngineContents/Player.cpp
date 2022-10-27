@@ -321,7 +321,7 @@ void Player::SworldAttStart(const StateInfo& _Info)
 
 
 	float4 RenderDir = (MousePos - MyPos);
-	RenderDir.Normalize();
+	RenderDir.Normalize3D();
 	RenderDir.z = 0;
 
 
@@ -691,7 +691,7 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 	float4 RenderDir = (MousePos - MyPos);
 	
 	float Len = RenderDir.Length();
-	RenderDir.Normalize();
+	RenderDir.Normalize3D();
 	RenderDir.z = 0;
 	
 	if (Len >= 500.f)

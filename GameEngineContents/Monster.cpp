@@ -123,7 +123,7 @@ void Monster::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
 
 	float Len = TarGetDir.Length();
-	TarGetDir = TarGetDir.NormalizeReturn();
+	TarGetDir = TarGetDir.Normalize3DReturn();
 
 
 	GetTransform().SetWorldMove(TarGetDir * m_fSpeed * _DeltaTime);
@@ -145,7 +145,7 @@ void Monster::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 void Monster::StunStart(const StateInfo& _Info)
 {
 	m_fHitDir = GetTransform().GetWorldPosition() - m_fHitPos;
-	m_fHitDir = m_fHitDir.NormalizeReturn();
+	m_fHitDir = m_fHitDir.Normalize3DReturn();
 }
 void Monster::StunEnd(const StateInfo& _Info)
 {
@@ -232,7 +232,7 @@ void Monster::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
 
 	float Len = TarGetDir.Length();
-	TarGetDir = TarGetDir.NormalizeReturn();
+	TarGetDir = TarGetDir.Normalize3DReturn();
 
 
 	if (Len <= 600.f)
