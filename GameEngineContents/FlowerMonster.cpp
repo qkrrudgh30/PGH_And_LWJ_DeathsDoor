@@ -151,6 +151,39 @@ void FlowerMonster::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 	if (m_fHitTime >= 2.f)
 	{
 		m_fHitTime = 0.f;
+
+
+		float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
+
+		float4 MyPos = GetTransform().GetWorldPosition();
+
+		TarGetDir.y = -TarGetDir.z;
+		MyPos.y = -MyPos.z;
+
+
+		TarGetDir.z = 0.f;
+		TarGetDir.w = 0.f;
+
+		MyPos.z = 0.f;
+		MyPos.w = 0.f;
+
+		float Angle = float4::VectorXYtoDegree(MyPos, TarGetDir);
+
+		Angle += 90.f;
+
+		if (Angle >= 360.f)
+		{
+			Angle -= 360.f;
+		}
+		else if (Angle <= 0.f)
+		{
+			Angle -= 0.f;
+		}
+
+		Renderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
+
+
+
 		StateManager.ChangeState("Idle");
 
 	}
@@ -163,29 +196,6 @@ void FlowerMonster::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 		m_bHitCheck = false;
 	}
 
-
-	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
-
-	float4 MyPos = GetTransform().GetWorldPosition();
-	
-	TarGetDir.y = -TarGetDir.z;
-	MyPos.y = -MyPos.z;
-
-
-	float Angle = float4::VectorXYtoDegree(MyPos, TarGetDir);
-
-	Angle += 90.f;
-
-	if (Angle >= 360.f)
-	{
-		Angle -= 360.f;
-	}
-	else if (Angle <= 0.f)
-	{
-		Angle -= 0.f;
-	}
-
-	Renderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
 
 }
 
