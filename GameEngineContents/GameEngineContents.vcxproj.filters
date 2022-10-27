@@ -109,6 +109,9 @@
     <Filter Include="01.Level\01.HuntingLevel1">
       <UniqueIdentifier>{74a5acf5-1db7-46e1-b23f-6cc4a78e8723}</UniqueIdentifier>
     </Filter>
+    <Filter Include="00.Actor\02.Unit\03.Bullet\01.Monster">
+      <UniqueIdentifier>{f55b284a-148d-44e0-a617-91703c78ee63}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -191,6 +194,9 @@
     <ClInclude Include="PlayerHookTrail.h">
       <Filter>00.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
     </ClInclude>
+    <ClInclude Include="FlowerBullet.h">
+      <Filter>00.Actor\02.Unit\03.Bullet\01.Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -269,6 +275,9 @@
     </ClCompile>
     <ClCompile Include="PlayerHookTrail.cpp">
       <Filter>00.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowerBullet.cpp">
+      <Filter>00.Actor\02.Unit\03.Bullet\01.Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

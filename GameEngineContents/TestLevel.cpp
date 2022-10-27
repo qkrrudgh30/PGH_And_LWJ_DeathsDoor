@@ -9,6 +9,9 @@
 #include <GameEngineCore/GameEngineBlur.h>
 #include "Player.h"
 #include "Monster.h"
+#include "FlowerMonster.h"
+
+
 #include "TsetBackGround.h"
 #include "StageMainCamera.h"
 
@@ -56,8 +59,13 @@ void TestLevel::Start()
 		
 
 	}
-	
 
+	{
+		FlowerMonster* cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
+		cMonster->GetTransform().SetWorldPosition({-500.f,0.f,-500.f});
+
+
+	}
 	//{
 	//	Monster* actor = CreateActor<Monster>(OBJECTORDER::Monster);
 	//	// actor->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 100.0f });

@@ -171,6 +171,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="FlowerBullet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="FlowerMonster.h">
       <SubType>
       </SubType>
@@ -269,6 +273,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="EditLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FlowerBullet.cpp">
       <SubType>
       </SubType>
     </ClCompile>
