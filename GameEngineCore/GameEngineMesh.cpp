@@ -38,6 +38,14 @@ GameEngineMesh* GameEngineMesh::Create(const std::string& _Name, const std::stri
 	return NewRes;
 }
 
+GameEngineMesh* GameEngineMesh::Create(GameEngineVertexBuffer* _Vtx, GameEngineIndexBuffer* _Idx)
+{
+	GameEngineMesh* NewRes = CreateResUnName();
+	NewRes->SetInputAssembler1VertexBuffer(_Vtx);
+	NewRes->SetInputAssembler2IndexBuffer(_Idx);
+	return NewRes;
+}
+
 void GameEngineMesh::InputAssembler1VertexBufferSetting()
 {
 	VertexBuffer->Setting();
@@ -84,6 +92,26 @@ void GameEngineMesh::SetInputAssembler2IndexBuffer(const std::string& _Name)
 	}
 }
 
+void GameEngineMesh::SetInputAssembler1VertexBuffer(GameEngineVertexBuffer* _Res)
+{
+	if (nullptr == _Res)
+	{
+		MsgBoxAssert("존재하지 않는 인덱스버퍼를 세팅하려고 했습니다.");
+		return;
+	}
+
+	VertexBuffer = _Res;
+}
+void GameEngineMesh::SetInputAssembler2IndexBuffer(GameEngineIndexBuffer* _Res)
+{
+	if (nullptr == _Res)
+	{
+		MsgBoxAssert("존재하지 않는 인덱스버퍼를 세팅하려고 했습니다.");
+		return;
+	}
+
+	IndexBuffer = _Res;
+}
 
 
 void GameEngineMesh::Render()

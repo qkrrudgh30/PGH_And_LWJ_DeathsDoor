@@ -69,6 +69,15 @@ void GameEngineVertexBuffer::BufferCreate(const void* _Data, UINT _VertexSize, U
 	}
 }
 
+GameEngineVertexBuffer* GameEngineVertexBuffer::Create(const void* _Data, UINT _VertexSize, UINT _VertexCount, const GameEngineLayOutDesc& _LayOut)
+{
+	GameEngineVertexBuffer* NewRes = CreateResUnName();
+	NewRes->LayOutDesc = &_LayOut;
+	NewRes->BufferCreate(_Data, _VertexSize, _VertexCount);
+	return NewRes;
+}
+
+
 // 이 세팅은 1개의 매쉬를 그리는 세팅 세팅
 void GameEngineVertexBuffer::Setting()
 {

@@ -149,7 +149,7 @@ protected:
 
 	std::string Version;
 
-	void ShaderResCheck();
+	void ShaderResCheck(const std::string_view& _Name);
 
 	ShaderType ShaderSettingType;
 

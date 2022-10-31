@@ -79,7 +79,7 @@ cbuffer PixelData : register(b0)
 }
 
 Texture2D Tex : register(t0);
-SamplerState Smp : register(s0);
+SamplerState LINEARWRAP : register(s0);
 float4 TextureAtlas_PS(Output _Input) : SV_Target0
 {
     if (_Input.Tex.x < Slice.x)
@@ -92,14 +92,14 @@ float4 TextureAtlas_PS(Output _Input) : SV_Target0
         clip(-1);
     }
     
-    float4 TexColor = Tex.Sample(Smp, _Input.Tex.xy);
+    float4 TexColor = Tex.Sample(LINEARWRAP, _Input.Tex.xy);
     
     if (TexColor.a == 0)
     {
         clip(-1);
     }
     
-    float4 Result = (Tex.Sample(Smp, _Input.Tex.xy) * MulColor) + PlusColor;
+    float4 Result = (Tex.Sample(LINEARWRAP, _Input.Tex.xy) * MulColor) + PlusColor;
     
     if (1 <= Result.a)
     {

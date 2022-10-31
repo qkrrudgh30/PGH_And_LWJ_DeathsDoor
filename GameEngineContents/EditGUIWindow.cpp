@@ -224,78 +224,85 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	}
 
 #pragma region SelectedObjectMovement
-	if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectUp"))
+	if (0 != m_vCreatedActors.size())
 	{
-		float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetUpVector();
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
-	}
+		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectUp"))
+		{
+			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetUpVector();
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+		}
 
-	if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectDown"))
-	{
-		float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetDownVector();
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
-	}
+		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectDown"))
+		{
+			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetDownVector();
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+		}
 
-	if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectLeft"))
-	{
-		float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetLeftVector();
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
-	}
+		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectLeft"))
+		{
+			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetLeftVector();
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+		}
 
-	if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRight"))
-	{
-		float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetRightVector();
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
-	}
+		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRight"))
+		{
+			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetRightVector();
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+		}
 
-	if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectForward"))
-	{
-		float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetForwardVector();
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
-	}
+		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectForward"))
+		{
+			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetForwardVector();
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+		}
 
-	if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectBackward"))
-	{
-		float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetBackVector();
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectBackward"))
+		{
+			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetBackVector();
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+		}
 	}
+	
 #pragma endregion
 
 #pragma region SelectedObjectRotation
-	if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectUp"))
+	if (0 != m_vCreatedActors.size())
 	{
-		float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetUpVector();
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
-	}
+		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectUp"))
+		{
+			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetUpVector();
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+		}
 
-	if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectDown"))
-	{
-		float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetDownVector();
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
-	}
+		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectDown"))
+		{
+			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetDownVector();
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+		}
 
-	if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectLeft"))
-	{
-		float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetLeftVector();
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
-	}
+		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectLeft"))
+		{
+			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetLeftVector();
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+		}
 
-	if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectRight"))
-	{
-		float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetRightVector();
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
-	}
+		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectRight"))
+		{
+			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetRightVector();
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+		}
 
-	if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectForward"))
-	{
-		float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetForwardVector();
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
-	}
+		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectForward"))
+		{
+			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetForwardVector();
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+		}
 
-	if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectBackward"))
-	{
-		float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetBackVector();
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectBackward"))
+		{
+			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetBackVector();
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+		}
 	}
 #pragma endregion
 

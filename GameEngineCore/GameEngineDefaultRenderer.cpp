@@ -27,7 +27,6 @@ void GameEngineDefaultRenderer::SetPipeLine(const std::string& _Name)
 {
 	Unit.SetPipeLine(_Name);
 	Unit.SetRenderer(this);
-	PushRendererToMainCamera();
 }
 
 void GameEngineDefaultRenderer::Render(float _DeltaTime) 

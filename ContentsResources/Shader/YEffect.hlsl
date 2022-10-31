@@ -39,12 +39,12 @@ Output YEffect_VS(Input _Input)
 // 0010
 // 0001
 Texture2D Tex : register(t0);
-SamplerState Smp : register(s0);
+SamplerState LINEARWRAP : register(s0);
 float4 YEffect_PS(Output _Input) : SV_Target0
 {
     // 지금 이 색깔은?
     
-    float4 Color = Tex.Sample(Smp, _Input.Tex.xy);
+    float4 Color = Tex.Sample(LINEARWRAP, _Input.Tex.xy);
     
     float TempDeltaTime = SumDeltaTime;
     

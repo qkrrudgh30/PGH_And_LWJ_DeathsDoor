@@ -19,9 +19,14 @@ public:
 	GameEngineFBXRenderer& operator=(GameEngineFBXRenderer&& _Other) noexcept = delete;
 
 	void SetFBXMesh(const std::string& _Name, std::string _PipeLine);
-	void SetFBXMesh(const std::string& _Name, std::string _PipeLine, int MeshIndex, int _SubSetIndex = 0);
+	void SetFBXMesh(const std::string& _Name, std::string _PipeLine, size_t MeshIndex, size_t _SubSetIndex = 0);
 
 	void Render(float _DeltaTime) override;
+
+	std::vector<std::vector<GameEngineRenderUnit>>& GetAllRenderUnit()
+	{
+		return Unit;
+	}
 
 protected:
 	
@@ -30,7 +35,9 @@ protected:
 private:
 	GameEngineFBXMesh* FBXMesh;
 
-	std::vector<GameEngineRenderUnit> Unit;
+	// 대검 
+	// 사람          
+	std::vector<std::vector<GameEngineRenderUnit>> Unit;
 
 };
 

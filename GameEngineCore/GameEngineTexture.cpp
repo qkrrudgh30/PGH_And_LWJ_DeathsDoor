@@ -112,12 +112,15 @@ void GameEngineTexture::TextureLoad(const std::string& _Path)
 
 	std::wstring LoadPath = GameEngineString::AnsiToUnicodeReturn(_Path);
 
-	if (Ex == "TGA")
-		// && S_OK != DirectX::LoadFromTGAFile(LoadPath.c_str(), DirectX::WIC_FLAGS_NONE, &Metadata, Image))
+	if (Ex == ".TGA")
 	{
-		MsgBoxAssertString(_Path + "아직 처리하지 않은 이미지 포멧입니다.");
+		if (S_OK != DirectX::LoadFromTGAFile(LoadPath.c_str(), DirectX::TGA_FLAGS_NONE, &Metadata, Image))
+		{
+			MsgBoxAssertString(_Path + "아직 처리하지 않은 이미지 포멧입니다.");
+		}
+		// && S_OK != DirectX::LoadFromTGAFile(LoadPath.c_str(), DirectX::WIC_FLAGS_NONE, &Metadata, Image))
 	}
-	else if (Ex == "DDS")
+	else if (Ex == ".DDS")
 		// && S_OK != DirectX::LoadFromDDSFile(LoadPath.c_str(), DirectX::WIC_FLAGS_NONE, &Metadata, Image))
 	{
 		MsgBoxAssertString(_Path + "아직 처리하지 않은 이미지 포멧입니다.");

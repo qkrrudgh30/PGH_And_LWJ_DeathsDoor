@@ -20,6 +20,29 @@ LoginLevel::~LoginLevel()
 
 void LoginLevel::Start()
 {
+#pragma region LoadFBXMeshiesAndAnimation
+	DirectPathAt("01_HuntingLevel1");
+	LoadFBXFiles();
+
+	// 애니메이션 액터의 매시 로드
+	// 스태틱 매시 로드
+	// 애니메이션 액터의 애니메이션 로드
+
+
+	/* 초기 멀티스레드 로딩 코드
+	GameEngineCore::EngineThreadPool.Work(
+		[this]
+		{
+			this->LoadTextureInStatic();
+		});
+
+	GameEngineCore::EngineThreadPool.Work(
+		[this]
+		{
+			this->LoadTextureInAnimator();
+		});
+	*/
+#pragma endregion
 
 	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
 
@@ -48,6 +71,9 @@ void LoginLevel::Start()
 	}
 
 
+
+	
+	
 }
 
 void LoginLevel::LevelStartEvent()
@@ -103,9 +129,7 @@ void LoginLevel::LevelStartEvent()
 
 void LoginLevel::Update(float _DeltaTime)
 {
-
-
-
+	GameEngineDebug::OutPutString(std::to_string(muFBXFolderCount));
 }
 
 void LoginLevel::End()

@@ -194,8 +194,8 @@
     <ClInclude Include="PlayerHookTrail.h">
       <Filter>00.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
     </ClInclude>
-    <ClInclude Include="FlowerBullet.h">
-      <Filter>00.Actor\02.Unit\03.Bullet\01.Monster</Filter>
+    <ClInclude Include="ContentsLevel.h">
+      <Filter>01.Level</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -276,8 +276,8 @@
     <ClCompile Include="PlayerHookTrail.cpp">
       <Filter>00.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
     </ClCompile>
-    <ClCompile Include="FlowerBullet.cpp">
-      <Filter>00.Actor\02.Unit\03.Bullet\01.Monster</Filter>
+    <ClCompile Include="ContentsLevel.cpp">
+      <Filter>01.Level</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

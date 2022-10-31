@@ -11,14 +11,18 @@ GameEngineFBXRenderer::~GameEngineFBXRenderer()
 
 void GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name, std::string _PipeLine)
 {
+	GameEngineFBXMesh* FindFBXMesh = GameEngineFBXMesh::Find(_Name);
 	// 너 몇개 가지고 있어.
-	for (size_t i = 0; i < 2; i++)
+	for (size_t UnitCount = 0; UnitCount < FindFBXMesh->GetRenderUnitCount(); UnitCount++)
 	{
-		SetFBXMesh(_Name, _PipeLine, i);
+		for (size_t SubSetCount = 0; SubSetCount < FindFBXMesh->GetSubSetCount(UnitCount); SubSetCount++)
+		{
+			SetFBXMesh(_Name, _PipeLine, UnitCount, SubSetCount);
+		}
 	}
 }
 
-void GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name, std::string _PipeLine, int Index, int _SubSetIndex /*= 0*/)
+void GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name, std::string _PipeLine, size_t Index, size_t _SubSetIndex /*= 0*/)
 {
 	GameEngineFBXMesh* FindFBXMesh = GameEngineFBXMesh::Find(_Name);
 
@@ -37,15 +41,43 @@ void GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name, std::string _Pi
 		// 지금까지 만든거 다 날립니다.
 	}
 
-	GameEngineRenderUnit& RenderUnit = Unit.emplace_back();
+	if (Unit.empty())
+	{
+		Unit.resize(FBXMesh->GetRenderUnitCount());
+		for (size_t i = 0; i < Unit.size(); i++)
+		{
+			Unit[i].resize(FBXMesh->GetSubSetCount(i));
+		}
+	}
 
-	GameEngineMesh* FbxMesh = FBXMesh->GetGameEngineMesh(Index);
+	GameEngineRenderUnit& RenderUnit = Unit[Index][_SubSetIndex];
+	RenderUnit.SetPipeLine(_PipeLine);
 
-	// RenderUnit.SetMesh();
+	GameEngineMesh* FbxMesh = FBXMesh->GetGameEngineMesh(Index, _SubSetIndex);
+	RenderUnit.SetMesh(FbxMesh);
 
+	if (RenderUnit.ShaderResources.IsTexture("DiffuseTexture"))
+	{
+		const FbxExMaterialSettingData& MatData = FBXMesh->GetMaterialSettingData(Index, _SubSetIndex);
+
+		RenderUnit.ShaderResources.SetTexture("DiffuseTexture", MatData.DifTextureName);
+	}
+
+	RenderUnit.SetRenderer(this);
 }
 
 void GameEngineFBXRenderer::Render(float _DeltaTime) 
 {
-	int a = 0;
+	for (size_t UnitIndex = 0; UnitIndex < Unit.size(); UnitIndex++)
+	{
+		for (size_t SubSetIndex = 0; SubSetIndex < Unit[UnitIndex].size(); SubSetIndex++)
+		{
+			if (nullptr == Unit[UnitIndex][SubSetIndex].GetPipeLine())
+			{
+				continue;
+			}
+
+			Unit[UnitIndex][SubSetIndex].Render(_DeltaTime);
+		}
+	}
 }

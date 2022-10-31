@@ -103,7 +103,7 @@ void GameEnginePixelShader::ShaderCompile(
 		MsgBoxAssert("픽셀 쉐이더 핸들 생성에 실패했습니다.");
 	}
 
-	ShaderResCheck();
+	ShaderResCheck(GetName());
 }
 
 

@@ -23,6 +23,15 @@ public:
 
 	static GameEngineVertexBuffer* Create(const std::string& _Name, const void* _Data, UINT _VertexSize, UINT _VertexCount, const GameEngineLayOutDesc& _LayOut);
 
+	template<typename VertexType>
+	static GameEngineVertexBuffer* Create(const std::vector<VertexType>& _Vertex)
+	{
+		return Create(&_Vertex[0], static_cast<UINT>(sizeof(VertexType)), static_cast<UINT>(_Vertex.size()), VertexType::LayOut);
+	}
+
+	static GameEngineVertexBuffer* Create(const void* _Data, UINT _VertexSize, UINT _VertexCount, const GameEngineLayOutDesc& _LayOut);
+
+
 public:
 	const GameEngineLayOutDesc& GetLayOutDesc()
 	{

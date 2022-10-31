@@ -49,5 +49,6 @@ public:
 	float4 NORMAL;
 	float4 BINORMAL;
 	float4 TANGENT;
-	// float4 TENGENT;
+	float4 WEIGHT; // 애니메이션 가중치
+	int Index[4];
 };

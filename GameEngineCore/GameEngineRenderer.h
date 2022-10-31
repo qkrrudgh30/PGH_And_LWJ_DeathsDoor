@@ -25,6 +25,8 @@ public:
 
 	void SetMesh(const std::string& _Name);
 
+	void SetMesh(GameEngineMesh* _Mesh);
+
 	void SetPipeLine(const std::string& _Name);
 
 	// 우리 엔진에서는 이런 이름을 가진x는 무조건 이렇게 세팅하기로 했어.

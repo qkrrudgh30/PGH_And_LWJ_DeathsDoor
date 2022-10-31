@@ -16,7 +16,7 @@ class GameEngineGUIWindow : public GameEngineNameObject, public GameEngineUpdate
 private:
 	void Begin() 
 	{
-		std::string Name = GameEngineString::AnsiToUTF8Return(GetNameConstPtr());
+		std::string Name = GameEngineString::AnsiToUTF8Return(GetName().data());
 		ImGui::Begin(Name.c_str(), &IsUpdateRef());
 	}
 

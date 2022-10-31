@@ -14,6 +14,7 @@ GameEngineFBXMesh::~GameEngineFBXMesh()
 GameEngineFBXMesh* GameEngineFBXMesh::Load(const std::string& _Path, const std::string& _Name)
 {
 	GameEngineFBXMesh* NewRes = CreateResName(_Name);
+	NewRes->SetPath(_Path);
 	NewRes->LoadMesh(_Path, _Name);
 	return NewRes;
 }
@@ -150,9 +151,7 @@ void GameEngineFBXMesh::FbxRenderUnitMaterialSetting(fbxsdk::FbxNode* _Node, Fbx
 
 	if (MtrlCount > 0)
 	{
-		_RenderData->MaterialData.push_back(std::vector<FbxExMaterialSettingData>());
-
-		std::vector<FbxExMaterialSettingData>& MatrialSet = _RenderData->MaterialData[_RenderData->MaterialData.size() - 1];
+		std::vector<FbxExMaterialSettingData>& MatrialSet = _RenderData->MaterialData;
 
 		for (int i = 0; i < MtrlCount; i++)
 		{
@@ -179,9 +178,12 @@ void GameEngineFBXMesh::FbxRenderUnitMaterialSetting(fbxsdk::FbxNode* _Node, Fbx
 			MatData.TransparencyFactor = MaterialFactor(pMtrl, "TransparencyFactor");
 
 			MatData.DifTexturePath = MaterialTex(pMtrl, "DiffuseColor");
-			// fbxsdk::FbxSurfaceMaterial::sNormalMap = 0x00007ff68291bfa0 "NormalMap"
 			MatData.NorTexturePath = MaterialTex(pMtrl, "NormalMap");
 			MatData.SpcTexturePath = MaterialTex(pMtrl, "SpecularColor");
+
+			MatData.DifTextureName = GameEnginePath::GetFileName(MatData.DifTexturePath);
+			MatData.NorTextureName = GameEnginePath::GetFileName(MatData.NorTexturePath);
+			MatData.SpcTextureName = GameEnginePath::GetFileName(MatData.SpcTexturePath);
 		}
 
 	}
@@ -369,16 +371,15 @@ void GameEngineFBXMesh::DrawSetWeightAndIndexSetting(FbxRenderUnit* _DrawSet, fb
 	}
 }
 
-void GameEngineFBXMesh::LoadUv(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshMatrix, std::vector<GameEngineVertex>& _ArrVtx, int VtxId, int VertexCount, int _Index)
+void GameEngineFBXMesh::LoadUV(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshMatrix, std::vector<GameEngineVertex>& _ArrVtx, int VtxId, int VertexCount, int _Index)
 {
+	// pMesh->GetTextureUVIndex(PolygonIndex, PositionInPolygon), VtxId, ControlPointIndex
+
 	int iCount = _Mesh->GetElementUVCount();
-
-
 
 	if (0 == iCount)
 	{
 		return;
-
 	}
 
 	float4 result;
@@ -421,7 +422,6 @@ void GameEngineFBXMesh::LoadUv(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshM
 		{
 			result.x = static_cast<float>(pElement->GetDirectArray().GetAt(VtxId).mData[0]);
 			result.y = static_cast<float>(pElement->GetDirectArray().GetAt(VtxId).mData[1]);
-			// result.z = static_cast<float>(pElement->GetDirectArray().GetAt(VtxId).mData[2]);
 		}
 		break;
 
@@ -430,7 +430,6 @@ void GameEngineFBXMesh::LoadUv(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshM
 			int index = pElement->GetIndexArray().GetAt(VertexCount);
 			result.x = static_cast<float>(pElement->GetDirectArray().GetAt(index).mData[0]);
 			result.y = static_cast<float>(pElement->GetDirectArray().GetAt(index).mData[1]);
-			// result.z = static_cast<float>(pElement->GetDirectArray().GetAt(index).mData[2]);
 		}
 		break;
 		default:
@@ -442,6 +441,7 @@ void GameEngineFBXMesh::LoadUv(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshM
 	}
 
 	_ArrVtx[_Index].TEXCOORD.x = (float)result.x;
+	// _ArrVtx[_Index].TEXCOORD.y = (float)result.y;
 	_ArrVtx[_Index].TEXCOORD.y = 1.0f - (float)result.y;
 }
 
@@ -459,7 +459,7 @@ void GameEngineFBXMesh::VertexBufferCheck()
 		// 인덱스 버퍼 기준으로 만들어야 한다.
 		// 나중에 변경
 		FbxRenderUnit& RenderUnit = RenderUnitInfos.emplace_back();
-		RenderUnit.Index = meshInfoIndex;
+		RenderUnit.VectorIndex = meshInfoIndex;
 
 		if (RenderUnit.MapWI.end() == RenderUnit.MapWI.find(pMesh))
 		{
@@ -469,7 +469,7 @@ void GameEngineFBXMesh::VertexBufferCheck()
 		RenderUnit.IsLod = meshInfo.bIsLodGroup;
 		RenderUnit.IsLodLv = meshInfo.LodLevel;
 		std::vector<GameEngineVertex>& VtxData = RenderUnit.Vertexs;
-		std::vector<std::vector<UINT>>& IdxData = RenderUnit.Indexs.emplace_back();
+		std::vector<std::vector<UINT>>& IdxData = RenderUnit.Indexs;
 
 		// 버텍스 개수입니다.
 		int controlPointsCount = pMesh->GetControlPointsCount();
@@ -553,7 +553,7 @@ void GameEngineFBXMesh::VertexBufferCheck()
 
 				//FMeshDescription* MeshDescription = StaticMesh->GetMeshDescription(LODIndex);
 				//FStaticMeshAttributes Attributes(*MeshDescription);
-				LoadUv(pMesh, meshMatrix, VtxData, pMesh->GetTextureUVIndex(PolygonIndex, PositionInPolygon), VtxId, ControlPointIndex);
+				LoadUV(pMesh, meshMatrix, VtxData, pMesh->GetTextureUVIndex(PolygonIndex, PositionInPolygon), VtxId, ControlPointIndex);
 
 				++VtxId;
 			}
@@ -564,12 +564,117 @@ void GameEngineFBXMesh::VertexBufferCheck()
 			IdxData[materialId].push_back(IndexArray[1]);
 		}
 
+		// LoadUVInformation(pMesh, VtxData);
+
 		RenderUnit.FbxVertexMap.insert(std::make_pair(pMesh, &VtxData));
 	}
 
 	MeshInfos;
 	RenderUnitInfos;
 	int a = 0;
+
+}
+
+void GameEngineFBXMesh::LoadUVInformation(fbxsdk::FbxMesh* pMesh, std::vector<GameEngineVertex>& _ArrVtx)
+{
+	//get all UV set names
+	FbxStringList lUVSetNameList;
+	pMesh->GetUVSetNames(lUVSetNameList);
+
+	int Index = 0;
+
+	if (1 < lUVSetNameList.GetCount())
+	{
+		MsgBoxAssert("UV가 2개입니다.");
+	}
+
+	GameEngineDebug::OutPutString(" NewMesh Vertex Size : " + std::to_string(_ArrVtx.size()));
+
+	//iterating over all uv sets
+	// 여러개 있을수 있네요.
+	for (int lUVSetIndex = 0; lUVSetIndex < lUVSetNameList.GetCount(); lUVSetIndex++)
+	{
+		//get lUVSetIndex-th uv set
+		const char* lUVSetName = lUVSetNameList.GetStringAt(lUVSetIndex);
+		const FbxGeometryElementUV* lUVElement = pMesh->GetElementUV(lUVSetName);
+
+		if (!lUVElement)
+			continue;
+
+		// only support mapping mode eByPolygonVertex and eByControlPoint
+		if (lUVElement->GetMappingMode() != FbxGeometryElement::eByPolygonVertex &&
+			lUVElement->GetMappingMode() != FbxGeometryElement::eByControlPoint)
+			return;
+
+		//index array, where holds the index referenced to the uv data
+		const bool lUseIndex = lUVElement->GetReferenceMode() != FbxGeometryElement::eDirect;
+		const int lIndexCount = (lUseIndex) ? lUVElement->GetIndexArray().GetCount() : 0;
+
+		//iterating through the data by polygon
+		const int lPolyCount = pMesh->GetPolygonCount();
+
+		if (lUVElement->GetMappingMode() == FbxGeometryElement::eByControlPoint)
+		{
+			for (int lPolyIndex = 0; lPolyIndex < lPolyCount; ++lPolyIndex)
+			{
+				// build the max index array that we need to pass into MakePoly
+				const int lPolySize = pMesh->GetPolygonSize(lPolyIndex);
+				for (int lVertIndex = 0; lVertIndex < lPolySize; ++lVertIndex)
+				{
+					FbxVector2 lUVValue;
+
+					//get the index of the current vertex in control points array
+					int lPolyVertIndex = pMesh->GetPolygonVertex(lPolyIndex, lVertIndex);
+
+					//the UV index depends on the reference mode
+					int lUVIndex = lUseIndex ? lUVElement->GetIndexArray().GetAt(lPolyVertIndex) : lPolyVertIndex;
+
+					lUVValue = lUVElement->GetDirectArray().GetAt(lUVIndex);
+
+					_ArrVtx[lVertIndex].TEXCOORD.x = static_cast<float>(lUVValue.mData[0]);
+					_ArrVtx[lVertIndex].TEXCOORD.y = 1.0f - static_cast<float>(lUVValue.mData[1]);
+
+					//User TODO:
+					//Print out the value of UV(lUVValue) or log it to a file
+				}
+			}
+		}
+		else if (lUVElement->GetMappingMode() == FbxGeometryElement::eByPolygonVertex)
+		{
+			int lPolyIndexCounter = 0;
+			for (int lPolyIndex = 0; lPolyIndex < lPolyCount; ++lPolyIndex)
+			{
+				// build the max index array that we need to pass into MakePoly
+				const int lPolySize = pMesh->GetPolygonSize(lPolyIndex);
+				for (int lVertIndex = 0; lVertIndex < lPolySize; ++lVertIndex)
+				{
+					if (lPolyIndexCounter < lIndexCount)
+					{
+						FbxVector2 lUVValue;
+
+						//the UV index depends on the reference mode
+						int lUVIndex = lUseIndex ? lUVElement->GetIndexArray().GetAt(lPolyIndexCounter) : lPolyIndexCounter;
+
+						lUVValue = lUVElement->GetDirectArray().GetAt(lUVIndex);
+
+						//int VertexIndex = pMesh->GetTextureUVIndex(lPolyIndex, lVertIndex);
+
+						//_ArrVtx[VertexIndex].TEXCOORD.x = static_cast<float>(lUVValue.mData[0]);
+						//_ArrVtx[VertexIndex].TEXCOORD.y = 1.0f - static_cast<float>(lUVValue.mData[1]);
+
+						//float4 Test;
+						//Test.x = static_cast<float>(lUVValue.mData[0]);
+						//Test.y = static_cast<float>(lUVValue.mData[1]);
+						//GameEngineDebug::OutPutString(Test.ToString() + " Index : " + std::to_string(Index));
+						//++Index;
+
+						lPolyIndexCounter++;
+					}
+				}
+			}
+		}
+
+	}
 
 }
 
@@ -749,7 +854,96 @@ void GameEngineFBXMesh::MeshNodeCheck()
 	}
 }
 
-GameEngineMesh* GameEngineFBXMesh::GetGameEngineMesh(int _SubIndex)
+GameEngineMesh* GameEngineFBXMesh::GetGameEngineMesh(size_t _MeshIndex, size_t _SubIndex)
 {
-	return nullptr;
+	if (RenderUnitInfos.size() <= _MeshIndex)
+	{
+		MsgBoxAssert("존재하지 않는 랜더 유니트를 사용하려고 했습니다.");
+	}
+
+	FbxRenderUnit& Unit = RenderUnitInfos[_MeshIndex];
+
+	if (nullptr == Unit.VertexBuffer)
+	{
+		GameEngineVertexBuffer* VertexBuffer = GameEngineVertexBuffer::Create(Unit.Vertexs);
+
+		if (nullptr == VertexBuffer)
+		{
+			MsgBoxAssert("FBX 버텍스 버퍼 생성 실패.");
+		}
+
+		Unit.VertexBuffer = VertexBuffer;
+	}
+
+	if (Unit.Indexs.size() <= _SubIndex)
+	{
+		MsgBoxAssert("존재하지 않는 서브셋을 만들려고 했습니다. 인덱스 버퍼를 생성할수 없습니다.");
+	}
+
+	if (Unit.IndexBuffers.empty())
+	{
+		Unit.IndexBuffers.resize(Unit.Indexs.size());
+	}
+
+	if (nullptr == Unit.IndexBuffers[_SubIndex])
+	{
+		GameEngineIndexBuffer* IndexBuffer = GameEngineIndexBuffer::Create(Unit.Indexs[_SubIndex]);
+
+		if (nullptr == IndexBuffer)
+		{
+			MsgBoxAssert("FBX 버텍스 버퍼 생성 실패.");
+		}
+
+		Unit.IndexBuffers[_SubIndex] = IndexBuffer;
+	}
+
+	if (Unit.Meshs.empty())
+	{
+		Unit.Meshs.resize(Unit.Indexs.size());
+	}
+
+	if (nullptr == Unit.Meshs[_SubIndex])
+	{
+		Unit.Meshs[_SubIndex] = GameEngineMesh::Create(Unit.VertexBuffer, Unit.IndexBuffers[_SubIndex]);
+	}
+
+	// 끝나면 이에 해당하는 메테리얼을 확인합니다.
+
+	if (
+		false == Unit.MaterialData[_SubIndex].DifTextureName.empty()
+		&& "" != Unit.MaterialData[_SubIndex].DifTextureName
+		)
+	{
+		GameEngineTexture* Texture = GameEngineTexture::Find(Unit.MaterialData[_SubIndex].DifTextureName);
+
+		if (nullptr == Texture)
+		{
+			Path = GameEngineDirectory::GetFolderPath(GetPath());
+
+			// CH_NPC_MOB_Anashar_A01_Lower_D_KGW.tga
+
+			std::string FilePath = Path + Unit.MaterialData[_SubIndex].DifTextureName;
+			GameEngineTexture::Load(FilePath);
+		}
+	}
+	
+
+	return Unit.Meshs[_SubIndex];
+}
+
+const FbxExMaterialSettingData& GameEngineFBXMesh::GetMaterialSettingData(size_t _MeshIndex, size_t _SubIndex)
+{
+	if (RenderUnitInfos.size() <= _MeshIndex)
+	{
+		MsgBoxAssert("존재하지 않는 랜더 유니트를 사용하려고 했습니다.");
+	}
+
+	FbxRenderUnit& Unit = RenderUnitInfos[_MeshIndex];
+
+	if (Unit.MaterialData.size() <= _SubIndex)
+	{
+		MsgBoxAssert("존재하지 않는 재질정보를 얻어오려고 했습니다.");
+	}
+
+	return Unit.MaterialData[_SubIndex];
 }

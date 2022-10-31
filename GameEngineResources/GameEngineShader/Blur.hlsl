@@ -48,7 +48,7 @@ static float Gau[5][5] =
 };
 
 Texture2D Tex : register(t0);
-SamplerState Smp : register(s0);
+SamplerState POINTWRAP : register(s0);
 float4 Blur_PS(Output _Input) : SV_Target0
 {
     // ÆÄ¶õ»ö
@@ -63,7 +63,7 @@ float4 Blur_PS(Output _Input) : SV_Target0
     {   
         for (int x = 0; x < 5; ++x)
         {
-            Result += Tex.Sample(Smp, CurUV) * Gau[y][x];
+            Result += Tex.Sample(POINTWRAP, CurUV) * Gau[y][x];
             CurUV.x += PixelUVSize.x;
         }
         

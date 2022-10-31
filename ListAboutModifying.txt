@@ -1,0 +1,3 @@
+DEBUG3D에서 CLIP 코드 삭제
+
+CreateRenderTargetTexture(..., float4::BLUE);

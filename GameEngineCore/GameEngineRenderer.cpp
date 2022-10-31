@@ -21,6 +21,7 @@ GameEngineRenderUnit::GameEngineRenderUnit()
 	: ParentRenderer(nullptr)
 	, PipeLine(nullptr)
 	, Topology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
+	, InputLayOut(nullptr)
 {
 	SetMesh("rect");
 }
@@ -33,6 +34,10 @@ GameEngineRenderUnit::GameEngineRenderUnit(const GameEngineRenderUnit& _Render)
 	InputLayOut = _Render.InputLayOut;
 	Topology = _Render.Topology;
 
+	if (nullptr == PipeLine)
+	{
+		return;
+	}
 	ShaderResources.ResourcesCheck(PipeLine);
 }
 
@@ -76,6 +81,22 @@ void GameEngineRenderUnit::SetMesh(const std::string& _Name)
 		InputLayOut = GameEngineInputLayOut::Create(Mesh->GetLayOutDesc(), PipeLine->GetVertexShader());
 	}
 
+}
+
+void GameEngineRenderUnit::SetMesh(GameEngineMesh* _Mesh)
+{
+	if (nullptr == _Mesh)
+	{
+		MsgBoxAssert("존재하지 않는 매쉬를 세팅하려고 했습니다.");
+		return;
+	}
+
+	Mesh = _Mesh;
+
+	if (nullptr == InputLayOut && nullptr != PipeLine)
+	{
+		InputLayOut = GameEngineInputLayOut::Create(Mesh->GetLayOutDesc(), PipeLine->GetVertexShader());
+	}
 }
 
 void GameEngineRenderUnit::SetPipeLine(const std::string& _Name)
@@ -201,6 +222,7 @@ GameEngineRenderer::~GameEngineRenderer()
 
 void GameEngineRenderer::Start() 
 {
+	PushRendererToMainCamera();
 }
 
 void GameEngineRenderer::PushRendererToMainCamera()
@@ -308,4 +330,3 @@ void GameEngineRenderer::ChangeCamera(CAMERAORDER _Order)
 {
 	GetActor()->GetLevel()->PushRenderer(this, _Order);
 }
-

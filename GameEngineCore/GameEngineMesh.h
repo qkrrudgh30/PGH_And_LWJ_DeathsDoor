@@ -13,6 +13,8 @@ public:
 
 	static GameEngineMesh* Create(const std::string& _Name, const std::string& _Vtx, const std::string& _Idx);
 
+	static GameEngineMesh* Create(GameEngineVertexBuffer* _Vtx, GameEngineIndexBuffer* _Idx);
+
 public:
 	// constrcuter destructer
 	GameEngineMesh();
@@ -30,6 +32,9 @@ public:
 	// 그렇게 해서 변환된 점을 어떻게 조합해서 면으로 만들것이냐를 여기서 처리합니다.
 	// 인덱스 버퍼가 세팅된다.
 	void SetInputAssembler2IndexBuffer(const std::string& _Name);
+
+	void SetInputAssembler1VertexBuffer(GameEngineVertexBuffer* _Res);
+	void SetInputAssembler2IndexBuffer(GameEngineIndexBuffer* _Res);
 
 	void InputAssembler1VertexBufferSetting();
 

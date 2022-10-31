@@ -138,7 +138,7 @@ void GameEngineShader::CreateVersion(const std::string& _ShaderType, UINT _Versi
 }
 
 // 쉐이더에서 상수버퍼를 사용했는지 텍스처를 썼는지
-void GameEngineShader::ShaderResCheck()
+void GameEngineShader::ShaderResCheck(const std::string_view& _Name)
 {
 	// BinaryPtr 완전히 빌드된 쉐이더 파일의 2진 메모리
 	if (nullptr == BinaryPtr)
@@ -231,7 +231,11 @@ void GameEngineShader::ShaderResCheck()
 			NewSetter.ParentShader = this;
 			NewSetter.SetName(Name);
 			NewSetter.ShaderType = ShaderSettingType;
-			NewSetter.Res = GameEngineSampler::Find("EngineSamplerLinear");
+			NewSetter.Res = GameEngineSampler::Find(Name);
+			if (nullptr == NewSetter.Res)
+			{
+				MsgBoxAssertString("존재하지 않는 샘플러를 사용하려고 했습니다." + Name + " ShaderName : " + _Name.data());
+			}
 			NewSetter.BindPoint = ResInfo.BindPoint;
 			SamplerMap.insert(std::make_pair(Name, NewSetter));
 			break;

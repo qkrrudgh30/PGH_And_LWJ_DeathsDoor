@@ -25,6 +25,13 @@ GameEngineIndexBuffer* GameEngineIndexBuffer::Create(const std::string& _Name, c
 	return NewRes;
 }
 
+GameEngineIndexBuffer* GameEngineIndexBuffer::Create(const void* _Data, UINT _IndexSize, UINT _IndexCount)
+{
+	GameEngineIndexBuffer* NewRes = CreateResUnName();
+	NewRes->BufferCreate(_Data, _IndexSize, _IndexCount);
+	return NewRes;
+}
+
 void GameEngineIndexBuffer::BufferCreate(const void* _Data, UINT _IndexSize, UINT _IndexCount)
 {
 	IndexSize = _IndexSize;

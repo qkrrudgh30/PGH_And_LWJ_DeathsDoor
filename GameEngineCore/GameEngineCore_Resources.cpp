@@ -172,22 +172,51 @@ void EngineTextureLoad()
 		Desc.MinLOD = -FLT_MAX;
 		Desc.MaxLOD = FLT_MAX;
 
-		GameEngineSampler::Create("EngineSamplerPoint", Desc);
+		GameEngineSampler::Create("POINTCLAMP", Desc);
 	}
 
 	{
-		D3D11_SAMPLER_DESC Desc = { D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_LINEAR };
-		Desc.AddressU = D3D11_TEXTURE_ADDRESS_CLAMP;
-		Desc.AddressV = D3D11_TEXTURE_ADDRESS_CLAMP;
-		Desc.AddressW = D3D11_TEXTURE_ADDRESS_CLAMP;
+		D3D11_SAMPLER_DESC Desc = { D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_POINT };
+		Desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		Desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		Desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
 		Desc.MipLODBias = 0.0f;
 		Desc.MaxAnisotropy = 1;
 		Desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
 		Desc.MinLOD = -FLT_MAX;
 		Desc.MaxLOD = FLT_MAX;
 
-		GameEngineSampler::Create("EngineSamplerLinear", Desc);
+		GameEngineSampler::Create("POINTWRAP", Desc);
 	}
+
+	{
+		D3D11_SAMPLER_DESC Desc = { D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_LINEAR };
+		Desc.AddressU = D3D11_TEXTURE_ADDRESS_WRAP;
+		Desc.AddressV = D3D11_TEXTURE_ADDRESS_WRAP;
+		Desc.AddressW = D3D11_TEXTURE_ADDRESS_WRAP;
+		Desc.MipLODBias = 0.0f;
+		Desc.MaxAnisotropy = 1;
+		Desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+		Desc.MinLOD = -FLT_MAX;
+		Desc.MaxLOD = FLT_MAX;
+
+		GameEngineSampler::Create("LINEARWRAP", Desc);
+	}
+
+	{
+		D3D11_SAMPLER_DESC Desc = { D3D11_FILTER::D3D11_FILTER_MIN_MAG_MIP_LINEAR };
+		Desc.AddressU = D3D11_TEXTURE_ADDRESS_MIRROR;
+		Desc.AddressV = D3D11_TEXTURE_ADDRESS_MIRROR;
+		Desc.AddressW = D3D11_TEXTURE_ADDRESS_MIRROR;
+		Desc.MipLODBias = 0.0f;
+		Desc.MaxAnisotropy = 1;
+		Desc.ComparisonFunc = D3D11_COMPARISON_ALWAYS;
+		Desc.MinLOD = -FLT_MAX;
+		Desc.MaxLOD = FLT_MAX;
+
+		GameEngineSampler::Create("LINEARMIRROR", Desc);
+	}
+
 
 	GameEngineDirectory Dir;
 

@@ -4,6 +4,8 @@
 #include "GameEngineVertexs.h"
 #include "GameEngineVertexBuffer.h"
 #include "GameEngineIndexBuffer.h"
+#include "GameEngineTexture.h"
+#include "GameEngineMesh.h"
 
 
 // 지금설명하기 힘듬.
@@ -116,11 +118,12 @@ struct FbxExMeshInfo
 	}
 };
 
-
+// 사람
+// 대검
 struct FbxRenderUnit
 {
 public:
-	int Index;
+	int VectorIndex;
 	int IsLodLv;
 	bool IsLod;
 
@@ -141,29 +144,23 @@ public:
 
 	std::vector<GameEngineVertex> Vertexs;
 
-	      //     서브셋
-	// 사람      머리
-	//           다리
-	//           몸통
-	// 대검
-	std::vector<std::vector<std::vector<unsigned int>>> Indexs;
+	// 머리
+	// 다리 
+	// 몸통
+	std::vector<std::vector<unsigned int>> Indexs;
 
-	std::vector<std::vector<FbxExMaterialSettingData>> MaterialData;
+	std::vector<FbxExMaterialSettingData> MaterialData;
 
 
-	std::vector<GameEngineVertexBuffer*> GameEngineVertexBuffers;
-	std::vector<std::vector<GameEngineIndexBuffer*>> GameEngineIndexBuffers;
-	// std::vector<std::vector<std::shared_ptr<DirectMesh>>> m_Mesh;
+	GameEngineVertexBuffer* VertexBuffer;
+	std::vector<GameEngineIndexBuffer*> IndexBuffers;
 
-
-	// FbxMeshSet(const FbxMeshSet& _Other) = delete;
-	// FbxMeshSet(FbxMeshSet&& _Other) noexcept = delete;
-	// FbxMeshSet& operator=(const FbxMeshSet& _Other) = delete;
-	// FbxMeshSet& operator=(FbxMeshSet&& _Other) noexcept = delete;
+	std::vector<GameEngineMesh*> Meshs;
 
 	FbxRenderUnit() :
 		IsLod(false),
-		IsLodLv(-1)
+		IsLodLv(-1),
+		VertexBuffer(nullptr)
 	{
 	}
 
@@ -219,7 +216,19 @@ public:
 
 	static GameEngineFBXMesh* Load(const std::string& _Path, const std::string& _Name);
 
-	GameEngineMesh* GetGameEngineMesh(int _SubIndex);
+	GameEngineMesh* GetGameEngineMesh(size_t _MeshIndex, size_t _SubIndex);
+
+	const FbxExMaterialSettingData& GetMaterialSettingData(size_t _MeshIndex, size_t _SubIndex);
+
+	size_t GetRenderUnitCount()
+	{
+		return RenderUnitInfos.size();
+	}
+
+	size_t GetSubSetCount(size_t _RenderUnitIndex)
+	{
+		return RenderUnitInfos[_RenderUnitIndex].Indexs.size();
+	}
 
 protected:
 	std::vector<FbxExMeshInfo> MeshInfos;
@@ -247,7 +256,8 @@ private:
 	void LoadTangent(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshMatrix, std::vector<GameEngineVertex>& _ArrVtx, int VtxId, int _Index);
 	void LoadNormal(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshMatrix, std::vector<GameEngineVertex>& _ArrVtx, int VtxId, int _Index);
 	void DrawSetWeightAndIndexSetting(FbxRenderUnit* _DrawSet, fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxCluster* _Cluster, int _BoneIndex);
-	void LoadUv(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshMatrix, std::vector<GameEngineVertex>& _ArrVtx, int VtxId, int VertexCount, int _Index);
+	void LoadUV(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _MeshMatrix, std::vector<GameEngineVertex>& _ArrVtx, int VtxId, int VertexCount, int _Index);
+	void LoadUVInformation(fbxsdk::FbxMesh* pMesh, std::vector<GameEngineVertex>& _ArrVtx);
 
 };
 

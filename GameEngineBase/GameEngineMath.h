@@ -4,6 +4,7 @@
 #include <d3d11_4.h>
 #include <d3dcompiler.h>
 #include <DirectXPackedVector.h>
+#include <string>
 
 #include <DirectXCollision.h>
 
@@ -358,6 +359,20 @@ public:
 	{
 		return POINT(ix(), iy());
 	}
+
+
+	std::string ToString()
+	{
+		std::string Value;
+		Value += "x : ";
+		Value += std::to_string(x);
+		Value += " y : ";
+		Value += std::to_string(y);
+		Value += " z : ";
+		Value += std::to_string(z);
+		return Value;
+	}
+
 
 
 	float hx() const
