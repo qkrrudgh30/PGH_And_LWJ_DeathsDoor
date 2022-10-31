@@ -158,6 +158,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BossLevel.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ContentsCore.h">
       <SubType>
       </SubType>
@@ -184,6 +188,26 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GlobalContentsValue.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HuntingLevel1.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HuntingLevel2.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HuntingLevel3.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HuntingLevel4.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="HuntingLevel5.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -268,6 +292,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BossLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="ContentsCore.cpp">
       <SubType>
       </SubType>
@@ -293,6 +321,26 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="GlobalContentsValue.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HuntingLevel1.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HuntingLevel2.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HuntingLevel3.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HuntingLevel4.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="HuntingLevel5.cpp">
       <SubType>
       </SubType>
     </ClCompile>

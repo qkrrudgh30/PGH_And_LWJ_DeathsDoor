@@ -1,6 +1,12 @@
 #include "PreCompile.h"
 #include "ContentsCore.h"
 #include "GameEngineContents/LoginLevel.h"
+#include "GameEngineContents/HuntingLevel1.h"
+#include "GameEngineContents/HuntingLevel2.h"
+#include "GameEngineContents/HuntingLevel3.h"
+#include "GameEngineContents/HuntingLevel4.h"
+#include "GameEngineContents/HuntingLevel5.h"
+#include "GameEngineContents/BossLevel.h"
 #include "GameEngineContents/TestLevel.h"
 #include "GameEngineContents/EditLevel.h"
 #include "GameEngineContents/EditGUIWindow.h"
@@ -93,6 +99,12 @@ void ContentsCore::Start()
 
 	// RTTI 런 타임 타입 인포메이션
 	CreateLevel<LoginLevel>("Login");
+	CreateLevel<HuntingLevel1>("Hunting1");
+	CreateLevel<HuntingLevel2>("Hunting2");
+	CreateLevel<HuntingLevel3>("Hunting3");
+	CreateLevel<HuntingLevel4>("Hunting4");
+	CreateLevel<HuntingLevel5>("Hunting5");
+	CreateLevel<BossLevel>("Boss");
 	CreateLevel<TestLevel>("Test");
 	CreateLevel<EditLevel>("Edit");
 	ChangeLevel("Login");

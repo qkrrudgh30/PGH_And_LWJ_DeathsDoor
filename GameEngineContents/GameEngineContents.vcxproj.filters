@@ -197,6 +197,25 @@
     <ClInclude Include="ContentsLevel.h">
       <Filter>01.Level</Filter>
     </ClInclude>
+    <ClInclude Include="FlowerBullet.h" />
+    <ClInclude Include="HuntingLevel1.h">
+      <Filter>01.Level\01.HuntingLevel1</Filter>
+    </ClInclude>
+    <ClInclude Include="HuntingLevel2.h">
+      <Filter>01.Level\02.HuntingLevel2</Filter>
+    </ClInclude>
+    <ClInclude Include="HuntingLevel3.h">
+      <Filter>01.Level\03.HuntingLevel3</Filter>
+    </ClInclude>
+    <ClInclude Include="HuntingLevel5.h">
+      <Filter>01.Level\05.HuntingLevel5</Filter>
+    </ClInclude>
+    <ClInclude Include="HuntingLevel4.h">
+      <Filter>01.Level\04.HuntingLevel4</Filter>
+    </ClInclude>
+    <ClInclude Include="BossLevel.h">
+      <Filter>01.Level\06.BossLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -278,6 +297,25 @@
     </ClCompile>
     <ClCompile Include="ContentsLevel.cpp">
       <Filter>01.Level</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowerBullet.cpp" />
+    <ClCompile Include="HuntingLevel1.cpp">
+      <Filter>01.Level\01.HuntingLevel1</Filter>
+    </ClCompile>
+    <ClCompile Include="HuntingLevel2.cpp">
+      <Filter>01.Level\02.HuntingLevel2</Filter>
+    </ClCompile>
+    <ClCompile Include="HuntingLevel3.cpp">
+      <Filter>01.Level\03.HuntingLevel3</Filter>
+    </ClCompile>
+    <ClCompile Include="HuntingLevel5.cpp">
+      <Filter>01.Level\05.HuntingLevel5</Filter>
+    </ClCompile>
+    <ClCompile Include="HuntingLevel4.cpp">
+      <Filter>01.Level\04.HuntingLevel4</Filter>
+    </ClCompile>
+    <ClCompile Include="BossLevel.cpp">
+      <Filter>01.Level\06.BossLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
