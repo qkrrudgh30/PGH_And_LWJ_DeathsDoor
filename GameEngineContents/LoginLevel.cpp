@@ -3,6 +3,7 @@
 #include "LoginUI.h"
 #include "Enums.h"
 #include "Player.h"
+#include "TestActor.h"
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -20,30 +21,6 @@ LoginLevel::~LoginLevel()
 
 void LoginLevel::Start()
 {
-#pragma region LoadFBXMeshiesAndAnimation
-	DirectPathAt("01_HuntingLevel1");
-	LoadFBXFiles();
-
-	// 애니메이션 액터의 매시 로드
-	// 스태틱 매시 로드
-	// 애니메이션 액터의 애니메이션 로드
-
-
-	/* 초기 멀티스레드 로딩 코드
-	GameEngineCore::EngineThreadPool.Work(
-		[this]
-		{
-			this->LoadTextureInStatic();
-		});
-
-	GameEngineCore::EngineThreadPool.Work(
-		[this]
-		{
-			this->LoadTextureInAnimator();
-		});
-	*/
-#pragma endregion
-
 	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
 
 
@@ -71,14 +48,36 @@ void LoginLevel::Start()
 	}
 
 
-
-	
 	
 }
 
 void LoginLevel::LevelStartEvent()
 {
+#pragma region LoadFBXMeshiesAndAnimation
+	DirectPathAt("00_LoginLevel");
+	LoadFBXFiles();
 
+	// 애니메이션 액터의 매시 로드
+	// 스태틱 매시 로드
+	// 애니메이션 액터의 애니메이션 로드
+
+
+	/* 초기 멀티스레드 로딩 코드
+	GameEngineCore::EngineThreadPool.Work(
+		[this]
+		{
+			this->LoadTextureInStatic();
+		});
+
+	GameEngineCore::EngineThreadPool.Work(
+		[this]
+		{
+			this->LoadTextureInAnimator();
+		});
+	*/
+#pragma endregion
+
+	CreateActor<TestActor>(); // Test Code.
 
 	if (nullptr == UI)
 	{
