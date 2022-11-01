@@ -75,9 +75,9 @@ void LoginLevel::LevelStartEvent()
 			this->LoadTextureInAnimator();
 		});
 	*/
+	CreateActor<TestActor>(); // Test Code.
 #pragma endregion
 
-	CreateActor<TestActor>(); // Test Code.
 
 	if (nullptr == UI)
 	{

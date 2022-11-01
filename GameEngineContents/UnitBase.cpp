@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "UnitBase.h"
 
+#include <GameEngineCore/GameEngineFBXRenderer.h>
+
 UnitBase::UnitBase() :
 	m_fLifeTime(0.f)
 	,m_fSpeed(0.f)

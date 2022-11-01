@@ -24,6 +24,7 @@ public:
 
 protected:
 	GameEngineDefaultRenderer* Renderer;
+	class GameEngineFBXRenderer* FBXRenderer;
 	GameEngineCollision* Collision;
 	GameEngineCollision* AttCollision;
 public:

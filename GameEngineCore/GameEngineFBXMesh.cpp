@@ -21,13 +21,7 @@ GameEngineFBXMesh* GameEngineFBXMesh::Load(const std::string& _Path, const std::
 
 void GameEngineFBXMesh::LoadMesh(const std::string& _Path, const std::string& _Name)
 {
-	if (false == CreateFBXSystemInitialize(_Path))
-	{
-		MsgBoxAssert("시스템 로드에 실패했습니다.");
-	}
-
-	FBXConvertScene();
-
+	FBXInit(_Path);
 	// 버텍스 정보를 가진 노드를 조사한다.
 	MeshLoad();
 }

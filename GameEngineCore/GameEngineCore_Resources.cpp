@@ -22,6 +22,7 @@
 #include "GameEngineFont.h"
 #include "GameEngineInputLayOut.h"
 #include "GameEngineFBXMesh.h"
+#include "GameEngineFBXAnimation.h"
 
 #include "GameEngineVertexShader.h"
 #include "GameEnginePixelShader.h"
@@ -476,6 +477,7 @@ void GameEngineCore::EngineResourcesDestroy()
 	GameEngineIndexBuffer::ResourcesDestroy();
 	GameEngineMesh::ResourcesDestroy();
 	GameEngineFBXMesh::ResourcesDestroy();
+	GameEngineFBXAnimation::ResourcesDestroy();
 
 	GameEngineRenderTarget::ResourcesDestroy();
 	GameEngineTexture::ResourcesDestroy();

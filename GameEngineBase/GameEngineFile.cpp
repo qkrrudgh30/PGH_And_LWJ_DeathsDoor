@@ -111,6 +111,23 @@ void GameEngineFile::Write(const float4& _Data)
 	Write(&_Data, sizeof(float4));
 }
 
+void GameEngineFile::Write(const float4x4& _Data)
+{
+	Write(&_Data, sizeof(float4x4));
+}
+
+
+void GameEngineFile::Write(const double& _Data)
+{
+	Write(&_Data, sizeof(double));
+}
+
+void GameEngineFile::Write(const float& _Data)
+{
+	Write(&_Data, sizeof(float));
+}
+
+
 void GameEngineFile::Read(void* _Buffer, size_t _BufferSize, size_t _ReadSize)
 {
 	// 
@@ -123,6 +140,11 @@ void GameEngineFile::Read(std::string& _Data)
 	Read(&Size, sizeof(int), sizeof(int));
 	_Data.resize(Size);
 	Read(&_Data[0], Size, Size);
+}
+
+void GameEngineFile::Read(double& _Data)
+{
+	Read(&_Data, sizeof(double), sizeof(double));
 }
 
 void GameEngineFile::Read(float& _Data)
@@ -139,7 +161,6 @@ void GameEngineFile::Read(float4& _Data)
 {
 	Read(&_Data, sizeof(float4), sizeof(float4));
 }
-
 
 std::string GameEngineFile::GetString()
 {

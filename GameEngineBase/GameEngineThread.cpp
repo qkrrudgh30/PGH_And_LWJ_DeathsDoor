@@ -20,7 +20,7 @@ GameEngineThread::~GameEngineThread()
 void GameEngineThread::GameEngineThreadFunction(GameEngineThread* _Thread, std::string _Name) 
 {
 	// 쓰레드의 영역입니다.
-	std::wstring WName = GameEngineString::AnsiToUnicodeReturn(_Name);
+	std::wstring WName = GameEngineString::AnsiToUniCodeReturn(_Name);
 	SetThreadDescription(GetCurrentThread(), WName.c_str());
 	_Thread->WorkFunction(_Thread);
 }

@@ -48,7 +48,7 @@ GameEngineFont* GameEngineFont::Load(const std::string& _Path, const std::string
 
 void GameEngineFont::LoadFont(const std::string& _Path)
 {
-	std::wstring WPath = GameEngineString::AnsiToUnicodeReturn(_Path);
+	std::wstring WPath = GameEngineString::AnsiToUniCodeReturn(_Path);
 
 	if (S_OK != FontFactiory->CreateFontWrapper(GameEngineDevice::GetDevice(), WPath.c_str(), &FontWrapper))
 	{
@@ -59,7 +59,7 @@ void GameEngineFont::LoadFont(const std::string& _Path)
 
 void GameEngineFont::FontDraw(const std::string& _Text, float _FontSize, float4 _ScreenPos, float4 Color, UINT Flag)
 {
-	std::wstring Text = GameEngineString::AnsiToUnicodeReturn(_Text);
+	std::wstring Text = GameEngineString::AnsiToUniCodeReturn(_Text);
 
 	//for (size_t i = 0; i < Text.size(); i++)
 	//{

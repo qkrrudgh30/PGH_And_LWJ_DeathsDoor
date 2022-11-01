@@ -36,6 +36,7 @@ public:
 	std::vector<FBXNodeInfo> CheckAllNode();
 
 protected:
+	void FBXInit(std::string _Path);
 	// FBXSDK의 매쉬 로드 인터페이스를 생성하고 로드를 준비한다.
 	bool CreateFBXSystemInitialize(const std::string& _Path);
 
@@ -52,7 +53,9 @@ protected:
 
 	void RecursiveAllNode(fbxsdk::FbxNode* _Node, std::function<void(fbxsdk::FbxNode*)> _Function = nullptr);
 
+	// std::mutex ManagerLock;
 	fbxsdk::FbxManager* Manager;
+
 	fbxsdk::FbxIOSettings* IOSetting;
 	fbxsdk::FbxImporter* Importer;
 	fbxsdk::FbxScene* Scene;

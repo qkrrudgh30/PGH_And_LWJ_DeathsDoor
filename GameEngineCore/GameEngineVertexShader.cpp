@@ -94,7 +94,7 @@ void GameEngineVertexShader::ShaderCompile(std::string _Path, std::string _Entry
 
 	ID3DBlob* Error;
 
-	std::wstring UnicodePath = GameEngineString::AnsiToUnicodeReturn(_Path);
+	std::wstring UnicodePath = GameEngineString::AnsiToUniCodeReturn(_Path);
 
 	// Ω¶¿Ã¥ı 
 	if (D3DCompileFromFile(
@@ -156,7 +156,7 @@ void GameEngineVertexShader::InstancingShaderCompile(std::string _Path, std::str
 
 	ID3DBlob* Error;
 
-	std::wstring UnicodePath = GameEngineString::AnsiToUnicodeReturn(_Path);
+	std::wstring UnicodePath = GameEngineString::AnsiToUniCodeReturn(_Path);
 
 	// Ω¶¿Ã¥ı 
 	if (D3DCompileFromFile(

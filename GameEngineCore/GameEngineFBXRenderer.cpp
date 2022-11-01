@@ -81,3 +81,8 @@ void GameEngineFBXRenderer::Render(float _DeltaTime)
 		}
 	}
 }
+
+void GameEngineFBXRenderer::CreateAnimation(const std::string& _AnimationName, const std::string& _MeshFBX, const std::string& _AnimationFBX)
+{
+
+}

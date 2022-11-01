@@ -219,8 +219,7 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 			//		GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * iThreadCount + j]);
 			//		++muFBXFolderCount;
 			//	});
-
-			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimationFileNames[i * iThreadCount + j]);
+			GameEngineFBXAnimation* Animation = GameEngineFBXAnimation::Load(mstrvecAnimationFileNames[i * iThreadCount + j]);
 		}
 	}
 
@@ -237,7 +236,7 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 			//		++muFBXFolderCount;
 			//	});
 
-			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimationFileNames[i]);
+			GameEngineFBXAnimation* Animation = GameEngineFBXAnimation::Load(mstrvecAnimationFileNames[i]);
 		}
 	}
 }

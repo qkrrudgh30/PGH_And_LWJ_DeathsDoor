@@ -73,7 +73,7 @@ void GameEnginePixelShader::ShaderCompile(
 
 	ID3DBlob* Error;
 
-	std::wstring UnicodePath = GameEngineString::AnsiToUnicodeReturn(_Path);
+	std::wstring UnicodePath = GameEngineString::AnsiToUniCodeReturn(_Path);
 
 	// Ω¶¿Ã¥ı 
 	if (S_OK != D3DCompileFromFile(

@@ -16,6 +16,9 @@ namespace GameEngineDebug
 
 	void Destroy();
 
+	// Window에서의 에러를 처리해주는 함수.
+	void GetLastErrorPrint();
+
 // protected:
 
 // private:

@@ -2,9 +2,12 @@
 #include "GameEngineFBX.h"
 #include <GameEngineBase/GameEngineString.h>
 
+// std::mutex GameEngineFBX::ManagerLock;
+// fbxsdk::FbxManager* GameEngineFBX::Manager = nullptr;
+
+
 GameEngineFBX::GameEngineFBX() 
 	:
-	Manager(nullptr),
 	IOSetting(nullptr),
 	Importer(nullptr),
 	Scene(nullptr),
@@ -104,12 +107,18 @@ GameEngineFBX::~GameEngineFBX()
 // FBXSDK 
 bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
 {
-	Manager = fbxsdk::FbxManager::Create();
-
+	// 쓰레드에서 여기서 에러가 난다는 말이 있는데.
 	if (nullptr == Manager)
 	{
-		MsgBoxAssert("FBX 매니저 생성에 실패했습니다.");
-		return false;
+		//  ManagerLock.lock();
+		Manager = fbxsdk::FbxManager::Create();
+		// ManagerLock.unlock();
+
+		if (nullptr == Manager)
+		{
+			MsgBoxAssert("FBX 매니저 생성에 실패했습니다.");
+			return false;
+		}
 	}
 
 	// FBX파일을 읽는 방법을 정의한다.
@@ -303,4 +312,14 @@ void GameEngineFBX::RecursiveAllNode(fbxsdk::FbxNode* _Node, std::function<void(
 		RecursiveAllNode(Node);
 	}
 
+}
+
+void GameEngineFBX::FBXInit(std::string _Path)
+{
+	if (false == CreateFBXSystemInitialize(_Path))
+	{
+		MsgBoxAssert("시스템 로드에 실패했습니다.");
+	}
+
+	FBXConvertScene();
 }

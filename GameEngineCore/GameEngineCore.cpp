@@ -116,7 +116,6 @@ void GameEngineCore::CoreUpdate(GameEngineCore* _UserCore)
 		_UserCore->Update(DeltaTime);
 		CurrentLevel->LevelUpdate(DeltaTime);
 	}
-
 }
 
 void GameEngineCore::CoreEnd(GameEngineCore* _UserCore) 

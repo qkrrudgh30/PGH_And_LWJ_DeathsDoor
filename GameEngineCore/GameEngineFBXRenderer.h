@@ -28,6 +28,8 @@ public:
 		return Unit;
 	}
 
+	void CreateAnimation(const std::string& _AnimationName, const std::string& _MeshFBX, const std::string& _AnimationFBX);
+
 protected:
 	
 

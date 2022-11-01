@@ -34,6 +34,7 @@ protected:
 
 	std::vector<GameEngineDirectory> mvecDirectories;
 	static std::atomic<int> muFBXFolderCount;
+	// bool mb
 
 private:
 	void LoadFBXMesiesOfAnimator();

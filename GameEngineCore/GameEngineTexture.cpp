@@ -110,7 +110,7 @@ void GameEngineTexture::TextureLoad(const std::string& _Path)
 {
 	std::string Ex = GameEngineString::ToUpperReturn(GameEnginePath::GetExtension(_Path));
 
-	std::wstring LoadPath = GameEngineString::AnsiToUnicodeReturn(_Path);
+	std::wstring LoadPath = GameEngineString::AnsiToUniCodeReturn(_Path);
 
 	if (Ex == ".TGA")
 	{

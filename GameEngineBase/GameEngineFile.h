@@ -42,7 +42,21 @@ public:
 
 	void Write(const std::string& _Text);
 
+	void Write(const float4x4& _Data);
+
 	void Write(const float4& _Data);
+
+	void Write(const double& _Data);
+
+	void Write(const float& _Data);
+
+	template<typename Struct>
+	void Write(const Struct& _Data)
+	{
+		Write(reinterpret_cast<const void*>(&_Data), sizeof(Struct));
+	}
+
+
 
 	// 받는용 버퍼
 	void Read(void* _ReadData, size_t _BufferSize, size_t _ReadSize);
@@ -53,7 +67,16 @@ public:
 
 	void Read(float4& _Data);
 
+	void Read(double& _Data);
+
 	void Read(float& _Data);
+
+	template<typename Struct>
+	void Read(Struct& _Data)
+	{
+		Read(reinterpret_cast<void*>(&_Data), sizeof(Struct), sizeof(Struct));
+	}
+
 
 
 	std::string GetString();
