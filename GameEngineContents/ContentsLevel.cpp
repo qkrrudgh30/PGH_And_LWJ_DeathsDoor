@@ -34,7 +34,7 @@ void ContentsLevel::DirectPathAt(const std::string& _strFolderName)
 void ContentsLevel::LoadFBXFiles()
 {
 	LoadFBXMesiesOfAnimator();
-	LoadFBXMesiesOfStatic();
+	// LoadFBXMesiesOfStatic();
 	// LoadAnimationsOfAnimator();
 }
 
@@ -98,15 +98,15 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 	{
 		for (int j = 0; j < iThreadCount; ++j)
 		{
-			//GameEngineCore::EngineThreadPool.Work(
-			//	[&]
-			//	{
-			//		// std::lock_guard<std::mutex> LockInst(m);
-			//		GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * iThreadCount + j]);
-			//		++muFBXFolderCount;
-			//	});
+			GameEngineCore::EngineThreadPool.Work(
+				[&]
+				{
+					// std::lock_guard<std::mutex> LockInst(m);
+					GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * iThreadCount + j]);
+					++muFBXFolderCount;
+				});
 
-			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * iThreadCount + j]);
+			// GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * iThreadCount + j]);
 		}
 	}
 
@@ -115,15 +115,15 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 		for (int i = 0; i < iRemains; ++i)
 		{
 
-			//GameEngineCore::EngineThreadPool.Work(
-			//	[=]
-			//	{
-			//		// std::lock_guard<std::mutex> LockInst(m);
-			//		GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
-			//		++muFBXFolderCount;
-			//	});
+			GameEngineCore::EngineThreadPool.Work(
+				[=]
+				{
+					// std::lock_guard<std::mutex> LockInst(m);
+					GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
+					++muFBXFolderCount;
+				});
 
-			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
+			// GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
 		}
 	}
 }

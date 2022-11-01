@@ -54,7 +54,7 @@ void LoginLevel::Start()
 void LoginLevel::LevelStartEvent()
 {
 #pragma region LoadFBXMeshiesAndAnimation
-	DirectPathAt("00_LoginLevel");
+	DirectPathAt("01_HuntingLevel1");
 	LoadFBXFiles();
 
 	// 애니메이션 액터의 매시 로드

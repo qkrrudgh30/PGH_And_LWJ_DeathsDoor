@@ -21,8 +21,12 @@ void TestActor::Start()
 	//Renderer->GetRenderUnit().SetMesh("Box");
 
 	GameEngineFBXRenderer* Renderer = CreateComponent<GameEngineFBXRenderer>();
-	Renderer->SetFBXMesh("Hall.FBX", "Texture");
-	Renderer->GetTransform().SetLocalRotate(float4{20.f, -20.f, 180.f});
+	if (nullptr != GameEngineFBXMesh::Find("ROOM_Enter (1).FBX"))
+	{
+		Renderer->SetFBXMesh("ROOM_Enter (1).FBX", "Texture");
+		Renderer->GetTransform().SetLocalRotate(float4{20.f, -20.f, 180.f});
+	}
+	
 
 	// Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f ,100.0f });
 }
