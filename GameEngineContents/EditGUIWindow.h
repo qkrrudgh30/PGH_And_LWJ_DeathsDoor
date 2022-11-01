@@ -34,9 +34,11 @@ public:
 	void SaveTileData(const std::string& _strTitle);
 	// void SaveTileData(const std::wstring& _strFilePath, const std::string& _strTitle);
 
-
 	void Load();
 	void LoadTileData(const std::string& _strFilePath);
+
+	static std::vector<std::string>& GetLoadedFromAnimatorVector(void) { return m_vLoadedFromAnimator; }
+	static std::vector<std::string>& GetLoadedFromStaticVector(void) { return m_vLoadedFromStatic; }
 
 protected:
 
@@ -48,8 +50,8 @@ private:
 
 	GameEngineDirectory m_CurrentDirectory;
 	GameEngineDirectory m_ProjectDirectory;
-	std::vector<std::string> m_vLoadedFromActor;
-	std::vector<std::string> m_vLoadedFromTile;
+	static std::vector<std::string> m_vLoadedFromAnimator;
+	static std::vector<std::string> m_vLoadedFromStatic;
 
 	EditLevel* m_ptrEditLevel;
 	std::vector<std::pair<std::string, GameEngineActor*>> m_vCreatedActors;

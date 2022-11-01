@@ -2,11 +2,13 @@
 #include "GameEngineBase/GameEngineDirectory.h"
 
 #include "ContentsLevel.h"
+#include "EditGUIWindow.h"
 
 
 std::atomic<int> ContentsLevel::muFBXFolderCount = 0;
 
-ContentsLevel::ContentsLevel() 
+ContentsLevel::ContentsLevel()	
+	: mbPrimitiveInitialized(false)
 {
 }
 
@@ -86,7 +88,9 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 	for (int i = 0; i < iOuterDirectoriesCount; ++i)
 	{
 		std::string strTemp = vOuterDirectories[i].GetFileName();
+		mstrvecAnimatorMeshFileNamesForEdit.push_back(strTemp);
 		mstrvecAnimatorMeshFileNames.push_back(vOuterDirectories[i].PlusFilePath(strTemp + ".FBX"));
+
 	}
 
 	// 1줄도 안될 때
@@ -107,6 +111,7 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 			//	});
 
 			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * iThreadCount + j]);
+			EditGUIWindow::GetLoadedFromAnimatorVector().push_back(mstrvecAnimatorMeshFileNamesForEdit[i * iThreadCount + j]);
 		}
 	}
 
@@ -124,6 +129,7 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 			//	});
 
 			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
+			EditGUIWindow::GetLoadedFromAnimatorVector().push_back(mstrvecAnimatorMeshFileNamesForEdit[i]);
 		}
 	}
 }
@@ -144,6 +150,7 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 	{
 		std::string strTemp = vOuterDirectories[i].GetFileName();
 		mstrvecStaticMeshFileNames.push_back(vOuterDirectories[i].PlusFilePath(strTemp + ".FBX"));
+		mstrvecStaticMeshFileNamesForEdit.push_back(strTemp);
 	}
 
 	// 1줄도 안될 때
@@ -164,6 +171,7 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 			//	});
 
 			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * iThreadCount + j]);
+			EditGUIWindow::GetLoadedFromStaticVector().push_back(mstrvecStaticMeshFileNamesForEdit[i * iThreadCount + j]);
 		}
 	}
 
@@ -181,6 +189,7 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 			//	});
 
 			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i]);
+			EditGUIWindow::GetLoadedFromStaticVector().push_back(mstrvecStaticMeshFileNamesForEdit[i]);
 		}
 	}
 }

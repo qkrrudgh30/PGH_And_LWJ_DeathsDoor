@@ -24,19 +24,22 @@ void TestActor::Start()
 
 #pragma region ROOM_Enter (1).FBX
 
-	for (int i = 0; i < 409; ++i)
-	{
-		if (62 == i) 
-		{ 
-			Renderer->SetFBXMesh("Hall.fbx", "Color", i);
-			// Renderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4{0.717f, 0.f, 0.f, 1.f});
-			Renderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::BLACK);
-			continue; 
-		}
 
-		Renderer->SetFBXMesh("Hall.fbx", "Texture", i);
-
-	}
+	 for (int i = 0; i < emcROOM_Enter_1; ++i)
+	 {
+		// Renderer->SetFBXMesh("ROOM_Enter (1).FBX", "Color", i);
+		// Renderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::RED);
+	 	
+		if (6 == i || 3 == i) 
+	 	{ 
+	 		Renderer->SetFBXMesh("ROOM_Enter (1).fbx", "Color", i);
+	 		Renderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::BLACK);
+	 		continue; 
+	 	}
+	 
+	 	Renderer->SetFBXMesh("ROOM_Enter (1).fbx", "Texture", i);
+	 
+	 }
 
 	//GameEngineFBXRenderer* RendererWithoutMaterial1 = CreateComponent<GameEngineFBXRenderer>();
 	//RendererWithoutMaterial1->SetFBXMesh("ROOM_Enter (1).FBX", "Color", 6);
@@ -64,7 +67,6 @@ void TestActor::Start()
 	}*/
 	
 #pragma endregion
-
 
 
 

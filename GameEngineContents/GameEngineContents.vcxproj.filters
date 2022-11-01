@@ -1,18 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="00.Actor">
-      <UniqueIdentifier>{1c74ed1c-9761-412c-93d3-abef363512d1}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\02.Unit">
-      <UniqueIdentifier>{f046c344-41c5-461f-9a13-3bf9f04d9882}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\01.UI">
-      <UniqueIdentifier>{804cf31e-d3ed-4dc6-9803-e76637ce47a4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.Level">
-      <UniqueIdentifier>{5df23444-ca8f-40f8-8c39-0d7d75f58b7d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="99.PreCompile">
       <UniqueIdentifier>{439c0504-814e-4f90-8507-3f4dacd0226c}</UniqueIdentifier>
     </Filter>
@@ -25,92 +13,128 @@
     <Filter Include="96.Renderer">
       <UniqueIdentifier>{b7304beb-32a2-4805-a1d7-c8e1e6ac65d9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Actor\01.UI\00.LevelUI">
-      <UniqueIdentifier>{7f64f02d-d025-4c29-a60b-ac6cb3035162}</UniqueIdentifier>
+    <Filter Include="00.Level">
+      <UniqueIdentifier>{5df23444-ca8f-40f8-8c39-0d7d75f58b7d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Actor\01.UI\00.LevelUI\00.LoginLevel">
-      <UniqueIdentifier>{cb05e1b4-3ad8-4d88-98d1-4ec99bdeac0e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\01.UI\00.LevelUI\01.PlayLevel">
-      <UniqueIdentifier>{ede98111-ddff-470b-adf4-37244c86b25b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\02.Unit\01.Player">
-      <UniqueIdentifier>{9a98dfe5-4472-4dab-a02f-9dce60ef333b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\02.Unit\02.Monster">
-      <UniqueIdentifier>{f6532eeb-90b3-4f1e-8fbe-79bcf6e29f57}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\02.Unit\03.Bullet">
-      <UniqueIdentifier>{13a25854-7d3a-4029-a94c-e8252b969f6d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\02.Unit\00.BackGround">
-      <UniqueIdentifier>{94500964-903b-4652-800c-0d786f7985cf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\99.Global">
-      <UniqueIdentifier>{828ce4dd-5565-42a5-b49d-37856d1a3cf3}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\99.Global\GUI">
-      <UniqueIdentifier>{0bc7bf56-c9aa-4e76-9f75-cdadc405ae1c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\99.Global\Actor">
-      <UniqueIdentifier>{9823138e-82d2-40ae-b814-573be140ad5e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\00.MainCamera">
-      <UniqueIdentifier>{fbc489a8-8695-4dcc-bfda-325d2a5a1695}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\01.UI\99.EditUI">
-      <UniqueIdentifier>{a5828328-240f-4058-bbe0-9ad37f368d2b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\02.Unit\03.Bullet\00.Player">
-      <UniqueIdentifier>{5631f43b-54a7-4944-b967-f566466c687e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\02.Unit\03.Bullet\00.Player\00.Sword">
-      <UniqueIdentifier>{ec877df5-ec51-4b92-82de-89c01cb0e1bb}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\02.Unit\03.Bullet\00.Player\01.Arrow">
-      <UniqueIdentifier>{47f4316c-fd00-435d-8042-8ed1e78480bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\01.UI\01.PlayerUI">
-      <UniqueIdentifier>{f22b554d-6d63-4e59-895e-411dce81ab92}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="02.Mouse">
-      <UniqueIdentifier>{6c854ae0-1113-4cc6-b2ba-9cc26edf7612}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\02.Unit\04.NPC">
-      <UniqueIdentifier>{94c09978-aade-4b1f-bb31-b85a5b33c870}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="00.Actor\02.Unit\03.Bullet\00.Player\02.Hook">
-      <UniqueIdentifier>{f4637ab5-6376-467a-8601-caa7e9b4800b}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="01.Level\08.TestLevel">
+    <Filter Include="00.Level\08.TestLevel">
       <UniqueIdentifier>{8402f9af-8626-471c-b148-0149fefd5d45}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Level\00.LoginLevel">
+    <Filter Include="00.Level\00.LoginLevel">
       <UniqueIdentifier>{270da837-fb43-4417-91ae-ecc5e48d4516}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Level\07.EditLevel">
+    <Filter Include="00.Level\07.EditLevel">
       <UniqueIdentifier>{254115b4-8224-4240-bd76-46c1b1bbb8eb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Level\06.BossLevel">
+    <Filter Include="00.Level\06.BossLevel">
       <UniqueIdentifier>{e5ae9c92-5105-46ed-8cd4-d33144c49128}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Level\05.HuntingLevel5">
+    <Filter Include="00.Level\05.HuntingLevel5">
       <UniqueIdentifier>{88b3e6cc-752b-48f1-a66f-7b735dc2c317}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Level\04.HuntingLevel4">
+    <Filter Include="00.Level\04.HuntingLevel4">
       <UniqueIdentifier>{d8a79d83-22b4-4dce-b57e-072b29fe0b00}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Level\03.HuntingLevel3">
+    <Filter Include="00.Level\03.HuntingLevel3">
       <UniqueIdentifier>{de1daf68-95ca-43e7-86c8-1be5c6a442a3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Level\02.HuntingLevel2">
+    <Filter Include="00.Level\02.HuntingLevel2">
       <UniqueIdentifier>{13aa80c3-64a8-408e-b67d-0817ebf6e10d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Level\01.HuntingLevel1">
+    <Filter Include="00.Level\01.HuntingLevel1">
       <UniqueIdentifier>{74a5acf5-1db7-46e1-b23f-6cc4a78e8723}</UniqueIdentifier>
     </Filter>
-    <Filter Include="00.Actor\02.Unit\03.Bullet\01.Monster">
+    <Filter Include="03.Mouse">
+      <UniqueIdentifier>{6c854ae0-1113-4cc6-b2ba-9cc26edf7612}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor">
+      <UniqueIdentifier>{1c74ed1c-9761-412c-93d3-abef363512d1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit">
+      <UniqueIdentifier>{f046c344-41c5-461f-9a13-3bf9f04d9882}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\01.Player">
+      <UniqueIdentifier>{9a98dfe5-4472-4dab-a02f-9dce60ef333b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\02.Monster">
+      <UniqueIdentifier>{f6532eeb-90b3-4f1e-8fbe-79bcf6e29f57}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet">
+      <UniqueIdentifier>{13a25854-7d3a-4029-a94c-e8252b969f6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\00.Player">
+      <UniqueIdentifier>{5631f43b-54a7-4944-b967-f566466c687e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\00.Player\00.Sword">
+      <UniqueIdentifier>{ec877df5-ec51-4b92-82de-89c01cb0e1bb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\00.Player\01.Arrow">
+      <UniqueIdentifier>{47f4316c-fd00-435d-8042-8ed1e78480bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\00.Player\02.Hook">
+      <UniqueIdentifier>{f4637ab5-6376-467a-8601-caa7e9b4800b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\01.Monster">
       <UniqueIdentifier>{f55b284a-148d-44e0-a617-91703c78ee63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\00.BackGround">
+      <UniqueIdentifier>{94500964-903b-4652-800c-0d786f7985cf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\04.NPC">
+      <UniqueIdentifier>{94c09978-aade-4b1f-bb31-b85a5b33c870}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\01.UI">
+      <UniqueIdentifier>{804cf31e-d3ed-4dc6-9803-e76637ce47a4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\01.UI\00.LevelUI">
+      <UniqueIdentifier>{7f64f02d-d025-4c29-a60b-ac6cb3035162}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\01.UI\00.LevelUI\00.LoginLevel">
+      <UniqueIdentifier>{cb05e1b4-3ad8-4d88-98d1-4ec99bdeac0e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\01.UI\00.LevelUI\01.PlayLevel">
+      <UniqueIdentifier>{ede98111-ddff-470b-adf4-37244c86b25b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\01.UI\99.EditUI">
+      <UniqueIdentifier>{a5828328-240f-4058-bbe0-9ad37f368d2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\01.UI\01.PlayerUI">
+      <UniqueIdentifier>{f22b554d-6d63-4e59-895e-411dce81ab92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\99.Global">
+      <UniqueIdentifier>{828ce4dd-5565-42a5-b49d-37856d1a3cf3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\99.Global\GUI">
+      <UniqueIdentifier>{0bc7bf56-c9aa-4e76-9f75-cdadc405ae1c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\99.Global\Actor">
+      <UniqueIdentifier>{9823138e-82d2-40ae-b814-573be140ad5e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\00.MainCamera">
+      <UniqueIdentifier>{fbc489a8-8695-4dcc-bfda-325d2a5a1695}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Static">
+      <UniqueIdentifier>{9a89c389-79b5-4c1d-9375-bc8483aef687}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Static\00_LoginLevel">
+      <UniqueIdentifier>{19e62db3-9131-4521-9de3-11af826027f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Static\01_HuntingLevel1">
+      <UniqueIdentifier>{1778e1f1-9795-4b84-8d53-af0f135d5c51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Static\02_HuntingLevel2">
+      <UniqueIdentifier>{ac038426-5bd9-484b-ab77-bb714a9a7ad2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Static\03_HuntingLevel3">
+      <UniqueIdentifier>{eaf8c353-919e-4d91-a2f8-865d2e149753}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Static\04_HuntingLevel4">
+      <UniqueIdentifier>{e1db8ca9-eeb3-4510-b665-82e8806d4416}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Static\05_HuntingLevel5">
+      <UniqueIdentifier>{4d2223c0-e96e-4895-98e0-457beafd437f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Static\06_BossLevel">
+      <UniqueIdentifier>{8860d318-03c1-4085-8d3e-7d34d95a7f87}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -125,96 +149,96 @@
       <Filter>99.PreCompile</Filter>
     </ClInclude>
     <ClInclude Include="Player.h">
-      <Filter>00.Actor\02.Unit\01.Player</Filter>
+      <Filter>01.Actor\02.Unit\01.Player</Filter>
     </ClInclude>
     <ClInclude Include="Monster.h">
-      <Filter>00.Actor\02.Unit\02.Monster</Filter>
+      <Filter>01.Actor\02.Unit\02.Monster</Filter>
     </ClInclude>
     <ClInclude Include="LoginUI.h">
-      <Filter>00.Actor\01.UI\00.LevelUI\00.LoginLevel</Filter>
+      <Filter>01.Actor\01.UI\00.LevelUI\00.LoginLevel</Filter>
     </ClInclude>
     <ClInclude Include="TsetBackGround.h">
-      <Filter>00.Actor\02.Unit\00.BackGround</Filter>
+      <Filter>01.Actor\02.Unit\00.BackGround</Filter>
     </ClInclude>
     <ClInclude Include="StageMainCamera.h">
-      <Filter>00.Actor\00.MainCamera</Filter>
+      <Filter>01.Actor\00.MainCamera</Filter>
     </ClInclude>
     <ClInclude Include="LoginLevel.h">
-      <Filter>01.Level\00.LoginLevel</Filter>
+      <Filter>00.Level\00.LoginLevel</Filter>
     </ClInclude>
     <ClInclude Include="TestLevel.h">
-      <Filter>01.Level\08.TestLevel</Filter>
+      <Filter>00.Level\08.TestLevel</Filter>
     </ClInclude>
     <ClInclude Include="UnitBase.h">
-      <Filter>00.Actor\02.Unit</Filter>
+      <Filter>01.Actor\02.Unit</Filter>
     </ClInclude>
     <ClInclude Include="EditLevel.h">
-      <Filter>01.Level\07.EditLevel</Filter>
+      <Filter>00.Level\07.EditLevel</Filter>
     </ClInclude>
     <ClInclude Include="EditGUIWindow.h">
       <Filter>97.Core</Filter>
     </ClInclude>
     <ClInclude Include="MouseSlot.h">
-      <Filter>00.Actor\01.UI\99.EditUI</Filter>
+      <Filter>01.Actor\01.UI\99.EditUI</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSWAtt1.h">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSWAtt2.h">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSWAtt3.h">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClInclude>
     <ClInclude Include="PlayerSWAttSlide.h">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClInclude>
     <ClInclude Include="TestActor.h" />
     <ClInclude Include="PlayerMainUI.h">
-      <Filter>00.Actor\01.UI\01.PlayerUI</Filter>
+      <Filter>01.Actor\01.UI\01.PlayerUI</Filter>
     </ClInclude>
     <ClInclude Include="PlayerUpgradeUI.h">
-      <Filter>00.Actor\01.UI\01.PlayerUI</Filter>
+      <Filter>01.Actor\01.UI\01.PlayerUI</Filter>
     </ClInclude>
     <ClInclude Include="UIMouse.h">
-      <Filter>02.Mouse</Filter>
+      <Filter>03.Mouse</Filter>
     </ClInclude>
     <ClInclude Include="ShopNPC.h">
-      <Filter>00.Actor\02.Unit\04.NPC</Filter>
+      <Filter>01.Actor\02.Unit\04.NPC</Filter>
     </ClInclude>
     <ClInclude Include="PlayerArrowAtt.h">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
     </ClInclude>
     <ClInclude Include="FlowerMonster.h">
-      <Filter>00.Actor\02.Unit\02.Monster</Filter>
+      <Filter>01.Actor\02.Unit\02.Monster</Filter>
     </ClInclude>
     <ClInclude Include="PlayerHookAtt.h">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
     </ClInclude>
     <ClInclude Include="PlayerHookTrail.h">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
     </ClInclude>
     <ClInclude Include="ContentsLevel.h">
-      <Filter>01.Level</Filter>
+      <Filter>00.Level</Filter>
     </ClInclude>
     <ClInclude Include="FlowerBullet.h" />
     <ClInclude Include="HuntingLevel1.h">
-      <Filter>01.Level\01.HuntingLevel1</Filter>
+      <Filter>00.Level\01.HuntingLevel1</Filter>
     </ClInclude>
     <ClInclude Include="HuntingLevel2.h">
-      <Filter>01.Level\02.HuntingLevel2</Filter>
+      <Filter>00.Level\02.HuntingLevel2</Filter>
     </ClInclude>
     <ClInclude Include="HuntingLevel3.h">
-      <Filter>01.Level\03.HuntingLevel3</Filter>
+      <Filter>00.Level\03.HuntingLevel3</Filter>
     </ClInclude>
     <ClInclude Include="HuntingLevel5.h">
-      <Filter>01.Level\05.HuntingLevel5</Filter>
+      <Filter>00.Level\05.HuntingLevel5</Filter>
     </ClInclude>
     <ClInclude Include="HuntingLevel4.h">
-      <Filter>01.Level\04.HuntingLevel4</Filter>
+      <Filter>00.Level\04.HuntingLevel4</Filter>
     </ClInclude>
     <ClInclude Include="BossLevel.h">
-      <Filter>01.Level\06.BossLevel</Filter>
+      <Filter>00.Level\06.BossLevel</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -226,96 +250,96 @@
       <Filter>99.PreCompile</Filter>
     </ClCompile>
     <ClCompile Include="Player.cpp">
-      <Filter>00.Actor\02.Unit\01.Player</Filter>
+      <Filter>01.Actor\02.Unit\01.Player</Filter>
     </ClCompile>
     <ClCompile Include="Monster.cpp">
-      <Filter>00.Actor\02.Unit\02.Monster</Filter>
+      <Filter>01.Actor\02.Unit\02.Monster</Filter>
     </ClCompile>
     <ClCompile Include="LoginUI.cpp">
-      <Filter>00.Actor\01.UI\00.LevelUI\00.LoginLevel</Filter>
+      <Filter>01.Actor\01.UI\00.LevelUI\00.LoginLevel</Filter>
     </ClCompile>
     <ClCompile Include="TsetBackGround.cpp">
-      <Filter>00.Actor\02.Unit\00.BackGround</Filter>
+      <Filter>01.Actor\02.Unit\00.BackGround</Filter>
     </ClCompile>
     <ClCompile Include="StageMainCamera.cpp">
-      <Filter>00.Actor\00.MainCamera</Filter>
+      <Filter>01.Actor\00.MainCamera</Filter>
     </ClCompile>
     <ClCompile Include="LoginLevel.cpp">
-      <Filter>01.Level\00.LoginLevel</Filter>
+      <Filter>00.Level\00.LoginLevel</Filter>
     </ClCompile>
     <ClCompile Include="TestLevel.cpp">
-      <Filter>01.Level\08.TestLevel</Filter>
+      <Filter>00.Level\08.TestLevel</Filter>
     </ClCompile>
     <ClCompile Include="UnitBase.cpp">
-      <Filter>00.Actor\02.Unit</Filter>
+      <Filter>01.Actor\02.Unit</Filter>
     </ClCompile>
     <ClCompile Include="EditLevel.cpp">
-      <Filter>01.Level\07.EditLevel</Filter>
+      <Filter>00.Level\07.EditLevel</Filter>
     </ClCompile>
     <ClCompile Include="EditGUIWindow.cpp">
       <Filter>97.Core</Filter>
     </ClCompile>
     <ClCompile Include="MouseSlot.cpp">
-      <Filter>00.Actor\01.UI\99.EditUI</Filter>
+      <Filter>01.Actor\01.UI\99.EditUI</Filter>
     </ClCompile>
     <ClCompile Include="PlayerSWAtt1.cpp">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClCompile>
     <ClCompile Include="PlayerSWAtt2.cpp">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClCompile>
     <ClCompile Include="PlayerSWAtt3.cpp">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClCompile>
     <ClCompile Include="PlayerSWAttSlide.cpp">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\00.Sword</Filter>
     </ClCompile>
     <ClCompile Include="TestActor.cpp" />
     <ClCompile Include="PlayerMainUI.cpp">
-      <Filter>00.Actor\01.UI\01.PlayerUI</Filter>
+      <Filter>01.Actor\01.UI\01.PlayerUI</Filter>
     </ClCompile>
     <ClCompile Include="PlayerUpgradeUI.cpp">
-      <Filter>00.Actor\01.UI\01.PlayerUI</Filter>
+      <Filter>01.Actor\01.UI\01.PlayerUI</Filter>
     </ClCompile>
     <ClCompile Include="UIMouse.cpp">
-      <Filter>02.Mouse</Filter>
+      <Filter>03.Mouse</Filter>
     </ClCompile>
     <ClCompile Include="ShopNPC.cpp">
-      <Filter>00.Actor\02.Unit\04.NPC</Filter>
+      <Filter>01.Actor\02.Unit\04.NPC</Filter>
     </ClCompile>
     <ClCompile Include="PlayerArrowAtt.cpp">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
     </ClCompile>
     <ClCompile Include="FlowerMonster.cpp">
-      <Filter>00.Actor\02.Unit\02.Monster</Filter>
+      <Filter>01.Actor\02.Unit\02.Monster</Filter>
     </ClCompile>
     <ClCompile Include="PlayerHookAtt.cpp">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
     </ClCompile>
     <ClCompile Include="PlayerHookTrail.cpp">
-      <Filter>00.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
     </ClCompile>
     <ClCompile Include="ContentsLevel.cpp">
-      <Filter>01.Level</Filter>
+      <Filter>00.Level</Filter>
     </ClCompile>
     <ClCompile Include="FlowerBullet.cpp" />
     <ClCompile Include="HuntingLevel1.cpp">
-      <Filter>01.Level\01.HuntingLevel1</Filter>
+      <Filter>00.Level\01.HuntingLevel1</Filter>
     </ClCompile>
     <ClCompile Include="HuntingLevel2.cpp">
-      <Filter>01.Level\02.HuntingLevel2</Filter>
+      <Filter>00.Level\02.HuntingLevel2</Filter>
     </ClCompile>
     <ClCompile Include="HuntingLevel3.cpp">
-      <Filter>01.Level\03.HuntingLevel3</Filter>
+      <Filter>00.Level\03.HuntingLevel3</Filter>
     </ClCompile>
     <ClCompile Include="HuntingLevel5.cpp">
-      <Filter>01.Level\05.HuntingLevel5</Filter>
+      <Filter>00.Level\05.HuntingLevel5</Filter>
     </ClCompile>
     <ClCompile Include="HuntingLevel4.cpp">
-      <Filter>01.Level\04.HuntingLevel4</Filter>
+      <Filter>00.Level\04.HuntingLevel4</Filter>
     </ClCompile>
     <ClCompile Include="BossLevel.cpp">
-      <Filter>01.Level\06.BossLevel</Filter>
+      <Filter>00.Level\06.BossLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

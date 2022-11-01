@@ -7,6 +7,9 @@
 #include <filesystem>
 #include <fstream>
 
+std::vector<std::string> EditGUIWindow::m_vLoadedFromAnimator;
+std::vector<std::string> EditGUIWindow::m_vLoadedFromStatic;
+
 EditGUIWindow::EditGUIWindow() 
 	: m_ptrEditLevel(nullptr)
 {
@@ -23,7 +26,7 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 	m_ProjectDirectory.Move("Texture");
 
 #pragma region PushPannel
-	m_CurrentDirectory.MoveParentToExitsChildDirectory("ContentsResources");
+	/*m_CurrentDirectory.MoveParentToExitsChildDirectory("ContentsResources");
 	m_CurrentDirectory.Move("ContentsResources");
 	m_CurrentDirectory.Move("Texture");
 	m_CurrentDirectory.Move("07_EditLevel");
@@ -37,7 +40,7 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 			size_t idx = Ext.rfind("\\");
 			std::string strTemp(entry.path().string());
 			std::string strTemp2(strTemp.substr(idx + 1));
-			m_vLoadedFromActor.push_back(strTemp2);
+			m_vLoadedFromAnimator.push_back(strTemp2);
 		}
 	}
 
@@ -53,9 +56,9 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 			size_t idx = Ext.rfind("\\");
 			std::string strTemp(entry.path().string());
 			std::string strTemp2(strTemp.substr(idx + 1));
-			m_vLoadedFromTile.push_back(strTemp2);
+			m_vLoadedFromStatic.push_back(strTemp2);
 		}
-	}
+	}*/
 #pragma endregion	
 
 	if (false == GameEngineInput::GetInst()->IsKey("SelectedObjectUp"))
@@ -80,23 +83,23 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 #pragma region SelectLandscapePannel
 	static int selected = 0;
 	static int selectedPannel = ACTORPANNEL;
-	if (true == ImGui::Button("Actor"))
+	if (true == ImGui::Button("Animator"))
 	{
 		selectedPannel = ACTORPANNEL;
 	}
 	ImGui::SameLine();
-	if (true == ImGui::Button("Tile"))
+	if (true == ImGui::Button("Static"))
 	{
 		selectedPannel = TILEPANNEL;
 	}
 
 	if (ACTORPANNEL == selectedPannel)
 	{
-		ImGui::BeginChild("left pane", ImVec2(150, 100), true);
-		for (int i = 0; i < m_vLoadedFromActor.size(); ++i)
+		ImGui::BeginChild("Animator", ImVec2(150, 100), true);
+		for (int i = 0; i < m_vLoadedFromAnimator.size(); ++i)
 		{
 			char label[1024] = { '\0', };
-			const char* temp = (const char*)(m_vLoadedFromActor[i].c_str());
+			const char* temp = (const char*)(m_vLoadedFromAnimator[i].c_str());
 			sprintf(label, temp);
 			if (ImGui::Selectable(label, selected == i))
 			{
@@ -107,11 +110,11 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	}
 	else if (TILEPANNEL == selectedPannel)
 	{
-		ImGui::BeginChild("left pane", ImVec2(150, 100), true);
-		for (int i = 0; i < m_vLoadedFromTile.size(); ++i)
+		ImGui::BeginChild("Static", ImVec2(150, 100), true);
+		for (int i = 0; i < m_vLoadedFromStatic.size(); ++i)
 		{
 			char label[1024] = { '\0', };
-			const char* temp = (const char*)(m_vLoadedFromTile[i].c_str());
+			const char* temp = (const char*)(m_vLoadedFromStatic[i].c_str());
 			sprintf(label, temp);
 			if (ImGui::Selectable(label, selected == i))
 			{
@@ -126,7 +129,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 
 #pragma region CreatedActorsPannel
 	static int selectedActor = 0;
-	ImGui::BeginChild("left pane2", ImVec2(150, 100), true);
+	ImGui::BeginChild("Created", ImVec2(150, 100), true);
 
 	if (0 == m_vCreatedActors.size())
 	{
@@ -179,8 +182,8 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	{
 		// SendInfoToMouseSlotFunction();
 		std::string tempStr;
-		if (ACTORPANNEL == selectedPannel) { tempStr = m_vLoadedFromActor[selected]; }
-		else if (TILEPANNEL == selectedPannel) { tempStr = m_vLoadedFromTile[selected]; }
+		if (ACTORPANNEL == selectedPannel) { tempStr = m_vLoadedFromAnimator[selected]; }
+		else if (TILEPANNEL == selectedPannel) { tempStr = m_vLoadedFromStatic[selected]; }
 		GameEngineActor* temp = m_ptrEditLevel->CreateActor<TestActor>();
 		temp->GetTransform().SetLocalScale(float4{ s_fXScale, s_fYScale, s_fZScale , 1.f});
 		temp->GetTransform().SetLocalPosition(float4{ s_fXPos, s_fYPos, s_fZPos , 1.f});

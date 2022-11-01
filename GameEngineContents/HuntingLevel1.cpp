@@ -2,6 +2,7 @@
 #include "HuntingLevel1.h"
 #include "Player.h"
 #include "UIMouse.h"
+#include "TestActor.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -30,8 +31,15 @@ void HuntingLevel1::End()
 void HuntingLevel1::LevelStartEvent()
 {
 #pragma region LoadFBXMeshiesAndAnimation
-//	DirectPathAt("01_HuntingLevel1");
-//	LoadFBXFiles();
+	if (false == mbPrimitiveInitialized)
+	{
+		// DirectPathAt("01_HuntingLevel1");
+		// LoadFBXFiles();
+
+		// TODO
+
+		mbPrimitiveInitialized = true;
+	}	
 #pragma endregion
 
 

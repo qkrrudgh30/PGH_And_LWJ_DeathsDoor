@@ -30,8 +30,15 @@ void HuntingLevel4::End()
 void HuntingLevel4::LevelStartEvent()
 {
 #pragma region LoadFBXMeshiesAndAnimation
-//	DirectPathAt("04_HuntingLevel4");
-//	LoadFBXFiles();
+	if (false == mbPrimitiveInitialized)
+	{
+		// DirectPathAt("04_HuntingLevel4");
+		// LoadFBXFiles();
+
+		// TODO
+
+		mbPrimitiveInitialized = true;
+	}
 #pragma endregion
 
 

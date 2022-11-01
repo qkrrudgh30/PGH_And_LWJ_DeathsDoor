@@ -34,14 +34,16 @@ protected:
 
 	std::vector<GameEngineDirectory> mvecDirectories;
 	static std::atomic<int> muFBXFolderCount;
-	// bool mb
+	bool mbPrimitiveInitialized;
 
 private:
 	void LoadFBXMesiesOfAnimator();
 	void LoadFBXMesiesOfStatic();
 	void LoadAnimationsOfAnimator();
 	std::vector<std::string> mstrvecAnimatorMeshFileNames;
+	std::vector<std::string> mstrvecAnimatorMeshFileNamesForEdit;
 	std::vector<std::string> mstrvecStaticMeshFileNames;
+	std::vector<std::string> mstrvecStaticMeshFileNamesForEdit;
 	std::vector<std::string> mstrvecAnimationFileNames;
 
 };

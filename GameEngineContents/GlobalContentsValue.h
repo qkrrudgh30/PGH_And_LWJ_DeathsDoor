@@ -74,3 +74,9 @@ private:
 	~GlobalContentsValue()	{	}
 };
 
+enum
+{
+	emcHall = 409,
+	emcROOM_Enter_1 = 23,
+	eEnd,
+};

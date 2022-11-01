@@ -19,6 +19,15 @@ void BossLevel::Start()
 #pragma region LoadFBXMeshiesAndAnimation
 //	DirectPathAt("06_BossLevel");
 //	LoadFBXFiles();
+	if (false == mbPrimitiveInitialized)
+	{
+		// DirectPathAt("06_BossLevel");
+		// LoadFBXFiles();
+
+		// TODO
+
+		mbPrimitiveInitialized = true;
+	}
 #pragma endregion
 
 

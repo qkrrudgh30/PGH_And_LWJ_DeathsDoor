@@ -57,43 +57,32 @@ void LoginLevel::Start()
 
 void LoginLevel::LevelStartEvent()
 {
-
-
-	if (nullptr == UI)
+#pragma region LoadFBXMeshiesAndAnimation
+	if (false == mbPrimitiveInitialized)
 	{
+		DirectPathAt("00_LoginLevel");
+		LoadFBXFiles();
+
+	// 애니메이션 액터의 매시 로드
+	// 스태틱 매시 로드
+	// 애니메이션 액터의 애니메이션 로드
 
 
+	/* 초기 멀티스레드 로딩 코드
+	GameEngineCore::EngineThreadPool.Work(
+		[this]
+		{
+			this->LoadTextureInStatic();
+		});
 
-		UI = CreateActor<LoginUI>(GameObjectGroup::UI);
-		UI->CreateComponent<GameEngineCollision>();
-
-
-	#pragma region LoadFBXMeshiesAndAnimation
-			DirectPathAt("00_LoginLevel");
-			LoadFBXFiles();
-
-			// 애니메이션 액터의 매시 로드
-			// 스태틱 매시 로드
-			// 애니메이션 액터의 애니메이션 로드
-
-
-			/* 초기 멀티스레드 로딩 코드
-			GameEngineCore::EngineThreadPool.Work(
-				[this]
-				{
-					this->LoadTextureInStatic();
-				});
-
-			GameEngineCore::EngineThreadPool.Work(
-				[this]
-				{
-					this->LoadTextureInAnimator();
-				});
-			*/
-
-
-			CreateActor<TestActor>();
-	#pragma endregion
+	GameEngineCore::EngineThreadPool.Work(
+		[this]
+		{
+			this->LoadTextureInAnimator();
+		});
+	*/
+	CreateActor<TestActor>(); // Test Code.
+#pragma endregion
 
 			{
 				ShopNPC* cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
