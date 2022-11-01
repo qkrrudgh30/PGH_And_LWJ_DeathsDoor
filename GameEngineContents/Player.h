@@ -103,6 +103,8 @@ public:
 	float4 m_fHookPoint;
 
 
+	bool m_bShopCameraActionCheck = false;
+
 	PlayerUpgradeUI* UpgradeUI;
 	PlayerMainUI* MainUI;
 private:

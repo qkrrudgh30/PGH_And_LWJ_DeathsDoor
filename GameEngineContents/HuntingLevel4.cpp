@@ -30,8 +30,8 @@ void HuntingLevel4::End()
 void HuntingLevel4::LevelStartEvent()
 {
 #pragma region LoadFBXMeshiesAndAnimation
-	DirectPathAt("04_HuntingLevel4");
-	LoadFBXFiles();
+//	DirectPathAt("04_HuntingLevel4");
+//	LoadFBXFiles();
 #pragma endregion
 
 

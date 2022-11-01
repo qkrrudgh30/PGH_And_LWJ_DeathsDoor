@@ -17,8 +17,8 @@ BossLevel::~BossLevel()
 void BossLevel::Start()
 {
 #pragma region LoadFBXMeshiesAndAnimation
-	DirectPathAt("06_BossLevel");
-	LoadFBXFiles();
+//	DirectPathAt("06_BossLevel");
+//	LoadFBXFiles();
 #pragma endregion
 
 

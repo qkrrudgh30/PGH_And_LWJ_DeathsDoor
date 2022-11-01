@@ -182,6 +182,8 @@ void Player::Start()
 		FBXRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
 		FBXRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
 
+		GameEngineFBXRenderer* FBXCrowRenderer = CreateComponent<GameEngineFBXRenderer>();
+		FBXCrowRenderer->SetParent(FBXRenderer);
 		for (int i = 2; i < 17; ++i)
 		{
 			if ((2 <= i && i <= 9) || i == 13) { continue; }
@@ -193,7 +195,9 @@ void Player::Start()
 				continue;
 			}
 
-			FBXRenderer->SetFBXMesh("crow_player (fbx).FBX", "Texture", i);
+			FBXCrowRenderer->SetFBXMesh("crow_player (fbx).FBX", "Texture", i);
+			FBXCrowRenderer->GetTransform().SetLocalRotation({0.f,180.f,0.f});
+		//	FBXCrowRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
 		}
 
 	}
@@ -1127,12 +1131,12 @@ CollisionReturn Player::CollisionNPC(GameEngineCollision* _This, GameEngineColli
 
 
 			UpgradeUI->Off();
-
+			m_bShopCameraActionCheck = false;
 		}
 		else
 		{
 			m_bUpgradeUIcheck = true;
-
+			m_bShopCameraActionCheck = true;
 			UpgradeUI->On();
 		}
 
@@ -1196,39 +1200,27 @@ void Player::Update(float _DeltaTime)
 	/// 
 	/// 
 
-	float4 MousePos = GetLevel()->GetMainCamera()->GetMouseScreenPosition();
+	//float4 MousePos = GetLevel()->GetMainCamera()->GetMouseScreenPosition();
 
 
 
 
-	std::string A = std::to_string(MousePos.x);
-	std::string B = std::to_string(MousePos.y);
+	//std::string A = std::to_string(MousePos.x);
+	//std::string B = std::to_string(MousePos.y);
 
-	A += " : X";
-	B += " : Y";
-	GameEngineDebug::OutPutString(A);
-	GameEngineDebug::OutPutString(B);
+	//A += " : X";
+	//B += " : Y";
+	//GameEngineDebug::OutPutString(A);
+	//GameEngineDebug::OutPutString(B);
 
 
-	MousePos.z = 0.f;
+	//MousePos.z = 0.f;
 	//	MousePos.x -= 640.f;
 		//MousePos.y = -MousePos.y;
 	//	MousePos.y += 360.f;
 
 
 
-	float4 MyPos = GetLevel()->GetMainCamera()->GetWorldPositionToScreenPosition(GetTransform().GetWorldPosition());
-	MyPos.z = 0.f;
-
-
-
-	std::string A2 = std::to_string(MyPos.x);
-	std::string B2 = std::to_string(MyPos.y);
-
-	A2 += " : PX";
-	B2 += " : PY";
-	GameEngineDebug::OutPutString(A2);
-	GameEngineDebug::OutPutString(B2);
 
 
 
@@ -1266,10 +1258,7 @@ void Player::Update(float _DeltaTime)
 
 
 
-	if (m_bUpgradeUIcheck)
-	{
-		return;
-	}
+
 	//float4 WorldPos = GetTransform().GetWorldPosition();
 	//float4 CameraWorldPos = WorldPos;
 
@@ -1290,19 +1279,30 @@ void Player::Update(float _DeltaTime)
 	
 
 
-	StateManager.Update(_DeltaTime);
-
 
 	float4 WorldPos;
 	if (!m_bArrowCameraCheck)
 	{
-		
+		if (m_bShopCameraActionCheck)
+		{
+			m_fCameraLenZ = 700.f;
+			m_fCameraLenY = 700.f;
+			
+			GetLevel()->GetMainCameraActorTransform().SetWorldRotation({ 35.f,0.f,0.f });
+			
+
+		}
+		else
 		{
 			m_fCameraLenZ = 1700.f;
 			m_fCameraLenY = 1700.f;
-			WorldPos = GetTransform().GetWorldPosition();
+			
+			GetLevel()->GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
+
 		}
-		
+
+
+		WorldPos = GetTransform().GetWorldPosition();
 	}
 	else
 	{
@@ -1325,10 +1325,19 @@ void Player::Update(float _DeltaTime)
 
 		GetLevel()->GetMainCameraActorTransform().SetWorldPosition(LerpPos);
 
+
+
 	}
 
 	
+	
 
+	if (m_bUpgradeUIcheck)
+	{
+		return;
+	}
+
+	StateManager.Update(_DeltaTime);
 
 
 }

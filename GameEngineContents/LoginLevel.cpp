@@ -9,6 +9,8 @@
 
 #include "UIMouse.h"
 
+#include "ShopNPC.h"
+
 LoginLevel::LoginLevel()	:
 	UI(nullptr)
 {
@@ -25,10 +27,11 @@ void LoginLevel::Start()
 
 
 	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
-	GetMainCameraActorTransform().SetWorldRotation({ 25.f,0.f,0.f });
+	GetMainCameraActorTransform().SetWorldRotation({ 12.f,11.f,0.f });
 	float4 CameraWorldPos = GetMainCameraActorTransform().GetWorldPosition();
-	CameraWorldPos.y += 700.f;
-	CameraWorldPos.z -= 1200.f;;
+	CameraWorldPos.x -= 880.f;
+	CameraWorldPos.y += 750.f;
+	CameraWorldPos.z -= 1900.f;;
 	GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
 
 
@@ -48,64 +51,58 @@ void LoginLevel::Start()
 	}
 
 
+
 	
 }
 
 void LoginLevel::LevelStartEvent()
 {
-#pragma region LoadFBXMeshiesAndAnimation
-	DirectPathAt("00_LoginLevel");
-	LoadFBXFiles();
-
-	// 애니메이션 액터의 매시 로드
-	// 스태틱 매시 로드
-	// 애니메이션 액터의 애니메이션 로드
-
-
-	/* 초기 멀티스레드 로딩 코드
-	GameEngineCore::EngineThreadPool.Work(
-		[this]
-		{
-			this->LoadTextureInStatic();
-		});
-
-	GameEngineCore::EngineThreadPool.Work(
-		[this]
-		{
-			this->LoadTextureInAnimator();
-		});
-	*/
-	CreateActor<TestActor>(); // Test Code.
-#pragma endregion
 
 
 	if (nullptr == UI)
 	{
-	
+
 
 
 		UI = CreateActor<LoginUI>(GameObjectGroup::UI);
 		UI->CreateComponent<GameEngineCollision>();
 
 
+	#pragma region LoadFBXMeshiesAndAnimation
+			DirectPathAt("00_LoginLevel");
+			LoadFBXFiles();
+
+			// 애니메이션 액터의 매시 로드
+			// 스태틱 매시 로드
+			// 애니메이션 액터의 애니메이션 로드
+
+
+			/* 초기 멀티스레드 로딩 코드
+			GameEngineCore::EngineThreadPool.Work(
+				[this]
+				{
+					this->LoadTextureInStatic();
+				});
+
+			GameEngineCore::EngineThreadPool.Work(
+				[this]
+				{
+					this->LoadTextureInAnimator();
+				});
+			*/
+
+
+			CreateActor<TestActor>();
+	#pragma endregion
+
+			{
+				ShopNPC* cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
+				cShopNPC->GetTransform().SetWorldPosition({ -300.F,0.F,500.F });
+				//	cShopNPC->GetTransform().SetWorl
+
+			}
+
 	}
-
-
-	/*if (nullptr == GameEngineTexture::Find("cutCursor.png"))
-	{
-		GameEngineDirectory Dir;
-		Dir.MoveParentToExitsChildDirectory("ContentsResources");
-		Dir.Move("ContentsResources");
-		Dir.Move("Texture");
-		Dir.Move("MainUI");
-
-		std::vector<GameEngineFile> Shaders = Dir.GetAllFile();
-
-		for (size_t i = 0; i < Shaders.size(); i++)
-		{
-			GameEngineTexture::Load(Shaders[i].GetFullPath());
-		}
-	}*/
 
 
 
@@ -115,7 +112,7 @@ void LoginLevel::LevelStartEvent()
 		if (nullptr == Player::GetMainPlayer())
 		{
 			Player* NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
-			NewPlayer->GetTransform().SetWorldPosition({1.F,0.F,1.F});
+			NewPlayer->GetTransform().SetWorldPosition({-600.F,100.F,-150.F});
 			NewPlayer->SetLevelOverOn();
 			NewPlayer->UIOff();
 			NewPlayer->m_bLogoLevelCheck = true;
@@ -129,6 +126,37 @@ void LoginLevel::LevelStartEvent()
 void LoginLevel::Update(float _DeltaTime)
 {
 	GameEngineDebug::OutPutString(std::to_string(muFBXFolderCount));
+
+
+	//float4 MyPos = GetMainCameraActorTransform().GetWorldPosition();
+
+	//std::string A2 = std::to_string(MyPos.x);
+	//std::string B2 = std::to_string(MyPos.y);
+	//std::string C2 = std::to_string(MyPos.z);
+
+	//A2 += " : PX";
+	//B2 += " : PY";
+	//C2 += " : PZ";
+
+	//GameEngineDebug::OutPutString(A2);
+	//GameEngineDebug::OutPutString(B2);
+	//GameEngineDebug::OutPutString(C2);
+
+
+	//MyPos = GetMainCameraActorTransform().GetLocalRotation();
+
+	//std::string A1 = std::to_string(MyPos.x);
+	//std::string B1 = std::to_string(MyPos.y);
+	//std::string C1 = std::to_string(MyPos.z);
+
+	//A1 += " : LX";
+	//B1 += " : LY";
+	//C1 += " : LZ";
+
+	//GameEngineDebug::OutPutString(A1);
+	//GameEngineDebug::OutPutString(B1);
+	//GameEngineDebug::OutPutString(C1);
+
 }
 
 void LoginLevel::End()

@@ -109,7 +109,16 @@ void LoginUI::Update(float _DeltaTime)
 	
 		if (m_ILevelType == 0)
 		{
-			GEngine::ChangeLevel("Test");
+
+			Player* NewPlayer = Player::GetMainPlayer();
+			NewPlayer->UIOn();
+			NewPlayer->m_bLogoLevelCheck = false;
+
+			GetLevel()->GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
+			GetLevel()->GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
+	
+
+			Off();
 		}
 		else
 		{

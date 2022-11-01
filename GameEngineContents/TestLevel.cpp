@@ -48,12 +48,6 @@ void TestLevel::Start()
 	}
 
 	{
-		ShopNPC* cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
-	//	cShopNPC->GetTransform().SetWorl
-
-	}
-	
-	{
 		Monster* cMonster = CreateActor<Monster>(OBJECTORDER::Monster);
 		cMonster->GetTransform().SetWorldPosition({500.f,0.f,-500.f});
 		
@@ -94,7 +88,7 @@ void TestLevel::LevelStartEvent()
 			Player* NewPlayer = Player::GetMainPlayer();
 			NewPlayer->GetTransform().SetWorldPosition({1.F,0.F,1.F});
 			NewPlayer->UIOn();
-			NewPlayer->m_bLogoLevelCheck = false;
+			//NewPlayer->m_bLogoLevelCheck = false;
 
 			GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
 			GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
