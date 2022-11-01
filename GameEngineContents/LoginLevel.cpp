@@ -63,28 +63,36 @@ void LoginLevel::LevelStartEvent()
 		DirectPathAt("00_LoginLevel");
 		LoadFBXFiles();
 
-	// 애니메이션 액터의 매시 로드
-	// 스태틱 매시 로드
-	// 애니메이션 액터의 애니메이션 로드
+		// 애니메이션 액터의 매시 로드
+		// 스태틱 매시 로드
+		// 애니메이션 액터의 애니메이션 로드
 
 
-	/* 초기 멀티스레드 로딩 코드
-	GameEngineCore::EngineThreadPool.Work(
-		[this]
-		{
-			this->LoadTextureInStatic();
-		});
+		/* 초기 멀티스레드 로딩 코드
+		GameEngineCore::EngineThreadPool.Work(
+			[this]
+			{
+				this->LoadTextureInStatic();
+			});
 
-	GameEngineCore::EngineThreadPool.Work(
-		[this]
-		{
-			this->LoadTextureInAnimator();
-		});
-	*/
-	CreateActor<TestActor>(); // Test Code.
+		GameEngineCore::EngineThreadPool.Work(
+			[this]
+			{
+				this->LoadTextureInAnimator();
+			});
+		*/
+		CreateActor<TestActor>(); // Test Code.
+
+		mbPrimitiveInitialized = true;
+	}
 #pragma endregion
 
+	if (nullptr == UI)
+	{
 			{
+				UI = CreateActor<LoginUI>(GameObjectGroup::UI);
+				UI->CreateComponent<GameEngineCollision>();
+
 				ShopNPC* cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
 				cShopNPC->GetTransform().SetWorldPosition({ -300.F,0.F,500.F });
 				//	cShopNPC->GetTransform().SetWorl
