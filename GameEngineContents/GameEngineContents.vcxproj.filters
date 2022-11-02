@@ -136,6 +136,9 @@
     <Filter Include="02.Static\06_BossLevel">
       <UniqueIdentifier>{8860d318-03c1-4085-8d3e-7d34d95a7f87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\05.Potal">
+      <UniqueIdentifier>{0cbb05f6-9bf2-4c76-9f99-26de83ff6265}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -246,6 +249,9 @@
     <ClInclude Include="Hall.h">
       <Filter>02.Static\00_LoginLevel</Filter>
     </ClInclude>
+    <ClInclude Include="Potal.h">
+      <Filter>01.Actor\02.Unit\05.Potal</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -352,6 +358,9 @@
     </ClCompile>
     <ClCompile Include="Hall.cpp">
       <Filter>02.Static\00_LoginLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Potal.cpp">
+      <Filter>01.Actor\02.Unit\05.Potal</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
