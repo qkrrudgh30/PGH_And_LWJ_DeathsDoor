@@ -54,12 +54,7 @@ void TestLevel::Start()
 
 	}
 
-	{
-		FlowerMonster* cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
-		cMonster->GetTransform().SetWorldPosition({-500.f,0.f,-500.f});
 
-
-	}
 	//{
 	//	Monster* actor = CreateActor<Monster>(OBJECTORDER::Monster);
 	//	// actor->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 100.0f });
@@ -72,6 +67,16 @@ void TestLevel::LevelStartEvent()
 
 
 
+#pragma region LoadFBXMeshiesAndAnimation
+	if (false == mbPrimitiveInitialized)
+	{
+		DirectPathAt("08_TestLevel");
+		LoadFBXFiles();
+
+	
+		mbPrimitiveInitialized = true;
+	}
+#pragma endregion
 
 
 
@@ -81,7 +86,7 @@ void TestLevel::LevelStartEvent()
 			Player* NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
 			NewPlayer->SetLevelOverOn();
 
-	
+
 		}
 		else
 		{
@@ -97,7 +102,12 @@ void TestLevel::LevelStartEvent()
 			CameraWorldPos.z -= 1700.f;
 			GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
 
+			{
+				FlowerMonster* cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
+				cMonster->GetTransform().SetWorldPosition({ -500.f,0.f,-500.f });
 
+
+			}
 
 
 		}

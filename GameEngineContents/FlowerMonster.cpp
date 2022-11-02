@@ -4,6 +4,7 @@
 #include "FlowerMonster.h"
 #include "Player.h"
 #include "FlowerBullet.h"
+#include <GameEngineCore/GameEngineFBXRenderer.h>
 
 FlowerMonster::FlowerMonster()
 {
@@ -24,18 +25,31 @@ void FlowerMonster::Start()
 
 
 
+	//{
+
+
+	//	Renderer = CreateComponent<GameEngineDefaultRenderer>();
+	//	Renderer->SetPipeLine("Color");
+	//	Renderer->GetRenderUnit().SetMesh("Box");
+	//	float4 ResultColor = { 0.f,0.f,1.f,1.f };
+
+	//	Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f, 100.0f });
+	//	Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
+
+	//}
+
+
 	{
-
-
-		Renderer = CreateComponent<GameEngineDefaultRenderer>();
-		Renderer->SetPipeLine("Color");
-		Renderer->GetRenderUnit().SetMesh("Box");
-		float4 ResultColor = { 0.f,0.f,1.f,1.f };
-
-		Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f, 100.0f });
-		Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
-
+		FBXRenderer = CreateComponent<GameEngineFBXRenderer>();
+		
+		{
+			FBXRenderer->SetFBXMesh("_E_FIREPLANT.FBX", "Texture");
+		}
+		FBXRenderer->GetTransform().SetLocalScale({ 1.0f, 1.0f, 1.0f });
+		FBXRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
 	}
+
+
 
 
 
@@ -139,7 +153,7 @@ void FlowerMonster::AttEnd(const StateInfo& _Info)
 	//ÃÑ¾Ë »ý¼º
 	FlowerBullet* m_ArrowAtt = GetLevel()->CreateActor<FlowerBullet>(OBJECTORDER::MonsterAtt);
 	m_ArrowAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-	m_ArrowAtt->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+	m_ArrowAtt->GetTransform().SetLocalRotation(FBXRenderer->GetTransform().GetLocalRotation());
 	
 
 
@@ -180,7 +194,7 @@ void FlowerMonster::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 			Angle -= 0.f;
 		}
 
-		Renderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
+		FBXRenderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
 
 
 

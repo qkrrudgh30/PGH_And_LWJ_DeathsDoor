@@ -139,6 +139,9 @@
     <Filter Include="01.Actor\02.Unit\00.BackGround\00.Login">
       <UniqueIdentifier>{5f0bd02e-0415-4bc1-865a-01891e8432f3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\05.MapObject">
+      <UniqueIdentifier>{7de1a076-2990-41d9-886f-7a73a34e627f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -243,6 +246,9 @@
     <ClInclude Include="BossLevel.h">
       <Filter>00.Level\06.BossLevel</Filter>
     </ClInclude>
+    <ClInclude Include="Potal.h">
+      <Filter>01.Actor\02.Unit\05.MapObject</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -343,6 +349,9 @@
     </ClCompile>
     <ClCompile Include="BossLevel.cpp">
       <Filter>00.Level\06.BossLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Potal.cpp">
+      <Filter>01.Actor\02.Unit\05.MapObject</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

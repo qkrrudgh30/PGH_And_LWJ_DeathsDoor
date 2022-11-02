@@ -10,6 +10,7 @@
 #include "UIMouse.h"
 
 #include "ShopNPC.h"
+#include "Potal.h"
 
 LoginLevel::LoginLevel()	:
 	UI(nullptr)
@@ -88,15 +89,23 @@ void LoginLevel::LevelStartEvent()
 
 	if (nullptr == UI)
 	{
-			{
-				UI = CreateActor<LoginUI>(GameObjectGroup::UI);
-				UI->CreateComponent<GameEngineCollision>();
+		{
+			UI = CreateActor<LoginUI>(GameObjectGroup::UI);
+			UI->CreateComponent<GameEngineCollision>();
 
-				ShopNPC* cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
-				cShopNPC->GetTransform().SetWorldPosition({ -300.F,0.F,500.F });
-				//	cShopNPC->GetTransform().SetWorl
+			ShopNPC* cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
+			cShopNPC->GetTransform().SetWorldPosition({ -300.F,0.F,500.F });
+			//	cShopNPC->GetTransform().SetWorl
 
-			}
+		}
+
+		{
+
+			Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-1300.F });
+			Potal_->m_PotalType == PotalType::LoginToStage1;
+
+		}
 
 	}
 
@@ -112,8 +121,10 @@ void LoginLevel::LevelStartEvent()
 			NewPlayer->SetLevelOverOn();
 			NewPlayer->UIOff();
 			NewPlayer->m_bLogoLevelCheck = true;
-
-
+		}
+		else
+		{
+			Player::GetMainPlayer()->GetTransform().SetWorldPosition({ -600.F,100.F,-150.F });
 		}
 	}
 

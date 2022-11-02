@@ -250,6 +250,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Potal.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TestLevel.h">
       <SubType>
       </SubType>
@@ -380,6 +384,10 @@
     <ClCompile Include="PlayerSWAtt3.cpp" />
     <ClCompile Include="PlayerSWAttSlide.cpp" />
     <ClCompile Include="PlayerUpgradeUI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Potal.cpp">
       <SubType>
       </SubType>
     </ClCompile>
