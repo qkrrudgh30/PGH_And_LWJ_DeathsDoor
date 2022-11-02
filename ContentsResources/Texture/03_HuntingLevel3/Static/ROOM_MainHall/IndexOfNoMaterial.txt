@@ -1,0 +1,8 @@
+Mesh Count: 1
+Index of no material: 0-2
+Appropriate Color: Black
+
+Renderer1->SetFBXMesh("ROOM_MainHall.fbx", "Texture", 0, 1);
+	Renderer2->SetFBXMesh("ROOM_MainHall.fbx", "Texture", 0, 1);
+	Renderer3->SetFBXMesh("ROOM_MainHall.fbx", "Color", 0, 2);
+	Renderer3->GetAllRenderUnit()[0][2].ShaderResources.SetConstantBufferLink("ResultColor", float4::YELLOW);
