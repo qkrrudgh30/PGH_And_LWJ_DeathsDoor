@@ -33,10 +33,12 @@ void HuntingLevel1::LevelStartEvent()
 #pragma region LoadFBXMeshiesAndAnimation
 	if (false == mbPrimitiveInitialized)
 	{
-		// DirectPathAt("01_HuntingLevel1");
-		// LoadFBXFiles();
+		DirectPathAt("01_HuntingLevel1");
+		LoadFBXFiles();
 
 		// TODO
+
+		CreateActor<TestActor>(); // Test Code.
 
 		mbPrimitiveInitialized = true;
 	}	

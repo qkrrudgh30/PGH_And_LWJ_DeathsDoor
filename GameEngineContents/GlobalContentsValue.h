@@ -78,5 +78,7 @@ enum
 {
 	emcHall = 409,
 	emcROOM_Enter_1 = 23,
+	emcGrave = 17,
+	emcLantern = 3,
 	eEnd,
 };
