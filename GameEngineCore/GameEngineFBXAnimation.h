@@ -79,13 +79,14 @@ public:
 	std::string				AniName;
 	fbxsdk::FbxTime			StartTime; // 설정된 애니메이션 시간
 	fbxsdk::FbxTime			EndTime; // 
-	fbxsdk::FbxLongLong		TimeStartCount;
-	fbxsdk::FbxLongLong		TimeEndCount;
+	fbxsdk::FbxLongLong		TimeStartCount; 
+	fbxsdk::FbxLongLong		TimeEndCount; // 1414
 	fbxsdk::FbxLongLong		FrameCount;
 	fbxsdk::FbxTime::EMode	TimeMode;
 	__int64					FbxModeCount;
 	double					FbxModeRate;
 
+	// 0~100
 	std::vector<std::vector<FbxExBoneFrame>> AniFrameData;
 
 	void Write(GameEngineFile* _File) const
@@ -174,6 +175,9 @@ public:
 protected:
 	void LoadMesh(const std::string& _Path, const std::string& _Name);
 
+	// 런
+	// 아이들
+	// 어택
 	std::vector<FbxExAniData> AnimationDatas;
 
 private:

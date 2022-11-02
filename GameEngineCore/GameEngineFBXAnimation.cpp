@@ -24,6 +24,7 @@ void GameEngineFBXAnimation::LoadMesh(const std::string& _Path, const std::strin
 	FBXInit(_Path);
 
 	CheckAnimation();
+	// 애니메이션이 존재한다 => 그걸로 아직 뭔가를 하지 않는다.
 
 	AnimationDatas;
 }

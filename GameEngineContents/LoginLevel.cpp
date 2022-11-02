@@ -81,6 +81,7 @@ void LoginLevel::LevelStartEvent()
 				this->LoadTextureInAnimator();
 			});
 		*/
+		CreateActor<TestActor>(); // Test Code.
 		mbPrimitiveInitialized = true;
 	}
 #pragma endregion

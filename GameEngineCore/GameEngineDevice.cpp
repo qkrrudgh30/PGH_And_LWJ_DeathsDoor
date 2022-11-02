@@ -163,7 +163,7 @@ void GameEngineDevice::CreateSwapChain()
 	ScInfo.SampleDesc.Quality = 0;
 	ScInfo.SampleDesc.Count = 1;
 
-	ScInfo.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD;
+	ScInfo.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_SEQUENTIAL;
 
 	ScInfo.Flags = DXGI_SWAP_CHAIN_FLAG_ALLOW_MODE_SWITCH;
 

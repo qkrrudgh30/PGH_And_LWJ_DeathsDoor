@@ -42,18 +42,32 @@ void TestActor::Start()
 		}
 	}*/
 
-	 for (int i = 0; i < emcROOM_Enter_1; ++i)
-	 {
-		if (1 == i) 
-	 	{ 
-	 		Renderer->SetFBXMesh("ROOM_Enter.fbx", "Color", i);
-	 		Renderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::BLACK);
-	 		continue; 
-	 	}
-	 
-	 	Renderer->SetFBXMesh("ROOM_Enter.fbx", "Texture", i);
-	 
-	 }
+	for (int i = 0; i < 409; ++i)
+	{
+		if (62 == i)
+		{
+			Renderer->SetFBXMesh("Hall.fbx", "Color", i);
+			// Renderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4{0.717f, 0.f, 0.f, 1.f});
+			Renderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::BLACK);
+			continue;
+		}
+
+		Renderer->SetFBXMesh("Hall.fbx", "Texture", i);
+
+	}
+
+	 //for (int i = 0; i < emcROOM_Enter_1; ++i)
+	 //{
+		//if (1 == i) 
+	 //	{ 
+	 //		Renderer->SetFBXMesh("Hall.fbx", "Color", i);
+	 //		Renderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::BLACK);
+	 //		continue; 
+	 //	}
+	 //
+	 //	Renderer->SetFBXMesh("ROOM_Enter.fbx", "Texture", i);
+	 //
+	 //}
 
 	//GameEngineFBXRenderer* RendererWithoutMaterial1 = CreateComponent<GameEngineFBXRenderer>();
 	//RendererWithoutMaterial1->SetFBXMesh("ROOM_Enter (1).FBX", "Color", 6);

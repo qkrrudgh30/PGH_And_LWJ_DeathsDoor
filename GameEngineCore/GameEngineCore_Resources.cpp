@@ -129,12 +129,20 @@ void EngineSubSetting()
 	}
 
 	{
-		D3D11_RASTERIZER_DESC Desc = {};
+		//D3D11_FILL_MODE FillMode = D3D11_FILL_SOLID;
+		//D3D11_CULL_MODE CullMode = D3D11_CULL_NONE;
+		//BOOL FrontCounterClockwise = FALSE;
+		//INT DepthBias = D3D11_DEFAULT_DEPTH_BIAS;
+		//FLOAT DepthBiasClamp = D3D11_DEFAULT_DEPTH_BIAS_CLAMP;
+		//FLOAT SlopeScaledDepthBias = D3D11_DEFAULT_SLOPE_SCALED_DEPTH_BIAS;
+		//BOOL DepthClipEnable = TRUE;
+		//BOOL ScissorEnable = FALSE;
+		//BOOL MultisampleEnable = TRUE;
+		//BOOL AntialiasedLineEnable = FALSE;
 
-		Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
-
-		// 
-		Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+		D3D11_RASTERIZER_DESC Desc = { D3D11_FILL_SOLID, D3D11_CULL_NONE, FALSE,
+			D3D11_DEFAULT_DEPTH_BIAS, D3D11_DEFAULT_DEPTH_BIAS_CLAMP,
+			D3D11_DEFAULT_SLOPE_SCALED_DEPTH_BIAS, TRUE, FALSE, TRUE, FALSE };
 
 		GameEngineRasterizer::Create("EngineRasterizer", Desc);
 	}

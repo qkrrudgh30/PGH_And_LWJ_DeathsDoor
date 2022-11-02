@@ -80,17 +80,17 @@ public:
 public:
 	// 외적을 쓸수 있는곳
 	// 마우스 클릭시 회전방향 알아낼때.
-	static float4 Cross(const float4& _Left, const float4& _Right)
+	static float4 Cross3D(const float4& _Left, const float4& _Right)
 	{
 		// DirectX::XMVector3Cross()
 
-		float4 vResult = float4(
-		(_Left.Arr1D[1] * _Right.Arr1D[2]) - (_Left.Arr1D[2] * _Right.Arr1D[1]),
-		(_Left.Arr1D[2] * _Right.Arr1D[0]) - (_Left.Arr1D[0] * _Right.Arr1D[2]),
-		(_Left.Arr1D[0] * _Right.Arr1D[1]) - (_Left.Arr1D[1] * _Right.Arr1D[0]),
-		0.0f
-		);
-		return vResult;
+		//float4 vResult = float4(
+		//(_Left.Arr1D[1] * _Right.Arr1D[2]) - (_Left.Arr1D[2] * _Right.Arr1D[1]),
+		//(_Left.Arr1D[2] * _Right.Arr1D[0]) - (_Left.Arr1D[0] * _Right.Arr1D[2]),
+		//(_Left.Arr1D[0] * _Right.Arr1D[1]) - (_Left.Arr1D[1] * _Right.Arr1D[0]),
+		//0.0f
+		//);
+		return DirectX::XMVector3Cross(_Left.DirectVector, _Right.DirectVector);
 	}
 
 	static float4 Select(const float4& _Left, const float4& _Right, const float4& _Control)
@@ -248,10 +248,37 @@ public:
 		return Lerp(p1, p2, Time);
 	}
 
-	//           []
-	//           []
-	//           []
-	// [][][][]  []
+	static float4 MatrixToQuaternion(const class float4x4& M);
+
+	static float InvSqrt(float f)
+	{
+		const __m128 fOneHalf = _mm_set_ss(0.5f);
+		__m128 Y0, X0, X1, X2, FOver2;
+		float temp;
+
+		Y0 = _mm_set_ss(f);
+		X0 = _mm_rsqrt_ss(Y0);	// 1/sqrt estimate (12 bits)
+		FOver2 = _mm_mul_ss(Y0, fOneHalf);
+
+		// 1st Newton-Raphson iteration
+		X1 = _mm_mul_ss(X0, X0);
+		X1 = _mm_sub_ss(fOneHalf, _mm_mul_ss(FOver2, X1));
+		X1 = _mm_add_ss(X0, _mm_mul_ss(X0, X1));
+
+		// 2nd Newton-Raphson iteration
+		X2 = _mm_mul_ss(X1, X1);
+		X2 = _mm_sub_ss(fOneHalf, _mm_mul_ss(FOver2, X2));
+		X2 = _mm_add_ss(X1, _mm_mul_ss(X1, X2));
+
+		_mm_store_ss(&temp, X2);
+		return temp;
+	}
+
+
+	bool IsNearlyZero() const
+	{
+		return fabsf(x) <= 1.e-4f && fabsf(y) <= 1.e-4f && fabsf(z) <= 1.e-4f;
+	}
 
 	static float DotProduct3D(const float4& _Left, const float4& _Right)
 	{
@@ -1068,16 +1095,102 @@ public:
 
 	void Transpose()
 	{
-		float4x4 This = *this;
-		Identity();
+		DirectMatrix = DirectX::XMMatrixTranspose(DirectMatrix);
 
-		for (size_t y = 0; y < 4; y++)
+		// float4x4 This = *this;
+		// Identity();
+		//for (size_t y = 0; y < 4; y++)
+		//{
+		//	for (size_t x = 0; x < 4; x++)
+		//	{
+		//		Arr2D[x][y] = This.Arr2D[y][x];
+		//	}
+		//}
+	}
+
+	static float4x4 Transformation(float4 _Scale, float4 _RotQ, float4 _Pos)
+	{
+		return DirectX::XMMatrixTransformation(float4::ZERO.DirectVector, float4::ZERO.DirectVector, _Scale.DirectVector, float4::ZERO.DirectVector, _RotQ.DirectVector, _Pos.DirectVector);
+	}
+
+	float4 ExtractScaling()
+	{
+		float4 ret = float4::ZERO;
+
+		float Tolerance = 1.e-8f;
+
+		const float SquareSum0 = (Arr2D[0][0] * Arr2D[0][0]) + (Arr2D[0][1] * Arr2D[0][1]) + (Arr2D[0][2] * Arr2D[0][2]);
+		const float SquareSum1 = (Arr2D[1][0] * Arr2D[1][0]) + (Arr2D[1][1] * Arr2D[1][1]) + (Arr2D[1][2] * Arr2D[1][2]);
+		const float SquareSum2 = (Arr2D[2][0] * Arr2D[2][0]) + (Arr2D[2][1] * Arr2D[2][1]) + (Arr2D[2][2] * Arr2D[2][2]);
+
+		if (SquareSum0 > Tolerance)
 		{
-			for (size_t x = 0; x < 4; x++)
-			{
-				Arr2D[x][y] = This.Arr2D[y][x];
-			}
+			float Scale0 = sqrtf(SquareSum0);
+			ret.x = Scale0;
+			float InvScale0 = 1.f / Scale0;
+			Arr2D[0][0] *= InvScale0;
+			Arr2D[0][1] *= InvScale0;
+			Arr2D[0][2] *= InvScale0;
 		}
+		else
+		{
+			ret.x = 0;
+		}
+
+		if (SquareSum1 > Tolerance)
+		{
+			float Scale1 = sqrtf(SquareSum1);
+			ret.y = Scale1;
+			float InvScale1 = 1.f / Scale1;
+			Arr2D[1][0] *= InvScale1;
+			Arr2D[1][1] *= InvScale1;
+			Arr2D[1][2] *= InvScale1;
+		}
+		else
+		{
+			ret.y = 0;
+		}
+
+		if (SquareSum2 > Tolerance)
+		{
+			float Scale2 = sqrtf(SquareSum2);
+			ret.z = Scale2;
+			float InvScale2 = 1.f / Scale2;
+			Arr2D[2][0] *= InvScale2;
+			Arr2D[2][1] *= InvScale2;
+			Arr2D[2][2] *= InvScale2;
+		}
+		else
+		{
+			ret.z = 0;
+		}
+
+		return ret;
+	}
+
+
+	inline float Determinant() const
+	{
+		return	Arr2D[0][0] * (
+			Arr2D[1][1] * (Arr2D[2][2] * Arr2D[3][3] - Arr2D[2][3] * Arr2D[3][2]) -
+			Arr2D[2][1] * (Arr2D[1][2] * Arr2D[3][3] - Arr2D[1][3] * Arr2D[3][2]) +
+			Arr2D[3][1] * (Arr2D[1][2] * Arr2D[2][3] - Arr2D[1][3] * Arr2D[2][2])
+			) -
+			Arr2D[1][0] * (
+				Arr2D[0][1] * (Arr2D[2][2] * Arr2D[3][3] - Arr2D[2][3] * Arr2D[3][2]) -
+				Arr2D[2][1] * (Arr2D[0][2] * Arr2D[3][3] - Arr2D[0][3] * Arr2D[3][2]) +
+				Arr2D[3][1] * (Arr2D[0][2] * Arr2D[2][3] - Arr2D[0][3] * Arr2D[2][2])
+				) +
+			Arr2D[2][0] * (
+				Arr2D[0][1] * (Arr2D[1][2] * Arr2D[3][3] - Arr2D[1][3] * Arr2D[3][2]) -
+				Arr2D[1][1] * (Arr2D[0][2] * Arr2D[3][3] - Arr2D[0][3] * Arr2D[3][2]) +
+				Arr2D[3][1] * (Arr2D[0][2] * Arr2D[1][3] - Arr2D[0][3] * Arr2D[1][2])
+				) -
+			Arr2D[3][0] * (
+				Arr2D[0][1] * (Arr2D[1][2] * Arr2D[2][3] - Arr2D[1][3] * Arr2D[2][2]) -
+				Arr2D[1][1] * (Arr2D[0][2] * Arr2D[2][3] - Arr2D[0][3] * Arr2D[2][2]) +
+				Arr2D[2][1] * (Arr2D[0][2] * Arr2D[1][3] - Arr2D[0][3] * Arr2D[1][2])
+				);
 	}
 
 	

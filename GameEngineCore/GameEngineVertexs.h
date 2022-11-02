@@ -50,5 +50,5 @@ public:
 	float4 BINORMAL;
 	float4 TANGENT;
 	float4 WEIGHT; // 애니메이션 가중치
-	int Index[4];
+	int BLENDINDICES[4];
 };
