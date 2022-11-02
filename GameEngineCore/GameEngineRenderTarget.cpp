@@ -108,7 +108,7 @@ void GameEngineRenderTarget::CreateRenderTargetTexture(float4 _Size, DXGI_FORMAT
 	NewData.Width = _Size.uix();
 	NewData.Height = _Size.uiy();
 	NewData.Format = _Format;
-	NewData.SampleDesc.Count = 4;
+	NewData.SampleDesc.Count = 1;
 	NewData.SampleDesc.Quality = 0;
 	NewData.MipLevels = 1;
 	NewData.Usage = D3D11_USAGE::D3D11_USAGE_DEFAULT;

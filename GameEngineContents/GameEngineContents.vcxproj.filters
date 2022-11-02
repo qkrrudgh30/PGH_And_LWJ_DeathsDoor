@@ -136,6 +136,9 @@
     <Filter Include="02.Static\06_BossLevel">
       <UniqueIdentifier>{8860d318-03c1-4085-8d3e-7d34d95a7f87}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\00.BackGround\00.Login">
+      <UniqueIdentifier>{5f0bd02e-0415-4bc1-865a-01891e8432f3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
