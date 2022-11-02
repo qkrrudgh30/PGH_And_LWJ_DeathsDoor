@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "Monster.h"
 #include "Player.h"
+#include <GameEngineCore/GameEngineFBXRenderer.h>
 
 Monster::Monster()
 {
@@ -22,17 +23,33 @@ void Monster::Start()
 
 
 	{
+		FBXRenderer = CreateComponent<GameEngineFBXRenderer>();
 
-
-		Renderer = CreateComponent<GameEngineDefaultRenderer>();
-		Renderer->SetPipeLine("Color");
-		Renderer->GetRenderUnit().SetMesh("Box");
-		float4 ResultColor = { 0.f,1.f,0.f,1.f };
-
-		Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f, 100.0f });
-		Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
-
+		{
+			FBXRenderer->SetFBXMesh("_E_BAT_White.FBX", "Texture");
+		}
+		FBXRenderer->GetTransform().SetLocalScale({ 1000.0f, 1000.0f, 1000.0f });
+		FBXRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
 	}
+
+
+
+
+
+
+
+	//{
+
+
+	//	Renderer = CreateComponent<GameEngineDefaultRenderer>();
+	//	Renderer->SetPipeLine("Color");
+	//	Renderer->GetRenderUnit().SetMesh("Box");
+	//	float4 ResultColor = { 0.f,1.f,0.f,1.f };
+
+	//	Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f, 100.0f });
+	//	Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
+
+	//}
 
 
 

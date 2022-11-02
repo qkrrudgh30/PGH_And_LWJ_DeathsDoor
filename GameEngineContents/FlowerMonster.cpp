@@ -43,9 +43,9 @@ void FlowerMonster::Start()
 		FBXRenderer = CreateComponent<GameEngineFBXRenderer>();
 		
 		{
-			FBXRenderer->SetFBXMesh("_E_FIREPLANT.FBX", "Texture");
+			FBXRenderer->SetFBXMesh("_E_BAT_White.FBX", "Texture");
 		}
-		FBXRenderer->GetTransform().SetLocalScale({ 1.0f, 1.0f, 1.0f });
+		FBXRenderer->GetTransform().SetLocalScale({ 1000.0f, 1000.0f, 1000.0f });
 		FBXRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
 	}
 

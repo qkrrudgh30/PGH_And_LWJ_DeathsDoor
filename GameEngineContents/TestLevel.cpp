@@ -47,13 +47,6 @@ void TestLevel::Start()
 		//TsetBackGround* TestBack = CreateActor<TsetBackGround>(OBJECTORDER::BackGround);
 	}
 
-	{
-		Monster* cMonster = CreateActor<Monster>(OBJECTORDER::Monster);
-		cMonster->GetTransform().SetWorldPosition({500.f,0.f,-500.f});
-		
-
-	}
-
 
 	//{
 	//	Monster* actor = CreateActor<Monster>(OBJECTORDER::Monster);
@@ -104,7 +97,14 @@ void TestLevel::LevelStartEvent()
 
 			{
 				FlowerMonster* cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
-				cMonster->GetTransform().SetWorldPosition({ -500.f,0.f,-500.f });
+			//	cMonster->GetTransform().SetWorldPosition({ -500.f,0.f,-500.f });
+
+
+			}
+
+			{
+				Monster* cMonster = CreateActor<Monster>(OBJECTORDER::Monster);
+				cMonster->GetTransform().SetWorldPosition({ 500.f,0.f,-500.f });
 
 
 			}

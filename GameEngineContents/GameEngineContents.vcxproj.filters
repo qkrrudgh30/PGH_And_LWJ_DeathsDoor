@@ -249,6 +249,9 @@
     <ClInclude Include="Potal.h">
       <Filter>01.Actor\02.Unit\05.MapObject</Filter>
     </ClInclude>
+    <ClInclude Include="Hall.h">
+      <Filter>02.Static\00_LoginLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -352,6 +355,9 @@
     </ClCompile>
     <ClCompile Include="Potal.cpp">
       <Filter>01.Actor\02.Unit\05.MapObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Hall.cpp">
+      <Filter>02.Static\00_LoginLevel</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

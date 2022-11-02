@@ -3,7 +3,7 @@
 #include "LoginUI.h"
 #include "Enums.h"
 #include "Player.h"
-#include "TestActor.h"
+#include "Hall.h"
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -82,7 +82,7 @@ void LoginLevel::LevelStartEvent()
 				this->LoadTextureInAnimator();
 			});
 		*/
-		CreateActor<TestActor>(); // Test Code.
+		CreateActor<Hall>(); // Test Code.
 		mbPrimitiveInitialized = true;
 	}
 #pragma endregion
@@ -103,7 +103,7 @@ void LoginLevel::LevelStartEvent()
 
 			Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 			Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-1300.F });
-			Potal_->m_PotalType == PotalType::LoginToStage1;
+			Potal_->m_PotalType = PotalType::LoginToStage1;
 
 		}
 

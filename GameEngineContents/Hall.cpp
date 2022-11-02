@@ -1,0 +1,58 @@
+
+
+#include "PreCompile.h"
+#include "Hall.h"
+#include <GameEngineCore/GameEngineFBXRenderer.h>
+//#include "GameEngineCore/GameEngineDefaultRenderer.h"
+
+Hall::Hall()
+	: ResultColor()
+{
+}
+
+Hall::~Hall()
+{
+}
+
+void Hall::Start()
+{
+	ResultColor = float4{ 1.f, 1.f, 0.f, 1.f };
+	GameEngineFBXRenderer* Renderer = CreateComponent<GameEngineFBXRenderer>();
+	
+
+#pragma region ROOM_Enter (1).FBX
+
+
+	for (int i = 0; i < 409; ++i)
+	{
+		if (62 == i)
+		{
+			Renderer->SetFBXMesh("Hall.fbx", "Color", i);
+			
+			Renderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::BLACK);
+			continue;
+		}
+
+		Renderer->SetFBXMesh("Hall.fbx", "Texture", i);
+
+	}
+
+	
+
+#pragma endregion
+
+#pragma region crow_player (fbx)
+
+	
+
+#pragma endregion
+
+
+
+}
+
+void Hall::Update(float _DeltaTime)
+{
+
+}
+
