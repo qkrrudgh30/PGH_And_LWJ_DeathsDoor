@@ -5,8 +5,8 @@
 
 enum
 {
-	ACTORPANNEL,
-	TILEPANNEL,
+	AnimatorPannel,
+	StaticPannel,
 	END,
 };
 
@@ -45,8 +45,9 @@ protected:
 private:
 	void Initialize(class GameEngineLevel* _Level) override;
 	void OnGUI(GameEngineLevel* _Level, float _DeltaTime) override;
+	bool CheckChanges(int _iSelectedActor);
 
-	void CreateMultiple(int _XCount, int Y);
+	// void CreateMultiple(int _XCount, int Y);
 
 	GameEngineDirectory m_CurrentDirectory;
 	GameEngineDirectory m_ProjectDirectory;
@@ -54,6 +55,11 @@ private:
 	static std::vector<std::string> m_vLoadedFromStatic;
 
 	EditLevel* m_ptrEditLevel;
-	std::vector<std::pair<std::string, GameEngineActor*>> m_vCreatedActors;
+	std::vector<std::pair<std::string, class StaticMesh*>> m_vCreatedActors;
+
+	static float s_farrScaleOnEditGUI[3];
+	static float s_farrRotationOnEditGUI[3];
+	static float s_farrPositionOnEditGUI[3];
+
 };
 

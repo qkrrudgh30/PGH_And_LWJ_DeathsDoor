@@ -37,6 +37,7 @@ enum class OBJECTORDER
 	Monster,
 	MonsterAtt,
 	NPC,
+	StaticMesh,
 	UI = 1000,
 };
 

@@ -3,6 +3,8 @@
 #include "LoginUI.h"
 #include "Enums.h"
 #include "Player.h"
+#include "TestActor.h"
+#include "StaticMesh.h"
 #include "Hall.h"
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>

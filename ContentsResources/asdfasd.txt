@@ -1,0 +1,4 @@
+3
+crow_player (fbx) 1 1 1 0 0 0 0 0 0 
+crow_player (fbx) 1 1 1 0 0 0 -449.275 -131.587 0 
+crow_player (fbx) 1 1 1 0 0 0 0 0 0 

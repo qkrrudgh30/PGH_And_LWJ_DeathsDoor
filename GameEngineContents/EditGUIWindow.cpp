@@ -3,12 +3,19 @@
 #include "EditLevel.h"
 #include "TestActor.h"
 #include "Player.h"
+#include "StaticMesh.h"
 
 #include <filesystem>
 #include <fstream>
 
+#include <GameEngineCore/GameEngineFBXRenderer.h>
+
 std::vector<std::string> EditGUIWindow::m_vLoadedFromAnimator;
 std::vector<std::string> EditGUIWindow::m_vLoadedFromStatic;
+
+float EditGUIWindow::s_farrScaleOnEditGUI[3];
+float EditGUIWindow::s_farrRotationOnEditGUI[3];
+float EditGUIWindow::s_farrPositionOnEditGUI[3];
 
 EditGUIWindow::EditGUIWindow() 
 	: m_ptrEditLevel(nullptr)
@@ -76,24 +83,24 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 {
 	if (nullptr == EditLevelPipe::GetInst()->GetEditLevel()) { return; }
-	else { m_ptrEditLevel = EditLevelPipe::GetInst()->GetEditLevel(); }
+	// else { m_ptrEditLevel = ; }
 
 	// Edit Level인지 체크 필요.
 
 #pragma region SelectLandscapePannel
 	static int selected = 0;
-	static int selectedPannel = ACTORPANNEL;
+	static int selectedPannel = AnimatorPannel;
 	if (true == ImGui::Button("Animator"))
 	{
-		selectedPannel = ACTORPANNEL;
+		selectedPannel = AnimatorPannel;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Static"))
 	{
-		selectedPannel = TILEPANNEL;
+		selectedPannel = StaticPannel;
 	}
 
-	if (ACTORPANNEL == selectedPannel)
+	if (AnimatorPannel == selectedPannel)
 	{
 		ImGui::BeginChild("Animator", ImVec2(150, 100), true);
 		for (int i = 0; i < m_vLoadedFromAnimator.size(); ++i)
@@ -108,7 +115,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		}
 		ImGui::EndChild();
 	}
-	else if (TILEPANNEL == selectedPannel)
+	else if (StaticPannel == selectedPannel)
 	{
 		ImGui::BeginChild("Static", ImVec2(150, 100), true);
 		for (int i = 0; i < m_vLoadedFromStatic.size(); ++i)
@@ -126,6 +133,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 
 	ImGui::SameLine();
 #pragma endregion	
+
 
 #pragma region CreatedActorsPannel
 	static int selectedActor = 0;
@@ -157,37 +165,24 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 #pragma endregion
 
 #pragma region TransformSelectedObject
-	// static int s_iXCount, s_iYCount, s_iZCount;
-	// ImGui::InputInt("X Count", &s_iXCount);
-	// ImGui::InputInt("Y Count", &s_iYCount);
-	// ImGui::InputInt("Z Count", &s_iZCount);
+	ImGui::InputFloat3("Scale", s_farrScaleOnEditGUI);
+	ImGui::InputFloat3("Rotation", s_farrRotationOnEditGUI);
+	ImGui::InputFloat3("Position", s_farrPositionOnEditGUI);
 
-	static float s_fXScale = 1.f, s_fYScale = 1.f, s_fZScale = 1.f;
-	ImGui::InputFloat("X Scale", &s_fXScale);
-	ImGui::InputFloat("Y Scale", &s_fYScale);
-	ImGui::InputFloat("Z Scale", &s_fZScale);
-
-	static float s_fXRot = 0.f, s_fYRot = 0.f, s_fZRot = 0.f;
-	ImGui::InputFloat("X Rotation", &s_fXRot);
-	ImGui::InputFloat("Y Rotation", &s_fYRot);
-	ImGui::InputFloat("Z Rotation", &s_fZRot);
-
-	static float s_fXPos = 0.f, s_fYPos = 0.f, s_fZPos = 0.f;
-	ImGui::InputFloat("X Position", &s_fXPos);
-	ImGui::InputFloat("Y Position", &s_fYPos);
-	ImGui::InputFloat("Z Position", &s_fZPos);
 #pragma endregion
 
 	if (true == ImGui::Button("Create"))
 	{
 		// SendInfoToMouseSlotFunction();
 		std::string tempStr;
-		if (ACTORPANNEL == selectedPannel) { tempStr = m_vLoadedFromAnimator[selected]; }
-		else if (TILEPANNEL == selectedPannel) { tempStr = m_vLoadedFromStatic[selected]; }
-		GameEngineActor* temp = m_ptrEditLevel->CreateActor<TestActor>();
-		temp->GetTransform().SetLocalScale(float4{ s_fXScale, s_fYScale, s_fZScale , 1.f});
-		temp->GetTransform().SetLocalPosition(float4{ s_fXPos, s_fYPos, s_fZPos , 1.f});
-		temp->GetTransform().SetLocalRotate(float4{ s_fXRot , s_fYRot , s_fZRot });
+		if (AnimatorPannel == selectedPannel) { tempStr = m_vLoadedFromAnimator[selected]; }
+		else if (StaticPannel == selectedPannel) { tempStr = m_vLoadedFromStatic[selected]; }
+		StaticMesh* temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
+		temp->GetFBXRenderer()->SetFBXMesh(tempStr + ".fbx", "Texture");
+		
+		temp->GetTransform().SetLocalScale(float4{ s_farrScaleOnEditGUI[0], s_farrScaleOnEditGUI[1], s_farrScaleOnEditGUI[2] , 1.f});
+		temp->GetTransform().SetLocalRotate(float4{ s_farrPositionOnEditGUI[0] , s_farrPositionOnEditGUI[1] , s_farrPositionOnEditGUI[2]});
+		temp->GetTransform().SetLocalPosition(float4{ s_farrRotationOnEditGUI[0], s_farrRotationOnEditGUI[1], s_farrRotationOnEditGUI[2], 1.f});
 
 		std::pair tempPair(tempStr, temp);
 		m_vCreatedActors.push_back(tempPair);
@@ -206,6 +201,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			{ 
 				m_vCreatedActors[i].second->Death();
 				m_vCreatedActors.erase(iterBeg); 
+				m_vCreatedActors[i] = std::make_pair<std::string, StaticMesh*>("NULL", nullptr);
 				break; 
 			}
 			++iterBeg;
@@ -309,6 +305,61 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	}
 #pragma endregion
 
+#pragma region ValueUpdate
+	if (0 != m_vCreatedActors.size() && true == CheckChanges(selectedActor))
+	{
+		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalScale(s_farrScaleOnEditGUI[0]);
+		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalScale(s_farrScaleOnEditGUI[1]);
+		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalScale(s_farrScaleOnEditGUI[2]);
+
+		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotation(s_farrRotationOnEditGUI[0]);
+		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotation(s_farrRotationOnEditGUI[1]);
+		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotation(s_farrRotationOnEditGUI[2]);
+
+		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalPosition(s_farrPositionOnEditGUI[0]);
+		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalPosition(s_farrPositionOnEditGUI[1]);
+		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalPosition(s_farrPositionOnEditGUI[2]);
+	}
+	
+	if (0 != m_vCreatedActors.size() && nullptr != m_vCreatedActors[selectedActor].second)
+	{
+		s_farrScaleOnEditGUI[0] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalScale().x;
+		s_farrScaleOnEditGUI[1] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalScale().y;
+		s_farrScaleOnEditGUI[2] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalScale().z;
+
+		s_farrRotationOnEditGUI[0] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalRotation().x;
+		s_farrRotationOnEditGUI[1] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalRotation().y;
+		s_farrRotationOnEditGUI[2] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalRotation().z;
+
+		s_farrPositionOnEditGUI[0] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalPosition().x;
+		s_farrPositionOnEditGUI[1] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalPosition().y;
+		s_farrPositionOnEditGUI[2] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalPosition().z;
+	}
+
+#pragma endregion
+
+}
+
+bool EditGUIWindow::CheckChanges(int _iSelectedActor)
+{
+	if (
+		s_farrScaleOnEditGUI[0] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalScale().x &&
+		s_farrScaleOnEditGUI[1] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalScale().y &&
+		s_farrScaleOnEditGUI[2] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalScale().z &&
+
+		s_farrRotationOnEditGUI[0] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalRotation().x &&
+		s_farrRotationOnEditGUI[1] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalRotation().y &&
+		s_farrRotationOnEditGUI[2] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalRotation().z &&
+
+		s_farrPositionOnEditGUI[0] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalPosition().x &&
+		s_farrPositionOnEditGUI[1] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalPosition().y &&
+		s_farrPositionOnEditGUI[2] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalPosition().z
+		)
+	{
+		return true;
+	}
+
+	return false;
 }
 
 void EditGUIWindow::Save()
@@ -403,7 +454,7 @@ void EditGUIWindow::Load()
 				>> f4Rotation.x >> f4Rotation.y >> f4Rotation.z
 				>> f4Position.x >> f4Position.y >> f4Position.z;
 
-			GameEngineActor* temp = m_ptrEditLevel->CreateActor<TestActor>();
+			StaticMesh* temp = m_ptrEditLevel->CreateActor<StaticMesh>();
 			temp->GetTransform().SetLocalScale(f4Scale);
 			temp->GetTransform().SetLocalRotate(f4Rotation);
 			temp->GetTransform().SetLocalPosition(f4Position);

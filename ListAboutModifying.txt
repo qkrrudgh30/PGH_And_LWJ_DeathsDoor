@@ -1,3 +1,22 @@
-DEBUG3D에서 CLIP 코드 삭제
+1. DEBUG3D에서 CLIP 코드 삭제
 
-CreateRenderTargetTexture(..., float4::BLUE);
+
+2. CreateRenderTargetTexture(..., float4::BLUE);
+
+
+3. EngineRasterizer 초기화
+{
+   D3D11_RASTERIZER_DESC Desc = {};
+
+   Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+
+   Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+
+   GameEngineRasterizer::Create("EngineRasterizer", Desc);
+}
+
+
+4. NewData.SampleDesc.Count = 1
+
+
+5. ScInfo.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD;
