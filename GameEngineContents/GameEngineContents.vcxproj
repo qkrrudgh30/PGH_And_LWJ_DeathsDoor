@@ -250,7 +250,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="Potal.h">
+    <ClInclude Include="StaticMesh.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -387,7 +387,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="Potal.cpp">
+    <ClCompile Include="StaticMesh.cpp">
       <SubType>
       </SubType>
     </ClCompile>

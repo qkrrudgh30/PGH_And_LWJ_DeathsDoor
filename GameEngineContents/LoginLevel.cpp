@@ -4,6 +4,7 @@
 #include "Enums.h"
 #include "Player.h"
 #include "TestActor.h"
+#include "StaticMesh.h"
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -82,7 +83,7 @@ void LoginLevel::LevelStartEvent()
 				this->LoadTextureInAnimator();
 			});
 		*/
-		CreateActor<TestActor>(); // Test Code.
+		// CreateActor<StaticMesh>(); // Test Code.
 		mbPrimitiveInitialized = true;
 	}
 #pragma endregion
