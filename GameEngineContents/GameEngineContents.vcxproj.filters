@@ -118,9 +118,6 @@
     <Filter Include="02.Static\00_LoginLevel">
       <UniqueIdentifier>{19e62db3-9131-4521-9de3-11af826027f0}</UniqueIdentifier>
     </Filter>
-    <Filter Include="02.Static\01_HuntingLevel1">
-      <UniqueIdentifier>{1778e1f1-9795-4b84-8d53-af0f135d5c51}</UniqueIdentifier>
-    </Filter>
     <Filter Include="02.Static\02_HuntingLevel2">
       <UniqueIdentifier>{ac038426-5bd9-484b-ab77-bb714a9a7ad2}</UniqueIdentifier>
     </Filter>
@@ -138,6 +135,9 @@
     </Filter>
     <Filter Include="01.Actor\02.Unit\05.Potal">
       <UniqueIdentifier>{0cbb05f6-9bf2-4c76-9f99-26de83ff6265}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="02.Static\01_HuntingLevel1">
+      <UniqueIdentifier>{1778e1f1-9795-4b84-8d53-af0f135d5c51}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>

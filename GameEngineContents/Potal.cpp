@@ -51,9 +51,69 @@ CollisionReturn Potal::CollisionPlayer(GameEngineCollision* _This, GameEngineCol
 
 	if (m_PotalType == PotalType::LoginToStage1)
 	{
-		GEngine::ChangeLevel("Test");
+		GEngine::ChangeLevel("Hunting1");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
+	if (m_PotalType == PotalType::Stage1ToStage2)
+	{
+		GEngine::ChangeLevel("Hunting2");
+		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
+	}
+
+	if (m_PotalType == PotalType::Stage2ToStage3)
+	{
+		GEngine::ChangeLevel("Hunting3");
+		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
+	}
+
+	if (m_PotalType == PotalType::Stage3ToStage4)
+	{
+		GEngine::ChangeLevel("Hunting4");
+		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
+	}
+
+	if (m_PotalType == PotalType::Stage4ToStage5)
+	{
+		GEngine::ChangeLevel("Hunting5");
+		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
+	}
+
+	if (m_PotalType == PotalType::Stage5ToStageBoss)
+	{
+		GEngine::ChangeLevel("Boss");
+		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
+	}
+
+	if (m_PotalType == PotalType::Stage5ToStage4)
+	{
+		GEngine::ChangeLevel("Hunting4");
+		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
+	}
+
+	if (m_PotalType == PotalType::Stage4ToStage3)
+	{
+		GEngine::ChangeLevel("Hunting3");
+		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
+	}
+
+	if (m_PotalType == PotalType::Stage3ToStage2)
+	{
+		GEngine::ChangeLevel("Hunting2");
+		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
+	}
+
+	if (m_PotalType == PotalType::Stage2ToStage1)
+	{
+		GEngine::ChangeLevel("Hunting1");
+		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
+	}
+
+	if (m_PotalType == PotalType::Stage1ToSLogin)
+	{
+		GEngine::ChangeLevel("Login");
+		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
+	}
+
 
 
 
