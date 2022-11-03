@@ -12,9 +12,11 @@ enum class PotalType
 	Stage3ToStage4,
 	Stage4ToStage5,
 	Stage5ToStageBoss,
-	//Stage1ToStage2,
-	//Stage1ToStage2,
-//	Stage1ToStage2,
+	Stage5ToStage4,
+	Stage4ToStage3,
+	Stage3ToStage2,
+	Stage2ToStage1,
+	Stage1ToSLogin,
 
 };
 
