@@ -47,7 +47,7 @@ void Potal::Update(float _DeltaTime)
 
 CollisionReturn Potal::CollisionPlayer(GameEngineCollision* _This, GameEngineCollision* _Other)
 {
-
+	 
 
 	if (m_PotalType == PotalType::LoginToStage1)
 	{
