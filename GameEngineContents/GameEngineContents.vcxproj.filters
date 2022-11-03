@@ -252,6 +252,21 @@
     <ClInclude Include="Potal.h">
       <Filter>01.Actor\02.Unit\05.Potal</Filter>
     </ClInclude>
+    <ClInclude Include="ROOM_Enter.h">
+      <Filter>02.Static\01_HuntingLevel1</Filter>
+    </ClInclude>
+    <ClInclude Include="ROOM_Left.h">
+      <Filter>02.Static\02_HuntingLevel2</Filter>
+    </ClInclude>
+    <ClInclude Include="ROOM_MainHall.h">
+      <Filter>02.Static\03_HuntingLevel3</Filter>
+    </ClInclude>
+    <ClInclude Include="ROOM_Right.h">
+      <Filter>02.Static\04_HuntingLevel4</Filter>
+    </ClInclude>
+    <ClInclude Include="ROOM_Far.h">
+      <Filter>02.Static\05_HuntingLevel5</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -361,6 +376,21 @@
     </ClCompile>
     <ClCompile Include="Potal.cpp">
       <Filter>01.Actor\02.Unit\05.Potal</Filter>
+    </ClCompile>
+    <ClCompile Include="ROOM_Enter.cpp">
+      <Filter>02.Static\01_HuntingLevel1</Filter>
+    </ClCompile>
+    <ClCompile Include="ROOM_Left.cpp">
+      <Filter>02.Static\02_HuntingLevel2</Filter>
+    </ClCompile>
+    <ClCompile Include="ROOM_MainHall.cpp">
+      <Filter>02.Static\03_HuntingLevel3</Filter>
+    </ClCompile>
+    <ClCompile Include="ROOM_Right.cpp">
+      <Filter>02.Static\04_HuntingLevel4</Filter>
+    </ClCompile>
+    <ClCompile Include="ROOM_Far.cpp">
+      <Filter>02.Static\05_HuntingLevel5</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
