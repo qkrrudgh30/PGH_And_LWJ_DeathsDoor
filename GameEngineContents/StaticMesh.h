@@ -17,14 +17,14 @@ public:
 	StaticMesh& operator=(StaticMesh&& _Other) noexcept = delete;
 
 	class GameEngineFBXRenderer* GetFBXRenderer() { return mpFBXRenderer; };
+	void SetPriorityInitialize(void) { mbPriorityInitialzed = false; };
+	void UnsetWithCollision(void) { mbWithCollision = false; };
 
 protected:
 	void Start() override;
 	void Update(float _DeltaTime);
 	void End() {}
 
-	void SetPriorityInitialize(void) { mbPriorityInitialzed = false; };
-	void UnsetWithCollision(void) { mbWithCollision = false; };
 
 private:
 	class GameEngineFBXRenderer* mpFBXRenderer;

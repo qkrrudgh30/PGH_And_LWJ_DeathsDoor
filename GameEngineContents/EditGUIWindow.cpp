@@ -178,6 +178,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		if (AnimatorPannel == selectedPannel) { tempStr = m_vLoadedFromAnimator[selected]; }
 		else if (StaticPannel == selectedPannel) { tempStr = m_vLoadedFromStatic[selected]; }
 		StaticMesh* temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
+		temp->SetPriorityInitialize();
 		temp->GetFBXRenderer()->SetFBXMesh(tempStr + ".fbx", "Texture");
 		
 		temp->GetTransform().SetLocalScale(float4{ s_farrScaleOnEditGUI[0], s_farrScaleOnEditGUI[1], s_farrScaleOnEditGUI[2] , 1.f});
@@ -342,6 +343,11 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 
 bool EditGUIWindow::CheckChanges(int _iSelectedActor)
 {
+	if (m_vCreatedActors.size() <= _iSelectedActor)
+	{
+		return false;
+	}
+
 	if (
 		s_farrScaleOnEditGUI[0] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalScale().x &&
 		s_farrScaleOnEditGUI[1] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalScale().y &&
@@ -369,15 +375,21 @@ void EditGUIWindow::Save()
 	ofn.lStructSize = sizeof(OPENFILENAME);      
 	ofn.hwndOwner = GameEngineWindow::GetHWND(); 
 	wchar_t szName[256] = {};
-	ofn.lpstrFile = (LPSTR)szName;               
+	std::string strTileFolder(m_ProjectDirectory.GetFullPath());
+#ifdef _DEBUG
+	ofn.lpstrFile = (LPSTR)szName;               // 나중에 완성된 경로가 채워질 버퍼 지정.
+	ofn.lpstrInitialDir = (LPSTR)(strTileFolder.c_str());
+#else
+	ofn.lpstrFile = (LPWSTR)szName;               // 나중에 완성된 경로가 채워질 버퍼 지정.
+	ofn.lpstrInitialDir = (LPWSTR)strTileFolder.c_str();
+#endif // DEBUG               
 	ofn.nMaxFile = sizeof(szName);               
 	// ofn.lpstrFilter = L"ALL\0*.*\0tile\0*.tile"; // 필터 설정
 	// ofn.nFilterIndex = 0;                        // 기본 필터 세팅. 0는 all로 초기 세팅됨. 처음꺼.
 	ofn.lpstrFileTitle = nullptr; 
 	ofn.nMaxFileTitle = 0; 
-	std::string strTileFolder(m_ProjectDirectory.GetFullPath());
 	// strTileFolder += L"tile";
-	ofn.lpstrInitialDir = strTileFolder.c_str();       // 초기경로. 
+	
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST; // 스타일
 
 	if (TRUE == GetSaveFileName(&ofn))
@@ -423,15 +435,22 @@ void EditGUIWindow::Load()
 	ofn.lStructSize = sizeof(OPENFILENAME);
 	ofn.hwndOwner = GameEngineWindow::GetHWND();
 	wchar_t szName[256] = {};
+	std::string strTileFolder(m_ProjectDirectory.GetFullPath());
+#ifdef _DEBUG
 	ofn.lpstrFile = (LPSTR)szName;               // 나중에 완성된 경로가 채워질 버퍼 지정.
+	ofn.lpstrInitialDir = (LPSTR)(strTileFolder.c_str());
+#else
+	ofn.lpstrFile = (LPWSTR)szName;               // 나중에 완성된 경로가 채워질 버퍼 지정.
+	ofn.lpstrInitialDir = (LPWSTR)strTileFolder.c_str();
+#endif // DEBUG
+
 	ofn.nMaxFile = sizeof(szName);               
 	// ofn.lpstrFilter = L"ALL\0*.*\0tile\0*.tile"; 
 	ofn.nFilterIndex = 0; 
 	ofn.lpstrFileTitle = nullptr; 
 	ofn.nMaxFileTitle = 0; 
-	std::string strTileFolder(m_ProjectDirectory.GetFullPath());
 	// strTileFolder += L"tile";
-	ofn.lpstrInitialDir = strTileFolder.c_str(); 
+
 	ofn.Flags = OFN_PATHMUSTEXIST | OFN_FILEMUSTEXIST; 
 
 	if (TRUE == GetSaveFileName(&ofn))
