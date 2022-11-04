@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "ShopNPC.h"
-#include <GameEngineCore/GameEngineFBXRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 ShopNPC::ShopNPC() 
 {
@@ -31,17 +31,17 @@ void ShopNPC::Start()
 
 	//}
 	{
-		FBXRenderer = CreateComponent<GameEngineFBXRenderer>();
-		FBXRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
-		FBXRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
-		FBXRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
+		FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+		FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
+		FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
+		FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
 
 
 		for (int i = 0; i < 6; ++i)
 		{
 			if (i != 5)
 			{
-				FBXRenderer->SetFBXMesh("banker.FBX", "Texture", i);
+				FBXAnimationRenderer->SetFBXMesh("banker.FBX", "Texture", i);
 			}
 		}
 

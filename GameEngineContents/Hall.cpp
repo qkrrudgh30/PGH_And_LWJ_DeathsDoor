@@ -2,7 +2,7 @@
 
 #include "PreCompile.h"
 #include "Hall.h"
-#include <GameEngineCore/GameEngineFBXRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 //#include "GameEngineCore/GameEngineDefaultRenderer.h"
 
 Hall::Hall()
@@ -17,7 +17,7 @@ Hall::~Hall()
 void Hall::Start()
 {
 	ResultColor = float4{ 1.f, 1.f, 0.f, 1.f };
-	GameEngineFBXRenderer* Renderer = CreateComponent<GameEngineFBXRenderer>();
+	GameEngineFBXStaticRenderer* Renderer = CreateComponent<GameEngineFBXStaticRenderer>();
 	
 
 #pragma region ROOM_Enter (1).FBX

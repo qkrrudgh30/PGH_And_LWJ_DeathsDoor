@@ -58,7 +58,7 @@ void GameEngineRenderUnit::EngineShaderResourcesSetting(GameEngineRenderer* _Ren
 
 	if (true == ShaderResources.IsConstantBuffer("RENDEROPTION"))
 	{
-		ShaderResources.SetConstantBufferLink("RENDEROPTION", &ParentRenderer->renderOption, sizeof(RenderOption));
+		ShaderResources.SetConstantBufferLink("RENDEROPTION", &ParentRenderer->RenderOptionInst, sizeof(RenderOption));
 	}
 
 }

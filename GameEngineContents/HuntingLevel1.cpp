@@ -4,6 +4,7 @@
 
 #include "TestActor.h"
 #include "Potal.h"
+#include "ROOM_Enter.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -39,6 +40,8 @@ void HuntingLevel1::Start()
 	}
 
 
+	
+
 }
 
 void HuntingLevel1::Update(float _DeltaTime)
@@ -54,8 +57,8 @@ void HuntingLevel1::LevelStartEvent()
 	#pragma region LoadFBXMeshiesAndAnimation
 		if (false == mbPrimitiveInitialized)
 		{
-			// DirectPathAt("01_HuntingLevel1");
-			// LoadFBXFiles();
+			DirectPathAt("01_HuntingLevel1");
+			LoadFBXFiles();
 
 			// TODO
 
@@ -65,7 +68,9 @@ void HuntingLevel1::LevelStartEvent()
 		}	
 	#pragma endregion
 
-
+		{
+			ROOM_Enter* pMap = CreateActor<ROOM_Enter>(OBJECTORDER::StaticMesh);
+		}
 
 
 	{

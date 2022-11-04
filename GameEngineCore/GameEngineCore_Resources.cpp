@@ -45,6 +45,11 @@ void EngineInputLayOut()
 	GameEngineVertex::LayOut.AddInputLayOut("POSITION", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, 0); // 16
 	GameEngineVertex::LayOut.AddInputLayOut("TEXCOORD", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, 0); // 32
 	GameEngineVertex::LayOut.AddInputLayOut("COLOR", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, 0); // 48
+	GameEngineVertex::LayOut.AddInputLayOut("NORMAL", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, 0); // 48
+	GameEngineVertex::LayOut.AddInputLayOut("BINORMAL", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, 0); // 48
+	GameEngineVertex::LayOut.AddInputLayOut("TANGENT", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, 0); // 48
+	GameEngineVertex::LayOut.AddInputLayOut("BLENDWEIGHT", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, 0); // 48
+	GameEngineVertex::LayOut.AddInputLayOut("BLENDINDICES", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_SINT, 0); // 48
 	GameEngineVertex::LayOut.OffsetReset();
 
 	// 인스턴싱 데이터용을 넣어줍니다.
@@ -128,20 +133,26 @@ void EngineSubSetting()
 		GameEngineBlend::Create("TransparentBlend", Desc);
 	}
 
-
-	//게임엔진 코어 리소스
 	{
-		D3D11_RASTERIZER_DESC Desc = {};
+		//D3D11_FILL_MODE FillMode = D3D11_FILL_SOLID;
+		//D3D11_CULL_MODE CullMode = D3D11_CULL_NONE;
+		//BOOL FrontCounterClockwise = FALSE;
+		//INT DepthBias = D3D11_DEFAULT_DEPTH_BIAS;
+		//FLOAT DepthBiasClamp = D3D11_DEFAULT_DEPTH_BIAS_CLAMP;
+		//FLOAT SlopeScaledDepthBias = D3D11_DEFAULT_SLOPE_SCALED_DEPTH_BIAS;
+		//BOOL DepthClipEnable = TRUE;
+		//BOOL ScissorEnable = FALSE;
+		//BOOL MultisampleEnable = TRUE;
+		//BOOL AntialiasedLineEnable = FALSE;
 
-		Desc.FillMode = D3D11_FILL_MODE::D3D11_FILL_SOLID;
+		//D3D11_RASTERIZER_DESC Desc = { D3D11_FILL_SOLID, D3D11_CULL_NONE, FALSE,
+		//	D3D11_DEFAULT_DEPTH_BIAS, D3D11_DEFAULT_DEPTH_BIAS_CLAMP,
+		//	D3D11_DEFAULT_SLOPE_SCALED_DEPTH_BIAS, TRUE, FALSE, TRUE, FALSE };
 
-		// 
-		Desc.CullMode = D3D11_CULL_MODE::D3D11_CULL_NONE;
+		D3D11_RASTERIZER_DESC Desc = { D3D11_FILL_SOLID, D3D11_CULL_NONE };
 
 		GameEngineRasterizer::Create("EngineRasterizer", Desc);
 	}
-
-
 	{
 		D3D11_DEPTH_STENCIL_DESC Desc = {0};
 
@@ -275,6 +286,13 @@ void EngineRenderingPipeLine()
 		NewPipe->SetPixelShader("TextureAtlas.hlsl");
 		// NewPipe->InstancingSetting();
 	}
+
+	{
+		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("TextureAnimation");
+		NewPipe->SetVertexShader("TextureAnimation.hlsl");
+		NewPipe->SetPixelShader("TextureAnimation.hlsl");
+	}
+
 
 	{
 		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("3DDebug");

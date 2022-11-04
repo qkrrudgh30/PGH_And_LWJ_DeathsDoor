@@ -2,6 +2,7 @@
 #include "HuntingLevel5.h"
 #include "Player.h"
 #include "Potal.h"
+#include "ROOM_Far.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -17,7 +18,7 @@ HuntingLevel5::~HuntingLevel5()
 void HuntingLevel5::Start()
 {
 
-	{
+	/*{
 
 		Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 		Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-0.f });
@@ -34,7 +35,7 @@ void HuntingLevel5::Start()
 		Potal_->m_PotalType = PotalType::Stage5ToStage4;
 
 	}
-
+*/
 
 
 
@@ -55,8 +56,8 @@ void HuntingLevel5::LevelStartEvent()
 	#pragma region LoadFBXMeshiesAndAnimation
 		if (false == mbPrimitiveInitialized)
 		{
-			// DirectPathAt("05_HuntingLevel5");
-			// LoadFBXFiles();
+			DirectPathAt("05_HuntingLevel5");
+			LoadFBXFiles();
 
 			// TODO
 
@@ -64,7 +65,9 @@ void HuntingLevel5::LevelStartEvent()
 		}
 	#pragma endregion
 
-
+	{
+		ROOM_Far* pMap = CreateActor<ROOM_Far>(OBJECTORDER::StaticMesh);
+	}
 
 	{
 		if (nullptr == Player::GetMainPlayer())

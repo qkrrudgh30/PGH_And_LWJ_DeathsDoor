@@ -10,7 +10,7 @@ struct RenderOption
 {
     float DeltaTime = 0.0f;
     float SumDeltaTime = 0.0f;
-	int Temp0;
+	int IsAnimation = 0;
 	int Temp1;
 };
 
@@ -66,7 +66,7 @@ class GameEngineRenderer : public GameEngineTransformComponent
 
 
 public:
-	RenderOption renderOption;
+	RenderOption RenderOptionInst;
 
 	// constrcuter destructer
 	GameEngineRenderer();

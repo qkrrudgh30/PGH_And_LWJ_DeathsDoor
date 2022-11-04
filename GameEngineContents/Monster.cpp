@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "Monster.h"
 #include "Player.h"
-#include <GameEngineCore/GameEngineFBXRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 Monster::Monster()
 {
@@ -23,13 +23,13 @@ void Monster::Start()
 
 
 	{
-		FBXRenderer = CreateComponent<GameEngineFBXRenderer>();
+		FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 
 		{
-			FBXRenderer->SetFBXMesh("_E_BAT_White.FBX", "Texture");
+			FBXAnimationRenderer->SetFBXMesh("_E_BAT_White.FBX", "Texture");
 		}
-		FBXRenderer->GetTransform().SetLocalScale({ 1000.0f, 1000.0f, 1000.0f });
-		FBXRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
+		FBXAnimationRenderer->GetTransform().SetLocalScale({ 1000.0f, 1000.0f, 1000.0f });
+		FBXAnimationRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
 	}
 
 

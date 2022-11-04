@@ -2,6 +2,7 @@
 #include "HuntingLevel4.h"
 #include "Player.h"
 #include "Potal.h"
+#include "ROOM_Right.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -34,6 +35,8 @@ void HuntingLevel4::Start()
 		Potal_->m_PotalType = PotalType::Stage4ToStage3;
 
 	}
+
+
 }
 
 void HuntingLevel4::Update(float _DeltaTime)
@@ -49,8 +52,8 @@ void HuntingLevel4::LevelStartEvent()
 #pragma region LoadFBXMeshiesAndAnimation
 	if (false == mbPrimitiveInitialized)
 	{
-		// DirectPathAt("04_HuntingLevel4");
-		// LoadFBXFiles();
+		DirectPathAt("04_HuntingLevel4");
+		LoadFBXFiles();
 
 		// TODO
 
@@ -58,6 +61,9 @@ void HuntingLevel4::LevelStartEvent()
 	}
 #pragma endregion
 
+	{
+		ROOM_Right* pMap = CreateActor<ROOM_Right>(OBJECTORDER::StaticMesh);
+	}
 
 	{
 		if (nullptr == Player::GetMainPlayer())

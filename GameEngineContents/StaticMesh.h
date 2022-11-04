@@ -16,9 +16,11 @@ public:
 	StaticMesh& operator=(const StaticMesh& _Other) = delete;
 	StaticMesh& operator=(StaticMesh&& _Other) noexcept = delete;
 
-	class GameEngineFBXRenderer* GetFBXRenderer() { return mpFBXRenderer; };
+	class GameEngineFBXStaticRenderer* GetFBXRenderer() { return mpFBXStaticRenderer; };
 	void SetPriorityInitialize(void) { mbPriorityInitialzed = false; };
 	void UnsetWithCollision(void) { mbWithCollision = false; };
+
+	class GameEngineCollision* GetCollider() { return mpCollider; }
 
 protected:
 	void Start() override;
@@ -27,7 +29,7 @@ protected:
 
 
 private:
-	class GameEngineFBXRenderer* mpFBXRenderer;
+	class GameEngineFBXStaticRenderer* mpFBXStaticRenderer;
 	class GameEngineCollision* mpCollider;
 	bool mbPriorityInitialzed;
 	bool mbWithCollision;

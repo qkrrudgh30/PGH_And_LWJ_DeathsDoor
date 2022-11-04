@@ -180,6 +180,12 @@
     <ClInclude Include="GameEngineFBXRenderer.h">
       <Filter>Object\Component\Rendering\Content</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineFBXStaticRenderer.h">
+      <Filter>Object\Component\Rendering\Content</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineFBXAnimationRenderer.h">
+      <Filter>Object\Component\Rendering\Content</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineActor.cpp">
@@ -349,6 +355,12 @@
       <Filter>Resources\FBX</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineFBXRenderer.cpp">
+      <Filter>Object\Component\Rendering\Content</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineFBXStaticRenderer.cpp">
+      <Filter>Object\Component\Rendering\Content</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineFBXAnimationRenderer.cpp">
       <Filter>Object\Component\Rendering\Content</Filter>
     </ClCompile>
   </ItemGroup>

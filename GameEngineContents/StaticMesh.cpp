@@ -1,10 +1,10 @@
 #include "PreCompile.h"
 #include "StaticMesh.h"
 
-#include <GameEngineCore/GameEngineFBXRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 StaticMesh::StaticMesh() 
-	: mpFBXRenderer(nullptr)
+	: mpFBXStaticRenderer(nullptr)
 	, mbPriorityInitialzed(true)
 	, mbWithCollision(true)
 {
@@ -16,7 +16,9 @@ StaticMesh::~StaticMesh()
 
 void StaticMesh::Start()
 {
-	mpFBXRenderer = CreateComponent<GameEngineFBXRenderer>();
+	mpFBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	mpCollider = CreateComponent<GameEngineCollision>();
+	mpCollider->ChangeOrder(OBJECTORDER::StaticMesh);
 }
 
 void StaticMesh::Update(float _DeltaTime)
@@ -25,9 +27,9 @@ void StaticMesh::Update(float _DeltaTime)
 	{
 		if (true == mbWithCollision)
 		{
-			mpCollider = CreateComponent<GameEngineCollision>();
-			mpCollider->GetTransform().SetLocalScale(GetTransform().GetLocalScale());
-			mpCollider->ChangeOrder(OBJECTORDER::StaticMesh);
+			
+			// mpCollider->GetTransform().SetLocalScale(GetTransform().GetLocalScale());
+			
 		}
 		
 		mbPriorityInitialzed = true;

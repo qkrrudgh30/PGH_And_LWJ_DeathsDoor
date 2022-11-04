@@ -2,7 +2,7 @@
 
 #include "PreCompile.h"
 #include "ROOM_Enter.h"
-#include <GameEngineCore/GameEngineFBXRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 //#include "GameEngineCore/GameEngineDefaultRenderer.h"
 
 ROOM_Enter::ROOM_Enter()
@@ -17,13 +17,14 @@ ROOM_Enter::~ROOM_Enter()
 void ROOM_Enter::Start()
 {
 	ResultColor = float4{ 1.f, 1.f, 0.f, 1.f };
-	GameEngineFBXRenderer* Renderer = CreateComponent<GameEngineFBXRenderer>();
+	GameEngineFBXStaticRenderer* Renderer = CreateComponent<GameEngineFBXStaticRenderer>();
 
+	Renderer->SetFBXMesh("ROOM_Enter.fbx", "Texture");
 
 #pragma region ROOM_Enter (1).FBX
 
 
-	for (int i = 0; i < 409; ++i)
+	/*for (int i = 0; i < 409; ++i)
 	{
 		if (62 == i)
 		{
@@ -35,7 +36,7 @@ void ROOM_Enter::Start()
 
 		Renderer->SetFBXMesh("ROOM_Enter.fbx", "Texture", i);
 
-	}
+	}*/
 
 
 

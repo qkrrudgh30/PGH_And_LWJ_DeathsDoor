@@ -21,7 +21,7 @@ cbuffer TransformData : register(b0)
     float4x4 WorldViewProjection;
 };
 
-struct TransformData
+struct InstTransformData
 {
     float4 LocalPosition;
     float4 LocalRotation;
@@ -44,4 +44,4 @@ struct TransformData
     float4x4 WorldViewProjection;
 };
 
-StructuredBuffer<TransformData> AllInstancingTransformData : register(t12);
+StructuredBuffer<InstTransformData> AllInstancingTransformData : register(t12);

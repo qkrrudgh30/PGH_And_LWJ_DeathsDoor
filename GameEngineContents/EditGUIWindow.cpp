@@ -9,16 +9,24 @@
 #include <fstream>
 
 #include <GameEngineCore/GameEngineFBXRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 std::vector<std::string> EditGUIWindow::m_vLoadedFromAnimator;
 std::vector<std::string> EditGUIWindow::m_vLoadedFromStatic;
 
-float EditGUIWindow::s_farrScaleOnEditGUI[3];
-float EditGUIWindow::s_farrRotationOnEditGUI[3];
-float EditGUIWindow::s_farrPositionOnEditGUI[3];
+float EditGUIWindow::s_farrCurrScaleOnEditGUI[3] = {1.f, 1.f, 1.f};
+float EditGUIWindow::s_farrPrevScaleOnEditGUI[3] = {1.f, 1.f, 1.f};
+float EditGUIWindow::s_farrCurrRotationOnEditGUI[3] = { 0.f, 0.f, 0.f };
+float EditGUIWindow::s_farrPrevRotationOnEditGUI[3] = { 0.f, 0.f, 0.f };
+float EditGUIWindow::s_farrCurrPositionOnEditGUI[3] = { 0.f, 0.f, 0.f };
+float EditGUIWindow::s_farrPrevPositionOnEditGUI[3] = { 0.f, 0.f, 0.f };
+
+float EditGUIWindow::s_farrCurrColliderScaleOnEditGUI[3] = { 1.f, 1.f, 1.f };
+float EditGUIWindow::s_farrCurrColliderRotationOnEditGUI[3] = { 0.f, 0.f, 0.f };
+float EditGUIWindow::s_farrCurrColliderPositionOnEditGUI[3] = { 0.f, 0.f, 0.f };
 
 EditGUIWindow::EditGUIWindow() 
-	: m_ptrEditLevel(nullptr)
 {
 }
 
@@ -31,42 +39,6 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 	m_ProjectDirectory.MoveParentToExitsChildDirectory("ContentsResources");
 	m_ProjectDirectory.Move("ContentsResources");
 	m_ProjectDirectory.Move("Texture");
-
-#pragma region PushPannel
-	/*m_CurrentDirectory.MoveParentToExitsChildDirectory("ContentsResources");
-	m_CurrentDirectory.Move("ContentsResources");
-	m_CurrentDirectory.Move("Texture");
-	m_CurrentDirectory.Move("07_EditLevel");
-	m_CurrentDirectory.Move("Actor");
-	std::filesystem::directory_iterator dirIter1(m_CurrentDirectory.GetFullPath());
-	for (const std::filesystem::directory_entry& entry : dirIter1)
-	{
-		std::string Ext(entry.path().string());
-		if (false == entry.is_directory())
-		{
-			size_t idx = Ext.rfind("\\");
-			std::string strTemp(entry.path().string());
-			std::string strTemp2(strTemp.substr(idx + 1));
-			m_vLoadedFromAnimator.push_back(strTemp2);
-		}
-	}
-
-	m_CurrentDirectory.Move("..\\");
-	m_CurrentDirectory.Move("Tile");
-	std::filesystem::directory_iterator dirIter2(m_CurrentDirectory.GetFullPath());
-
-	for (const std::filesystem::directory_entry& entry : dirIter2)
-	{
-		std::string Ext(entry.path().string());
-		if (false == entry.is_directory())
-		{
-			size_t idx = Ext.rfind("\\");
-			std::string strTemp(entry.path().string());
-			std::string strTemp2(strTemp.substr(idx + 1));
-			m_vLoadedFromStatic.push_back(strTemp2);
-		}
-	}*/
-#pragma endregion	
 
 	if (false == GameEngineInput::GetInst()->IsKey("SelectedObjectUp"))
 	{
@@ -82,12 +54,7 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 
 void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 {
-	if (nullptr == EditLevelPipe::GetInst()->GetEditLevel()) { return; }
-	// else { m_ptrEditLevel = ; }
-
-	// Edit Level인지 체크 필요.
-
-#pragma region SelectLandscapePannel
+#pragma region SwitchPannel
 	static int selected = 0;
 	static int selectedPannel = AnimatorPannel;
 	if (true == ImGui::Button("Animator"))
@@ -132,10 +99,9 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	}
 
 	ImGui::SameLine();
-#pragma endregion	
+#pragma endregion
 
-
-#pragma region CreatedActorsPannel
+#pragma region CreaturePannel
 	static int selectedActor = 0;
 	ImGui::BeginChild("Created", ImVec2(150, 100), true);
 
@@ -160,17 +126,30 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		}
 	}
 	ImGui::EndChild();
-
-	
 #pragma endregion
 
 #pragma region TransformSelectedObject
-	ImGui::InputFloat3("Scale", s_farrScaleOnEditGUI);
-	ImGui::InputFloat3("Rotation", s_farrRotationOnEditGUI);
-	ImGui::InputFloat3("Position", s_farrPositionOnEditGUI);
+	ImGui::InputFloat3("Scale", s_farrCurrScaleOnEditGUI);
+	ImGui::InputFloat3("Rotation", s_farrCurrRotationOnEditGUI);
+	ImGui::InputFloat3("Position", s_farrCurrPositionOnEditGUI);
 
 #pragma endregion
 
+#pragma region TransformSelectedObjectCollider
+	ImGui::InputFloat3("Collider Scale", s_farrCurrColliderScaleOnEditGUI);
+	ImGui::InputFloat3("Collider Rotation", s_farrCurrColliderRotationOnEditGUI);
+	ImGui::InputFloat3("Collider Position", s_farrCurrColliderPositionOnEditGUI);
+
+	if (0 != m_vCreatedActors.size() && nullptr != m_vCreatedActors[selectedActor].second)
+	{
+		m_vCreatedActors[selectedActor].second->GetCollider()->GetTransform().SetLocalScale(float4{ s_farrCurrColliderScaleOnEditGUI[0], s_farrCurrColliderScaleOnEditGUI[1], s_farrCurrColliderScaleOnEditGUI[2] });
+		m_vCreatedActors[selectedActor].second->GetCollider()->GetTransform().SetLocalRotation(float4{ s_farrCurrColliderRotationOnEditGUI[0], s_farrCurrColliderRotationOnEditGUI[1], s_farrCurrColliderRotationOnEditGUI[2] });
+		m_vCreatedActors[selectedActor].second->GetCollider()->GetTransform().SetLocalPosition(float4{ s_farrCurrColliderPositionOnEditGUI[0], s_farrCurrColliderPositionOnEditGUI[1], s_farrCurrColliderPositionOnEditGUI[2] });
+	}
+
+#pragma endregion
+
+#pragma region CallbackForButtons
 	if (true == ImGui::Button("Create"))
 	{
 		// SendInfoToMouseSlotFunction();
@@ -180,10 +159,10 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		StaticMesh* temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
 		temp->SetPriorityInitialize();
 		temp->GetFBXRenderer()->SetFBXMesh(tempStr + ".fbx", "Texture");
-		
-		temp->GetTransform().SetLocalScale(float4{ s_farrScaleOnEditGUI[0], s_farrScaleOnEditGUI[1], s_farrScaleOnEditGUI[2] , 1.f});
-		temp->GetTransform().SetLocalRotate(float4{ s_farrPositionOnEditGUI[0] , s_farrPositionOnEditGUI[1] , s_farrPositionOnEditGUI[2]});
-		temp->GetTransform().SetLocalPosition(float4{ s_farrRotationOnEditGUI[0], s_farrRotationOnEditGUI[1], s_farrRotationOnEditGUI[2], 1.f});
+
+		temp->GetTransform().SetLocalScale(float4{ s_farrCurrScaleOnEditGUI[0], s_farrCurrScaleOnEditGUI[1], s_farrCurrScaleOnEditGUI[2] , 1.f });
+		temp->GetTransform().SetLocalRotate(float4{ s_farrCurrPositionOnEditGUI[0] , s_farrCurrPositionOnEditGUI[1] , s_farrCurrPositionOnEditGUI[2] });
+		temp->GetTransform().SetLocalPosition(float4{ s_farrCurrRotationOnEditGUI[0], s_farrCurrRotationOnEditGUI[1], s_farrCurrRotationOnEditGUI[2], 1.f });
 
 		std::pair tempPair(tempStr, temp);
 		m_vCreatedActors.push_back(tempPair);
@@ -198,12 +177,12 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		auto iterEnd = m_vCreatedActors.end();
 		for (int i = 0; iterBeg != iterEnd; ++i)
 		{
-			if (selectedActor == i) 
-			{ 
+			if (selectedActor == i)
+			{
 				m_vCreatedActors[i].second->Death();
-				m_vCreatedActors.erase(iterBeg); 
+				m_vCreatedActors.erase(iterBeg);
 				m_vCreatedActors[i] = std::make_pair<std::string, StaticMesh*>("NULL", nullptr);
-				break; 
+				break;
 			}
 			++iterBeg;
 		}
@@ -213,53 +192,48 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 
 	if (true == ImGui::Button("Load"))
 	{
-		Load();
+		PrepareForLoading();
 	}
 
 	ImGui::SameLine();
 
 	if (true == ImGui::Button("Save"))
 	{
-		Save();
+		PrepareForSaving();
 	}
+#pragma endregion
 
 #pragma region SelectedObjectMovement
 	if (0 != m_vCreatedActors.size())
 	{
-		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectUp"))
+		if (false == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectUp"))
 		{
-			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetUpVector();
-			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(float4::UP * 400.f * _DeltaTime);
 		}
 
-		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectDown"))
+		if (false == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectDown"))
 		{
-			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetDownVector();
-			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(float4::DOWN * 400.f * _DeltaTime);
 		}
 
-		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectLeft"))
+		if (false == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectLeft"))
 		{
-			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetLeftVector();
-			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(float4::LEFT * 400.f * _DeltaTime);
 		}
 
-		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRight"))
+		if (false == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectRight"))
 		{
-			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetRightVector();
-			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(float4::RIGHT * 400.f * _DeltaTime);
 		}
 
-		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectForward"))
+		if (false == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectForward"))
 		{
-			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetForwardVector();
-			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(float4::FORWARD * 400.f * _DeltaTime);
 		}
 
-		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectBackward"))
+		if (false == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectBackward"))
 		{
-			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetBackVector();
-			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(dir * 400.f * _DeltaTime);
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalMove(float4::BACK * 400.f * _DeltaTime);
 		}
 	}
 	
@@ -270,78 +244,63 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	{
 		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectUp"))
 		{
-			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetUpVector();
-			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(float4::UP * 400.f * _DeltaTime);
 		}
 
 		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectDown"))
 		{
-			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetDownVector();
-			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(float4::DOWN * 400.f * _DeltaTime);
 		}
 
 		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectLeft"))
 		{
-			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetLeftVector();
-			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(float4::LEFT * 400.f * _DeltaTime);
 		}
 
 		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectRight"))
 		{
-			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetRightVector();
-			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(float4::RIGHT * 400.f * _DeltaTime);
 		}
 
 		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectForward"))
 		{
-			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetForwardVector();
-			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(float4::FORWARD * 400.f * _DeltaTime);
 		}
 
 		if (true == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("SelectedObjectBackward"))
 		{
-			float4 dir = m_vCreatedActors[selectedActor].second->GetTransform().GetBackVector();
-			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(dir * 400.f * _DeltaTime);
+			m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotate(float4::BACK * 400.f * _DeltaTime);
 		}
 	}
 #pragma endregion
 
-#pragma region ValueUpdate
-	if (0 != m_vCreatedActors.size() && true == CheckChanges(selectedActor))
+#pragma region SyncronizeStaticValue
+	// curr 값 변경 -> prev 값 체크 -> 엑터 값 업데이트
+	// 엑터값 변경(화살표) -> prev 값과 체크 -> curr 값 변경
+
+	if (0 != m_vCreatedActors.size() && true == CheckChangesAboutCurrStaticValue(selectedActor))
 	{
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalScale(s_farrScaleOnEditGUI[0]);
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalScale(s_farrScaleOnEditGUI[1]);
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalScale(s_farrScaleOnEditGUI[2]);
-
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotation(s_farrRotationOnEditGUI[0]);
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotation(s_farrRotationOnEditGUI[1]);
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotation(s_farrRotationOnEditGUI[2]);
-
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalPosition(s_farrPositionOnEditGUI[0]);
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalPosition(s_farrPositionOnEditGUI[1]);
-		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalPosition(s_farrPositionOnEditGUI[2]);
+		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalScale(float4{ s_farrCurrScaleOnEditGUI[0], s_farrCurrScaleOnEditGUI[1], s_farrCurrScaleOnEditGUI[2] });
+		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalRotation(float4{ s_farrCurrRotationOnEditGUI[0], s_farrCurrRotationOnEditGUI[1], s_farrCurrRotationOnEditGUI[2] });
+		m_vCreatedActors[selectedActor].second->GetTransform().SetLocalPosition(float4{ s_farrCurrPositionOnEditGUI[0], s_farrCurrPositionOnEditGUI[1], s_farrCurrPositionOnEditGUI[2] });
 	}
-	
-	if (0 != m_vCreatedActors.size() && nullptr != m_vCreatedActors[selectedActor].second)
+
+	if (0 != m_vCreatedActors.size() && nullptr != m_vCreatedActors[selectedActor].second
+		&& true == CheckChangesAboutCreature(selectedActor))
 	{
-		s_farrScaleOnEditGUI[0] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalScale().x;
-		s_farrScaleOnEditGUI[1] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalScale().y;
-		s_farrScaleOnEditGUI[2] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalScale().z;
-
-		s_farrRotationOnEditGUI[0] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalRotation().x;
-		s_farrRotationOnEditGUI[1] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalRotation().y;
-		s_farrRotationOnEditGUI[2] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalRotation().z;
-
-		s_farrPositionOnEditGUI[0] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalPosition().x;
-		s_farrPositionOnEditGUI[1] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalPosition().y;
-		s_farrPositionOnEditGUI[2] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalPosition().z;
+		for (int i = 0; i < 3; ++i)
+		{
+			s_farrCurrScaleOnEditGUI[i] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalScale().Arr1D[i];
+			s_farrCurrRotationOnEditGUI[i] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalRotation().Arr1D[i];
+			s_farrCurrPositionOnEditGUI[i] = m_vCreatedActors[selectedActor].second->GetTransform().GetLocalPosition().Arr1D[i];
+		}
 	}
 
 #pragma endregion
 
 }
 
-bool EditGUIWindow::CheckChanges(int _iSelectedActor)
+bool EditGUIWindow::CheckChangesAboutCreature(int _iSelectedActor)
 {
 	if (m_vCreatedActors.size() <= _iSelectedActor)
 	{
@@ -349,26 +308,67 @@ bool EditGUIWindow::CheckChanges(int _iSelectedActor)
 	}
 
 	if (
-		s_farrScaleOnEditGUI[0] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalScale().x &&
-		s_farrScaleOnEditGUI[1] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalScale().y &&
-		s_farrScaleOnEditGUI[2] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalScale().z &&
+		s_farrPrevScaleOnEditGUI[0] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalScale().x ||
+		s_farrPrevScaleOnEditGUI[1] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalScale().y ||
+		s_farrPrevScaleOnEditGUI[2] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalScale().z ||
 
-		s_farrRotationOnEditGUI[0] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalRotation().x &&
-		s_farrRotationOnEditGUI[1] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalRotation().y &&
-		s_farrRotationOnEditGUI[2] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalRotation().z &&
+		s_farrPrevRotationOnEditGUI[0] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalRotation().x ||
+		s_farrPrevRotationOnEditGUI[1] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalRotation().y ||
+		s_farrPrevRotationOnEditGUI[2] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalRotation().z ||
 
-		s_farrPositionOnEditGUI[0] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalPosition().x &&
-		s_farrPositionOnEditGUI[1] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalPosition().y &&
-		s_farrPositionOnEditGUI[2] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalPosition().z
+		s_farrPrevPositionOnEditGUI[0] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalPosition().x ||
+		s_farrPrevPositionOnEditGUI[1] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalPosition().y ||
+		s_farrPrevPositionOnEditGUI[2] != m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalPosition().z
 		)
 	{
+		for (int i = 0; i < 3; ++i)
+		{
+			s_farrPrevScaleOnEditGUI[i] = m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalScale().Arr1D[i];
+			s_farrPrevRotationOnEditGUI[i] = m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalRotation().Arr1D[i];
+			s_farrPrevPositionOnEditGUI[i] = m_vCreatedActors[_iSelectedActor].second->GetTransform().GetLocalPosition().Arr1D[i];
+		}
+
 		return true;
 	}
 
 	return false;
 }
 
-void EditGUIWindow::Save()
+bool EditGUIWindow::CheckChangesAboutCurrStaticValue(int _iSelectedActor)
+{
+	if (m_vCreatedActors.size() <= _iSelectedActor)
+	{
+		return false;
+	}
+
+	if (
+		s_farrPrevScaleOnEditGUI[0] != s_farrCurrScaleOnEditGUI[0] ||
+		s_farrPrevScaleOnEditGUI[1] != s_farrCurrScaleOnEditGUI[1] ||
+		s_farrPrevScaleOnEditGUI[2] != s_farrCurrScaleOnEditGUI[2] ||
+
+		s_farrPrevRotationOnEditGUI[0] != s_farrCurrRotationOnEditGUI[0] ||
+		s_farrPrevRotationOnEditGUI[1] != s_farrCurrRotationOnEditGUI[1] ||
+		s_farrPrevRotationOnEditGUI[2] != s_farrCurrRotationOnEditGUI[2] ||
+
+		s_farrPrevPositionOnEditGUI[0] != s_farrCurrPositionOnEditGUI[0] ||
+		s_farrPrevPositionOnEditGUI[1] != s_farrCurrPositionOnEditGUI[1] ||
+		s_farrPrevPositionOnEditGUI[2] != s_farrCurrPositionOnEditGUI[2]
+		)
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			s_farrPrevScaleOnEditGUI[i]    = s_farrCurrScaleOnEditGUI[i];
+			s_farrPrevRotationOnEditGUI[i] = s_farrCurrScaleOnEditGUI[i];
+			s_farrPrevPositionOnEditGUI[i] = s_farrCurrScaleOnEditGUI[i];
+		}
+
+		return true;
+	}
+
+	return false;
+}
+
+void EditGUIWindow::PrepareForSaving()
 {
 	OPENFILENAME ofn = {};
 
@@ -395,11 +395,11 @@ void EditGUIWindow::Save()
 	if (TRUE == GetSaveFileName(&ofn))
 	{
 		std::filesystem::path p(ofn.lpstrFile);
-		SaveTileData(p.filename().string());
+		SaveData(p.filename().string());
 	}
 }
 
-void EditGUIWindow::SaveTileData(const std::string& _strTitle)
+void EditGUIWindow::SaveData(const std::string& _strTitle)
 {
 	std::ofstream fout;
 
@@ -428,7 +428,7 @@ void EditGUIWindow::SaveTileData(const std::string& _strTitle)
 	fout.close();
 }
 
-void EditGUIWindow::Load()
+void EditGUIWindow::PrepareForLoading()
 {
 	OPENFILENAME ofn = {};
 
@@ -473,10 +473,13 @@ void EditGUIWindow::Load()
 				>> f4Rotation.x >> f4Rotation.y >> f4Rotation.z
 				>> f4Position.x >> f4Position.y >> f4Position.z;
 
-			StaticMesh* temp = m_ptrEditLevel->CreateActor<StaticMesh>();
+			StaticMesh* temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
+			temp->SetPriorityInitialize();
+			temp->GetFBXRenderer()->SetFBXMesh(strName + ".fbx", "Texture");
 			temp->GetTransform().SetLocalScale(f4Scale);
 			temp->GetTransform().SetLocalRotate(f4Rotation);
 			temp->GetTransform().SetLocalPosition(f4Position);
+			
 
 			std::pair tempPair(strName, temp);
 			m_vCreatedActors.push_back(tempPair);
@@ -488,7 +491,7 @@ void EditGUIWindow::Load()
 	}
 }
 
-void EditGUIWindow::LoadTileData(const std::string& _strFilePath)
+void EditGUIWindow::LoadData(const std::string& _strFilePath)
 {
 	int a = 0;
 }

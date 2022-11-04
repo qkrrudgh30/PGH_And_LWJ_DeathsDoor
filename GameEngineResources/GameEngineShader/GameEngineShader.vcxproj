@@ -134,6 +134,7 @@
     <FxCompile Include="RenderOption.fx" />
     <FxCompile Include="TargetMerge.hlsl" />
     <FxCompile Include="Texture.hlsl" />
+    <FxCompile Include="TextureAnimation.hlsl" />
     <FxCompile Include="TextureAtlas.hlsl" />
     <FxCompile Include="DebugTexture.hlsl" />
     <FxCompile Include="TransformHeader.fx" />

@@ -52,3 +52,12 @@ public:
 	float4 WEIGHT; // 애니메이션 가중치
 	int BLENDINDICES[4];
 };
+//
+//"POSITION", DX
+//"TEXCOORD", DX
+//"COLOR", DXGI_
+//"NORMAL", DXGI
+//"BINORMAL", DX
+//"TANGENT", DXG
+//"BLENDWEIGHT",
+//"BLENDINDICES"

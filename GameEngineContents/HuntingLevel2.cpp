@@ -2,6 +2,7 @@
 #include "HuntingLevel2.h"
 #include "Player.h"
 #include "Potal.h"
+#include "ROOM_Left.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -35,9 +36,7 @@ void HuntingLevel2::Start()
 
 	}
 
-
-
-
+	
 
 }
 
@@ -54,14 +53,18 @@ void HuntingLevel2::LevelStartEvent()
 #pragma region LoadFBXMeshiesAndAnimation
 	if (false == mbPrimitiveInitialized)
 	{
-		// DirectPathAt("02_HuntingLevel2");
-		// LoadFBXFiles();
+		DirectPathAt("02_HuntingLevel2");
+		LoadFBXFiles();
 
 		// TODO
 
 		mbPrimitiveInitialized = true;
 	}
 #pragma endregion
+
+	{
+		ROOM_Left* pMap = CreateActor<ROOM_Left>(OBJECTORDER::StaticMesh);
+	}
 
 
 

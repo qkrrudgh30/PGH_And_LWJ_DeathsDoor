@@ -4,7 +4,7 @@
 #include "FlowerMonster.h"
 #include "Player.h"
 #include "FlowerBullet.h"
-#include <GameEngineCore/GameEngineFBXRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 FlowerMonster::FlowerMonster()
 {
@@ -40,13 +40,13 @@ void FlowerMonster::Start()
 
 
 	{
-		FBXRenderer = CreateComponent<GameEngineFBXRenderer>();
+		FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 		
 		{
-			FBXRenderer->SetFBXMesh("Flower.FBX", "Texture");
+			FBXAnimationRenderer->SetFBXMesh("Flower.FBX", "Texture");
 		}
-		FBXRenderer->GetTransform().SetLocalScale({ 0.25f, 0.25f, 0.25f });
-		FBXRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
+		FBXAnimationRenderer->GetTransform().SetLocalScale({ 0.25f, 0.25f, 0.25f });
+		FBXAnimationRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
 	}
 
 
@@ -153,7 +153,7 @@ void FlowerMonster::AttEnd(const StateInfo& _Info)
 	//ÃÑ¾Ë »ý¼º
 	FlowerBullet* m_ArrowAtt = GetLevel()->CreateActor<FlowerBullet>(OBJECTORDER::MonsterAtt);
 	m_ArrowAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-	m_ArrowAtt->GetTransform().SetLocalRotation(FBXRenderer->GetTransform().GetLocalRotation());
+	m_ArrowAtt->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 	
 
 
@@ -194,7 +194,7 @@ void FlowerMonster::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 			Angle -= 0.f;
 		}
 
-		FBXRenderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
+		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
 
 
 

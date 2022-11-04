@@ -1,3 +1,5 @@
+0. 알집 풀기
+
 1. DEBUG3D에서 CLIP 코드 삭제
 
 
@@ -20,3 +22,6 @@
 
 
 5. ScInfo.SwapEffect = DXGI_SWAP_EFFECT::DXGI_SWAP_EFFECT_FLIP_DISCARD;
+
+Player 안쓰는 매시노드 번호
+  0 1 2 3 4 5 6 7 8 9 13

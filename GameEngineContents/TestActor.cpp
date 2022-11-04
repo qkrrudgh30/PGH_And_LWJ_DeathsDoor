@@ -1,6 +1,6 @@
 #include "PreCompile.h"
 #include "TestActor.h"
-#include <GameEngineCore/GameEngineFBXRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 //#include "GameEngineCore/GameEngineDefaultRenderer.h"
 
 TestActor::TestActor()
@@ -15,7 +15,7 @@ TestActor::~TestActor()
 void TestActor::Start()
 {
 	ResultColor = float4{ 1.f, 1.f, 0.f, 1.f};
-	GameEngineFBXRenderer* Renderer = CreateComponent<GameEngineFBXRenderer>();
+	GameEngineFBXStaticRenderer* Renderer = CreateComponent<GameEngineFBXStaticRenderer>();
 	// GameEngineFBXRenderer* Renderer2 = CreateComponent<GameEngineFBXRenderer>();
 	// GameEngineFBXRenderer* Renderer3 = CreateComponent<GameEngineFBXRenderer>();
 	// Renderer->GetTransform().SetLocalRotate(float4{20.f, -20.f, 180.f});

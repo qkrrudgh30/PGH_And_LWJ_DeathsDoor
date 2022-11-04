@@ -80,11 +80,19 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameEngineFBXAnimationRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="GameEngineFBXMesh.h">
       <SubType>
       </SubType>
     </ClInclude>
     <ClInclude Include="GameEngineFBXRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="GameEngineFBXStaticRenderer.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -287,11 +295,19 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GameEngineFBXAnimationRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="GameEngineFBXMesh.cpp">
       <SubType>
       </SubType>
     </ClCompile>
     <ClCompile Include="GameEngineFBXRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="GameEngineFBXStaticRenderer.cpp">
       <SubType>
       </SubType>
     </ClCompile>

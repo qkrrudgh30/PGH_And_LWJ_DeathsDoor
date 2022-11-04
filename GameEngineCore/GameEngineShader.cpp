@@ -31,6 +31,11 @@ void GameEngineSamplerSetter::Setting() const
 
 void GameEngineStructuredBufferSetter::Setting() const
 {
+	if (true == CpuDataBuffer.empty())
+	{
+		return;
+	}
+
 	Res->ChangeData(&CpuDataBuffer[0], CpuDataBuffer.size());
 	SettingFunction();
 }
@@ -140,6 +145,11 @@ void GameEngineShader::CreateVersion(const std::string& _ShaderType, UINT _Versi
 // 쉐이더에서 상수버퍼를 사용했는지 텍스처를 썼는지
 void GameEngineShader::ShaderResCheck(const std::string_view& _Name)
 {
+	if (std::string::npos != _Name.find("TEXTUREANIMATION.HLSL"))
+	{
+		int a = 0;
+	}
+
 	// BinaryPtr 완전히 빌드된 쉐이더 파일의 2진 메모리
 	if (nullptr == BinaryPtr)
 	{
@@ -210,7 +220,7 @@ void GameEngineShader::ShaderResCheck(const std::string_view& _Name)
 			NewSetter.ShaderType = ShaderSettingType;
 			NewSetter.Res = GameEngineConstantBuffer::CreateAndFind(Name, BufferDesc);
 			NewSetter.BindPoint = ResInfo.BindPoint;
-			ConstantBufferMap.insert(std::make_pair(Name, NewSetter));
+			ConstantBufferSettingMap.insert(std::make_pair(Name, NewSetter));
 
 			break;
 		}
@@ -222,7 +232,7 @@ void GameEngineShader::ShaderResCheck(const std::string_view& _Name)
 			NewSetter.ShaderType = ShaderSettingType;
 			NewSetter.Res = GameEngineTexture::Find("NSet.png");
 			NewSetter.BindPoint = ResInfo.BindPoint;
-			TextureMap.insert(std::make_pair(Name, NewSetter));
+			TextureSettingMap.insert(std::make_pair(Name, NewSetter));
 			break;
 		}
 		case D3D_SIT_SAMPLER:
@@ -237,7 +247,7 @@ void GameEngineShader::ShaderResCheck(const std::string_view& _Name)
 				MsgBoxAssertString("존재하지 않는 샘플러를 사용하려고 했습니다." + Name + " ShaderName : " + _Name.data());
 			}
 			NewSetter.BindPoint = ResInfo.BindPoint;
-			SamplerMap.insert(std::make_pair(Name, NewSetter));
+			SamplerSettingMap.insert(std::make_pair(Name, NewSetter));
 			break;
 		}
 		case D3D_SIT_STRUCTURED:
@@ -257,8 +267,7 @@ void GameEngineShader::ShaderResCheck(const std::string_view& _Name)
 			NewSetter.Res = GameEngineStructuredBuffer::CreateAndFind(Name, BufferDesc, 0);
 			NewSetter.BindPoint = ResInfo.BindPoint;
 
-			StructuredBufferMap.insert(std::make_pair(Name, NewSetter));
-			// StructuredBufferMap = 
+			StructuredBufferSettingMap.insert(std::make_pair(Name, NewSetter));
 
 			break;
 		}
@@ -274,8 +283,8 @@ void GameEngineShader::ShaderResCheck(const std::string_view& _Name)
 
 	}
 
-	ConstantBufferMap;
-	TextureMap;
+	ConstantBufferSettingMap;
+	TextureSettingMap;
 
 	// 상수버는 몇개 쓰는지 크기는 얼마인지 이런것들을 알아내줍니다.
 	// CompileInfo
@@ -287,10 +296,62 @@ GameEngineConstantBufferSetter& GameEngineShader::GetConstantBufferSetter(std::s
 {
 	std::string Name = GameEngineString::ToUpperReturn(_Name);
 
-	if (ConstantBufferMap.end() == ConstantBufferMap.find(Name))
+	if (ConstantBufferSettingMap.end() == ConstantBufferSettingMap.find(Name))
 	{
 		MsgBoxAssert("존재하지 않는 상수버퍼를 찾으려고 했습니다.");
 	}
 
-	return ConstantBufferMap[Name];
+	return ConstantBufferSettingMap[Name];
+}
+
+bool GameEngineShader::IsTexture(const std::string& _Name)
+{
+	std::string Key = GameEngineString::ToUpperReturn(_Name);
+
+	if (TextureSettingMap.end() != TextureSettingMap.find(Key))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+
+
+bool GameEngineShader::IsSampler(const std::string& _Name)
+{
+	std::string Key = GameEngineString::ToUpperReturn(_Name);
+
+	if (SamplerSettingMap.end() != SamplerSettingMap.find(Key))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+
+
+bool GameEngineShader::IsConstantBuffer(const std::string& _Name)
+{
+	std::string Key = GameEngineString::ToUpperReturn(_Name);
+
+	if (ConstantBufferSettingMap.end() != ConstantBufferSettingMap.find(Key))
+	{
+		return true;
+	}
+
+	return false;
+}
+
+bool GameEngineShader::IsStructuredBuffer(const std::string& _Name)
+{
+	std::string Key = GameEngineString::ToUpperReturn(_Name);
+
+	if (StructuredBufferSettingMap.end() != StructuredBufferSettingMap.find(Key))
+	{
+		return true;
+	}
+
+	return false;
 }

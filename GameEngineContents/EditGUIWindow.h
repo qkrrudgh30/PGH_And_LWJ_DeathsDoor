@@ -30,12 +30,12 @@ public:
 	EditGUIWindow& operator=(const EditGUIWindow& _Other) = delete;
 	EditGUIWindow& operator=(EditGUIWindow&& _Other) noexcept = delete;
 
-	void Save();
-	void SaveTileData(const std::string& _strTitle);
+	void PrepareForSaving();
+	void SaveData(const std::string& _strTitle);
 	// void SaveTileData(const std::wstring& _strFilePath, const std::string& _strTitle);
 
-	void Load();
-	void LoadTileData(const std::string& _strFilePath);
+	void PrepareForLoading();
+	void LoadData(const std::string& _strFilePath);
 
 	static std::vector<std::string>& GetLoadedFromAnimatorVector(void) { return m_vLoadedFromAnimator; }
 	static std::vector<std::string>& GetLoadedFromStaticVector(void) { return m_vLoadedFromStatic; }
@@ -45,7 +45,8 @@ protected:
 private:
 	void Initialize(class GameEngineLevel* _Level) override;
 	void OnGUI(GameEngineLevel* _Level, float _DeltaTime) override;
-	bool CheckChanges(int _iSelectedActor);
+	bool CheckChangesAboutCreature(int _iSelectedActor);
+	bool CheckChangesAboutCurrStaticValue(int _iSelectedActor);
 
 	// void CreateMultiple(int _XCount, int Y);
 
@@ -54,12 +55,20 @@ private:
 	static std::vector<std::string> m_vLoadedFromAnimator;
 	static std::vector<std::string> m_vLoadedFromStatic;
 
-	EditLevel* m_ptrEditLevel;
 	std::vector<std::pair<std::string, class StaticMesh*>> m_vCreatedActors;
 
-	static float s_farrScaleOnEditGUI[3];
-	static float s_farrRotationOnEditGUI[3];
-	static float s_farrPositionOnEditGUI[3];
+	static float s_farrCurrScaleOnEditGUI[3];
+	static float s_farrPrevScaleOnEditGUI[3];
+	static float s_farrCurrRotationOnEditGUI[3];
+	static float s_farrPrevRotationOnEditGUI[3];
+	static float s_farrCurrPositionOnEditGUI[3];
+	static float s_farrPrevPositionOnEditGUI[3];
+
+	static float s_farrCurrColliderScaleOnEditGUI[3];
+	static float s_farrCurrColliderRotationOnEditGUI[3];
+	static float s_farrCurrColliderPositionOnEditGUI[3];
+
+
 
 };
 

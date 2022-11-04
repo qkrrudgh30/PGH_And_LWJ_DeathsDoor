@@ -24,6 +24,9 @@
     <FxCompile Include="Blur.hlsl">
       <Filter>TargetEffect</Filter>
     </FxCompile>
+    <FxCompile Include="TextureAnimation.hlsl">
+      <Filter>Object</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Debug">

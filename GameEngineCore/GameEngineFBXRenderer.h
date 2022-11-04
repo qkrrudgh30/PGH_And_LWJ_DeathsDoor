@@ -10,7 +10,7 @@ class GameEngineFBXRenderer : public GameEngineRenderer
 public:
 	// constrcuter destructer
 	GameEngineFBXRenderer();
-	~GameEngineFBXRenderer();
+	virtual ~GameEngineFBXRenderer() = 0;
 
 	// delete Function
 	GameEngineFBXRenderer(const GameEngineFBXRenderer& _Other) = delete;
@@ -18,8 +18,8 @@ public:
 	GameEngineFBXRenderer& operator=(const GameEngineFBXRenderer& _Other) = delete;
 	GameEngineFBXRenderer& operator=(GameEngineFBXRenderer&& _Other) noexcept = delete;
 
-	void SetFBXMesh(const std::string& _Name, std::string _PipeLine);
-	void SetFBXMesh(const std::string& _Name, std::string _PipeLine, size_t MeshIndex, size_t _SubSetIndex = 0);
+	virtual void SetFBXMesh(const std::string& _Name, std::string _Material);
+	virtual void SetFBXMesh(const std::string& _Name, std::string _Material, size_t MeshIndex, size_t _SubSetIndex = 0);
 
 	void Render(float _DeltaTime) override;
 
@@ -28,17 +28,15 @@ public:
 		return Unit;
 	}
 
-	void CreateAnimation(const std::string& _AnimationName, const std::string& _MeshFBX, const std::string& _AnimationFBX);
+	inline GameEngineFBXMesh* GetFBXMesh() 
+	{
+		return FBXMesh;
+	}
 
 protected:
-	
-
 
 private:
 	GameEngineFBXMesh* FBXMesh;
-
-	// 대검 
-	// 사람          
 	std::vector<std::vector<GameEngineRenderUnit>> Unit;
 
 };

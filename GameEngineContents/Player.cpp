@@ -18,7 +18,7 @@
 #include <GameEngineContents/GlobalContentsValue.h>
 #include <iostream>
 #include <GameEngineCore/GameEngineFont.h>
-#include <GameEngineCore/GameEngineFBXRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 
 Player* Player::MainPlayer = nullptr;
@@ -175,31 +175,52 @@ void Player::Start()
 	StateManager.ChangeState("Idle");
 
 
+	//{
+	//
+
+	//	FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	//	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
+	//	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
+
+	//	GameEngineFBXStaticRenderer* FBXCrowRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	//	FBXCrowRenderer->SetParent(FBXAnimationRenderer);
+
+	//	GameEngineFBXStaticRenderer* pGarbageRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	//	for (int i = 0; i < 17; ++i)
+	//	{
+	//		if ((0 <= i && i <= 9) || i == 13) 
+	//		{ 
+	//			pGarbageRenderer->SetFBXMesh("crow_player (fbx).FBX", "Color", i);
+	//			pGarbageRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4{0.f, 0.f, 0.f, 0.f});
+	//			continue;
+	//		}
+
+	//		if (14 == i || 15 == i)
+	//		{
+	//			FBXAnimationRenderer->SetFBXMesh("crow_player (fbx).FBX", "Color", i);
+	//			FBXAnimationRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::RED);
+	//			continue;
+	//		}
+
+	//		FBXCrowRenderer->SetFBXMesh("crow_player (fbx).FBX", "Texture", i);
+	//		FBXCrowRenderer->GetTransform().SetLocalRotation({0.f,180.f,0.f});
+	//	//	FBXCrowRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
+	//	}
+
+	//}
+
+	FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
+	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
+	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
+
+
+	for (int i = 0; i < 6; ++i)
 	{
-	
-
-		FBXRenderer = CreateComponent<GameEngineFBXRenderer>();
-		FBXRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
-		FBXRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
-
-		GameEngineFBXRenderer* FBXCrowRenderer = CreateComponent<GameEngineFBXRenderer>();
-		FBXCrowRenderer->SetParent(FBXRenderer);
-		for (int i = 2; i < 17; ++i)
+		if (i != 5)
 		{
-			if ((2 <= i && i <= 9) || i == 13) { continue; }
-
-			if (14 == i || 15 == i)
-			{
-				FBXRenderer->SetFBXMesh("crow_player (fbx).FBX", "Color", i);
-				FBXRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::RED);
-				continue;
-			}
-
-			FBXCrowRenderer->SetFBXMesh("crow_player (fbx).FBX", "Texture", i);
-			FBXCrowRenderer->GetTransform().SetLocalRotation({0.f,180.f,0.f});
-		//	FBXCrowRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
+			FBXAnimationRenderer->SetFBXMesh("banker.FBX", "Texture", i);
 		}
-
 	}
 
 
@@ -349,7 +370,7 @@ void Player::SworldAttStart(const StateInfo& _Info)
 	}
 
 
-	FBXRenderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
+	FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
 
 
 
@@ -359,7 +380,7 @@ void Player::SworldAttStart(const StateInfo& _Info)
 
 
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	float4 RenderFoward = FBXRenderer->GetTransform().GetForwardVector();
+	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
 	RenderFoward = RenderFoward * 100.f;
 	
 
@@ -368,11 +389,11 @@ void Player::SworldAttStart(const StateInfo& _Info)
 
 	m_CSWAtt1 = GetLevel()->CreateActor<PlayerSWAtt1>(OBJECTORDER::PlayerAtt);
 	m_CSWAtt1->GetTransform().SetLocalPosition(RenderFoward);
-	m_CSWAtt1->GetTransform().SetLocalRotation(FBXRenderer->GetTransform().GetLocalRotation());
+	m_CSWAtt1->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 	
 	
 	//AttCollision->GetTransform().SetLocalPosition(RenderFoward * 100.f);
-//	AttCollision->GetTransform().SetLocalRotation(FBXRenderer->GetTransform().GetLocalRotation());
+//	AttCollision->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 
 	
 }
@@ -448,7 +469,7 @@ void Player::SworldAttStart2(const StateInfo& _Info)
 	m_bSWA2check = false;
 
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	float4 RenderFoward = FBXRenderer->GetTransform().GetForwardVector();
+	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
 	RenderFoward = RenderFoward * 100.f;
 
 
@@ -457,11 +478,11 @@ void Player::SworldAttStart2(const StateInfo& _Info)
 
 	m_CSWAtt2 = GetLevel()->CreateActor<PlayerSWAtt2>(OBJECTORDER::PlayerAtt);
 	m_CSWAtt2->GetTransform().SetLocalPosition(RenderFoward);
-	m_CSWAtt2->GetTransform().SetLocalRotation(FBXRenderer->GetTransform().GetLocalRotation());
+	m_CSWAtt2->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 
 
 	//AttCollision->GetTransform().SetLocalPosition(RenderFoward * 100.f);
-//	AttCollision->GetTransform().SetLocalRotation(FBXRenderer->GetTransform().GetLocalRotation());
+//	AttCollision->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 
 
 }
@@ -538,7 +559,7 @@ void Player::SworldAttStart3(const StateInfo& _Info)
 	m_bSWA3check = false;
 
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	float4 RenderFoward = FBXRenderer->GetTransform().GetForwardVector();
+	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
 	RenderFoward = RenderFoward * 100.f;
 
 
@@ -547,7 +568,7 @@ void Player::SworldAttStart3(const StateInfo& _Info)
 
 	m_CSWAtt3 = GetLevel()->CreateActor<PlayerSWAtt3>(OBJECTORDER::PlayerAtt);
 	m_CSWAtt3->GetTransform().SetLocalPosition(RenderFoward);
-	m_CSWAtt3->GetTransform().SetLocalRotation(FBXRenderer->GetTransform().GetLocalRotation());
+	m_CSWAtt3->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 
 
 
@@ -613,7 +634,7 @@ void Player::ArrowAttEnd(const StateInfo& _Info)
 	{
 		PlayerArrowAtt* m_ArrowAtt = GetLevel()->CreateActor<PlayerArrowAtt>(OBJECTORDER::PlayerAtt);
 		m_ArrowAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-		m_ArrowAtt->GetTransform().SetLocalRotation(FBXRenderer->GetTransform().GetLocalRotation());
+		m_ArrowAtt->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 		m_bArrowCameraCheck = false;
 		m_Info.ArrowCount -= 1;
 	}
@@ -622,7 +643,7 @@ void Player::ArrowAttEnd(const StateInfo& _Info)
 
 		m_CHookAtt = GetLevel()->CreateActor<PlayerHookAtt>(OBJECTORDER::PlayerAtt);
 		m_CHookAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-		m_CHookAtt->GetTransform().SetLocalRotation(FBXRenderer->GetTransform().GetLocalRotation());
+		m_CHookAtt->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 
 
 		m_bArrowCameraCheck = false;
@@ -734,9 +755,9 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 
 
-	FBXRenderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
+	FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
 
-	m_fArrowCameraActionPos = FBXRenderer->GetTransform().GetWorldPosition() + FBXRenderer->GetTransform().GetForwardVector() * Len;
+	m_fArrowCameraActionPos = FBXAnimationRenderer->GetTransform().GetWorldPosition() + FBXAnimationRenderer->GetTransform().GetForwardVector() * Len;
 
 
 	
@@ -787,7 +808,7 @@ void Player::HookAttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 
 		m_fSpeed = 1500.f;
-		float4 MoveDir = FBXRenderer->GetTransform().GetForwardVector();
+		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * m_fSpeed * _DeltaTime);
 	}
 
@@ -827,7 +848,7 @@ void Player::SlideEnd(const StateInfo& _Info)
 
 void Player::SlideUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-	float4 MoveDir = FBXRenderer->GetTransform().GetForwardVector();
+	float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 
 
 //	if (m_fAttTestTime >= 0.2f)
@@ -884,7 +905,7 @@ void Player::SlideAttStart(const StateInfo& _Info)
 {
 
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	float4 RenderFoward = FBXRenderer->GetTransform().GetForwardVector();
+	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
 	RenderFoward = RenderFoward * 100.f;
 
 
@@ -892,7 +913,7 @@ void Player::SlideAttStart(const StateInfo& _Info)
 
 	m_CSWAttSlide = GetLevel()->CreateActor<PlayerSWAttSlide>(OBJECTORDER::PlayerAtt);
 	m_CSWAttSlide->GetTransform().SetLocalPosition(RenderFoward);
-	m_CSWAttSlide->GetTransform().SetLocalRotation(FBXRenderer->GetTransform().GetLocalRotation());
+	m_CSWAttSlide->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 
 }
 
@@ -918,7 +939,7 @@ void Player::SlideAttUpdate(float _DeltaTime, const StateInfo& _Info)
 	}
 
 
-	float4 MoveDir = FBXRenderer->GetTransform().GetForwardVector();
+	float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 
 	GetTransform().SetWorldMove(MoveDir * m_fSlideSpeed * _DeltaTime);
 	m_CSWAttSlide->GetTransform().SetWorldMove(MoveDir * m_fSlideSpeed * _DeltaTime);
@@ -955,9 +976,9 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight")  && true == GameEngineInput::GetInst()->IsPress("PlayerF"))
 	{
 		
-		FBXRenderer->GetTransform().SetLocalRotation({ 0.f,45.f,0.f });
+		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,45.f,0.f });
 
-		float4 MoveDir = FBXRenderer->GetTransform().GetForwardVector();
+		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
 
 
@@ -966,25 +987,25 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight") && true == GameEngineInput::GetInst()->IsPress("PlayerB"))
 	{
 		
-		FBXRenderer->GetTransform().SetLocalRotation({ 0.f,135.f,0.f });
+		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,135.f,0.f });
 
 
-		float4 MoveDir = FBXRenderer->GetTransform().GetForwardVector();
+		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft") && true == GameEngineInput::GetInst()->IsPress("PlayerF"))
 	{
-		FBXRenderer->GetTransform().SetLocalRotation({ 0.f,315.f,0.f });
+		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,315.f,0.f });
 
-		float4 MoveDir = FBXRenderer->GetTransform().GetForwardVector();
+		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft") && true == GameEngineInput::GetInst()->IsPress("PlayerB"))
 	{
 		
-		FBXRenderer->GetTransform().SetLocalRotation({ 0.f,225.f,0.f });
+		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,225.f,0.f });
 
-		float4 MoveDir = FBXRenderer->GetTransform().GetForwardVector();
+		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
 	}
 	
@@ -994,9 +1015,9 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	{
 	
 
-		FBXRenderer->GetTransform().SetLocalRotation({ 0.f,270.f,0.f });
+		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,270.f,0.f });
 
-		float4 MoveDir = FBXRenderer->GetTransform().GetForwardVector();
+		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
 
 	}
@@ -1004,27 +1025,27 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight"))
 	{
 		
-		FBXRenderer->GetTransform().SetLocalRotation({ 0.f,90.f,0.f });
+		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,90.f,0.f });
 
-		float4 MoveDir = FBXRenderer->GetTransform().GetForwardVector();
+		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
 
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("PlayerF"))
 	{
 		
-		FBXRenderer->GetTransform().SetLocalRotation({ 0.f,0.f,0.f });
+		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,0.f,0.f });
 
-		float4 MoveDir = FBXRenderer->GetTransform().GetForwardVector();
+		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
 
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("PlayerB"))
 	{
 		
-		FBXRenderer->GetTransform().SetLocalRotation({ 0.f,180.f,0.f });
+		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,180.f,0.f });
 
-		float4 MoveDir = FBXRenderer->GetTransform().GetForwardVector();
+		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
 
 	}
@@ -1228,7 +1249,7 @@ void Player::Update(float _DeltaTime)
 
 	//
 
-	Collision->GetTransform().SetLocalRotation(FBXRenderer->GetTransform().GetLocalRotation());
+	Collision->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 	
 	float4 WoprldPos = GetTransform().GetWorldPosition();
 

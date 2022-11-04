@@ -33,7 +33,7 @@ void GameEngineFBXMesh::MeshLoad()
 
 	VertexBufferCheck();
 
-	// ImportBone();
+	ImportBone();
 
 	AllBones; // 본정보체
 	AllFindMap;

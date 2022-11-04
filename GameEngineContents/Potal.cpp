@@ -1,7 +1,7 @@
 
 #include "PreCompile.h"
 #include "Potal.h"
-#include <GameEngineCore/GameEngineFBXRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 Potal::Potal()
 {
@@ -22,12 +22,12 @@ void Potal::Start()
 
 
 	{
-		FBXRenderer = CreateComponent<GameEngineFBXRenderer>();
-		FBXRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
-		FBXRenderer->GetTransform().SetLocalScale(float4{ 0.25f, 0.25f, 0.25f });
-		FBXRenderer->GetTransform().SetLocalRotation({ 0.f, 45.f, 0.f });
+		FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+		FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
+		FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.25f, 0.25f, 0.25f });
+		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f, 45.f, 0.f });
 		{
-			FBXRenderer->SetFBXMesh("woodDoor.FBX", "Texture");
+			FBXAnimationRenderer->SetFBXMesh("woodDoor.FBX", "Texture");
 		}
 		
 	}
