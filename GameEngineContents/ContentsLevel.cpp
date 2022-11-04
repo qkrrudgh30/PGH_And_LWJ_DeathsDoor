@@ -1,9 +1,13 @@
 #include "PreCompile.h"
 #include "GameEngineBase/GameEngineDirectory.h"
+#include "GameEngineCore/GameEngineFBXStaticRenderer.h"
 
 #include "ContentsLevel.h"
 #include "EditGUIWindow.h"
+#include "StaticMesh.h"
 
+#include <filesystem>
+#include <fstream>
 
 std::atomic<int> ContentsLevel::muFBXFolderCount = 0;
 
@@ -70,6 +74,49 @@ void ContentsLevel::LoadTextureInStatic()
 		GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(vOuterDirectories[i].PlusFilePath(strTemp + ".FBX"));
 		mapDir.Move("..\\");
 		++muFBXFolderCount;
+	}
+}
+
+void ContentsLevel::LoadCreaturesFromFile(const std::string& _strFolderName)
+{
+	GameEngineDirectory tempDir;
+	tempDir.MoveParentToExitsChildDirectory("ContentsResources");
+	tempDir.Move("ContentsResources");
+	tempDir.Move("Texture");
+	tempDir.Move(_strFolderName);
+
+	std::filesystem::path p(tempDir.PlusFilePath(_strFolderName + ".txt"));
+
+	std::ifstream fin;
+	fin.open(p);
+
+	int uCount = 0;
+
+	fin >> uCount;
+
+	std::string strName;
+	float4 f4Scale, f4Rotation, f4Position;
+	float4 f4ColliderScale, f4ColliderRotation, f4ColliderPosition;
+	for (int i = 0; i < uCount; ++i)
+	{
+		fin >> strName
+			>> f4Scale.x >> f4Scale.y >> f4Scale.z
+			>> f4Rotation.x >> f4Rotation.y >> f4Rotation.z
+			>> f4Position.x >> f4Position.y >> f4Position.z
+			>> f4ColliderScale.x >> f4ColliderScale.y >> f4ColliderScale.z
+			>> f4ColliderRotation.x >> f4ColliderRotation.y >> f4ColliderRotation.z
+			>> f4ColliderPosition.x >> f4ColliderPosition.y >> f4ColliderPosition.z;
+
+		StaticMesh* temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
+		temp->SetPriorityInitialize();
+		temp->GetFBXRenderer()->SetFBXMesh(strName + ".fbx", "Texture");
+		temp->GetTransform().SetLocalScale(f4Scale);
+		temp->GetTransform().SetLocalRotate(f4Rotation);
+		temp->GetTransform().SetLocalPosition(f4Position);
+
+		temp->GetCollider()->GetTransform().SetLocalScale(f4ColliderScale);
+		temp->GetCollider()->GetTransform().SetLocalRotation(f4ColliderRotation);
+		temp->GetCollider()->GetTransform().SetLocalPosition(f4ColliderPosition);
 	}
 }
 

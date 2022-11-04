@@ -26,37 +26,8 @@ LoginLevel::~LoginLevel()
 
 void LoginLevel::Start()
 {
-
-
-#pragma region LoadFBXMeshiesAndAnimation
-	if (false == mbPrimitiveInitialized)
-	{
-		DirectPathAt("00_LoginLevel");
-		LoadFBXFiles();
-
-		// 애니메이션 액터의 매시 로드
-		// 스태틱 매시 로드
-		// 애니메이션 액터의 애니메이션 로드
-
-
-		/* 초기 멀티스레드 로딩 코드
-		GameEngineCore::EngineThreadPool.Work(
-			[this]
-			{
-				this->LoadTextureInStatic();
-			});
-
-		GameEngineCore::EngineThreadPool.Work(
-			[this]
-			{
-				this->LoadTextureInAnimator();
-			});
-		*/
-
-		mbPrimitiveInitialized = true;
-	}
-#pragma endregion
-
+	DirectPathAt("00_LoginLevel");
+	LoadFBXFiles();
 
 
 	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
@@ -87,13 +58,39 @@ void LoginLevel::Start()
 	}
 
 
-
 	
 }
 
 void LoginLevel::LevelStartEvent()
 {
+#pragma region LoadFBXMeshiesAndAnimation
+	if (false == mbPrimitiveInitialized)
+	{
+		LoadCreaturesFromFile("00_LoginLevel");
 
+		// 애니메이션 액터의 매시 로드
+		// 스태틱 매시 로드
+		// 애니메이션 액터의 애니메이션 로드
+
+
+		/* 초기 멀티스레드 로딩 코드
+		GameEngineCore::EngineThreadPool.Work(
+			[this]
+			{
+				this->LoadTextureInStatic();
+			});
+
+		GameEngineCore::EngineThreadPool.Work(
+			[this]
+			{
+				this->LoadTextureInAnimator();
+			});
+		*/
+
+		mbPrimitiveInitialized = true;
+	}
+#pragma endregion
+	
 
 	if (nullptr == UI)
 	{

@@ -54,6 +54,7 @@ void HuntingLevel3::LevelStartEvent()
 	{
 		DirectPathAt("03_HuntingLevel3");
 		LoadFBXFiles();
+		LoadCreaturesFromFile("03_HuntingLevel3");
 
 		// TODO
 

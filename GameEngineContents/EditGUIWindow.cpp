@@ -7,6 +7,7 @@
 
 #include <filesystem>
 #include <fstream>
+#include <iomanip>
 
 #include <GameEngineCore/GameEngineFBXRenderer.h>
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
@@ -410,19 +411,26 @@ void EditGUIWindow::SaveData(const std::string& _strTitle)
 	for (auto& item : m_vCreatedActors)
 	{
 
-		fout << item.first << ' ' 
-			<< item.second->GetTransform().GetLocalScale().x << ' '
-			<< item.second->GetTransform().GetLocalScale().y << ' '
-			<< item.second->GetTransform().GetLocalScale().z << ' '
+		fout << item.first << std::endl
+			<< std::setw(7) << item.second->GetTransform().GetLocalScale().x << ' '
+			<< std::setw(7) << item.second->GetTransform().GetLocalScale().y << ' '
+			<< std::setw(7) << item.second->GetTransform().GetLocalScale().z << ' ' << std::endl
+			<< std::setw(7) << item.second->GetTransform().GetLocalRotation().x << ' '
+			<< std::setw(7) << item.second->GetTransform().GetLocalRotation().y << ' '
+			<< std::setw(7) << item.second->GetTransform().GetLocalRotation().z << ' ' << std::endl
+			<< std::setw(7) << item.second->GetTransform().GetLocalPosition().x << ' '
+			<< std::setw(7) << item.second->GetTransform().GetLocalPosition().y << ' '
+			<< std::setw(7) << item.second->GetTransform().GetLocalPosition().z << ' ' << std::endl
+			<< std::setw(7) << item.second->GetCollider()->GetTransform().GetLocalScale().x << ' '
+			<< std::setw(7) << item.second->GetCollider()->GetTransform().GetLocalScale().y << ' '
+			<< std::setw(7) << item.second->GetCollider()->GetTransform().GetLocalScale().z << ' ' << std::endl
+			<< std::setw(7) << item.second->GetCollider()->GetTransform().GetLocalRotation().x << ' '
+			<< std::setw(7) << item.second->GetCollider()->GetTransform().GetLocalRotation().y << ' '
+			<< std::setw(7) << item.second->GetCollider()->GetTransform().GetLocalRotation().z << ' ' << std::endl
+			<< std::setw(7) << item.second->GetCollider()->GetTransform().GetLocalPosition().x << ' '
+			<< std::setw(7) << item.second->GetCollider()->GetTransform().GetLocalPosition().y << ' '
+			<< std::setw(7) << item.second->GetCollider()->GetTransform().GetLocalPosition().z << ' ' << std::endl;
 
-			<< item.second->GetTransform().GetLocalRotation().x << ' '
-			<< item.second->GetTransform().GetLocalRotation().y << ' '
-			<< item.second->GetTransform().GetLocalRotation().z << ' '
-			
-			<< item.second->GetTransform().GetLocalPosition().x << ' '
-			<< item.second->GetTransform().GetLocalPosition().y << ' '
-			<< item.second->GetTransform().GetLocalPosition().z << ' '
-			<< '\n';
 	}
 
 	fout.close();
@@ -466,12 +474,16 @@ void EditGUIWindow::PrepareForLoading()
 
 		std::string strName;
 		float4 f4Scale, f4Rotation, f4Position;
+		float4 f4ColliderScale, f4ColliderRotation, f4ColliderPosition;
 		for (int i = 0; i < uCount; ++i)
 		{
 			fin >> strName 
 				>> f4Scale.x >> f4Scale.y >> f4Scale.z
 				>> f4Rotation.x >> f4Rotation.y >> f4Rotation.z
-				>> f4Position.x >> f4Position.y >> f4Position.z;
+				>> f4Position.x >> f4Position.y >> f4Position.z
+				>> f4ColliderScale.x >> f4ColliderScale.y >> f4ColliderScale.z
+				>> f4ColliderRotation.x >> f4ColliderRotation.y >> f4ColliderRotation.z
+				>> f4ColliderPosition.x >> f4ColliderPosition.y >> f4ColliderPosition.z;
 
 			StaticMesh* temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
 			temp->SetPriorityInitialize();
@@ -479,6 +491,10 @@ void EditGUIWindow::PrepareForLoading()
 			temp->GetTransform().SetLocalScale(f4Scale);
 			temp->GetTransform().SetLocalRotate(f4Rotation);
 			temp->GetTransform().SetLocalPosition(f4Position);
+
+			temp->GetCollider()->GetTransform().SetLocalScale(f4ColliderScale);
+			temp->GetCollider()->GetTransform().SetLocalRotation(f4ColliderRotation);
+			temp->GetCollider()->GetTransform().SetLocalPosition(f4ColliderPosition);
 			
 
 			std::pair tempPair(strName, temp);
