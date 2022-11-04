@@ -21,17 +21,17 @@ void HuntingLevel4::Start()
 
 		Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 		Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-0.f });
-		Potal_->m_PotalType = PotalType::Stage4ToStage3;
+		Potal_->m_PotalType = PotalType::Stage4ToStage5;
 
 	}
 
-
+	 
 
 	{
 
 		Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 		Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-1300.F });
-		Potal_->m_PotalType = PotalType::Stage4ToStage5;
+		Potal_->m_PotalType = PotalType::Stage4ToStage3;
 
 	}
 }

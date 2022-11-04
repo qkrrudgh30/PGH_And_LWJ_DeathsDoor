@@ -21,9 +21,9 @@ void HuntingLevel5::Start()
 
 		Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 		Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-0.f });
-		Potal_->m_PotalType = PotalType::Stage5ToStage4;
+		Potal_->m_PotalType = PotalType::Stage5ToStageBoss;
 
-	}
+	} 
 
 
 
@@ -31,7 +31,7 @@ void HuntingLevel5::Start()
 
 		Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 		Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-1300.F });
-		Potal_->m_PotalType = PotalType::Stage5ToStageBoss;
+		Potal_->m_PotalType = PotalType::Stage5ToStage4;
 
 	}
 
