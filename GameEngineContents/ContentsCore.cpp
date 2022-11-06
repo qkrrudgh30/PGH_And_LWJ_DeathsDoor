@@ -38,7 +38,7 @@ void ContentsCore::Start()
 		GameEngineDirectory Dir;
 		Dir.MoveParentToExitsChildDirectory("ContentsResources");
 		Dir.Move("ContentsResources");
-		Dir.Move("Texture");
+		Dir.Move("Asset");
 
 		// std::vector<GameEngineDirectory> DirList = Dir.GetRecursiveAllDirectory();
 
@@ -55,7 +55,7 @@ void ContentsCore::Start()
 		GameEngineDirectory Dir;
 		Dir.MoveParentToExitsChildDirectory("ContentsResources");
 		Dir.Move("ContentsResources");
-		Dir.Move("Texture");
+		Dir.Move("Asset");
 		Dir.Move("GlobalUI");
 
 		std::vector<GameEngineFile> Shaders = Dir.GetAllFile();
@@ -98,16 +98,27 @@ void ContentsCore::Start()
 	}
 
 	// RTTI 런 타임 타입 인포메이션
-	CreateLevel<LoginLevel>("Login");
-	CreateLevel<HuntingLevel1>("Hunting1");
-	CreateLevel<HuntingLevel2>("Hunting2");
-	CreateLevel<HuntingLevel3>("Hunting3");
-	CreateLevel<HuntingLevel4>("Hunting4");
-	CreateLevel<HuntingLevel5>("Hunting5");
-	CreateLevel<BossLevel>("Boss");
-	CreateLevel<TestLevel>("Test");
-	CreateLevel<EditLevel>("Edit");
-	ChangeLevel("Login");
+	CreateLevel<LoginLevel>("00_LoginLevel");
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("00_LoginLevel", false));
+	CreateLevel<HuntingLevel1>("01_HuntingLevel1");
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("01_HuntingLevel1", false));
+	CreateLevel<HuntingLevel2>("02_HuntingLevel2");
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("02_HuntingLevel2", false));
+	CreateLevel<HuntingLevel3>("03_HuntingLevel3");
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("03_HuntingLevel3", false));
+	CreateLevel<HuntingLevel4>("04_HuntingLevel4");
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("04_HuntingLevel4", false));
+	CreateLevel<HuntingLevel5>("05_HuntingLevel5");
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("05_HuntingLevel5", false));
+	CreateLevel<BossLevel>("06_BossLevel");
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("06_BossLevel", false));
+	CreateLevel<EditLevel>("07_EditLevel");
+	CreateLevel<TestLevel>("08_TestLevel");
+
+
+
+	ChangeLevel("07_EditLevel");
+	ContentsLevel::mstrNextLevelName = "00_LoginLevel";
 
 	GameEngineGUI::CreateGUIWindow<GameEngineStatusWindow>("EngineStatus", nullptr);
 	GameEngineGUI::CreateGUIWindow<EditGUIWindow>("EditGUIWindow", nullptr);

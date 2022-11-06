@@ -215,6 +215,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="LoadingUI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Monster.h">
       <SubType>
       </SubType>
@@ -374,6 +378,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="HuntingLevel5.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="LoadingUI.cpp">
       <SubType>
       </SubType>
     </ClCompile>

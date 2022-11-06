@@ -2,6 +2,7 @@
 #include "BossLevel.h"
 #include "Player.h"
 #include "UIMouse.h"
+#include "LoadingUI.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -16,8 +17,6 @@ BossLevel::~BossLevel()
 
 void BossLevel::Start()
 {
-
-
 }
 
 void BossLevel::Update(float _DeltaTime)
@@ -30,25 +29,13 @@ void BossLevel::End()
 
 void BossLevel::LevelStartEvent()
 {
-
-
-
 #pragma region LoadFBXMeshiesAndAnimation
-	//	DirectPathAt("06_BossLevel");
-	//	LoadFBXFiles();
 	if (false == mbPrimitiveInitialized)
 	{
-		// DirectPathAt("06_BossLevel");
-		// LoadFBXFiles();
-
-		// TODO
-
+		LoadCreaturesFromFile("06_BossLevel");
 		mbPrimitiveInitialized = true;
 	}
 #pragma endregion
-
-
-
 	{
 		if (nullptr == Player::GetMainPlayer())
 		{

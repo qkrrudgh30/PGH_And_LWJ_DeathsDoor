@@ -21,10 +21,14 @@ public:
 	float4 StartWindowSize() override { return float4{ 1280, 720.0f }; };
 	float4 StartWindowPosition() override { return { 0,0 }; };
 
-
 	std::string GetWindowTitle() override
 	{
 		return "DeathDoor";
+	}
+
+	static float ReturnFloatLerp(float _fSrc, float _fDst, float _fRatio)
+	{
+		return _fSrc * (1 - _fRatio) + _fDst * _fRatio;
 	}
 
 protected:

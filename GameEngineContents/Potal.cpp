@@ -1,6 +1,7 @@
 
 #include "PreCompile.h"
 #include "Potal.h"
+#include "ContentsLevel.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 Potal::Potal()
@@ -48,69 +49,86 @@ void Potal::Update(float _DeltaTime)
 CollisionReturn Potal::CollisionPlayer(GameEngineCollision* _This, GameEngineCollision* _Other)
 {
 	 
-
+	// 포탈 충돌 > 다음레벨설정 or 이전레벨설정 > EditLevel > 다음레벨에셋준비 or 안함 > 다음레벨이동
 	if (m_PotalType == PotalType::LoginToStage1)
 	{
-		GEngine::ChangeLevel("Hunting1");
+		ContentsLevel::mstrNextLevelName = "01_HuntingLevel1";
+		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
 	if (m_PotalType == PotalType::Stage1ToStage2)
 	{
-		GEngine::ChangeLevel("Hunting2");
+		ContentsLevel::mstrNextLevelName = "02_HuntingLevel2";
+		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
 
 	if (m_PotalType == PotalType::Stage2ToStage3)
 	{
-		GEngine::ChangeLevel("Hunting3");
+		ContentsLevel::mstrNextLevelName = "03_HuntingLevel3";
+		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
 
 	if (m_PotalType == PotalType::Stage3ToStage4)
 	{
-		GEngine::ChangeLevel("Hunting4");
+		ContentsLevel::mstrNextLevelName = "04_HuntingLevel4";
+		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
 
 	if (m_PotalType == PotalType::Stage4ToStage5)
 	{
-		GEngine::ChangeLevel("Hunting5");
+		ContentsLevel::mstrNextLevelName = "05_HuntingLevel5";
+		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
 
 	if (m_PotalType == PotalType::Stage5ToStageBoss)
 	{
-		GEngine::ChangeLevel("Boss");
+		ContentsLevel::mstrNextLevelName = "06_BossLevel";
+		ContentsLevel::mstrPrevLevelName = "05_HuntingLevel5";
+		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
 
 	if (m_PotalType == PotalType::Stage5ToStage4)
 	{
-		GEngine::ChangeLevel("Hunting4");
+		ContentsLevel::mstrNextLevelName = "Previous";
+		ContentsLevel::mstrPrevLevelName = "04_HuntingLevel4";
+		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
 
 	if (m_PotalType == PotalType::Stage4ToStage3)
 	{
-		GEngine::ChangeLevel("Hunting3");
+		ContentsLevel::mstrNextLevelName = "Previous";
+		ContentsLevel::mstrPrevLevelName = "03_HuntingLevel3";
+		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
 
 	if (m_PotalType == PotalType::Stage3ToStage2)
 	{
-		GEngine::ChangeLevel("Hunting2");
+		ContentsLevel::mstrNextLevelName = "Previous";
+		ContentsLevel::mstrPrevLevelName = "02_HuntingLevel2";
+		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
 
 	if (m_PotalType == PotalType::Stage2ToStage1)
 	{
-		GEngine::ChangeLevel("Hunting1");
+		ContentsLevel::mstrNextLevelName = "Previous";
+		ContentsLevel::mstrPrevLevelName = "01_HuntingLevel1";
+		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
 
 	if (m_PotalType == PotalType::Stage1ToSLogin)
 	{
-		GEngine::ChangeLevel("Login");
+		ContentsLevel::mstrNextLevelName = "Previous";
+		ContentsLevel::mstrPrevLevelName = "00_LoginLevel";
+		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
 

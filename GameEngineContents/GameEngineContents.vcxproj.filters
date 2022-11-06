@@ -267,6 +267,9 @@
     <ClInclude Include="ROOM_Far.h">
       <Filter>02.Static\05_HuntingLevel5</Filter>
     </ClInclude>
+    <ClInclude Include="LoadingUI.h">
+      <Filter>01.Actor\01.UI\99.EditUI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -391,6 +394,9 @@
     </ClCompile>
     <ClCompile Include="ROOM_Far.cpp">
       <Filter>02.Static\05_HuntingLevel5</Filter>
+    </ClCompile>
+    <ClCompile Include="LoadingUI.cpp">
+      <Filter>01.Actor\01.UI\99.EditUI</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

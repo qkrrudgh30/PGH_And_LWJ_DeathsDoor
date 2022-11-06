@@ -22,19 +22,21 @@ public:
 	ContentsLevel(ContentsLevel&& _Other) noexcept = delete;
 	ContentsLevel& operator=(const ContentsLevel& _Other) = delete;
 	ContentsLevel& operator=(ContentsLevel&& _Other) noexcept = delete;
-	
+
+	static std::string mstrNextLevelName;
+	static std::string mstrPrevLevelName;
+	static std::map<std::string, bool> mmapPrimitiveInitialized;
 
 protected:
 	void DirectPathAt(const std::string& _strFolderName);
 	void LoadFBXFiles();
-	void LoadTextureInAnimator();
-	void LoadTextureInStatic();
 
 	void LoadCreaturesFromFile(const std::string& _strFolderName);
 
+	static std::atomic<unsigned int> muFBXLoadedCount;
 	std::vector<GameEngineDirectory> mvecDirectories;
-	static std::atomic<int> muFBXFolderCount;
 	bool mbPrimitiveInitialized;
+	class LoadingUI* mpLoadingUI;
 
 private:
 	void LoadFBXMesiesOfAnimator();

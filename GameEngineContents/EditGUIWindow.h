@@ -37,8 +37,8 @@ public:
 	void PrepareForLoading();
 	void LoadData(const std::string& _strFilePath);
 
-	static std::vector<std::string>& GetLoadedFromAnimatorVector(void) { return m_vLoadedFromAnimator; }
-	static std::vector<std::string>& GetLoadedFromStaticVector(void) { return m_vLoadedFromStatic; }
+	static std::set<std::string>& GetLoadedFromAnimatorSet(void) { return m_setLoadedFromAnimator; }
+	static std::set<std::string>& GetLoadedFromStaticSet(void) { return m_setLoadedFromStatic; }
 
 protected:
 
@@ -52,8 +52,8 @@ private:
 
 	GameEngineDirectory m_CurrentDirectory;
 	GameEngineDirectory m_ProjectDirectory;
-	static std::vector<std::string> m_vLoadedFromAnimator;
-	static std::vector<std::string> m_vLoadedFromStatic;
+	static std::set<std::string> m_setLoadedFromAnimator;
+	static std::set<std::string> m_setLoadedFromStatic;
 
 	std::vector<std::pair<std::string, class StaticMesh*>> m_vCreatedActors;
 

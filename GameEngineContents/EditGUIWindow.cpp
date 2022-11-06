@@ -13,8 +13,8 @@
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
-std::vector<std::string> EditGUIWindow::m_vLoadedFromAnimator;
-std::vector<std::string> EditGUIWindow::m_vLoadedFromStatic;
+std::set<std::string> EditGUIWindow::m_setLoadedFromAnimator;
+std::set<std::string> EditGUIWindow::m_setLoadedFromStatic;
 
 float EditGUIWindow::s_farrCurrScaleOnEditGUI[3] = {1.f, 1.f, 1.f};
 float EditGUIWindow::s_farrPrevScaleOnEditGUI[3] = {1.f, 1.f, 1.f};
@@ -39,7 +39,7 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 {
 	m_ProjectDirectory.MoveParentToExitsChildDirectory("ContentsResources");
 	m_ProjectDirectory.Move("ContentsResources");
-	m_ProjectDirectory.Move("Texture");
+	m_ProjectDirectory.Move("Asset");
 
 	if (false == GameEngineInput::GetInst()->IsKey("SelectedObjectUp"))
 	{
@@ -56,46 +56,84 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 {
 #pragma region SwitchPannel
-	static int selected = 0;
-	static int selectedPannel = AnimatorPannel;
+	static size_t uSelectedPannel = AnimatorPannel;
+	static size_t uSelectedObject = 0;
 	if (true == ImGui::Button("Animator"))
 	{
-		selectedPannel = AnimatorPannel;
+		uSelectedPannel = AnimatorPannel;
 	}
 	ImGui::SameLine();
 	if (true == ImGui::Button("Static"))
 	{
-		selectedPannel = StaticPannel;
+		uSelectedPannel = StaticPannel;
 	}
 
-	if (AnimatorPannel == selectedPannel)
+
+	if (AnimatorPannel == uSelectedPannel)
 	{
 		ImGui::BeginChild("Animator", ImVec2(150, 100), true);
-		for (int i = 0; i < m_vLoadedFromAnimator.size(); ++i)
+		std::set<std::string>::iterator iterBeg = m_setLoadedFromAnimator.begin();
+		std::set<std::string>::iterator iterEnd = m_setLoadedFromAnimator.end();
+
+		size_t i = 0;
+		while (iterBeg != iterEnd)
 		{
 			char label[1024] = { '\0', };
-			const char* temp = (const char*)(m_vLoadedFromAnimator[i].c_str());
+			const char* temp = (const char*)(iterBeg->c_str());
 			sprintf(label, temp);
-			if (ImGui::Selectable(label, selected == i))
+			if (ImGui::Selectable(label, uSelectedObject == i))
 			{
-				selected = i;
+				uSelectedObject = i;
 			}
+
+			++i;
+			++iterBeg;
 		}
+
+		/*for (int i = 0; i < m_setLoadedFromAnimator.size(); ++i)
+		{
+			char label[1024] = { '\0', };
+			const char* temp = (const char*)(m_setLoadedFromAnimator[i].c_str());
+			sprintf(label, temp);
+			if (ImGui::Selectable(label, uSelectedObject == i))
+			{
+				uSelectedObject = i;
+			}
+		}*/
 		ImGui::EndChild();
 	}
-	else if (StaticPannel == selectedPannel)
+	else if (StaticPannel == uSelectedPannel)
 	{
 		ImGui::BeginChild("Static", ImVec2(150, 100), true);
-		for (int i = 0; i < m_vLoadedFromStatic.size(); ++i)
+		
+		std::set<std::string>::iterator iterBeg = m_setLoadedFromStatic.begin();
+		std::set<std::string>::iterator iterEnd = m_setLoadedFromStatic.end();
+
+		size_t i = 0;
+		while (iterBeg != iterEnd)
 		{
 			char label[1024] = { '\0', };
-			const char* temp = (const char*)(m_vLoadedFromStatic[i].c_str());
+			const char* temp = (const char*)(iterBeg->c_str());
 			sprintf(label, temp);
-			if (ImGui::Selectable(label, selected == i))
+			if (ImGui::Selectable(label, uSelectedObject == i))
 			{
-				selected = i;
+				uSelectedObject = i;
 			}
+
+			++i;
+			++iterBeg;
 		}
+		
+		/*for (int i = 0; i < m_setLoadedFromStatic.size(); ++i)
+		{
+			char label[1024] = { '\0', };
+			const char* temp = (const char*)(m_setLoadedFromStatic[i].c_str());
+			sprintf(label, temp);
+			if (ImGui::Selectable(label, uSelectedObject == i))
+			{
+				uSelectedObject = i;
+			}
+		}*/
 		ImGui::EndChild();
 	}
 
@@ -155,8 +193,20 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	{
 		// SendInfoToMouseSlotFunction();
 		std::string tempStr;
-		if (AnimatorPannel == selectedPannel) { tempStr = m_vLoadedFromAnimator[selected]; }
-		else if (StaticPannel == selectedPannel) { tempStr = m_vLoadedFromStatic[selected]; }
+		if (AnimatorPannel == uSelectedPannel) 
+		{ 
+			std::set<std::string>::iterator iterToSelectedObject = m_setLoadedFromAnimator.begin();
+			size_t i = uSelectedObject;
+			while (0 != i) { ++iterToSelectedObject; --i; }
+			tempStr = iterToSelectedObject->c_str();
+		}
+		else if (StaticPannel == uSelectedPannel) 
+		{ 
+			std::set<std::string>::iterator iterToSelectedObject = m_setLoadedFromStatic.begin();
+			size_t i = uSelectedObject;
+			while (0 != i) { ++iterToSelectedObject; --i; }
+			tempStr = iterToSelectedObject->c_str();
+		}
 		StaticMesh* temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
 		temp->SetPriorityInitialize();
 		temp->GetFBXRenderer()->SetFBXMesh(tempStr + ".fbx", "Texture");

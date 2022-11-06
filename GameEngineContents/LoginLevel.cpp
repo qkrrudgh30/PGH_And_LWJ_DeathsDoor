@@ -6,6 +6,7 @@
 #include "TestActor.h"
 #include "StaticMesh.h"
 #include "Hall.h"
+#include "LoadingUI.h"
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -26,8 +27,8 @@ LoginLevel::~LoginLevel()
 
 void LoginLevel::Start()
 {
-	DirectPathAt("00_LoginLevel");
-	LoadFBXFiles();
+	// DirectPathAt("00_LoginLevel");core
+	// LoadFBXFiles();
 
 
 	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
@@ -56,9 +57,6 @@ void LoginLevel::Start()
 		UIMouse* m_UIMouse = CreateActor<UIMouse>(OBJECTORDER::MouseUI);
 		m_UIMouse->SetLevelOverOn();
 	}
-
-
-	
 }
 
 void LoginLevel::LevelStartEvent()
@@ -67,26 +65,6 @@ void LoginLevel::LevelStartEvent()
 	if (false == mbPrimitiveInitialized)
 	{
 		LoadCreaturesFromFile("00_LoginLevel");
-
-		// 애니메이션 액터의 매시 로드
-		// 스태틱 매시 로드
-		// 애니메이션 액터의 애니메이션 로드
-
-
-		/* 초기 멀티스레드 로딩 코드
-		GameEngineCore::EngineThreadPool.Work(
-			[this]
-			{
-				this->LoadTextureInStatic();
-			});
-
-		GameEngineCore::EngineThreadPool.Work(
-			[this]
-			{
-				this->LoadTextureInAnimator();
-			});
-		*/
-
 		mbPrimitiveInitialized = true;
 	}
 #pragma endregion
@@ -142,9 +120,6 @@ void LoginLevel::LevelStartEvent()
 
 void LoginLevel::Update(float _DeltaTime)
 {
-	GameEngineDebug::OutPutString(std::to_string(muFBXFolderCount));
-
-
 	//float4 MyPos = GetMainCameraActorTransform().GetWorldPosition();
 
 	//std::string A2 = std::to_string(MyPos.x);

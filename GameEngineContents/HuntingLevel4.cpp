@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "Potal.h"
 #include "ROOM_Right.h"
+#include "LoadingUI.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -17,26 +18,6 @@ HuntingLevel4::~HuntingLevel4()
 
 void HuntingLevel4::Start()
 {
-
-	{
-
-		Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-		Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-0.f });
-		Potal_->m_PotalType = PotalType::Stage4ToStage5;
-
-	}
-
-	 
-
-	{
-
-		Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-		Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-1300.F });
-		Potal_->m_PotalType = PotalType::Stage4ToStage3;
-
-	}
-
-
 }
 
 void HuntingLevel4::Update(float _DeltaTime)
@@ -52,18 +33,30 @@ void HuntingLevel4::LevelStartEvent()
 #pragma region LoadFBXMeshiesAndAnimation
 	if (false == mbPrimitiveInitialized)
 	{
-		DirectPathAt("04_HuntingLevel4");
-		LoadFBXFiles();
 		LoadCreaturesFromFile("04_HuntingLevel4");
-
-		// TODO
-
 		mbPrimitiveInitialized = true;
 	}
 #pragma endregion
-
 	{
 		ROOM_Right* pMap = CreateActor<ROOM_Right>(OBJECTORDER::StaticMesh);
+	}
+
+	{
+
+		Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+		Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-1300.F });
+		Potal_->m_PotalType = PotalType::Stage4ToStage5;
+
+	}
+
+
+
+	{
+
+		Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+		Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-0.f });
+		Potal_->m_PotalType = PotalType::Stage4ToStage3;
+
 	}
 
 	{

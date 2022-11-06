@@ -1,34 +1,9 @@
 #pragma once
 
-#include <GameEngineCore/GameEngineLevel.h>
-
-class EditLevel;
-class EditLevelPipe
-{
-public:
-	EditLevelPipe(EditLevel* _ptrParentEditLevel)
-	{
-		m_ptrParentEditLevel = _ptrParentEditLevel;
-	}
-
-	static EditLevelPipe* GetInst()
-	{
-		return Inst;
-	}
-
-	static EditLevel* GetEditLevel()
-	{
-		return m_ptrParentEditLevel;
-	}
-
-private:
-	static EditLevelPipe* Inst;
-	static EditLevel* m_ptrParentEditLevel;
-
-};
+#include "ContentsLevel.h"
 
 // Ό³Έν :
-class EditLevel : public GameEngineLevel
+class EditLevel : public ContentsLevel
 {
 	friend class EditLevelPipe;
 

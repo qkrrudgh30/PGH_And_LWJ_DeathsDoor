@@ -1,8 +1,6 @@
 #include "PreCompile.h"
 #include "EditLevel.h"
-
-EditLevelPipe* EditLevelPipe::Inst = nullptr;
-EditLevel* EditLevelPipe::m_ptrParentEditLevel = nullptr;
+#include "LoadingUI.h"
 
 EditLevel::EditLevel()
 {
@@ -14,10 +12,7 @@ EditLevel::~EditLevel()
 
 void EditLevel::Start()
 {
-	if (nullptr == EditLevelPipe::GetInst())
-	{
-		EditLevelPipe temp(this);
-	}
+	
 }
 
 void EditLevel::Update(float _DeltaTime)
@@ -40,4 +35,33 @@ void EditLevel::End()
 
 void EditLevel::LevelStartEvent()
 {
+	mpLoadingUI = CreateActor<LoadingUI>(); // Fade-In
+
+	if ("Previous" == ContentsLevel::mstrNextLevelName) 
+	{ 
+		GEngine::ChangeLevel(ContentsLevel::mstrPrevLevelName);
+		Death(); // Fade-Out
+
+		return; 
+	}
+
+	DirectPathAt(ContentsLevel::mstrNextLevelName);
+
+	if (false == ContentsLevel::mmapPrimitiveInitialized[ContentsLevel::mstrNextLevelName])
+	{
+		ContentsLevel::mmapPrimitiveInitialized[ContentsLevel::mstrNextLevelName] = true;
+
+		GameEngineCore::EngineThreadPool.Work(
+			[this]
+			{
+				LoadFBXFiles();
+			});
+	}
+	else
+	{
+		GEngine::ChangeLevel(ContentsLevel::mstrNextLevelName);
+		Death(); // Fade-Out
+	}
+
+	
 }
