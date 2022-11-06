@@ -41,7 +41,7 @@ void ShopNPC::Start()
 		{
 			if (i != 5)
 			{
-				FBXAnimationRenderer->SetFBXMesh("banker.FBX", "Texture", i);
+				FBXAnimationRenderer->SetFBXMesh("Banker.FBX", "Texture", i);
 			}
 		}
 

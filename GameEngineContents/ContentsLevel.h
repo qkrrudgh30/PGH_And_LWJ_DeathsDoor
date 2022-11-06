@@ -28,7 +28,7 @@ public:
 	static std::map<std::string, bool> mmapPrimitiveInitialized;
 
 protected:
-	void DirectPathAt(const std::string& _strFolderName);
+	void PlacePathOn(const std::string& _strFolderName);
 	void LoadFBXFiles();
 
 	void LoadCreaturesFromFile(const std::string& _strFolderName);

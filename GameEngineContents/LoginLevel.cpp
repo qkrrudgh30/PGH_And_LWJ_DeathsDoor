@@ -27,7 +27,7 @@ LoginLevel::~LoginLevel()
 
 void LoginLevel::Start()
 {
-	// DirectPathAt("00_LoginLevel");core
+	// PlacePathOn("00_LoginLevel");core
 	// LoadFBXFiles();
 
 

@@ -59,11 +59,57 @@ Player::~Player()
 
 void Player::Start()
 {
+#pragma region BUG_LoadPlayerMesh
+	FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+
+	GameEngineFBXStaticRenderer* FBXCrowRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	FBXCrowRenderer->SetParent(FBXAnimationRenderer);
+
+	// GameEngineFBXStaticRenderer* ptrGarbageRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	for (int i = 0; i < 17; ++i)
+	{
+		if ((0 <= i && i <= 9) || i == 13) // Fisher mesh node and Tentacle mesh node.
+		{
+			// ptrGarbageRenderer->SetFBXMesh("Player.FBX", "Color", i);
+			// ptrGarbageRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4{0.f, 0.f, 0.f, 0.f});
+			continue;
+		}
+
+		if (14 == i || 15 == i)            // Player attack-effect mesh node.
+		{
+			FBXAnimationRenderer->SetFBXMesh("Player.FBX", "Color", i);
+			FBXAnimationRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::RED);
+			continue;
+		}
+
+		FBXCrowRenderer->SetFBXMesh("Player.FBX", "Texture", i);
+		FBXCrowRenderer->GetTransform().SetLocalRotation({ 0.f,180.f,0.f });
+	}
+
+	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
+	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
+	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
+#pragma endregion
+
+#pragma region TemporaryCode
+	/*
+	FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
+	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.3f, 0.3f, 0.3f });
+	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
+	for (int i = 0; i < 4; ++i)
+	{
+		if (i != 3)
+		{
+			FBXAnimationRenderer->SetFBXMesh("Flower.FBX", "Texture", i);
+		}
+	}
+	*/
+#pragma endregion
+
 
 	MainUI = GetLevel()->CreateActor<PlayerMainUI>(OBJECTORDER::UI);
 	MainUI->m_Player = this;
-
-
 
 	UpgradeUI = GetLevel()->CreateActor<PlayerUpgradeUI>(OBJECTORDER::UI);
 	UpgradeUI->m_Player = this;
@@ -107,13 +153,10 @@ void Player::Start()
 	Collision->GetTransform().SetLocalScale({ 100.0f, 100.0f, 100.0f });
 	Collision->ChangeOrder(OBJECTORDER::Player);
 
-
-
 	StateManager.CreateStateMember("Idle"
 		, std::bind(&Player::IdleUpdate, this, std::placeholders::_1, std::placeholders::_2)
 		, std::bind(&Player::IdleStart, this, std::placeholders::_1)
 	);
-
 
 	StateManager.CreateStateMember("SworldAtt"
 		, std::bind(&Player::SworldAttUpdate, this, std::placeholders::_1, std::placeholders::_2)
@@ -121,14 +164,11 @@ void Player::Start()
 		, std::bind(&Player::SworldAttEnd, this, std::placeholders::_1)
 	);
 
-
 	StateManager.CreateStateMember("SworldAtt2"
 		, std::bind(&Player::SworldAttUpdate2, this, std::placeholders::_1, std::placeholders::_2)
 		, std::bind(&Player::SworldAttStart2, this, std::placeholders::_1)
 		, std::bind(&Player::SworldAttEnd2, this, std::placeholders::_1)
 	);
-
-
 
 	StateManager.CreateStateMember("SworldAtt3"
 		, std::bind(&Player::SworldAttUpdate3, this, std::placeholders::_1, std::placeholders::_2)
@@ -136,23 +176,17 @@ void Player::Start()
 		, std::bind(&Player::SworldAttEnd3, this, std::placeholders::_1)
 	);
 
-
-
-
 	StateManager.CreateStateMember("Slide"
 		, std::bind(&Player::SlideUpdate, this, std::placeholders::_1, std::placeholders::_2)
 		, std::bind(&Player::SlideStart, this, std::placeholders::_1)
 		, std::bind(&Player::SlideEnd, this, std::placeholders::_1)
 	);
 
-
-
 	StateManager.CreateStateMember("SlideAtt"
 		, std::bind(&Player::SlideAttUpdate, this, std::placeholders::_1, std::placeholders::_2)
 		, std::bind(&Player::SlideAttStart, this, std::placeholders::_1)
 		, std::bind(&Player::SlideAttEnd, this, std::placeholders::_1)
 	);
-
 
 	StateManager.CreateStateMember("ArrowAtt"
 		, std::bind(&Player::ArrowAttUpdate, this, std::placeholders::_1, std::placeholders::_2)
@@ -166,80 +200,15 @@ void Player::Start()
 		, std::bind(&Player::HookAttEnd, this, std::placeholders::_1)
 	);
 
-
-
 	StateManager.CreateStateMember("Move"
 		, std::bind(&Player::MoveUpdate, this, std::placeholders::_1, std::placeholders::_2)
 		, [/*&*/=](const StateInfo& _Info){});
 
 	StateManager.ChangeState("Idle");
 
-#pragma region ReleaseTheCommentWhenSolvingTheProblem
-	//{
-	//
-
-	//	FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-	//	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
-	//	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
-
-	//	GameEngineFBXStaticRenderer* FBXCrowRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-	//	FBXCrowRenderer->SetParent(FBXAnimationRenderer);
-
-	//	GameEngineFBXStaticRenderer* pGarbageRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-	//	for (int i = 0; i < 17; ++i)
-	//	{
-	//		if ((0 <= i && i <= 9) || i == 13) 
-	//		{ 
-	//			pGarbageRenderer->SetFBXMesh("crow_player (fbx).FBX", "Color", i);
-	//			pGarbageRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4{0.f, 0.f, 0.f, 0.f});
-	//			continue;
-	//		}
-
-	//		if (14 == i || 15 == i)
-	//		{
-	//			FBXAnimationRenderer->SetFBXMesh("crow_player (fbx).FBX", "Color", i);
-	//			FBXAnimationRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::RED);
-	//			continue;
-	//		}
-
-	//		FBXCrowRenderer->SetFBXMesh("crow_player (fbx).FBX", "Texture", i);
-	//		FBXCrowRenderer->GetTransform().SetLocalRotation({0.f,180.f,0.f});
-	//	//	FBXCrowRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
-	//	}
-
-	//}
-
-	/*FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
-	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
-	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });*/
-#pragma endregion
-
-
-	
-#pragma region DeleteThisCodeWhenSolving
-	FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
-	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.3f, 0.3f, 0.3f });
-	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
-		for (int i = 0; i < 4; ++i)
-		{
-			if (i != 3)
-			{
-				FBXAnimationRenderer->SetFBXMesh("Flower.FBX", "Texture", i);
-			}
-		}
-#pragma endregion
-
-	
-
-
-
-
 	m_Info.Weapontype = WEAPONTYPE::Arrow;
 
 	m_eBeforeType = m_Info.Weapontype;
-	
 
 }
 

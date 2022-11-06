@@ -33,7 +33,7 @@ ContentsLevel::~ContentsLevel()
 {
 }
 
-void ContentsLevel::DirectPathAt(const std::string& _strFolderName)
+void ContentsLevel::PlacePathOn(const std::string& _strFolderName)
 {
 	mvecDirectories.clear();
 

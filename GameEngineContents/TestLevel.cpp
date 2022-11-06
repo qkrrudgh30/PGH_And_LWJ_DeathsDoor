@@ -63,7 +63,7 @@ void TestLevel::LevelStartEvent()
 #pragma region LoadFBXMeshiesAndAnimation
 	if (false == mbPrimitiveInitialized)
 	{
-		DirectPathAt("08_TestLevel");
+		PlacePathOn("08_TestLevel");
 		LoadFBXFiles();
 
 	

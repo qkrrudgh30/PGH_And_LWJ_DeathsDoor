@@ -45,7 +45,7 @@ void EditLevel::LevelStartEvent()
 		return; 
 	}
 
-	DirectPathAt(ContentsLevel::mstrNextLevelName);
+	PlacePathOn(ContentsLevel::mstrNextLevelName);
 
 	if (false == ContentsLevel::mmapPrimitiveInitialized[ContentsLevel::mstrNextLevelName])
 	{
