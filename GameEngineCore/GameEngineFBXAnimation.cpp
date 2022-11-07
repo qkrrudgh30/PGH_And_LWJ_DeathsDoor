@@ -26,7 +26,7 @@ void GameEngineFBXAnimation::LoadMesh(const std::string& _Path, const std::strin
 	CheckAnimation();
 	// 애니메이션이 존재한다 => 그걸로 아직 뭔가를 하지 않는다.
 
-	AnimationDatas;
+	AnimationDatas; // 3D 뷰어와 갯수가 달라도 어쩔 수 없음.
 }
 
 bool GameEngineFBXAnimation::CheckAnimation()

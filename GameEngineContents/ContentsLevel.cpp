@@ -257,7 +257,7 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 	std::vector<GameEngineDirectory> vOuterDirectories = mvecDirectories[eAnimatorDir].GetAllDirectory();
 	size_t uOuterDirectoriesCount = vOuterDirectories.size();
 	// int uThreadCount = GameEngineCore::EngineThreadPool.GetThreadCount();
-	size_t uThreadCount = 6;
+	size_t uThreadCount = 6u;
 	size_t uLines = static_cast<size_t>(uOuterDirectoriesCount / uThreadCount);
 	size_t uRemains = uOuterDirectoriesCount % uThreadCount;
 	muFBXLoadedCount = 0u;
