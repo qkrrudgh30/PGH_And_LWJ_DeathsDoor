@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "ContentsCore.h"
+#include <GameEngineBase/magic_enum.hpp>
 #include "GameEngineContents/LoginLevel.h"
 #include "GameEngineContents/HuntingLevel1.h"
 #include "GameEngineContents/HuntingLevel2.h"
@@ -10,11 +11,6 @@
 #include "GameEngineContents/TestLevel.h"
 #include "GameEngineContents/EditLevel.h"
 #include "GameEngineContents/EditGUIWindow.h"
-
-
-
-#include <GameEngineBase/magic_enum.hpp>
-
 
 #pragma comment(lib, "GameEngineBase.lib")
 
@@ -120,8 +116,10 @@ void ContentsCore::Start()
 	ChangeLevel("07_EditLevel");
 	ContentsLevel::mstrNextLevelName = "00_LoginLevel";
 
+#ifdef _DEBUG
 	GameEngineGUI::CreateGUIWindow<GameEngineStatusWindow>("EngineStatus", nullptr);
 	GameEngineGUI::CreateGUIWindow<EditGUIWindow>("EditGUIWindow", nullptr);
+#endif
 
 }
 

@@ -19,6 +19,8 @@ class EditLevel;
 class GameEngineActor;
 class EditGUIWindow : public GameEngineGUIWindow
 {
+	friend class ContentsLevel;
+
 public:
 	// constrcuter destructer
 	EditGUIWindow();
@@ -39,23 +41,32 @@ public:
 
 	static std::set<std::string>& GetLoadedFromAnimatorSet(void) { return m_setLoadedFromAnimator; }
 	static std::set<std::string>& GetLoadedFromStaticSet(void) { return m_setLoadedFromStatic; }
+	static std::map<std::string, std::vector<std::pair<std::string, class StaticMesh*>>>& GetCreatureMap(void) { return m_vCreatedActors; }
 
 protected:
 
 private:
 	void Initialize(class GameEngineLevel* _Level) override;
 	void OnGUI(GameEngineLevel* _Level, float _DeltaTime) override;
-	bool CheckChangesAboutCreature(int _iSelectedActor);
-	bool CheckChangesAboutCurrStaticValue(int _iSelectedActor);
+	bool CheckChangesAboutCreature(size_t _uSelectedActor);
+	bool CheckChangesAboutCurrStaticValue(size_t _uSelectedActor);
+	bool CheckChangesAboutCreatureCollider(size_t _uSelectedActor);
+	bool CheckChangesAboutCurrStaticValueCollider(size_t _uSelectedActor);
 
 	// void CreateMultiple(int _XCount, int Y);
+
+	static size_t uSelectedPannel;
+	static size_t uSelectedObject;
+	static size_t uSelectedActor;
 
 	GameEngineDirectory m_CurrentDirectory;
 	GameEngineDirectory m_ProjectDirectory;
 	static std::set<std::string> m_setLoadedFromAnimator;
 	static std::set<std::string> m_setLoadedFromStatic;
 
-	std::vector<std::pair<std::string, class StaticMesh*>> m_vCreatedActors;
+	std::string mstrCurrLevelName;
+	std::string mstrNextLevelName;
+	static std::map<std::string, std::vector<std::pair<std::string, class StaticMesh*>>> m_vCreatedActors;
 
 	static float s_farrCurrScaleOnEditGUI[3];
 	static float s_farrPrevScaleOnEditGUI[3];
@@ -65,8 +76,11 @@ private:
 	static float s_farrPrevPositionOnEditGUI[3];
 
 	static float s_farrCurrColliderScaleOnEditGUI[3];
+	static float s_farrPrevColliderScaleOnEditGUI[3];
 	static float s_farrCurrColliderRotationOnEditGUI[3];
+	static float s_farrPrevColliderRotationOnEditGUI[3];
 	static float s_farrCurrColliderPositionOnEditGUI[3];
+	static float s_farrPrevColliderPositionOnEditGUI[3];
 
 
 

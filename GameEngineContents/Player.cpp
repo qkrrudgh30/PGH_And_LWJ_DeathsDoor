@@ -60,40 +60,40 @@ Player::~Player()
 void Player::Start()
 {
 #pragma region BUG_LoadPlayerMesh
-	FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	//FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 
-	GameEngineFBXStaticRenderer* FBXCrowRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-	FBXCrowRenderer->SetParent(FBXAnimationRenderer);
+	//GameEngineFBXStaticRenderer* FBXCrowRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	//FBXCrowRenderer->SetParent(FBXAnimationRenderer);
 
-	// GameEngineFBXStaticRenderer* ptrGarbageRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-	for (int i = 0; i < 17; ++i)
-	{
-		if ((0 <= i && i <= 9) || i == 13) // Fisher mesh node and Tentacle mesh node.
-		{
-			// ptrGarbageRenderer->SetFBXMesh("Player.FBX", "Color", i);
-			// ptrGarbageRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4{0.f, 0.f, 0.f, 0.f});
-			continue;
-		}
+	//// GameEngineFBXStaticRenderer* ptrGarbageRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	//for (int i = 0; i < 17; ++i)
+	//{
+	//	if ((0 <= i && i <= 9) || i == 13) // Fisher mesh node and Tentacle mesh node.
+	//	{
+	//		// ptrGarbageRenderer->SetFBXMesh("Player.FBX", "Color", i);
+	//		// ptrGarbageRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4{0.f, 0.f, 0.f, 0.f});
+	//		continue;
+	//	}
 
-		if (14 == i || 15 == i)            // Player attack-effect mesh node.
-		{
-			FBXAnimationRenderer->SetFBXMesh("Player.FBX", "Color", i);
-			FBXAnimationRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::RED);
-			continue;
-		}
+	//	if (14 == i || 15 == i)            // Player attack-effect mesh node.
+	//	{
+	//		FBXAnimationRenderer->SetFBXMesh("Player.FBX", "Color", i);
+	//		FBXAnimationRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::RED);
+	//		continue;
+	//	}
 
-		FBXCrowRenderer->SetFBXMesh("Player.FBX", "Texture", i);
-		FBXCrowRenderer->GetTransform().SetLocalRotation({ 0.f,180.f,0.f });
-	}
+	//	FBXCrowRenderer->SetFBXMesh("Player.FBX", "Texture", i);
+	//	FBXCrowRenderer->GetTransform().SetLocalRotation({ 0.f,180.f,0.f });
+	//}
 
-	// FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
-	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
-	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
-	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
+	//// FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
+	//FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
+	//FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
+	//FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
 #pragma endregion
 
 #pragma region TemporaryCode
-	/*
+	
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.3f, 0.3f, 0.3f });
@@ -105,7 +105,7 @@ void Player::Start()
 			FBXAnimationRenderer->SetFBXMesh("Flower.FBX", "Texture", i);
 		}
 	}
-	*/
+	
 #pragma endregion
 
 

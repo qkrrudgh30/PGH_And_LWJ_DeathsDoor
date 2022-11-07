@@ -99,6 +99,10 @@ void ContentsLevel::LoadCreaturesFromFile(const std::string& _strFolderName)
 		temp->GetCollider()->GetTransform().SetLocalScale(f4ColliderScale);
 		temp->GetCollider()->GetTransform().SetLocalRotation(f4ColliderRotation);
 		temp->GetCollider()->GetTransform().SetLocalPosition(f4ColliderPosition);
+
+		std::string strCurrLevelName = GEngine::GetCurrentLevel()->GetNameCopy();
+		EditGUIWindow::GetCreatureMap()[strCurrLevelName].push_back(make_pair(strName, temp));
+		int a = 100;
 	}
 }
 

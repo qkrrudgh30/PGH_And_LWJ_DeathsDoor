@@ -76,6 +76,9 @@ void GameEngineCore::CoreStart(GameEngineCore* _UserCore)
 
 void GameEngineCore::CoreUpdate(GameEngineCore* _UserCore)
 {
+	HWND hWnd = GetFocus();
+	if (nullptr == hWnd) { return; }
+
 	if (nullptr != NextLevel)
 	{
 		if (nullptr != CurrentLevel)
@@ -95,6 +98,7 @@ void GameEngineCore::CoreUpdate(GameEngineCore* _UserCore)
 		// ex) 타이틀에서 5초후 => 플레이 레벨로 이동
 		//     플레이 레벨에서 => 다시 타이틀레벨로
 		CurrentLevel->ReSetAccTime();
+
 
 		GameEngineTime::GetInst()->Reset();
 	}
