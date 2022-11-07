@@ -66,7 +66,7 @@ void LoadingUI::Update(float _DeltaTime)
 	mfSrcProgressAmount = ContentsCore::ReturnFloatLerp(mfSrcProgressAmount, mfDstProgressAmount, 2.f * _DeltaTime);
 	mpUIRendererForProgressBar->GetTransform().SetLocalScale(float4{ 400.f * mfSrcProgressAmount, 20.f });
 
-	if (eAnimation == muCurrLoadingStage && (mfDstProgressAmount <= mfSrcProgressAmount + 0.00001f))
+	if (eAnimation == muCurrLoadingStage && (0.998f <= mfSrcProgressAmount + 0.00001f))
 	{ 
 		GEngine::ChangeLevel(ContentsLevel::mstrNextLevelName);
 		Death();

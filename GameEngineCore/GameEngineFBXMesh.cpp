@@ -1061,7 +1061,7 @@ bool GameEngineFBXMesh::ImportBone()
 			Manager->CreateMissingBindPoses(Scene);
 			if (RetrievePoseFromBindPose(Scene, MeshNodeArray, PoseArray) == false)
 			{
-				MsgBoxAssert("Recreating bind pose failed.");
+				// MsgBoxAssert("Recreating bind pose failed.");
 			}
 		}
 
@@ -1535,7 +1535,7 @@ bool GameEngineFBXMesh::RetrievePoseFromBindPose(fbxsdk::FbxScene* pScene, const
 							std::string ErrorString = Status.GetErrorString();
 							std::string CurrentName = Current->GetName();
 
-							MsgBoxAssertString(ErrorString + "_" + CurrentName);
+							// MsgBoxAssertString(ErrorString + "_" + CurrentName);
 						}
 					}
 				}

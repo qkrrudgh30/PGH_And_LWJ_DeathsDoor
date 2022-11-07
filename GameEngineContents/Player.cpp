@@ -86,7 +86,8 @@ void Player::Start()
 		FBXCrowRenderer->GetTransform().SetLocalRotation({ 0.f,180.f,0.f });
 	}
 
-	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
+	// FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
+	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
 #pragma endregion
