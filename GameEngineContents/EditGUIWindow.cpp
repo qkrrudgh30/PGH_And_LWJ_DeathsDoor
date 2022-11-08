@@ -68,17 +68,17 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		ImGui::TextColored(ImVec4{1.f, 0.f, 0.f, 1.f}, "Player Information");
 		float4 temp = Player::GetMainPlayer()->GetTransform().GetLocalScale();
 		float fArr[3] = { temp.x, temp.y, temp.z };
-		ImGui::InputFloat3("Scale", fArr);
+		ImGui::InputFloat3("PlayerScale", fArr);
 		temp = Player::GetMainPlayer()->GetTransform().GetLocalRotation();
 		fArr[0] = temp.x;
 		fArr[1] = temp.y;
 		fArr[2] = temp.z;
-		ImGui::InputFloat3("Rotation", fArr);
+		ImGui::InputFloat3("PlayerRotation", fArr);
 		temp = Player::GetMainPlayer()->GetTransform().GetLocalPosition();
 		fArr[0] = temp.x;
 		fArr[1] = temp.y;
 		fArr[2] = temp.z;
-		ImGui::InputFloat3("Position", fArr);
+		ImGui::InputFloat3("PlayerPosition", fArr);
 	}
 	
 
