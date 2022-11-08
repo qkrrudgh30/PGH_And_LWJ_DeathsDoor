@@ -1,6 +1,7 @@
 #pragma once
 #include "GameEngineFBXRenderer.h"
 #include "GameEngineFBXAnimation.h"
+#include <map>
 
 class FbxExAniData;
 class GameEngineFBXMesh;
@@ -25,7 +26,7 @@ public:
 
 	void Init(int _Index);
 	void Reset();
-	void Update();
+	void Update(float _DeltaTime);
 
 public:
 	FBXRendererAnimation() 
@@ -39,9 +40,22 @@ public:
 	}
 };
 
+struct AnimationBoneData
+{
+public:
+	int Index = -1;
+	float4 Scale;
+	float4 RotQuaternion;
+	float4 Pos;
+	float4 RotEuler;
+};
+
+
 // Ό³Έν :
 class GameEngineFBXAnimationRenderer : public GameEngineFBXRenderer
 {
+	friend FBXRendererAnimation;
+
 public:
 	// constrcuter destructer
 	GameEngineFBXAnimationRenderer();
@@ -53,18 +67,23 @@ public:
 	GameEngineFBXAnimationRenderer& operator=(const GameEngineFBXAnimationRenderer& _Other) = delete;
 	GameEngineFBXAnimationRenderer& operator=(GameEngineFBXAnimationRenderer&& _Other) noexcept = delete;
 
-	void SetFBXMesh(const std::string& _Name, std::string _Material);
-	void SetFBXMesh(const std::string& _Name, std::string _Material, size_t _MeshIndex, size_t _SubSetIndex = 0);
+	void SetFBXMesh(const std::string& _Name, std::string _Material) override;
+	GameEngineRenderUnit* SetFBXMesh(const std::string& _Name, std::string _Material, size_t _MeshIndex, size_t _SubSetIndex = 0) override;
 
 	void CreateFBXAnimation(const std::string& _AnimationName, const std::string& _AnimationFBX, int _Index = 0);
 
 	void ChangeAnimation(const std::string& _AnimationName);
+
+	void Update(float _DeltaTime) override;
 
 protected:
 
 private:
 	std::map<std::string, std::shared_ptr<FBXRendererAnimation>> Animations;
 	std::shared_ptr<FBXRendererAnimation> CurAnimation;
+
+	std::map<size_t, std::vector<float4x4>> AnimationBoneMatrixs;
+	std::map<size_t, std::vector<AnimationBoneData>> AnimationBoneDatas;
 
 };
 

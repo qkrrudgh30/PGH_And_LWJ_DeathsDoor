@@ -232,6 +232,16 @@ public:
 		return p1 * (1.0f - Time) + p2 * Time;
 	}
 
+	static float4 SLerpQuaternion(const float4& _Left, const float4& _Right, float _Ratio)
+	{
+		if (1.0f <= _Ratio)
+		{
+			_Ratio = 1.0f;
+		}
+
+		return DirectX::XMQuaternionSlerp(_Left.DirectVector, _Right.DirectVector, _Ratio);
+	}
+
 	// 보통 누적된 시간을 Time
 	static float4 LerpLimit(const float4& p1, const float4& p2, float Time)
 	{
@@ -1193,6 +1203,11 @@ public:
 				);
 	}
 
+	static float4x4 Affine(float4 _Scale, float4 _Rot, float4 _Pos)
+	{
+		// _Rot.DirectVector 쿼터니온 입니다.
+		return DirectX::XMMatrixAffineTransformation(_Scale.DirectVector, float4::ZERO.DirectVector, _Rot.DirectVector, _Pos.DirectVector);
+	}
 	
 public: // 연산자
 	float4x4 operator*(const float4x4& _Value) 

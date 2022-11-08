@@ -76,12 +76,12 @@ void GameEngineStructuredBuffer::CreateResize(int _DataSize, int Count, void* _S
 	Release();
 	DataCount = Count;
 
-	BufferDesc.ByteWidth = ShaderDesc.Size * DataCount; // GPU 에 생성할 구조화 버퍼 메모리 크기(최소단위 ??)
+	BufferDesc.ByteWidth = DataSize * DataCount; // GPU 에 생성할 구조화 버퍼 메모리 크기(최소단위 ??)
 	BufferDesc.Usage = D3D11_USAGE_DYNAMIC;
 	BufferDesc.CPUAccessFlags = D3D11_CPU_ACCESS_WRITE;
 	BufferDesc.BindFlags = D3D11_BIND_SHADER_RESOURCE;
 	BufferDesc.MiscFlags = D3D11_RESOURCE_MISC_BUFFER_STRUCTURED;
-	BufferDesc.StructureByteStride = ShaderDesc.Size; // 1개 크기도 넣어줘야 한다.
+	BufferDesc.StructureByteStride = DataSize; // 1개 크기도 넣어줘야 한다.
 
 	D3D11_SUBRESOURCE_DATA* StartDataPtr = nullptr;
 	D3D11_SUBRESOURCE_DATA StartData = {0};

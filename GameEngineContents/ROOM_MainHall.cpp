@@ -19,8 +19,17 @@ void ROOM_MainHall::Start()
 	ResultColor = float4{ 1.f, 1.f, 0.f, 1.f };
 	GameEngineFBXStaticRenderer* Renderer = CreateComponent<GameEngineFBXStaticRenderer>();
 	Renderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
-	Renderer->SetFBXMesh("ROOM_MainHall.fbx", "Texture");
-
+	// Renderer->SetFBXMesh("ROOM_MainHall.fbx", "Texture");
+	for (int i = 0; i < 3; ++i)
+	{
+		if (2 == i)
+		{
+			Renderer->SetFBXMesh("ROOM_MainHall.fbx", "Color", 0, i);
+			Renderer->GetAllRenderUnit()[0][i].ShaderResources.SetConstantBufferLink("ResultColor", float4::BLACK);
+			continue;
+		}
+		Renderer->SetFBXMesh("ROOM_MainHall.fbx", "Texture", 0, i);
+	}
 
 #pragma region ROOM_Enter (1).FBX
 
