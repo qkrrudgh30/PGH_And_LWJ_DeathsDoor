@@ -950,88 +950,69 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 		GetTransform().SetWorldMove(GetTransform().GetDownVector() * Speed * _DeltaTime);
 
 	}
-	
-
-	//키 같이 입력
-	else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight")  && true == GameEngineInput::GetInst()->IsPress("PlayerF"))
+	else
 	{
+
+
+
+			//키 같이 입력
+		if (true == GameEngineInput::GetInst()->IsPress("PlayerRight") && true == GameEngineInput::GetInst()->IsPress("PlayerF"))
+		{
+
+			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,45.f,0.f });
+
+		}
+		else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight") && true == GameEngineInput::GetInst()->IsPress("PlayerB"))
+		{
+
+			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,135.f,0.f });
+
+		}
+		else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft") && true == GameEngineInput::GetInst()->IsPress("PlayerF"))
+		{
+			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,315.f,0.f });
+
+		}
+		else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft") && true == GameEngineInput::GetInst()->IsPress("PlayerB"))
+		{
+
+			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,225.f,0.f });
+		}
+
+
+
+		else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft"))
+		{
+			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,270.f,0.f });
+
+		}
+
+		else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight"))
+		{
+			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,90.f,0.f });
+
+		}
+		else if (true == GameEngineInput::GetInst()->IsPress("PlayerF"))
+		{
+
+			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,0.f,0.f });
+
+
+		}
+		else if (true == GameEngineInput::GetInst()->IsPress("PlayerB"))
+		{
+
+			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,180.f,0.f });
+
+
+
+		}
+		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
+		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
+
+
 		
-		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,45.f,0.f });
-
-		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
-		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
-
-
-
 	}
-	else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight") && true == GameEngineInput::GetInst()->IsPress("PlayerB"))
-	{
-		
-		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,135.f,0.f });
-
-
-		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
-		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
-	}
-	else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft") && true == GameEngineInput::GetInst()->IsPress("PlayerF"))
-	{
-		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,315.f,0.f });
-
-		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
-		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
-	}
-	else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft") && true == GameEngineInput::GetInst()->IsPress("PlayerB"))
-	{
-		
-		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,225.f,0.f });
-
-		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
-		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
-	}
-	
-	
-	
-	else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft"))
-	{
-	
-
-		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,270.f,0.f });
-
-		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
-		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
-
-	}
-
-	else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight"))
-	{
-		
-		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,90.f,0.f });
-
-		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
-		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
-
-	}
-	else if (true == GameEngineInput::GetInst()->IsPress("PlayerF"))
-	{
-		
-		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,0.f,0.f });
-
-		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
-		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
-
-	}
-	else if (true == GameEngineInput::GetInst()->IsPress("PlayerB"))
-	{
-		
-		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,180.f,0.f });
-
-		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
-		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
-
-	}
-
-
-
 
 	if (true == GameEngineInput::GetInst()->IsDown("PlayerSworldAtt"))
 	{
@@ -1157,6 +1138,12 @@ CollisionReturn Player::MonsterCollision(GameEngineCollision* _This, GameEngineC
 
 void Player::Update(float _DeltaTime)
 {
+
+
+	m_fStaticCollDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
+
+
+
 	if (m_bSlideCCheck)
 	{
 		m_fSlideCTime += _DeltaTime;

@@ -71,10 +71,6 @@ void PlayerHookTrail::Update(float _DeltaTime)
 		}
 
 
-
-
-
-
 	}
 
 

@@ -107,6 +107,13 @@ public:
 
 	PlayerUpgradeUI* UpgradeUI;
 	PlayerMainUI* MainUI;
+
+	float Speed;
+	float m_fSlideSpeed;
+
+
+
+	float4 m_fStaticCollDir;
 private:
 	bool m_bSWAcheck;
 	bool m_bSWA2check;
@@ -114,13 +121,13 @@ private:
 	bool m_bSWASlidecheck;
 
 
-	float Speed;
+
 	float m_fAttTestTime;
 	float4 ResultColor;
 
 
 	float m_fSlideTime;
-	float m_fSlideSpeed;
+	
 	float m_fSlideMaxSpeed;
 
 

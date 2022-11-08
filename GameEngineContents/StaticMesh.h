@@ -34,5 +34,11 @@ private:
 	bool mbPriorityInitialzed;
 	bool mbWithCollision;
 
+
+	CollisionReturn PlayerCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
+
+
+
+
 };
 
