@@ -28,7 +28,7 @@ void Monster::Start()
 		{
 			FBXAnimationRenderer->SetFBXMesh("_E_BAT_White.FBX", "Texture");
 		}
-		FBXAnimationRenderer->GetTransform().SetLocalScale({ 1000.0f, 1000.0f, 1000.0f });
+		FBXAnimationRenderer->GetTransform().SetLocalScale({ 0.25f, 0.25f, 0.25f });
 		FBXAnimationRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
 	}
 

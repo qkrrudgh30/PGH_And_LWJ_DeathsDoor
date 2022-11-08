@@ -270,6 +270,12 @@
     <ClInclude Include="LoadingUI.h">
       <Filter>01.Actor\01.UI\99.EditUI</Filter>
     </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>01.Actor\02.Unit\02.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadRoller.h">
+      <Filter>01.Actor\02.Unit\02.Monster</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -397,6 +403,12 @@
     </ClCompile>
     <ClCompile Include="LoadingUI.cpp">
       <Filter>01.Actor\01.UI\99.EditUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>01.Actor\02.Unit\02.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadRoller.cpp">
+      <Filter>01.Actor\02.Unit\02.Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

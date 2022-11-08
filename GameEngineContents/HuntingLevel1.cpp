@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "HuntingLevel1.h"
 #include "Player.h"
-
+#include "Slime.h"
 #include "TestActor.h"
 #include "Potal.h"
 #include "ROOM_Enter.h"
@@ -61,6 +61,29 @@ void HuntingLevel1::LevelStartEvent()
 		}
 
 		mbPrimitiveInitialized = true;
+
+
+		{
+			Slime* cMonster = CreateActor<Slime>(OBJECTORDER::Monster);
+			cMonster->GetTransform().SetWorldPosition({ -438.f,0.F,-583.f });
+
+
+		}
+
+		{
+			Slime* cMonster = CreateActor<Slime>(OBJECTORDER::Monster);
+			cMonster->GetTransform().SetWorldPosition({ -887.f,0.F,-1122.f });
+
+
+		}
+
+
+		{
+			Slime* cMonster = CreateActor<Slime>(OBJECTORDER::Monster);
+			cMonster->GetTransform().SetWorldPosition({ 7.f,0.F,-1266.f });
+
+
+		}
 
 
 

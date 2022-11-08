@@ -4,6 +4,7 @@
 #include "Potal.h"
 #include "ROOM_Left.h"
 #include "LoadingUI.h"
+#include "FlowerMonster.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -58,6 +59,32 @@ void HuntingLevel2::LevelStartEvent()
 
 
 		}
+
+
+		{
+			FlowerMonster* cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
+			cMonster->GetTransform().SetWorldPosition({ 1251.f,0.F,-787.f });
+
+
+		}
+
+
+		{
+			FlowerMonster* cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
+			cMonster->GetTransform().SetWorldPosition({ 78.f,0.F,-1672.f });
+
+
+		}
+
+		{
+			FlowerMonster* cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
+			cMonster->GetTransform().SetWorldPosition({ -550.f,0.F,-2660.f });
+
+
+		}
+
+
+
 		mbPrimitiveInitialized = true;
 	}
 #pragma endregion

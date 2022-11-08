@@ -195,6 +195,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="HeadRoller.h" />
     <ClInclude Include="HuntingLevel1.h">
       <SubType>
       </SubType>
@@ -279,6 +280,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Slime.h" />
     <ClInclude Include="StaticMesh.h">
       <SubType>
       </SubType>
@@ -361,6 +363,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="HeadRoller.cpp" />
     <ClCompile Include="HuntingLevel1.cpp">
       <SubType>
       </SubType>
@@ -445,6 +448,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Slime.cpp" />
     <ClCompile Include="StaticMesh.cpp">
       <SubType>
       </SubType>
