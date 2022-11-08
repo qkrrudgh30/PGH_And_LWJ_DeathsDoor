@@ -48,5 +48,6 @@ private:
 	std::vector<std::string> mstrvecStaticMeshFileNamesForEdit;
 	std::vector<std::string> mstrvecAnimationFileNames;
 
+
 };
 

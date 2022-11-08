@@ -133,14 +133,14 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 	// 여러 줄 인데, 나누어 떨어질때
 	// 여러 줄 인데, 나누어 떨어지지 않을때
 	GameEngineDirectory mapDir;
-	for (size_t i = 0; i < uLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 
+	size_t i = 0, j = 0, k = 0;
+	for (i = 0; i < uLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 
 	{
-		for (size_t j = 0; j < uThreadCount; ++j)
+		for (j = 0; j < uThreadCount; ++j)
 		{
 			GameEngineCore::EngineThreadPool.Work(
 				[=]
 				{
-					// std::lock_guard<std::mutex> LockInst(m);
 					GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + j]);
 					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
 				});
@@ -153,19 +153,18 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 
 	if (0 != uRemains) // 1줄도 안되는 경우와 여러 줄이지만 여분의 FBX 폴더가 있는 경우.
 	{
-		for (size_t i = 0; i < uRemains; ++i)
+		for (k = 0; k < uRemains; ++k)
 		{
 			GameEngineCore::EngineThreadPool.Work(
 				[=]
 				{
-					// std::lock_guard<std::mutex> LockInst(m);
-					GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
+					GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + k]);
 					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
 				});
 
-			/*GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
+			/*GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + k]);
 			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-			EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAnimatorMeshFileNamesForEdit[i]);*/
+			EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAnimatorMeshFileNamesForEdit[i * uThreadCount + k]);*/
 		}
 	}
 
@@ -188,9 +187,6 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 	size_t uRemains = uOuterDirectoriesCount % uThreadCount;
 	muFBXLoadedCount = 0u;
 
-	// Create FileNames From Path.
-	// mapDir.Move(vOuterDirectories[i].GetFullPath());
-	// 매 순회마다 strTemp가 변경되는 듯함.. -> 멀티 스레딩시 경로가 계속 변경됨.
 	mstrvecStaticMeshFileNames.clear();
 	mstrvecStaticMeshFileNames.reserve(uOuterDirectoriesCount);
 	mstrvecStaticMeshFileNamesForEdit.clear();
@@ -208,14 +204,14 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 	// 여러 줄 인데, 나누어 떨어질때
 	// 여러 줄 인데, 나누어 떨어지지 않을때
 	GameEngineDirectory mapDir;
-	for (size_t i = 0; i < uLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 
+	size_t i = 0, j = 0, k = 0;
+	for (i = 0; i < uLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 
 	{
-		for (size_t j = 0; j < uThreadCount; ++j)
+		for (j = 0; j < uThreadCount; ++j)
 		{
 			GameEngineCore::EngineThreadPool.Work(
 				[=]
 				{
-					// std::lock_guard<std::mutex> LockInst(m);
 					GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * uThreadCount + j]);
 					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
 				});
@@ -228,19 +224,18 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 
 	if (0 != uRemains) // 1줄도 안되는 경우와 여러 줄이지만 여분의 FBX 폴더가 있는 경우.
 	{
-		for (size_t i = 0; i < uRemains; ++i)
+		for (k = 0; k < uRemains; ++k)
 		{
 			GameEngineCore::EngineThreadPool.Work(
 				[=]
 				{
-					// std::lock_guard<std::mutex> LockInst(m);
-					GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i]);
+					GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * uThreadCount + k]);
 					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
 				});
 
-			/*GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i]);
+			/*GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * uThreadCount + k]);
 			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-			EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecStaticMeshFileNamesForEdit[i]);*/
+			EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecStaticMeshFileNamesForEdit[i * uThreadCount + k]);*/
 		}
 	}
 
@@ -263,9 +258,6 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 	size_t uRemains = uOuterDirectoriesCount % uThreadCount;
 	muFBXLoadedCount = 0u;
 
-	// Create FileNames From Path.
-	// mapDir.Move(vOuterDirectories[i].GetFullPath());
-	// 매 순회마다 strTemp가 변경되는 듯함.. -> 멀티 스레딩시 경로가 계속 변경됨.
 	mstrvecAnimationFileNames.clear();
 	mstrvecAnimationFileNames.reserve(uOuterDirectoriesCount);
 	for (size_t i = 0; i < uOuterDirectoriesCount; ++i)
@@ -279,14 +271,14 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 	// 여러 줄 인데, 나누어 떨어지지 않을때
 
 	GameEngineDirectory mapDir;
-	for (size_t i = 0; i < uLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 
+	size_t i = 0, j = 0, k = 0;
+	for (i = 0; i < uLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 
 	{
-		for (size_t j = 0; j < uThreadCount; ++j)
+		for (j = 0; j < uThreadCount; ++j)
 		{
 			GameEngineCore::EngineThreadPool.Work(
 				[=]
 				{
-					// std::lock_guard<std::mutex> LockInst(m);
 					GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimationFileNames[i * uThreadCount + j]);
 					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
 				});
@@ -298,17 +290,16 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 
 	if (0 != uRemains) // 1줄도 안되는 경우와 여러 줄이지만 여분의 FBX 폴더가 있는 경우.
 	{
-		for (size_t i = 0; i < uRemains; ++i)
+		for (k = 0; k < uRemains; ++k)
 		{
 			GameEngineCore::EngineThreadPool.Work(
 				[=]
 				{
-					// std::lock_guard<std::mutex> LockInst(m);
-					GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
+					GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + k]);
 					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
 				});
 
-			/*GameEngineFBXAnimation* Animation = GameEngineFBXAnimation::Load(mstrvecAnimationFileNames[i]);
+			/*GameEngineFBXAnimation* Animation = GameEngineFBXAnimation::Load(mstrvecAnimationFileNames[i * uThreadCount + k]);
 			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);*/
 		}
 	}
