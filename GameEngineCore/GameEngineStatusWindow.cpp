@@ -46,7 +46,7 @@ void GameEngineStatusWindow::AddDebugRenderTarget(const std::string& _DebugName,
 	DebugRenderTarget.insert(std::make_pair(_DebugName, _RenderTarget));
 }
 
-void GameEngineStatusWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
+void GameEngineStatusWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime) 
 {
 	int FPS = static_cast<int>(1.0f / _DeltaTime);
 	// printf 형식인데 안씀.
@@ -54,59 +54,69 @@ void GameEngineStatusWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	std::string Name = "FPS : " + std::to_string(GameEngineTime::GetFPS());
 	ImGui::Text(Name.c_str());
 
-	if (true == ImGui::Button("On/Off the colliders."))
+	if (true == ImGui::Button("Thread깨우기"))
+	{
+		for (size_t i = 0; i < 100; i++)
+		{
+			// GameEngineTexture::Load
+
+			//GameEngineCore::EngineThreadPool.Work(
+			//	[]
+			//	{
+			//		GameEngineDebug::OutPutString("쓰레드입니다.");
+			//	}
+			//);
+		}
+	}
+
+	if (true == ImGui::Button("CollisionDebugSwtich"))
 	{
 		GEngine::CollisionDebugSwitch();
 	}
 
-	if (true == ImGui::Button("On/Off the free camera."))
+	if (true == ImGui::Button("FreeCameaOnOff"))
 	{
 		// ;
 		GEngine::GetCurrentLevel()->GetMainCameraActor()->FreeCameraModeOnOff();
 	}
 
-	size_t i = 0;
 	ImGui::Text("Level Select");
 	for (std::pair<std::string, GameEngineLevel*> Pair : GameEngineCore::AllLevels)
 	{
-		++i;
 		if (true == ImGui::Button(Pair.first.c_str()))
 		{
 			GameEngineCore::ChangeLevel(Pair.first);
 		}
 
-		if (i % 3 == 0) { continue; }
 		ImGui::SameLine();
 	}
 
-	
+	ImGui::NewLine();
+	std::string AllRenderTarget = "AllRenderTarget";
+	ImGui::Text(AllRenderTarget.c_str());
 
-	//ImGui::NewLine();
-	//std::string AllRenderTarget = "AllRenderTarget";
-	//ImGui::Text(AllRenderTarget.c_str());
+	for (std::pair<std::string, GameEngineRenderTarget*> RenderTargetPair : DebugRenderTarget)
+	{
+		// ImGui::Text(RenderTarget.first.c_str());
 
-	//for (std::pair<std::string, GameEngineRenderTarget*> RenderTargetPair : DebugRenderTarget)
-	//{
-	//	// ImGui::Text(RenderTarget.first.c_str());
+		if (true == ImGui::TreeNodeEx(RenderTargetPair.first.c_str(), 0))
+		{
+			GameEngineRenderTarget* RenderTarget = RenderTargetPair.second;
 
-	//	if (true == ImGui::TreeNodeEx(RenderTargetPair.first.c_str(), 0))
-	//	{
-	//		GameEngineRenderTarget* RenderTarget = RenderTargetPair.second;
+			for (ID3D11ShaderResourceView* _View : RenderTarget->ShaderResourceViews)
+			{
+				float4 Scale = GameEngineWindow::GetScale() * 0.2f;
 
-	//		for (ID3D11ShaderResourceView* _View : RenderTarget->ShaderResourceViews)
-	//		{
-	//			float4 Scale = GameEngineWindow::GetScale() * 0.2f;
+				if (true == ImGui::ImageButton(static_cast<ImTextureID>(_View), { Scale.x, Scale.y }))
+				{
+					GameEngineImageShotWindow* NewWindow = GameEngineGUI::CreateGUIWindow<GameEngineImageShotWindow>("ImageShot", nullptr);
+					NewWindow->RenderTextureSetting(static_cast<ImTextureID>(_View), { GameEngineWindow::GetScale().x ,GameEngineWindow::GetScale().y } );
+				}
+			}
 
-	//			if (true == ImGui::ImageButton(static_cast<ImTextureID>(_View), { Scale.x, Scale.y }))
-	//			{
-	//				GameEngineImageShotWindow* NewWindow = GameEngineGUI::CreateGUIWindow<GameEngineImageShotWindow>("ImageShot", nullptr);
-	//				NewWindow->RenderTextureSetting(static_cast<ImTextureID>(_View), { GameEngineWindow::GetScale().x ,GameEngineWindow::GetScale().y } );
-	//			}
-	//		}
-
-	//		ImGui::TreePop();
-	//	}
-	//}
+			ImGui::TreePop();
+		}
+	}
 
 	DebugRenderTarget.clear();
 

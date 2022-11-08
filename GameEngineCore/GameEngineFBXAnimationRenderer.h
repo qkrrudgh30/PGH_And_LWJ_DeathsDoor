@@ -5,9 +5,11 @@
 class FbxExAniData;
 class GameEngineFBXMesh;
 class GameEngineFBXAnimation;
+class GameEngineFBXAnimationRenderer;
 class FBXRendererAnimation : public std::enable_shared_from_this<FBXRendererAnimation>
 {
 public:
+	GameEngineFBXAnimationRenderer* ParentRenderer;
 	// SetFBX 본을 가지고 있는 매쉬
 	GameEngineFBXMesh* Mesh;
 	// 애니메이션을 가지고 있는 FBX
@@ -20,6 +22,10 @@ public:
 	UINT CurFrame;
 	UINT Start;
 	UINT End;
+
+	void Init(int _Index);
+	void Reset();
+	void Update();
 
 public:
 	FBXRendererAnimation() 
@@ -50,7 +56,9 @@ public:
 	void SetFBXMesh(const std::string& _Name, std::string _Material);
 	void SetFBXMesh(const std::string& _Name, std::string _Material, size_t _MeshIndex, size_t _SubSetIndex = 0);
 
-	void CreateFBXAnimation(const std::string& _AnimationName, const std::string& _AnimationFBX);
+	void CreateFBXAnimation(const std::string& _AnimationName, const std::string& _AnimationFBX, int _Index = 0);
+
+	void ChangeAnimation(const std::string& _AnimationName);
 
 protected:
 

@@ -13,3 +13,15 @@
 
 }
 
+4. if (RetrievePoseFromBindPose(Scene, MeshNodeArray, PoseArray) == false)
+{
+    // MsgBoxAssert("Recreating bind pose failed.");
+}
+
+5. else
+{
+    std::string ErrorString = Status.GetErrorString();
+    std::string CurrentName = Current->GetName();
+
+    // MsgBoxAssertString(ErrorString + "_" + CurrentName);
+}

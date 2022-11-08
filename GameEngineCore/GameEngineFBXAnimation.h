@@ -87,6 +87,9 @@ public:
 	double					FbxModeRate;
 
 	// 0~100
+	// meshInfo 1개 상체 20
+	// meshInfo 1개 하체
+	// meshInfo 1개 전신 20
 	std::vector<std::vector<FbxExBoneFrame>> AniFrameData;
 
 	void Write(GameEngineFile* _File) const
@@ -151,6 +154,7 @@ public:
 
 
 // 설명 :
+class GameEngineFBXMesh;
 class GameEngineFBXAnimation : public GameEngineFBX, public GameEngineRes<GameEngineFBXAnimation>
 {
 public:
@@ -171,9 +175,28 @@ public:
 
 	static GameEngineFBXAnimation* Load(const std::string& _Path, const std::string& _Name);
 
+	// 애니메이션 프레임 행렬계산.
+	// 여기서 프레임의 의미는 Animation TimeEndCount - TimeStartCount
+	void AnimationMatrixLoad(GameEngineFBXMesh* _Mesh, int _AnimationIndex);
+
+	FbxExAniData* GetAnimationData(int _Index)
+	{
+		if (AnimationDatas.size() <= _Index)
+		{
+			MsgBoxAssert("애니메이션 데이터 범위를 넘어섰습니다");
+		}
+
+		return &AnimationDatas[_Index];
+	}
 
 protected:
 	void LoadMesh(const std::string& _Path, const std::string& _Name);
+
+	// 애니메이션은 노드의 어트리뷰트가 다 eMesh인 녀석에게 들어있으므로 그녀석에게서 애니메이션 로드 함수를 실행시키는 역할을 한다.
+	void ProcessAnimationLoad(GameEngineFBXMesh* _Mesh, fbxsdk::FbxNode* pNode, int _index);
+	bool AnimationLoad(GameEngineFBXMesh* _Mesh, fbxsdk::FbxNode* _Node, int AnimationIndex);
+	void ProcessAnimationCheckState(GameEngineFBXMesh* _Fbx, int userAniDataIndex);
+	fbxsdk::FbxAMatrix GetGeometryTransformation(fbxsdk::FbxNode* pNode);
 
 	// 런
 	// 아이들

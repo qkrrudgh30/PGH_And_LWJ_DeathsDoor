@@ -116,9 +116,6 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 	size_t uRemains = uOuterDirectoriesCount % uThreadCount;
 	muFBXLoadedCount = 0u;
 
-	// Create FileNames From Path.
-	// mapDir.Move(vOuterDirectories[i].GetFullPath());
-	// 매 순회마다 strTemp가 변경되는 듯함.. -> 멀티 스레딩시 경로가 계속 변경됨.
 	mstrvecAnimatorMeshFileNames.clear();
 	mstrvecAnimatorMeshFileNames.reserve(uOuterDirectoriesCount);
 	mstrvecAnimatorMeshFileNamesForEdit.clear();
@@ -140,17 +137,17 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 	{
 		for (size_t j = 0; j < uThreadCount; ++j)
 		{
-			//GameEngineCore::EngineThreadPool.Work(
-			//	[&]
-			//	{
-			//		// std::lock_guard<std::mutex> LockInst(m);
-			//		GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + j]);
-			//		++muFBXFolderCount;
-			//	});
+			GameEngineCore::EngineThreadPool.Work(
+				[=]
+				{
+					// std::lock_guard<std::mutex> LockInst(m);
+					GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + j]);
+					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
+				});
 
-			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + j]);
+			/*GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + j]);
 			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-			EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAnimatorMeshFileNamesForEdit[i * uThreadCount + j]);
+			EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAnimatorMeshFileNamesForEdit[i * uThreadCount + j]);*/
 		}
 	}
 
@@ -158,17 +155,17 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 	{
 		for (size_t i = 0; i < uRemains; ++i)
 		{
-			//GameEngineCore::EngineThreadPool.Work(
-			//	[&]
-			//	{
-			//		// std::lock_guard<std::mutex> LockInst(m);
-			//		GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
-			//		++muFBXFolderCount;
-			//	});
+			GameEngineCore::EngineThreadPool.Work(
+				[=]
+				{
+					// std::lock_guard<std::mutex> LockInst(m);
+					GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
+					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
+				});
 
-			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
+			/*GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
 			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-			EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAnimatorMeshFileNamesForEdit[i]);
+			EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAnimatorMeshFileNamesForEdit[i]);*/
 		}
 	}
 
@@ -215,17 +212,17 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 	{
 		for (size_t j = 0; j < uThreadCount; ++j)
 		{
-			//GameEngineCore::EngineThreadPool.Work(
-			//	[&]
-			//	{
-			//		// std::lock_guard<std::mutex> LockInst(m);
-			//		GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + j]);
-			//		++muFBXFolderCount;
-			//	});
+			GameEngineCore::EngineThreadPool.Work(
+				[=]
+				{
+					// std::lock_guard<std::mutex> LockInst(m);
+					GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * uThreadCount + j]);
+					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
+				});
 
-			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * uThreadCount + j]);
+			/*GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * uThreadCount + j]);
 			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-			EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecStaticMeshFileNamesForEdit[i * uThreadCount + j]);
+			EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecStaticMeshFileNamesForEdit[i * uThreadCount + j]);*/
 		}
 	}
 
@@ -233,17 +230,17 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 	{
 		for (size_t i = 0; i < uRemains; ++i)
 		{
-			//GameEngineCore::EngineThreadPool.Work(
-			//	[&]
-			//	{
-			//		// std::lock_guard<std::mutex> LockInst(m);
-			//		GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
-			//		++muFBXFolderCount;
-			//	});
+			GameEngineCore::EngineThreadPool.Work(
+				[=]
+				{
+					// std::lock_guard<std::mutex> LockInst(m);
+					GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i]);
+					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
+				});
 
-			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i]);
+			/*GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i]);
 			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-			EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecStaticMeshFileNamesForEdit[i]);
+			EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecStaticMeshFileNamesForEdit[i]);*/
 		}
 	}
 
@@ -286,15 +283,16 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 	{
 		for (size_t j = 0; j < uThreadCount; ++j)
 		{
-			//GameEngineCore::EngineThreadPool.Work(
-			//	[&]
-			//	{
-			//		// std::lock_guard<std::mutex> LockInst(m);
-			//		GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + j]);
-			//		++muFBXFolderCount;
-			//	});
-			GameEngineFBXAnimation* Animation = GameEngineFBXAnimation::Load(mstrvecAnimationFileNames[i * uThreadCount + j]);
-			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
+			GameEngineCore::EngineThreadPool.Work(
+				[=]
+				{
+					// std::lock_guard<std::mutex> LockInst(m);
+					GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimationFileNames[i * uThreadCount + j]);
+					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
+				});
+
+			/*GameEngineFBXAnimation* Animation = GameEngineFBXAnimation::Load(mstrvecAnimationFileNames[i * uThreadCount + j]);
+			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);*/
 		}
 	}
 
@@ -302,16 +300,16 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 	{
 		for (size_t i = 0; i < uRemains; ++i)
 		{
-			//GameEngineCore::EngineThreadPool.Work(
-			//	[&]
-			//	{
-			//		// std::lock_guard<std::mutex> LockInst(m);
-			//		GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
-			//		++muFBXFolderCount;
-			//	});
+			GameEngineCore::EngineThreadPool.Work(
+				[=]
+				{
+					// std::lock_guard<std::mutex> LockInst(m);
+					GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i]);
+					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
+				});
 
-			GameEngineFBXAnimation* Animation = GameEngineFBXAnimation::Load(mstrvecAnimationFileNames[i]);
-			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
+			/*GameEngineFBXAnimation* Animation = GameEngineFBXAnimation::Load(mstrvecAnimationFileNames[i]);
+			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);*/
 		}
 	}
 

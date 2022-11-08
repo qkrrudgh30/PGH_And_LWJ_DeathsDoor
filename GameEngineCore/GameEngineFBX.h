@@ -65,8 +65,6 @@ protected:
 	fbxsdk::FbxAMatrix JointMatrix;
 	fbxsdk::FbxVector4 AxisVector;
 
-private:
-
 
 };
 

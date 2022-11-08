@@ -99,7 +99,6 @@ void GameEngineCore::CoreUpdate(GameEngineCore* _UserCore)
 		//     플레이 레벨에서 => 다시 타이틀레벨로
 		CurrentLevel->ReSetAccTime();
 
-
 		GameEngineTime::GetInst()->Reset();
 	}
 

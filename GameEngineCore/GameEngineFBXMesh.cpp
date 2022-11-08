@@ -189,7 +189,7 @@ std::string GameEngineFBXMesh::MaterialTex(fbxsdk::FbxSurfaceMaterial* pMtrl, co
 }
 
 
-void GameEngineFBXMesh::FbxRenderUnitMaterialSetting(fbxsdk::FbxNode* _Node, FbxRenderUnit* _RenderData)
+void GameEngineFBXMesh::FbxRenderUnitInfoMaterialSetting(fbxsdk::FbxNode* _Node, FbxRenderUnitInfo* _RenderData)
 {
 	int MtrlCount = _Node->GetMaterialCount();
 
@@ -481,7 +481,7 @@ void GameEngineFBXMesh::VertexBufferCheck()
 
 		// 인덱스 버퍼 기준으로 만들어야 한다.
 		// 나중에 변경
-		FbxRenderUnit& RenderUnit = RenderUnitInfos.emplace_back();
+		FbxRenderUnitInfo& RenderUnit = RenderUnitInfos.emplace_back();
 		RenderUnit.VectorIndex = meshInfoIndex;
 
 		if (RenderUnit.MapWI.end() == RenderUnit.MapWI.find(pMesh))
@@ -541,7 +541,7 @@ void GameEngineFBXMesh::VertexBufferCheck()
 		RenderUnit.BoundScaleBox.z = RenderUnit.MaxBoundBox.z - RenderUnit.MinBoundBox.z;
 		
 		// 머티리얼 정보를 얻어오고 텍스처의 경로를 알아낸다.
-		FbxRenderUnitMaterialSetting(pMeshNode, &RenderUnit);
+		FbxRenderUnitInfoMaterialSetting(pMeshNode, &RenderUnit);
 
 		pMesh->GetElementMaterialCount();
 		fbxsdk::FbxGeometryElementMaterial* pGeometryElementMaterial = pMesh->GetElementMaterial();
@@ -884,7 +884,7 @@ GameEngineMesh* GameEngineFBXMesh::GetGameEngineMesh(size_t _MeshIndex, size_t _
 		MsgBoxAssert("존재하지 않는 랜더 유니트를 사용하려고 했습니다.");
 	}
 
-	FbxRenderUnit& Unit = RenderUnitInfos[_MeshIndex];
+	FbxRenderUnitInfo& Unit = RenderUnitInfos[_MeshIndex];
 
 	if (nullptr == Unit.VertexBuffer)
 	{
@@ -961,7 +961,7 @@ const FbxExMaterialSettingData& GameEngineFBXMesh::GetMaterialSettingData(size_t
 		MsgBoxAssert("존재하지 않는 랜더 유니트를 사용하려고 했습니다.");
 	}
 
-	FbxRenderUnit& Unit = RenderUnitInfos[_MeshIndex];
+	FbxRenderUnitInfo& Unit = RenderUnitInfos[_MeshIndex];
 
 	if (Unit.MaterialData.size() <= _SubIndex)
 	{
@@ -1346,7 +1346,7 @@ void GameEngineFBXMesh::ImportCluster()
 }
 
 
-void GameEngineFBXMesh::DrawSetWeightAndIndexSetting(FbxRenderUnit* _DrawSet, fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxCluster* _Cluster, int _BoneIndex)
+void GameEngineFBXMesh::DrawSetWeightAndIndexSetting(FbxRenderUnitInfo* _DrawSet, fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxCluster* _Cluster, int _BoneIndex)
 {
 	if (nullptr == _DrawSet)
 	{
@@ -1368,7 +1368,7 @@ void GameEngineFBXMesh::DrawSetWeightAndIndexSetting(FbxRenderUnit* _DrawSet, fb
 }
 
 
-void GameEngineFBXMesh::LoadAnimationVertexData(FbxRenderUnit* _MeshSet, const std::vector<FbxClusterData>& vecClusterData)
+void GameEngineFBXMesh::LoadAnimationVertexData(FbxRenderUnitInfo* _MeshSet, const std::vector<FbxClusterData>& vecClusterData)
 {
 	for (auto& clusterData : vecClusterData)
 	{
@@ -1389,7 +1389,9 @@ void GameEngineFBXMesh::LoadAnimationVertexData(FbxRenderUnit* _MeshSet, const s
 }
 
 
-void GameEngineFBXMesh::CalAnimationVertexData(FbxRenderUnit& _DrawSet)
+// 가중치와 본이 10개 20 int4그중에서 너무 미약하거나 이런애들 잘라버리고
+// 다 더했는데 1이 아닌것도 체크해서 정리하고.
+void GameEngineFBXMesh::CalAnimationVertexData(FbxRenderUnitInfo& _DrawSet)
 {
 	for (auto& _WISet : _DrawSet.MapWI)
 	{
@@ -1458,7 +1460,7 @@ void GameEngineFBXMesh::LoadSkinAndCluster()
 
 	for (int i = 0; i < RenderUnitInfos.size(); ++i)
 	{
-		FbxRenderUnit& RenderInfo = RenderUnitInfos[i];
+		FbxRenderUnitInfo& RenderInfo = RenderUnitInfos[i];
 		std::vector<FbxClusterData>& ClusterInfo = ClusterData[i];
 
 		// 클러스터는 가중치 정보와 인덱스 정보를 가지고 있는데
