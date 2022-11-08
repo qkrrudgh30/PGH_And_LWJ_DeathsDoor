@@ -36,9 +36,8 @@ void HuntingLevel1::LevelStartEvent()
 	if (false == mbPrimitiveInitialized)
 	{
 		LoadCreaturesFromFile("01_HuntingLevel1");
-		mbPrimitiveInitialized = true;
-	}
-#pragma endregion
+
+
 		{
 			ROOM_Enter* pMap = CreateActor<ROOM_Enter>(OBJECTORDER::StaticMesh);
 		}
@@ -46,7 +45,7 @@ void HuntingLevel1::LevelStartEvent()
 		{
 
 			Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-1300.F });
+			Potal_->GetTransform().SetWorldPosition({ -1231.F,0.F,-1875.F });
 			Potal_->m_PotalType = PotalType::Stage1ToStage2;
 
 		}
@@ -56,10 +55,23 @@ void HuntingLevel1::LevelStartEvent()
 		{
 
 			Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-0.f });
+			Potal_->GetTransform().SetWorldPosition({ 503.F,0.F,-172.f });
 			Potal_->m_PotalType = PotalType::Stage1ToSLogin;
 
 		}
+
+		mbPrimitiveInitialized = true;
+
+
+
+	}
+
+
+
+
+
+#pragma endregion
+	
 
 
 	{
@@ -73,7 +85,7 @@ void HuntingLevel1::LevelStartEvent()
 		else
 		{
 			Player* NewPlayer = Player::GetMainPlayer();
-			NewPlayer->GetTransform().SetWorldPosition({ 1.F,0.F,1.F });
+			NewPlayer->GetTransform().SetWorldPosition({ 357.F,0.F,-353.F });
 			NewPlayer->UIOn();
 			//NewPlayer->m_bLogoLevelCheck = false;
 

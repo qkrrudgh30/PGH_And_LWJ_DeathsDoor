@@ -155,12 +155,12 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 	{
 		for (k = 0; k < uRemains; ++k)
 		{
-			/*GameEngineCore::EngineThreadPool.Work(
-				[=]
-				{
-					GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + k]);
-					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-				});*/
+			//GameEngineCore::EngineThreadPool.Work(
+			//	[=]
+			//	{
+			//		GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + k]);
+			//		mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
+			//	});
 
 			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + k]);
 			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
@@ -209,7 +209,7 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 	{
 		for (j = 0; j < uThreadCount; ++j)
 		{
-			/*GameEngineCore::EngineThreadPool.Work(
+		/*	GameEngineCore::EngineThreadPool.Work(
 				[=]
 				{
 					GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * uThreadCount + j]);
@@ -226,7 +226,7 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 	{
 		for (k = 0; k < uRemains; ++k)
 		{
-			/*GameEngineCore::EngineThreadPool.Work(
+		/*	GameEngineCore::EngineThreadPool.Work(
 				[=]
 				{
 					GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * uThreadCount + k]);
@@ -276,7 +276,7 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 	{
 		for (j = 0; j < uThreadCount; ++j)
 		{
-			/*GameEngineCore::EngineThreadPool.Work(
+		/*	GameEngineCore::EngineThreadPool.Work(
 				[=]
 				{
 					GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimationFileNames[i * uThreadCount + j]);
@@ -292,7 +292,7 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 	{
 		for (k = 0; k < uRemains; ++k)
 		{
-			/*GameEngineCore::EngineThreadPool.Work(
+		/*	GameEngineCore::EngineThreadPool.Work(
 				[=]
 				{
 					GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + k]);
