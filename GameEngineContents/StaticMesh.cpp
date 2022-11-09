@@ -45,6 +45,7 @@ void StaticMesh::Update(float _DeltaTime)
 	{
 		Player* mainPlayer = Player::GetMainPlayer();
 		float PlayerSpeed = 0.f;
+
 		if (mainPlayer->StateManager.GetCurStateStateName() == "Slide")
 		{
 			PlayerSpeed = mainPlayer->m_fSlideSpeed;
@@ -66,15 +67,6 @@ void StaticMesh::Update(float _DeltaTime)
 
 		}
 
-		//float4 PlayerPos = mainPlayer->GetMainPlayer()->GetTransform().GetWorldPosition();
-		//float4 MyPos = GetTransform().GetWorldPosition();
-
-		//PlayerPos.y = 0.f;
-		//MyPos.y = 0.f;
-
-
-		//float4 CollDir = PlayerPos - MyPos;
-		//CollDir = CollDir.Normalize3DReturn();
 		mainPlayer->GetMainPlayer()->GetTransform().SetWorldMove(-(mainPlayer->m_fStaticCollDir) * PlayerSpeed * _DeltaTime);
 
 	}
