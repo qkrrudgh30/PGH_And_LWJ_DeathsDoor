@@ -48,6 +48,7 @@ private:
 	void LoadAnimationsOfAnimator();
 
 	void LoadResources();
+	void LoadResources2();
 
 	std::vector<std::string> mstrvecAnimationFileNames;
 	std::vector<std::string> mstrvecAnimatorMeshFileNames;

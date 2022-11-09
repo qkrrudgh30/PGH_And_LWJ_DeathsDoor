@@ -69,7 +69,7 @@ void ContentsLevel::LoadFBXFiles()
 	LoadFBXMesiesOfStatic();
 	LoadAnimationsOfAnimator();
 
-	LoadResources();
+	LoadResources2();
 }
 
 void ContentsLevel::LoadCreaturesFromFile(const std::string& _strFolderName)
@@ -238,7 +238,7 @@ void ContentsLevel::LoadResources()
 				GameEngineCore::EngineThreadPool.Work(
 					[=]
 					{
-						GameEngineFBXAnimation* Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
+						//GameEngineFBXAnimation* Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
 						mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 					});
 			}
@@ -273,11 +273,74 @@ void ContentsLevel::LoadResources()
 				GameEngineCore::EngineThreadPool.Work(
 					[=]
 					{
-						GameEngineFBXAnimation* Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
+						//GameEngineFBXAnimation* Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
 						mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 					});
 			}
 		}
 	}
 
+}
+
+void ContentsLevel::LoadResources2()
+{
+	// size_t uThreadCount = GameEngineCore::EngineThreadPool.GetThreadCount();
+	muMyThreadCount = 6u;
+	muLines = static_cast<size_t>(muAllResourcesCount / muMyThreadCount);
+	muRemains = muAllResourcesCount % muMyThreadCount;
+	muFBXLoadedCount = 0u;
+
+	size_t i = 0, j = 0, k = 0, l = 0;
+	for (i = 0; i < muLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 
+	{
+		for (j = 0; j < muMyThreadCount; ++j)
+		{
+			l = i * muMyThreadCount + j;
+			if (l < muAnimationStartIndex)
+			{
+				GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
+				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
+				if (l < muAllAnimatorCount)
+				{
+					EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAllResourceNames[l]);
+				}
+				else
+				{
+					EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecAllResourceNames[l]);
+				}
+			}
+			else
+			{
+				GameEngineFBXAnimation* Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
+				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
+			}
+		}
+	}
+
+	if (0 != muRemains) // 1줄도 안되는 경우와 여러 줄이지만 여분의 FBX 폴더가 있는 경우.
+	{
+		for (k = 0; k < muRemains; ++k)
+		{
+			l = i * muMyThreadCount + k;
+			if (i * muMyThreadCount + k < muAnimationStartIndex)
+			{
+				GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
+				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
+				if (l < muAllAnimatorCount)
+				{
+					EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAllResourceNames[l]);
+				}
+				else
+				{
+					EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecAllResourceNames[l]);
+				}
+				
+			}
+			else
+			{
+				GameEngineFBXAnimation* Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
+				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
+			}
+		}
+	}
 }

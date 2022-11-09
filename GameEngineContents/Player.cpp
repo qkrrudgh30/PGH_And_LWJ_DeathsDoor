@@ -98,13 +98,14 @@ void Player::Start()
 	//FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.3f, 0.3f, 0.3f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
-//	for (int i = 0; i < 4; ++i)
-	{
-		//if (i != 3)
-		{
-			FBXAnimationRenderer->SetFBXMesh("Player.FBX", "Texture");
-		}
-	}
+	FBXAnimationRenderer->SetFBXMesh("Player.FBX", "Texture");
+	// for (int i = 0; i < 4; ++i)
+	// {
+	// 	if (i != 3)
+	// 	{
+	// 		FBXAnimationRenderer->SetFBXMesh("Flower.FBX", "Texture");
+	// 	}
+	// }
 	
 #pragma endregion
 

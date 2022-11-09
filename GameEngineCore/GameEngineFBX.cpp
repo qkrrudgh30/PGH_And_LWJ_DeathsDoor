@@ -163,6 +163,7 @@ bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
 // RootNode를 구한다.
 void GameEngineFBX::FBXConvertScene()
 {
+	ManagerLock.lock();
 	AxisVector = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	fbxsdk::FbxAxisSystem::EFrontVector FrontVector = (fbxsdk::FbxAxisSystem::EFrontVector)-fbxsdk::FbxAxisSystem::eParityOdd;
@@ -271,6 +272,7 @@ void GameEngineFBX::FBXConvertScene()
 		MsgBoxAssert("삼각화에 실패했습니다.");
 	}
 
+	ManagerLock.unlock();
 	return;
 }
 

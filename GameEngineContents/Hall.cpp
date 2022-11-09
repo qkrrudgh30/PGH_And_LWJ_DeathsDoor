@@ -23,19 +23,19 @@ void Hall::Start()
 #pragma region ROOM_Enter (1).FBX
 
 
-	for (int i = 0; i < 409; ++i)
-	{
-		if (62 == i)
-		{
-			Renderer->SetFBXMesh("Hall.fbx", "Color", i);
-			
-			Renderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::BLACK);
-			continue;
-		}
-
-		Renderer->SetFBXMesh("Hall.fbx", "Texture", i);
-
-	}
+	 for (int i = 0; i < 409; ++i)
+	 {
+	 	if (62 == i)
+	 	{
+	 		Renderer->SetFBXMesh("Hall.fbx", "Color", i);
+	 		
+	 		Renderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::BLACK);
+	 		continue;
+	 	}
+	 
+	 	Renderer->SetFBXMesh("Hall.fbx", "Texture", i);
+	 
+	 }
 
 	
 

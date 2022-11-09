@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "FlowerBullet.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
+#include <GameEngineCore/GameEngineFBXAnimationRenderer.h>
 
 FlowerMonster::FlowerMonster()
 {
@@ -40,16 +41,23 @@ void FlowerMonster::Start()
 
 
 	{
-		FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-		
+		// FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+		/*GameEngineFBXAnimationRenderer* temp = CreateComponent<GameEngineFBXAnimationRenderer>();
+
+		temp->SetFBXMesh("Flower.FBX", "TextureAnimation");
+		temp->CreateFBXAnimation("Idle", "Flower_Idle");
+		temp->ChangeAnimation("Idle");*/
+
+	}
+
+		/*
 		{
 			FBXAnimationRenderer->SetFBXMesh("Flower.FBX", "Texture");
 		}
 		FBXAnimationRenderer->GetTransform().SetLocalScale({ 0.25f, 0.25f, 0.25f });
-		FBXAnimationRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
-	}
+		FBXAnimationRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });*/
 
-
+	// Idle_16
 
 
 

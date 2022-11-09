@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "GameEngineFBXMesh.h"
 
+std::mutex m;
+
 GameEngineFBXMesh::GameEngineFBXMesh()
 {
 }
@@ -37,7 +39,9 @@ void GameEngineFBXMesh::MeshLoad()
 
 	VertexBufferCheck();
 
+	m.lock();
 	ImportBone();
+	m.unlock();
 
 	CreateGameEngineStructuredBuffer();
 

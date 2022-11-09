@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "ShopNPC.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
+#include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
 
 ShopNPC::ShopNPC() 
 {
@@ -31,20 +32,24 @@ void ShopNPC::Start()
 
 	//}
 	{
-		FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-		FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
-		FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
-		FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
+		//GameEngineFBXAnimationRenderer* temp = CreateComponent<GameEngineFBXAnimationRenderer>();
+		//temp->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
+		//temp->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
+		//temp->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
 
 
-		for (int i = 0; i < 6; ++i)
-		{
-			if (i != 5)
-			{
-				FBXAnimationRenderer->SetFBXMesh("Banker.FBX", "Texture", i);
-			}
-		}
+		//for (int i = 0; i < 6; ++i)
+		//{
+		//	if (i == 5)
+		//	{
+		//		// temp->SetFBXMesh("Banker.FBX", "Color", i);
+		//		continue;
+		//	}
+		//	temp->SetFBXMesh("Banker.FBX", "TextureAnimation", i);
+		//}
 
+		//temp->CreateFBXAnimation("Idle", "Banker_Idle");
+		//temp->ChangeAnimation("Idle");
 	}
 
 	
