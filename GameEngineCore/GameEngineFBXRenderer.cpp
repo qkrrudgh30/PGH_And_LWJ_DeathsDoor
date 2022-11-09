@@ -22,7 +22,8 @@ void GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name, std::string _Pi
 	}
 }
 
-void GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name, 
+// SetFbxMesh를 해서 만들어진 랜더 유니트를 사용하게 하기 위해서 리턴해준다.
+GameEngineRenderUnit* GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name,
 	std::string _Material,
 	size_t Index, 
 	size_t _SubSetIndex /*= 0*/)
@@ -32,7 +33,7 @@ void GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name,
 	if (nullptr == FindFBXMesh)
 	{
 		MsgBoxAssert("존재하지 않는 FBXMesh를 세팅했습니다.");
-		return;
+		return nullptr;
 	}
 
 	if (nullptr == FBXMesh && nullptr != FindFBXMesh)
@@ -70,6 +71,8 @@ void GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name,
 	}
 
 	RenderUnit.SetRenderer(this);
+
+	return &RenderUnit;
 }
 
 void GameEngineFBXRenderer::Render(float _DeltaTime) 

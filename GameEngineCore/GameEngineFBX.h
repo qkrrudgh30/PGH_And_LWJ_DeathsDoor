@@ -53,7 +53,7 @@ protected:
 
 	void RecursiveAllNode(fbxsdk::FbxNode* _Node, std::function<void(fbxsdk::FbxNode*)> _Function = nullptr);
 
-	// std::mutex ManagerLock;
+	static std::mutex ManagerLock;
 	fbxsdk::FbxManager* Manager;
 
 	fbxsdk::FbxIOSettings* IOSetting;

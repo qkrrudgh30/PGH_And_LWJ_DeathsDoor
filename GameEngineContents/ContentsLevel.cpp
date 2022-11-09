@@ -14,8 +14,12 @@ std::atomic<unsigned int> ContentsLevel::muFBXLoadedCount = 0;
 std::string ContentsLevel::mstrNextLevelName;
 std::string ContentsLevel::mstrPrevLevelName;
 std::map<std::string, bool> ContentsLevel::mmapPrimitiveInitialized;
+std::vector<std::string> ContentsLevel::mstrvecAllResourceNames;
 
 enum { eWaiting = -1 };
+
+// #define MT
+#define NMT
 
 ContentsLevel::ContentsLevel()	
 	: mbPrimitiveInitialized(false)
@@ -27,6 +31,8 @@ ContentsLevel::ContentsLevel()
 	mstrvecStaticMeshFileNames.reserve(64u);
 	mstrvecStaticMeshFileNamesForEdit.reserve(64u);
 	mstrvecAnimationFileNames.reserve(64u);
+
+	// GameEngineFBX::CreateManager();
 }
 
 ContentsLevel::~ContentsLevel() 
@@ -54,9 +60,16 @@ void ContentsLevel::PlacePathOn(const std::string& _strFolderName)
 
 void ContentsLevel::LoadFBXFiles()
 {
+	mstrvecAllResourceNames.clear();
+	mstrvecAllResourcePaths.clear();
+	muAllResourcesCount = 0u;
+	muMyThreadCount = GameEngineCore::EngineThreadPool.GetMyThreadCount();
+
 	LoadFBXMesiesOfAnimator();
 	LoadFBXMesiesOfStatic();
 	LoadAnimationsOfAnimator();
+
+	LoadResources();
 }
 
 void ContentsLevel::LoadCreaturesFromFile(const std::string& _strFolderName)
@@ -110,8 +123,10 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 {
 	std::vector<GameEngineDirectory> vOuterDirectories = mvecDirectories[eAnimatorDir].GetAllDirectory();
 	size_t uOuterDirectoriesCount = vOuterDirectories.size();
-	// size_t uThreadCount = GameEngineCore::EngineThreadPool.GetThreadCount();
-	size_t uThreadCount = 6u;
+	muAllAnimatorCount = uOuterDirectoriesCount;
+	muAllResourcesCount += uOuterDirectoriesCount;
+	size_t uThreadCount = GameEngineCore::EngineThreadPool.GetMyThreadCount();
+	// size_t uThreadCount = 6u;
 	size_t uLines = static_cast<size_t>(uOuterDirectoriesCount / uThreadCount);
 	size_t uRemains = uOuterDirectoriesCount % uThreadCount;
 	muFBXLoadedCount = 0u;
@@ -124,65 +139,23 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 	{
 		std::string strTemp = vOuterDirectories[i].GetFileName();
 		mstrvecAnimatorMeshFileNamesForEdit.push_back(strTemp);
+		mstrvecAllResourceNames.push_back(strTemp);
 		mstrvecAnimatorMeshFileNames.push_back(vOuterDirectories[i].PlusFilePath(strTemp + ".FBX"));
+		mstrvecAllResourcePaths.push_back(vOuterDirectories[i].PlusFilePath(strTemp + ".FBX"));
 	}
 
 	LoadingUI::mbIsFirstLoadingStage = true;
 
-	// 1줄도 안될 때
-	// 여러 줄 인데, 나누어 떨어질때
-	// 여러 줄 인데, 나누어 떨어지지 않을때
-	GameEngineDirectory mapDir;
-	size_t i = 0, j = 0, k = 0;
-	for (i = 0; i < uLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 
-	{
-		for (j = 0; j < uThreadCount; ++j)
-		{
-			/*GameEngineCore::EngineThreadPool.Work(
-				[=]
-				{
-					GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + j]);
-					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-				});*/
-
-			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + j]);
-			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-			EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAnimatorMeshFileNamesForEdit[i * uThreadCount + j]);
-		}
-	}
-
-	if (0 != uRemains) // 1줄도 안되는 경우와 여러 줄이지만 여분의 FBX 폴더가 있는 경우.
-	{
-		for (k = 0; k < uRemains; ++k)
-		{
-			//GameEngineCore::EngineThreadPool.Work(
-			//	[=]
-			//	{
-			//		GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + k]);
-			//		mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-			//	});
-
-			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + k]);
-			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-			EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAnimatorMeshFileNamesForEdit[i * uThreadCount + k]);
-		}
-	}
-
-	if (0u == uLines && 0u == uRemains)
-	{
-		mpLoadingUI->SetProgressAmount(1, 1);
-		return;
-	}
-
-	mpLoadingUI->SetProgressAmount(eWaiting, eWaiting);
 }
 
 void ContentsLevel::LoadFBXMesiesOfStatic()
 {
 	std::vector<GameEngineDirectory> vOuterDirectories = mvecDirectories[eStaticDir].GetAllDirectory();
 	size_t uOuterDirectoriesCount = vOuterDirectories.size();
-	// size_t uThreadCount = GameEngineCore::EngineThreadPool.GetThreadCount();
-	size_t uThreadCount = 6u;
+	muAllStaticCount = uOuterDirectoriesCount;
+	muAllResourcesCount += uOuterDirectoriesCount;
+	size_t uThreadCount = GameEngineCore::EngineThreadPool.GetMyThreadCount();
+	// size_t uThreadCount = 6u;
 	size_t uLines = static_cast<size_t>(uOuterDirectoriesCount / uThreadCount);
 	size_t uRemains = uOuterDirectoriesCount % uThreadCount;
 	muFBXLoadedCount = 0u;
@@ -196,62 +169,21 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 		std::string strTemp = vOuterDirectories[i].GetFileName();
 		mstrvecStaticMeshFileNames.push_back(vOuterDirectories[i].PlusFilePath(strTemp + ".FBX"));
 		mstrvecStaticMeshFileNamesForEdit.push_back(strTemp);
+		mstrvecAllResourceNames.push_back(strTemp);
+		mstrvecAllResourcePaths.push_back(vOuterDirectories[i].PlusFilePath(strTemp + ".FBX"));
 	}
 
 	LoadingUI::mbIsFirstLoadingStage = false;
 
-	// 1줄도 안될 때
-	// 여러 줄 인데, 나누어 떨어질때
-	// 여러 줄 인데, 나누어 떨어지지 않을때
-	GameEngineDirectory mapDir;
-	size_t i = 0, j = 0, k = 0;
-	for (i = 0; i < uLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 
-	{
-		for (j = 0; j < uThreadCount; ++j)
-		{
-		/*	GameEngineCore::EngineThreadPool.Work(
-				[=]
-				{
-					GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * uThreadCount + j]);
-					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-				});*/
-
-			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * uThreadCount + j]);
-			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-			EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecStaticMeshFileNamesForEdit[i * uThreadCount + j]);
-		}
-	}
-
-	if (0 != uRemains) // 1줄도 안되는 경우와 여러 줄이지만 여분의 FBX 폴더가 있는 경우.
-	{
-		for (k = 0; k < uRemains; ++k)
-		{
-		/*	GameEngineCore::EngineThreadPool.Work(
-				[=]
-				{
-					GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * uThreadCount + k]);
-					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-				});*/
-
-			GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecStaticMeshFileNames[i * uThreadCount + k]);
-			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-			EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecStaticMeshFileNamesForEdit[i * uThreadCount + k]);
-		}
-	}
-
-	if (0u == uLines && 0u == uRemains)
-	{
-		mpLoadingUI->SetProgressAmount(1, 1);
-		return;
-	}
-
-	mpLoadingUI->SetProgressAmount(eWaiting, eWaiting);
 }
 
 void ContentsLevel::LoadAnimationsOfAnimator()
 {
 	std::vector<GameEngineDirectory> vOuterDirectories = mvecDirectories[eAnimatorDir].GetAllDirectory();
 	size_t uOuterDirectoriesCount = vOuterDirectories.size();
+	muAllAnimationCount = uOuterDirectoriesCount;
+	muAnimationStartIndex = muAllResourcesCount;
+	muAllResourcesCount += uOuterDirectoriesCount;
 	// int uThreadCount = GameEngineCore::EngineThreadPool.GetThreadCount();
 	size_t uThreadCount = 6;
 	size_t uLines = static_cast<size_t>(uOuterDirectoriesCount / uThreadCount);
@@ -264,51 +196,88 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 	{
 		std::string strTemp = vOuterDirectories[i].GetFileName();
 		mstrvecAnimationFileNames.push_back(vOuterDirectories[i].PlusFilePath(strTemp + ".FBX"));
+		mstrvecAllResourcePaths.push_back(vOuterDirectories[i].PlusFilePath(strTemp + ".FBX"));
 	}
 
-	// 1줄도 안될 때
-	// 여러 줄 인데, 나누어 떨어질때
-	// 여러 줄 인데, 나누어 떨어지지 않을때
+}
 
-	GameEngineDirectory mapDir;
-	size_t i = 0, j = 0, k = 0;
-	for (i = 0; i < uLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 
+void ContentsLevel::LoadResources()
+{
+	// size_t uThreadCount = GameEngineCore::EngineThreadPool.GetThreadCount();
+	muMyThreadCount = 6u;
+	muLines = static_cast<size_t>(muAllResourcesCount / muMyThreadCount);
+	muRemains = muAllResourcesCount % muMyThreadCount;
+	muFBXLoadedCount = 0u;
+
+	size_t i = 0, j = 0, k = 0, l = 0;
+	for (i = 0; i < muLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 
 	{
-		for (j = 0; j < uThreadCount; ++j)
+		for (j = 0; j < muMyThreadCount; ++j)
 		{
-		/*	GameEngineCore::EngineThreadPool.Work(
-				[=]
+			l = i * muMyThreadCount + j;
+			if (l < muAnimationStartIndex)
+			{
+				if (l < muAllAnimatorCount)
 				{
-					GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAnimationFileNames[i * uThreadCount + j]);
-					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-				});*/
+					EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAllResourceNames[l]);
+				}
+				else
+				{
+					EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecAllResourceNames[l]);
+				}
 
-			GameEngineFBXAnimation* Animation = GameEngineFBXAnimation::Load(mstrvecAnimationFileNames[i * uThreadCount + j]);
-			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
+				GameEngineCore::EngineThreadPool.Work(
+					[=]
+					{
+						GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
+						mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
+					});
+			}
+			else
+			{
+				GameEngineCore::EngineThreadPool.Work(
+					[=]
+					{
+						GameEngineFBXAnimation* Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
+						mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
+					});
+			}
 		}
 	}
 
-	if (0 != uRemains) // 1줄도 안되는 경우와 여러 줄이지만 여분의 FBX 폴더가 있는 경우.
+	if (0 != muRemains) // 1줄도 안되는 경우와 여러 줄이지만 여분의 FBX 폴더가 있는 경우.
 	{
-		for (k = 0; k < uRemains; ++k)
+		for (k = 0; k < muRemains; ++k)
 		{
-		/*	GameEngineCore::EngineThreadPool.Work(
-				[=]
+			l = i * muMyThreadCount + k;
+			if (i * muMyThreadCount + k < muAnimationStartIndex)
+			{
+				if (l < muAllAnimatorCount)
 				{
-					GameEngineFBXMesh::Load(mstrvecAnimatorMeshFileNames[i * uThreadCount + k]);
-					mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
-				});*/
+					EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAllResourceNames[l]);
+				}
+				else
+				{
+					EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecAllResourceNames[l]);
+				}
 
-			GameEngineFBXAnimation* Animation = GameEngineFBXAnimation::Load(mstrvecAnimationFileNames[i * uThreadCount + k]);
-			mpLoadingUI->SetProgressAmount(uOuterDirectoriesCount, ++muFBXLoadedCount);
+				GameEngineCore::EngineThreadPool.Work(
+					[=]
+					{
+						GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
+						mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
+					});
+			}
+			else
+			{
+				GameEngineCore::EngineThreadPool.Work(
+					[=]
+					{
+						GameEngineFBXAnimation* Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
+						mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
+					});
+			}
 		}
 	}
 
-	if (0u == uLines && 0u == uRemains)
-	{
-		mpLoadingUI->SetProgressAmount(1, 1);
-		return;
-	}
-
-	mpLoadingUI->SetProgressAmount(eWaiting, eWaiting);
 }

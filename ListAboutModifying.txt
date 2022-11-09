@@ -25,3 +25,15 @@
 
     // MsgBoxAssertString(ErrorString + "_" + CurrentName);
 }
+
+6. lock
+
+bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
+{
+	// 쓰레드에서 여기서 에러가 난다는 말이 있는데.
+	ManagerLock.lock();
+	if (nullptr == Manager)
+
+7. 
+
+size_t GameEngineThreadPool::GetMyThreadCount(void) { return static_cast<size_t>(ThreadCount); };

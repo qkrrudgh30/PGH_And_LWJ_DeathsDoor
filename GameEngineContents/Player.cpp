@@ -108,6 +108,15 @@ void Player::Start()
 	
 #pragma endregion
 
+#pragma region TeacherCode
+	/*
+	    Renderer->SetFBXMesh("AnimMan.FBX", "TextureAnimation");
+        Renderer->CreateFBXAnimation("Run", "ALS_N_Run_F.FBX");
+        Renderer->ChangeAnimation("Run");
+	*/
+#pragma endregion
+
+
 
 	MainUI = GetLevel()->CreateActor<PlayerMainUI>(OBJECTORDER::UI);
 	MainUI->m_Player = this;

@@ -2,7 +2,7 @@
 #include "GameEngineFBX.h"
 #include <GameEngineBase/GameEngineString.h>
 
-// std::mutex GameEngineFBX::ManagerLock;
+std::mutex GameEngineFBX::ManagerLock;
 // fbxsdk::FbxManager* GameEngineFBX::Manager = nullptr;
 
 
@@ -108,6 +108,7 @@ GameEngineFBX::~GameEngineFBX()
 bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
 {
 	// 쓰레드에서 여기서 에러가 난다는 말이 있는데.
+	ManagerLock.lock();
 	if (nullptr == Manager)
 	{
 		//  ManagerLock.lock();
@@ -153,6 +154,7 @@ bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
 		return false;
 	}
 
+	ManagerLock.unlock();
 	return true;
 }
 

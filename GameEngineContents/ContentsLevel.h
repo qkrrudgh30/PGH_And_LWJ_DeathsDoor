@@ -12,6 +12,8 @@ enum
 class GameEngineDirectory;
 class ContentsLevel : public GameEngineLevel
 {
+	friend class LoadingUI;
+
 public:
 	// constrcuter destructer
 	ContentsLevel();
@@ -38,16 +40,31 @@ protected:
 	bool mbPrimitiveInitialized;
 	class LoadingUI* mpLoadingUI;
 
+
+
 private:
 	void LoadFBXMesiesOfAnimator();
 	void LoadFBXMesiesOfStatic();
 	void LoadAnimationsOfAnimator();
+
+	void LoadResources();
+
+	std::vector<std::string> mstrvecAnimationFileNames;
 	std::vector<std::string> mstrvecAnimatorMeshFileNames;
 	std::vector<std::string> mstrvecAnimatorMeshFileNamesForEdit;
 	std::vector<std::string> mstrvecStaticMeshFileNames;
 	std::vector<std::string> mstrvecStaticMeshFileNamesForEdit;
-	std::vector<std::string> mstrvecAnimationFileNames;
 
+	size_t muAllResourcesCount;
+	size_t muAllAnimatorCount;
+	size_t muAllStaticCount;
+	size_t muAllAnimationCount;
+	size_t muMyThreadCount;
+	size_t muLines;
+	size_t muRemains;
+	size_t muAnimationStartIndex;
+	std::vector<std::string> mstrvecAllResourcePaths;
+	static std::vector<std::string> mstrvecAllResourceNames;
 
 };
 

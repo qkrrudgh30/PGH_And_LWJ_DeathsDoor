@@ -89,7 +89,23 @@ void GameEngineVertexShader::ShaderCompile(std::string _Path, std::string _Entry
 	// 0010
 	// 0001
 
+	// 이걸 해놨다. 
+	// 1001 
+	// 0100 
+	// 0010 
+	// 0001 
+	// 쉐이더에 상수버퍼로 넣어주면
 
+	// 1000
+	// 0100
+	// 0010
+	// 1001
+	
+	// 이 옵션을 넣어주지 않을 경우 아래와 같이 들어가게 된다.
+	// 1000
+	// 0100
+	// 0010
+	// 1001
 	Flag |= D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;
 
 	ID3DBlob* Error;

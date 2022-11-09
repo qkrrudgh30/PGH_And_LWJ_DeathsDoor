@@ -78,7 +78,6 @@ void GameEngineCore::CoreUpdate(GameEngineCore* _UserCore)
 {
 	HWND hWnd = GetFocus();
 	if (nullptr == hWnd) { return; }
-
 	if (nullptr != NextLevel)
 	{
 		if (nullptr != CurrentLevel)
