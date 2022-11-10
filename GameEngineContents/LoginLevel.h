@@ -2,6 +2,7 @@
 #include "ContentsLevel.h"
 
 // Ό³Έν :
+class LoginUI;
 class LoginLevel : public ContentsLevel
 {
 public:
@@ -16,7 +17,7 @@ public:
 	LoginLevel& operator=(LoginLevel&& _Other) noexcept = delete;
 
 
-	class std::shared_ptr < LoginUI> UI;
+	std::shared_ptr < LoginUI> UI;
 
 protected:
 	void Start() override;

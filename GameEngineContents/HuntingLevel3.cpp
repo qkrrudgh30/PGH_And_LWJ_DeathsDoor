@@ -51,7 +51,7 @@ void HuntingLevel3::LevelStartEvent()
 
 		{
 
-			Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 			Potal_->GetTransform().SetWorldPosition({ 692.F,0.F,439.f });
 			Potal_->m_PotalType = PotalType::Stage3ToStage2;
 
@@ -59,14 +59,14 @@ void HuntingLevel3::LevelStartEvent()
 
 
 		{
-			HeadRoller* cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
+			std::shared_ptr < HeadRoller> cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
 			cMonster->GetTransform().SetWorldPosition({ 305.f,0.F,-554.f });
 
 
 		}
 
 		{
-			HeadRoller* cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
+			std::shared_ptr < HeadRoller> cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
 			cMonster->GetTransform().SetWorldPosition({ -1020.f,0.F,169.f });
 
 
@@ -75,7 +75,7 @@ void HuntingLevel3::LevelStartEvent()
 
 
 		{
-			HeadRoller* cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
+			std::shared_ptr < HeadRoller> cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
 			cMonster->GetTransform().SetWorldPosition({ -800.f,0.F,1071.f });
 
 
@@ -91,14 +91,14 @@ void HuntingLevel3::LevelStartEvent()
 	{
 		if (nullptr == Player::GetMainPlayer())
 		{
-			Player* NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
+			std::shared_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
 			NewPlayer->SetLevelOverOn();
 
 
 		}
 		else
 		{
-			Player* NewPlayer = Player::GetMainPlayer();
+			std::shared_ptr < Player> NewPlayer = Player::GetMainPlayer();
 			NewPlayer->GetTransform().SetWorldPosition({ 540.F,0.F,244.F });
 			NewPlayer->UIOn();
 			//NewPlayer->m_bLogoLevelCheck = false;

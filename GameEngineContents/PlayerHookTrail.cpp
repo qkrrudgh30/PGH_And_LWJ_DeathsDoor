@@ -59,9 +59,9 @@ void PlayerHookTrail::Update(float _DeltaTime)
 
 
 
-	if (m_cHook->m_bHookBack == true)
+	if (m_cHook.lock()->m_bHookBack == true)
 	{
-		float4 Dir = m_cHook->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
+		float4 Dir = m_cHook.lock()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
 
 		float Len = Dir.Length();
 
