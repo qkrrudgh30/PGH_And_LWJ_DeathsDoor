@@ -19,7 +19,7 @@ size_t EditGUIWindow::uSelectedActor = 0;
 
 std::set<std::string> EditGUIWindow::m_setLoadedFromAnimator;
 std::set<std::string> EditGUIWindow::m_setLoadedFromStatic;
-std::map<std::string, std::vector<std::pair<std::string, class StaticMesh*>>> EditGUIWindow::m_vCreatedActors;
+std::map<std::string, std::vector<std::pair<std::string, std::shared_ptr<class StaticMesh>>>> EditGUIWindow::m_vCreatedActors;
 
 float EditGUIWindow::s_farrCurrScaleOnEditGUI[3] = {1.f, 1.f, 1.f};
 float EditGUIWindow::s_farrPrevScaleOnEditGUI[3] = {1.f, 1.f, 1.f};
@@ -36,6 +36,8 @@ float EditGUIWindow::s_farrCurrColliderPositionOnEditGUI[3] = { 0.f, 0.f, 0.f };
 float EditGUIWindow::s_farrPrevColliderPositionOnEditGUI[3] = { 0.f, 0.f, 0.f };
 
 EditGUIWindow::EditGUIWindow() 
+	: mstrCurrLevelName()
+	, mstrNextLevelName()
 {
 }
 
@@ -211,7 +213,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			while (0 != i) { ++iterToSelectedObject; --i; }
 			tempStr = iterToSelectedObject->c_str();
 		}
-		StaticMesh* temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
+		std::shared_ptr<StaticMesh> temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
 		temp->SetPriorityInitialize();
 		temp->GetFBXRenderer()->SetFBXMesh(tempStr + ".fbx", "Texture");
 
@@ -630,7 +632,7 @@ void EditGUIWindow::PrepareForLoading()
 				>> f4ColliderRotation.x >> f4ColliderRotation.y >> f4ColliderRotation.z
 				>> f4ColliderPosition.x >> f4ColliderPosition.y >> f4ColliderPosition.z;
 
-			StaticMesh* temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
+			std::shared_ptr<StaticMesh> temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
 			temp->SetPriorityInitialize();
 			temp->GetFBXRenderer()->SetFBXMesh(strName + ".fbx", "Texture");
 			temp->GetTransform().SetLocalScale(f4Scale);

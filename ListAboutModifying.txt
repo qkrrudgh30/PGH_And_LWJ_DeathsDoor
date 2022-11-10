@@ -26,7 +26,11 @@
     // MsgBoxAssertString(ErrorString + "_" + CurrentName);
 }
 
-6. lock
+6. 
+
+size_t GameEngineThreadPool::GetMyThreadCount(void) { return static_cast<size_t>(ThreadCount); };
+
+7. lock
 
 bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
 {
@@ -34,6 +38,3 @@ bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
 	ManagerLock.lock();
 	if (nullptr == Manager)
 
-7. 
-
-size_t GameEngineThreadPool::GetMyThreadCount(void) { return static_cast<size_t>(ThreadCount); };

@@ -41,7 +41,7 @@ public:
 
 	static std::set<std::string>& GetLoadedFromAnimatorSet(void) { return m_setLoadedFromAnimator; }
 	static std::set<std::string>& GetLoadedFromStaticSet(void) { return m_setLoadedFromStatic; }
-	static std::map<std::string, std::vector<std::pair<std::string, class StaticMesh*>>>& GetCreatureMap(void) { return m_vCreatedActors; }
+	static std::map<std::string, std::vector<std::pair<std::string, std::shared_ptr<class StaticMesh>>>>& GetCreatureMap(void) { return m_vCreatedActors; }
 
 protected:
 
@@ -59,14 +59,13 @@ private:
 	static size_t uSelectedObject;
 	static size_t uSelectedActor;
 
-	GameEngineDirectory m_CurrentDirectory;
 	GameEngineDirectory m_ProjectDirectory;
 	static std::set<std::string> m_setLoadedFromAnimator;
 	static std::set<std::string> m_setLoadedFromStatic;
 
 	std::string mstrCurrLevelName;
 	std::string mstrNextLevelName;
-	static std::map<std::string, std::vector<std::pair<std::string, class StaticMesh*>>> m_vCreatedActors;
+	static std::map<std::string, std::vector<std::pair<std::string, std::shared_ptr<class StaticMesh>>>> m_vCreatedActors;
 
 	static float s_farrCurrScaleOnEditGUI[3];
 	static float s_farrPrevScaleOnEditGUI[3];

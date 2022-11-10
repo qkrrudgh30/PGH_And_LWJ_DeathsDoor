@@ -5,6 +5,7 @@
 
 StaticMesh::StaticMesh() 
 	: mpFBXStaticRenderer(nullptr)
+	, mpCollider(nullptr)
 	, mbPriorityInitialzed(true)
 	, mbWithCollision(true)
 {

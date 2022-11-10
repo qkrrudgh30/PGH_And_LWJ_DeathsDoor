@@ -8,6 +8,7 @@ bool LoadingUI::mbIsFirstLoadingStage = true;
 LoadingUI::LoadingUI() 
 	: mpUIRendererForBackground(nullptr)
 	, mpUIRendererForProgressBar(nullptr)
+	, mpUIRendererForFont(nullptr)
 	, muTotalCountOfResources(0u)
 	, muCurrentCountOfLoadedResources(0u)
 	, mfCrrProgressState(-1.f)

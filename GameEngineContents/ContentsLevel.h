@@ -38,7 +38,7 @@ protected:
 	static std::atomic<unsigned int> muFBXLoadedCount;
 	std::vector<GameEngineDirectory> mvecDirectories;
 	bool mbPrimitiveInitialized;
-	class LoadingUI* mpLoadingUI;
+	std::shared_ptr<class LoadingUI> mpLoadingUI;
 
 
 

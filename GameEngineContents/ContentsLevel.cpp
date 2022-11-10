@@ -11,10 +11,9 @@
 #include <fstream>
 
 std::atomic<unsigned int> ContentsLevel::muFBXLoadedCount = 0;
+std::vector<std::string> ContentsLevel::mstrvecAllResourceNames;
 std::string ContentsLevel::mstrNextLevelName;
 std::string ContentsLevel::mstrPrevLevelName;
-std::map<std::string, bool> ContentsLevel::mmapPrimitiveInitialized;
-std::vector<std::string> ContentsLevel::mstrvecAllResourceNames;
 
 enum { eWaiting = -1 };
 
@@ -22,8 +21,15 @@ enum { eWaiting = -1 };
 #define NMT
 
 ContentsLevel::ContentsLevel()	
-	: mbPrimitiveInitialized(false)
-	, mpLoadingUI(nullptr)
+	: mpLoadingUI(nullptr)
+	, muAllResourcesCount(0u)
+	, muAllAnimatorCount(0u)
+	, muAllStaticCount(0u)
+	, muAllAnimationCount(0u)
+	, muMyThreadCount(0u)
+	, muLines(0u)
+	, muRemains(0u)
+	, muAnimationStartIndex(0u)
 {
 	mvecDirectories.reserve(64u);
 	mstrvecAnimatorMeshFileNames.reserve(64u);
@@ -31,6 +37,9 @@ ContentsLevel::ContentsLevel()
 	mstrvecStaticMeshFileNames.reserve(64u);
 	mstrvecStaticMeshFileNamesForEdit.reserve(64u);
 	mstrvecAnimationFileNames.reserve(64u);
+	mstrvecAllResourceNames.reserve(64u);
+	mstrvecAllResourcePaths.reserve(64u);
+	mstrvecAllResourcePaths.reserve(64u);
 
 	// GameEngineFBX::CreateManager();
 }
@@ -102,7 +111,7 @@ void ContentsLevel::LoadCreaturesFromFile(const std::string& _strFolderName)
 			>> f4ColliderRotation.x >> f4ColliderRotation.y >> f4ColliderRotation.z
 			>> f4ColliderPosition.x >> f4ColliderPosition.y >> f4ColliderPosition.z;
 
-		StaticMesh* temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
+		std::shared_ptr<StaticMesh> temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
 		temp->SetPriorityInitialize();
 		temp->GetFBXRenderer()->SetFBXMesh(strName + ".fbx", "Texture");
 		temp->GetTransform().SetLocalScale(f4Scale);
@@ -184,8 +193,8 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 	muAllAnimationCount = uOuterDirectoriesCount;
 	muAnimationStartIndex = muAllResourcesCount;
 	muAllResourcesCount += uOuterDirectoriesCount;
-	// int uThreadCount = GameEngineCore::EngineThreadPool.GetThreadCount();
-	size_t uThreadCount = 6;
+	size_t uThreadCount = GameEngineCore::EngineThreadPool.GetMyThreadCount();
+	// size_t uThreadCount = 6;
 	size_t uLines = static_cast<size_t>(uOuterDirectoriesCount / uThreadCount);
 	size_t uRemains = uOuterDirectoriesCount % uThreadCount;
 	muFBXLoadedCount = 0u;
@@ -229,7 +238,7 @@ void ContentsLevel::LoadResources()
 				GameEngineCore::EngineThreadPool.Work(
 					[=]
 					{
-						GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
+						std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
 						mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 					});
 			}
@@ -264,7 +273,7 @@ void ContentsLevel::LoadResources()
 				GameEngineCore::EngineThreadPool.Work(
 					[=]
 					{
-						GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
+						std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
 						mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 					});
 			}
@@ -298,7 +307,7 @@ void ContentsLevel::LoadResources2()
 			l = i * muMyThreadCount + j;
 			if (l < muAnimationStartIndex)
 			{
-				GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
+				std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
 				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 				if (l < muAllAnimatorCount)
 				{
@@ -311,7 +320,7 @@ void ContentsLevel::LoadResources2()
 			}
 			else
 			{
-				GameEngineFBXAnimation* Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
+				std::shared_ptr<GameEngineFBXAnimation> Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
 				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 			}
 		}
@@ -324,7 +333,7 @@ void ContentsLevel::LoadResources2()
 			l = i * muMyThreadCount + k;
 			if (i * muMyThreadCount + k < muAnimationStartIndex)
 			{
-				GameEngineFBXMesh* Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
+				std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
 				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 				if (l < muAllAnimatorCount)
 				{
@@ -338,7 +347,7 @@ void ContentsLevel::LoadResources2()
 			}
 			else
 			{
-				GameEngineFBXAnimation* Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
+				std::shared_ptr<GameEngineFBXAnimation> Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
 				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 			}
 		}

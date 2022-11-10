@@ -3,7 +3,8 @@
 #include "ContentsLevel.h"
 
 // Ό³Έν :
-class EditLevel : public ContentsLevel
+class EditLevel 
+	: public ContentsLevel
 {
 	friend class EditLevelPipe;
 

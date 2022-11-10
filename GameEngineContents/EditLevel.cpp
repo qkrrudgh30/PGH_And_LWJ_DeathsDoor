@@ -52,7 +52,7 @@ void EditLevel::LevelStartEvent()
 		ContentsLevel::mmapPrimitiveInitialized[ContentsLevel::mstrNextLevelName] = true;
 
 		GameEngineCore::EngineThreadPool.Work(
-			[this]
+			[=]
 			{
 				LoadFBXFiles();
 			});

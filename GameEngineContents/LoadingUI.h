@@ -38,9 +38,9 @@ protected:
 	void End() override;
 
 private:
-	GameEngineUIRenderer* mpUIRendererForBackground;
-	GameEngineUIRenderer* mpUIRendererForProgressBar;
-	GameEngineUIRenderer* mpUIRendererForFont;
+	std::shared_ptr<GameEngineUIRenderer> mpUIRendererForBackground;
+	std::shared_ptr<GameEngineUIRenderer> mpUIRendererForProgressBar;
+	std::shared_ptr<GameEngineUIRenderer> mpUIRendererForFont;
 	
 	size_t muTotalCountOfResources;
 	size_t muCurrentCountOfLoadedResources;
