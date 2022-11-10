@@ -29,7 +29,7 @@ public:
 	int Size;
 	unsigned int Count;
 	int MaxDataCount;
-	GameEngineInstancingBuffer* Buffer;
+	std::shared_ptr<GameEngineInstancingBuffer> Buffer;
 
 	void InstancingBufferChangeData();
 

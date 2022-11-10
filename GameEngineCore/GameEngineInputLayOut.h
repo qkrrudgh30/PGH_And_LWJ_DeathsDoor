@@ -5,10 +5,12 @@
 // Ό³Έν :
 class GameEngineLayOutDesc;
 class GameEngineVertexShader;
-class GameEngineInputLayOut : public GameEngineRes<GameEngineInputLayOut>
+class GameEngineInputLayOut 
+	: public GameEngineRes<GameEngineInputLayOut>
+	, public std::enable_shared_from_this<GameEngineInputLayOut>
 {
 public:
-	static GameEngineInputLayOut* Create(const GameEngineLayOutDesc& _Desc, GameEngineVertexShader* _Shader);
+	static std::shared_ptr < GameEngineInputLayOut> Create(const GameEngineLayOutDesc& _Desc, std::shared_ptr<GameEngineVertexShader> _Shader);
 
 public:
 	// constrcuter destructer
@@ -21,7 +23,7 @@ public:
 	GameEngineInputLayOut& operator=(const GameEngineInputLayOut& _Other) = delete;
 	GameEngineInputLayOut& operator=(GameEngineInputLayOut&& _Other) noexcept = delete;
 
-	void CreateRes(const GameEngineLayOutDesc& _Desc, GameEngineVertexShader* _Shader);
+	void CreateRes(const GameEngineLayOutDesc& _Desc, std::shared_ptr<GameEngineVertexShader> _Shader);
 
 	void CreateRes(const GameEngineLayOutDesc& _Desc);
 

@@ -18,15 +18,15 @@ GameEngineUpdateObject::~GameEngineUpdateObject()
 
 void GameEngineUpdateObject::ReleaseHierarchy()
 {
-	std::list<GameEngineUpdateObject*>::iterator StartIter = Childs.begin();
-	std::list<GameEngineUpdateObject*>::iterator EndIter = Childs.end();
+	//std::list<std::shared_ptr<GameEngineUpdateObject>>::iterator StartIter = Childs.begin();
+	//std::list<std::shared_ptr<GameEngineUpdateObject>>::iterator EndIter = Childs.end();
 
-	for (; StartIter != EndIter; ++StartIter)
-	{
-		(*StartIter)->ReleaseHierarchy();
-	}
+	//for (; StartIter != EndIter; ++StartIter)
+	//{
+	//	(*StartIter)->ReleaseHierarchy();
+	//}
 
-	delete this;
+	// delete this;
 }
 
 void GameEngineUpdateObject::SetParent(GameEngineUpdateObject* _Parent) 
@@ -34,14 +34,14 @@ void GameEngineUpdateObject::SetParent(GameEngineUpdateObject* _Parent)
 	DetachObject();
 
 	Parent = _Parent;
-	Parent->Childs.push_back(this);
+	Parent->Childs.push_back(shared_from_this());
 }
 
 void GameEngineUpdateObject::DetachObject()
 {
 	if (nullptr != Parent)
 	{
-		Parent->Childs.remove(this);
+		Parent->Childs.remove(shared_from_this());
 	}
 }
 
@@ -52,7 +52,7 @@ void GameEngineUpdateObject::AllUpdate(float _DeltaTime)
 	ReleaseUpdate(_DeltaTime);
 	Update(GameEngineTime::GetInst()->GetTimeScale(GetOrder()) * _DeltaTime);
 
-	for (GameEngineUpdateObject* Com : Childs)
+	for (std::shared_ptr<GameEngineUpdateObject> Com : Childs)
 	{
 		//Com->AddAccTime(_DeltaTime);
 		//Com->ReleaseUpdate(_DeltaTime);
@@ -69,7 +69,7 @@ void GameEngineUpdateObject::AllLevelStartEvent()
 {
 	/*this->*/LevelStartEvent();
 
-	for (GameEngineUpdateObject* Com : Childs)
+	for (std::shared_ptr<GameEngineUpdateObject> Com : Childs)
 	{
 		if (false == Com->IsUpdate())
 		{
@@ -83,7 +83,7 @@ void GameEngineUpdateObject::AllLevelEndEvent()
 {
 	/*this->*/LevelEndEvent();
 
-	for (GameEngineUpdateObject* Com : Childs)
+	for (std::shared_ptr<GameEngineUpdateObject> Com : Childs)
 	{
 		if (false == Com->IsUpdate())
 		{
@@ -98,7 +98,7 @@ void GameEngineUpdateObject::AllOnEvent()
 {
 	/*this->*/OnEvent();
 
-	for (GameEngineUpdateObject* Com : Childs)
+	for (std::shared_ptr<GameEngineUpdateObject> Com : Childs)
 	{
 		if (false == Com->IsUpdate())
 		{
@@ -113,7 +113,7 @@ void GameEngineUpdateObject::AllOffEvent()
 {
 	/*this->*/OffEvent();
 
-	for (GameEngineUpdateObject* Com : Childs)
+	for (std::shared_ptr<GameEngineUpdateObject> Com : Childs)
 	{
 		if (false == Com->IsUpdate())
 		{
@@ -126,17 +126,17 @@ void GameEngineUpdateObject::AllOffEvent()
 
 
 void GameEngineUpdateObject::ReleaseObject(
-	std::list<GameEngineUpdateObject*>& _RelaseList)
+	std::list<std::shared_ptr<GameEngineUpdateObject>>& _RelaseList)
 {
 	if (true == IsDeath())
 	{
 		DetachObject();
-		_RelaseList.push_back(this);
+		_RelaseList.push_back(shared_from_this());
 		return;
 	}
 
-	std::list<GameEngineUpdateObject*>::iterator StartIter = Childs.begin();
-	std::list<GameEngineUpdateObject*>::iterator EndIter = Childs.end();
+	std::list<std::shared_ptr<GameEngineUpdateObject>>::iterator StartIter = Childs.begin();
+	std::list<std::shared_ptr<GameEngineUpdateObject>>::iterator EndIter = Childs.end();
 
 	for ( ; StartIter != EndIter;)
 	{
@@ -144,7 +144,7 @@ void GameEngineUpdateObject::ReleaseObject(
 		{
 			_RelaseList.push_back((*StartIter));
 
-			GameEngineUpdateObject* DeleteObject = (*StartIter);
+			std::shared_ptr<GameEngineUpdateObject> DeleteObject = (*StartIter);
 			++StartIter;
 			DeleteObject->DetachObject();
 			continue;

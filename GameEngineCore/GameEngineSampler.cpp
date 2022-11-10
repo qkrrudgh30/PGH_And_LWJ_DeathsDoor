@@ -1,9 +1,9 @@
 #include "PreCompile.h"
 #include "GameEngineSampler.h"
 
-GameEngineSampler* GameEngineSampler::Create(const std::string& _Name, const D3D11_SAMPLER_DESC& _Info)
+std::shared_ptr < GameEngineSampler> GameEngineSampler::Create(const std::string& _Name, const D3D11_SAMPLER_DESC& _Info)
 {
-	GameEngineSampler* NewRes = CreateResName(_Name);
+	std::shared_ptr < GameEngineSampler> NewRes = CreateResName(_Name);
 	NewRes->Create(_Info);
 	return NewRes;
 }

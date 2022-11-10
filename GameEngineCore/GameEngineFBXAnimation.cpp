@@ -11,9 +11,9 @@ GameEngineFBXAnimation::~GameEngineFBXAnimation()
 }
 
 
-GameEngineFBXAnimation* GameEngineFBXAnimation::Load(const std::string& _Path, const std::string& _Name) 
+std::shared_ptr<GameEngineFBXAnimation> GameEngineFBXAnimation::Load(const std::string& _Path, const std::string& _Name)
 {
-	GameEngineFBXAnimation* NewRes = CreateResName(_Name);
+	std::shared_ptr<GameEngineFBXAnimation> NewRes = CreateResName(_Name);
 	NewRes->SetPath(_Path);
 	NewRes->LoadMesh(_Path, _Name);
 	return NewRes;
@@ -86,7 +86,7 @@ fbxsdk::FbxAMatrix GameEngineFBXAnimation::GetGeometryTransformation(fbxsdk::Fbx
 }
 
 
-bool GameEngineFBXAnimation::AnimationLoad(GameEngineFBXMesh* _Mesh, fbxsdk::FbxNode* _Node, int AnimationIndex)
+bool GameEngineFBXAnimation::AnimationLoad(std::shared_ptr <GameEngineFBXMesh> _Mesh, fbxsdk::FbxNode* _Node, int AnimationIndex)
 {
 	FbxAnimStack* stack = Scene->GetSrcObject<FbxAnimStack>(AnimationIndex);
 	// 이 씬의 애니메이션을 이 스택의 애니메이션으로 지정해준다.
@@ -202,7 +202,7 @@ bool GameEngineFBXAnimation::AnimationLoad(GameEngineFBXMesh* _Mesh, fbxsdk::Fbx
 }
 
 
-void GameEngineFBXAnimation::ProcessAnimationCheckState(GameEngineFBXMesh* _Fbx, int userAniDataIndex)
+void GameEngineFBXAnimation::ProcessAnimationCheckState(std::shared_ptr <GameEngineFBXMesh> _Fbx, int userAniDataIndex)
 {
 	// 뛴다
 	FbxExAniData& userAniData = AnimationDatas.at(userAniDataIndex);
@@ -259,7 +259,7 @@ void GameEngineFBXAnimation::ProcessAnimationCheckState(GameEngineFBXMesh* _Fbx,
 
 
 // 애니메이션은 노드의 어트리뷰트가 다 eMesh인 녀석에게 들어있으므로 그녀석에게서 애니메이션 로드 함수를 실행시키는 역할을 한다.
-void GameEngineFBXAnimation::ProcessAnimationLoad(GameEngineFBXMesh* _Mesh, fbxsdk::FbxNode* pNode, int _index)
+void GameEngineFBXAnimation::ProcessAnimationLoad(std::shared_ptr <GameEngineFBXMesh> _Mesh, fbxsdk::FbxNode* pNode, int _index)
 {
 	// 모든 노드를 다 훑기 위해서
 
@@ -296,7 +296,7 @@ void GameEngineFBXAnimation::ProcessAnimationLoad(GameEngineFBXMesh* _Mesh, fbxs
 
 
 // 본을 가진 GameEngineFBXMesh기반으로 애니메이션 행렬을 만들어낸다.
-void GameEngineFBXAnimation::AnimationMatrixLoad(GameEngineFBXMesh* _Mesh, int _AnimationIndex)
+void GameEngineFBXAnimation::AnimationMatrixLoad(std::shared_ptr <GameEngineFBXMesh> _Mesh, int _AnimationIndex)
 {
 	if (0 == AnimationDatas.size())
 	{

@@ -6,6 +6,7 @@
 
 
 class GameEngineUpdateObject : public GameEngineDebugObject
+	, public std::enable_shared_from_this<GameEngineUpdateObject>
 {
 public:
 	// constrcuter destructer
@@ -180,16 +181,16 @@ protected:
 	// 이 오브젝트가 메모리가 삭제된다.
 	virtual void End() = 0;
 
-	virtual void ReleaseObject(std::list<GameEngineUpdateObject*>& _RelaseList);
+	virtual void ReleaseObject(std::list<std::shared_ptr<GameEngineUpdateObject>>& _RelaseList);
 
 	template<typename ConvertType>
-	std::list<ConvertType*> GetConvertChilds() 
+	std::list<std::shared_ptr<ConvertType>> GetConvertChilds() 
 	{
-		std::list<ConvertType*> NewList;
+		std::list<std::shared_ptr<ConvertType>> NewList;
 
 		for (GameEngineUpdateObject* Child : Childs)
 		{
-			ConvertType* ConvertPtr = dynamic_cast<ConvertType*>(Child);
+			std::shared_ptr<ConvertType> ConvertPtr = std::dynamic_pointer_cast<ConvertType>(Child);
 			if (nullptr != ConvertPtr)
 			{
 				NewList.push_back(ConvertPtr);
@@ -199,7 +200,7 @@ protected:
 		return NewList;
 	}
 
-	std::list<GameEngineUpdateObject*> Childs;
+	std::list<std::shared_ptr<GameEngineUpdateObject>> Childs;
 
 
 

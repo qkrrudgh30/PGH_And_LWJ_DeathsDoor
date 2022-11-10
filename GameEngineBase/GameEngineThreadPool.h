@@ -64,8 +64,6 @@ public:
 
 	void Initialize(const std::string& _ThreadName, int _ThreadCount = 0);
 
-	size_t GetMyThreadCount(void) { return static_cast<size_t>(ThreadCount); };
-
 protected:
 
 private:

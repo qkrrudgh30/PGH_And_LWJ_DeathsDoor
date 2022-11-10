@@ -38,7 +38,7 @@ public:
 		return Mode;
 	}
 
-	inline GameEngineRenderTarget* GetCameraRenderTarget()
+	inline std::shared_ptr < GameEngineRenderTarget> GetCameraRenderTarget()
 	{
 		return CameraRenderTarget;
 	}
@@ -85,32 +85,32 @@ public:
 	//                  °³¼ö
 
 	GameEngineInstancing* GetInstancing(const std::string& _Name);
-	GameEngineInstancing* GetInstancing(GameEngineMaterial* _Pipe);
-	void PushInstancing(GameEngineMaterial* _Pipe, int Count);
-	int PushInstancingData(GameEngineMaterial* _Pipe, void* _DataPtr, int _Size);
-	int PushInstancingIndex(GameEngineMaterial* _Pipe);
+	GameEngineInstancing* GetInstancing(std::shared_ptr < GameEngineMaterial> _Pipe);
+	void PushInstancing(std::shared_ptr < GameEngineMaterial> _Pipe, int Count);
+	int PushInstancingData(std::shared_ptr < GameEngineMaterial> _Pipe, void* _DataPtr, int _Size);
+	int PushInstancingIndex(std::shared_ptr < GameEngineMaterial> _Pipe);
 
 	float4 GetWorldPositionToScreenPosition(const float4& _Pos);
 
 protected:
 	void Start();
 
-	void ChangeRenderingOrder(GameEngineRenderer* _Renderer, int _ChangeOrder);
+	void ChangeRenderingOrder(std::shared_ptr < GameEngineRenderer> _Renderer, int _ChangeOrder);
 
 private:
 	void Render(float _DeltaTime);
 
-	void PushRenderer(GameEngineRenderer* _Renderer);
+	void PushRenderer(std::shared_ptr < GameEngineRenderer> _Renderer);
 
 	void Release(float _DelataTime);
 
 	void Update(float _DeltaTime) override;
 
-	void OverRenderer(GameEngineCamera* _NextOver);
+	void OverRenderer(std::shared_ptr < GameEngineCamera> _NextOver);
 
-	class GameEngineRenderTarget* CameraRenderTarget;
+	std::shared_ptr<class GameEngineRenderTarget> CameraRenderTarget;
 
-	std::map<int, std::list<class GameEngineRenderer*>> AllRenderer_;
+	std::map<int, std::list<std::shared_ptr<class GameEngineRenderer>>> AllRenderer_;
 
 	std::unordered_map<GameEngineMaterial*, GameEngineInstancing> InstancingMap;
 

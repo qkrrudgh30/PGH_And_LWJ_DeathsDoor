@@ -3,6 +3,7 @@
 
 // Ό³Έν :
 class GameEngineFBXStaticRenderer : public GameEngineFBXRenderer
+	, public std::enable_shared_from_this<GameEngineRenderer>
 {
 public:
 	// constrcuter destructer

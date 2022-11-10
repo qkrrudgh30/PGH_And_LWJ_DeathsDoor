@@ -269,33 +269,33 @@ void ShaderCompile()
 void EngineRenderingPipeLine()
 {
 	{
-		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("Color");
+		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("Color");
 		NewPipe->SetVertexShader("Color.hlsl");
 		NewPipe->SetPixelShader("Color.hlsl");
 	}
 
 	{
-		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("Texture");
+		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("Texture");
 		NewPipe->SetVertexShader("Texture.hlsl");
 		NewPipe->SetPixelShader("Texture.hlsl");
 	}
 
 	{
-		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("TextureAtlas");
+		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("TextureAtlas");
 		NewPipe->SetVertexShader("TextureAtlas.hlsl");
 		NewPipe->SetPixelShader("TextureAtlas.hlsl");
 		// NewPipe->InstancingSetting();
 	}
 
 	{
-		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("TextureAnimation");
+		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("TextureAnimation");
 		NewPipe->SetVertexShader("TextureAnimation.hlsl");
 		NewPipe->SetPixelShader("TextureAnimation.hlsl");
 	}
 
 
 	{
-		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("3DDebug");
+		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("3DDebug");
 		//NewPipe->SetInputAssembler1VertexBuffer("Box");
 		//NewPipe->SetInputAssembler2IndexBuffer("Box");
 		NewPipe->SetVertexShader("Debug3D.hlsl");
@@ -304,7 +304,7 @@ void EngineRenderingPipeLine()
 	}
 
 	{
-		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("TargetMerge");
+		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("TargetMerge");
 		//NewPipe->SetInputAssembler1VertexBuffer("FullRect");
 		//NewPipe->SetInputAssembler2IndexBuffer("FullRect");
 		NewPipe->SetVertexShader("TargetMerge.hlsl");
@@ -313,14 +313,14 @@ void EngineRenderingPipeLine()
 	}
 
 	{
-		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("DebugTexture");
+		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("DebugTexture");
 		NewPipe->SetVertexShader("DebugTexture.hlsl");
 		NewPipe->SetPixelShader("DebugTexture.hlsl");
 	}
 
 	// PostEffect
 	{
-		GameEngineMaterial* NewPipe = GameEngineMaterial::Create("Blur");
+		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("Blur");
 		//NewPipe->SetInputAssembler1VertexBuffer("FullRect");
 		//NewPipe->SetInputAssembler2IndexBuffer("FullRect");
 		NewPipe->SetVertexShader("Blur.hlsl");

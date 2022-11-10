@@ -172,13 +172,13 @@ void GameEngineCore::WindowCreate(const std::string& _Name, GameEngineCore* _Use
 void GameEngineCore::InitializeLevel(GameEngineLevel* _Level, const std::string _Name)
 {
 	{
-		GameEngineCameraActor* actor = _Level->CreateActor<GameEngineCameraActor>();
+		std::shared_ptr<GameEngineCameraActor> actor = _Level->CreateActor<GameEngineCameraActor>();
 		actor->GetCameraComponent()->SetProjectionMode(CAMERAPROJECTIONMODE::Orthographic);
 		actor->GetTransform().SetLocalPosition({ 0.0f, 0.0f, -100.0f });
 	}
 
 	{
-		GameEngineCameraActor* actor = _Level->CreateActor<GameEngineCameraActor>();
+		std::shared_ptr<GameEngineCameraActor> actor = _Level->CreateActor<GameEngineCameraActor>();
 		actor->GetCameraComponent()->SetProjectionMode(CAMERAPROJECTIONMODE::Orthographic);
 		actor->GetTransform().SetLocalPosition({ 0.0f, 0.0f, -100.0f });
 	}

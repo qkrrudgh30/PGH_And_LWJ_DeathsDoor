@@ -33,6 +33,7 @@
 // 디바이스에 있는 백버퍼 랜더타겟
 
 class GameEnginePostEffect
+	: public std::enable_shared_from_this<GameEnginePostEffect>
 {
 private:
 	bool IsUpdate_ = true;
@@ -88,9 +89,9 @@ public:
 	GameEngineRenderTarget& operator=(const GameEngineRenderTarget& _Other) = delete;
 	GameEngineRenderTarget& operator=(GameEngineRenderTarget&& _Other) noexcept = delete;
 
-	static GameEngineRenderTarget* Create(const std::string& _Name);
+	static std::shared_ptr < GameEngineRenderTarget> Create(const std::string& _Name);
 
-	static GameEngineRenderTarget* Create();
+	static std::shared_ptr < GameEngineRenderTarget> Create();
 
 	void CreateRenderTargetTexture(ID3D11Texture2D* _Texture, float4 _Color);
 
@@ -101,9 +102,9 @@ public:
 	// 직접 텍스처를 만들어내는 기능
 	void CreateRenderTargetTexture(D3D11_TEXTURE2D_DESC _Data, float4 _Color);
 
-	void CreateRenderTargetTexture(GameEngineTexture* _Texture, float4 _Color);
+	void CreateRenderTargetTexture(std::shared_ptr<GameEngineTexture> _Texture, float4 _Color);
 
-	void SettingDepthTexture(GameEngineTexture* _Texture);
+	void SettingDepthTexture(std::shared_ptr<GameEngineTexture> _Texture);
 
 	void Clear();
 
@@ -111,16 +112,16 @@ public:
 
 	void CreateDepthTexture(int _Index = 0);
 
-	inline GameEngineTexture* GetDepthTexture() 
+	inline std::shared_ptr<GameEngineTexture> GetDepthTexture()
 	{
 		return DepthTexture;
 	}
 
-	GameEngineTexture* GetRenderTargetTexture(size_t _Index);
+	std::shared_ptr < GameEngineTexture> GetRenderTargetTexture(size_t _Index);
 
-	void Copy(GameEngineRenderTarget* _Other, int _Index = 0);
+	void Copy(std::shared_ptr < GameEngineRenderTarget> _Other, int _Index = 0);
 
-	void Merge(GameEngineRenderTarget* _Other, int _Index = 0);
+	void Merge(std::shared_ptr < GameEngineRenderTarget> _Other, int _Index = 0);
 	
 	// void Effect(GameEngineMaterial* _Other, GameEngineShaderResourcesHelper* _ShaderResourcesHelper);
 
@@ -130,7 +131,7 @@ public:
 
 
 protected:
-	std::vector<GameEngineTexture*> RenderTargets;
+	std::vector< std::shared_ptr<GameEngineTexture>> RenderTargets;
 	std::vector<ID3D11RenderTargetView*> RenderTargetViews;
 	std::vector<ID3D11ShaderResourceView*> ShaderResourceViews;
 	std::vector<float4> ClearColors;
@@ -144,21 +145,21 @@ protected:
 	//GameEngineShaderResourcesHelper MergeShaderResourcesHelper;
 	//GameEngineMaterial* MergePipeLine;
 
-	GameEngineTexture* DepthTexture;
+	std::shared_ptr<GameEngineTexture> DepthTexture;
 
 	// Post이펙트 부분
 private:
-	std::list<GameEnginePostEffect*> Effects;
+	std::list< std::shared_ptr<GameEnginePostEffect>> Effects;
 
 public:
 	template<typename EffectType>
-	EffectType* AddEffect()
+	std::shared_ptr<EffectType> AddEffect()
 	{
-		GameEnginePostEffect* NewEffect = new EffectType();
+		std::shared_ptr <GameEnginePostEffect> NewEffect = std::make_shared<EffectType>();
 		NewEffect->EffectInit();
 		Effects.push_back(NewEffect);
 
-		return reinterpret_cast<EffectType*>(NewEffect);
+		return std::dynamic_pointer_cast<EffectType>(NewEffect);
 	}
 };
 

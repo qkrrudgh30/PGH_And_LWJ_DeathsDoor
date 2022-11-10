@@ -34,14 +34,14 @@ GameEngineCamera::~GameEngineCamera()
 {
 }
 
-bool ZSort(GameEngineRenderer* _Left, GameEngineRenderer* _Right)
+bool ZSort(std::shared_ptr<GameEngineRenderer> _Left, std::shared_ptr<GameEngineRenderer> _Right)
 {
 	return _Left->GetTransform().GetWorldPosition().z > _Right->GetTransform().GetWorldPosition().z;
 }
 
 GameEngineInstancing* GameEngineCamera::GetInstancing(const std::string& _Name)
 {
-	GameEngineMaterial* Instancing = GameEngineMaterial::Find(_Name);
+	std::shared_ptr<GameEngineMaterial> Instancing = GameEngineMaterial::Find(_Name);
 	return GetInstancing(Instancing);
 }
 
@@ -87,14 +87,14 @@ void GameEngineCamera::Render(float _DeltaTime)
 		// 랜더링 하면서 인스턴싱 데이터를 수집하고
 		// 수집하면서 ++DataInsert
 		// 랜더링 하기 전에
-		for (std::pair<const int, std::list<GameEngineRenderer*>>& Group : AllRenderer_)
+		for (std::pair<const int, std::list<std::shared_ptr<GameEngineRenderer>>>& Group : AllRenderer_)
 		{
 			float ScaleTime = GameEngineTime::GetInst()->GetDeltaTime(Group.first);
 
-			std::list<GameEngineRenderer*>& RenderList = Group.second;
+			std::list<std::shared_ptr<GameEngineRenderer>>& RenderList = Group.second;
 			RenderList.sort(ZSort);
 
-			for (GameEngineRenderer* const Renderer : Group.second)
+			for (std::shared_ptr<GameEngineRenderer>& Renderer : Group.second)
 			{
 				if (false == Renderer->IsUpdate())
 				{
@@ -138,7 +138,7 @@ void GameEngineCamera::Render(float _DeltaTime)
 
 void GameEngineCamera::SetCameraOrder(CAMERAORDER _Order)
 {
-	GetActor()->GetLevel()->PushCamera(this, _Order);
+	GetActor()->GetLevel()->PushCamera(std::dynamic_pointer_cast<GameEngineCamera>(shared_from_this()), _Order);
 }
 
 void GameEngineCamera::Start()
@@ -151,13 +151,13 @@ void GameEngineCamera::Start()
 	// CameraRenderTarget->CreateDepthTexture()
 }
 
-void GameEngineCamera::PushRenderer(GameEngineRenderer* _Renderer)
+void GameEngineCamera::PushRenderer(std::shared_ptr<GameEngineRenderer> _Renderer)
 {
 	AllRenderer_[_Renderer->RenderingOrder].push_back(_Renderer);
 }
 
 
-GameEngineInstancing* GameEngineCamera::GetInstancing(GameEngineMaterial* _Pipe)
+GameEngineInstancing* GameEngineCamera::GetInstancing(std::shared_ptr<GameEngineMaterial> _Pipe)
 {
 	if (nullptr == _Pipe)
 	{
@@ -165,7 +165,7 @@ GameEngineInstancing* GameEngineCamera::GetInstancing(GameEngineMaterial* _Pipe)
 	}
 
 	std::unordered_map<GameEngineMaterial*, GameEngineInstancing>::iterator FindIter
-		= InstancingMap.find(_Pipe);
+		= InstancingMap.find(_Pipe.get());
 
 	//// 여태까지 인스턴싱을 켜거나 시도하지 않았던 녀석인데
 	//// 이제부터 인스턴싱을 할거니까 달라고 할수도 있죠?
@@ -210,7 +210,7 @@ GameEngineInstancing* GameEngineCamera::GetInstancing(GameEngineMaterial* _Pipe)
 }
 
 
-void GameEngineCamera::PushInstancing(GameEngineMaterial* _Pipe, int Count)
+void GameEngineCamera::PushInstancing(std::shared_ptr<GameEngineMaterial> _Pipe, int Count)
 {
 	if (false == _Pipe->GetVertexShader()->IsInstancing())
 	{
@@ -219,7 +219,7 @@ void GameEngineCamera::PushInstancing(GameEngineMaterial* _Pipe, int Count)
 
 	// Camera->gameenginepipeline
 
-	GameEngineInstancing& Instancing = InstancingMap[_Pipe];
+	GameEngineInstancing& Instancing = InstancingMap[_Pipe.get()];
 
 	Instancing.Count += Count;
 
@@ -271,28 +271,28 @@ void GameEngineCamera::PushInstancing(GameEngineMaterial* _Pipe, int Count)
 	//}
 }
 
-int GameEngineCamera::PushInstancingIndex(GameEngineMaterial* _Pipe)
+int GameEngineCamera::PushInstancingIndex(std::shared_ptr<GameEngineMaterial> _Pipe)
 {
-	int InsertCount = InstancingMap[_Pipe].DataInsert;
+	int InsertCount = InstancingMap[_Pipe.get()].DataInsert;
 	return PushInstancingData(_Pipe, &InsertCount, sizeof(int));
 }
 
 
-int GameEngineCamera::PushInstancingData(GameEngineMaterial* _Pipe, void* _DataPtr, int _Size)
+int GameEngineCamera::PushInstancingData(std::shared_ptr<GameEngineMaterial> _Pipe, void* _DataPtr, int _Size)
 {
-	int DataOffset = InstancingMap[_Pipe].DataInsert * _Size;
+	int DataOffset = InstancingMap[_Pipe.get()].DataInsert * _Size;
 
 	// 넣어주다가 사이즈가 오버되면 어떻하지?
 	// 아니다.
 	// PushInstancing에서 이미 버퍼는 충분한 사이즈만큼 늘어나 있어야 한다.
 
-	char* DataPtr = &InstancingMap[_Pipe].DataBuffer[DataOffset];
-	memcpy_s(DataPtr, InstancingMap[_Pipe].DataBuffer.size() - DataOffset, _DataPtr, _Size);
+	char* DataPtr = &InstancingMap[_Pipe.get()].DataBuffer[DataOffset];
+	memcpy_s(DataPtr, InstancingMap[_Pipe.get()].DataBuffer.size() - DataOffset, _DataPtr, _Size);
 	DataOffset += _Size;
 
-	int ResultIndex = InstancingMap[_Pipe].DataInsert;
+	int ResultIndex = InstancingMap[_Pipe.get()].DataInsert;
 
-	++InstancingMap[_Pipe].DataInsert;
+	++InstancingMap[_Pipe.get()].DataInsert;
 
 	return ResultIndex;
 }
@@ -300,14 +300,14 @@ int GameEngineCamera::PushInstancingData(GameEngineMaterial* _Pipe, void* _DataP
 
 void GameEngineCamera::Release(float _DelataTime)
 {
-	std::map<int, std::list<GameEngineRenderer*>>::iterator StartGroupIter = AllRenderer_.begin();
-	std::map<int, std::list<GameEngineRenderer*>>::iterator EndGroupIter = AllRenderer_.end();
+	std::map<int, std::list<std::shared_ptr<GameEngineRenderer>>>::iterator StartGroupIter = AllRenderer_.begin();
+	std::map<int, std::list<std::shared_ptr<GameEngineRenderer>>>::iterator EndGroupIter = AllRenderer_.end();
 
 	for (; StartGroupIter != EndGroupIter; ++StartGroupIter)
 	{
-		std::list<GameEngineRenderer*>& Group = StartGroupIter->second;
-		std::list<GameEngineRenderer*>::iterator GroupStart = Group.begin();
-		std::list<GameEngineRenderer*>::iterator GroupEnd = Group.end();
+		std::list<std::shared_ptr<GameEngineRenderer>>& Group = StartGroupIter->second;
+		std::list<std::shared_ptr<GameEngineRenderer>>::iterator GroupStart = Group.begin();
+		std::list<std::shared_ptr<GameEngineRenderer>>::iterator GroupEnd = Group.end();
 
 		for (; GroupStart != GroupEnd; )
 		{
@@ -368,7 +368,7 @@ float4 GameEngineCamera::GetMouseWorldPositionToActor()
 	return GetTransform().GetWorldPosition() + GetMouseWorldPosition();
 }
 
-void GameEngineCamera::ChangeRenderingOrder(GameEngineRenderer* _Renderer, int _ChangeOrder)
+void GameEngineCamera::ChangeRenderingOrder(std::shared_ptr<GameEngineRenderer> _Renderer, int _ChangeOrder)
 {
 	// 0번째에서 삭제되고
 	AllRenderer_[_Renderer->GetRenderingOrder()].remove(_Renderer);
@@ -379,7 +379,7 @@ void GameEngineCamera::ChangeRenderingOrder(GameEngineRenderer* _Renderer, int _
 	AllRenderer_[_Renderer->GetRenderingOrder()].push_back(_Renderer);
 }
 
-void GameEngineCamera::OverRenderer(GameEngineCamera* _NextCamera) 
+void GameEngineCamera::OverRenderer(std::shared_ptr < GameEngineCamera> _NextCamera)
 {
 	if (nullptr == _NextCamera)
 	{
@@ -387,14 +387,14 @@ void GameEngineCamera::OverRenderer(GameEngineCamera* _NextCamera)
 		return;
 	}
 
-	std::map<int, std::list<GameEngineRenderer*>>::iterator StartGroupIter = AllRenderer_.begin();
-	std::map<int, std::list<GameEngineRenderer*>>::iterator EndGroupIter = AllRenderer_.end();
+	std::map<int, std::list<std::shared_ptr<GameEngineRenderer>>>::iterator StartGroupIter = AllRenderer_.begin();
+	std::map<int, std::list<std::shared_ptr<GameEngineRenderer>>>::iterator EndGroupIter = AllRenderer_.end();
 
 	for (; StartGroupIter != EndGroupIter; ++StartGroupIter)
 	{
-		std::list<GameEngineRenderer*>& Group = StartGroupIter->second;
-		std::list<GameEngineRenderer*>::iterator GroupStart = Group.begin();
-		std::list<GameEngineRenderer*>::iterator GroupEnd = Group.end();
+		std::list<std::shared_ptr<GameEngineRenderer>>& Group = StartGroupIter->second;
+		std::list<std::shared_ptr<GameEngineRenderer>>::iterator GroupStart = Group.begin();
+		std::list<std::shared_ptr<GameEngineRenderer>>::iterator GroupEnd = Group.end();
 
 		for (; GroupStart != GroupEnd; )
 		{

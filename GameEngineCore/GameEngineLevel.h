@@ -48,12 +48,12 @@ public:
 	GameEngineLevel& operator=(const GameEngineLevel& _Other) = delete;
 	GameEngineLevel& operator=(GameEngineLevel&& _Other) noexcept = delete;
 
-	GameEngineCamera* GetMainCamera() 
+	std::shared_ptr<GameEngineCamera> GetMainCamera() 
 	{
 		return Cameras[static_cast<int>(CAMERAORDER::MAINCAMERA)];
 	}
 
-	GameEngineCamera* GetUICamera()
+	std::shared_ptr<GameEngineCamera> GetUICamera()
 	{
 		return Cameras[static_cast<int>(CAMERAORDER::UICAMERA)];
 	}
@@ -73,7 +73,7 @@ public:
 	//}
 
 	template<typename ActorType, typename GroupIndexType>
-	ActorType* CreateActor(GroupIndexType _ObjectGroupIndex)
+	std::shared_ptr<ActorType> CreateActor(GroupIndexType _ObjectGroupIndex)
 	{
 		return CreateActor<ActorType>(static_cast<int>(_ObjectGroupIndex));
 	}
@@ -85,9 +85,9 @@ public:
 	}
 
 	template<typename ActorType>
-	ActorType* CreateActor(int _ObjectGroupIndex = 0)
+	std::shared_ptr<ActorType> CreateActor(int _ObjectGroupIndex = 0)
 	{
-		GameEngineActor* NewActor = new ActorType();
+		std::shared_ptr<GameEngineActor> NewActor = std::make_shared<ActorType>();
 		NewActor->SetLevel(this);
 		NewActor->SetOrder(_ObjectGroupIndex);
 		NewActor->Start();
@@ -98,35 +98,35 @@ public:
 		// 없으면 만들어버리고 있으면
 		// 찾아서 리턴해준다.
 
-		return dynamic_cast<ActorType*>(NewActor);
+		return std::dynamic_pointer_cast<ActorType>(NewActor);
 	}
 
 
 	template<typename GroupIndexType>
-	std::list<GameEngineActor*> GetGroup(GroupIndexType _ObjectGroupIndex)
+	std::list<std::shared_ptr< GameEngineActor>> GetGroup(GroupIndexType _ObjectGroupIndex)
 	{
 		return AllActors[static_cast<int>(_ObjectGroupIndex)];
 	}
 
-	std::list<GameEngineActor*> GetGroup(int _ObjectGroupIndex)
+	std::list<std::shared_ptr< GameEngineActor>> GetGroup(int _ObjectGroupIndex)
 	{
 		return AllActors[_ObjectGroupIndex];
 	}
 
 	template<typename ObjectType, typename GroupIndexType>
-	std::list<ObjectType*> GetConvertToGroup(GroupIndexType _ObjectGroupIndex)
+	std::list<std::shared_ptr< ObjectType>> GetConvertToGroup(GroupIndexType _ObjectGroupIndex)
 	{
 		return GetConvertToGroup<ObjectType>(static_cast<int>(_ObjectGroupIndex));
 	}
 
 
 	template<typename ObjectType>
-	std::list<ObjectType*> GetConvertToGroup(int _ObjectGroupIndex)
+	std::list<std::shared_ptr< ObjectType>> GetConvertToGroup(int _ObjectGroupIndex)
 	{
-		std::list<ObjectType*> Result;
-		for (GameEngineActor* Object : AllActors[_ObjectGroupIndex])
+		std::list<std::shared_ptr< ObjectType>> Result;
+		for (std::shared_ptr<GameEngineActor>& Object : AllActors[_ObjectGroupIndex])
 		{
-			Result.push_back(dynamic_cast<ObjectType*>(Object));
+			Result.push_back(std::dynamic_pointer_cast<ObjectType>(Object));
 		}
 
 		return Result;
@@ -140,7 +140,7 @@ protected:
 
 
 private:
-	void PushActor(GameEngineActor* _Actor, int _ObjectGroupIndex);
+	void PushActor(std::shared_ptr < GameEngineActor> _Actor, int _ObjectGroupIndex);
 
 	void ActorLevelStartEvent();
 
@@ -150,47 +150,47 @@ private:
 
 	void LevelUpdate(float DeltaTime);
 
-	void RemoveActor(GameEngineActor* _Actor);
+	void RemoveActor(std::shared_ptr < GameEngineActor> _Actor);
 
 	void OverChildMove(GameEngineLevel* _NextLevel);
 
-	void PushCamera(GameEngineCamera* _Camera, CAMERAORDER _Order) 
+	void PushCamera(std::shared_ptr < GameEngineCamera> _Camera, CAMERAORDER _Order)
 	{
 		PushCamera(_Camera, static_cast<int>(_Order));
 	}
 
-	void PushRendererToMainCamera(GameEngineRenderer* _Renderer)
+	void PushRendererToMainCamera(std::shared_ptr < GameEngineRenderer> _Renderer)
 	{
 		PushRenderer(_Renderer, static_cast<int>(CAMERAORDER::MAINCAMERA));
 	}
 
-	void PushRendererToUICamera(GameEngineRenderer* _Renderer)
+	void PushRendererToUICamera(std::shared_ptr < GameEngineRenderer> _Renderer)
 	{
 		PushRenderer(_Renderer, static_cast<int>(CAMERAORDER::UICAMERA));
 	}
 
-	void PushRenderer(GameEngineRenderer* _Renderer, CAMERAORDER _Order) 
+	void PushRenderer(std::shared_ptr < GameEngineRenderer> _Renderer, CAMERAORDER _Order)
 	{
 		PushRenderer(_Renderer, static_cast<int>(_Order));
 	}
 
-	void PushCamera(GameEngineCamera* _Camera, int _CameraOrder);
+	void PushCamera(std::shared_ptr < GameEngineCamera> _Camera, int _CameraOrder);
 
-	void PushRenderer(GameEngineRenderer* _Renderer, int _CameraOrder);
+	void PushRenderer(std::shared_ptr < GameEngineRenderer> _Renderer, int _CameraOrder);
 
-	void PushCollision(GameEngineCollision* _Collision, int _Order);
+	void PushCollision(std::shared_ptr < GameEngineCollision> _Collision, int _Order);
 
 	void Render(float _DelataTime);
 
 	void Release(float _DelataTime);
 
 private:
-	std::map<int, std::list<GameEngineActor*>> AllActors;
+	std::map<int, std::list<std::shared_ptr<GameEngineActor>>> AllActors;
 
-	std::list<GameEngineUpdateObject*> DeleteObject;
+	std::list<std::shared_ptr<GameEngineUpdateObject>> DeleteObject;
 
-	std::vector<GameEngineCamera*> Cameras;
+	std::vector<std::shared_ptr<GameEngineCamera>> Cameras;
 
-	std::map<int, std::list<GameEngineCollision*>> AllCollisions;
+	std::map<int, std::list<std::shared_ptr<GameEngineCollision>>> AllCollisions;
 };
 

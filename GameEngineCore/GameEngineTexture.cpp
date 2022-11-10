@@ -6,6 +6,7 @@ GameEngineTexture::GameEngineTexture()
 	, RenderTargetView(nullptr)
 	, ShaderResourceView(nullptr)
 	, Metadata()
+	, DepthStencilView(nullptr)
 {
 }
 
@@ -77,31 +78,31 @@ ID3D11DepthStencilView* GameEngineTexture::CreateDepthStencilView()
 	return DepthStencilView;
 }
 
-GameEngineTexture* GameEngineTexture::Create(ID3D11Texture2D* _Texture)
+std::shared_ptr < GameEngineTexture> GameEngineTexture::Create(ID3D11Texture2D* _Texture)
 {
-	GameEngineTexture* NewRes = CreateResUnName();
+	std::shared_ptr<GameEngineTexture> NewRes = CreateResUnName();
 	NewRes->Texture2D = _Texture;
 	_Texture->GetDesc(&NewRes->Desc);
 	return NewRes;
 }
 
-GameEngineTexture* GameEngineTexture::Create(const D3D11_TEXTURE2D_DESC& _Desc)
+std::shared_ptr < GameEngineTexture> GameEngineTexture::Create(const D3D11_TEXTURE2D_DESC& _Desc)
 {
-	GameEngineTexture* NewRes = CreateResUnName();
+	std::shared_ptr < GameEngineTexture> NewRes = CreateResUnName();
 	NewRes->TextureCreate(_Desc);
 	return NewRes;
 }
 
-GameEngineTexture* GameEngineTexture::Create(const std::string& _Name, ID3D11Texture2D* _Texture)
+std::shared_ptr < GameEngineTexture> GameEngineTexture::Create(const std::string& _Name, ID3D11Texture2D* _Texture)
 {
-	GameEngineTexture* NewRes = CreateResName(_Name);
+	std::shared_ptr < GameEngineTexture> NewRes = CreateResName(_Name);
 	NewRes->Texture2D = _Texture;
 	return NewRes;
 }
 
-GameEngineTexture* GameEngineTexture::Load(const std::string& _Path, const std::string& _Name)
+std::shared_ptr < GameEngineTexture> GameEngineTexture::Load(const std::string& _Path, const std::string& _Name)
 {
-	GameEngineTexture* NewRes = CreateResName(_Name);
+	std::shared_ptr < GameEngineTexture> NewRes = CreateResName(_Name);
 	NewRes->TextureLoad(_Path);
 	return NewRes;
 }
@@ -184,7 +185,7 @@ void GameEngineTexture::PSReset(int _BindPoint)
 
 void GameEngineTexture::Cut(const std::string& _Name, UINT _X, UINT _Y)
 {
-	GameEngineTexture* Texture = Find(_Name);
+	std::shared_ptr < GameEngineTexture> Texture = Find(_Name);
 
 	if (nullptr == Texture)
 	{

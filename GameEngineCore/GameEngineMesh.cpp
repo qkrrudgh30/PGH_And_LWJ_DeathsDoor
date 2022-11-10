@@ -25,22 +25,22 @@ const GameEngineLayOutDesc& GameEngineMesh::GetLayOutDesc()
 	return VertexBuffer->GetLayOutDesc();
 }
 
-GameEngineMesh* GameEngineMesh::Create(const std::string& _Name)
+std::shared_ptr < GameEngineMesh> GameEngineMesh::Create(const std::string& _Name)
 {
 	return Create(_Name, _Name, _Name);
 }
 
-GameEngineMesh* GameEngineMesh::Create(const std::string& _Name, const std::string& _Vtx, const std::string& _Idx)
+std::shared_ptr < GameEngineMesh> GameEngineMesh::Create(const std::string& _Name, const std::string& _Vtx, const std::string& _Idx)
 {
-	GameEngineMesh* NewRes = CreateResName(_Name);
+	std::shared_ptr < GameEngineMesh> NewRes = CreateResName(_Name);
 	NewRes->SetInputAssembler1VertexBuffer(_Vtx);
 	NewRes->SetInputAssembler2IndexBuffer(_Idx);
 	return NewRes;
 }
 
-GameEngineMesh* GameEngineMesh::Create(GameEngineVertexBuffer* _Vtx, GameEngineIndexBuffer* _Idx)
+std::shared_ptr < GameEngineMesh> GameEngineMesh::Create(std::shared_ptr < GameEngineVertexBuffer> _Vtx, std::shared_ptr < GameEngineIndexBuffer> _Idx)
 {
-	GameEngineMesh* NewRes = CreateResUnName();
+	std::shared_ptr < GameEngineMesh> NewRes = CreateResUnName();
 	NewRes->SetInputAssembler1VertexBuffer(_Vtx);
 	NewRes->SetInputAssembler2IndexBuffer(_Idx);
 	return NewRes;
@@ -92,7 +92,7 @@ void GameEngineMesh::SetInputAssembler2IndexBuffer(const std::string& _Name)
 	}
 }
 
-void GameEngineMesh::SetInputAssembler1VertexBuffer(GameEngineVertexBuffer* _Res)
+void GameEngineMesh::SetInputAssembler1VertexBuffer(std::shared_ptr < GameEngineVertexBuffer> _Res)
 {
 	if (nullptr == _Res)
 	{
@@ -102,7 +102,7 @@ void GameEngineMesh::SetInputAssembler1VertexBuffer(GameEngineVertexBuffer* _Res
 
 	VertexBuffer = _Res;
 }
-void GameEngineMesh::SetInputAssembler2IndexBuffer(GameEngineIndexBuffer* _Res)
+void GameEngineMesh::SetInputAssembler2IndexBuffer(std::shared_ptr < GameEngineIndexBuffer> _Res)
 {
 	if (nullptr == _Res)
 	{

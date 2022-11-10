@@ -2,6 +2,7 @@
 #include "GameEngineStateManager.h"
 
 GameEngineStateManager::GameEngineStateManager() 
+	: CurState(nullptr)
 {
 }
 

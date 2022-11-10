@@ -13,7 +13,7 @@ class GameEngineDepthStencil : public GameEngineRes<GameEngineDepthStencil>
 //	static GameEngineDepthStencil* Create(const float4 _Scale);
 
 public:
-	static GameEngineDepthStencil* Create(
+	static std::shared_ptr < GameEngineDepthStencil> Create(
 		const std::string& _Name, const D3D11_DEPTH_STENCIL_DESC& _Desc);
 
 public:

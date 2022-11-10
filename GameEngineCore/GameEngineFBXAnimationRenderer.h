@@ -12,9 +12,9 @@ class FBXRendererAnimation : public std::enable_shared_from_this<FBXRendererAnim
 public:
 	GameEngineFBXAnimationRenderer* ParentRenderer;
 	// SetFBX 본을 가지고 있는 매쉬
-	GameEngineFBXMesh* Mesh;
+	std::shared_ptr<GameEngineFBXMesh> Mesh;
 	// 애니메이션을 가지고 있는 FBX
-	GameEngineFBXAnimation* Aniamtion;
+	std::shared_ptr<GameEngineFBXAnimation> Aniamtion;
 	FbxExAniData* FBXAnimationData;
 
 	// 이 애니메이션이 현재까지 얼마나 지났나.

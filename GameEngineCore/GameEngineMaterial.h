@@ -11,14 +11,15 @@ class GameEngineRasterizer;
 class GameEnginePixelShader;
 class GameEngineDepthStencil;
 class GameEngineBlend;
+class GameEngineInstancingBuffer;
 class GameEngineMaterial : public GameEngineRes<GameEngineMaterial>
 {
 public:
 	static void AllShaderReset();
 
-	static GameEngineMaterial* Create();
+	static std::shared_ptr < GameEngineMaterial> Create();
 
-	static GameEngineMaterial* Create(const std::string& _Name);
+	static std::shared_ptr < GameEngineMaterial> Create(const std::string& _Name);
 
 public:
 	// constrcuter destructer
@@ -47,7 +48,7 @@ public:
 	// 즉 점을 내마음대로 수치를 변경할수 있는 단계
 	void SetVertexShader(const std::string& _Name);
 
-	void SetVertexShader(GameEngineVertexShader* _Shader);
+	void SetVertexShader(std::shared_ptr<GameEngineVertexShader> _Shader);
 
 	// 그리고 나서 이 점들을 진짜 모니터 위치로 옮겨주는 역할을 
 	void SetRasterizer(const std::string& _Name);
@@ -61,24 +62,24 @@ public:
 	// 랜더러 자체가 들어올 가능성이 높네요.
 	void Setting();
 
-	void RenderingInstancing(int _RenderingCount, class GameEngineInstancingBuffer* _Buffer);
+	void RenderingInstancing(int _RenderingCount, std::shared_ptr < GameEngineInstancingBuffer> _Buffer);
 
 	//inline GameEngineVertexBuffer* GetVertexBuffer()
 	//{
 	//	return VertexBuffer;
 	//}
 
-	inline GameEngineVertexShader* GetVertexShader() 
+	inline std::shared_ptr < GameEngineVertexShader> GetVertexShader()
 	{
 		return VertexShader;
 	}
 
-	inline GameEnginePixelShader* GetPixelShader()
+	inline std::shared_ptr < GameEnginePixelShader> GetPixelShader()
 	{
 		return PixelShader;
 	}
 
-	void Copy(GameEngineMaterial* _Original);
+	void Copy(std::shared_ptr<GameEngineMaterial> _Original);
 
 protected:
 
@@ -93,16 +94,16 @@ private:
 	//D3D11_PRIMITIVE_TOPOLOGY Topology;// 인풋어셈블러2 세팅
 
 	// 정점을 이렇게 처리해.
-	GameEngineVertexShader* VertexShader; // 버텍스쉐이더 세팅
+	std::shared_ptr < GameEngineVertexShader> VertexShader; // 버텍스쉐이더 세팅
 
-	GameEngineRasterizer* Rasterizer; // 레스터라이저 세팅
+	std::shared_ptr<GameEngineRasterizer> Rasterizer; // 레스터라이저 세팅
 
 	// 픽셀을 이렇게 처리해.
-	GameEnginePixelShader* PixelShader; // 픽셀쉐이더 세팅
+	std::shared_ptr < GameEnginePixelShader> PixelShader; // 픽셀쉐이더 세팅
 
-	GameEngineDepthStencil* DepthStencil; // 아웃풋머저 누가 앞인지 세팅 
+	std::shared_ptr < GameEngineDepthStencil> DepthStencil; // 아웃풋머저 누가 앞인지 세팅 
 
-	GameEngineBlend* Blend; // 아웃풋머저 색상통합 세팅 
+	std::shared_ptr < GameEngineBlend> Blend; // 아웃풋머저 색상통합 세팅 
 
 
 
@@ -115,7 +116,7 @@ private:
 	// 아래쪽 함수들의 실행
 
 
-	void InputAssembler1InstancingVertexBufferSetting(class GameEngineInstancingBuffer* _Buffer);
+	void InputAssembler1InstancingVertexBufferSetting(std::shared_ptr < GameEngineInstancingBuffer> _Buffer);
 
 	void VertexShaderSetting();
 

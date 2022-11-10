@@ -13,12 +13,12 @@ public:
 	// 이녀석은 한번만 만들면 됩니다.
 	static IFW1Factory* FontFactiory;
 
-	static GameEngineFont* Load(const std::string& _Path)
+	static std::shared_ptr < GameEngineFont> Load(const std::string& _Path)
 	{
 		return Load(_Path, GameEnginePath::GetFileName(_Path));
 	}
 
-	static GameEngineFont* Load(const std::string& _Path, const std::string& _Name);
+	static std::shared_ptr < GameEngineFont> Load(const std::string& _Path, const std::string& _Name);
 
 public:
 	// constrcuter destructer

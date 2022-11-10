@@ -14,10 +14,10 @@ GameEngineRenderTarget::GameEngineRenderTarget()
 
 GameEngineRenderTarget::~GameEngineRenderTarget() 
 {
-	for (GameEnginePostEffect* Effect : Effects)
-	{
-		delete Effect;
-	}
+	//for (GameEnginePostEffect* Effect : Effects)
+	//{
+	//	delete Effect;
+	//}
 
 	Effects.clear();
 }
@@ -41,17 +41,17 @@ void GameEngineRenderTarget::SetPrevRenderTarget()
 	}
 }
 
-GameEngineRenderTarget* GameEngineRenderTarget::Create(const std::string& _Name)
+std::shared_ptr < GameEngineRenderTarget> GameEngineRenderTarget::Create(const std::string& _Name)
 {
 	return CreateResName(_Name);
 }
 
-GameEngineRenderTarget* GameEngineRenderTarget::Create()
+std::shared_ptr < GameEngineRenderTarget> GameEngineRenderTarget::Create()
 {
 	return CreateResUnName();
 }
 
-GameEngineTexture* GameEngineRenderTarget::GetRenderTargetTexture(size_t _Index)
+std::shared_ptr<GameEngineTexture> GameEngineRenderTarget::GetRenderTargetTexture(size_t _Index)
 {
 	if (RenderTargets.size() <= _Index)
 	{
@@ -62,7 +62,7 @@ GameEngineTexture* GameEngineRenderTarget::GetRenderTargetTexture(size_t _Index)
 	return RenderTargets[_Index];
 }
 
-void GameEngineRenderTarget::Copy(GameEngineRenderTarget* _Other, int _Index )
+void GameEngineRenderTarget::Copy(std::shared_ptr<GameEngineRenderTarget> _Other, int _Index )
 {
 	Clear();
 
@@ -71,7 +71,7 @@ void GameEngineRenderTarget::Copy(GameEngineRenderTarget* _Other, int _Index )
 	Effect(MergeUnit);
 }
 
-void GameEngineRenderTarget::Merge(GameEngineRenderTarget* _Other, int _Index)
+void GameEngineRenderTarget::Merge(std::shared_ptr<GameEngineRenderTarget> _Other, int _Index)
 {
 	MergeUnit.ShaderResources.SetTexture("Tex", _Other->GetRenderTargetTexture(_Index));
 
@@ -86,7 +86,7 @@ void GameEngineRenderTarget::Effect(GameEngineRenderUnit& _RenderSet)
 
 void GameEngineRenderTarget::CreateRenderTargetTexture(ID3D11Texture2D* _Texture, float4 _Color)
 {
-	GameEngineTexture* NewTexture = GameEngineTexture::Create(_Texture);
+	std::shared_ptr<GameEngineTexture> NewTexture = GameEngineTexture::Create(_Texture);
 	CreateRenderTargetTexture(NewTexture, _Color);
 }
 
@@ -95,7 +95,7 @@ void GameEngineRenderTarget::CreateRenderTargetTexture(float4 _Size, float4 _Col
 	CreateRenderTargetTexture(_Size, DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, _Color);
 }
 
-void GameEngineRenderTarget::SettingDepthTexture(GameEngineTexture* _Texture)
+void GameEngineRenderTarget::SettingDepthTexture(std::shared_ptr<GameEngineTexture> _Texture)
 {
 	DepthTexture = _Texture;
 	DepthStencilView = DepthTexture->CreateDepthStencilView();
@@ -118,7 +118,7 @@ void GameEngineRenderTarget::CreateRenderTargetTexture(float4 _Size, DXGI_FORMAT
 	CreateRenderTargetTexture(NewData, _Color);
 }
 
-void GameEngineRenderTarget::CreateRenderTargetTexture(GameEngineTexture* _Texture, float4 _Color)
+void GameEngineRenderTarget::CreateRenderTargetTexture(std::shared_ptr < GameEngineTexture> _Texture, float4 _Color)
 {
 	RenderTargets.push_back(_Texture);
 	RenderTargetViews.push_back(_Texture->CreateRenderTargetView());
@@ -128,7 +128,7 @@ void GameEngineRenderTarget::CreateRenderTargetTexture(GameEngineTexture* _Textu
 
 void GameEngineRenderTarget::CreateRenderTargetTexture(D3D11_TEXTURE2D_DESC _Data, float4 _Color)
 {
-	GameEngineTexture* NewTexture = GameEngineTexture::Create(_Data);
+	std::shared_ptr<GameEngineTexture> NewTexture = GameEngineTexture::Create(_Data);
 	CreateRenderTargetTexture(NewTexture, _Color);
 }
 
@@ -186,7 +186,7 @@ void GameEngineRenderTarget::EffectProcess()
 {
 	// Setting();
 
-	for (GameEnginePostEffect* Effect : Effects)
+	for (std::shared_ptr<GameEnginePostEffect>& Effect : Effects)
 	{
 		if (false == Effect->IsUpdate())
 		{

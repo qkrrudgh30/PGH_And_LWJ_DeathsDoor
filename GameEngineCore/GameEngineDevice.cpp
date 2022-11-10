@@ -6,7 +6,7 @@
 ID3D11Device* GameEngineDevice::Device_ = nullptr;
 ID3D11DeviceContext* GameEngineDevice::Context_ = nullptr;
 IDXGISwapChain* GameEngineDevice::SwapChain_ = nullptr;
-GameEngineRenderTarget* GameEngineDevice::BackBufferTarget = nullptr;
+std::shared_ptr < GameEngineRenderTarget> GameEngineDevice::BackBufferTarget = nullptr;
 
 void GameEngineDevice::Destroy()
 {

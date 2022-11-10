@@ -17,6 +17,7 @@ struct RenderOption
 // 랜더타겟이 세팅되어 있다면 이녀석으로 그릴수가 있다.
 
 class GameEngineRenderUnit 
+	: public std::enable_shared_from_this<GameEngineRenderUnit>
 {
 public:
 	GameEngineRenderUnit();
@@ -25,30 +26,30 @@ public:
 
 	void SetMesh(const std::string& _Name);
 
-	void SetMesh(GameEngineMesh* _Mesh);
+	void SetMesh(std::shared_ptr<GameEngineMesh> _Mesh);
 
 	void SetPipeLine(const std::string& _Name);
 
 	// 우리 엔진에서는 이런 이름을 가진x는 무조건 이렇게 세팅하기로 했어.
-	void EngineShaderResourcesSetting(GameEngineRenderer* _Renderer);
+	void EngineShaderResourcesSetting(std::shared_ptr<GameEngineRenderer> _Renderer);
 
 	void Render(float _DeltaTime);
 
-	void SetRenderer(GameEngineRenderer* _Renderer);
+	void SetRenderer(std::shared_ptr < GameEngineRenderer> _Renderer);
 
-	GameEngineMaterial* GetPipeLine();
+	std::shared_ptr < GameEngineMaterial> GetPipeLine();
 
-	GameEngineMaterial* GetClonePipeLine();
+	std::shared_ptr < GameEngineMaterial> GetClonePipeLine();
 
-	GameEngineMaterial* ClonePipeLine(GameEngineMaterial* _Rendering);
+	std::shared_ptr < GameEngineMaterial> ClonePipeLine(std::shared_ptr<GameEngineMaterial> _Rendering);
 
 	GameEngineShaderResourcesHelper ShaderResources;
 
 private:
-	GameEngineRenderer* ParentRenderer;
-	GameEngineMesh* Mesh; // 이 메쉬를
-	GameEngineMaterial* PipeLine; // 이 설정으로
-	GameEngineInputLayOut* InputLayOut; // 인풋어셈블러1 세팅
+	std::weak_ptr<GameEngineRenderer> ParentRenderer;
+	std::shared_ptr < GameEngineMesh> Mesh; // 이 메쉬를
+	std::shared_ptr < GameEngineMaterial> PipeLine; // 이 설정으로
+	std::shared_ptr < GameEngineInputLayOut> InputLayOut; // 인풋어셈블러1 세팅
 	// 	GameEngineShaderResourcesHelper ShaderResources; // 이 데이터를 가지고
 	D3D11_PRIMITIVE_TOPOLOGY Topology;// 이렇게 그린다.
 };
@@ -59,7 +60,8 @@ private:
 // 설명 :
 class GameEngineMaterial;
 class GameEngineShaderResourcesHelper;
-class GameEngineRenderer : public GameEngineTransformComponent
+class GameEngineRenderer 
+	: public GameEngineTransformComponent
 {
 	friend class GameEngineLevel;
 	friend class GameEngineCamera;
@@ -81,7 +83,7 @@ public:
 	// float4x4 ViewPort;
 	void ChangeCamera(CAMERAORDER _Order);
 
-    GameEngineMaterial* ClonePipeLine(GameEngineMaterial* _Rendering);
+    std::shared_ptr<GameEngineMaterial> ClonePipeLine(std::shared_ptr<GameEngineMaterial> _Rendering);
 
     inline int GetRenderingOrder() 
     {
@@ -95,9 +97,9 @@ public:
 		IsInstancing_ = true;
 	};
 
-	bool IsInstancing(GameEngineMaterial* _Rendering);
+	bool IsInstancing(std::shared_ptr<GameEngineMaterial> _Rendering);
 
-	void InstancingDataSetting(GameEngineMaterial* _Line);
+	void InstancingDataSetting(std::shared_ptr<GameEngineMaterial> _Line);
 
 	void EngineShaderResourcesSetting(GameEngineShaderResourcesHelper* _ShaderResources);
 
@@ -110,7 +112,7 @@ protected:
 	virtual void Update(float _DeltaTime) {}
 	virtual void End() {}
 
-    class GameEngineCamera* Camera;
+    std::weak_ptr<class GameEngineCamera> Camera;
 
 
 

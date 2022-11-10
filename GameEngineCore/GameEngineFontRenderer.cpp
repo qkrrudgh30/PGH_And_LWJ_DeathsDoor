@@ -3,7 +3,7 @@
 #include "GameEngineBlend.h"
 #include "GameEngineCamera.h"
 
-GameEngineRenderTarget* GameEngineFontRenderer::FontTarget = nullptr;
+std::shared_ptr<GameEngineRenderTarget> GameEngineFontRenderer::FontTarget = nullptr;
 
 GameEngineFontRenderer::GameEngineFontRenderer()
 	: Font(nullptr)
@@ -51,8 +51,8 @@ void GameEngineFontRenderer::Render(float _DeltaTime)
 	{
 		Pos = GetTransform().GetWorldPosition();
 
-		Pos *= Camera->GetView();
-		Pos *= Camera->GetProjectionMatrix();
+		Pos *= Camera.lock()->GetView();
+		Pos *= Camera.lock()->GetProjectionMatrix();
 
 		float4x4 ViewPort;
 
@@ -75,7 +75,7 @@ void GameEngineFontRenderer::Render(float _DeltaTime)
 	FontTarget->Setting();
 	Font->FontDraw(Text, FontSize, Pos, Color, static_cast<int>(LR) | static_cast<int>(TB));
 	GameEngineMaterial::AllShaderReset();
-	Camera->GetCameraRenderTarget()->Merge(FontTarget);
+	Camera.lock()->GetCameraRenderTarget()->Merge(FontTarget);
 
 	//GameEngineRenderTarget::SetPrevRenderTarget();
 	// FontTarget->R();

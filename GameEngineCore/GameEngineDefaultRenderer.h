@@ -4,7 +4,8 @@
 
 // 설명 :
 class GameEngineMaterial;
-class GameEngineDefaultRenderer : public GameEngineRenderer
+class GameEngineDefaultRenderer 
+	: public GameEngineRenderer
 {
 	// 하나의 랜더링 파이프라인은
 	// 하나의 매쉬

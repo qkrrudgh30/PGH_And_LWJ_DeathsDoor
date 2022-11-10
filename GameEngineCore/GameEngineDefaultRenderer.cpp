@@ -26,7 +26,7 @@ void GameEngineDefaultRenderer::SetMesh(const std::string& _Name)
 void GameEngineDefaultRenderer::SetPipeLine(const std::string& _Name)
 {
 	Unit.SetPipeLine(_Name);
-	Unit.SetRenderer(this);
+	Unit.SetRenderer(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()));
 }
 
 void GameEngineDefaultRenderer::Render(float _DeltaTime) 

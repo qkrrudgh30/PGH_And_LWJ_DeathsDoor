@@ -72,7 +72,7 @@ void GameEngineShader::AutoCompile(const std::string& _Path)
 		// 7부터 찾아라 앞쪽으로
 		// 1
 
-		GameEngineVertexShader* Vertex = nullptr;
+		std::shared_ptr< GameEngineVertexShader> Vertex = nullptr;
 
 		{
 			size_t FirstIndex = AllHlslCode.find_last_of(" ", VSEntryIndex);

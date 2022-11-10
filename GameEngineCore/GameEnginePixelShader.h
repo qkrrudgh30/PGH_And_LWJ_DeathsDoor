@@ -8,24 +8,23 @@ class GameEnginePixelShader
 	, public GameEngineRes<GameEnginePixelShader>
 {
 	friend GameEngineShader;
-	friend GameEngineRes<GameEnginePixelShader>;
-
 public:
-	static GameEnginePixelShader* Load(
+	static std::shared_ptr < GameEnginePixelShader> Load(
 		const std::string& _Path, 
 		const std::string& _EntryPoint, 
 		UINT _VersionHigh = 5, UINT _VersionLow = 0);
 
-	static GameEnginePixelShader* Load(
+	static std::shared_ptr < GameEnginePixelShader> Load(
 		const std::string& _Path, 
 		const std::string& _Name,
 		const std::string& _EntryPoint,
 		UINT _VersionHigh, UINT _VersionLow);
 
-private:
 	// constrcuter destructer
 	GameEnginePixelShader();
 	~GameEnginePixelShader();
+
+private:
 
 	// delete Function
 	GameEnginePixelShader(const GameEnginePixelShader& _Other) = delete;

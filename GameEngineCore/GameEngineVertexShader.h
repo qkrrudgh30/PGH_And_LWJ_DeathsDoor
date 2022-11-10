@@ -13,10 +13,13 @@ class GameEngineVertexShader
 	friend GameEngineShader;
 	friend GameEngineRes<GameEngineVertexShader>;
 
-private:
+public:
 	// constrcuter destructer
 	GameEngineVertexShader();
 	~GameEngineVertexShader();
+
+
+private:
 
 	// delete Function
 	GameEngineVertexShader(const GameEngineVertexShader& _Other) = delete;
@@ -24,9 +27,9 @@ private:
 	GameEngineVertexShader& operator=(const GameEngineVertexShader& _Other) = delete;
 	GameEngineVertexShader& operator=(GameEngineVertexShader&& _Other) noexcept = delete;
 
-	static GameEngineVertexShader* Load(std::string _Path, std::string _EntryPoint ,UINT _VersionHigh = 5, UINT _VersionLow = 0);
+	static std::shared_ptr< GameEngineVertexShader> Load(std::string _Path, std::string _EntryPoint ,UINT _VersionHigh = 5, UINT _VersionLow = 0);
 
-	static GameEngineVertexShader* Load(std::string _Path, std::string _Name, std::string _EntryPoint, UINT _VersionHigh, UINT _VersionLow);
+	static std::shared_ptr< GameEngineVertexShader> Load(std::string _Path, std::string _Name, std::string _EntryPoint, UINT _VersionHigh, UINT _VersionLow);
 
 public:
 	void Setting();
@@ -36,7 +39,7 @@ public:
 		return InstancingVertexShader->ShaderPtr != nullptr;
 	}
 
-	GameEngineVertexShader* GetInstancingShader() 
+	std::shared_ptr<GameEngineVertexShader> GetInstancingShader() 
 	{
 		return InstancingVertexShader;
 	}
@@ -52,7 +55,7 @@ private:
 
 	// ID3D11VertexShader* InstancingShaderPtr;
 
-	GameEngineVertexShader* InstancingVertexShader;
+	std::shared_ptr<GameEngineVertexShader> InstancingVertexShader;
 
 	// ID3DBlob* InstancingBinaryPtr;
 };

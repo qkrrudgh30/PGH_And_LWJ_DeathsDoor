@@ -46,18 +46,18 @@ public:
 	GameEngineTexture& operator=(const GameEngineTexture& _Other) = delete;
 	GameEngineTexture& operator=(GameEngineTexture&& _Other) noexcept = delete;
 
-	static GameEngineTexture* Load(const std::string& _Path)
+	static std::shared_ptr < GameEngineTexture> Load(const std::string& _Path)
 	{
 		return Load(_Path, GameEnginePath::GetFileName(_Path));
 	}
 
-	static GameEngineTexture* Load(const std::string& _Path, const std::string& _Name);
+	static std::shared_ptr < GameEngineTexture> Load(const std::string& _Path, const std::string& _Name);
 
 	// static
-	static GameEngineTexture* Create(const std::string& _Name, ID3D11Texture2D* _Texture);
-	static GameEngineTexture* Create(ID3D11Texture2D* _Texture);
+	static std::shared_ptr < GameEngineTexture> Create(const std::string& _Name, ID3D11Texture2D* _Texture);
+	static std::shared_ptr < GameEngineTexture> Create(ID3D11Texture2D* _Texture);
 
-	static GameEngineTexture* Create(const D3D11_TEXTURE2D_DESC& _Desc);
+	static std::shared_ptr < GameEngineTexture> Create(const D3D11_TEXTURE2D_DESC& _Desc);
 
 	// static void Cut("Boss_Left.bmp", 5, 7);
 	static void Cut(const std::string& _Name, UINT _X, UINT _Y);

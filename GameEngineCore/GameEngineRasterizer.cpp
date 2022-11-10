@@ -28,11 +28,11 @@ void GameEngineRasterizer::Setting()
 
 }
 
-GameEngineRasterizer* GameEngineRasterizer::Create(
+std::shared_ptr < GameEngineRasterizer> GameEngineRasterizer::Create(
 	const std::string& _Name, const D3D11_RASTERIZER_DESC& _Desc
 )
 {
-	GameEngineRasterizer* NewRes = CreateResName(_Name);
+	std::shared_ptr < GameEngineRasterizer> NewRes = CreateResName(_Name);
 	NewRes->Create(_Desc);
 	return NewRes;
 }

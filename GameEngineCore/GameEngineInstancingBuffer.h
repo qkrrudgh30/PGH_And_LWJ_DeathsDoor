@@ -20,7 +20,7 @@ public:
 	GameEngineInstancingBuffer& operator=(const GameEngineInstancingBuffer& _Other) = delete;
 	GameEngineInstancingBuffer& operator=(GameEngineInstancingBuffer&& _Other) noexcept = delete;
 
-	static GameEngineInstancingBuffer* Create(unsigned int _Count, unsigned int _Size);
+	static std::shared_ptr < GameEngineInstancingBuffer> Create(unsigned int _Count, unsigned int _Size);
 
 	ID3D11Buffer* GetBuffer()
 	{

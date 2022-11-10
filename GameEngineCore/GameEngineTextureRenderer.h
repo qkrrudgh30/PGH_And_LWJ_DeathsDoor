@@ -116,8 +116,8 @@ class FrameAnimation : public GameEngineNameObject
 	FrameAnimation_DESC Info;
 
 	GameEngineTextureRenderer* ParentRenderer;
-	GameEngineTexture* Texture;
-	GameEngineFolderTexture* FolderTexture;
+	std::shared_ptr<GameEngineTexture> Texture;
+	std::shared_ptr<GameEngineFolderTexture> FolderTexture;
 
 	bool Pause;
 	bool bOnceStart;
@@ -186,13 +186,13 @@ public:
 		return true;
 	}
 
-	void SetTexture(GameEngineTexture* _Texture);
+	void SetTexture(std::shared_ptr<GameEngineTexture> _Texture);
 
 	void SetTexture(const std::string& _Name);
 
 	void SetFrame(UINT _Index);
 
-	GameEngineTexture* GetCurTexture();
+	std::shared_ptr<GameEngineTexture> GetCurTexture();
 
 	void SetTexture(const std::string& _Name, UINT _Index);
 
@@ -202,7 +202,7 @@ public:
 
 	void SetPivotToVector(const float4& _Value);
 
-	void SetTexture(GameEngineTexture* _Texture, UINT _Index);
+	void SetTexture(std::shared_ptr < GameEngineTexture> _Texture, UINT _Index);
 
 	void SetFolderTextureToIndex(const std::string& _Text, UINT _Index);
 
@@ -300,7 +300,7 @@ private:
 	SCALEMODE ScaleMode;
 	float ScaleRatio;
 
-	GameEngineTexture* CurTex;
+	std::shared_ptr<GameEngineTexture> CurTex;
 
 	PixelData PixelDataInst;
 	AtlasData AtlasDataInst;

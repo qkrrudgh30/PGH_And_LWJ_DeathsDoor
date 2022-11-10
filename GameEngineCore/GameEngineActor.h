@@ -39,14 +39,14 @@ public:
 	}
 
 	template<typename ComponentType>
-	ComponentType* CreateComponent(const std::string& _Name = "")
+	std::shared_ptr< ComponentType> CreateComponent(const std::string& _Name = "")
 	{
-		GameEngineComponent* NewComponent = new ComponentType();
+		std::shared_ptr<GameEngineComponent> NewComponent = std::make_shared<ComponentType>();
 		NewComponent->SetName(_Name);
 		NewComponent->SetParent(this);
 		NewComponent->Start();
 
-		return dynamic_cast<ComponentType*>(NewComponent);
+		return std::dynamic_pointer_cast<ComponentType>(NewComponent);
 	}
 
 	void DetachObject() override;

@@ -5,7 +5,7 @@
 class GameEngineRasterizer : public GameEngineRes<GameEngineRasterizer>
 {
 public:
-	static GameEngineRasterizer* Create(const std::string& _Name, const D3D11_RASTERIZER_DESC& _Desc);
+	static std::shared_ptr < GameEngineRasterizer> Create(const std::string& _Name, const D3D11_RASTERIZER_DESC& _Desc);
 
 public:
 	// constrcuter destructer

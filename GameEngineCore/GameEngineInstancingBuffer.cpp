@@ -21,9 +21,9 @@ void GameEngineInstancingBuffer::BufferRelease()
 }
 
 
-GameEngineInstancingBuffer* GameEngineInstancingBuffer::Create(unsigned int _Count, unsigned int _Size)
+std::shared_ptr < GameEngineInstancingBuffer> GameEngineInstancingBuffer::Create(unsigned int _Count, unsigned int _Size)
 {
-	GameEngineInstancingBuffer* Buffer = CreateResUnName();
+	std::shared_ptr < GameEngineInstancingBuffer> Buffer = CreateResUnName();
 
 	Buffer->BufferCreate(_Count, _Size);
 

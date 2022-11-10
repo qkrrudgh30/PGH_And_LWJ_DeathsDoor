@@ -28,7 +28,7 @@ public:
 		return Unit;
 	}
 
-	inline GameEngineFBXMesh* GetFBXMesh() 
+	inline std::shared_ptr<GameEngineFBXMesh> GetFBXMesh() 
 	{
 		return FBXMesh;
 	}
@@ -36,7 +36,7 @@ public:
 protected:
 
 private:
-	GameEngineFBXMesh* FBXMesh;
+	std::shared_ptr<GameEngineFBXMesh> FBXMesh;
 	std::vector<std::vector<GameEngineRenderUnit>> Unit;
 
 };

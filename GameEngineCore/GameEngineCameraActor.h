@@ -18,7 +18,7 @@ public:
 	GameEngineCameraActor& operator=(const GameEngineCameraActor& _Other) = delete;
 	GameEngineCameraActor& operator=(GameEngineCameraActor&& _Other) noexcept = delete;
 
-	GameEngineCamera* GetCameraComponent()
+	std::shared_ptr < GameEngineCamera> GetCameraComponent()
 	{
 		return CameraComponent;
 	}
@@ -41,7 +41,7 @@ private:
 	float Speed;
 	float RotSpeed;
 
-	GameEngineCamera* CameraComponent;
+	std::shared_ptr<GameEngineCamera> CameraComponent;
 	GameEngineTransform OriginTrans;
 	CAMERAPROJECTIONMODE PrevMode;
 };

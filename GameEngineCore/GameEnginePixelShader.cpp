@@ -23,7 +23,7 @@ GameEnginePixelShader::~GameEnginePixelShader()
 
 // Color_VS
 
-GameEnginePixelShader* GameEnginePixelShader::Load(
+std::shared_ptr<GameEnginePixelShader> GameEnginePixelShader::Load(
 	const std::string& _Path,
 	const std::string& _EntryPoint,
 	UINT _VersionHigh /*= 5*/, UINT _VersionLow /*= 0*/)
@@ -32,13 +32,13 @@ GameEnginePixelShader* GameEnginePixelShader::Load(
 }
 
 
-GameEnginePixelShader* GameEnginePixelShader::Load(
+std::shared_ptr < GameEnginePixelShader> GameEnginePixelShader::Load(
 	const std::string& _Path,
 	const std::string& _Name,
 	const std::string& _EntryPoint,
 	UINT _VersionHigh = 5, UINT _VersionLow = 0)
 {
-	GameEnginePixelShader* NewRes = CreateResName(_Name);
+	std::shared_ptr < GameEnginePixelShader> NewRes = CreateResName(_Name);
 	NewRes->ShaderCompile(_Path, _EntryPoint, _VersionHigh, _VersionLow);
 	return NewRes;
 }

@@ -23,24 +23,24 @@ namespace GameEngineDebug
 
 	public:
 		DebugInfo(DebugRenderType _Type, const float4& _Color)
-			: Type{static_cast<int>(_Type)}
+			: Type{ static_cast<int>(_Type) }
 			, Color(_Color)
 		{
 
 		}
 	};
 
-	struct DebugRenderData 
+	struct DebugRenderData
 	{
 	public:
 		DebugInfo Info;
 		TransformData Data;
-		GameEngineTexture* Texture;
+		std::shared_ptr< GameEngineTexture> Texture;
 	};
 
 	std::vector<DebugRenderData> DebugData = std::vector<DebugRenderData>();
 
-	void DrawBox(const GameEngineTransform& _Trans, const float4& _Color) 
+	void DrawBox(const GameEngineTransform& _Trans, const float4& _Color)
 	{
 		DrawBox(_Trans, GameEngineCore::GetCurLevel()->GetMainCamera(), _Color);
 	}
@@ -55,7 +55,7 @@ namespace GameEngineDebug
 	}
 
 
-	void DrawBox(const GameEngineTransform& _Trans, GameEngineCamera* _Camera, const float4& _Color)
+	void DrawBox(const GameEngineTransform& _Trans, std::shared_ptr<GameEngineCamera> _Camera, const float4& _Color)
 	{
 		static GameEngineTransform DebugTrans;
 
@@ -69,22 +69,22 @@ namespace GameEngineDebug
 
 	void DrawTexture(const std::string& _Texture, const float4& _Pos, const float4& _Scale, const float4& _Rot /*= float4::ZERO*/)
 	{
-		GameEngineTexture* FindTexture = GameEngineTexture::Find(_Texture);
+		std::shared_ptr < GameEngineTexture> FindTexture = GameEngineTexture::Find(_Texture);
 		DrawTexture(FindTexture, GameEngineCore::GetCurLevel()->GetMainCamera(), _Pos, _Rot, _Scale);
 	}
 
-	void DrawTexture(const std::string& _Texture, GameEngineCamera* _Camera, const float4& _Pos, const float4& _Scale, const float4& _Rot /*= float4::ZERO*/)
+	void DrawTexture(const std::string& _Texture, std::shared_ptr< GameEngineCamera> _Camera, const float4& _Pos, const float4& _Scale, const float4& _Rot /*= float4::ZERO*/)
 	{
-		GameEngineTexture* FindTexture = GameEngineTexture::Find(_Texture);
+		std::shared_ptr < GameEngineTexture> FindTexture = GameEngineTexture::Find(_Texture);
 		DrawTexture(FindTexture, _Camera, _Pos, _Rot, _Scale);
 	}
 
-	void DrawTexture(GameEngineTexture* _Texture, const float4& _Pos, const float4& _Scale, const float4& _Rot)
+	void DrawTexture(std::shared_ptr < GameEngineTexture> _Texture, const float4& _Pos, const float4& _Scale, const float4& _Rot)
 	{
 		DrawTexture(_Texture, GameEngineCore::GetCurLevel()->GetMainCamera(), _Pos, _Rot, _Scale);
 	}
 
-	void DrawTexture(GameEngineTexture* _Texture, GameEngineCamera* _Camera, const float4& _Pos, const float4& _Scale, const float4& _Rot)
+	void DrawTexture(std::shared_ptr < GameEngineTexture> _Texture, std::shared_ptr<GameEngineCamera> _Camera, const float4& _Pos, const float4& _Scale, const float4& _Rot)
 	{
 		static GameEngineTransform DebugTrans;
 
@@ -112,11 +112,11 @@ namespace GameEngineDebug
 	}
 
 
-	void DrawSphere(const GameEngineTransform& _Trans, const float4& _Color) 
+	void DrawSphere(const GameEngineTransform& _Trans, const float4& _Color)
 	{
 		DrawSphere(_Trans, GameEngineCore::GetCurLevel()->GetMainCamera(), _Color);
 	}
-	void DrawSphere(const GameEngineTransform& _Trans, GameEngineCamera* _Camera, const float4& _Color) 
+	void DrawSphere(const GameEngineTransform& _Trans, std::shared_ptr<GameEngineCamera> _Camera, const float4& _Color)
 	{
 		static GameEngineTransform DebugTrans;
 
@@ -128,25 +128,26 @@ namespace GameEngineDebug
 		DebugData.push_back(DebugRenderData{ DebugInfo(DebugRenderType::Sphere, _Color) , DebugTrans.GetTransformData() });
 	}
 
-	GameEngineRenderUnit* DebugRenderUnit;
-	GameEngineRenderUnit* DebugTextureRenderUnit;
+	std::shared_ptr<GameEngineRenderUnit> DebugRenderUnit;
+	std::shared_ptr<GameEngineRenderUnit> DebugTextureRenderUnit;
 
-	void Debug3DDestroy() 
+	void Debug3DDestroy()
 	{
-		if (nullptr != DebugRenderUnit)
-		{
-			delete DebugRenderUnit;
-			DebugRenderUnit = nullptr;
-		}
+		DebugRenderUnit = nullptr;
+		DebugTextureRenderUnit = nullptr;
 
-		if (nullptr != DebugTextureRenderUnit)
-		{
-			delete DebugTextureRenderUnit;
-			DebugTextureRenderUnit = nullptr;
-		}
+		//if (nullptr != DebugRenderUnit)
+		//{
+		//	// delete DebugRenderUnit;
+		//}
+
+		//if (nullptr != DebugTextureRenderUnit)
+		//{
+		//	// delete DebugTextureRenderUnit;
+		//}
 	}
 
-	void Debug3DInitialize() 
+	void Debug3DInitialize()
 	{
 		static bool IsOnce = false;
 
@@ -155,7 +156,7 @@ namespace GameEngineDebug
 			return;
 		}
 
-		DebugRenderUnit = new GameEngineRenderUnit();
+		DebugRenderUnit = std::make_shared<GameEngineRenderUnit>();
 
 		DebugRenderUnit->SetMesh("Box");
 		DebugRenderUnit->SetPipeLine("3DDebug");
@@ -163,7 +164,7 @@ namespace GameEngineDebug
 		//DebugRenderingPipeLine = GameEngineMaterial::Find("3DDebug");
 		//DebugShaderResources.ResourcesCheck(DebugRenderingPipeLine);
 
-		DebugTextureRenderUnit = new GameEngineRenderUnit();
+		DebugTextureRenderUnit = std::make_shared<GameEngineRenderUnit>();
 
 		DebugTextureRenderUnit->SetPipeLine("3DDebug");
 
@@ -184,7 +185,7 @@ namespace GameEngineDebug
 				DebugRenderUnit->ShaderResources.SetConstantBufferLink("DebugInfo", DebugData[i].Info);
 				DebugRenderUnit->Render(GameEngineTime::GetDeltaTime());
 			}
-			else 
+			else
 			{
 				DebugTextureRenderUnit->ShaderResources.SetConstantBufferLink("TransformData", DebugData[i].Data);
 				DebugTextureRenderUnit->ShaderResources.SetConstantBufferLink("DebugInfo", DebugData[i].Info);
@@ -196,5 +197,5 @@ namespace GameEngineDebug
 		DebugData.clear();
 		int a = 0;
 	}
-	
+
 };

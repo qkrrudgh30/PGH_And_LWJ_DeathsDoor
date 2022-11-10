@@ -2,7 +2,7 @@
 #include "GameEngineConstantBuffer.h"
 
 // 상수버퍼는 이름이랑 상관없이 int
-std::map<std::string, std::map<int, GameEngineConstantBuffer*>> GameEngineConstantBuffer::ConstantBufferRes;
+std::map<std::string, std::map<int, std::shared_ptr<GameEngineConstantBuffer>>> GameEngineConstantBuffer::ConstantBufferRes;
 
 
 GameEngineConstantBuffer::GameEngineConstantBuffer() 

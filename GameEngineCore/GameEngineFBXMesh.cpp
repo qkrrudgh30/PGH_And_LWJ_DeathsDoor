@@ -1,25 +1,25 @@
 #include "PreCompile.h"
 #include "GameEngineFBXMesh.h"
 
-std::mutex m;
-
 GameEngineFBXMesh::GameEngineFBXMesh()
 {
 }
 
 GameEngineFBXMesh::~GameEngineFBXMesh()
 {
-	for (size_t i = 0; i < AllBoneStructuredBuffers.size(); i++)
-	{
-		delete AllBoneStructuredBuffers[i];
-	}
+	//for (size_t i = 0; i < AllBoneStructuredBuffers.size(); i++)
+	//{
+	//	delete AllBoneStructuredBuffers[i];
+	//}
+
+	AllBoneStructuredBuffers.clear();
 }
 
 
 
-GameEngineFBXMesh* GameEngineFBXMesh::Load(const std::string& _Path, const std::string& _Name)
+std::shared_ptr<GameEngineFBXMesh> GameEngineFBXMesh::Load(const std::string& _Path, const std::string& _Name)
 {
-	GameEngineFBXMesh* NewRes = CreateResName(_Name);
+	std::shared_ptr<GameEngineFBXMesh> NewRes = CreateResName(_Name);
 	NewRes->SetPath(_Path);
 	NewRes->LoadMesh(_Path, _Name);
 	return NewRes;
@@ -39,9 +39,7 @@ void GameEngineFBXMesh::MeshLoad()
 
 	VertexBufferCheck();
 
-	m.lock();
 	ImportBone();
-	m.unlock();
 
 	CreateGameEngineStructuredBuffer();
 
@@ -887,7 +885,7 @@ void GameEngineFBXMesh::MeshNodeCheck()
 	}
 }
 
-GameEngineMesh* GameEngineFBXMesh::GetGameEngineMesh(size_t _MeshIndex, size_t _SubIndex)
+std::shared_ptr<GameEngineMesh> GameEngineFBXMesh::GetGameEngineMesh(size_t _MeshIndex, size_t _SubIndex)
 {
 	if (RenderUnitInfos.size() <= _MeshIndex)
 	{
@@ -898,7 +896,7 @@ GameEngineMesh* GameEngineFBXMesh::GetGameEngineMesh(size_t _MeshIndex, size_t _
 
 	if (nullptr == Unit.VertexBuffer)
 	{
-		GameEngineVertexBuffer* VertexBuffer = GameEngineVertexBuffer::Create(Unit.Vertexs);
+		std::shared_ptr<GameEngineVertexBuffer> VertexBuffer = GameEngineVertexBuffer::Create(Unit.Vertexs);
 
 		if (nullptr == VertexBuffer)
 		{
@@ -920,7 +918,7 @@ GameEngineMesh* GameEngineFBXMesh::GetGameEngineMesh(size_t _MeshIndex, size_t _
 
 	if (nullptr == Unit.IndexBuffers[_SubIndex])
 	{
-		GameEngineIndexBuffer* IndexBuffer = GameEngineIndexBuffer::Create(Unit.Indexs[_SubIndex]);
+		std::shared_ptr<GameEngineIndexBuffer> IndexBuffer = GameEngineIndexBuffer::Create(Unit.Indexs[_SubIndex]);
 
 		if (nullptr == IndexBuffer)
 		{
@@ -947,7 +945,7 @@ GameEngineMesh* GameEngineFBXMesh::GetGameEngineMesh(size_t _MeshIndex, size_t _
 		&& "" != Unit.MaterialData[_SubIndex].DifTextureName
 		)
 	{
-		GameEngineTexture* Texture = GameEngineTexture::Find(Unit.MaterialData[_SubIndex].DifTextureName);
+		std::shared_ptr<GameEngineTexture> Texture = GameEngineTexture::Find(Unit.MaterialData[_SubIndex].DifTextureName);
 
 		if (nullptr == Texture)
 		{
@@ -1684,12 +1682,12 @@ void GameEngineFBXMesh::CreateGameEngineStructuredBuffer()
 
 	for (size_t i = 0; i < AllBones.size(); i++)
 	{
-		GameEngineStructuredBuffer* NewStructuredBuffer = AllBoneStructuredBuffers.emplace_back(new GameEngineStructuredBuffer());
+		std::shared_ptr<GameEngineStructuredBuffer> NewStructuredBuffer = AllBoneStructuredBuffers.emplace_back(std::make_shared<GameEngineStructuredBuffer>());
 		NewStructuredBuffer->CreateResize(sizeof(float4x4), static_cast<int>(AllBones[i].size()), nullptr);
 	}
 }
 
-GameEngineStructuredBuffer* GameEngineFBXMesh::GetAnimationStructuredBuffer(size_t _Index)
+std::shared_ptr<GameEngineStructuredBuffer> GameEngineFBXMesh::GetAnimationStructuredBuffer(size_t _Index)
 {
 	if (AllBoneStructuredBuffers.size() <= _Index)
 	{

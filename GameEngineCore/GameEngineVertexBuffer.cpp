@@ -20,14 +20,14 @@ GameEngineVertexBuffer::~GameEngineVertexBuffer()
 }
 
 
-GameEngineVertexBuffer* GameEngineVertexBuffer::Create(
+std::shared_ptr<GameEngineVertexBuffer> GameEngineVertexBuffer::Create(
 	const std::string& _Name, 
 	const void* _Data, UINT _VertexSize,
 	UINT _VertexCount,
 	const GameEngineLayOutDesc& _LayOut
 )
 {
-	GameEngineVertexBuffer* NewRes = CreateResName(_Name);
+	std::shared_ptr<GameEngineVertexBuffer> NewRes = CreateResName(_Name);
 	NewRes->LayOutDesc = &_LayOut;
 	NewRes->BufferCreate(_Data, _VertexSize, _VertexCount);
 
@@ -69,9 +69,9 @@ void GameEngineVertexBuffer::BufferCreate(const void* _Data, UINT _VertexSize, U
 	}
 }
 
-GameEngineVertexBuffer* GameEngineVertexBuffer::Create(const void* _Data, UINT _VertexSize, UINT _VertexCount, const GameEngineLayOutDesc& _LayOut)
+std::shared_ptr<GameEngineVertexBuffer> GameEngineVertexBuffer::Create(const void* _Data, UINT _VertexSize, UINT _VertexCount, const GameEngineLayOutDesc& _LayOut)
 {
-	GameEngineVertexBuffer* NewRes = CreateResUnName();
+	std::shared_ptr<GameEngineVertexBuffer> NewRes = CreateResUnName();
 	NewRes->LayOutDesc = &_LayOut;
 	NewRes->BufferCreate(_Data, _VertexSize, _VertexCount);
 	return NewRes;

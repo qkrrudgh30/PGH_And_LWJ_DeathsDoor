@@ -22,10 +22,12 @@ GameEngineVertexShader::~GameEngineVertexShader()
 	//	InstancingBinaryPtr = nullptr;
 	//}
 
-	if (nullptr != InstancingVertexShader)
-	{
-		delete InstancingVertexShader;
-	}
+	//if (nullptr != InstancingVertexShader)
+	//{
+	//	delete InstancingVertexShader;
+	//}
+
+	InstancingVertexShader = nullptr;
 
 	if (nullptr != ShaderPtr)
 	{
@@ -52,15 +54,15 @@ void GameEngineVertexShader::Setting()
 	GameEngineDevice::GetContext()->VSSetShader(ShaderPtr, nullptr, 0);
 }
 
-GameEngineVertexShader* GameEngineVertexShader::Load(std::string _Path, std::string _EntryPoint, UINT _VersionHigh /*= 5*/, UINT _VersionLow /*= 0*/)
+std::shared_ptr< GameEngineVertexShader> GameEngineVertexShader::Load(std::string _Path, std::string _EntryPoint, UINT _VersionHigh /*= 5*/, UINT _VersionLow /*= 0*/)
 {
 	return Load(_Path, GameEnginePath::GetFileName(_Path), _EntryPoint, _VersionHigh, _VersionLow);
 }
 
 
-GameEngineVertexShader* GameEngineVertexShader::Load(std::string _Path, std::string _Name, std::string _EntryPoint, UINT _VersionHigh = 5, UINT _VersionLow = 0)
+std::shared_ptr< GameEngineVertexShader> GameEngineVertexShader::Load(std::string _Path, std::string _Name, std::string _EntryPoint, UINT _VersionHigh = 5, UINT _VersionLow = 0)
 {
-	GameEngineVertexShader* NewRes = CreateResName(_Name);
+	std::shared_ptr< GameEngineVertexShader> NewRes = CreateResName(_Name);
 	NewRes->ShaderCompile(_Path, _EntryPoint, _VersionHigh, _VersionLow);
 
 	return NewRes;
@@ -165,7 +167,7 @@ void GameEngineVertexShader::InstancingShaderCompile(std::string _Path, std::str
 	// 0010
 	// 0001
 
-	InstancingVertexShader = new GameEngineVertexShader();
+	InstancingVertexShader = std::make_shared<GameEngineVertexShader>();
 	InstancingVertexShader->SetName(_EntryPoint);
 
 	Flag |= D3DCOMPILE_PACK_MATRIX_ROW_MAJOR;

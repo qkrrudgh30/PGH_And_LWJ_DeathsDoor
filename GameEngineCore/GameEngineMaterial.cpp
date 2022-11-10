@@ -53,12 +53,12 @@ void GameEngineMaterial::AllShaderReset()
 	GameEngineDevice::GetContext()->PSSetShader(nullptr, nullptr, 0);
 }
 
-GameEngineMaterial* GameEngineMaterial::Create()
+std::shared_ptr < GameEngineMaterial> GameEngineMaterial::Create()
 {
 	return CreateResUnName();
 }
 
-GameEngineMaterial* GameEngineMaterial::Create(const std::string& _Name)
+std::shared_ptr < GameEngineMaterial> GameEngineMaterial::Create(const std::string& _Name)
 {
 	return CreateResName(_Name);
 }
@@ -80,7 +80,7 @@ void GameEngineMaterial::SetVertexShader(const std::string& _Name)
 	//}
 }
 
-void GameEngineMaterial::SetVertexShader(GameEngineVertexShader* _Shader)
+void GameEngineMaterial::SetVertexShader(std::shared_ptr < GameEngineVertexShader> _Shader)
 {
 	VertexShader = _Shader;
 
@@ -165,7 +165,7 @@ void GameEngineMaterial::Setting()
 
 }
 
-void GameEngineMaterial::RenderingInstancing(int _RenderingCount, class GameEngineInstancingBuffer* _Buffer)
+void GameEngineMaterial::RenderingInstancing(int _RenderingCount, std::shared_ptr < GameEngineInstancingBuffer> _Buffer)
 {
 	InputAssembler1InstancingVertexBufferSetting(_Buffer);
 
@@ -192,7 +192,7 @@ void GameEngineMaterial::InstancingDataCollect()
 
 // 실직적으로 세팅의 순서는 그다지 중요하지 않다.
 
-void GameEngineMaterial::InputAssembler1InstancingVertexBufferSetting(GameEngineInstancingBuffer* _Buffer)
+void GameEngineMaterial::InputAssembler1InstancingVertexBufferSetting(std::shared_ptr < GameEngineInstancingBuffer> _Buffer)
 {
 	// 그래픽리소스에 Setting이라는 함수가 존재한다면
 // 그건 이제부터 그 설정으로 랜더링 파이프라인이 돌아가게 된다는 뜻이 됩니다.
@@ -269,7 +269,7 @@ void GameEngineMaterial::InstancingDraw(int _RenderingCount)
 	// GameEngineDevice::GetContext()->DrawIndexedInstanced(IndexBuffer->GetIndexCount(), _RenderingCount, 0, 0, 0);
 }
 
-void GameEngineMaterial::Copy(GameEngineMaterial* _Original)
+void GameEngineMaterial::Copy(std::shared_ptr<GameEngineMaterial> _Original)
 {
 	// InputLayOut			= _Original->InputLayOut;
 	// VertexBuffer			= _Original->VertexBuffer;

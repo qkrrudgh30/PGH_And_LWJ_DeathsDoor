@@ -6,7 +6,7 @@
 class GameEngineSampler : public GameEngineRes<GameEngineSampler>
 {
 public:
-	static GameEngineSampler* Create(const std::string& _Name, const D3D11_SAMPLER_DESC& _Info);
+	static std::shared_ptr < GameEngineSampler> Create(const std::string& _Name, const D3D11_SAMPLER_DESC& _Info);
 
 public:
 	// constrcuter destructer

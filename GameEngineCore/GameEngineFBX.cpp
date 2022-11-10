@@ -2,7 +2,7 @@
 #include "GameEngineFBX.h"
 #include <GameEngineBase/GameEngineString.h>
 
-std::mutex GameEngineFBX::ManagerLock;
+// std::mutex GameEngineFBX::ManagerLock;
 // fbxsdk::FbxManager* GameEngineFBX::Manager = nullptr;
 
 
@@ -11,7 +11,8 @@ GameEngineFBX::GameEngineFBX()
 	IOSetting(nullptr),
 	Importer(nullptr),
 	Scene(nullptr),
-	RootNode(nullptr)
+	RootNode(nullptr),
+	Manager(nullptr)
 {
 }
 
@@ -108,7 +109,6 @@ GameEngineFBX::~GameEngineFBX()
 bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
 {
 	// 쓰레드에서 여기서 에러가 난다는 말이 있는데.
-	ManagerLock.lock();
 	if (nullptr == Manager)
 	{
 		//  ManagerLock.lock();
@@ -154,7 +154,6 @@ bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
 		return false;
 	}
 
-	ManagerLock.unlock();
 	return true;
 }
 
@@ -163,7 +162,6 @@ bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
 // RootNode를 구한다.
 void GameEngineFBX::FBXConvertScene()
 {
-	ManagerLock.lock();
 	AxisVector = { 0.0f, 0.0f, 0.0f, 1.0f };
 
 	fbxsdk::FbxAxisSystem::EFrontVector FrontVector = (fbxsdk::FbxAxisSystem::EFrontVector)-fbxsdk::FbxAxisSystem::eParityOdd;
@@ -272,7 +270,6 @@ void GameEngineFBX::FBXConvertScene()
 		MsgBoxAssert("삼각화에 실패했습니다.");
 	}
 
-	ManagerLock.unlock();
 	return;
 }
 

@@ -5,7 +5,7 @@
 class GameEngineBlend : public GameEngineRes<GameEngineBlend>
 {
 public:
-	static GameEngineBlend* Create(const std::string& _Name, const D3D11_BLEND_DESC& _Desc);
+	static std::shared_ptr < GameEngineBlend> Create(const std::string& _Name, const D3D11_BLEND_DESC& _Desc);
 
 public:
 	// constrcuter destructer

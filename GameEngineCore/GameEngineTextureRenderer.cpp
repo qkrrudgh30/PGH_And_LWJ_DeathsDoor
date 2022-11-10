@@ -217,7 +217,7 @@ void GameEngineTextureRenderer::SetPivotToVector(const float4& _Value)
 	GetTransform().SetLocalPosition(_Value);
 }
 
-void GameEngineTextureRenderer::SetTexture(GameEngineTexture* _Texture)
+void GameEngineTextureRenderer::SetTexture(std::shared_ptr<GameEngineTexture> _Texture)
 {
 	if (nullptr == _Texture)
 	{
@@ -239,7 +239,7 @@ void GameEngineTextureRenderer::SetFrame(UINT _Index)
 	AtlasDataInst.FrameData = CurTex->GetFrameData(_Index);
 }
 
-GameEngineTexture* GameEngineTextureRenderer::GetCurTexture()
+std::shared_ptr < GameEngineTexture> GameEngineTextureRenderer::GetCurTexture()
 {
 	return CurTex;
 }
@@ -250,7 +250,7 @@ void GameEngineTextureRenderer::SetTexture(const std::string& _Name, UINT _Index
 	SetFrame(_Index);
 }
 
-void GameEngineTextureRenderer::SetTexture(GameEngineTexture* _Texture, UINT _Index)
+void GameEngineTextureRenderer::SetTexture(std::shared_ptr < GameEngineTexture> _Texture, UINT _Index)
 {
 	if (nullptr == _Texture)
 	{
@@ -264,7 +264,7 @@ void GameEngineTextureRenderer::SetTexture(GameEngineTexture* _Texture, UINT _In
 
 void GameEngineTextureRenderer::SetFolderTextureToIndex(const std::string& _Text, UINT _Index)
 {
-	GameEngineFolderTexture* FolderTexture = GameEngineFolderTexture::Find(_Text);
+	std::shared_ptr<GameEngineFolderTexture> FolderTexture = GameEngineFolderTexture::Find(_Text);
 
 	SetTexture(FolderTexture->GetTexture(_Index));
 

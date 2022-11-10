@@ -38,7 +38,7 @@ class GameEngineConstantBufferSetter : public ShaderResSetter
 	friend GameEngineShader;
 
 public:
-	GameEngineConstantBuffer* Res;
+	std::shared_ptr<GameEngineConstantBuffer> Res;
 	// 각자가 가진 정보에 대한 주소
 	const void* SetData;
 	size_t Size;
@@ -73,7 +73,7 @@ public:
 	void Bind();
 
 public:
-	GameEngineTexture* Res;
+	std::shared_ptr < GameEngineTexture> Res;
 };
 
 class GameEngineSampler;
@@ -83,7 +83,7 @@ public:
 	void Setting() const;
 	void Bind();
 public:
-	GameEngineSampler* Res;
+	std::shared_ptr < GameEngineSampler> Res;
 };
 
 class GameEngineStructuredBuffer;
@@ -116,7 +116,7 @@ private:
 
 public:
 	// 상수버퍼와 완전히 동일하게 동일하게 생각하면 됩니다.
-	GameEngineStructuredBuffer* Res;
+	std::shared_ptr < GameEngineStructuredBuffer> Res;
 	const void* SetData;
 	size_t Size;
 	std::vector<char> OriginalData;

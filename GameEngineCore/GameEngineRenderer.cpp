@@ -18,7 +18,7 @@
 //////////////////////////////////////////////////////// GameEngineRenderUnit 
 
 GameEngineRenderUnit::GameEngineRenderUnit() 
-	: ParentRenderer(nullptr)
+	: ParentRenderer()
 	, PipeLine(nullptr)
 	, Topology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 	, InputLayOut(nullptr)
@@ -41,7 +41,7 @@ GameEngineRenderUnit::GameEngineRenderUnit(const GameEngineRenderUnit& _Render)
 	ShaderResources.ResourcesCheck(PipeLine);
 }
 
-void GameEngineRenderUnit::EngineShaderResourcesSetting(GameEngineRenderer* _Renderer)
+void GameEngineRenderUnit::EngineShaderResourcesSetting(std::shared_ptr<GameEngineRenderer> _Renderer)
 {
 	if (nullptr == _Renderer)
 	{
@@ -53,12 +53,12 @@ void GameEngineRenderUnit::EngineShaderResourcesSetting(GameEngineRenderer* _Ren
 	//// 랜더러 쪽으로 빠져야 한다.
 	if (true == ShaderResources.IsConstantBuffer("TRANSFORMDATA"))
 	{
-		ShaderResources.SetConstantBufferLink("TRANSFORMDATA", &ParentRenderer->GetTransformData(), sizeof(TransformData));
+		ShaderResources.SetConstantBufferLink("TRANSFORMDATA", &ParentRenderer.lock()->GetTransformData(), sizeof(TransformData));
 	}
 
 	if (true == ShaderResources.IsConstantBuffer("RENDEROPTION"))
 	{
-		ShaderResources.SetConstantBufferLink("RENDEROPTION", &ParentRenderer->RenderOptionInst, sizeof(RenderOption));
+		ShaderResources.SetConstantBufferLink("RENDEROPTION", &ParentRenderer.lock()->RenderOptionInst, sizeof(RenderOption));
 	}
 
 }
@@ -83,7 +83,7 @@ void GameEngineRenderUnit::SetMesh(const std::string& _Name)
 
 }
 
-void GameEngineRenderUnit::SetMesh(GameEngineMesh* _Mesh)
+void GameEngineRenderUnit::SetMesh(std::shared_ptr<GameEngineMesh> _Mesh)
 {
 	if (nullptr == _Mesh)
 	{
@@ -123,20 +123,20 @@ void GameEngineRenderUnit::SetPipeLine(const std::string& _Name)
 
 }
 
-void GameEngineRenderUnit::SetRenderer(GameEngineRenderer* _Renderer)
+void GameEngineRenderUnit::SetRenderer(std::shared_ptr<GameEngineRenderer> _Renderer)
 {
 	ParentRenderer = _Renderer;
 
-	EngineShaderResourcesSetting(ParentRenderer);
+	EngineShaderResourcesSetting(ParentRenderer.lock());
 }
 
 
-GameEngineMaterial* GameEngineRenderUnit::GetPipeLine()
+std::shared_ptr<GameEngineMaterial> GameEngineRenderUnit::GetPipeLine()
 {
 	return PipeLine;
 }
 
-GameEngineMaterial* GameEngineRenderUnit::GetClonePipeLine()
+std::shared_ptr < GameEngineMaterial> GameEngineRenderUnit::GetClonePipeLine()
 {
 	if (false == PipeLine->IsOriginal())
 	{
@@ -148,10 +148,10 @@ GameEngineMaterial* GameEngineRenderUnit::GetClonePipeLine()
 }
 
 
-GameEngineMaterial* GameEngineRenderUnit::ClonePipeLine(GameEngineMaterial* _Rendering)
+std::shared_ptr < GameEngineMaterial> GameEngineRenderUnit::ClonePipeLine(std::shared_ptr<GameEngineMaterial> _Rendering)
 {
 	// 이름없는 녀석으로 만든다.
-	GameEngineMaterial* Clone = GameEngineMaterial::Create();
+	std::shared_ptr < GameEngineMaterial> Clone = GameEngineMaterial::Create();
 	Clone->Copy(_Rendering);
 	return Clone;
 }
@@ -227,25 +227,25 @@ void GameEngineRenderer::Start()
 
 void GameEngineRenderer::PushRendererToMainCamera()
 {
-	GetActor()->GetLevel()->PushRendererToMainCamera(this);	
+	GetActor()->GetLevel()->PushRendererToMainCamera(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()));
 }
 
 void GameEngineRenderer::SetRenderingOrder(int _Order)
 {
-	Camera->ChangeRenderingOrder(this, _Order);
+	Camera.lock()->ChangeRenderingOrder(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()), _Order);
 }
 
 void GameEngineRenderer::PushRendererToUICamera()
 {
-	GetActor()->GetLevel()->PushRendererToUICamera(this);
+	GetActor()->GetLevel()->PushRendererToUICamera(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()));
 }
 
 
-bool GameEngineRenderer::IsInstancing(GameEngineMaterial* _Rendering)
+bool GameEngineRenderer::IsInstancing(std::shared_ptr<GameEngineMaterial> _Rendering)
 {
-	std::unordered_map<GameEngineMaterial*, GameEngineInstancing>::iterator InstancingIter = Camera->InstancingMap.find(_Rendering);
+	std::unordered_map<GameEngineMaterial*, GameEngineInstancing>::iterator InstancingIter = Camera.lock()->InstancingMap.find(_Rendering.get());
 
-	if (InstancingIter == Camera->InstancingMap.end())
+	if (InstancingIter == Camera.lock()->InstancingMap.end())
 	{
 		return false;
 	}
@@ -254,13 +254,13 @@ bool GameEngineRenderer::IsInstancing(GameEngineMaterial* _Rendering)
 }
 
 // 우리 엔진에서 인스턴싱을 한다면 무조건 숫자하나만 인스턴싱을 했으니까. 이건 ok
-void GameEngineRenderer::InstancingDataSetting(GameEngineMaterial* _Line)
+void GameEngineRenderer::InstancingDataSetting(std::shared_ptr<GameEngineMaterial> _Line)
 {
 	// 몇번째 순서인지 알려주고 있어요
 	// 이녀석을 통해서 
-	int InstancingIndex = Camera->PushInstancingIndex(_Line);
+	int InstancingIndex = Camera.lock()->PushInstancingIndex(_Line);
 
-	GameEngineInstancing* Instancing = Camera->GetInstancing(_Line);
+	GameEngineInstancing* Instancing = Camera.lock()->GetInstancing(_Line);
 
 	if (nullptr == Instancing)
 	{
@@ -328,5 +328,5 @@ void GameEngineRenderer::InstancingDataSetting(GameEngineMaterial* _Line)
 
 void GameEngineRenderer::ChangeCamera(CAMERAORDER _Order)
 {
-	GetActor()->GetLevel()->PushRenderer(this, _Order);
+	GetActor()->GetLevel()->PushRenderer(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()), _Order);
 }

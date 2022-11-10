@@ -32,7 +32,7 @@ void GameEngineActor::DetachObject()
 
 	if (false == IsDeath())
 	{
-		GetLevel()->PushActor(this, this->GetOrder());
+		GetLevel()->PushActor(std::dynamic_pointer_cast<GameEngineActor>(shared_from_this()), this->GetOrder());
 	}
 }
 
@@ -40,7 +40,7 @@ void GameEngineActor::SetParent(GameEngineUpdateObject* _Object)
 {
 	if (nullptr == GetParent())
 	{
-		GetLevel()->RemoveActor(this);
+		GetLevel()->RemoveActor(std::dynamic_pointer_cast<GameEngineActor>(shared_from_this()));
 	}
 
 	GameEngineUpdateObject::SetParent(_Object);

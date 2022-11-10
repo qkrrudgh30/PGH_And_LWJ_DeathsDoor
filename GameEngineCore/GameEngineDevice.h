@@ -33,7 +33,7 @@ public:
 		return Context_;
 	}
 
-	static GameEngineRenderTarget* GetBackBuffer() 
+	static std::shared_ptr<GameEngineRenderTarget> GetBackBuffer()
 	{
 		return BackBufferTarget;
 	}
@@ -59,7 +59,7 @@ private:
 	// api의 백버퍼
 	static IDXGISwapChain* SwapChain_;
 
-	static class GameEngineRenderTarget* BackBufferTarget;
+	static std::shared_ptr<class GameEngineRenderTarget> BackBufferTarget;
 
 	GameEngineDevice();
 };

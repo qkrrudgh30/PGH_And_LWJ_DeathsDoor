@@ -18,16 +18,16 @@ GameEngineIndexBuffer::~GameEngineIndexBuffer()
 }
 
 
-GameEngineIndexBuffer* GameEngineIndexBuffer::Create(const std::string& _Name, const void* _Data, UINT _IndexSize, UINT _IndexCount)
+std::shared_ptr < GameEngineIndexBuffer> GameEngineIndexBuffer::Create(const std::string& _Name, const void* _Data, UINT _IndexSize, UINT _IndexCount)
 {
-	GameEngineIndexBuffer* NewRes = CreateResName(_Name);
+	std::shared_ptr < GameEngineIndexBuffer> NewRes = CreateResName(_Name);
 	NewRes->BufferCreate(_Data, _IndexSize, _IndexCount);
 	return NewRes;
 }
 
-GameEngineIndexBuffer* GameEngineIndexBuffer::Create(const void* _Data, UINT _IndexSize, UINT _IndexCount)
+std::shared_ptr < GameEngineIndexBuffer> GameEngineIndexBuffer::Create(const void* _Data, UINT _IndexSize, UINT _IndexCount)
 {
-	GameEngineIndexBuffer* NewRes = CreateResUnName();
+	std::shared_ptr < GameEngineIndexBuffer> NewRes = CreateResUnName();
 	NewRes->BufferCreate(_Data, _IndexSize, _IndexCount);
 	return NewRes;
 }

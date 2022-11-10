@@ -2,11 +2,11 @@
 #include "GameEngineDepthStencil.h"
 
 
-GameEngineDepthStencil* GameEngineDepthStencil::Create(
+std::shared_ptr < GameEngineDepthStencil> GameEngineDepthStencil::Create(
 	const std::string& _Name, const D3D11_DEPTH_STENCIL_DESC& _Desc
 )
 {
-	GameEngineDepthStencil* NewRes = CreateResName(_Name);
+	std::shared_ptr < GameEngineDepthStencil> NewRes = CreateResName(_Name);
 	NewRes->Create(_Desc);
 	return NewRes;
 }

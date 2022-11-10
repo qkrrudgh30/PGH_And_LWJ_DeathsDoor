@@ -9,9 +9,9 @@ class GameEngineShaderResourcesHelper
 {
 	friend GameEngineShader;
 
-// 리소스 세팅함수들 정리
+	// 리소스 세팅함수들 정리
 
-	// 이 상수버퍼가 이녀석 안에 있어?
+		// 이 상수버퍼가 이녀석 안에 있어?
 
 
 public:
@@ -29,12 +29,12 @@ public:
 
 	void AllResourcesReset();
 
-	void ResourcesCheck(GameEngineMaterial* _Line);
+	void ResourcesCheck(std::shared_ptr < GameEngineMaterial> _Line);
 
 	template<typename Res>
-	void SetConstantBufferLink(const std::string& _Name, const Res& Data) 
+	void SetConstantBufferLink(const std::string& _Name, const Res& Data)
 	{
-		SetConstantBufferLink(_Name , &Data, sizeof(Res));
+		SetConstantBufferLink(_Name, &Data, sizeof(Res));
 	}
 
 	void SetConstantBufferLink(const std::string& _Name, const void* Data, UINT _Size);
@@ -76,16 +76,16 @@ public:
 	void SetConstantBufferNew(const std::string& _Name, const void* Data, UINT _Size);
 
 
-	GameEngineTexture* SetTexture(const std::string& _Name, const std::string& _TextureName);
+	std::shared_ptr < GameEngineTexture> SetTexture(const std::string& _Name, const std::string& _TextureName);
 
-	GameEngineTexture* SetTexture(const std::string& _Name, const std::string& _FolderTextureName, int _Index);
+	std::shared_ptr < GameEngineTexture> SetTexture(const std::string& _Name, const std::string& _FolderTextureName, int _Index);
 
-	GameEngineTexture* SetTexture(const std::string& _Name, GameEngineTexture* _TextureName);
+	std::shared_ptr < GameEngineTexture> SetTexture(const std::string& _Name, std::shared_ptr<GameEngineTexture> _TextureName);
 
 
-	GameEngineSampler* SetSampler(const std::string& _Name, const std::string& _TextureName);
+	std::shared_ptr < GameEngineSampler> SetSampler(const std::string& _Name, const std::string& _TextureName);
 
-	GameEngineSampler* SetSampler(const std::string& _Name, GameEngineSampler* _SamplerName);
+	std::shared_ptr < GameEngineSampler> SetSampler(const std::string& _Name, std::shared_ptr < GameEngineSampler> _SamplerName);
 
 	// 인스턴싱을 하려고 하는데 그 쉐이더에서 상수버퍼를 사용했을때.
 	void AllConstantBufferNew();
@@ -102,7 +102,7 @@ public:
 
 
 protected:
-	void ShaderCheck(GameEngineShader* _Shader);
+	void ShaderCheck(std::shared_ptr < GameEngineShader> _Shader);
 
 private:
 	// 컬러가 
@@ -115,9 +115,9 @@ private:
 	std::multimap<std::string, GameEngineSamplerSetter> SamplerSettingMap;
 	std::multimap<std::string, GameEngineStructuredBufferSetter> StructuredBufferSettingMap;
 
-	void BindConstantBuffer(GameEngineConstantBufferSetter& _Setter, GameEngineConstantBuffer* _Res);
-	void BindSampler(GameEngineSamplerSetter& _Setter, GameEngineSampler* _Res);
-	void BindTexture(GameEngineTextureSetter& _Setter, GameEngineTexture* _Res);
-	void BindStructuredBuffer(GameEngineStructuredBufferSetter& _Setter, GameEngineStructuredBuffer* _Res);
+	void BindConstantBuffer(GameEngineConstantBufferSetter& _Setter, std::shared_ptr < GameEngineConstantBuffer> _Res);
+	void BindSampler(GameEngineSamplerSetter& _Setter, std::shared_ptr < GameEngineSampler> _Res);
+	void BindTexture(GameEngineTextureSetter& _Setter, std::shared_ptr < GameEngineTexture> _Res);
+	void BindStructuredBuffer(GameEngineStructuredBufferSetter& _Setter, std::shared_ptr < GameEngineStructuredBuffer> _Res);
 };
 

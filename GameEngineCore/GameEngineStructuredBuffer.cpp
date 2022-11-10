@@ -2,7 +2,7 @@
 #include "GameEngineStructuredBuffer.h"
 
 // 데이터 1개의 사이즈.
-std::map<std::string, std::map<int, GameEngineStructuredBuffer*>> GameEngineStructuredBuffer::StructuredBufferRes;
+std::map<std::string, std::map<int, std::shared_ptr < GameEngineStructuredBuffer>>> GameEngineStructuredBuffer::StructuredBufferRes;
 
 
 GameEngineStructuredBuffer::GameEngineStructuredBuffer() 

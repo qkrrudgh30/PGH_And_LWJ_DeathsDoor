@@ -7,20 +7,20 @@ class GameEngineStructuredBuffer : public GameEngineRes<GameEngineStructuredBuff
 private:
 
 public:
-	static GameEngineStructuredBuffer* Find(const std::string& _Name, int _ByteSize)
+	static std::shared_ptr < GameEngineStructuredBuffer> Find(const std::string& _Name, int _ByteSize)
 	{
 		std::string UpperName = GameEngineString::ToUpperReturn(_Name);
 
-		std::map<std::string, std::map<int, GameEngineStructuredBuffer*>>::iterator NameIter = StructuredBufferRes.find(UpperName);
+		std::map < std::string, std::map<int, std::shared_ptr < GameEngineStructuredBuffer>>>::iterator NameIter = StructuredBufferRes.find(UpperName);
 
 		if (StructuredBufferRes.end() == NameIter)
 		{
 			return nullptr;
 		}
 
-		std::map<int, GameEngineStructuredBuffer*>& SizeMap = NameIter->second;
+		std::map<int, std::shared_ptr<GameEngineStructuredBuffer>>& SizeMap = NameIter->second;
 
-		std::map<int, GameEngineStructuredBuffer*>::iterator SizeIter = SizeMap.find(_ByteSize);
+		std::map<int, std::shared_ptr<GameEngineStructuredBuffer>>::iterator SizeIter = SizeMap.find(_ByteSize);
 
 		if (SizeIter == SizeMap.end())
 		{
@@ -30,13 +30,13 @@ public:
 		return SizeIter->second;
 	}
 
-	static GameEngineStructuredBuffer* Create(
+	static std::shared_ptr < GameEngineStructuredBuffer> Create(
 		const std::string& _Name,
 		D3D11_SHADER_BUFFER_DESC _Desc,
 		int Count
 	)
 	{
-		GameEngineStructuredBuffer* NewBuffer = CreateResName(_Name, _Desc.Size);
+		std::shared_ptr<GameEngineStructuredBuffer> NewBuffer = CreateResName(_Name, _Desc.Size);
 
 		NewBuffer->CreateResize(_Desc, Count);
 
@@ -44,20 +44,20 @@ public:
 	}
 
 
-	static GameEngineStructuredBuffer* CreateAndFind(
+	static std::shared_ptr < GameEngineStructuredBuffer> CreateAndFind(
 		const std::string& _Name,
 		D3D11_SHADER_BUFFER_DESC _Desc,
 		int Count
 	)
 	{
-		GameEngineStructuredBuffer* FindBuffer = Find(_Name, _Desc.Size);
+		std::shared_ptr < GameEngineStructuredBuffer> FindBuffer = Find(_Name, _Desc.Size);
 
 		if (nullptr != FindBuffer)
 		{
 			return FindBuffer;
 		}
 
-		GameEngineStructuredBuffer* NewBuffer = CreateResName(_Name, _Desc.Size);
+		std::shared_ptr < GameEngineStructuredBuffer> NewBuffer = CreateResName(_Name, _Desc.Size);
 
 		NewBuffer->CreateResize(_Desc, Count);
 
@@ -67,28 +67,29 @@ public:
 
 	static void ResourcesDestroy()
 	{
-		for (auto& NameRes : StructuredBufferRes)
-		{
-			for (auto& SizeRes : NameRes.second)
-			{
-				delete SizeRes.second;
-			}
-		}
+		StructuredBufferRes.clear();
+		//for (auto& NameRes : StructuredBufferRes)
+		//{
+		//	for (auto& SizeRes : NameRes.second)
+		//	{
+		//		delete SizeRes.second;
+		//	}
+		//}
 	}
 
 protected:
-	static GameEngineStructuredBuffer* CreateResName(const std::string& _Name, int _ByteSize)
+	static std::shared_ptr < GameEngineStructuredBuffer> CreateResName(const std::string& _Name, int _ByteSize)
 	{
 		std::string Name = GameEngineString::ToUpperReturn(_Name);
 
-		GameEngineStructuredBuffer* FindBuffer = Find(_Name, _ByteSize);
+		std::shared_ptr < GameEngineStructuredBuffer> FindBuffer = Find(_Name, _ByteSize);
 
 		if (nullptr != FindBuffer)
 		{
 			return FindBuffer;
 		}
 
-		GameEngineStructuredBuffer* Res = CreateRes(Name);
+		std::shared_ptr < GameEngineStructuredBuffer> Res = CreateRes(Name);
 		StructuredBufferRes[Name][_ByteSize] = Res;
 
 		return Res;
@@ -96,7 +97,7 @@ protected:
 
 
 private:
-	static std::map<std::string, std::map<int, GameEngineStructuredBuffer*>> StructuredBufferRes;
+	static std::map<std::string, std::map<int, std::shared_ptr < GameEngineStructuredBuffer>>> StructuredBufferRes;
 
 
 public:
