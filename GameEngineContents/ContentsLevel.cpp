@@ -14,6 +14,7 @@ std::atomic<unsigned int> ContentsLevel::muFBXLoadedCount = 0;
 std::vector<std::string> ContentsLevel::mstrvecAllResourceNames;
 std::string ContentsLevel::mstrNextLevelName;
 std::string ContentsLevel::mstrPrevLevelName;
+std::map<std::string, bool> ContentsLevel::mmapPrimitiveInitialized;
 
 enum { eWaiting = -1 };
 
