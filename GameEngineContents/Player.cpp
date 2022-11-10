@@ -21,7 +21,7 @@
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 
-Player* Player::MainPlayer = nullptr;
+std::shared_ptr < Player> Player::MainPlayer = nullptr;
 
 Player::Player()
 	: Speed(200.0f)
@@ -48,8 +48,10 @@ Player::Player()
 	, m_fCameraLenZ(0.f)
 	,m_fCameraLenY(0.f)
 	, m_fArrowCameraActionPos(0.f)
+	, UpgradeUI()
+	, MainUI()
 {
-	MainPlayer = this;
+	MainPlayer = std::dynamic_pointer_cast<Player>(shared_from_this());;
 }
 
 Player::~Player()
@@ -120,10 +122,10 @@ void Player::Start()
 
 
 	MainUI = GetLevel()->CreateActor<PlayerMainUI>(OBJECTORDER::UI);
-	MainUI->m_Player = this;
+	MainUI->m_Player = std::dynamic_pointer_cast<Player>(shared_from_this());
 
 	UpgradeUI = GetLevel()->CreateActor<PlayerUpgradeUI>(OBJECTORDER::UI);
-	UpgradeUI->m_Player = this;
+	UpgradeUI->m_Player = std::dynamic_pointer_cast<Player>(shared_from_this());;
 	UpgradeUI->Off();
 
 	UpgradeUI->SetLevelOverOn();
@@ -165,54 +167,54 @@ void Player::Start()
 	Collision->ChangeOrder(OBJECTORDER::Player);
 
 	StateManager.CreateStateMember("Idle"
-		, std::bind(&Player::IdleUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::IdleStart, this, std::placeholders::_1)
+		, std::bind(&Player::IdleUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::IdleStart, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("SworldAtt"
-		, std::bind(&Player::SworldAttUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::SworldAttStart, this, std::placeholders::_1)
-		, std::bind(&Player::SworldAttEnd, this, std::placeholders::_1)
+		, std::bind(&Player::SworldAttUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SworldAttStart, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::SworldAttEnd, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("SworldAtt2"
-		, std::bind(&Player::SworldAttUpdate2, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::SworldAttStart2, this, std::placeholders::_1)
-		, std::bind(&Player::SworldAttEnd2, this, std::placeholders::_1)
+		, std::bind(&Player::SworldAttUpdate2, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SworldAttStart2, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::SworldAttEnd2, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("SworldAtt3"
-		, std::bind(&Player::SworldAttUpdate3, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::SworldAttStart3, this, std::placeholders::_1)
-		, std::bind(&Player::SworldAttEnd3, this, std::placeholders::_1)
+		, std::bind(&Player::SworldAttUpdate3, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SworldAttStart3, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::SworldAttEnd3, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("Slide"
-		, std::bind(&Player::SlideUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::SlideStart, this, std::placeholders::_1)
-		, std::bind(&Player::SlideEnd, this, std::placeholders::_1)
+		, std::bind(&Player::SlideUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SlideStart, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::SlideEnd, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("SlideAtt"
-		, std::bind(&Player::SlideAttUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::SlideAttStart, this, std::placeholders::_1)
-		, std::bind(&Player::SlideAttEnd, this, std::placeholders::_1)
+		, std::bind(&Player::SlideAttUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SlideAttStart, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::SlideAttEnd, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("ArrowAtt"
-		, std::bind(&Player::ArrowAttUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::ArrowAttStart, this, std::placeholders::_1)
-		, std::bind(&Player::ArrowAttEnd, this, std::placeholders::_1)
+		, std::bind(&Player::ArrowAttUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::ArrowAttStart, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::ArrowAttEnd, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("HookAtt"
-		, std::bind(&Player::HookAttUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::HookAttStart, this, std::placeholders::_1)
-		, std::bind(&Player::HookAttEnd, this, std::placeholders::_1)
+		, std::bind(&Player::HookAttUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::HookAttStart, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::HookAttEnd, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("Move"
-		, std::bind(&Player::MoveUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::MoveUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		, [/*&*/=](const StateInfo& _Info){});
 
 	StateManager.ChangeState("Idle");
@@ -622,7 +624,7 @@ void Player::ArrowAttEnd(const StateInfo& _Info)
 
 	if (m_Info.Weapontype == WEAPONTYPE::Arrow)
 	{
-		PlayerArrowAtt* m_ArrowAtt = GetLevel()->CreateActor<PlayerArrowAtt>(OBJECTORDER::PlayerAtt);
+		std::shared_ptr < PlayerArrowAtt> m_ArrowAtt = GetLevel()->CreateActor<PlayerArrowAtt>(OBJECTORDER::PlayerAtt);
 		m_ArrowAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
 		m_ArrowAtt->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 		m_bArrowCameraCheck = false;
@@ -1111,7 +1113,7 @@ void Player::ChangeRendererRotation(float _DeltaTime, int _Ratate)
 
 }
 
-CollisionReturn Player::CollisionNPC(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn Player::CollisionNPC(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
@@ -1141,7 +1143,7 @@ CollisionReturn Player::CollisionNPC(GameEngineCollision* _This, GameEngineColli
 	return CollisionReturn::ContinueCheck;
 }
 
-CollisionReturn Player::MonsterCollision(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn Player::MonsterCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 	return CollisionReturn::Break;
 }
@@ -1242,7 +1244,7 @@ void Player::Update(float _DeltaTime)
 	if (true == GameEngineInput::GetInst()->IsPress("NPCClick"))
 	{
 		Collision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::NPC, CollisionType::CT_OBB,
-			std::bind(&Player::CollisionNPC, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&Player::CollisionNPC, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		m_bUpgradeUICoolcheck = true;
@@ -1352,7 +1354,7 @@ void Player::UIOn()
 }
 
 
-CollisionReturn Player::TrailCollision(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn Player::TrailCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 

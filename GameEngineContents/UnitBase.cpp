@@ -6,6 +6,10 @@
 UnitBase::UnitBase() :
 	m_fLifeTime(0.f)
 	,m_fSpeed(0.f)
+	,Renderer()
+	,FBXAnimationRenderer()
+	,Collision()
+	,AttCollision()
 {
 	m_Info.Dammage = 3;
 	m_Info.Gold = 1000;

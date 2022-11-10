@@ -3,11 +3,28 @@
 #include "PlayerMainUI.h"
 
 PlayerMainUI::PlayerMainUI()	:
-	m_Player(nullptr)
-	,RendererArrow(nullptr)
-	,RendererFire(nullptr)
-	,RendererHook(nullptr)
-	,RendererSword(nullptr)
+	m_Player()
+	,RendererArrow()
+	,RendererFire()
+	,RendererHook()
+	,RendererSword()
+	,RendererArrowSet()
+	,RendererFireSet()
+	,RendererHookSet()
+	,RendererSwordSet()
+	,RendererHp1()
+	,RendererHp2()
+	,RendererHp3()
+	,RendererHp4()
+	,RendererHp5()
+	,RendererHp6()
+	,RendererHp7()
+	,RendererHp8()
+	,RendererArrow1()
+	,RendererArrow2()
+	,RendererArrow3()
+	,RendererArrow4()
+
 {
 }
 
@@ -106,7 +123,7 @@ void PlayerMainUI::Start()
 	//hp 틀
 
 	{
-		GameEngineUIRenderer* Renderer = CreateComponent<GameEngineUIRenderer>();
+		std::shared_ptr < GameEngineUIRenderer> Renderer = CreateComponent<GameEngineUIRenderer>();
 		Renderer->SetTexture("icon_crystal.png");
 		Renderer->ScaleToTexture();
 		Renderer->GetTransform().SetLocalScale({ 55, 55, 1 });
@@ -116,7 +133,7 @@ void PlayerMainUI::Start()
 	}
 
 	{
-		GameEngineUIRenderer* Renderer = CreateComponent<GameEngineUIRenderer>();
+		std::shared_ptr < GameEngineUIRenderer> Renderer = CreateComponent<GameEngineUIRenderer>();
 		Renderer->SetTexture("icon_crystal.png");
 		Renderer->ScaleToTexture();
 		Renderer->GetTransform().SetLocalScale({ 55, 55, 1 });
@@ -126,7 +143,7 @@ void PlayerMainUI::Start()
 	}
 
 	{
-		GameEngineUIRenderer* Renderer = CreateComponent<GameEngineUIRenderer>();
+		std::shared_ptr < GameEngineUIRenderer>Renderer = CreateComponent<GameEngineUIRenderer>();
 		Renderer->SetTexture("icon_crystal.png");
 		Renderer->ScaleToTexture();
 		Renderer->GetTransform().SetLocalScale({ 55, 55, 1 });
@@ -136,7 +153,7 @@ void PlayerMainUI::Start()
 	}
 
 	{
-		GameEngineUIRenderer* Renderer = CreateComponent<GameEngineUIRenderer>();
+		std::shared_ptr < GameEngineUIRenderer> Renderer = CreateComponent<GameEngineUIRenderer>();
 		Renderer->SetTexture("icon_crystal.png");
 		Renderer->ScaleToTexture();
 		Renderer->GetTransform().SetLocalScale({ 55, 55, 1 });
@@ -256,7 +273,7 @@ void PlayerMainUI::Start()
 	//화살 틀 
 
 	{
-		GameEngineUIRenderer* Renderer = CreateComponent<GameEngineUIRenderer>();
+		std::shared_ptr < GameEngineUIRenderer> Renderer = CreateComponent<GameEngineUIRenderer>();
 		Renderer->SetTexture("hud_energy_empty.png");
 		Renderer->ScaleToTexture();
 		Renderer->GetTransform().SetLocalScale({ 35, 35, 1 });
@@ -265,7 +282,7 @@ void PlayerMainUI::Start()
 	}
 
 	{
-		GameEngineUIRenderer* Renderer = CreateComponent<GameEngineUIRenderer>();
+		std::shared_ptr < GameEngineUIRenderer> Renderer = CreateComponent<GameEngineUIRenderer>();
 		Renderer->SetTexture("hud_energy_empty.png");
 		Renderer->ScaleToTexture();
 		Renderer->GetTransform().SetLocalScale({ 35, 35, 1 });
@@ -274,7 +291,7 @@ void PlayerMainUI::Start()
 	}
 
 	{
-		GameEngineUIRenderer* Renderer = CreateComponent<GameEngineUIRenderer>();
+		std::shared_ptr < GameEngineUIRenderer> Renderer = CreateComponent<GameEngineUIRenderer>();
 		Renderer->SetTexture("hud_energy_empty.png");
 		Renderer->ScaleToTexture();
 		Renderer->GetTransform().SetLocalScale({ 35, 35, 1 });
@@ -283,7 +300,7 @@ void PlayerMainUI::Start()
 	}
 
 	{
-		GameEngineUIRenderer* Renderer = CreateComponent<GameEngineUIRenderer>();
+		std::shared_ptr < GameEngineUIRenderer> Renderer = CreateComponent<GameEngineUIRenderer>();
 		Renderer->SetTexture("hud_energy_empty.png");
 		Renderer->ScaleToTexture();
 		Renderer->GetTransform().SetLocalScale({ 35, 35, 1 });
@@ -371,7 +388,7 @@ void PlayerMainUI::PlayerInfoCheck()
 
 void PlayerMainUI::PlayerInfoHPCheck()
 {
-	if (m_Player->m_Info.m_Hp == 0)
+	if (m_Player.lock()->m_Info.m_Hp == 0)
 	{
 		RendererHp1->Off();
 		RendererHp2->Off();
@@ -382,7 +399,7 @@ void PlayerMainUI::PlayerInfoHPCheck()
 		RendererHp7->Off();
 		RendererHp8->Off();
 	}
-	else if (m_Player->m_Info.m_Hp == 1)
+	else if (m_Player.lock()->m_Info.m_Hp == 1)
 	{
 		RendererHp1->On();
 		RendererHp2->Off();
@@ -393,7 +410,7 @@ void PlayerMainUI::PlayerInfoHPCheck()
 		RendererHp7->Off();
 		RendererHp8->Off();
 	}
-	else if (m_Player->m_Info.m_Hp == 2)
+	else if (m_Player.lock()->m_Info.m_Hp == 2)
 	{
 		RendererHp1->On();
 		RendererHp2->On();
@@ -404,7 +421,7 @@ void PlayerMainUI::PlayerInfoHPCheck()
 		RendererHp7->Off();
 		RendererHp8->Off();
 	}
-	else if (m_Player->m_Info.m_Hp == 3)
+	else if (m_Player.lock()->m_Info.m_Hp == 3)
 	{
 		RendererHp1->On();
 		RendererHp2->On();
@@ -415,7 +432,7 @@ void PlayerMainUI::PlayerInfoHPCheck()
 		RendererHp7->Off();
 		RendererHp8->Off();
 	}
-	else if (m_Player->m_Info.m_Hp == 4)
+	else if (m_Player.lock()->m_Info.m_Hp == 4)
 	{
 		RendererHp1->On();
 		RendererHp2->On();
@@ -426,7 +443,7 @@ void PlayerMainUI::PlayerInfoHPCheck()
 		RendererHp7->Off();
 		RendererHp8->Off();
 	}
-	else if (m_Player->m_Info.m_Hp == 5)
+	else if (m_Player.lock()->m_Info.m_Hp == 5)
 	{
 		RendererHp1->On();
 		RendererHp2->On();
@@ -437,7 +454,7 @@ void PlayerMainUI::PlayerInfoHPCheck()
 		RendererHp7->Off();
 		RendererHp8->Off();
 	}
-	else if (m_Player->m_Info.m_Hp == 6)
+	else if (m_Player.lock()->m_Info.m_Hp == 6)
 	{
 		RendererHp1->On();
 		RendererHp2->On();
@@ -448,7 +465,7 @@ void PlayerMainUI::PlayerInfoHPCheck()
 		RendererHp7->Off();
 		RendererHp8->Off();
 	}
-	else if (m_Player->m_Info.m_Hp == 7)
+	else if (m_Player.lock()->m_Info.m_Hp == 7)
 	{
 		RendererHp1->On();
 		RendererHp2->On();
@@ -459,7 +476,7 @@ void PlayerMainUI::PlayerInfoHPCheck()
 		RendererHp7->On();
 		RendererHp8->Off();
 	}
-	else if (m_Player->m_Info.m_Hp == 8)
+	else if (m_Player.lock()->m_Info.m_Hp == 8)
 	{
 		RendererHp1->On();
 		RendererHp2->On();
@@ -476,7 +493,7 @@ void PlayerMainUI::PlayerInfoHPCheck()
 
 void PlayerMainUI::PlayerInfoWeaponCheck()
 {
-	if (m_Player->m_Info.Weapontype == WEAPONTYPE::Sword)
+	if (m_Player.lock()->m_Info.Weapontype == WEAPONTYPE::Sword)
 	{
 		RendererArrowSet->GetPixelData().MulColor.a = 0.5f;
 		RendererFireSet->GetPixelData().MulColor.a = 0.5f;
@@ -488,7 +505,7 @@ void PlayerMainUI::PlayerInfoWeaponCheck()
 		RendererHook->GetPixelData().MulColor.a = 0.5f;
 		RendererSword->GetPixelData().MulColor.a = 1.f;
 	}
-	else if (m_Player->m_Info.Weapontype == WEAPONTYPE::Arrow)
+	else if (m_Player.lock()->m_Info.Weapontype == WEAPONTYPE::Arrow)
 	{
 		RendererArrowSet->GetPixelData().MulColor.a = 1.f;
 		RendererFireSet->GetPixelData().MulColor.a = 0.5f;
@@ -500,7 +517,7 @@ void PlayerMainUI::PlayerInfoWeaponCheck()
 		RendererHook->GetPixelData().MulColor.a = 0.5f;
 		RendererSword->GetPixelData().MulColor.a = 0.5f;
 	}
-	else if (m_Player->m_Info.Weapontype == WEAPONTYPE::Fire)
+	else if (m_Player.lock()->m_Info.Weapontype == WEAPONTYPE::Fire)
 	{
 		RendererArrowSet->GetPixelData().MulColor.a = 0.5f;
 		RendererFireSet->GetPixelData().MulColor.a = 1.f;
@@ -512,7 +529,7 @@ void PlayerMainUI::PlayerInfoWeaponCheck()
 		RendererHook->GetPixelData().MulColor.a = 0.5f;
 		RendererSword->GetPixelData().MulColor.a = 0.5f;
 	}
-	else if (m_Player->m_Info.Weapontype == WEAPONTYPE::Hook)
+	else if (m_Player.lock()->m_Info.Weapontype == WEAPONTYPE::Hook)
 	{
 		RendererArrowSet->GetPixelData().MulColor.a = 0.5f;
 		RendererFireSet->GetPixelData().MulColor.a = 0.5f;
@@ -532,21 +549,21 @@ void PlayerMainUI::PlayerInfoWeaponCheck()
 void PlayerMainUI::PlayerInfoArrowCheck()
 {
 
-	if (m_Player->m_Info.ArrowCount == 0)
+	if (m_Player.lock()->m_Info.ArrowCount == 0)
 	{
 		RendererArrow1->Off();
 		RendererArrow2->Off();
 		RendererArrow3->Off();
 		RendererArrow4->Off();
 	}
-	else if (m_Player->m_Info.ArrowCount == 1)
+	else if (m_Player.lock()->m_Info.ArrowCount == 1)
 	{
 		RendererArrow1->On();
 		RendererArrow2->Off();
 		RendererArrow3->Off();
 		RendererArrow4->Off();
 	}
-	else if (m_Player->m_Info.ArrowCount == 2)
+	else if (m_Player.lock()->m_Info.ArrowCount == 2)
 	{
 		RendererArrow1->On();
 		RendererArrow2->On();
@@ -554,7 +571,7 @@ void PlayerMainUI::PlayerInfoArrowCheck()
 		RendererArrow4->Off();
 	}
 
-	else if (m_Player->m_Info.ArrowCount == 3)
+	else if (m_Player.lock()->m_Info.ArrowCount == 3)
 	{
 		RendererArrow1->On();
 		RendererArrow2->On();
@@ -562,7 +579,7 @@ void PlayerMainUI::PlayerInfoArrowCheck()
 		RendererArrow4->Off();
 	}
 
-	else if (m_Player->m_Info.ArrowCount == 4)
+	else if (m_Player.lock()->m_Info.ArrowCount == 4)
 	{
 		RendererArrow1->On();
 		RendererArrow2->On();

@@ -21,8 +21,8 @@ public:
 	bool UnitCol;
 
 	float4 UnitPos;
-	GameEngineUIRenderer* Renderer;
-	GameEngineCollision* Collision;
+	std::shared_ptr < GameEngineUIRenderer> Renderer;
+	std::shared_ptr < GameEngineCollision>  Collision;
 protected:
 	void Start() override;
 	void Update(float _DeltaTime);

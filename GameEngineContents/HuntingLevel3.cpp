@@ -36,12 +36,12 @@ void HuntingLevel3::LevelStartEvent()
 		LoadCreaturesFromFile("03_HuntingLevel3");
 
 		{
-			ROOM_MainHall* pMap = CreateActor<ROOM_MainHall>(OBJECTORDER::StaticMesh);
+			std::shared_ptr < ROOM_MainHall> pMap = CreateActor<ROOM_MainHall>(OBJECTORDER::StaticMesh);
 		}
 
 		{
 
-			Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 			Potal_->GetTransform().SetWorldPosition({ -1800.F,0.F,1400.F });
 			Potal_->m_PotalType = PotalType::Stage3ToStage4;
 

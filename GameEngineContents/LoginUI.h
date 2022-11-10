@@ -21,8 +21,8 @@ protected:
 	void End() override;
 
 private:
-	GameEngineUIRenderer* RendererButton1;
-	GameEngineUIRenderer* RendererButton2;
+	std::shared_ptr <GameEngineUIRenderer> RendererButton1;
+	std::shared_ptr <GameEngineUIRenderer> RendererButton2;
 
 	int m_ILevelType;
 	int m_ILevelTypeCheck;
@@ -35,8 +35,8 @@ private:
 	float4 m_fEditPos2;
 
 
-	GameEngineFontRenderer* FontPlay;
-	GameEngineFontRenderer* FontEdit;
+	std::shared_ptr < GameEngineFontRenderer> FontPlay;
+	std::shared_ptr < GameEngineFontRenderer> FontEdit;
 	float TimeAngle;
 };
 

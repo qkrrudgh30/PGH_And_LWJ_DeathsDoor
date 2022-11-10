@@ -40,13 +40,13 @@ void Potal::Update(float _DeltaTime)
 {
 
 	Collision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
-		std::bind(&Potal::CollisionPlayer, this, std::placeholders::_1, std::placeholders::_2)
+		std::bind(&Potal::CollisionPlayer, std::dynamic_pointer_cast<Potal>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 	);
 
 
 }
 
-CollisionReturn Potal::CollisionPlayer(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn Potal::CollisionPlayer(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 	 
 	// 포탈 충돌 > 다음레벨설정 or 이전레벨설정 > EditLevel > 다음레벨에셋준비 or 안함 > 다음레벨이동

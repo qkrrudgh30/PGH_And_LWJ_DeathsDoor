@@ -52,7 +52,7 @@ void PlayerArrowAtt::Update(float _DeltaTime)
 
 
 	AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Monster, CollisionType::CT_OBB,
-		std::bind(&PlayerArrowAtt::MonsterCollision, this, std::placeholders::_1, std::placeholders::_2)
+		std::bind(&PlayerArrowAtt::MonsterCollision, std::dynamic_pointer_cast<PlayerArrowAtt>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 	);
 
 
@@ -62,7 +62,7 @@ void PlayerArrowAtt::Update(float _DeltaTime)
 
 }
 
-CollisionReturn PlayerArrowAtt::MonsterCollision(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerArrowAtt::MonsterCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 

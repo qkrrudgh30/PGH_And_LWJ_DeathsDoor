@@ -25,13 +25,13 @@ void TsetBackGround::Start()
 		Renderer->GetShaderResources().SetConstantBufferLink("ResultColor", Color);
 		*/
 
-		GameEngineDefaultRenderer* Renderer = CreateComponent<GameEngineDefaultRenderer>();
-		Renderer->SetPipeLine("Color");
-		Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f ,100.0f });
-		Renderer->GetRenderUnit().SetMesh("Rect");
-		float4 Color = { 1.0f, 0.0f, 0.0f, 1.0f };
+		//std::shared_ptr < GameEngineDefaultRenderer> Renderer = CreateComponent<GameEngineDefaultRenderer>();
+		//Renderer->SetPipeLine("Color");
+		//Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f ,100.0f });
+		//Renderer->GetRenderUnit().SetMesh("Rect");
+		//float4 Color = { 1.0f, 0.0f, 0.0f, 1.0f };
 
-		Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", Color);
+		//Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", Color);
 
 
 	}

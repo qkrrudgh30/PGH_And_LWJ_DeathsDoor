@@ -3,8 +3,8 @@
 #include "Player.h"
 
 
-StageMainCamera::StageMainCamera() :
-	m_Player(nullptr)
+StageMainCamera::StageMainCamera()// :
+	//m_Player(nullptr)
 {
 }
 

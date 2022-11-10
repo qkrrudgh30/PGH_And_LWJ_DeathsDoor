@@ -63,31 +63,31 @@ void Monster::Start()
 
 
 	StateManager.CreateStateMember("Idle"
-		, std::bind(&Monster::IdleUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Monster::IdleStart, this, std::placeholders::_1)
+		, std::bind(&Monster::IdleUpdate, std::dynamic_pointer_cast<Monster>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Monster::IdleStart, std::dynamic_pointer_cast<Monster>(shared_from_this()), std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("Move"
-		, std::bind(&Monster::MoveUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Monster::MoveStart, this, std::placeholders::_1)
-		, std::bind(&Monster::MoveEnd, this, std::placeholders::_1)
+		, std::bind(&Monster::MoveUpdate, std::dynamic_pointer_cast<Monster>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Monster::MoveStart, std::dynamic_pointer_cast<Monster>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Monster::MoveEnd, std::dynamic_pointer_cast<Monster>(shared_from_this()), std::placeholders::_1)
 	);
 
 
 
 	StateManager.CreateStateMember("Stun"
-		, std::bind(&Monster::StunUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Monster::StunStart, this, std::placeholders::_1)
-		, std::bind(&Monster::StunEnd, this, std::placeholders::_1)
+		, std::bind(&Monster::StunUpdate, std::dynamic_pointer_cast<Monster>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Monster::StunStart, std::dynamic_pointer_cast<Monster>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Monster::StunEnd, std::dynamic_pointer_cast<Monster>(shared_from_this()), std::placeholders::_1)
 	);
 
 
 
 
 	StateManager.CreateStateMember("Att"
-		, std::bind(&Monster::AttUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Monster::AttStart, this, std::placeholders::_1)
-		, std::bind(&Monster::AttEnd, this, std::placeholders::_1)
+		, std::bind(&Monster::AttUpdate, std::dynamic_pointer_cast<Monster>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Monster::AttStart, std::dynamic_pointer_cast<Monster>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Monster::AttEnd, std::dynamic_pointer_cast<Monster>(shared_from_this()), std::placeholders::_1)
 	);
 
 

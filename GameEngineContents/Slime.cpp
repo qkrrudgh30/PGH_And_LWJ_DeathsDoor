@@ -63,31 +63,31 @@ void Slime::Start()
 
 
 	StateManager.CreateStateMember("Idle"
-		, std::bind(&Slime::IdleUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Slime::IdleStart, this, std::placeholders::_1)
+		, std::bind(&Slime::IdleUpdate, std::dynamic_pointer_cast<Slime>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Slime::IdleStart, std::dynamic_pointer_cast<Slime>(shared_from_this()), std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("Move"
-		, std::bind(&Slime::MoveUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Slime::MoveStart, this, std::placeholders::_1)
-		, std::bind(&Slime::MoveEnd, this, std::placeholders::_1)
+		, std::bind(&Slime::MoveUpdate, std::dynamic_pointer_cast<Slime>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Slime::MoveStart, std::dynamic_pointer_cast<Slime>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Slime::MoveEnd, std::dynamic_pointer_cast<Slime>(shared_from_this()), std::placeholders::_1)
 	);
 
 
 
 	StateManager.CreateStateMember("Stun"
-		, std::bind(&Slime::StunUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Slime::StunStart, this, std::placeholders::_1)
-		, std::bind(&Slime::StunEnd, this, std::placeholders::_1)
+		, std::bind(&Slime::StunUpdate, std::dynamic_pointer_cast<Slime>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Slime::StunStart, std::dynamic_pointer_cast<Slime>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Slime::StunEnd, std::dynamic_pointer_cast<Slime>(shared_from_this()), std::placeholders::_1)
 	);
 
 
 
 
 	StateManager.CreateStateMember("Att"
-		, std::bind(&Slime::AttUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Slime::AttStart, this, std::placeholders::_1)
-		, std::bind(&Slime::AttEnd, this, std::placeholders::_1)
+		, std::bind(&Slime::AttUpdate, std::dynamic_pointer_cast<Slime>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Slime::AttStart, std::dynamic_pointer_cast<Slime>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Slime::AttEnd, std::dynamic_pointer_cast<Slime>(shared_from_this()), std::placeholders::_1)
 	);
 
 

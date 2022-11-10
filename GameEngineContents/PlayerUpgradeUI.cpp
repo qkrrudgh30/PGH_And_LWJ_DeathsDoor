@@ -1,7 +1,27 @@
 #include "PreCompile.h"
 #include "PlayerUpgradeUI.h"
 
-PlayerUpgradeUI::PlayerUpgradeUI() 
+PlayerUpgradeUI::PlayerUpgradeUI() :
+	RendererArrowBack()
+	,RendererFireBack()
+	,RendererHookBack()
+	,RendererSwordBack()
+	,RendererArrow()
+	,RendererFire()
+	,RendererHook()
+	,RendererSword()
+	,RendererArrowUpBack()
+	,RendererFireUpBack()
+	,RendererHookUpBack()
+	,RendererSwordUpBack()
+	,RendererArrowUp()
+	,RendererFireUp()
+	,RendererHookUp()
+	,RendererSwordUp()
+	,CollisionArrowUp()
+	,CollisionFireUp()
+	,CollisionHookUp()
+	,CollisionSwordUp()
 {
 }
 
@@ -18,7 +38,7 @@ void PlayerUpgradeUI::Start()
 
 	//왼쪽 틀
 	{
-		GameEngineUIRenderer* Renderer = CreateComponent<GameEngineUIRenderer>();
+		std::shared_ptr < GameEngineUIRenderer> Renderer = CreateComponent<GameEngineUIRenderer>();
 		Renderer->SetTexture("upgrade_bg.png");
 		Renderer->GetTransform().SetLocalScale({ 400.f, 400.f, 1 });
 		Renderer->GetTransform().SetLocalPosition({ -200.f,0.f, -220.f });
@@ -29,7 +49,7 @@ void PlayerUpgradeUI::Start()
 
 	//오른쪽 틀
 	{
-		GameEngineUIRenderer* Renderer = CreateComponent<GameEngineUIRenderer>();
+		std::shared_ptr < GameEngineUIRenderer> Renderer = CreateComponent<GameEngineUIRenderer>();
 		Renderer->SetTexture("Info Frame.png");
 		Renderer->GetTransform().SetLocalScale({ 300.f, 400.f, 1 });
 		Renderer->GetPixelData().MulColor.a = 0.5f;
@@ -235,30 +255,30 @@ void PlayerUpgradeUI::Start()
 void PlayerUpgradeUI::Update(float _DeltaTime)
 {
 
-
+	
 	if (true == GameEngineInput::GetInst()->IsDown("UIMouseClick"))
 	{
 
 		//칼
-
+		
 		CollisionSwordUp[0]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionSword1, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionSword1, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionSwordUp[1]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionSword2, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionSword2, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionSwordUp[2]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionSword3, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionSword3, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionSwordUp[3]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionSword4, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionSword4, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionSwordUp[4]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionSword5, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionSword5, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 
@@ -267,23 +287,23 @@ void PlayerUpgradeUI::Update(float _DeltaTime)
 		//화살
 
 		CollisionArrowUp[0]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionArrowUp1, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionArrowUp1, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionArrowUp[1]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionArrowUp2, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionArrowUp2, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionArrowUp[2]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionArrowUp3, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionArrowUp3, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionArrowUp[3]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionArrowUp4, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionArrowUp4, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionArrowUp[4]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionArrowUp5, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionArrowUp5, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 
@@ -291,46 +311,46 @@ void PlayerUpgradeUI::Update(float _DeltaTime)
 		//후크
 
 		CollisionHookUp[0]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionHookUp1, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionHookUp1, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionHookUp[1]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionHookUp2, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionHookUp2, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionHookUp[2]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionHookUp3, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionHookUp3, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionHookUp[3]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionHookUp4, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionHookUp4, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionHookUp[4]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionHookUp5, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionHookUp5, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 
 		//불
 
 		CollisionFireUp[0]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionFireUp1, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionFireUp1, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionFireUp[1]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionFireUp2, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionFireUp2, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionFireUp[2]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionFireUp3, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionFireUp3, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionFireUp[3]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionFireUp4, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionFireUp4, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 		CollisionFireUp[4]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-			std::bind(&PlayerUpgradeUI::CollisionFireUp5, this, std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerUpgradeUI::CollisionFireUp5, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 		);
 
 
@@ -343,14 +363,14 @@ void PlayerUpgradeUI::Update(float _DeltaTime)
 
 //화살
 
-CollisionReturn PlayerUpgradeUI::CollisionArrowUp1(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionArrowUp1(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 	if (false == RendererArrowUp[0]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererArrowUp[0]->On();
 
@@ -363,15 +383,15 @@ CollisionReturn PlayerUpgradeUI::CollisionArrowUp1(GameEngineCollision* _This, G
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionArrowUp2(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionArrowUp2(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
 	if (true == RendererArrowUp[0]->IsUpdate() && false == RendererArrowUp[1]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererArrowUp[1]->On();
 
@@ -383,13 +403,13 @@ CollisionReturn PlayerUpgradeUI::CollisionArrowUp2(GameEngineCollision* _This, G
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionArrowUp3(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionArrowUp3(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 	if (true == RendererArrowUp[1]->IsUpdate() && false == RendererArrowUp[2]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererArrowUp[2]->On();
 
@@ -402,14 +422,14 @@ CollisionReturn PlayerUpgradeUI::CollisionArrowUp3(GameEngineCollision* _This, G
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionArrowUp4(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionArrowUp4(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 	if (true == RendererArrowUp[2]->IsUpdate() && false == RendererArrowUp[3]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererArrowUp[3]->On();
 
@@ -422,15 +442,14 @@ CollisionReturn PlayerUpgradeUI::CollisionArrowUp4(GameEngineCollision* _This, G
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionArrowUp5(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionArrowUp5(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
-
 
 	if (true == RendererArrowUp[3]->IsUpdate() && false == RendererArrowUp[4]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererArrowUp[4]->On();
 
@@ -447,16 +466,16 @@ CollisionReturn PlayerUpgradeUI::CollisionArrowUp5(GameEngineCollision* _This, G
 
 
 
-CollisionReturn PlayerUpgradeUI::CollisionSword1(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionSword1(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
 
 	if (false == RendererSwordUp[0]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererSwordUp[0]->On();
 
@@ -469,15 +488,15 @@ CollisionReturn PlayerUpgradeUI::CollisionSword1(GameEngineCollision* _This, Gam
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionSword2(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionSword2(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
 	if (true == RendererSwordUp[0]->IsUpdate() && false == RendererSwordUp[1]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererSwordUp[1]->On();
 
@@ -492,14 +511,14 @@ CollisionReturn PlayerUpgradeUI::CollisionSword2(GameEngineCollision* _This, Gam
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionSword3(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionSword3(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 	if (true == RendererSwordUp[1]->IsUpdate() && false == RendererSwordUp[2]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererSwordUp[2]->On();
 
@@ -511,14 +530,14 @@ CollisionReturn PlayerUpgradeUI::CollisionSword3(GameEngineCollision* _This, Gam
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionSword4(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionSword4(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 	if (true == RendererSwordUp[2]->IsUpdate() && false == RendererSwordUp[3]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererSwordUp[3]->On();
 
@@ -530,14 +549,14 @@ CollisionReturn PlayerUpgradeUI::CollisionSword4(GameEngineCollision* _This, Gam
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionSword5(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionSword5(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 	if (true == RendererSwordUp[3]->IsUpdate() && false == RendererSwordUp[4]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererSwordUp[4]->On();
 
@@ -553,15 +572,15 @@ CollisionReturn PlayerUpgradeUI::CollisionSword5(GameEngineCollision* _This, Gam
 //후크
 
 
-CollisionReturn PlayerUpgradeUI::CollisionHookUp1(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionHookUp1(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
 	if (false == RendererHookUp[0]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererHookUp[0]->On();
 
@@ -574,15 +593,15 @@ CollisionReturn PlayerUpgradeUI::CollisionHookUp1(GameEngineCollision* _This, Ga
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionHookUp2(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionHookUp2(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
 	if (true == RendererHookUp[0]->IsUpdate() && false == RendererHookUp[1]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererHookUp[1]->On();
 
@@ -594,14 +613,14 @@ CollisionReturn PlayerUpgradeUI::CollisionHookUp2(GameEngineCollision* _This, Ga
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionHookUp3(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionHookUp3(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 	if (true == RendererHookUp[1]->IsUpdate() && false == RendererHookUp[2]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererHookUp[2]->On();
 
@@ -614,14 +633,14 @@ CollisionReturn PlayerUpgradeUI::CollisionHookUp3(GameEngineCollision* _This, Ga
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionHookUp4(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionHookUp4(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 	if (true == RendererHookUp[2]->IsUpdate() && false == RendererHookUp[3]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererHookUp[3]->On();
 
@@ -634,15 +653,15 @@ CollisionReturn PlayerUpgradeUI::CollisionHookUp4(GameEngineCollision* _This, Ga
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionHookUp5(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionHookUp5(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
 	if (true == RendererHookUp[3]->IsUpdate() && false == RendererHookUp[4]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererHookUp[4]->On();
 
@@ -655,16 +674,16 @@ CollisionReturn PlayerUpgradeUI::CollisionHookUp5(GameEngineCollision* _This, Ga
 
 
 //불
-CollisionReturn PlayerUpgradeUI::CollisionFireUp1(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionFireUp1(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
 
 	if (false == RendererFireUp[0]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererFireUp[0]->On();
 
@@ -677,15 +696,15 @@ CollisionReturn PlayerUpgradeUI::CollisionFireUp1(GameEngineCollision* _This, Ga
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionFireUp2(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionFireUp2(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
 	if (true == RendererFireUp[0]->IsUpdate() && false == RendererFireUp[1]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererFireUp[1]->On();
 
@@ -697,15 +716,15 @@ CollisionReturn PlayerUpgradeUI::CollisionFireUp2(GameEngineCollision* _This, Ga
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionFireUp3(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionFireUp3(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
 	if (true == RendererFireUp[1]->IsUpdate() && false == RendererFireUp[2]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererFireUp[2]->On();
 
@@ -717,15 +736,15 @@ CollisionReturn PlayerUpgradeUI::CollisionFireUp3(GameEngineCollision* _This, Ga
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionFireUp4(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionFireUp4(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
 	if (true == RendererFireUp[2]->IsUpdate() && false == RendererFireUp[3]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererFireUp[3]->On();
 
@@ -737,15 +756,15 @@ CollisionReturn PlayerUpgradeUI::CollisionFireUp4(GameEngineCollision* _This, Ga
 }
 
 
-CollisionReturn PlayerUpgradeUI::CollisionFireUp5(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerUpgradeUI::CollisionFireUp5(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
 	if (true == RendererFireUp[3]->IsUpdate() && false == RendererFireUp[4]->IsUpdate())
 	{
-		if (m_Player->m_Info.Gold >= 150)
+		if (m_Player.lock()->m_Info.Gold >= 150)
 		{
-			m_Player->m_Info.Gold -= 150;
+			m_Player.lock()->m_Info.Gold -= 150;
 
 			RendererFireUp[4]->On();
 

@@ -20,10 +20,10 @@ class PlayerHookAtt;
 class Player : public UnitBase
 {
 private:
-	static Player* MainPlayer;
+	static std::shared_ptr < Player> MainPlayer;
 
 public:
-	static Player* GetMainPlayer()
+	static std::shared_ptr < Player> GetMainPlayer()
 	{
 		return MainPlayer;
 	}
@@ -39,7 +39,7 @@ public:
 	Player& operator=(const Player& _Other) = delete;
 	Player& operator=(Player&& _Other) noexcept = delete;
 
-	CollisionReturn MonsterCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn MonsterCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other);
 
 protected:
 	void Start() override;
@@ -105,8 +105,8 @@ public:
 
 	bool m_bShopCameraActionCheck = false;
 
-	PlayerUpgradeUI* UpgradeUI;
-	PlayerMainUI* MainUI;
+	std::shared_ptr < PlayerUpgradeUI> UpgradeUI;
+	std::shared_ptr < PlayerMainUI>		MainUI;
 
 	float Speed;
 	float m_fSlideSpeed;
@@ -164,16 +164,16 @@ private:
 private:
 	void ChangeRendererRotation(float _DeltaTime, int _Ratate);
 	
-	CollisionReturn CollisionNPC(GameEngineCollision* _This, GameEngineCollision* _Other);
-	CollisionReturn TrailCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn CollisionNPC(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other);
+	CollisionReturn TrailCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other);
 
 
 
 private:
-	PlayerSWAtt1* m_CSWAtt1;
-	PlayerSWAtt2* m_CSWAtt2;
-	PlayerSWAtt3* m_CSWAtt3;
-	PlayerSWAttSlide* m_CSWAttSlide;
-	PlayerHookAtt* m_CHookAtt;
+	std::shared_ptr < PlayerSWAtt1>		m_CSWAtt1;
+	std::shared_ptr < PlayerSWAtt2>		m_CSWAtt2;
+	std::shared_ptr < PlayerSWAtt3>		 m_CSWAtt3;
+	std::shared_ptr < PlayerSWAttSlide> m_CSWAttSlide;
+	std::shared_ptr < PlayerHookAtt>	 m_CHookAtt;
 };
 

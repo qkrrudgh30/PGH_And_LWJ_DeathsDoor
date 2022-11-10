@@ -30,39 +30,34 @@ protected:
 	void PlayerInfoWeaponCheck();
 	void PlayerInfoArrowCheck();
 
-	GameEngineUIRenderer* RendererArrowSet;
-	GameEngineUIRenderer* RendererFireSet;
-	GameEngineUIRenderer* RendererHookSet;
-	GameEngineUIRenderer* RendererSwordSet;
+	std::shared_ptr <GameEngineUIRenderer> RendererArrowSet;
+	std::shared_ptr <GameEngineUIRenderer> RendererFireSet;
+	std::shared_ptr <GameEngineUIRenderer> RendererHookSet;
+	std::shared_ptr <GameEngineUIRenderer> RendererSwordSet;
 
-	GameEngineUIRenderer* RendererArrow;
-	GameEngineUIRenderer* RendererFire;
-	GameEngineUIRenderer* RendererHook;
-	GameEngineUIRenderer* RendererSword;
+	std::shared_ptr <GameEngineUIRenderer> RendererArrow;
+	std::shared_ptr <GameEngineUIRenderer> RendererFire;
+	std::shared_ptr <GameEngineUIRenderer> RendererHook;
+	std::shared_ptr <GameEngineUIRenderer> RendererSword;
 
+	std::shared_ptr <GameEngineUIRenderer> RendererHp1;
+	std::shared_ptr <GameEngineUIRenderer> RendererHp2;
+	std::shared_ptr <GameEngineUIRenderer> RendererHp3;
+	std::shared_ptr <GameEngineUIRenderer> RendererHp4;
+	std::shared_ptr <GameEngineUIRenderer> RendererHp5;
+	std::shared_ptr <GameEngineUIRenderer> RendererHp6;
+	std::shared_ptr <GameEngineUIRenderer> RendererHp7;
+	std::shared_ptr <GameEngineUIRenderer> RendererHp8;
 
-
-
-	GameEngineUIRenderer* RendererHp1;
-	GameEngineUIRenderer* RendererHp2;
-	GameEngineUIRenderer* RendererHp3;
-	GameEngineUIRenderer* RendererHp4;
-
-	GameEngineUIRenderer* RendererHp5;
-	GameEngineUIRenderer* RendererHp6;
-	GameEngineUIRenderer* RendererHp7;
-	GameEngineUIRenderer* RendererHp8;
-
-
-	GameEngineUIRenderer* RendererArrow1;
-	GameEngineUIRenderer* RendererArrow2;
-	GameEngineUIRenderer* RendererArrow3;
-	GameEngineUIRenderer* RendererArrow4;
+	std::shared_ptr <GameEngineUIRenderer> RendererArrow1;
+	std::shared_ptr <GameEngineUIRenderer> RendererArrow2;
+	std::shared_ptr <GameEngineUIRenderer> RendererArrow3;
+	std::shared_ptr <GameEngineUIRenderer> RendererArrow4;
 
 
 
 	public:
-		Player* m_Player;
+		std::weak_ptr < Player> m_Player;
 
 };
 

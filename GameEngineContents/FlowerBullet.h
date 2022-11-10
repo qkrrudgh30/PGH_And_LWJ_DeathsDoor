@@ -26,7 +26,7 @@ protected:
 private:
 
 
-	CollisionReturn PlayerCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
+	CollisionReturn PlayerCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other);
 
 
 

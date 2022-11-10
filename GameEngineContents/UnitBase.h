@@ -9,6 +9,7 @@
 
 
 // Ό³Έν :
+class GameEngineFBXStaticRenderer;
 class UnitBase : public GameEngineActor
 {
 public:
@@ -23,10 +24,10 @@ public:
 	UnitBase& operator=(UnitBase&& _Other) noexcept = delete;
 
 protected:
-	GameEngineDefaultRenderer* Renderer;
-	class GameEngineFBXStaticRenderer* FBXAnimationRenderer;
-	GameEngineCollision* Collision;
-	GameEngineCollision* AttCollision;
+	std::shared_ptr < GameEngineDefaultRenderer> Renderer;
+	std::shared_ptr < GameEngineFBXStaticRenderer> FBXAnimationRenderer;
+	std::shared_ptr < GameEngineCollision> Collision;
+	std::shared_ptr < GameEngineCollision> AttCollision;
 public:
 	GameEngineStateManager StateManager;
 

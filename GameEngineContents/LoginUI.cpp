@@ -8,6 +8,10 @@ LoginUI::LoginUI()
 	, m_ILevelType(0)
 	, m_ILevelTypeCheck(0)
 	, m_bButtoncheck(false)
+	, RendererButton1()
+	, RendererButton2()
+	, FontPlay()
+	, FontEdit()
 {
 }
 
@@ -31,7 +35,7 @@ void LoginUI::Start()
 
 
 	{
-		GameEngineUIRenderer * RendererLogo = CreateComponent<GameEngineUIRenderer>();
+		std::shared_ptr < GameEngineUIRenderer > RendererLogo = CreateComponent<GameEngineUIRenderer>();
 		RendererLogo->SetTexture("DeathDoorlogo.png");
 		RendererLogo->ScaleToTexture();
 		RendererLogo->GetTransform().SetLocalScale({ 500, 300, 1 });
@@ -110,7 +114,7 @@ void LoginUI::Update(float _DeltaTime)
 		if (m_ILevelType == 0)
 		{
 
-			Player* NewPlayer = Player::GetMainPlayer();
+			std::shared_ptr < Player> NewPlayer = Player::GetMainPlayer();
 			NewPlayer->UIOn();
 			NewPlayer->m_bLogoLevelCheck = false;
 

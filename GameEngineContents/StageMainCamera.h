@@ -20,6 +20,6 @@ protected:
 	void End() {}
 
 public:
-	Player* m_Player;
+//	std::shared_ptr < Player> m_Player;
 };
 

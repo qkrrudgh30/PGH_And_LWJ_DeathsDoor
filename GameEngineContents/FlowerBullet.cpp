@@ -53,7 +53,7 @@ void FlowerBullet::Update(float _DeltaTime)
 
 
 	AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
-		std::bind(&FlowerBullet::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
+		std::bind(&FlowerBullet::PlayerCollision, std::dynamic_pointer_cast<FlowerBullet>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 	);
 
 
@@ -63,11 +63,11 @@ void FlowerBullet::Update(float _DeltaTime)
 
 }
 
-CollisionReturn FlowerBullet::PlayerCollision(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn FlowerBullet::PlayerCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
-	Player* newPlayer = Player::GetMainPlayer();
+	std::shared_ptr < Player> newPlayer = Player::GetMainPlayer();
 
 	newPlayer->m_Info.m_Hp -= 1;
 

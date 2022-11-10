@@ -20,7 +20,7 @@ protected:
 	void Update(float _DeltaTime);
 	void End() {}
 
-	GameEngineTextureRenderer* Renderer;
+//	GameEngineTextureRenderer* Renderer;
 
 
 private:

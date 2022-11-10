@@ -224,7 +224,6 @@
     <ClInclude Include="ContentsLevel.h">
       <Filter>00.Level</Filter>
     </ClInclude>
-    <ClInclude Include="FlowerBullet.h" />
     <ClInclude Include="HuntingLevel1.h">
       <Filter>00.Level\01.HuntingLevel1</Filter>
     </ClInclude>
@@ -275,6 +274,9 @@
     </ClInclude>
     <ClInclude Include="HeadRoller.h">
       <Filter>01.Actor\02.Unit\02.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowerBullet.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\01.Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -358,7 +360,6 @@
     <ClCompile Include="ContentsLevel.cpp">
       <Filter>00.Level</Filter>
     </ClCompile>
-    <ClCompile Include="FlowerBullet.cpp" />
     <ClCompile Include="HuntingLevel1.cpp">
       <Filter>00.Level\01.HuntingLevel1</Filter>
     </ClCompile>
@@ -409,6 +410,9 @@
     </ClCompile>
     <ClCompile Include="HeadRoller.cpp">
       <Filter>01.Actor\02.Unit\02.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowerBullet.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\01.Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

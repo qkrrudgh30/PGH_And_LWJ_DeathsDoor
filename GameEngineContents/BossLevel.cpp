@@ -39,14 +39,14 @@ void BossLevel::LevelStartEvent()
 	{
 		if (nullptr == Player::GetMainPlayer())
 		{
-			Player* NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
+			std::shared_ptr< Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
 			NewPlayer->SetLevelOverOn();
 
 
 		}
 		else
 		{
-			Player* NewPlayer = Player::GetMainPlayer();
+			std::shared_ptr < Player> NewPlayer = Player::GetMainPlayer();
 			NewPlayer->GetTransform().SetWorldPosition({ 1.F,0.F,1.F });
 			NewPlayer->UIOn();
 			//NewPlayer->m_bLogoLevelCheck = false;

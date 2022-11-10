@@ -16,7 +16,7 @@ public:
 	LoginLevel& operator=(LoginLevel&& _Other) noexcept = delete;
 
 
-	class LoginUI* UI;
+	class std::shared_ptr < LoginUI> UI;
 
 protected:
 	void Start() override;

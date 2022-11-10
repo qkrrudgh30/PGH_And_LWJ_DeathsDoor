@@ -25,6 +25,6 @@ protected:
 	void Update(float _DeltaTime);
 	void End() {}
 public:
-	PlayerHookAtt* m_cHook;
+	std::weak_ptr<PlayerHookAtt> m_cHook;
 };
 

@@ -40,12 +40,12 @@ void PlayerSWAtt2::Update(float _DeltaTime)
 {
 
 	AttCollision->IsCollisionEnterBase(CollisionType::CT_OBB, static_cast<int>(OBJECTORDER::Monster), CollisionType::CT_OBB,
-		std::bind(&PlayerSWAtt2::MonsterCollision, this, std::placeholders::_1, std::placeholders::_2)
+		std::bind(&PlayerSWAtt2::MonsterCollision, std::dynamic_pointer_cast<PlayerSWAtt2>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
 	);
 
 }
 
-CollisionReturn PlayerSWAtt2::MonsterCollision(GameEngineCollision* _This, GameEngineCollision* _Other)
+CollisionReturn PlayerSWAtt2::MonsterCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other)
 {
 	dynamic_cast<UnitBase*>(_Other->GetParent())->m_Info.m_Hp -= m_Info.Dammage;
 

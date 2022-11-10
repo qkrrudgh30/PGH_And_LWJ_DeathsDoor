@@ -6,6 +6,7 @@
 UIMouse::UIMouse() :
 	Renderer(nullptr)
 	, UnitCol(false)
+	, Collision()
 {
 }
 

@@ -41,21 +41,11 @@ void FlowerMonster::Start()
 
 
 	{
-		// FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-		/*GameEngineFBXAnimationRenderer* temp = CreateComponent<GameEngineFBXAnimationRenderer>();
-
-		temp->SetFBXMesh("Flower.FBX", "TextureAnimation");
-		temp->CreateFBXAnimation("Idle", "Flower_Idle");
-		temp->ChangeAnimation("Idle");*/
-
+		FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+		FBXAnimationRenderer->SetFBXMesh("Flower.FBX", "Texture");
 	}
-
-		/*
-		{
-			FBXAnimationRenderer->SetFBXMesh("Flower.FBX", "Texture");
-		}
-		FBXAnimationRenderer->GetTransform().SetLocalScale({ 0.25f, 0.25f, 0.25f });
-		FBXAnimationRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });*/
+	FBXAnimationRenderer->GetTransform().SetLocalScale({ 0.25f, 0.25f, 0.25f });
+	FBXAnimationRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
 
 	// Idle_16
 
@@ -71,26 +61,26 @@ void FlowerMonster::Start()
 
 
 	StateManager.CreateStateMember("Idle"
-		, std::bind(&FlowerMonster::IdleUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&FlowerMonster::IdleStart, this, std::placeholders::_1)
+		, std::bind(&FlowerMonster::IdleUpdate, std::dynamic_pointer_cast<FlowerMonster>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&FlowerMonster::IdleStart, std::dynamic_pointer_cast<FlowerMonster>(shared_from_this()), std::placeholders::_1)
 	);
 
 
 
 
 	StateManager.CreateStateMember("Stun"
-		, std::bind(&FlowerMonster::StunUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&FlowerMonster::StunStart, this, std::placeholders::_1)
-		, std::bind(&FlowerMonster::StunEnd, this, std::placeholders::_1)
+		, std::bind(&FlowerMonster::StunUpdate, std::dynamic_pointer_cast<FlowerMonster>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&FlowerMonster::StunStart, std::dynamic_pointer_cast<FlowerMonster>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&FlowerMonster::StunEnd, std::dynamic_pointer_cast<FlowerMonster>(shared_from_this()), std::placeholders::_1)
 	);
 
 
 
 
 	StateManager.CreateStateMember("Att"
-		, std::bind(&FlowerMonster::AttUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&FlowerMonster::AttStart, this, std::placeholders::_1)
-		, std::bind(&FlowerMonster::AttEnd, this, std::placeholders::_1)
+		, std::bind(&FlowerMonster::AttUpdate, std::dynamic_pointer_cast<FlowerMonster>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&FlowerMonster::AttStart, std::dynamic_pointer_cast<FlowerMonster>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&FlowerMonster::AttEnd, std::dynamic_pointer_cast<FlowerMonster>(shared_from_this()), std::placeholders::_1)
 	);
 
 
@@ -159,7 +149,7 @@ void FlowerMonster::AttEnd(const StateInfo& _Info)
 	m_bhitCheck = false;
 
 	//ÃÑ¾Ë »ý¼º
-	FlowerBullet* m_ArrowAtt = GetLevel()->CreateActor<FlowerBullet>(OBJECTORDER::MonsterAtt);
+	std::shared_ptr < FlowerBullet> m_ArrowAtt = GetLevel()->CreateActor<FlowerBullet>(OBJECTORDER::MonsterAtt);
 	m_ArrowAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
 	m_ArrowAtt->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 	

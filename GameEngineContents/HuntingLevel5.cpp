@@ -36,12 +36,12 @@ void HuntingLevel5::LevelStartEvent()
 		LoadCreaturesFromFile("05_HuntingLevel5");
 
 		{
-			ROOM_Far* pMap = CreateActor<ROOM_Far>(OBJECTORDER::StaticMesh);
+			std::shared_ptr < ROOM_Far> pMap = CreateActor<ROOM_Far>(OBJECTORDER::StaticMesh);
 		}
 
 		{
 
-			Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 			Potal_->GetTransform().SetWorldPosition({ -1997.F,0.F,-2317.F });
 			Potal_->m_PotalType = PotalType::Stage5ToStageBoss;
 
@@ -51,7 +51,7 @@ void HuntingLevel5::LevelStartEvent()
 
 		{
 
-			Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 			Potal_->GetTransform().SetWorldPosition({ 650.F,0.F,415.f });
 			Potal_->m_PotalType = PotalType::Stage5ToStage4;
 
@@ -67,14 +67,14 @@ void HuntingLevel5::LevelStartEvent()
 	{
 		if (nullptr == Player::GetMainPlayer())
 		{
-			Player* NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
+			std::shared_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
 			NewPlayer->SetLevelOverOn();
 
 
 		}
 		else
 		{
-			Player* NewPlayer = Player::GetMainPlayer();
+			std::shared_ptr < Player> NewPlayer = Player::GetMainPlayer();
 			NewPlayer->GetTransform().SetWorldPosition({ 475.F,0.F,228.F });
 			NewPlayer->UIOn();
 			//NewPlayer->m_bLogoLevelCheck = false;

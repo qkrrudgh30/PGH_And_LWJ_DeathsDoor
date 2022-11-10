@@ -54,7 +54,7 @@ void LoginLevel::Start()
 
 
 	{
-		UIMouse* m_UIMouse = CreateActor<UIMouse>(OBJECTORDER::MouseUI);
+		std::shared_ptr < UIMouse> m_UIMouse = CreateActor<UIMouse>(OBJECTORDER::MouseUI);
 		m_UIMouse->SetLevelOverOn();
 	}
 }
@@ -81,7 +81,7 @@ void LoginLevel::LevelStartEvent()
 			UI = CreateActor<LoginUI>(GameObjectGroup::UI);
 			UI->CreateComponent<GameEngineCollision>();
 
-			ShopNPC* cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
+			std::shared_ptr < ShopNPC> cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
 			cShopNPC->GetTransform().SetWorldPosition({ -300.F,0.F,500.F });
 			//	cShopNPC->GetTransform().SetWorl
 
@@ -89,7 +89,7 @@ void LoginLevel::LevelStartEvent()
 
 		{
 
-			Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 			Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-1300.F });
 			Potal_->m_PotalType = PotalType::LoginToStage1;
 
@@ -106,7 +106,7 @@ void LoginLevel::LevelStartEvent()
 	{
 		if (nullptr == Player::GetMainPlayer())
 		{
-			Player* NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
+			std::shared_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
 			NewPlayer->GetTransform().SetWorldPosition({-600.F,100.F,-150.F});
 			NewPlayer->SetLevelOverOn();
 			NewPlayer->UIOff();

@@ -17,7 +17,7 @@ Hall::~Hall()
 void Hall::Start()
 {
 	ResultColor = float4{ 1.f, 1.f, 0.f, 1.f };
-	GameEngineFBXStaticRenderer* Renderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	std::shared_ptr < GameEngineFBXStaticRenderer> Renderer = CreateComponent<GameEngineFBXStaticRenderer>();
 	
 
 #pragma region ROOM_Enter (1).FBX

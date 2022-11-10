@@ -37,12 +37,12 @@ void HuntingLevel2::LevelStartEvent()
 		LoadCreaturesFromFile("02_HuntingLevel2");
 
 		{
-			ROOM_Left* pMap = CreateActor<ROOM_Left>(OBJECTORDER::StaticMesh);
+			std::shared_ptr < ROOM_Left> pMap = CreateActor<ROOM_Left>(OBJECTORDER::StaticMesh);
 		}
 
 		{
 
-			Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 			Potal_->GetTransform().SetWorldPosition({ -1062.F,0.F,-1878.F });
 			Potal_->m_PotalType = PotalType::Stage2ToStage3;
 
@@ -52,7 +52,7 @@ void HuntingLevel2::LevelStartEvent()
 
 		{
 
-			Potal* Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 			Potal_->GetTransform().SetWorldPosition({ 204.F,0.F,-638.f });
 			Potal_->m_PotalType = PotalType::Stage2ToStage1;
 
@@ -62,7 +62,7 @@ void HuntingLevel2::LevelStartEvent()
 
 
 		{
-			FlowerMonster* cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
+			std::shared_ptr < FlowerMonster> cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
 			cMonster->GetTransform().SetWorldPosition({ 1251.f,0.F,-787.f });
 
 
@@ -70,14 +70,14 @@ void HuntingLevel2::LevelStartEvent()
 
 
 		{
-			FlowerMonster* cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
+			std::shared_ptr < FlowerMonster> cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
 			cMonster->GetTransform().SetWorldPosition({ 78.f,0.F,-1672.f });
 
 
 		}
 
 		{
-			FlowerMonster* cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
+			std::shared_ptr < FlowerMonster> cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
 			cMonster->GetTransform().SetWorldPosition({ -550.f,0.F,-2660.f });
 
 
@@ -93,14 +93,14 @@ void HuntingLevel2::LevelStartEvent()
 	{
 		if (nullptr == Player::GetMainPlayer())
 		{
-			Player* NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
+			std::shared_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
 			NewPlayer->SetLevelOverOn();
 
 
 		}
 		else
 		{
-			Player* NewPlayer = Player::GetMainPlayer();
+			std::shared_ptr < Player> NewPlayer = Player::GetMainPlayer();
 			NewPlayer->GetTransform().SetWorldPosition({ 432.F,0.F,-862.F });
 			NewPlayer->UIOn();
 			//NewPlayer->m_bLogoLevelCheck = false;
