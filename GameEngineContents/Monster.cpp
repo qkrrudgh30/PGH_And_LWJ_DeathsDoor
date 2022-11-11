@@ -3,7 +3,10 @@
 #include "Player.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
-Monster::Monster()
+Monster::Monster() :
+	StartPostion()
+	, DirPower()
+	, Pos()
 {
 }
 

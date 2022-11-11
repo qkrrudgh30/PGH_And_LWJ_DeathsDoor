@@ -22,6 +22,7 @@ PlayerUpgradeUI::PlayerUpgradeUI() :
 	,CollisionFireUp()
 	,CollisionHookUp()
 	,CollisionSwordUp()
+	, m_Player()
 {
 }
 

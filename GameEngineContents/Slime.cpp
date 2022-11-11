@@ -3,7 +3,10 @@
 #include "Player.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
-Slime::Slime()
+Slime::Slime() :
+	StartPostion()
+	, DirPower()
+	, Pos()
 {
 }
 

@@ -20,10 +20,10 @@ class PlayerHookAtt;
 class Player : public UnitBase
 {
 private:
-	static std::shared_ptr < Player> MainPlayer;
+	static Player* MainPlayer;
 
 public:
-	static std::shared_ptr < Player> GetMainPlayer()
+	static Player* GetMainPlayer()
 	{
 		return MainPlayer;
 	}

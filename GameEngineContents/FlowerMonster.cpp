@@ -7,7 +7,10 @@
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include <GameEngineCore/GameEngineFBXAnimationRenderer.h>
 
-FlowerMonster::FlowerMonster()
+FlowerMonster::FlowerMonster()	:
+	StartPostion()
+	, DirPower()
+	, Pos()
 {
 }
 

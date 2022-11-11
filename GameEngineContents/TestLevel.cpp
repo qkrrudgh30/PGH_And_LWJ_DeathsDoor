@@ -83,7 +83,7 @@ void TestLevel::LevelStartEvent()
 		}
 		else
 		{
-			std::shared_ptr < Player> NewPlayer = Player::GetMainPlayer();
+			Player*  NewPlayer = Player::GetMainPlayer();
 			NewPlayer->GetTransform().SetWorldPosition({1.F,0.F,1.F});
 			NewPlayer->UIOn();
 			//NewPlayer->m_bLogoLevelCheck = false;

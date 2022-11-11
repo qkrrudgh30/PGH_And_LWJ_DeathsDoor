@@ -5,7 +5,8 @@
 #include "PlayerHookAtt.h"
 
 
-PlayerHookTrail::PlayerHookTrail()
+PlayerHookTrail::PlayerHookTrail()	:
+	m_cHook()
 {
 }
 

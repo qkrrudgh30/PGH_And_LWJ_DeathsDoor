@@ -74,7 +74,7 @@ void HuntingLevel5::LevelStartEvent()
 		}
 		else
 		{
-			std::shared_ptr < Player> NewPlayer = Player::GetMainPlayer();
+			Player* NewPlayer = Player::GetMainPlayer();
 			NewPlayer->GetTransform().SetWorldPosition({ 475.F,0.F,228.F });
 			NewPlayer->UIOn();
 			//NewPlayer->m_bLogoLevelCheck = false;

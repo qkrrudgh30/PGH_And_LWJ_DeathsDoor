@@ -31,6 +31,7 @@ ContentsLevel::ContentsLevel()
 	, muLines(0u)
 	, muRemains(0u)
 	, muAnimationStartIndex(0u)
+	, mstrvecAllResourcePaths()
 {
 	mvecDirectories.reserve(64u);
 	mstrvecAnimatorMeshFileNames.reserve(64u);

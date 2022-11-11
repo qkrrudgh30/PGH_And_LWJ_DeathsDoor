@@ -44,7 +44,7 @@ void StaticMesh::Update(float _DeltaTime)
 
 	if (true == mpCollider->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB))
 	{
-		std::shared_ptr < Player> mainPlayer = Player::GetMainPlayer();
+		Player* mainPlayer = Player::GetMainPlayer();
 		float PlayerSpeed = 0.f;
 
 		if (mainPlayer->StateManager.GetCurStateStateName() == "Slide")
@@ -78,7 +78,7 @@ void StaticMesh::Update(float _DeltaTime)
 CollisionReturn StaticMesh::PlayerCollision(GameEngineCollision* _This, GameEngineCollision* _Other)
 {
 
-	std::shared_ptr < Player> mainPlayer = Player::GetMainPlayer();
+	Player* mainPlayer = Player::GetMainPlayer();
 	float PlayerSpeed = 0.f;
 	if (mainPlayer->StateManager.GetCurStateStateName() == "Slide")
 	{

@@ -12,6 +12,10 @@ LoginUI::LoginUI()
 	, RendererButton2()
 	, FontPlay()
 	, FontEdit()
+	, m_fPlayPos2()
+	, m_fPlayPos1()
+	, m_fEditPos1()
+	, m_fEditPos2()
 {
 }
 
@@ -114,7 +118,7 @@ void LoginUI::Update(float _DeltaTime)
 		if (m_ILevelType == 0)
 		{
 
-			std::shared_ptr < Player> NewPlayer = Player::GetMainPlayer();
+			Player* NewPlayer = Player::GetMainPlayer();
 			NewPlayer->UIOn();
 			NewPlayer->m_bLogoLevelCheck = false;
 

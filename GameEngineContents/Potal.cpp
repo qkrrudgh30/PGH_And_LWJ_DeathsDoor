@@ -4,7 +4,8 @@
 #include "ContentsLevel.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
-Potal::Potal()
+Potal::Potal()	:
+	m_PotalType()
 {
 }
 

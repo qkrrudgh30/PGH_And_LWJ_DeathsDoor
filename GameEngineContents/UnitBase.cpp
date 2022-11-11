@@ -10,6 +10,14 @@ UnitBase::UnitBase() :
 	,FBXAnimationRenderer()
 	,Collision()
 	,AttCollision()
+	, StateManager()
+	, m_Info()
+	, m_fHitPos()
+	, m_bHitCheck()
+	, m_fHitDir()
+	, hitTime()
+	, m_fHitTime()
+	, m_bhitCheck()
 {
 	m_Info.Dammage = 3;
 	m_Info.Gold = 1000;

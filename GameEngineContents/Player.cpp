@@ -21,7 +21,8 @@
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 
-std::shared_ptr < Player> Player::MainPlayer = nullptr;
+
+Player* Player::MainPlayer = nullptr;
 
 Player::Player()
 	: Speed(200.0f)
@@ -50,13 +51,17 @@ Player::Player()
 	, m_fArrowCameraActionPos(0.f)
 	, UpgradeUI()
 	, MainUI()
-	, m_fAttTestTime(0.f)
-	, m_fSlideTime(0.f)
-	, m_eBeforeType(WEAPONTYPE::Arrow)
 	, m_fStaticCollDir()
-	, m_fHookPoint()
+	, m_fAttTestTime()
+	, ResultColor()
+	, m_fSlideTime()
+	, m_eBeforeType()
+	, m_CSWAtt3()
+	, m_CHookAtt()
+	, m_CSWAtt2()
+
 {
-	
+	MainPlayer = this;
 }
 
 Player::~Player()
@@ -66,7 +71,9 @@ Player::~Player()
 
 void Player::Start()
 {
-	MainPlayer = std::dynamic_pointer_cast<Player>(shared_from_this());
+
+
+
 
 #pragma region BUG_LoadPlayerMesh
 	//FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
@@ -229,6 +236,9 @@ void Player::Start()
 	m_Info.Weapontype = WEAPONTYPE::Arrow;
 
 	m_eBeforeType = m_Info.Weapontype;
+
+
+
 
 }
 

@@ -1,7 +1,8 @@
 #include "PreCompile.h"
 #include "MouseSlot.h"
 
-MouseSlot::MouseSlot() 
+MouseSlot::MouseSlot() :
+	mpRenderer()
 {
 }
 

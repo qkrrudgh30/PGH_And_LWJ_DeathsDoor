@@ -3,7 +3,10 @@
 #include "Player.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
-HeadRoller::HeadRoller()
+HeadRoller::HeadRoller() :
+	StartPostion()
+	, DirPower()
+	, Pos()
 {
 }
 

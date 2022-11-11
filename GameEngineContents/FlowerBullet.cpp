@@ -67,9 +67,9 @@ CollisionReturn FlowerBullet::PlayerCollision(std::shared_ptr < GameEngineCollis
 {
 
 
-	std::shared_ptr < Player> newPlayer = Player::GetMainPlayer();
+	Player*  NewPlayer = Player::GetMainPlayer();
 
-	newPlayer->m_Info.m_Hp -= 1;
+	NewPlayer->m_Info.m_Hp -= 1;
 
 
 	Death();
