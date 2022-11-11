@@ -46,12 +46,17 @@ Player::Player()
 	, m_bArrowCCheck(false)
 	, m_bArrowCameraCheck(false)
 	, m_fCameraLenZ(0.f)
-	,m_fCameraLenY(0.f)
+	, m_fCameraLenY(0.f)
 	, m_fArrowCameraActionPos(0.f)
 	, UpgradeUI()
 	, MainUI()
+	, m_fAttTestTime(0.f)
+	, m_fSlideTime(0.f)
+	, m_eBeforeType(WEAPONTYPE::Arrow)
+	, m_fStaticCollDir()
+	, m_fHookPoint()
 {
-	MainPlayer = std::dynamic_pointer_cast<Player>(shared_from_this());;
+	
 }
 
 Player::~Player()
@@ -61,6 +66,8 @@ Player::~Player()
 
 void Player::Start()
 {
+	MainPlayer = std::dynamic_pointer_cast<Player>(shared_from_this());
+
 #pragma region BUG_LoadPlayerMesh
 	//FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 
@@ -100,14 +107,14 @@ void Player::Start()
 	//FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.3f, 0.3f, 0.3f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
-	FBXAnimationRenderer->SetFBXMesh("Player.FBX", "Texture");
-	// for (int i = 0; i < 4; ++i)
-	// {
-	// 	if (i != 3)
-	// 	{
-	// 		FBXAnimationRenderer->SetFBXMesh("Flower.FBX", "Texture");
-	// 	}
-	// }
+	// FBXAnimationRenderer->SetFBXMesh("Player.FBX", "Texture");
+	for (int i = 0; i < 4; ++i)
+	{
+		if (i != 3)
+		{
+			// FBXAnimationRenderer->SetFBXMesh("Flower.FBX", "Texture", i);
+		}
+	}
 	
 #pragma endregion
 
@@ -954,7 +961,7 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerUp"))
 	{
-		GetTransform().SetWorldMove(GetTransform().GetUpVector() * Speed * _DeltaTime);
+		Player::GetMainPlayer().get()->GetTransform().SetWorldMove(Player::GetMainPlayer().get()->GetTransform().GetUpVector() * Speed * _DeltaTime);
 
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("PlayerDown"))

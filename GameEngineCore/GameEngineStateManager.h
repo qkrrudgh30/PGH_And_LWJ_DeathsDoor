@@ -6,6 +6,11 @@ class StateInfo
 public:
 	float StateTime; // 지금 이 스테이트가 얼마나 지속됐냐?
 	std::string PrevState; // 이전 스테이트는 뭐였냐
+
+	StateInfo()
+		: StateTime(0.f)
+		, PrevState()
+	{}
 };
 
 class GameEngineStateManager;

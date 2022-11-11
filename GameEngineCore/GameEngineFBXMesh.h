@@ -77,7 +77,12 @@ public:
 
 
 public:
-	FbxExMaterialSettingData() {}
+	FbxExMaterialSettingData()
+		: TransparencyFactor(0.f)
+		, SpecularPower(0.f)
+		, Shininess(0.f)
+	{
+	}
 	~FbxExMaterialSettingData() {}
 };
 
@@ -103,6 +108,7 @@ struct FbxExMeshInfo
 	int MorphNum;
 
 	FbxExMeshInfo()
+		: Mesh(nullptr)
 	{
 		Name;
 		UniqueId = 0;
@@ -162,7 +168,8 @@ public:
 	FbxRenderUnitInfo() :
 		IsLod(false),
 		IsLodLv(-1),
-		VertexBuffer(nullptr)
+		VertexBuffer(nullptr),
+		VectorIndex(0)
 	{
 	}
 
@@ -461,6 +468,10 @@ struct JointPos
 	}
 
 	JointPos()
+		: ZSize()
+		, YSize()
+		, XSize()
+		, Length()
 	{
 		Scale = float4::ONE;
 		Rotation = float4::ZERO;

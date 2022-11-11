@@ -30,7 +30,9 @@
 
 size_t GameEngineThreadPool::GetMyThreadCount(void) { return static_cast<size_t>(ThreadCount); };
 
-7. lock
+7. FBXStaticRenderer 클래스에 enable 상속 해제
+
+8. lock
 
 bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
 {

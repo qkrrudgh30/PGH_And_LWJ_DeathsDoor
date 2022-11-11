@@ -35,6 +35,8 @@ public:
 		, CurFrame(0)
 		, Start(0)
 		, End(0)
+		, ParentRenderer(nullptr)
+		, FBXAnimationData(nullptr)
 	{
 		int a = 0;
 	}

@@ -16,7 +16,9 @@ public:
 	fbxsdk::FbxAMatrix GlobalAnimation;
 	fbxsdk::FbxAMatrix LocalAnimation;
 
-	FbxExBoneFrameData() {
+	FbxExBoneFrameData() 
+		: Time(0.f)
+	{
 
 	}
 
@@ -53,7 +55,10 @@ public:
 	// 120프레임이야.
 	std::vector<FbxExBoneFrameData> BoneMatData;
 
-	FbxExBoneFrame() {
+	FbxExBoneFrame() 
+		: BoneParentIndex(0)
+		, BoneIndex(0)
+	{
 
 	}
 

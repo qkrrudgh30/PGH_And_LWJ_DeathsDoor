@@ -68,6 +68,7 @@ public:
 		, Inter(0.1f)
 		, CurFrame(-1)
 		, FrameTime(0.0f)
+		, Renderer(nullptr)
 	{
 
 	}
@@ -78,6 +79,7 @@ public:
 		, Inter(_Inter)
 		, CurFrame(0)
 		, FrameTime(0.0f)
+		, Renderer(nullptr)
 	{
 		for (unsigned int i = _Start; i <= _End; i++)
 		{
@@ -90,7 +92,9 @@ public:
 		, Loop(_Loop)
 		, Inter(_Inter)
 		, Frames(_Frames)
+		, CurFrame(-1)
 		, FrameTime(0.0f)
+		, Renderer(nullptr)
 	{
 		
 	}
@@ -102,6 +106,7 @@ public:
 		, Inter(_Inter)
 		, CurFrame(0)
 		, FrameTime(0.0f)
+		, Renderer(nullptr)
 	{
 
 	}
@@ -138,6 +143,7 @@ public:
 		: bOnceStart(true)
 		, bOnceEnd(false)
 		, Pause(false)
+		, ParentRenderer(nullptr)
 	{
 
 	}
