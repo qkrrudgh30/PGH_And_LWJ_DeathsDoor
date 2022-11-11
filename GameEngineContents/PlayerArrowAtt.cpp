@@ -66,9 +66,9 @@ CollisionReturn PlayerArrowAtt::MonsterCollision(std::shared_ptr < GameEngineCol
 {
 
 
-	dynamic_cast<UnitBase*>(_Other->GetParent())->m_Info.m_Hp -= m_Info.Dammage;
-	dynamic_cast<UnitBase*>(_Other->GetParent())->m_bHitCheck = true;
-	dynamic_cast<UnitBase*>(_Other->GetParent())->m_fHitPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
+	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_Info.m_Hp -= m_Info.Dammage;
+	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_bHitCheck = true;
+	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_fHitPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
 
 
 	Death();

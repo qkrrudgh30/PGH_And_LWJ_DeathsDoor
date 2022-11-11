@@ -57,7 +57,7 @@ CollisionReturn PlayerSWAtt1::MonsterCollision(std::shared_ptr <GameEngineCollis
 {
 
 
-	dynamic_cast<UnitBase*>(_Other->GetParent())->m_Info.m_Hp -= m_Info.Dammage;
+	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_Info.m_Hp -= m_Info.Dammage;
 
 
 	return CollisionReturn::Break;

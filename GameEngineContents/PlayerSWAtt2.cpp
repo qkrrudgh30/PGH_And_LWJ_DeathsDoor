@@ -47,7 +47,7 @@ void PlayerSWAtt2::Update(float _DeltaTime)
 
 CollisionReturn PlayerSWAtt2::MonsterCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other)
 {
-	dynamic_cast<UnitBase*>(_Other->GetParent())->m_Info.m_Hp -= m_Info.Dammage;
+	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_Info.m_Hp -= m_Info.Dammage;
 
 
 	return CollisionReturn::Break;
