@@ -15,6 +15,11 @@
 #include "ShopNPC.h"
 #include "Potal.h"
 
+#include "PlayerMainUI.h"
+#include "PlayerUpgradeUI.h"
+
+
+
 LoginLevel::LoginLevel()	:
 	UI(nullptr)
 {
@@ -83,7 +88,7 @@ void LoginLevel::LevelStartEvent()
 
 			std::shared_ptr < ShopNPC> cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
 			cShopNPC->GetTransform().SetWorldPosition({ -300.F,0.F,500.F });
-			//	cShopNPC->GetTransform().SetWorl
+			
 
 		}
 
@@ -106,11 +111,25 @@ void LoginLevel::LevelStartEvent()
 	{
 		if (nullptr == Player::GetMainPlayer())
 		{
-			std::shared_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
-			NewPlayer->GetTransform().SetWorldPosition({-600.F,100.F,-150.F});
-			NewPlayer->SetLevelOverOn();
-			NewPlayer->UIOff();
-			NewPlayer->m_bLogoLevelCheck = true;
+			//std::shared_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
+			//NewPlayer->GetTransform().SetWorldPosition({-600.F,100.F,-150.F});
+			//NewPlayer->SetLevelOverOn();
+			//NewPlayer->UIOff();
+			//NewPlayer->m_bLogoLevelCheck = true;
+
+
+			MainUI = CreateActor<PlayerMainUI>(OBJECTORDER::UI);
+			////MainUI->m_Player = std::dynamic_pointer_cast<Player>(shared_from_this());
+
+			UpgradeUI = CreateActor<PlayerUpgradeUI>(OBJECTORDER::UI);
+			////UpgradeUI->m_Player = std::dynamic_pointer_cast<Player>(shared_from_this());;
+			UpgradeUI->Off();
+
+			UpgradeUI->SetLevelOverOn();
+			MainUI->SetLevelOverOn();
+
+
+
 		}
 		else
 		{

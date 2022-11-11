@@ -49,8 +49,8 @@ Player::Player()
 	, m_fCameraLenZ(0.f)
 	, m_fCameraLenY(0.f)
 	, m_fArrowCameraActionPos(0.f)
-	, UpgradeUI()
-	, MainUI()
+	//, UpgradeUI()
+	//, MainUI()
 	, m_fStaticCollDir()
 	, m_fAttTestTime()
 	, ResultColor()
@@ -134,16 +134,20 @@ void Player::Start()
 #pragma endregion
 
 
+	//ui주석 풀어야함
+	//MainUI = GetLevel()->CreateActor<PlayerMainUI>(OBJECTORDER::UI);
+	//MainUI->m_Player = std::dynamic_pointer_cast<Player>(shared_from_this());
 
-	MainUI = GetLevel()->CreateActor<PlayerMainUI>(OBJECTORDER::UI);
-	MainUI->m_Player = std::dynamic_pointer_cast<Player>(shared_from_this());
+	//UpgradeUI = GetLevel()->CreateActor<PlayerUpgradeUI>(OBJECTORDER::UI);
+	//UpgradeUI->m_Player = std::dynamic_pointer_cast<Player>(shared_from_this());;
+	//UpgradeUI->Off();
 
-	UpgradeUI = GetLevel()->CreateActor<PlayerUpgradeUI>(OBJECTORDER::UI);
-	UpgradeUI->m_Player = std::dynamic_pointer_cast<Player>(shared_from_this());;
-	UpgradeUI->Off();
-
-	UpgradeUI->SetLevelOverOn();
-	MainUI->SetLevelOverOn();
+	//UpgradeUI->SetLevelOverOn();
+	//MainUI->SetLevelOverOn();
+	// 
+	// 
+	// 
+	// 
 	//UpgradeUI->SetParent(this);
 	//MainUI->SetParent(this);
 
@@ -971,7 +975,7 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	if (true == GameEngineInput::GetInst()->IsPress("PlayerUp"))
 	{
-		Player::GetMainPlayer().get()->GetTransform().SetWorldMove(Player::GetMainPlayer().get()->GetTransform().GetUpVector() * Speed * _DeltaTime);
+		GetTransform().SetWorldMove(GetTransform().GetUpVector() * Speed * _DeltaTime);
 
 	}
 	else if (true == GameEngineInput::GetInst()->IsPress("PlayerDown"))
@@ -1141,14 +1145,14 @@ CollisionReturn Player::CollisionNPC(std::shared_ptr < GameEngineCollision> _Thi
 			m_bUpgradeUIcheck = false;
 
 
-			UpgradeUI->Off();
+			//UpgradeUI->Off();
 			m_bShopCameraActionCheck = false;
 		}
 		else
 		{
 			m_bUpgradeUIcheck = true;
 			m_bShopCameraActionCheck = true;
-			UpgradeUI->On();
+			//UpgradeUI->On();
 		}
 
 	}
@@ -1361,12 +1365,12 @@ void Player::Update(float _DeltaTime)
 
 void Player::UIOff()
 {
-	MainUI->Off();
+	//MainUI->Off();
 	
 }
 void Player::UIOn()
 {
-	MainUI->On();
+	//MainUI->On();
 
 }
 

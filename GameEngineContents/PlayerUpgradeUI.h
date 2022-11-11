@@ -86,7 +86,7 @@ protected:
 
 
 public:
-	std::weak_ptr < Player> m_Player;
+//	std::weak_ptr < Player> m_Player;
 
 };
 
