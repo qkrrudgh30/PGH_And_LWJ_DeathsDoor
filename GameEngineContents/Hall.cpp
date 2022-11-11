@@ -16,6 +16,8 @@ Hall::~Hall()
 
 void Hall::Start()
 {
+	GameEngineTransformBase* aAAAAA = dynamic_cast<GameEngineTransformBase*>(this);
+
 	ResultColor = float4{ 1.f, 1.f, 0.f, 1.f };
 	std::shared_ptr < GameEngineFBXStaticRenderer> Renderer = CreateComponent<GameEngineFBXStaticRenderer>();
 	

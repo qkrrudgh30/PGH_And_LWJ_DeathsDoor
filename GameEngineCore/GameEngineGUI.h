@@ -5,7 +5,7 @@
 #include <GameEngineBase/GameEngineNameObject.h>
 #include <GameEngineBase/GameEngineString.h>
 
-class GameEngineGUIWindow : public GameEngineNameObject, public GameEngineUpdateObject, public std::enable_shared_from_this<GameEngineGUIWindow>
+class GameEngineGUIWindow : public GameEngineNameObject, public GameEngineUpdateObject//, public std::enable_shared_from_this<GameEngineGUIWindow>
 {
 	friend class GameEngineGUI;
 

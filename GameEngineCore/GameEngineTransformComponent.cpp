@@ -23,8 +23,8 @@ void GameEngineTransformComponent::SetParent(std::shared_ptr<GameEngineUpdateObj
 	GameEngineUpdateObject::SetParent(_Object);
 
 	{
-		std::shared_ptr<GameEngineTransformBase> Actor = nullptr;
-		if (Actor = std::dynamic_pointer_cast<GameEngineTransformBase>(_Object))
+		GameEngineTransformBase* Actor = nullptr;
+		if (Actor = dynamic_cast<GameEngineTransformBase*>(_Object.get()))
 		{
 			GetTransform().SetParentTransform(Actor->GetTransform());
 			return;
