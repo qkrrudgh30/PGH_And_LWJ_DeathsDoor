@@ -1,4 +1,4 @@
-#include "PreCompile.h"
+ï»¿#include "PreCompile.h"
 #include "GameEngineFBXMesh.h"
 
 GameEngineFBXMesh::GameEngineFBXMesh()
@@ -28,9 +28,9 @@ std::shared_ptr<GameEngineFBXMesh> GameEngineFBXMesh::Load(const std::string& _P
 void GameEngineFBXMesh::LoadMesh(const std::string& _Path, const std::string& _Name)
 {
 	FBXInit(_Path);
-	// ¹öÅØ½º Á¤º¸¸¦ °¡Áø ³ëµå¸¦ Á¶»çÇÑ´Ù.
+	// ë²„í…ìŠ¤ ì •ë³´ë¥¼ ê°€ì§„ ë…¸ë“œë¥¼ ì¡°ì‚¬í•œë‹¤.
 	MeshLoad();
-	// BoneÀ» Á¶»çÇÑ´Ù.
+	// Boneì„ ì¡°ì‚¬í•œë‹¤.
 }
 
 void GameEngineFBXMesh::MeshLoad()
@@ -43,7 +43,7 @@ void GameEngineFBXMesh::MeshLoad()
 
 	CreateGameEngineStructuredBuffer();
 
-	AllBones; // º»Á¤º¸Ã¼
+	AllBones; // ë³¸ì •ë³´ì²´
 	AllFindMap;
 	RenderUnitInfos;
 	MeshInfos;
@@ -51,17 +51,17 @@ void GameEngineFBXMesh::MeshLoad()
 
 Bone* GameEngineFBXMesh::FindBone(size_t MeshIndex, size_t _BoneIndex)
 {
-	// m_vecRefBones º¤ÅÍ·Î µé°í ÀÖ´Â¾Ö
+	// m_vecRefBones ë²¡í„°ë¡œ ë“¤ê³  ìˆëŠ”ì• 
 
 	if (AllBones.size() <= MeshIndex)
 	{
-		MsgBoxAssert("Á¸ÀçÇÏÁö ¾Ê´Â ¸Å½¬ÀÇ º»À» °¡Á®¿À·Á°í Çß½À´Ï´Ù.");
+		MsgBoxAssert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ë§¤ì‰¬ì˜ ë³¸ì„ ê°€ì ¸ì˜¤ë ¤ê³  í–ˆìŠµë‹ˆë‹¤.");
 		return nullptr;
 	}
 
 	if (AllBones[MeshIndex].size() <= _BoneIndex)
 	{
-		MsgBoxAssert("Á¸ÀçÇÏ´Â º»ÀÇ ¹üÀ§¸¦ ³Ñ°å½À´Ï´Ù.");
+		MsgBoxAssert("ì¡´ì¬í•˜ëŠ” ë³¸ì˜ ë²”ìœ„ë¥¼ ë„˜ê²¼ìŠµë‹ˆë‹¤.");
 		return nullptr;
 	}
 
@@ -82,7 +82,7 @@ Bone* GameEngineFBXMesh::FindBone(size_t MeshIndex, std::string _Name)
 
 	if (0 == AllFindMap[MeshIndex].size())
 	{
-		MsgBoxAssert("º»À» Ã£´Â ÀÛ¾÷À» ÇÏÁö ¾ÊÀº ¸Å½¬ÀÔ´Ï´Ù");
+		MsgBoxAssert("ë³¸ì„ ì°¾ëŠ” ì‘ì—…ì„ í•˜ì§€ ì•Šì€ ë§¤ì‰¬ì…ë‹ˆë‹¤");
 	}
 
 	if (AllFindMap[MeshIndex].end() == AllFindMap[MeshIndex].find(_Name))
@@ -106,7 +106,7 @@ bool GameEngineFBXMesh::IsOddNegativeScale(const fbxsdk::FbxAMatrix& TotalMatrix
 	return NegativeNum == 1 || NegativeNum == 3;
 }
 
-// ÀÌ ¸Å½¬ ³ëµåÀÇ ±âº» Çà·Ä Á¤º¸¸¦ ¾ò¾î¿À´Â°Í
+// ì´ ë§¤ì‰¬ ë…¸ë“œì˜ ê¸°ë³¸ í–‰ë ¬ ì •ë³´ë¥¼ ì–»ì–´ì˜¤ëŠ”ê²ƒ
 fbxsdk::FbxAMatrix GameEngineFBXMesh::ComputeTotalMatrix(fbxsdk::FbxNode* Node)
 {
 	fbxsdk::FbxAMatrix Geometry;
@@ -211,7 +211,7 @@ void GameEngineFBXMesh::FbxRenderUnitInfoMaterialSetting(fbxsdk::FbxNode* _Node,
 
 			if (nullptr == pMtrl)
 			{
-				MsgBoxAssert("if (nullptr == pMtrl) ¸ŞÅ×¸®¾ó Á¤º¸°¡ Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù");
+				MsgBoxAssert("if (nullptr == pMtrl) ë©”í…Œë¦¬ì–¼ ì •ë³´ê°€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤");
 				continue;
 			}
 
@@ -240,7 +240,7 @@ void GameEngineFBXMesh::FbxRenderUnitInfoMaterialSetting(fbxsdk::FbxNode* _Node,
 
 	}
 	else {
-		MsgBoxAssert("¸Å½¬´Â Á¸ÀçÇÏÁö¸¸ ÀçÁúÀº Á¸ÀçÇÏÁö ¾Ê½À´Ï´Ù.");
+		MsgBoxAssert("ë§¤ì‰¬ëŠ” ì¡´ì¬í•˜ì§€ë§Œ ì¬ì§ˆì€ ì¡´ì¬í•˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 	}
 
 }
@@ -282,7 +282,7 @@ void GameEngineFBXMesh::LoadBinormal(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix 
 			iDataIndex = pElement->GetIndexArray().GetAt(_Index);
 		}
 		else {
-			MsgBoxAssert("¸ÊÇÎ ¹æ½ÄÁß Ã³¸®ÇÒ¼ö ¾ø´Â ¹æ½ÄÀÔ´Ï´Ù.");
+			MsgBoxAssert("ë§µí•‘ ë°©ì‹ì¤‘ ì²˜ë¦¬í• ìˆ˜ ì—†ëŠ” ë°©ì‹ì…ë‹ˆë‹¤.");
 		}
 	}
 
@@ -332,7 +332,7 @@ void GameEngineFBXMesh::LoadTangent(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _
 			iDataIndex = pElement->GetIndexArray().GetAt(_Index);
 		}
 		else {
-			MsgBoxAssert("¸ÊÇÎ ¹æ½ÄÁß Ã³¸®ÇÒ¼ö ¾ø´Â ¹æ½ÄÀÔ´Ï´Ù.");
+			MsgBoxAssert("ë§µí•‘ ë°©ì‹ì¤‘ ì²˜ë¦¬í• ìˆ˜ ì—†ëŠ” ë°©ì‹ì…ë‹ˆë‹¤.");
 		}
 	}
 
@@ -356,7 +356,7 @@ void GameEngineFBXMesh::LoadNormal(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _M
 
 	if (0 == iCount)
 	{
-		MsgBoxAssert("GetElementNormalCount°¡ ¿©·¯°³ ÀÔ´Ï´Ù.");
+		MsgBoxAssert("GetElementNormalCountê°€ ì—¬ëŸ¬ê°œ ì…ë‹ˆë‹¤.");
 	}
 
 
@@ -385,7 +385,7 @@ void GameEngineFBXMesh::LoadNormal(fbxsdk::FbxMesh* _Mesh, fbxsdk::FbxAMatrix _M
 			iDataIndex = pElement->GetIndexArray().GetAt(_Index);
 		}
 		else {
-			MsgBoxAssert("¸ÊÇÎ ¹æ½ÄÁß Ã³¸®ÇÒ¼ö ¾ø´Â ¹æ½ÄÀÔ´Ï´Ù.");
+			MsgBoxAssert("ë§µí•‘ ë°©ì‹ì¤‘ ì²˜ë¦¬í• ìˆ˜ ì—†ëŠ” ë°©ì‹ì…ë‹ˆë‹¤.");
 		}
 	}
 
@@ -487,8 +487,8 @@ void GameEngineFBXMesh::VertexBufferCheck()
 		fbxsdk::FbxNode* pMeshNode = meshInfo.Mesh->GetNode();
 		fbxsdk::FbxMesh* pMesh = meshInfo.Mesh;
 
-		// ÀÎµ¦½º ¹öÆÛ ±âÁØÀ¸·Î ¸¸µé¾î¾ß ÇÑ´Ù.
-		// ³ªÁß¿¡ º¯°æ
+		// ì¸ë±ìŠ¤ ë²„í¼ ê¸°ì¤€ìœ¼ë¡œ ë§Œë“¤ì–´ì•¼ í•œë‹¤.
+		// ë‚˜ì¤‘ì— ë³€ê²½
 		FbxRenderUnitInfo& RenderUnit = RenderUnitInfos.emplace_back();
 		RenderUnit.VectorIndex = meshInfoIndex;
 
@@ -502,10 +502,10 @@ void GameEngineFBXMesh::VertexBufferCheck()
 		std::vector<GameEngineVertex>& VtxData = RenderUnit.Vertexs;
 		std::vector<std::vector<UINT>>& IdxData = RenderUnit.Indexs;
 
-		// ¹öÅØ½º °³¼öÀÔ´Ï´Ù.
+		// ë²„í…ìŠ¤ ê°œìˆ˜ì…ë‹ˆë‹¤.
 		int controlPointsCount = pMesh->GetControlPointsCount();
 
-		// ±× ¹öÅØ½º °³¼ö´Â ¹è¿­·Î ÀúÀåµÇ¾îÀÖ´Âµ¥ Ã¹¹øÂ° Æ÷ÀÎÅÍ.
+		// ê·¸ ë²„í…ìŠ¤ ê°œìˆ˜ëŠ” ë°°ì—´ë¡œ ì €ì¥ë˜ì–´ìˆëŠ”ë° ì²«ë²ˆì§¸ í¬ì¸í„°.
 		fbxsdk::FbxVector4* pControlPoints = pMesh->GetControlPoints();
 
 		VtxData.resize(controlPointsCount);
@@ -514,23 +514,23 @@ void GameEngineFBXMesh::VertexBufferCheck()
 		meshMatrix = ComputeTotalMatrix(pMeshNode);
 		if (false == meshInfo.bIsSkeletalMesh)
 		{
-			// ¾Ö´Ï¸Ş¸ŞÀÌ¼ÇÀÏ °æ¿ì¿¡´Â ¾Ö´Ï¸ŞÀÌ¼ÇÀÇ Æ¯¼öÇÑ º»Á¤º¸¸¦ ±â¹İÀ¸·Î ¹öÅØ½º¸¦ ÀüÈ¯ÇØ¼­ ¹Ş¾Æ¾ß ÇÏ´Âµ¥.
+			// ì• ë‹ˆë©”ë©”ì´ì…˜ì¼ ê²½ìš°ì—ëŠ” ì• ë‹ˆë©”ì´ì…˜ì˜ íŠ¹ìˆ˜í•œ ë³¸ì •ë³´ë¥¼ ê¸°ë°˜ìœ¼ë¡œ ë²„í…ìŠ¤ë¥¼ ì „í™˜í•´ì„œ ë°›ì•„ì•¼ í•˜ëŠ”ë°.
 			meshMatrix = JointMatrix * meshMatrix;
 		}
 
-		// Å©±â°¡ -ÀÎ°Ô ÀÖ´ÂÁö È®ÀÎ
+		// í¬ê¸°ê°€ -ì¸ê²Œ ìˆëŠ”ì§€ í™•ì¸
 		bool isOddNegativeScale = IsOddNegativeScale(meshMatrix);
 
-		// ÄÁÆ®·Ñ Æ÷ÀÎÆ® °³¼ö¸¸Å­ µ¹¸é¼­ ¹öÅØ½ºÀÇ Á¤º¸¸¦ ¸ğµÎ ¾ò¾î¿Â´Ù.
+		// ì»¨íŠ¸ë¡¤ í¬ì¸íŠ¸ ê°œìˆ˜ë§Œí¼ ëŒë©´ì„œ ë²„í…ìŠ¤ì˜ ì •ë³´ë¥¼ ëª¨ë‘ ì–»ì–´ì˜¨ë‹¤.
 		for (int controlPointIndex = 0; controlPointIndex < controlPointsCount; ++controlPointIndex)
 		{
-			// ¹öÅØ½º¸¦ ¾ò¾î¿À°í
+			// ë²„í…ìŠ¤ë¥¼ ì–»ì–´ì˜¤ê³ 
 			fbxsdk::FbxVector4 controlPoint = pControlPoints[controlPointIndex];
-			// È¤½Ã³ª ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ÀÖÀ»°æ¿ì¿¡´Â ¾Ö´Ï¸ŞÀÌ¼ÇÀÇ Çà·ÄÀ» °í·ÁÇØ¼­ ¹öÅØ½º Á¤º¸¸¦ º¯È¯ÇÑ´Ù.
-			// ¾Ö´Ï¸ŞÀÌ¼ÇÀÌ ¾ø´Ù¸é ±×³É ±âº»Çà·ÄÀÏ °ÍÀÌ´Ù.
+			// í˜¹ì‹œë‚˜ ì• ë‹ˆë©”ì´ì…˜ì´ ìˆì„ê²½ìš°ì—ëŠ” ì• ë‹ˆë©”ì´ì…˜ì˜ í–‰ë ¬ì„ ê³ ë ¤í•´ì„œ ë²„í…ìŠ¤ ì •ë³´ë¥¼ ë³€í™˜í•œë‹¤.
+			// ì• ë‹ˆë©”ì´ì…˜ì´ ì—†ë‹¤ë©´ ê·¸ëƒ¥ ê¸°ë³¸í–‰ë ¬ì¼ ê²ƒì´ë‹¤.
 			fbxsdk::FbxVector4 calculateControlPoint = meshMatrix.MultT(controlPoint);
-			// FBX´Â ±âº»ÀûÀ¸·Î 3d ¸Æ½º¿¡¼­ »ç¿ëÇÏ´Âµ¥. 
-			// µ¥Ä«¸£Æ® ÁÂÇ¥°è¿¡¼­ z¸¸ -°¡ µÇ¾îÀÖ´Ù.
+			// FBXëŠ” ê¸°ë³¸ì ìœ¼ë¡œ 3d ë§¥ìŠ¤ì—ì„œ ì‚¬ìš©í•˜ëŠ”ë°. 
+			// ë°ì¹´ë¥´íŠ¸ ì¢Œí‘œê³„ì—ì„œ zë§Œ -ê°€ ë˜ì–´ìˆë‹¤.
 
 			VtxData[controlPointIndex].POSITION = FbxVecToTransform(calculateControlPoint);
 			VtxData[controlPointIndex].POSITION.w = 1.0f;
@@ -548,7 +548,7 @@ void GameEngineFBXMesh::VertexBufferCheck()
 		RenderUnit.BoundScaleBox.y = RenderUnit.MaxBoundBox.y - RenderUnit.MinBoundBox.y;
 		RenderUnit.BoundScaleBox.z = RenderUnit.MaxBoundBox.z - RenderUnit.MinBoundBox.z;
 		
-		// ¸ÓÆ¼¸®¾ó Á¤º¸¸¦ ¾ò¾î¿À°í ÅØ½ºÃ³ÀÇ °æ·Î¸¦ ¾Ë¾Æ³½´Ù.
+		// ë¨¸í‹°ë¦¬ì–¼ ì •ë³´ë¥¼ ì–»ì–´ì˜¤ê³  í…ìŠ¤ì²˜ì˜ ê²½ë¡œë¥¼ ì•Œì•„ë‚¸ë‹¤.
 		FbxRenderUnitInfoMaterialSetting(pMeshNode, &RenderUnit);
 
 		pMesh->GetElementMaterialCount();
@@ -566,7 +566,7 @@ void GameEngineFBXMesh::VertexBufferCheck()
 			int PolygonSize = pMesh->GetPolygonSize(PolygonIndex);
 			if (3 != PolygonSize)
 			{
-				MsgBoxAssert("»ï°¢ÇüÀÌ ¾Æ´Ñ ¸éÀÌ ¹ß°ß‰ç½À´Ï´Ù.");
+				MsgBoxAssert("ì‚¼ê°í˜•ì´ ì•„ë‹Œ ë©´ì´ ë°œê²¬ë¬ìŠµë‹ˆë‹¤.");
 			}
 
 			int IndexArray[3] = { 0, };
@@ -616,13 +616,13 @@ void GameEngineFBXMesh::LoadUVInformation(fbxsdk::FbxMesh* pMesh, std::vector<Ga
 
 	if (1 < lUVSetNameList.GetCount())
 	{
-		MsgBoxAssert("UV°¡ 2°³ÀÔ´Ï´Ù.");
+		MsgBoxAssert("UVê°€ 2ê°œì…ë‹ˆë‹¤.");
 	}
 
 	GameEngineDebug::OutPutString(" NewMesh Vertex Size : " + std::to_string(_ArrVtx.size()));
 
 	//iterating over all uv sets
-	// ¿©·¯°³ ÀÖÀ»¼ö ÀÖ³×¿ä.
+	// ì—¬ëŸ¬ê°œ ìˆì„ìˆ˜ ìˆë„¤ìš”.
 	for (int lUVSetIndex = 0; lUVSetIndex < lUVSetNameList.GetCount(); lUVSetIndex++)
 	{
 		//get lUVSetIndex-th uv set
@@ -761,7 +761,7 @@ fbxsdk::FbxNode* GameEngineFBXMesh::FindLODGroupNode(fbxsdk::FbxNode* NodeLodGro
 {
 	if (NodeLodGroup->GetChildCount() < LodIndex)
 	{
-		MsgBoxAssert("Àß¸øµÈ ÀÎµ¦½º");
+		MsgBoxAssert("ì˜ëª»ëœ ì¸ë±ìŠ¤");
 		return nullptr;
 	}
 	fbxsdk::FbxNode* childNode = NodeLodGroup->GetChild(LodIndex);
@@ -779,7 +779,7 @@ void GameEngineFBXMesh::MeshNodeCheck()
 	int geometryCount = Scene->GetGeometryCount();
 	for (int i = 0; i < geometryCount; i++)
 	{
-		// ³ëµåÁß¿¡¼­ ±âÇÏ±¸Á¶¸¦ °¡Áø³à¼®µéÀ» »Ì¾Æ³»´Â°ÍÀÌ°í.
+		// ë…¸ë“œì¤‘ì—ì„œ ê¸°í•˜êµ¬ì¡°ë¥¼ ê°€ì§„ë…€ì„ë“¤ì„ ë½‘ì•„ë‚´ëŠ”ê²ƒì´ê³ .
 		fbxsdk::FbxGeometry* geoMetry = Scene->GetGeometry(i);
 		fbxsdk::FbxNode* geoMetryNode = geoMetry->GetNode();
 
@@ -790,7 +790,7 @@ void GameEngineFBXMesh::MeshNodeCheck()
 			continue;
 		}
 
-		// »Ì¾Æ³½ ¾ÖµéÁß¿¡¼­ ±× Å¸ÀÔÀÌ
+		// ë½‘ì•„ë‚¸ ì• ë“¤ì¤‘ì—ì„œ ê·¸ íƒ€ì…ì´
 		if (geoMetry->GetAttributeType() != fbxsdk::FbxNodeAttribute::eMesh)
 		{
 			continue;
@@ -808,7 +808,7 @@ void GameEngineFBXMesh::MeshNodeCheck()
 
 		Info.Mesh = reinterpret_cast<fbxsdk::FbxMesh*>(geoMetry);
 
-		// bTriangulated ÇßÀ¸¹Ç·Î ¹®Á¦´Â ¾øÀ»°ÍÀÌÁö¸¸ ¸¸¾à ÀÌ°Ô »ï°¢ÇüÀ¸·Î ·£´õ¸µÇÏ´Â ¸Å½¬°¡ ¾Æ´Ï¶ó¸é ¿ì¸®·Î¼­´Â Ã³¸®ÇÒ ¹æ¹ıÀÌ ¾ø´Ù.
+		// bTriangulated í–ˆìœ¼ë¯€ë¡œ ë¬¸ì œëŠ” ì—†ì„ê²ƒì´ì§€ë§Œ ë§Œì•½ ì´ê²Œ ì‚¼ê°í˜•ìœ¼ë¡œ ëœë”ë§í•˜ëŠ” ë§¤ì‰¬ê°€ ì•„ë‹ˆë¼ë©´ ìš°ë¦¬ë¡œì„œëŠ” ì²˜ë¦¬í•  ë°©ë²•ì´ ì—†ë‹¤.
 		Info.bTriangulated = Info.Mesh->IsTriangleMesh();
 		Info.MaterialNum = geoMetryNode ? geoMetryNode->GetMaterialCount() : 0;
 		Info.FaceNum = Info.Mesh->GetPolygonCount();
@@ -816,7 +816,7 @@ void GameEngineFBXMesh::MeshNodeCheck()
 		Info.UniqueId = Info.Mesh->GetUniqueID();
 
 
-		// ³ªÁß¿¡ Á¤¸®ÇÒ¼ö ÀÖÀ»°Í °°´Ù.
+		// ë‚˜ì¤‘ì— ì •ë¦¬í• ìˆ˜ ìˆì„ê²ƒ ê°™ë‹¤.
 		Info.LODGroupName = "";
 		if (nullptr != geoMetryNode)
 		{
@@ -838,21 +838,21 @@ void GameEngineFBXMesh::MeshNodeCheck()
 			}
 		}
 
-		// µğÆ÷¸Ó´Â º»°ú ¸Å½¬¸¦ ÀÌ¾îÁÖ´Â ±â´ÉÀ» ÇÕ´Ï´Ù.
-		// µğÆ÷¸Ó Ä«¿îÆ®°¡ 0ÀÌ ¾Æ´Ï¶ó´Â°Ç.
+		// ë””í¬ë¨¸ëŠ” ë³¸ê³¼ ë§¤ì‰¬ë¥¼ ì´ì–´ì£¼ëŠ” ê¸°ëŠ¥ì„ í•©ë‹ˆë‹¤.
+		// ë””í¬ë¨¸ ì¹´ìš´íŠ¸ê°€ 0ì´ ì•„ë‹ˆë¼ëŠ”ê±´.
 		if (Info.Mesh->GetDeformerCount(FbxDeformer::eSkin) > 0)
 		{
 			Info.bIsSkeletalMesh = true;
 			Info.MorphNum = Info.Mesh->GetShapeCount();
-			// ¸Å½¬ÀÇ ½ºÅ°´×
-			// ¸Å½¬°¡ ²÷¾îÁö´Â °ÍÀ» ¹æÁöÇÏ±â À§ÇÑ ¹öÅØ½ºÀÇ °¡ÁßÄ¡µîÀÇ Á¤º¸¸¦ °¡Áö°í ÀÖ´Â ³à¼®.
+			// ë§¤ì‰¬ì˜ ìŠ¤í‚¤ë‹
+			// ë§¤ì‰¬ê°€ ëŠì–´ì§€ëŠ” ê²ƒì„ ë°©ì§€í•˜ê¸° ìœ„í•œ ë²„í…ìŠ¤ì˜ ê°€ì¤‘ì¹˜ë“±ì˜ ì •ë³´ë¥¼ ê°€ì§€ê³  ìˆëŠ” ë…€ì„.
 			fbxsdk::FbxSkin* Skin = (fbxsdk::FbxSkin*)Info.Mesh->GetDeformer(0, FbxDeformer::eSkin);
 			int ClusterCount = Skin->GetClusterCount();
 			fbxsdk::FbxNode* Link = NULL;
 			for (int ClusterId = 0; ClusterId < ClusterCount; ++ClusterId)
 			{
 				fbxsdk::FbxCluster* Cluster = Skin->GetCluster(ClusterId);
-				// ¼­·Î ¿¬°áµÈ 
+				// ì„œë¡œ ì—°ê²°ëœ 
 				Link = Cluster->GetLink();
 				while (Link && Link->GetParent() && Link->GetParent()->GetSkeleton())
 				{
@@ -889,7 +889,7 @@ std::shared_ptr<GameEngineMesh> GameEngineFBXMesh::GetGameEngineMesh(size_t _Mes
 {
 	if (RenderUnitInfos.size() <= _MeshIndex)
 	{
-		MsgBoxAssert("Á¸ÀçÇÏÁö ¾Ê´Â ·£´õ À¯´ÏÆ®¸¦ »ç¿ëÇÏ·Á°í Çß½À´Ï´Ù.");
+		MsgBoxAssert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ëœë” ìœ ë‹ˆíŠ¸ë¥¼ ì‚¬ìš©í•˜ë ¤ê³  í–ˆìŠµë‹ˆë‹¤.");
 	}
 
 	FbxRenderUnitInfo& Unit = RenderUnitInfos[_MeshIndex];
@@ -900,7 +900,7 @@ std::shared_ptr<GameEngineMesh> GameEngineFBXMesh::GetGameEngineMesh(size_t _Mes
 
 		if (nullptr == VertexBuffer)
 		{
-			MsgBoxAssert("FBX ¹öÅØ½º ¹öÆÛ »ı¼º ½ÇÆĞ.");
+			MsgBoxAssert("FBX ë²„í…ìŠ¤ ë²„í¼ ìƒì„± ì‹¤íŒ¨.");
 		}
 
 		Unit.VertexBuffer = VertexBuffer;
@@ -908,7 +908,7 @@ std::shared_ptr<GameEngineMesh> GameEngineFBXMesh::GetGameEngineMesh(size_t _Mes
 
 	if (Unit.Indexs.size() <= _SubIndex)
 	{
-		MsgBoxAssert("Á¸ÀçÇÏÁö ¾Ê´Â ¼­ºê¼ÂÀ» ¸¸µé·Á°í Çß½À´Ï´Ù. ÀÎµ¦½º ¹öÆÛ¸¦ »ı¼ºÇÒ¼ö ¾ø½À´Ï´Ù.");
+		MsgBoxAssert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì„œë¸Œì…‹ì„ ë§Œë“¤ë ¤ê³  í–ˆìŠµë‹ˆë‹¤. ì¸ë±ìŠ¤ ë²„í¼ë¥¼ ìƒì„±í• ìˆ˜ ì—†ìŠµë‹ˆë‹¤.");
 	}
 
 	if (Unit.IndexBuffers.empty())
@@ -922,7 +922,7 @@ std::shared_ptr<GameEngineMesh> GameEngineFBXMesh::GetGameEngineMesh(size_t _Mes
 
 		if (nullptr == IndexBuffer)
 		{
-			MsgBoxAssert("FBX ¹öÅØ½º ¹öÆÛ »ı¼º ½ÇÆĞ.");
+			MsgBoxAssert("FBX ë²„í…ìŠ¤ ë²„í¼ ìƒì„± ì‹¤íŒ¨.");
 		}
 
 		Unit.IndexBuffers[_SubIndex] = IndexBuffer;
@@ -938,7 +938,7 @@ std::shared_ptr<GameEngineMesh> GameEngineFBXMesh::GetGameEngineMesh(size_t _Mes
 		Unit.Meshs[_SubIndex] = GameEngineMesh::Create(Unit.VertexBuffer, Unit.IndexBuffers[_SubIndex]);
 	}
 
-	// ³¡³ª¸é ÀÌ¿¡ ÇØ´çÇÏ´Â ¸ŞÅ×¸®¾óÀ» È®ÀÎÇÕ´Ï´Ù.
+	// ëë‚˜ë©´ ì´ì— í•´ë‹¹í•˜ëŠ” ë©”í…Œë¦¬ì–¼ì„ í™•ì¸í•©ë‹ˆë‹¤.
 
 	if (
 		false == Unit.MaterialData[_SubIndex].DifTextureName.empty()
@@ -966,20 +966,20 @@ const FbxExMaterialSettingData& GameEngineFBXMesh::GetMaterialSettingData(size_t
 {
 	if (RenderUnitInfos.size() <= _MeshIndex)
 	{
-		MsgBoxAssert("Á¸ÀçÇÏÁö ¾Ê´Â ·£´õ À¯´ÏÆ®¸¦ »ç¿ëÇÏ·Á°í Çß½À´Ï´Ù.");
+		MsgBoxAssert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ëœë” ìœ ë‹ˆíŠ¸ë¥¼ ì‚¬ìš©í•˜ë ¤ê³  í–ˆìŠµë‹ˆë‹¤.");
 	}
 
 	FbxRenderUnitInfo& Unit = RenderUnitInfos[_MeshIndex];
 
 	if (Unit.MaterialData.size() <= _SubIndex)
 	{
-		MsgBoxAssert("Á¸ÀçÇÏÁö ¾Ê´Â ÀçÁúÁ¤º¸¸¦ ¾ò¾î¿À·Á°í Çß½À´Ï´Ù.");
+		MsgBoxAssert("ì¡´ì¬í•˜ì§€ ì•ŠëŠ” ì¬ì§ˆì •ë³´ë¥¼ ì–»ì–´ì˜¤ë ¤ê³  í–ˆìŠµë‹ˆë‹¤.");
 	}
 
 	return Unit.MaterialData[_SubIndex];
 }
 
-// º»ÀÇ Á¤º¸¸¦ °¡Á®¿À´Â°ÍÀÌ±â ¶§¹®¿¡ 
+// ë³¸ì˜ ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ëŠ”ê²ƒì´ê¸° ë•Œë¬¸ì— 
 bool GameEngineFBXMesh::ImportBone()
 {
 	std::string Path = GetPath();
@@ -996,18 +996,18 @@ bool GameEngineFBXMesh::ImportBone()
 		return false;
 	}
 
-	// ÀÌ°Ç ½ºÅ°´× °ü·Ã Á¤º¸°¡ ÀÖ´Â ³à¼®.
+	// ì´ê±´ ìŠ¤í‚¤ë‹ ê´€ë ¨ ì •ë³´ê°€ ìˆëŠ” ë…€ì„.
 	std::vector<fbxsdk::FbxNode*> MeshNodeArray;
 
-	// ½ºÅ°´× °ü·Ã Á¤º¸°¡ ´Ù µé¾îÀÖ´Ù. ÀÌ°É ¸ğÀ¸±â À§ÇÑ ÇÔ¼ö
+	// ìŠ¤í‚¤ë‹ ê´€ë ¨ ì •ë³´ê°€ ë‹¤ ë“¤ì–´ìˆë‹¤. ì´ê±¸ ëª¨ìœ¼ê¸° ìœ„í•œ í•¨ìˆ˜
 	std::vector<std::vector<fbxsdk::FbxCluster*>> ClusterArray;
 	fbxsdk::FbxNode* Link = nullptr;
 	int SkelType = 0;
 
 	ClusterArray.resize(MeshInfos.size());
 
-	// µğÆ÷¸Ó´Â n°³ÀÇ Å¬·¯½ºÅÍ¸¦ °¡Áö°í ÀÖ°í
-	// Å¬·¯½ºÅÍ´Â ½ºÅ°´×(¹öÅØ½º°¡ ¿µÇâ¹Ş´Â º»¿¡ ´ëÇÑ Á¤º¸¸¦ °¡Áö°í ÀÖ´Ù.)
+	// ë””í¬ë¨¸ëŠ” nê°œì˜ í´ëŸ¬ìŠ¤í„°ë¥¼ ê°€ì§€ê³  ìˆê³ 
+	// í´ëŸ¬ìŠ¤í„°ëŠ” ìŠ¤í‚¤ë‹(ë²„í…ìŠ¤ê°€ ì˜í–¥ë°›ëŠ” ë³¸ì— ëŒ€í•œ ì •ë³´ë¥¼ ê°€ì§€ê³  ìˆë‹¤.)
 	for (size_t meshindex = 0; meshindex < meshCount; ++meshindex)
 	{
 		FbxExMeshInfo& meshInfo = MeshInfos.at(meshindex);
@@ -1032,7 +1032,7 @@ bool GameEngineFBXMesh::ImportBone()
 		return false;
 	}
 
-	// Á¶»çÇÑ Å¬·¯½ºÅÍµé¿¡ ¿¬°áµÇ¾îÀÖ´Â º»µéÀ» Á¶»çÇÏ±â ½ÃÀÛÇÑ´Ù.
+	// ì¡°ì‚¬í•œ í´ëŸ¬ìŠ¤í„°ë“¤ì— ì—°ê²°ë˜ì–´ìˆëŠ” ë³¸ë“¤ì„ ì¡°ì‚¬í•˜ê¸° ì‹œì‘í•œë‹¤.
 	for (size_t Clusterindex = 0; Clusterindex < ClusterArray.size(); Clusterindex++)
 	{
 		AllBones.emplace_back();
@@ -1043,7 +1043,7 @@ bool GameEngineFBXMesh::ImportBone()
 			continue;
 		}
 
-		// Å¬·¯½ºÅÍ¿Í ¿¬°áµÈ ³ëµåµéÀÌ ÀüºÎ´Ù ¿©±â·Î µé¾î°¡°Ô µÇ°í.
+		// í´ëŸ¬ìŠ¤í„°ì™€ ì—°ê²°ëœ ë…¸ë“œë“¤ì´ ì „ë¶€ë‹¤ ì—¬ê¸°ë¡œ ë“¤ì–´ê°€ê²Œ ë˜ê³ .
 		std::vector<fbxsdk::FbxNode*> SortedLinks;
 
 		fbxsdk::FbxNode* SkeletalMeshNode = nullptr;
@@ -1051,7 +1051,7 @@ bool GameEngineFBXMesh::ImportBone()
 
 		fbxsdk::PoseList PoseArray;
 
-		// ¾Ö´Ï¸ŞÀÌ¼ÇÀÇ ºÒÇÊ¿äÇÑ Æ÷ÁîµîÀ» Á¦°ÅÇÏ°í ÃÖÀûÈ­ÇÏ´Â ÀÛ¾÷À» °ÅÄ£´Ù.
+		// ì• ë‹ˆë©”ì´ì…˜ì˜ ë¶ˆí•„ìš”í•œ í¬ì¦ˆë“±ì„ ì œê±°í•˜ê³  ìµœì í™”í•˜ëŠ” ì‘ì—…ì„ ê±°ì¹œë‹¤.
 		if (RetrievePoseFromBindPose(Scene, MeshNodeArray, PoseArray) == false)
 		{
 			const int PoseCount = Scene->GetPoseCount();
@@ -1075,7 +1075,19 @@ bool GameEngineFBXMesh::ImportBone()
 
 		BuildSkeletonSystem(Scene, ClusterArray[Clusterindex], SortedLinks);
 
-		// º»ÀÌ ¾ø´Ù´Â ÀÌ¾ß±â.
+		std::map<fbxsdk::FbxNode*, std::set<fbxsdk::FbxCluster*>> ClusterSet;
+
+		for (int ClusterIndex = 0; ClusterIndex < ClusterArray.size(); ClusterIndex++)
+		{
+			for (size_t i = 0; i < ClusterArray[ClusterIndex].size(); i++)
+			{
+				fbxsdk::FbxCluster* Cluster = ClusterArray[ClusterIndex][i];
+				ClusterSet[Cluster->GetLink()].insert(ClusterArray[ClusterIndex][i]);;
+			}
+		}
+
+
+		// ë³¸ì´ ì—†ë‹¤ëŠ” ì´ì•¼ê¸°.
 		if (SortedLinks.size() == 0)
 		{
 			continue;
@@ -1098,15 +1110,15 @@ bool GameEngineFBXMesh::ImportBone()
 
 				std::map<fbxsdk::FbxString, int>::iterator FindBoneNameIter = m_NameBoneCheck.find(tempAltLinkName);
 
-				// °°Àº ÀÌ¸§ÀÇ º»ÀÌ ÀÖ¾î¼­
-				// ±âÁ¸ º»ÀÇ °ãÄ¡´Â ÀÌ¸§À» º¯°æÇØÁØ´Ù.
+				// ê°™ì€ ì´ë¦„ì˜ ë³¸ì´ ìˆì–´ì„œ
+				// ê¸°ì¡´ ë³¸ì˜ ê²¹ì¹˜ëŠ” ì´ë¦„ì„ ë³€ê²½í•´ì¤€ë‹¤.
 				if (FindBoneNameIter != m_NameBoneCheck.end())
 				{
 					fbxsdk::FbxString newName = FindBoneNameIter->first;
 					newName += "_";
 					newName += (++FindBoneNameIter->second);
 
-					// ¸¸¾à¿¡ ¹Ù²å´Âµ¥µµ ¹ÌÄ£ ¶Ç ÀÖ¾î
+					// ë§Œì•½ì— ë°”ê¿¨ëŠ”ë°ë„ ë¯¸ì¹œ ë˜ ìˆì–´
 					std::map<fbxsdk::FbxString, int>::iterator RevertIter = m_NameBoneCheck.find(newName);
 
 					while (RevertIter != m_NameBoneCheck.find(newName))
@@ -1117,17 +1129,17 @@ bool GameEngineFBXMesh::ImportBone()
 						RevertIter = m_NameBoneCheck.find(newName);
 					}
 
-					// °ãÄ¡´Â ÀÌ¸§ÀÇ ¸µÅ©´Â ÀÌ »õÀÌ¸§À» ¹Ù²Ù¸é
-					// ¾ÕÀ¸·Î ÆîÃÄÁú º»°ú °ü·ÃµÈ ¸ğµç°÷¿¡¼­
-					// ÀÌ ÀÌ¸§À¸·Î °è»êµÉ°ÍÀÌ¹Ç·Î °ÆÁ¤ÇÒ ÇÊ¿ä°¡ ¾ø¾îÁø´Ù.
+					// ê²¹ì¹˜ëŠ” ì´ë¦„ì˜ ë§í¬ëŠ” ì´ ìƒˆì´ë¦„ì„ ë°”ê¾¸ë©´
+					// ì•ìœ¼ë¡œ í¼ì³ì§ˆ ë³¸ê³¼ ê´€ë ¨ëœ ëª¨ë“ ê³³ì—ì„œ
+					// ì´ ì´ë¦„ìœ¼ë¡œ ê³„ì‚°ë ê²ƒì´ë¯€ë¡œ ê±±ì •í•  í•„ìš”ê°€ ì—†ì–´ì§„ë‹¤.
 					AltLink->SetName(newName.Buffer());
 				}
 			}
 		}
 
 
-		// ÃÖÁ¾ÀûÀ¸·Î SortedLinks¿¡´Â ÀÌÁ¦ ÀÇ¹ÌÀÖ´Â º»³ëµåµé¸¸ ´ã°ÜÀÖ´Ù.
-		// ÀÌÁ¦ Á¤¸®µÈ º»ÀÇ 
+		// ìµœì¢…ì ìœ¼ë¡œ SortedLinksì—ëŠ” ì´ì œ ì˜ë¯¸ìˆëŠ” ë³¸ë…¸ë“œë“¤ë§Œ ë‹´ê²¨ìˆë‹¤.
+		// ì´ì œ ì •ë¦¬ëœ ë³¸ì˜ 
 		fbxsdk::FbxArray<fbxsdk::FbxAMatrix> GlobalsPerLink;
 		GlobalsPerLink.Grow(static_cast<int>(SortedLinks.size()));
 		GlobalsPerLink[0] = ConvertMatrix;
@@ -1173,11 +1185,11 @@ bool GameEngineFBXMesh::ImportBone()
 			{
 				++NumberOfRoot;
 				RootIdx = static_cast<int>(LinkIndex);
-				//	unreal ¿¡¼­´Â ·çÆ®¸¦ ÇÏ³ª¸¸ Çã¿ëÇÏÁö¸¸ 
-				//	À¯´ÏÆ¼¿¡¼­´Â ¿©·¯°³¸¦ Çã¿ëÇØ¼­ ¹ØÀÇ ÄÚµå¸¦ Á¦°ÅÇÔ
+				//	unreal ì—ì„œëŠ” ë£¨íŠ¸ë¥¼ í•˜ë‚˜ë§Œ í—ˆìš©í•˜ì§€ë§Œ 
+				//	ìœ ë‹ˆí‹°ì—ì„œëŠ” ì—¬ëŸ¬ê°œë¥¼ í—ˆìš©í•´ì„œ ë°‘ì˜ ì½”ë“œë¥¼ ì œê±°í•¨
 				/*if (NumberOfRoot > 1)
 				{
-					AMSG(L"¿©·¯°³ÀÇ ·çÆ®");
+					AMSG(L"ì—¬ëŸ¬ê°œì˜ ë£¨íŠ¸");
 				}*/
 			}
 
@@ -1202,16 +1214,40 @@ bool GameEngineFBXMesh::ImportBone()
 
 				if (!GlobalLinkFoundFlag)
 				{
-					for (int ClusterIndex = 0; ClusterIndex < ClusterArray.size(); ClusterIndex++)
+
+					std::map<fbxsdk::FbxNode*, std::set<fbxsdk::FbxCluster*>>::iterator FindIter = ClusterSet.find(Link);
+
+					if (FindIter != ClusterSet.end())
 					{
-						fbxsdk::FbxCluster* Cluster = ClusterArray[0][ClusterIndex];
-						if (Link == Cluster->GetLink())
+						for (fbxsdk::FbxCluster* Cluster : FindIter->second)
 						{
 							Cluster->GetTransformLinkMatrix(GlobalsPerLink[static_cast<int>(LinkIndex)]);
 							GlobalLinkFoundFlag = true;
 							break;
 						}
 					}
+
+					//for (int ClusterIndex = 0; ClusterIndex < ClusterArray.size(); ClusterIndex++)
+					//{
+					//	//fbxsdk::FbxCluster* Cluster = ClusterArray[0][ClusterIndex];
+					//	//if (Link == Cluster->GetLink())
+					//	//{
+					//	//	Cluster->GetTransformLinkMatrix(GlobalsPerLink[static_cast<int>(LinkIndex)]);
+					//	//	GlobalLinkFoundFlag = true;
+					//	//	break;
+					//	//}
+
+					//	for (size_t i = 0; i < ClusterArray[ClusterIndex].size(); i++)
+					//	{
+					//		fbxsdk::FbxCluster* Cluster = ClusterArray[ClusterIndex][i];
+					//		if (Link == Cluster->GetLink())
+					//		{
+					//			Cluster->GetTransformLinkMatrix(GlobalsPerLink[static_cast<int>(LinkIndex)]);
+					//			GlobalLinkFoundFlag = true;
+					//			break;
+					//		}
+					//	}
+					//}
 				}
 			}
 
@@ -1322,7 +1358,7 @@ void GameEngineFBXMesh::ImportCluster()
 		return;
 	}
 
-	// ±×³É ÀÌ¶§ ´Ù½ÃÇÏÀÚ.
+	// ê·¸ëƒ¥ ì´ë•Œ ë‹¤ì‹œí•˜ì.
 	for (size_t n = 0; n < meshCount; ++n)
 	{
 		FbxExMeshInfo& meshInfo = MeshInfos.at(n);
@@ -1332,7 +1368,7 @@ void GameEngineFBXMesh::ImportCluster()
 
 		std::vector<FbxClusterData>& vecClusterData = ClusterData.emplace_back();
 
-		// ¿äÁÖÀÇ ¼±»ı´ÔÀÌ ¹Ù²ÛÄÚµå¶ó ¹«½¼ »çÀÌµå ÀÌÆåÆ®¸¦ ÀÏÀ¸Å³Áö¸ğ¸¨´Ï´Ù.
+		// ìš”ì£¼ì˜ ì„ ìƒë‹˜ì´ ë°”ê¾¼ì½”ë“œë¼ ë¬´ìŠ¨ ì‚¬ì´ë“œ ì´í™íŠ¸ë¥¼ ì¼ìœ¼í‚¬ì§€ëª¨ë¦…ë‹ˆë‹¤.
 		if (0 == SkinDeformerCount)
 		{
 			continue;
@@ -1397,8 +1433,8 @@ void GameEngineFBXMesh::LoadAnimationVertexData(FbxRenderUnitInfo* _MeshSet, con
 }
 
 
-// °¡ÁßÄ¡¿Í º»ÀÌ 10°³ 20 int4±×Áß¿¡¼­ ³Ê¹« ¹Ì¾àÇÏ°Å³ª ÀÌ·±¾Öµé Àß¶ó¹ö¸®°í
-// ´Ù ´õÇß´Âµ¥ 1ÀÌ ¾Æ´Ñ°Íµµ Ã¼Å©ÇØ¼­ Á¤¸®ÇÏ°í.
+// ê°€ì¤‘ì¹˜ì™€ ë³¸ì´ 10ê°œ 20 int4ê·¸ì¤‘ì—ì„œ ë„ˆë¬´ ë¯¸ì•½í•˜ê±°ë‚˜ ì´ëŸ°ì• ë“¤ ì˜ë¼ë²„ë¦¬ê³ 
+// ë‹¤ ë”í–ˆëŠ”ë° 1ì´ ì•„ë‹Œê²ƒë„ ì²´í¬í•´ì„œ ì •ë¦¬í•˜ê³ .
 void GameEngineFBXMesh::CalAnimationVertexData(FbxRenderUnitInfo& _DrawSet)
 {
 	for (auto& _WISet : _DrawSet.MapWI)
@@ -1407,7 +1443,7 @@ void GameEngineFBXMesh::CalAnimationVertexData(FbxRenderUnitInfo& _DrawSet)
 
 		if (nullptr == Ptr)
 		{
-			MsgBoxAssert("¹öÅØ½º µ¥ÀÌÅÍ¿Í ¼öÁıÇÑ °¡ÁßÄ¡ µ¥ÀÌÅÍ°¡ ¸ÅÄªµÇÁö ¾Ê½À´Ï´Ù.");
+			MsgBoxAssert("ë²„í…ìŠ¤ ë°ì´í„°ì™€ ìˆ˜ì§‘í•œ ê°€ì¤‘ì¹˜ ë°ì´í„°ê°€ ë§¤ì¹­ë˜ì§€ ì•ŠìŠµë‹ˆë‹¤.");
 		}
 
 		std::vector<GameEngineVertex>& VertexData = *Ptr;
@@ -1471,11 +1507,11 @@ void GameEngineFBXMesh::LoadSkinAndCluster()
 		FbxRenderUnitInfo& RenderInfo = RenderUnitInfos[i];
 		std::vector<FbxClusterData>& ClusterInfo = ClusterData[i];
 
-		// Å¬·¯½ºÅÍ´Â °¡ÁßÄ¡ Á¤º¸¿Í ÀÎµ¦½º Á¤º¸¸¦ °¡Áö°í ÀÖ´Âµ¥
-		// Å¬·¯½ºÅÍ¸¦ ÅëÇØ¼­ Á¤º¸¸¦ °¡Á®¿À°í
+		// í´ëŸ¬ìŠ¤í„°ëŠ” ê°€ì¤‘ì¹˜ ì •ë³´ì™€ ì¸ë±ìŠ¤ ì •ë³´ë¥¼ ê°€ì§€ê³  ìˆëŠ”ë°
+		// í´ëŸ¬ìŠ¤í„°ë¥¼ í†µí•´ì„œ ì •ë³´ë¥¼ ê°€ì ¸ì˜¤ê³ 
 		LoadAnimationVertexData(&RenderInfo, ClusterInfo);
 
-		// ÁøÂ¥ °¡ÁßÄ¡¸¦ °è»êÇÑ´Ù.
+		// ì§„ì§œ ê°€ì¤‘ì¹˜ë¥¼ ê³„ì‚°í•œë‹¤.
 		CalAnimationVertexData(RenderInfo);
 	}
 }
@@ -1545,7 +1581,8 @@ bool GameEngineFBXMesh::RetrievePoseFromBindPose(fbxsdk::FbxScene* pScene, const
 							std::string ErrorString = Status.GetErrorString();
 							std::string CurrentName = Current->GetName();
 
-							// MsgBoxAssertString(ErrorString + "_" + CurrentName);
+							break;
+							//MsgBoxAssertString(ErrorString + "_" + CurrentName);
 						}
 					}
 				}
@@ -1691,7 +1728,7 @@ std::shared_ptr<GameEngineStructuredBuffer> GameEngineFBXMesh::GetAnimationStruc
 {
 	if (AllBoneStructuredBuffers.size() <= _Index)
 	{
-		MsgBoxAssert("½ºÆ®·°Ã³µå ¹öÆÛ ÀÎµ¦½º ¿À¹ö");
+		MsgBoxAssert("ìŠ¤íŠ¸ëŸ­ì²˜ë“œ ë²„í¼ ì¸ë±ìŠ¤ ì˜¤ë²„");
 	}
 
 	return AllBoneStructuredBuffers[_Index];

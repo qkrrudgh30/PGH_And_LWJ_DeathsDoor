@@ -7,6 +7,7 @@
 #include "GameEngineTexture.h"
 #include "GameEngineMesh.h"
 #include "GameEngineStructuredBuffer.h"
+#include <map>
 
 
 // Áö±İ¼³¸íÇÏ±â Èûµë.

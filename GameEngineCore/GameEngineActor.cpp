@@ -36,18 +36,18 @@ void GameEngineActor::DetachObject()
 	}
 }
 
-void GameEngineActor::SetParent(GameEngineUpdateObject* _Object)
+void GameEngineActor::SetParent(std::shared_ptr<GameEngineUpdateObject> _Parent)
 {
 	if (nullptr == GetParent())
 	{
 		GetLevel()->RemoveActor(std::dynamic_pointer_cast<GameEngineActor>(shared_from_this()));
 	}
 
-	GameEngineUpdateObject::SetParent(_Object);
+	GameEngineUpdateObject::SetParent(_Parent);
 
 	{
-		GameEngineTransformBase* Actor = nullptr;
-		if (Actor = dynamic_cast<GameEngineTransformBase*>(_Object))
+		std::shared_ptr<GameEngineTransformBase> Actor = nullptr;
+		if (Actor = std::dynamic_pointer_cast<GameEngineTransformBase>(_Parent))
 		{
 			GetTransform().SetParentTransform(Actor->GetTransform());
 			return;

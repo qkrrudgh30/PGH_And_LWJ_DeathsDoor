@@ -398,7 +398,7 @@ void GameEngineCamera::OverRenderer(std::shared_ptr < GameEngineCamera> _NextCam
 
 		for (; GroupStart != GroupEnd; )
 		{
-			GameEngineActor* Root = (*GroupStart)->GetRoot<GameEngineActor>();
+			std::shared_ptr<GameEngineActor> Root = (*GroupStart)->GetRoot<GameEngineActor>();
 
 			if (true == Root->IsLevelOver)
 			{

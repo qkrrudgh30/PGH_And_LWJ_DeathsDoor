@@ -1,4 +1,4 @@
-#pragma once
+ï»¿#pragma once
 #include <string>
 #include <list>
 #include <GameEngineBase/GameEngineTime.h>
@@ -45,9 +45,9 @@ public:
 
 	inline bool IsUpdate()
 	{
-		if (nullptr != Parent)
+		if (nullptr != Parent.lock())
 		{
-			return IsUpdate_ && false == IsDeath_ && true == Parent->IsUpdate();
+			return IsUpdate_ && false == IsDeath_ && true == Parent.lock()->IsUpdate();
 		}
 		else
 		{
@@ -58,9 +58,9 @@ public:
 
 	inline bool IsDeath()
 	{
-		if (nullptr != Parent)
+		if (nullptr != Parent.lock())
 		{
-			return IsDeath_ || true == Parent->IsDeath();
+			return IsDeath_ || true == Parent.lock()->IsDeath();
 		}
 		else {
 			return IsDeath_;
@@ -118,26 +118,26 @@ public:
 		Order_ = _Order;
 	}
 
+	std::shared_ptr<GameEngineUpdateObject> GetParent()
+	{
+		return Parent.lock();
+	}
+
+	template<typename Type>
+	std::shared_ptr<Type> GetParent()
+	{
+		return std::dynamic_pointer_cast<Type>(Parent.lock());
+	}
+
 	template<typename ParentType>
-	ParentType* GetParent()
+	std::shared_ptr<ParentType> GetRoot()
 	{
-		return dynamic_cast<ParentType*>(Parent);
+		return std::dynamic_pointer_cast<ParentType>(GetRoot());
 	}
 
-	GameEngineUpdateObject* GetParent()
+	std::shared_ptr<GameEngineUpdateObject> GetRoot()
 	{
-		return Parent;
-	}
-
-	template<typename ParentType>
-	ParentType* GetRoot()
-	{
-		return dynamic_cast<ParentType*>(GetRoot());
-	}
-
-	GameEngineUpdateObject* GetRoot()
-	{
-		GameEngineUpdateObject* CurObject = this;
+		std::shared_ptr<GameEngineUpdateObject> CurObject = shared_from_this();
 
 		while (nullptr != CurObject->GetParent())
 		{
@@ -148,12 +148,12 @@ public:
 	}
 
 
-	virtual void SetParent(GameEngineUpdateObject* _Parent);
+	virtual void SetParent(std::shared_ptr<GameEngineUpdateObject> _Parent);
 	virtual void DetachObject();
 
 	virtual void ReleaseHierarchy();
 
-	// ÀÌ ¿ÀºêÁ§Æ®°¡ ÇÁ·¹ÀÓ±¸Á¶¾È¿¡¼­ µ¹°í ÀÖ´Ù.
+	// ì´ ì˜¤ë¸Œì íŠ¸ê°€ í”„ë ˆì„êµ¬ì¡°ì•ˆì—ì„œ ëŒê³  ìˆë‹¤.
 	virtual void Update(float _DeltaTime) = 0;
 
 	void AllUpdate(float _DeltaTime);
@@ -169,16 +169,16 @@ protected:
 	void AllOnEvent();
 	void AllOffEvent();
 
-	// ÀÌ ¿ÀºêÁ§Æ®°¡ µ¿ÀÛÀ» ÇÏ±â ½ÃÀÛÇß´Ù.
-	virtual void OnEvent() {}//·¹º§Ã¼ÀÎÁö ½ºÅ¸Æ®
-												//·¹º§¿¡¼± ÀÌ·±°³³ä ¾×ÅÍ³ª ÄÄÆ÷³ÍÆ®µµ °®°íÀÖ´Ù.
-	// ÀÌ ¿ÀºêÁ§Æ®°¡ ²¨Á³´Ù.
-	virtual void OffEvent() {}//·¹º§Ã¼ÀÎÁö ¿£µå
+	// ì´ ì˜¤ë¸Œì íŠ¸ê°€ ë™ì‘ì„ í•˜ê¸° ì‹œì‘í–ˆë‹¤.
+	virtual void OnEvent() {}//ë ˆë²¨ì²´ì¸ì§€ ìŠ¤íƒ€íŠ¸
+												//ë ˆë²¨ì—ì„  ì´ëŸ°ê°œë… ì•¡í„°ë‚˜ ì»´í¬ë„ŒíŠ¸ë„ ê°–ê³ ìˆë‹¤.
+	// ì´ ì˜¤ë¸Œì íŠ¸ê°€ êº¼ì¡Œë‹¤.
+	virtual void OffEvent() {}//ë ˆë²¨ì²´ì¸ì§€ ì—”ë“œ
 
-	// ÀÌ ¿ÀºêÁ§Æ®°¡ ¸¸µé¾îÁ³´Ù.
+	// ì´ ì˜¤ë¸Œì íŠ¸ê°€ ë§Œë“¤ì–´ì¡Œë‹¤.
 	virtual void Start() = 0;
 
-	// ÀÌ ¿ÀºêÁ§Æ®°¡ ¸Ş¸ğ¸®°¡ »èÁ¦µÈ´Ù.
+	// ì´ ì˜¤ë¸Œì íŠ¸ê°€ ë©”ëª¨ë¦¬ê°€ ì‚­ì œëœë‹¤.
 	virtual void End() = 0;
 
 	virtual void ReleaseObject(std::list<std::shared_ptr<GameEngineUpdateObject>>& _RelaseList);
@@ -214,6 +214,6 @@ private:
 	bool IsUpdate_;
 	bool IsDeath_;
 
-	GameEngineUpdateObject* Parent;
+	std::weak_ptr<GameEngineUpdateObject> Parent;
 };
 

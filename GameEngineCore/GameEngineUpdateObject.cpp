@@ -8,7 +8,7 @@ GameEngineUpdateObject::GameEngineUpdateObject()
 	, AccTime_(0.0f)
 	, DeathTime_(0.0f)
 	, Order_(0)
-	, Parent(nullptr)
+	, Parent()
 {
 }
 
@@ -29,19 +29,19 @@ void GameEngineUpdateObject::ReleaseHierarchy()
 	// delete this;
 }
 
-void GameEngineUpdateObject::SetParent(GameEngineUpdateObject* _Parent) 
+void GameEngineUpdateObject::SetParent(std::shared_ptr<GameEngineUpdateObject> _Parent) 
 {
 	DetachObject();
 
 	Parent = _Parent;
-	Parent->Childs.push_back(shared_from_this());
+	Parent.lock()->Childs.push_back(shared_from_this());
 }
 
 void GameEngineUpdateObject::DetachObject()
 {
-	if (nullptr != Parent)
+	if (nullptr != Parent.lock())
 	{
-		Parent->Childs.remove(shared_from_this());
+		Parent.lock()->Childs.remove(shared_from_this());
 	}
 }
 

@@ -133,7 +133,7 @@ GameEngineTransform& GameEngineLevel::GetMainCameraActorTransform()
 }
 
 
-GameEngineCameraActor* GameEngineLevel::GetMainCameraActor()
+std::shared_ptr<GameEngineCameraActor> GameEngineLevel::GetMainCameraActor()
 {
 	return Cameras[static_cast<int>(CAMERAORDER::MAINCAMERA)]->GetActor<GameEngineCameraActor>();
 }
@@ -144,7 +144,7 @@ GameEngineTransform& GameEngineLevel::GetUICameraActorTransform()
 }
 
 
-GameEngineCameraActor* GameEngineLevel::GetUICameraActor()
+std::shared_ptr<GameEngineCameraActor> GameEngineLevel::GetUICameraActor()
 {
 	return Cameras[static_cast<int>(CAMERAORDER::UICAMERA)]->GetActor<GameEngineCameraActor>();
 }

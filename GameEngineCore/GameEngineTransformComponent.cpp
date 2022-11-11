@@ -18,13 +18,13 @@ void GameEngineTransformComponent::DetachObject()
 	GetTransform().DetachTransform();
 }
 
-void GameEngineTransformComponent::SetParent(GameEngineUpdateObject* _Object) 
+void GameEngineTransformComponent::SetParent(std::shared_ptr<GameEngineUpdateObject> _Object)
 {
 	GameEngineUpdateObject::SetParent(_Object);
 
 	{
-		GameEngineTransformBase* Actor = nullptr;
-		if (Actor = dynamic_cast<GameEngineTransformBase*>(_Object))
+		std::shared_ptr<GameEngineTransformBase> Actor = nullptr;
+		if (Actor = std::dynamic_pointer_cast<GameEngineTransformBase>(_Object))
 		{
 			GetTransform().SetParentTransform(Actor->GetTransform());
 			return;

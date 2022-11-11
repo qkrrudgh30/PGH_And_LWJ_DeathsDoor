@@ -10,8 +10,3 @@ GameEngineComponent::~GameEngineComponent()
 {
 }
 
-void GameEngineComponent::SetParent(GameEngineUpdateObject* _Parent) 
-{
-	GameEngineUpdateObject::SetParent(_Parent);
-
-}

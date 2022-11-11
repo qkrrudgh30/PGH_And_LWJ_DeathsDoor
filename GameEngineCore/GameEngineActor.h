@@ -43,7 +43,7 @@ public:
 	{
 		std::shared_ptr<GameEngineComponent> NewComponent = std::make_shared<ComponentType>();
 		NewComponent->SetName(_Name);
-		NewComponent->SetParent(this);
+		NewComponent->SetParent(shared_from_this());
 		NewComponent->Start();
 
 		return std::dynamic_pointer_cast<ComponentType>(NewComponent);
@@ -51,7 +51,7 @@ public:
 
 	void DetachObject() override;
 
-	void SetParent(GameEngineUpdateObject*) override;
+	void SetParent(std::shared_ptr<GameEngineUpdateObject> _Parent) override;
 
 
 	void SetLevelOverOn() 

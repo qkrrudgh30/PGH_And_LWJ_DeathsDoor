@@ -20,8 +20,6 @@ public:
 	GameEngineComponent& operator=(const GameEngineComponent& _Other) = delete;
 	GameEngineComponent& operator=(GameEngineComponent&& _Other) noexcept = delete;
 
-	void SetParent(GameEngineUpdateObject*) override;
-
 protected:
 	virtual void Start() {}
 	virtual void Update(float _DeltaTime) {}
