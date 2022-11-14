@@ -67,7 +67,7 @@ public:
 	template<typename Value>
 	void Write(std::vector<Value>& _Data)
 	{
-		int Size = static_cast<int>(_Data.size());
+		/*int Size = static_cast<int>(_Data.size());
 		Write(&Size, sizeof(int));
 
 		if (Size <= 0)
@@ -91,7 +91,7 @@ public:
 				_Data[i].Write(*this);
 			}
 
-		}
+		}*/
 
 		// Write(reinterpret_cast<const void*>(&_Data), sizeof(Struct));
 	}

@@ -549,6 +549,12 @@
       <FileType>Document</FileType>
     </CopyFileToFolders>
   </ItemGroup>
+  <ItemGroup>
+    <None Include="ThirdParty\bin\Debug\libfbxsdk-md.zip" />
+    <None Include="ThirdParty\bin\Debug\libfbxsdk-mt.zip" />
+    <None Include="ThirdParty\bin\Release\libfbxsdk-md.zip" />
+    <None Include="ThirdParty\bin\Release\libfbxsdk-mt.zip" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>

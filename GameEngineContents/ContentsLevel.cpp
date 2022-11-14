@@ -74,7 +74,8 @@ void ContentsLevel::LoadFBXFiles()
 	mstrvecAllResourceNames.clear();
 	mstrvecAllResourcePaths.clear();
 	muAllResourcesCount = 0u;
-	muMyThreadCount = GameEngineCore::EngineThreadPool.GetMyThreadCount();
+	// muMyThreadCount = GameEngineCore::EngineThreadPool.GetMyThreadCount();
+	muMyThreadCount = 6u;
 
 	LoadFBXMesiesOfAnimator();
 	LoadFBXMesiesOfStatic();
@@ -136,8 +137,8 @@ void ContentsLevel::LoadFBXMesiesOfAnimator()
 	size_t uOuterDirectoriesCount = vOuterDirectories.size();
 	muAllAnimatorCount = uOuterDirectoriesCount;
 	muAllResourcesCount += uOuterDirectoriesCount;
-	size_t uThreadCount = GameEngineCore::EngineThreadPool.GetMyThreadCount();
-	// size_t uThreadCount = 6u;
+	// size_t uThreadCount = GameEngineCore::EngineThreadPool.GetMyThreadCount();
+	size_t uThreadCount = 6u;
 	size_t uLines = static_cast<size_t>(uOuterDirectoriesCount / uThreadCount);
 	size_t uRemains = uOuterDirectoriesCount % uThreadCount;
 	muFBXLoadedCount = 0u;
@@ -165,8 +166,8 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 	size_t uOuterDirectoriesCount = vOuterDirectories.size();
 	muAllStaticCount = uOuterDirectoriesCount;
 	muAllResourcesCount += uOuterDirectoriesCount;
-	size_t uThreadCount = GameEngineCore::EngineThreadPool.GetMyThreadCount();
-	// size_t uThreadCount = 6u;
+	// size_t uThreadCount = GameEngineCore::EngineThreadPool.GetMyThreadCount();
+	size_t uThreadCount = 6u;
 	size_t uLines = static_cast<size_t>(uOuterDirectoriesCount / uThreadCount);
 	size_t uRemains = uOuterDirectoriesCount % uThreadCount;
 	muFBXLoadedCount = 0u;
@@ -195,8 +196,8 @@ void ContentsLevel::LoadAnimationsOfAnimator()
 	muAllAnimationCount = uOuterDirectoriesCount;
 	muAnimationStartIndex = muAllResourcesCount;
 	muAllResourcesCount += uOuterDirectoriesCount;
-	size_t uThreadCount = GameEngineCore::EngineThreadPool.GetMyThreadCount();
-	// size_t uThreadCount = 6;
+	// size_t uThreadCount = GameEngineCore::EngineThreadPool.GetMyThreadCount();
+	size_t uThreadCount = 6u;
 	size_t uLines = static_cast<size_t>(uOuterDirectoriesCount / uThreadCount);
 	size_t uRemains = uOuterDirectoriesCount % uThreadCount;
 	muFBXLoadedCount = 0u;

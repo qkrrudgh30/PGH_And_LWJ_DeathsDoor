@@ -13,26 +13,10 @@
 
 }
 
-4. if (RetrievePoseFromBindPose(Scene, MeshNodeArray, PoseArray) == false)
-{
-    // MsgBoxAssert("Recreating bind pose failed.");
-}
-
-5. else
-{
-    std::string ErrorString = Status.GetErrorString();
-    std::string CurrentName = Current->GetName();
-
-    // MsgBoxAssertString(ErrorString + "_" + CurrentName);
-}
-
-6. 
-
+4.
 size_t GameEngineThreadPool::GetMyThreadCount(void) { return static_cast<size_t>(ThreadCount); };
 
-7. FBXStaticRenderer 클래스에 enable 상속 해제
-
-8. lock
+5. lock
 
 bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
 {

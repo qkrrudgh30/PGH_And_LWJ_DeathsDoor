@@ -3,6 +3,7 @@
 
 enum
 {
+	eAnimationDir,
 	eAnimatorDir,
 	eStaticDir,
 	eEndDir
