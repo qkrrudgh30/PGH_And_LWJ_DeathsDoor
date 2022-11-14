@@ -41,21 +41,6 @@ void HeadRoller::Start()
 
 
 
-	//{
-
-
-	//	Renderer = CreateComponent<GameEngineDefaultRenderer>();
-	//	Renderer->SetPipeLine("Color");
-	//	Renderer->GetRenderUnit().SetMesh("Box");
-	//	float4 ResultColor = { 0.f,1.f,0.f,1.f };
-
-	//	Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f, 100.0f });
-	//	Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
-
-	//}
-
-
-
 	{
 		Collision = CreateComponent<GameEngineCollision>();
 		Collision->GetTransform().SetLocalScale({ 100.0f, 100.0f, 100.0f });

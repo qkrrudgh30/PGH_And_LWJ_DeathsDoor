@@ -152,9 +152,9 @@ void FlowerMonster::AttEnd(const StateInfo& _Info)
 	m_bhitCheck = false;
 
 	//ÃÑ¾Ë »ý¼º
-	std::shared_ptr < FlowerBullet> m_ArrowAtt = GetLevel()->CreateActor<FlowerBullet>(OBJECTORDER::MonsterAtt);
-	m_ArrowAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-	m_ArrowAtt->GetTransform().SetLocalRotation(FBXStaticRenderer->GetTransform().GetLocalRotation());
+	std::weak_ptr < FlowerBullet> m_ArrowAtt = GetLevel()->CreateActor<FlowerBullet>(OBJECTORDER::MonsterAtt);
+	m_ArrowAtt.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+	m_ArrowAtt.lock()->GetTransform().SetLocalRotation(FBXStaticRenderer->GetTransform().GetLocalRotation());
 	
 
 
