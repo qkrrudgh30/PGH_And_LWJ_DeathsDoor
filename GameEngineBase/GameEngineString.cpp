@@ -220,3 +220,21 @@ std::string GameEngineString::UTF8ToAnsiReturn(const std::string& _UTF8)
 	}
 	return Return;
 }
+
+std::string GameEngineString::Replace(const std::string& _Text, const std::string_view& _OldText, const std::string_view& _ChangeText)
+{
+
+	size_t FindIndex = _Text.find(_OldText);
+
+	if (FindIndex == std::string::npos)
+	{
+		return _Text;
+	}
+
+	std::string Text = _Text;
+	Text = Text.replace(FindIndex, _OldText.size(), _ChangeText);
+	return Text;
+
+	// ".FBX"
+	// ".UserFBX"
+}

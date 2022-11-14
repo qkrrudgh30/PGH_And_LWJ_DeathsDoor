@@ -9,16 +9,27 @@ GameEngineFBXRenderer::~GameEngineFBXRenderer()
 {
 }
 
-void GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name, std::string _PipeLine)
+void GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name, std::string _Material)
 {
 	std::shared_ptr<GameEngineFBXMesh> FindFBXMesh = GameEngineFBXMesh::Find(_Name);
 	// 너 몇개 가지고 있어.
 	for (size_t UnitCount = 0; UnitCount < FindFBXMesh->GetRenderUnitCount(); UnitCount++)
 	{
-		for (size_t SubSetCount = 0; SubSetCount < FindFBXMesh->GetSubSetCount(UnitCount); SubSetCount++)
-		{
-			SetFBXMesh(_Name, _PipeLine, UnitCount, SubSetCount);
-		}
+		size_t SubSet = FindFBXMesh->GetSubSetCount(UnitCount);
+
+		SetFBXMesh(_Name, _Material, UnitCount);
+	}
+}
+
+void GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name, std::string _Material, size_t MeshIndex)
+{
+	std::shared_ptr<GameEngineFBXMesh> FindFBXMesh = GameEngineFBXMesh::Find(_Name);
+
+	for (size_t SubSetCount = 0; SubSetCount < FindFBXMesh->GetSubSetCount(MeshIndex); SubSetCount++)
+	{
+		size_t SubSet = FindFBXMesh->GetSubSetCount(MeshIndex);
+
+		SetFBXMesh(_Name, _Material, MeshIndex, SubSetCount);
 	}
 }
 

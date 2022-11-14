@@ -77,12 +77,7 @@ public:
 
 
 public:
-	FbxExMaterialSettingData()
-		: TransparencyFactor(0.f)
-		, SpecularPower(0.f)
-		, Shininess(0.f)
-	{
-	}
+	FbxExMaterialSettingData() {}
 	~FbxExMaterialSettingData() {}
 };
 
@@ -108,7 +103,6 @@ struct FbxExMeshInfo
 	int MorphNum;
 
 	FbxExMeshInfo()
-		: Mesh(nullptr)
 	{
 		Name;
 		UniqueId = 0;
@@ -128,7 +122,7 @@ struct FbxExMeshInfo
 
 // 사람
 // 대검
-struct FbxRenderUnitInfo
+struct FbxRenderUnitInfo : public Serializer
 {
 public:
 	int VectorIndex;
@@ -168,8 +162,7 @@ public:
 	FbxRenderUnitInfo() :
 		IsLod(false),
 		IsLodLv(-1),
-		VertexBuffer(nullptr),
-		VectorIndex(0)
+		VertexBuffer(nullptr)
 	{
 	}
 
@@ -198,6 +191,45 @@ public:
 		//		GameEngineIndexBuffers[i][j] = nullptr;
 		//	}
 		//}
+
+	}
+
+	void Write(GameEngineFile& _File) override 
+	{
+		//int VectorIndex;
+		//int IsLodLv;
+		//bool IsLod;
+		//float4 MinBoundBox;
+		//float4 MaxBoundBox;
+		//float4 BoundScaleBox;
+		//std::map<FbxMesh*, std::vector<GameEngineVertex>*> FbxVertexMap;
+		//std::map<FbxMesh*, std::map<int, std::vector<FbxExIW>>> MapWI;
+		//std::vector<GameEngineVertex> Vertexs;
+		//std::vector<std::vector<unsigned int>> Indexs;
+		//std::vector<FbxExMaterialSettingData> MaterialData;
+		//std::shared_ptr<GameEngineVertexBuffer> VertexBuffer;
+		//std::vector< std::shared_ptr<GameEngineIndexBuffer>> IndexBuffers;
+		//std::vector<std::shared_ptr<GameEngineMesh>> Meshs;
+
+		_File.Write(VectorIndex);
+		_File.Write(IsLodLv);
+		_File.Write(IsLod);
+		_File.Write(MinBoundBox);
+		_File.Write(MaxBoundBox);
+		_File.Write(BoundScaleBox);
+		_File.Write(Vertexs);
+		_File.Write(Indexs);
+
+	}
+
+	void Read(GameEngineFile& _File) override 
+	{
+		_File.Read(VectorIndex);
+		_File.Read(IsLodLv);
+		_File.Read(IsLod);
+		_File.Read(MinBoundBox);
+		_File.Read(MaxBoundBox);
+		_File.Read(BoundScaleBox);
 
 	}
 };
@@ -468,10 +500,6 @@ struct JointPos
 	}
 
 	JointPos()
-		: ZSize()
-		, YSize()
-		, XSize()
-		, Length()
 	{
 		Scale = float4::ONE;
 		Rotation = float4::ZERO;
@@ -577,6 +605,17 @@ public:
 		return RenderUnitInfos.size();
 	}
 
+	FbxRenderUnitInfo* GetRenderUnit(size_t _Index)
+	{
+		if (RenderUnitInfos.size() <= _Index)
+		{
+			MsgBoxAssert("랜더 유니트 정보의 인덱스를 초과했습니다.");
+			return nullptr;
+		}
+
+		return &RenderUnitInfos[_Index];
+	}
+
 	size_t GetSubSetCount(size_t _RenderUnitIndex)
 	{
 		return RenderUnitInfos[_RenderUnitIndex].Indexs.size();
@@ -599,14 +638,17 @@ public:
 
 	std::shared_ptr<GameEngineStructuredBuffer> GetAnimationStructuredBuffer(size_t _Index);
 
+	void UserLoad(const std::string_view& _Path/*GameEngineFile& _File*/);
+	void UserSave(const std::string_view& _Path/*GameEngineFile& _File*/);
+
 protected:
 	// 매쉬가 있어
 	std::vector<FbxExMeshInfo> MeshInfos;
 
 	// 매쉬의 버텍스가 이렇이렇게 되어있어.
 	std::vector<FbxRenderUnitInfo> RenderUnitInfos;
-
 	std::vector<std::vector<Bone>> AllBones; // 본정보체
+
 	std::vector<std::shared_ptr<GameEngineStructuredBuffer>> AllBoneStructuredBuffers; // 본정보체
 
 	std::vector<std::map<std::string, Bone*>> AllFindMap;

@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "GameEnginePath.h"
+#include <GameEngineBase/GameEngineString.h>
 
 GameEnginePath::GameEnginePath() 
 {
@@ -24,6 +25,24 @@ void GameEnginePath::SetCurrentPath()
 bool GameEnginePath::IsExits() 
 {
 	return std::filesystem::exists(Path_);
+}
+
+bool GameEnginePath::ChangeExtension(const std::string_view& _Extension)
+{
+	std::string Path = Path_.string();
+
+	GameEngineString::ToUpper(Path);
+
+	Path = GameEngineString::Replace(Path, GetExtension(), _Extension);
+
+	if (Path == Path_.string())
+	{
+		return false;
+	}
+
+	Path_ = Path;
+
+	return true;
 }
 
 std::string GameEnginePath::GetExtension() const

@@ -16,9 +16,7 @@ public:
 	fbxsdk::FbxAMatrix GlobalAnimation;
 	fbxsdk::FbxAMatrix LocalAnimation;
 
-	FbxExBoneFrameData() 
-		: Time(0.f)
-	{
+	FbxExBoneFrameData() {
 
 	}
 
@@ -55,10 +53,7 @@ public:
 	// 120프레임이야.
 	std::vector<FbxExBoneFrameData> BoneMatData;
 
-	FbxExBoneFrame() 
-		: BoneParentIndex(0)
-		, BoneIndex(0)
-	{
+	FbxExBoneFrame() {
 
 	}
 
@@ -95,7 +90,7 @@ public:
 	// meshInfo 1개 상체 20
 	// meshInfo 1개 하체
 	// meshInfo 1개 전신 20
-	std::vector<std::vector<FbxExBoneFrame>> AniFrameData;
+	std::map<size_t, std::vector<FbxExBoneFrame>> AniFrameData;
 
 	void Write(GameEngineFile* _File) const
 	{
@@ -108,6 +103,7 @@ public:
 		_File->Write(&TimeMode, sizeof(fbxsdk::FbxTime::EMode));
 		_File->Write(&FbxModeCount, sizeof(__int64));
 		_File->Write(&FbxModeRate, sizeof(double));
+		// 박살날겁니다.
 		_File->Write(AniFrameData);
 	}
 
@@ -157,9 +153,9 @@ public:
 	~FbxExAniData() {}
 };
 
-
 // 설명 :
 class GameEngineFBXMesh;
+class GameEngineFBXAnimationRenderer;
 class GameEngineFBXAnimation : public GameEngineFBX, public GameEngineRes<GameEngineFBXAnimation>
 {
 public:
@@ -182,7 +178,7 @@ public:
 
 	// 애니메이션 프레임 행렬계산.
 	// 여기서 프레임의 의미는 Animation TimeEndCount - TimeStartCount
-	void AnimationMatrixLoad(std::shared_ptr <GameEngineFBXMesh> _Mesh, int _AnimationIndex);
+	void AnimationMatrixLoad(std::shared_ptr <GameEngineFBXMesh> _Mesh, std::shared_ptr<GameEngineFBXAnimationRenderer> _Renderer, int _AnimationIndex);
 
 	FbxExAniData* GetAnimationData(int _Index)
 	{

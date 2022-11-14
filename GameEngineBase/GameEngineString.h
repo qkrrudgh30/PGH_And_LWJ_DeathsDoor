@@ -48,13 +48,14 @@ public:
 	static std::string AnsiToUTF8Return(const std::string& Text);
 	static std::wstring StringToWStringReturn(const std::string& Text);
 
-
 	static bool UniCodeToAnsi(const std::wstring& _UniCode, std::string& _AnsiString);
 	static bool UTF8ToUniCode(const std::string& _UTF8, std::wstring& _UniCode);
 
 	static std::string UniCodeToAnsiReturn(const std::wstring& _UniCode);
 	static std::wstring UTF8ToUniCodeReturn(const std::string& _UTF8);
 	static std::string UTF8ToAnsiReturn(const std::string& _UTF8);
+
+	static std::string Replace(const std::string& _Text, const std::string_view& _OldText, const std::string_view& _ChangeText);
 
 
 protected:

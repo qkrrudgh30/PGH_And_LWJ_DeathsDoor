@@ -23,7 +23,7 @@ void FBXRendererAnimation::Init(int _Index)
 	// GameENgineFBXAnimation의 행렬 정보가 완전해지는것은 
 	// CalFbxExBoneFrameTransMatrix가 호출되고 난 후입니다.
 	// 애니메이션의 행렬이 계산되는겁니다.
-	Aniamtion->AnimationMatrixLoad(Mesh, _Index);
+	Aniamtion->AnimationMatrixLoad(Mesh, ParentRenderer->CastThis<GameEngineFBXAnimationRenderer>(), _Index);
 	FBXAnimationData = Aniamtion->GetAnimationData(_Index);
 	Start = 0;
 	End = static_cast<unsigned int>(FBXAnimationData->TimeEndCount);
@@ -70,6 +70,12 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 
 			// 위험!!!! 위험!!!! 뭔가 기분이 멜랑꽇ㄹㅁㄴ어ㅏ림ㄴㅇ엉라ㅣㅁㄴ
 			std::map<size_t, std::vector<float4x4>>::iterator MatrixIter = ParentRenderer->AnimationBoneMatrixs.find(UnitSetIndex);
+
+			if (MatrixIter == ParentRenderer->AnimationBoneMatrixs.end())
+			{
+				continue;
+			}
+
 			// 68개 
 			std::vector<float4x4>& AnimationBoneMatrix = MatrixIter->second;
 
@@ -218,6 +224,11 @@ GameEngineRenderUnit* GameEngineFBXAnimationRenderer::SetFBXMesh(const std::stri
 		if (nullptr == AnimationBuffer->Res)
 		{
 			MsgBoxAssert("애니메이션용 스트럭처드 버퍼가 존재하지 않습니다.");
+			return Unit;
+		}
+
+		if (0 == AnimationBoneMatrixs[_MeshIndex].size())
+		{
 			return Unit;
 		}
 

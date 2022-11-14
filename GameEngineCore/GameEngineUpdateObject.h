@@ -118,6 +118,12 @@ public:
 		Order_ = _Order;
 	}
 
+	template<typename Type>
+	std::shared_ptr<Type> CastThis()
+	{
+		return std::dynamic_pointer_cast<Type>(shared_from_this());
+	}
+
 	std::shared_ptr<GameEngineUpdateObject> GetParent()
 	{
 		return Parent.lock();

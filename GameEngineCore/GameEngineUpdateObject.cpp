@@ -34,8 +34,7 @@ void GameEngineUpdateObject::SetParent(std::shared_ptr<GameEngineUpdateObject> _
 	DetachObject();
 
 	Parent = _Parent;
-	std::shared_ptr<GameEngineUpdateObject> Athis =shared_from_this();
-	Parent.lock()->Childs.push_back(Athis);
+	Parent.lock()->Childs.push_back(shared_from_this());
 }
 
 void GameEngineUpdateObject::DetachObject()

@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "GameEngineFBXAnimation.h"
 #include "GameEngineFBXMesh.h"
+#include "GameEngineFBXAnimationRenderer.h"
 
 GameEngineFBXAnimation::GameEngineFBXAnimation() 
 {
@@ -296,7 +297,7 @@ void GameEngineFBXAnimation::ProcessAnimationLoad(std::shared_ptr <GameEngineFBX
 
 
 // 본을 가진 GameEngineFBXMesh기반으로 애니메이션 행렬을 만들어낸다.
-void GameEngineFBXAnimation::AnimationMatrixLoad(std::shared_ptr <GameEngineFBXMesh> _Mesh, int _AnimationIndex)
+void GameEngineFBXAnimation::AnimationMatrixLoad(std::shared_ptr <GameEngineFBXMesh> _Mesh, std::shared_ptr<GameEngineFBXAnimationRenderer> _Renderer, int _AnimationIndex)
 {
 	if (0 == AnimationDatas.size())
 	{
@@ -309,14 +310,12 @@ void GameEngineFBXAnimation::AnimationMatrixLoad(std::shared_ptr <GameEngineFBXM
 		return;
 	}
 
-	// 이 fbx는 한번 CheckAnimation하면서 애니메이션이 몇개있는지 체크했을것이고
-	// std::vector<std::vector<FbxExBoneFrame>> AniFrameData;
-	// _Mesh->MeshInfos는 
-	AnimationDatas[_AnimationIndex].AniFrameData.resize(_Mesh->MeshInfos.size());
-	// FBX내부 정보 이해 Case1의 상황때문에 그렇다.
-	// MeshInfos
-	// std::vector<std::vector<Bone>> AllBones; // 본정보체
-	// GameEngineFBXAnimation 
+	for (size_t i = 0; i < _Mesh->MeshInfos.size(); i++)
+	{
+		AnimationDatas[_AnimationIndex].AniFrameData[i];
+	}
+
+
 	for (UINT MeshCount = 0; MeshCount < _Mesh->MeshInfos.size(); MeshCount++)
 	{
 		// std::vector<std::vector<FbxExBoneFrame>> AniFrameData;
