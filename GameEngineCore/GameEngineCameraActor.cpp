@@ -6,6 +6,9 @@ GameEngineCameraActor::GameEngineCameraActor()
 	: CameraComponent(nullptr)
 	, RotSpeed(180.0f)
 	, Speed(500.0f)
+	, FreeCameraMode(false)
+	, OriginTrans()
+	, PrevMode(CAMERAPROJECTIONMODE::PersPective)
 {
 }
 

@@ -31,11 +31,11 @@ Player::Player()
 	, m_fSlideCTime(0.f)
 	, m_fSlideCTimeMax(2.f)
 	, m_bSlideCCheck(false)
-	, m_CSWAtt1(nullptr)
+	, m_CSWAtt1()
 	, m_bSWAcheck(false)
 	, m_bSWA2check(false)
 	, m_bSWA3check(false)
-	, m_CSWAttSlide(nullptr)
+	, m_CSWAttSlide()
 	, m_bSWASlidecheck(false)
 	, m_bSAttccheck(false)
 	, m_fAttCTime(0.f)
@@ -76,10 +76,10 @@ void Player::Start()
 
 
 #pragma region BUG_LoadPlayerMesh
-	//FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	//FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 
 	//GameEngineFBXStaticRenderer* FBXCrowRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-	//FBXCrowRenderer->SetParent(FBXAnimationRenderer);
+	//FBXCrowRenderer->SetParent(FBXStaticRenderer);
 
 	//// GameEngineFBXStaticRenderer* ptrGarbageRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 	//for (int i = 0; i < 17; ++i)
@@ -93,8 +93,8 @@ void Player::Start()
 
 	//	if (14 == i || 15 == i)            // Player attack-effect mesh node.
 	//	{
-	//		FBXAnimationRenderer->SetFBXMesh("Player.FBX", "Color", i);
-	//		FBXAnimationRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::RED);
+	//		FBXStaticRenderer->SetFBXMesh("Player.FBX", "Color", i);
+	//		FBXStaticRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::RED);
 	//		continue;
 	//	}
 
@@ -102,24 +102,24 @@ void Player::Start()
 	//	FBXCrowRenderer->GetTransform().SetLocalRotation({ 0.f,180.f,0.f });
 	//}
 
-	//// FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
-	//FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
-	//FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
-	//FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
+	//// FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
+	//FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
+	//FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
+	//FBXStaticRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
 #pragma endregion
 
 #pragma region TemporaryCode
 	
-	FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-	//FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
-	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.3f, 0.3f, 0.3f });
-	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
-	// FBXAnimationRenderer->SetFBXMesh("Player.FBX", "Texture");
-	for (int i = 0; i < 4; ++i)
+	FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	//FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
+	FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.3f, 0.3f, 0.3f });
+	FBXStaticRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
+	// FBXStaticRenderer->SetFBXMesh("Player.FBX", "Texture");
+	//for (int i = 0; i < 4; ++i)
 	{
-		if (i != 3)
+	//	if (i != 3)
 		{
-			// FBXAnimationRenderer->SetFBXMesh("Flower.FBX", "Texture", i);
+			 FBXStaticRenderer->SetFBXMesh("Player.FBX", "Texture");
 		}
 	}
 	
@@ -135,21 +135,17 @@ void Player::Start()
 
 
 	//ui주석 풀어야함
-	//MainUI = GetLevel()->CreateActor<PlayerMainUI>(OBJECTORDER::UI);
-	//MainUI->m_Player = std::dynamic_pointer_cast<Player>(shared_from_this());
+	MainUI = GetLevel()->CreateActor<PlayerMainUI>(OBJECTORDER::UI);
+	
+	UpgradeUI = GetLevel()->CreateActor<PlayerUpgradeUI>(OBJECTORDER::UI);
+	UpgradeUI.lock()->Off();
 
-	//UpgradeUI = GetLevel()->CreateActor<PlayerUpgradeUI>(OBJECTORDER::UI);
-	//UpgradeUI->m_Player = std::dynamic_pointer_cast<Player>(shared_from_this());;
-	//UpgradeUI->Off();
+	UpgradeUI.lock()->SetLevelOverOn();
+	MainUI.lock()->SetLevelOverOn();
+	 
+	 
+	 
 
-	//UpgradeUI->SetLevelOverOn();
-	//MainUI->SetLevelOverOn();
-	// 
-	// 
-	// 
-	// 
-	//UpgradeUI->SetParent(this);
-	//MainUI->SetParent(this);
 
 	if (false == GameEngineInput::GetInst()->IsKey("PlayerLeft"))
 	{
@@ -185,54 +181,54 @@ void Player::Start()
 	Collision->ChangeOrder(OBJECTORDER::Player);
 
 	StateManager.CreateStateMember("Idle"
-		, std::bind(&Player::IdleUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::IdleStart, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::IdleUpdate,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::IdleStart,this, std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("SworldAtt"
-		, std::bind(&Player::SworldAttUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::SworldAttStart, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
-		, std::bind(&Player::SworldAttEnd, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::SworldAttUpdate,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SworldAttStart,this, std::placeholders::_1)
+		, std::bind(&Player::SworldAttEnd,this, std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("SworldAtt2"
-		, std::bind(&Player::SworldAttUpdate2, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::SworldAttStart2, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
-		, std::bind(&Player::SworldAttEnd2, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::SworldAttUpdate2,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SworldAttStart2,this, std::placeholders::_1)
+		, std::bind(&Player::SworldAttEnd2,this, std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("SworldAtt3"
-		, std::bind(&Player::SworldAttUpdate3, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::SworldAttStart3, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
-		, std::bind(&Player::SworldAttEnd3, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::SworldAttUpdate3,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SworldAttStart3,this, std::placeholders::_1)
+		, std::bind(&Player::SworldAttEnd3,this, std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("Slide"
-		, std::bind(&Player::SlideUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::SlideStart, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
-		, std::bind(&Player::SlideEnd, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::SlideUpdate,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SlideStart,this, std::placeholders::_1)
+		, std::bind(&Player::SlideEnd,this, std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("SlideAtt"
-		, std::bind(&Player::SlideAttUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::SlideAttStart, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
-		, std::bind(&Player::SlideAttEnd, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::SlideAttUpdate,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::SlideAttStart,this, std::placeholders::_1)
+		, std::bind(&Player::SlideAttEnd,this, std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("ArrowAtt"
-		, std::bind(&Player::ArrowAttUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::ArrowAttStart, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
-		, std::bind(&Player::ArrowAttEnd, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::ArrowAttUpdate,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::ArrowAttStart,this, std::placeholders::_1)
+		, std::bind(&Player::ArrowAttEnd,this, std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("HookAtt"
-		, std::bind(&Player::HookAttUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Player::HookAttStart, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
-		, std::bind(&Player::HookAttEnd, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&Player::HookAttUpdate,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::HookAttStart,this, std::placeholders::_1)
+		, std::bind(&Player::HookAttEnd,this, std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("Move"
-		, std::bind(&Player::MoveUpdate, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::MoveUpdate,this, std::placeholders::_1, std::placeholders::_2)
 		, [/*&*/=](const StateInfo& _Info){});
 
 	StateManager.ChangeState("Idle");
@@ -383,7 +379,7 @@ void Player::SworldAttStart(const StateInfo& _Info)
 	}
 
 
-	FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
+	FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
 
 
 
@@ -393,7 +389,7 @@ void Player::SworldAttStart(const StateInfo& _Info)
 
 
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
+	float4 RenderFoward = FBXStaticRenderer->GetTransform().GetForwardVector();
 	RenderFoward = RenderFoward * 100.f;
 	
 
@@ -401,12 +397,12 @@ void Player::SworldAttStart(const StateInfo& _Info)
 	RenderFoward = MyWorldPos + RenderFoward;
 
 	m_CSWAtt1 = GetLevel()->CreateActor<PlayerSWAtt1>(OBJECTORDER::PlayerAtt);
-	m_CSWAtt1->GetTransform().SetLocalPosition(RenderFoward);
-	m_CSWAtt1->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
+	m_CSWAtt1.lock()->GetTransform().SetLocalPosition(RenderFoward);
+	m_CSWAtt1.lock()->GetTransform().SetLocalRotation(FBXStaticRenderer->GetTransform().GetLocalRotation());
 	
 	
 	//AttCollision->GetTransform().SetLocalPosition(RenderFoward * 100.f);
-//	AttCollision->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
+//	AttCollision->GetTransform().SetLocalRotation(FBXStaticRenderer->GetTransform().GetLocalRotation());
 
 	
 }
@@ -417,8 +413,8 @@ void Player::SworldAttEnd(const StateInfo& _Info)
 	//AttCollision->Off();
 
 
-	m_CSWAtt1->Death();
-
+	m_CSWAtt1.lock()->Death();
+	m_CSWAtt1.lock() = nullptr;
 	m_bSWA2check = false;
 
 
@@ -482,7 +478,7 @@ void Player::SworldAttStart2(const StateInfo& _Info)
 	m_bSWA2check = false;
 
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
+	float4 RenderFoward = FBXStaticRenderer->GetTransform().GetForwardVector();
 	RenderFoward = RenderFoward * 100.f;
 
 
@@ -490,26 +486,23 @@ void Player::SworldAttStart2(const StateInfo& _Info)
 	RenderFoward = MyWorldPos + RenderFoward;
 
 	m_CSWAtt2 = GetLevel()->CreateActor<PlayerSWAtt2>(OBJECTORDER::PlayerAtt);
-	m_CSWAtt2->GetTransform().SetLocalPosition(RenderFoward);
-	m_CSWAtt2->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
+	m_CSWAtt2.lock()->GetTransform().SetLocalPosition(RenderFoward);
+	m_CSWAtt2.lock()->GetTransform().SetLocalRotation(FBXStaticRenderer->GetTransform().GetLocalRotation());
 
 
-	//AttCollision->GetTransform().SetLocalPosition(RenderFoward * 100.f);
-//	AttCollision->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 
 
 }
 
 void Player::SworldAttEnd2(const StateInfo& _Info)
 {
-	//AttCollision->GetTransform().SetLocalPosition({0.f,0.f, 0.f, });
-	//AttCollision->Off();
-	
+
 
 	m_Info.Weapontype = m_eBeforeType;
 
 
-	m_CSWAtt2->Death();
+	m_CSWAtt2.lock()->Death();
+	m_CSWAtt2.lock() = nullptr;
 	m_bSWA3check = false;
 }
 
@@ -572,16 +565,16 @@ void Player::SworldAttStart3(const StateInfo& _Info)
 	m_bSWA3check = false;
 
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
+	float4 RenderFoward = FBXStaticRenderer->GetTransform().GetForwardVector();
 	RenderFoward = RenderFoward * 100.f;
 
 
 
 	RenderFoward = MyWorldPos + RenderFoward;
 
-	m_CSWAtt3 = GetLevel()->CreateActor<PlayerSWAtt3>(OBJECTORDER::PlayerAtt);
-	m_CSWAtt3->GetTransform().SetLocalPosition(RenderFoward);
-	m_CSWAtt3->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
+	m_CSWAtt3= GetLevel()->CreateActor<PlayerSWAtt3>(OBJECTORDER::PlayerAtt);
+	m_CSWAtt3.lock()->GetTransform().SetLocalPosition(RenderFoward);
+	m_CSWAtt3.lock()->GetTransform().SetLocalRotation(FBXStaticRenderer->GetTransform().GetLocalRotation());
 
 
 
@@ -593,8 +586,8 @@ void Player::SworldAttEnd3(const StateInfo& _Info)
 
 	m_Info.Weapontype = m_eBeforeType;
 
-	m_CSWAtt3->Death();
-
+	m_CSWAtt3.lock()->Death();
+	m_CSWAtt3.lock() = nullptr;
 }
 
 void Player::SworldAttUpdate3(float _DeltaTime, const StateInfo& _Info)
@@ -645,9 +638,9 @@ void Player::ArrowAttEnd(const StateInfo& _Info)
 
 	if (m_Info.Weapontype == WEAPONTYPE::Arrow)
 	{
-		std::shared_ptr < PlayerArrowAtt> m_ArrowAtt = GetLevel()->CreateActor<PlayerArrowAtt>(OBJECTORDER::PlayerAtt);
-		m_ArrowAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-		m_ArrowAtt->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
+		std::weak_ptr < PlayerArrowAtt> m_ArrowAtt = GetLevel()->CreateActor<PlayerArrowAtt>(OBJECTORDER::PlayerAtt);
+		m_ArrowAtt.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+		m_ArrowAtt.lock()->GetTransform().SetLocalRotation(FBXStaticRenderer->GetTransform().GetLocalRotation());
 		m_bArrowCameraCheck = false;
 		m_Info.ArrowCount -= 1;
 	}
@@ -655,8 +648,8 @@ void Player::ArrowAttEnd(const StateInfo& _Info)
 	{
 
 		m_CHookAtt = GetLevel()->CreateActor<PlayerHookAtt>(OBJECTORDER::PlayerAtt);
-		m_CHookAtt->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-		m_CHookAtt->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
+		m_CHookAtt.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+		m_CHookAtt.lock()->GetTransform().SetLocalRotation(FBXStaticRenderer->GetTransform().GetLocalRotation());
 
 
 		m_bArrowCameraCheck = false;
@@ -768,9 +761,9 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 
 
-	FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
+	FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
 
-	m_fArrowCameraActionPos = FBXAnimationRenderer->GetTransform().GetWorldPosition() + FBXAnimationRenderer->GetTransform().GetForwardVector() * Len;
+	m_fArrowCameraActionPos = FBXStaticRenderer->GetTransform().GetWorldPosition() + FBXStaticRenderer->GetTransform().GetForwardVector() * Len;
 
 
 	
@@ -821,7 +814,7 @@ void Player::HookAttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 
 		m_fSpeed = 1500.f;
-		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
+		float4 MoveDir = FBXStaticRenderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * m_fSpeed * _DeltaTime);
 	}
 
@@ -861,7 +854,7 @@ void Player::SlideEnd(const StateInfo& _Info)
 
 void Player::SlideUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-	float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
+	float4 MoveDir = FBXStaticRenderer->GetTransform().GetForwardVector();
 
 
 //	if (m_fAttTestTime >= 0.2f)
@@ -918,22 +911,22 @@ void Player::SlideAttStart(const StateInfo& _Info)
 {
 
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
+	float4 RenderFoward = FBXStaticRenderer->GetTransform().GetForwardVector();
 	RenderFoward = RenderFoward * 100.f;
 
 
 	RenderFoward = MyWorldPos + RenderFoward;
 
 	m_CSWAttSlide = GetLevel()->CreateActor<PlayerSWAttSlide>(OBJECTORDER::PlayerAtt);
-	m_CSWAttSlide->GetTransform().SetLocalPosition(RenderFoward);
-	m_CSWAttSlide->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
+	m_CSWAttSlide.lock()->GetTransform().SetLocalPosition(RenderFoward);
+	m_CSWAttSlide.lock()->GetTransform().SetLocalRotation(FBXStaticRenderer->GetTransform().GetLocalRotation());
 
 }
 
 void Player::SlideAttEnd(const StateInfo& _Info)
 {
 
-	m_CSWAttSlide->Death();
+	m_CSWAttSlide.lock()->Death();
 
 	
 }
@@ -952,10 +945,10 @@ void Player::SlideAttUpdate(float _DeltaTime, const StateInfo& _Info)
 	}
 
 
-	float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
+	float4 MoveDir = FBXStaticRenderer->GetTransform().GetForwardVector();
 
 	GetTransform().SetWorldMove(MoveDir * m_fSlideSpeed * _DeltaTime);
-	m_CSWAttSlide->GetTransform().SetWorldMove(MoveDir * m_fSlideSpeed * _DeltaTime);
+	m_CSWAttSlide.lock()->GetTransform().SetWorldMove(MoveDir * m_fSlideSpeed * _DeltaTime);
 
 }
 
@@ -992,55 +985,55 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 		if (true == GameEngineInput::GetInst()->IsPress("PlayerRight") && true == GameEngineInput::GetInst()->IsPress("PlayerF"))
 		{
 
-			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,45.f,0.f });
+			FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f,45.f,0.f });
 
 		}
 		else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight") && true == GameEngineInput::GetInst()->IsPress("PlayerB"))
 		{
 
-			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,135.f,0.f });
+			FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f,135.f,0.f });
 
 		}
 		else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft") && true == GameEngineInput::GetInst()->IsPress("PlayerF"))
 		{
-			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,315.f,0.f });
+			FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f,315.f,0.f });
 
 		}
 		else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft") && true == GameEngineInput::GetInst()->IsPress("PlayerB"))
 		{
 
-			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,225.f,0.f });
+			FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f,225.f,0.f });
 		}
 
 
 
 		else if (true == GameEngineInput::GetInst()->IsPress("PlayerLeft"))
 		{
-			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,270.f,0.f });
+			FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f,270.f,0.f });
 
 		}
 
 		else if (true == GameEngineInput::GetInst()->IsPress("PlayerRight"))
 		{
-			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,90.f,0.f });
+			FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f,90.f,0.f });
 
 		}
 		else if (true == GameEngineInput::GetInst()->IsPress("PlayerF"))
 		{
 
-			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,0.f,0.f });
+			FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f,0.f,0.f });
 
 
 		}
 		else if (true == GameEngineInput::GetInst()->IsPress("PlayerB"))
 		{
 
-			FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f,180.f,0.f });
+			FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f,180.f,0.f });
 
 
 
 		}
-		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
+		float4 MoveDir = FBXStaticRenderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * Speed * _DeltaTime);
 
 
@@ -1145,14 +1138,14 @@ CollisionReturn Player::CollisionNPC(std::shared_ptr < GameEngineCollision> _Thi
 			m_bUpgradeUIcheck = false;
 
 
-			//UpgradeUI->Off();
+			UpgradeUI.lock()->Off();
 			m_bShopCameraActionCheck = false;
 		}
 		else
 		{
 			m_bUpgradeUIcheck = true;
 			m_bShopCameraActionCheck = true;
-			//UpgradeUI->On();
+			UpgradeUI.lock()->On();
 		}
 
 	}
@@ -1173,7 +1166,7 @@ void Player::Update(float _DeltaTime)
 {
 
 
-	m_fStaticCollDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
+	m_fStaticCollDir = FBXStaticRenderer->GetTransform().GetForwardVector();
 
 
 
@@ -1215,41 +1208,7 @@ void Player::Update(float _DeltaTime)
 
 
 
-
-	/// <summary>
-	/// 
-	/// 
-	/// 
-
-	//float4 MousePos = GetLevel()->GetMainCamera()->GetMouseScreenPosition();
-
-
-
-
-	//std::string A = std::to_string(MousePos.x);
-	//std::string B = std::to_string(MousePos.y);
-
-	//A += " : X";
-	//B += " : Y";
-	//GameEngineDebug::OutPutString(A);
-	//GameEngineDebug::OutPutString(B);
-
-
-	//MousePos.z = 0.f;
-	//	MousePos.x -= 640.f;
-		//MousePos.y = -MousePos.y;
-	//	MousePos.y += 360.f;
-
-
-
-
-
-
-
-
-	//
-
-	Collision->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
+	Collision->GetTransform().SetLocalRotation(FBXStaticRenderer->GetTransform().GetLocalRotation());
 	
 	float4 WoprldPos = GetTransform().GetWorldPosition();
 
@@ -1265,7 +1224,7 @@ void Player::Update(float _DeltaTime)
 	if (true == GameEngineInput::GetInst()->IsPress("NPCClick"))
 	{
 		Collision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::NPC, CollisionType::CT_OBB,
-			std::bind(&Player::CollisionNPC, std::dynamic_pointer_cast<Player>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+			std::bind(&Player::CollisionNPC,this, std::placeholders::_1, std::placeholders::_2)
 		);
 
 		m_bUpgradeUICoolcheck = true;
@@ -1365,12 +1324,12 @@ void Player::Update(float _DeltaTime)
 
 void Player::UIOff()
 {
-	//MainUI->Off();
+	MainUI.lock()->Off();
 	
 }
 void Player::UIOn()
 {
-	//MainUI->On();
+	MainUI.lock()->On();
 
 }
 

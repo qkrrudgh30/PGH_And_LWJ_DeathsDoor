@@ -26,13 +26,13 @@ void HeadRoller::Start()
 
 
 	{
-		FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 
 		{
-			FBXAnimationRenderer->SetFBXMesh("HEADROLLER.FBX", "Texture");
+			FBXStaticRenderer->SetFBXMesh("HEADROLLER.FBX", "Texture");
 		}
-		FBXAnimationRenderer->GetTransform().SetLocalScale({ 1.0f, 1.0f, 1.0f });
-		FBXAnimationRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
+		FBXStaticRenderer->GetTransform().SetLocalScale({ 1.0f, 1.0f, 1.0f });
+		FBXStaticRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
 	}
 
 
@@ -66,31 +66,31 @@ void HeadRoller::Start()
 
 
 	StateManager.CreateStateMember("Idle"
-		, std::bind(&HeadRoller::IdleUpdate, std::dynamic_pointer_cast<HeadRoller>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&HeadRoller::IdleStart, std::dynamic_pointer_cast<HeadRoller>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&HeadRoller::IdleUpdate,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&HeadRoller::IdleStart,this, std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("Move"
-		, std::bind(&HeadRoller::MoveUpdate, std::dynamic_pointer_cast<HeadRoller>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&HeadRoller::MoveStart, std::dynamic_pointer_cast<HeadRoller>(shared_from_this()), std::placeholders::_1)
-		, std::bind(&HeadRoller::MoveEnd, std::dynamic_pointer_cast<HeadRoller>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&HeadRoller::MoveUpdate,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&HeadRoller::MoveStart,this, std::placeholders::_1)
+		, std::bind(&HeadRoller::MoveEnd,this, std::placeholders::_1)
 	);
 
 
 
 	StateManager.CreateStateMember("Stun"
-		, std::bind(&HeadRoller::StunUpdate, std::dynamic_pointer_cast<HeadRoller>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&HeadRoller::StunStart, std::dynamic_pointer_cast<HeadRoller>(shared_from_this()), std::placeholders::_1)
-		, std::bind(&HeadRoller::StunEnd, std::dynamic_pointer_cast<HeadRoller>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&HeadRoller::StunUpdate,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&HeadRoller::StunStart,this, std::placeholders::_1)
+		, std::bind(&HeadRoller::StunEnd,this, std::placeholders::_1)
 	);
 
 
 
 
 	StateManager.CreateStateMember("Att"
-		, std::bind(&HeadRoller::AttUpdate, std::dynamic_pointer_cast<HeadRoller>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&HeadRoller::AttStart, std::dynamic_pointer_cast<HeadRoller>(shared_from_this()), std::placeholders::_1)
-		, std::bind(&HeadRoller::AttEnd, std::dynamic_pointer_cast<HeadRoller>(shared_from_this()), std::placeholders::_1)
+		, std::bind(&HeadRoller::AttUpdate,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&HeadRoller::AttStart,this, std::placeholders::_1)
+		, std::bind(&HeadRoller::AttEnd,this, std::placeholders::_1)
 	);
 
 
@@ -180,7 +180,7 @@ void HeadRoller::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 		Angle -= 0.f;
 	}
 
-	FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
+	FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
 
 
 

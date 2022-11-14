@@ -17,12 +17,10 @@ public:
 	LoginLevel& operator=(LoginLevel&& _Other) noexcept = delete;
 
 
-	std::shared_ptr < LoginUI> UI;
+	std::weak_ptr < LoginUI> UI;
 
 
-	std::shared_ptr < PlayerUpgradeUI> UpgradeUI;
-	std::shared_ptr < PlayerMainUI>		MainUI;
-
+	
 
 
 protected:

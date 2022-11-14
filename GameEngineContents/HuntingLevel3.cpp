@@ -36,47 +36,47 @@ void HuntingLevel3::LevelStartEvent()
 		LoadCreaturesFromFile("03_HuntingLevel3");
 
 		{
-			std::shared_ptr < ROOM_MainHall> pMap = CreateActor<ROOM_MainHall>(OBJECTORDER::StaticMesh);
+			std::weak_ptr < ROOM_MainHall> pMap = CreateActor<ROOM_MainHall>(OBJECTORDER::StaticMesh);
 		}
 
 		{
 
-			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_->GetTransform().SetWorldPosition({ -1800.F,0.F,1400.F });
-			Potal_->m_PotalType = PotalType::Stage3ToStage4;
-
-		}
-
-
-
-		{
-
-			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_->GetTransform().SetWorldPosition({ 692.F,0.F,439.f });
-			Potal_->m_PotalType = PotalType::Stage3ToStage2;
-
-		}
-
-
-		{
-			std::shared_ptr < HeadRoller> cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
-			cMonster->GetTransform().SetWorldPosition({ 305.f,0.F,-554.f });
-
-
-		}
-
-		{
-			std::shared_ptr < HeadRoller> cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
-			cMonster->GetTransform().SetWorldPosition({ -1020.f,0.F,169.f });
-
+			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			Potal_.lock()->GetTransform().SetWorldPosition({ -1800.F,0.F,1400.F });
+			Potal_.lock()->m_PotalType = PotalType::Stage3ToStage4;
 
 		}
 
 
 
 		{
-			std::shared_ptr < HeadRoller> cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
-			cMonster->GetTransform().SetWorldPosition({ -800.f,0.F,1071.f });
+
+			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			Potal_.lock()->GetTransform().SetWorldPosition({ 692.F,0.F,439.f });
+			Potal_.lock()->m_PotalType = PotalType::Stage3ToStage2;
+
+		}
+
+
+		{
+			std::weak_ptr < HeadRoller> cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
+			cMonster.lock()->GetTransform().SetWorldPosition({ 305.f,0.F,-554.f });
+
+
+		}
+
+		{
+			std::weak_ptr < HeadRoller> cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
+			cMonster.lock()->GetTransform().SetWorldPosition({ -1020.f,0.F,169.f });
+
+
+		}
+
+
+
+		{
+			std::weak_ptr < HeadRoller> cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
+			cMonster.lock()->GetTransform().SetWorldPosition({ -800.f,0.F,1071.f });
 
 
 		}

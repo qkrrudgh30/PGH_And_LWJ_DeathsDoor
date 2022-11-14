@@ -256,106 +256,106 @@ void PlayerUpgradeUI::Start()
 void PlayerUpgradeUI::Update(float _DeltaTime)
 {
 
-	//
-	//if (true == GameEngineInput::GetInst()->IsDown("UIMouseClick"))
-	//{
+	
+	if (true == GameEngineInput::GetInst()->IsDown("UIMouseClick"))
+	{
 
-	//	//칼
-	//	
-	//	CollisionSwordUp[0]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionSword1, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
+		//칼
+		
+		CollisionSwordUp[0]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionSword1,this, std::placeholders::_1, std::placeholders::_2)
+		);
 
-	//	CollisionSwordUp[1]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionSword2, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
+		CollisionSwordUp[1]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionSword2,this, std::placeholders::_1, std::placeholders::_2)
+		);
 
-	//	CollisionSwordUp[2]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionSword3, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
+		CollisionSwordUp[2]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionSword3,this, std::placeholders::_1, std::placeholders::_2)
+		);
 
-	//	CollisionSwordUp[3]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionSword4, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
+		CollisionSwordUp[3]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionSword4,this, std::placeholders::_1, std::placeholders::_2)
+		);
 
-	//	CollisionSwordUp[4]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionSword5, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
-
-
-
-
-	//	//화살
-
-	//	CollisionArrowUp[0]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionArrowUp1, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
-
-	//	CollisionArrowUp[1]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionArrowUp2, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
-
-	//	CollisionArrowUp[2]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionArrowUp3, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
-
-	//	CollisionArrowUp[3]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionArrowUp4, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
-
-	//	CollisionArrowUp[4]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionArrowUp5, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
+		CollisionSwordUp[4]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionSword5,this, std::placeholders::_1, std::placeholders::_2)
+		);
 
 
 
-	//	//후크
 
-	//	CollisionHookUp[0]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionHookUp1, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
+		//화살
 
-	//	CollisionHookUp[1]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionHookUp2, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
+		CollisionArrowUp[0]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionArrowUp1,this, std::placeholders::_1, std::placeholders::_2)
+		);
 
-	//	CollisionHookUp[2]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionHookUp3, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
+		CollisionArrowUp[1]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionArrowUp2,this, std::placeholders::_1, std::placeholders::_2)
+		);
 
-	//	CollisionHookUp[3]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionHookUp4, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
+		CollisionArrowUp[2]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionArrowUp3,this, std::placeholders::_1, std::placeholders::_2)
+		);
 
-	//	CollisionHookUp[4]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionHookUp5, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
+		CollisionArrowUp[3]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionArrowUp4,this, std::placeholders::_1, std::placeholders::_2)
+		);
 
-
-	//	//불
-
-	//	CollisionFireUp[0]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionFireUp1, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
-
-	//	CollisionFireUp[1]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionFireUp2, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
-
-	//	CollisionFireUp[2]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionFireUp3, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
-
-	//	CollisionFireUp[3]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionFireUp4, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
-
-	//	CollisionFireUp[4]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
-	//		std::bind(&PlayerUpgradeUI::CollisionFireUp5, std::dynamic_pointer_cast<PlayerUpgradeUI>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
-	//	);
+		CollisionArrowUp[4]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionArrowUp5,this, std::placeholders::_1, std::placeholders::_2)
+		);
 
 
-	//}
+
+		//후크
+
+		CollisionHookUp[0]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionHookUp1,this, std::placeholders::_1, std::placeholders::_2)
+		);
+
+		CollisionHookUp[1]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionHookUp2,this, std::placeholders::_1, std::placeholders::_2)
+		);
+
+		CollisionHookUp[2]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionHookUp3,this, std::placeholders::_1, std::placeholders::_2)
+		);
+
+		CollisionHookUp[3]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionHookUp4,this, std::placeholders::_1, std::placeholders::_2)
+		);
+
+		CollisionHookUp[4]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionHookUp5,this, std::placeholders::_1, std::placeholders::_2)
+		);
+
+
+		//불
+
+		CollisionFireUp[0]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionFireUp1,this, std::placeholders::_1, std::placeholders::_2)
+		);
+
+		CollisionFireUp[1]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionFireUp2,this, std::placeholders::_1, std::placeholders::_2)
+		);
+
+		CollisionFireUp[2]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionFireUp3,this, std::placeholders::_1, std::placeholders::_2)
+		);
+
+		CollisionFireUp[3]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionFireUp4,this, std::placeholders::_1, std::placeholders::_2)
+		);
+
+		CollisionFireUp[4]->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::MouseUI, CollisionType::CT_OBB2D,
+			std::bind(&PlayerUpgradeUI::CollisionFireUp5,this, std::placeholders::_1, std::placeholders::_2)
+		);
+
+
+	}
 
 
 

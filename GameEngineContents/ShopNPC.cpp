@@ -1,7 +1,7 @@
 #include "PreCompile.h"
 #include "ShopNPC.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
-#include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
+#include "GameEngineCore/GameEngineFBXStaticRenderer.h"
 
 ShopNPC::ShopNPC() 
 {
@@ -32,7 +32,7 @@ void ShopNPC::Start()
 
 	//}
 	{
-		//GameEngineFBXAnimationRenderer* temp = CreateComponent<GameEngineFBXAnimationRenderer>();
+		//GameEngineFBXStaticRenderer* temp = CreateComponent<GameEngineFBXStaticRenderer>();
 		//temp->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
 		//temp->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
 		//temp->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });

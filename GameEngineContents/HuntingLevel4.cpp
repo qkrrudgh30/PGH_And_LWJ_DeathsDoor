@@ -36,14 +36,14 @@ void HuntingLevel4::LevelStartEvent()
 		LoadCreaturesFromFile("04_HuntingLevel4");
 
 		{
-			std::shared_ptr < ROOM_Right> pMap = CreateActor<ROOM_Right>(OBJECTORDER::StaticMesh);
+			std::weak_ptr < ROOM_Right> pMap = CreateActor<ROOM_Right>(OBJECTORDER::StaticMesh);
 		}
 
 		{
 
-			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_->GetTransform().SetWorldPosition({ -180.F,480.F,-1028.F });
-			Potal_->m_PotalType = PotalType::Stage4ToStage5;
+			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			Potal_.lock()->GetTransform().SetWorldPosition({ -180.F,480.F,-1028.F });
+			Potal_.lock()->m_PotalType = PotalType::Stage4ToStage5;
 
 		}
 
@@ -51,9 +51,9 @@ void HuntingLevel4::LevelStartEvent()
 
 		{
 
-			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_->GetTransform().SetWorldPosition({ 1035.F,0.F,475.f });
-			Potal_->m_PotalType = PotalType::Stage4ToStage3;
+			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			Potal_.lock()->GetTransform().SetWorldPosition({ 1035.F,0.F,475.f });
+			Potal_.lock()->m_PotalType = PotalType::Stage4ToStage3;
 
 		}
 

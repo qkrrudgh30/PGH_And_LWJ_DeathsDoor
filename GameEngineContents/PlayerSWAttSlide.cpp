@@ -44,7 +44,7 @@ void PlayerSWAttSlide::Update(float _DeltaTime)
 
 
 	AttCollision->IsCollisionEnterBase(CollisionType::CT_OBB, static_cast<int>(OBJECTORDER::Monster), CollisionType::CT_OBB,
-		std::bind(&PlayerSWAttSlide::MonsterCollision, std::dynamic_pointer_cast<PlayerSWAttSlide>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		std::bind(&PlayerSWAttSlide::MonsterCollision, this, std::placeholders::_1, std::placeholders::_2)
 	);
 
 

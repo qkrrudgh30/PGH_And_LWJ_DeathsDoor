@@ -105,8 +105,8 @@ public:
 
 	bool m_bShopCameraActionCheck = false;
 
-	//std::shared_ptr < PlayerUpgradeUI> UpgradeUI;
-	//std::shared_ptr < PlayerMainUI>		MainUI;
+	std::weak_ptr < PlayerUpgradeUI> UpgradeUI;
+	std::weak_ptr < PlayerMainUI>		MainUI;
 
 	float Speed;
 	float m_fSlideSpeed;
@@ -170,10 +170,10 @@ private:
 
 
 private:
-	std::shared_ptr < PlayerSWAtt1>		m_CSWAtt1;
-	std::shared_ptr < PlayerSWAtt2>		m_CSWAtt2;
-	std::shared_ptr < PlayerSWAtt3>		 m_CSWAtt3;
-	std::shared_ptr < PlayerSWAttSlide> m_CSWAttSlide;
-	std::shared_ptr < PlayerHookAtt>	 m_CHookAtt;
+	std::weak_ptr < PlayerSWAtt1>		m_CSWAtt1;
+	std::weak_ptr < PlayerSWAtt2>		m_CSWAtt2;
+	std::weak_ptr < PlayerSWAtt3>		 m_CSWAtt3;
+	std::weak_ptr < PlayerSWAttSlide> m_CSWAttSlide;
+	std::weak_ptr < PlayerHookAtt>	 m_CHookAtt;
 };
 

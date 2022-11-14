@@ -25,7 +25,8 @@ public:
 
 protected:
 	std::shared_ptr < GameEngineDefaultRenderer> Renderer;
-	std::shared_ptr < GameEngineFBXStaticRenderer> FBXAnimationRenderer;
+	std::shared_ptr < GameEngineFBXStaticRenderer> FBXStaticRenderer;
+	std::shared_ptr <GameEngineFBXAnimationRenderer> FBXAnimationRenderer;
 	std::shared_ptr < GameEngineCollision> Collision;
 	std::shared_ptr < GameEngineCollision> AttCollision;
 public:

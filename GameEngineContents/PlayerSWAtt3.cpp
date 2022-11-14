@@ -43,7 +43,7 @@ void PlayerSWAtt3::Update(float _DeltaTime)
 
 
 	AttCollision->IsCollisionEnterBase(CollisionType::CT_OBB, static_cast<int>(OBJECTORDER::Monster), CollisionType::CT_OBB,
-		std::bind(&PlayerSWAtt3::MonsterCollision, std::dynamic_pointer_cast<PlayerSWAtt3>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		std::bind(&PlayerSWAtt3::MonsterCollision, this, std::placeholders::_1, std::placeholders::_2)
 	);
 
 	

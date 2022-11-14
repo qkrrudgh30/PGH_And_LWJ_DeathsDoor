@@ -7,7 +7,7 @@ UnitBase::UnitBase() :
 	m_fLifeTime(0.f)
 	,m_fSpeed(0.f)
 	,Renderer()
-	,FBXAnimationRenderer()
+	,FBXStaticRenderer()
 	,Collision()
 	,AttCollision()
 	, StateManager()

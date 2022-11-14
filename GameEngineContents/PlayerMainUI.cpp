@@ -370,7 +370,7 @@ void PlayerMainUI::Start()
 void PlayerMainUI::Update(float _DeltaTime)
 {
 
-//	PlayerInfoCheck();
+	PlayerInfoCheck();
 
 
 }

@@ -39,8 +39,8 @@ void BossLevel::LevelStartEvent()
 	{
 		if (nullptr == Player::GetMainPlayer())
 		{
-			std::shared_ptr< Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
-			NewPlayer->SetLevelOverOn();
+		/*	std::weak_ptr< Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
+			NewPlayer->SetLevelOverOn();*/
 
 
 		}

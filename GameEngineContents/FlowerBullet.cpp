@@ -53,7 +53,7 @@ void FlowerBullet::Update(float _DeltaTime)
 
 
 	AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
-		std::bind(&FlowerBullet::PlayerCollision, std::dynamic_pointer_cast<FlowerBullet>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		std::bind(&FlowerBullet::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
 	);
 
 

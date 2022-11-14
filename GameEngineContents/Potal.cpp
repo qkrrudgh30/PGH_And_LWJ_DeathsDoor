@@ -24,12 +24,12 @@ void Potal::Start()
 
 
 	{
-		FBXAnimationRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-		FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
-		FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.25f, 0.25f, 0.25f });
-		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.f, 45.f, 0.f });
+		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+		FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
+		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.25f, 0.25f, 0.25f });
+		FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f, 45.f, 0.f });
 		{
-			FBXAnimationRenderer->SetFBXMesh("woodDoor.FBX", "Texture");
+			FBXStaticRenderer->SetFBXMesh("woodDoor.FBX", "Texture");
 		}
 		
 	}
@@ -41,7 +41,7 @@ void Potal::Update(float _DeltaTime)
 {
 
 	Collision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
-		std::bind(&Potal::CollisionPlayer, std::dynamic_pointer_cast<Potal>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+		std::bind(&Potal::CollisionPlayer, this, std::placeholders::_1, std::placeholders::_2)
 	);
 
 

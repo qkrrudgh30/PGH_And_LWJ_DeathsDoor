@@ -96,15 +96,15 @@ void TestLevel::LevelStartEvent()
 			GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
 
 			{
-				std::shared_ptr < FlowerMonster> cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
-			//	cMonster->GetTransform().SetWorldPosition({ -500.f,0.f,-500.f });
+				std::weak_ptr < FlowerMonster> cMonster = CreateActor<FlowerMonster>(OBJECTORDER::Monster);
+			//	cMonster.lock()->GetTransform().SetWorldPosition({ -500.f,0.f,-500.f });
 
 
 			}
 
 			{
-				std::shared_ptr < Monster> cMonster = CreateActor<Monster>(OBJECTORDER::Monster);
-				cMonster->GetTransform().SetWorldPosition({ 500.f,0.f,-500.f });
+				std::weak_ptr < Monster> cMonster = CreateActor<Monster>(OBJECTORDER::Monster);
+				cMonster.lock()->GetTransform().SetWorldPosition({ 500.f,0.f,-500.f });
 
 
 			}

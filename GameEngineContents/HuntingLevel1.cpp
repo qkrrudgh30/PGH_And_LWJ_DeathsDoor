@@ -39,14 +39,14 @@ void HuntingLevel1::LevelStartEvent()
 
 
 		{
-			std::shared_ptr < ROOM_Enter> pMap = CreateActor<ROOM_Enter>(OBJECTORDER::StaticMesh);
+			std::weak_ptr < ROOM_Enter> pMap = CreateActor<ROOM_Enter>(OBJECTORDER::StaticMesh);
 		}
 
 		{
 
-			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_->GetTransform().SetWorldPosition({ -1231.F,0.F,-1875.F });
-			Potal_->m_PotalType = PotalType::Stage1ToStage2;
+			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			Potal_.lock()->GetTransform().SetWorldPosition({ -1231.F,0.F,-1875.F });
+			Potal_.lock()->m_PotalType = PotalType::Stage1ToStage2;
 
 		}
 
@@ -54,9 +54,9 @@ void HuntingLevel1::LevelStartEvent()
 
 		{
 
-			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_->GetTransform().SetWorldPosition({ 503.F,0.F,-172.f });
-			Potal_->m_PotalType = PotalType::Stage1ToSLogin;
+			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			Potal_.lock()->GetTransform().SetWorldPosition({ 503.F,0.F,-172.f });
+			Potal_.lock()->m_PotalType = PotalType::Stage1ToSLogin;
 
 		}
 
@@ -64,23 +64,23 @@ void HuntingLevel1::LevelStartEvent()
 
 
 		{
-			std::shared_ptr < Slime> cMonster = CreateActor<Slime>(OBJECTORDER::Monster);
-			cMonster->GetTransform().SetWorldPosition({ -438.f,0.F,-583.f });
+			std::weak_ptr < Slime> cMonster = CreateActor<Slime>(OBJECTORDER::Monster);
+			cMonster.lock()->GetTransform().SetWorldPosition({ -438.f,0.F,-583.f });
 
 
 		}
 
 		{
-			std::shared_ptr < Slime> cMonster = CreateActor<Slime>(OBJECTORDER::Monster);
-			cMonster->GetTransform().SetWorldPosition({ -887.f,0.F,-1122.f });
+			std::weak_ptr < Slime> cMonster = CreateActor<Slime>(OBJECTORDER::Monster);
+			cMonster.lock()->GetTransform().SetWorldPosition({ -887.f,0.F,-1122.f });
 
 
 		}
 
 
 		{
-			std::shared_ptr < Slime> cMonster = CreateActor<Slime>(OBJECTORDER::Monster);
-			cMonster->GetTransform().SetWorldPosition({ 7.f,0.F,-1266.f });
+			std::weak_ptr < Slime> cMonster = CreateActor<Slime>(OBJECTORDER::Monster);
+			cMonster.lock()->GetTransform().SetWorldPosition({ 7.f,0.F,-1266.f });
 
 
 		}
@@ -100,9 +100,6 @@ void HuntingLevel1::LevelStartEvent()
 	{
 		if (nullptr == Player::GetMainPlayer())
 		{
-		//	std::shared_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
-		//	NewPlayer->SetLevelOverOn();
-
 
 		}
 		else

@@ -21,7 +21,7 @@
 
 
 LoginLevel::LoginLevel()	:
-	UI(nullptr)
+	UI()
 {
 }
 
@@ -32,11 +32,8 @@ LoginLevel::~LoginLevel()
 
 void LoginLevel::Start()
 {
-	// PlacePathOn("00_LoginLevel");core
-	// LoadFBXFiles();
+	
 
-
-	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
 
 
 	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
@@ -75,7 +72,7 @@ void LoginLevel::LevelStartEvent()
 #pragma endregion
 	
 
-	if (nullptr == UI)
+	if (nullptr == UI.lock())
 	{
 
 
@@ -84,19 +81,19 @@ void LoginLevel::LevelStartEvent()
 
 		{
 			UI = CreateActor<LoginUI>(GameObjectGroup::UI);
-			UI->CreateComponent<GameEngineCollision>();
+			UI.lock()->CreateComponent<GameEngineCollision>();
 
-			std::shared_ptr < ShopNPC> cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
-			cShopNPC->GetTransform().SetWorldPosition({ -300.F,0.F,500.F });
+			std::weak_ptr < ShopNPC> cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
+			cShopNPC.lock()->GetTransform().SetWorldPosition({ -300.F,0.F,500.F });
 			
 
 		}
 
 		{
 
-			std::shared_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_->GetTransform().SetWorldPosition({ 250.F,100.F,-1300.F });
-			Potal_->m_PotalType = PotalType::LoginToStage1;
+			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
+			Potal_.lock()->GetTransform().SetWorldPosition({ 250.F,100.F,-1300.F });
+			Potal_.lock()->m_PotalType = PotalType::LoginToStage1;
 
 		}
 
@@ -111,23 +108,11 @@ void LoginLevel::LevelStartEvent()
 	{
 		if (nullptr == Player::GetMainPlayer())
 		{
-			//std::shared_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
-			//NewPlayer->GetTransform().SetWorldPosition({-600.F,100.F,-150.F});
-			//NewPlayer->SetLevelOverOn();
-			//NewPlayer->UIOff();
-			//NewPlayer->m_bLogoLevelCheck = true;
-
-
-			MainUI = CreateActor<PlayerMainUI>(OBJECTORDER::UI);
-			////MainUI->m_Player = std::dynamic_pointer_cast<Player>(shared_from_this());
-
-			UpgradeUI = CreateActor<PlayerUpgradeUI>(OBJECTORDER::UI);
-			////UpgradeUI->m_Player = std::dynamic_pointer_cast<Player>(shared_from_this());;
-			UpgradeUI->Off();
-
-			UpgradeUI->SetLevelOverOn();
-			MainUI->SetLevelOverOn();
-
+			std::weak_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
+			NewPlayer.lock()->GetTransform().SetWorldPosition({-600.F,100.F,-150.F});
+			NewPlayer.lock()->SetLevelOverOn();
+			NewPlayer.lock()->UIOff();
+			NewPlayer.lock()->m_bLogoLevelCheck = true;
 
 
 		}

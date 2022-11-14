@@ -49,7 +49,7 @@ void PlayerHookAtt::Update(float _DeltaTime)
 	{
 
 		AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
-			std::bind(&PlayerHookAtt::PlayerCollision, std::dynamic_pointer_cast<PlayerHookAtt>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerHookAtt::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
 		);
 
 
@@ -71,7 +71,7 @@ void PlayerHookAtt::Update(float _DeltaTime)
 		MoveDir = MoveDir * -1.f;
 
 		AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
-			std::bind(&PlayerHookAtt::PlayerCollision, std::dynamic_pointer_cast<PlayerHookAtt>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerHookAtt::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
 		);
 
 
@@ -88,15 +88,15 @@ void PlayerHookAtt::Update(float _DeltaTime)
 	else
 	{
 		AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Monster, CollisionType::CT_OBB,
-			std::bind(&PlayerHookAtt::MonsterCollision, std::dynamic_pointer_cast<PlayerHookAtt>(shared_from_this()), std::placeholders::_1, std::placeholders::_2)
+			std::bind(&PlayerHookAtt::MonsterCollision, this, std::placeholders::_1, std::placeholders::_2)
 		);
 
 		if (m_ftrailTime >= 0.1f)
 		{
-			std::shared_ptr< PlayerHookTrail> HookTrail = GetLevel()->CreateActor<PlayerHookTrail>(OBJECTORDER::PlayerHookTrail);
-			HookTrail->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-			HookTrail->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
-			HookTrail->m_cHook = std::dynamic_pointer_cast<PlayerHookAtt>(shared_from_this());
+			std::weak_ptr< PlayerHookTrail> HookTrail = GetLevel()->CreateActor<PlayerHookTrail>(OBJECTORDER::PlayerHookTrail);
+			HookTrail.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+			HookTrail.lock()->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+			HookTrail.lock()->m_cHook =  std::dynamic_pointer_cast<PlayerHookAtt>(shared_from_this());
 		}
 
 
