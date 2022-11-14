@@ -191,7 +191,7 @@ void ContentsLevel::LoadFBXMesiesOfStatic()
 
 void ContentsLevel::LoadAnimationsOfAnimator()
 {
-	std::vector<GameEngineDirectory> vOuterDirectories = mvecDirectories[eAnimatorDir].GetAllDirectory();
+	std::vector<GameEngineDirectory> vOuterDirectories = mvecDirectories[eAnimationDir].GetAllDirectory();
 	size_t uOuterDirectoriesCount = vOuterDirectories.size();
 	muAllAnimationCount = uOuterDirectoriesCount;
 	muAnimationStartIndex = muAllResourcesCount;
