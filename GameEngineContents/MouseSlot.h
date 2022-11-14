@@ -21,7 +21,7 @@ protected:
 	void End() override;
 
 private:
-	GameEngineUIRenderer* mpRenderer;
+	std::shared_ptr<GameEngineUIRenderer> mpRenderer;
 
 };
 

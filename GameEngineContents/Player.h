@@ -105,8 +105,8 @@ public:
 
 	bool m_bShopCameraActionCheck = false;
 
-	std::shared_ptr < PlayerUpgradeUI> UpgradeUI;
-	std::shared_ptr < PlayerMainUI>		MainUI;
+	//std::shared_ptr < PlayerUpgradeUI> UpgradeUI;
+	//std::shared_ptr < PlayerMainUI>		MainUI;
 
 	float Speed;
 	float m_fSlideSpeed;

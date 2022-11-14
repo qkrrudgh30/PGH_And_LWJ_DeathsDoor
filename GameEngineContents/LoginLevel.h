@@ -19,6 +19,12 @@ public:
 
 	std::shared_ptr < LoginUI> UI;
 
+
+	std::shared_ptr < PlayerUpgradeUI> UpgradeUI;
+	std::shared_ptr < PlayerMainUI>		MainUI;
+
+
+
 protected:
 	void Start() override;
 	void Update(float _DeltaTime) override;

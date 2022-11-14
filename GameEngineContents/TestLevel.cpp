@@ -76,8 +76,8 @@ void TestLevel::LevelStartEvent()
 	{
 		if (nullptr == Player::GetMainPlayer())
 		{
-			std::shared_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
-			NewPlayer->SetLevelOverOn();
+			//std::shared_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
+			//NewPlayer->SetLevelOverOn();
 
 
 		}
