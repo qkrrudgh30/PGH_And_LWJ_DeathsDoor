@@ -2,6 +2,7 @@
 #include "Slime.h"
 #include "Player.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
+#include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
 
 Slime::Slime() :
 	StartPostion()
@@ -23,36 +24,19 @@ void Slime::Start()
 	m_Info.Dammage = 1;
 	m_fSpeed = 150.f;
 	
+	
+
+	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
+	FBXAnimationRenderer->SetFBXMesh("Slime.fbx", "TextureAnimation");
+
+	FBXAnimationRenderer->CreateFBXAnimation("Slime_Att", "Slime_Att.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Slime_Idle", "Slime_Idle.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Slime_Move", "Slime_Move.fbx");
 
 
-	{
-		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-
-		{
-			FBXStaticRenderer->SetFBXMesh("Slime.FBX", "Texture");
-		}
-		FBXStaticRenderer->GetTransform().SetLocalScale({ 0.5f, 0.5f, 0.5f });
-		FBXStaticRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
-	}
+	FBXAnimationRenderer->ChangeAnimation("Slime_Idle");
 
 
-
-
-
-
-
-	//{
-
-
-	//	Renderer = CreateComponent<GameEngineDefaultRenderer>();
-	//	Renderer->SetPipeLine("Color");
-	//	Renderer->GetRenderUnit().SetMesh("Box");
-	//	float4 ResultColor = { 0.f,1.f,0.f,1.f };
-
-	//	Renderer->GetTransform().SetLocalScale({ 100.0f, 100.0f, 100.0f });
-	//	Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
-
-	//}
 
 
 
@@ -175,7 +159,7 @@ void Slime::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 		Angle -= 0.f;
 	}
 
-	FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
+	FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
 
 
 

@@ -2,6 +2,7 @@
 #include "HeadRoller.h"
 #include "Player.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
+#include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
 
 HeadRoller::HeadRoller() :
 	StartPostion()
@@ -25,16 +26,15 @@ void HeadRoller::Start()
 	
 
 
-	{
-		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 
-		{
-			FBXStaticRenderer->SetFBXMesh("HEADROLLER.FBX", "Texture");
-		}
-		FBXStaticRenderer->GetTransform().SetLocalScale({ 1.0f, 1.0f, 1.0f });
-		FBXStaticRenderer->GetTransform().SetLocalPosition({ 0.0f, 0.0f, 0.0f });
-	}
+	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
+	FBXAnimationRenderer->SetFBXMesh("HEADROLLER.fbx", "TextureAnimation");
 
+	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Roll", "HEADROLLER_Roll.fbx");
+	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 100.f, 100.f, 100.f });
+	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ -90.f, 0.f,0.f });
+
+	FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Roll");
 
 
 
@@ -164,8 +164,7 @@ void HeadRoller::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	{
 		Angle -= 0.f;
 	}
-
-	FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
+	GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
 
 
 

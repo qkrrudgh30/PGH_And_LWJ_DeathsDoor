@@ -88,14 +88,17 @@ void Player::Start()
 	FBXAnimationRenderer->CreateFBXAnimation("Player_Att2", "Player_Att2.fbx");
 	FBXAnimationRenderer->CreateFBXAnimation("Player_Roll", "Player_Roll.fbx");
 
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Hook", "Player_Hook.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Hook_Fly", "Player_Hook_Fly.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Idle2", "Player_Idle2.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_SlideAtt", "Player_SlideAtt.fbx");
 	
 	
 	
 	
+
 	
-	
-	
-	FBXAnimationRenderer->ChangeAnimation("Player_Att1");
+	FBXAnimationRenderer->ChangeAnimation("Player_Idle");
 
 
 	//ui주석 풀어야함
@@ -208,7 +211,7 @@ void Player::Start()
 
 void Player::IdleStart(const StateInfo& _Info)
 {
-
+	FBXAnimationRenderer->ChangeAnimation("Player_Idle2");
 }
 
 void Player::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
@@ -317,6 +320,7 @@ void Player::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 //소드 공격 1번 
 void Player::SworldAttStart(const StateInfo& _Info)
 {
+	FBXAnimationRenderer->ChangeAnimation("Player_Att1");
 
 	m_Info.Weapontype = WEAPONTYPE::Sword;
 
@@ -394,7 +398,7 @@ void Player::SworldAttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	//2타격 체크
 
-	if (m_fAttTestTime >= 0.05f)
+	if (m_fAttTestTime >= 0.1f)
 	{
 
 		if (true == GameEngineInput::GetInst()->IsDown("PlayerSworldAtt"))
@@ -406,7 +410,7 @@ void Player::SworldAttUpdate(float _DeltaTime, const StateInfo& _Info)
 	}
 
 
-	if (m_fAttTestTime >= 0.2f)
+	if (m_fAttTestTime >= 0.4f)
 	{
 		m_fAttTestTime = 0.f;
 
@@ -434,6 +438,8 @@ void Player::SworldAttUpdate(float _DeltaTime, const StateInfo& _Info)
 //소드 공격 2번 
 void Player::SworldAttStart2(const StateInfo& _Info)
 {
+	FBXAnimationRenderer->ChangeAnimation("Player_Att_Right");
+
 	m_Info.Weapontype = WEAPONTYPE::Sword;
 
 	//AttCollision->On();
@@ -477,7 +483,7 @@ void Player::SworldAttUpdate2(float _DeltaTime, const StateInfo& _Info)
 
 	//3타격 체크
 
-	if (m_fAttTestTime >= 0.05f)
+	if (m_fAttTestTime >= 0.1f)
 	{
 		if (true == GameEngineInput::GetInst()->IsDown("PlayerSworldAtt"))
 		{
@@ -489,7 +495,7 @@ void Player::SworldAttUpdate2(float _DeltaTime, const StateInfo& _Info)
 
 
 
-	if (m_fAttTestTime >= 0.2f)
+	if (m_fAttTestTime >= 0.4f)
 	{
 		m_fAttTestTime = 0.f;
 
@@ -520,7 +526,7 @@ void Player::SworldAttUpdate2(float _DeltaTime, const StateInfo& _Info)
 //소드 공격 3번 
 void Player::SworldAttStart3(const StateInfo& _Info)
 {
-
+	FBXAnimationRenderer->ChangeAnimation("Player_Att_Left");
 	m_Info.Weapontype = WEAPONTYPE::Sword;
 
 	m_Info.ArrowCount += 1;
@@ -559,7 +565,7 @@ void Player::SworldAttUpdate3(float _DeltaTime, const StateInfo& _Info)
 	m_fAttTestTime += _DeltaTime;
 
 
-	if (m_fAttTestTime >= 0.2f)
+	if (m_fAttTestTime >= 0.4f)
 	{
 		m_fAttTestTime = 0.f;
 		StateManager.ChangeState("Idle");
@@ -578,7 +584,7 @@ void Player::SworldAttUpdate3(float _DeltaTime, const StateInfo& _Info)
 
 void Player::ArrowAttStart(const StateInfo& _Info)
 {
-
+	FBXAnimationRenderer->ChangeAnimation("Player_Arrow");
 	m_bArrowCameraCheck = true;
 
 	if (m_Info.Weapontype == WEAPONTYPE::Arrow)
@@ -748,7 +754,7 @@ void Player::HookAttStart(const StateInfo& _Info)
 {
 
 //애니메이션 변경
-
+	FBXAnimationRenderer->ChangeAnimation("Player_Hook");
 
 
 }
@@ -776,7 +782,7 @@ void Player::HookAttUpdate(float _DeltaTime, const StateInfo& _Info)
 			std::bind(&Player::TrailCollision, this, std::placeholders::_1, std::placeholders::_2)
 		);*/
 
-
+		FBXAnimationRenderer->ChangeAnimation("Player_Hook_Fly");
 		m_fSpeed = 1500.f;
 		float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 		GetTransform().SetWorldMove(MoveDir * m_fSpeed * _DeltaTime);
@@ -802,6 +808,7 @@ void Player::SlideStart(const StateInfo& _Info)
 {
 	m_fSlideSpeed = 700.f;
 	m_bSWASlidecheck = false;
+	FBXAnimationRenderer->ChangeAnimation("Player_Roll");
 }
 
 void Player::SlideEnd(const StateInfo& _Info)
@@ -873,7 +880,7 @@ void Player::SlideUpdate(float _DeltaTime, const StateInfo& _Info)
 
 void Player::SlideAttStart(const StateInfo& _Info)
 {
-
+	FBXAnimationRenderer->ChangeAnimation("Player_SlideAtt");
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
 	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
 	RenderFoward = RenderFoward * 100.f;
@@ -919,6 +926,11 @@ void Player::SlideAttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 {
+
+
+	FBXAnimationRenderer->ChangeAnimation("Player_Walk");
+
+
 	if (false == GameEngineInput::GetInst()->IsPress("PlayerLeft") &&
 		false == GameEngineInput::GetInst()->IsPress("PlayerRight") &&
 		false == GameEngineInput::GetInst()->IsPress("PlayerUp") &&

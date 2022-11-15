@@ -84,7 +84,7 @@ void LoginLevel::LevelStartEvent()
 			UI.lock()->CreateComponent<GameEngineCollision>();
 
 			std::weak_ptr < ShopNPC> cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
-			cShopNPC.lock()->GetTransform().SetWorldPosition({ -300.F,0.F,500.F });
+			cShopNPC.lock()->GetTransform().SetWorldPosition({ -350.f,100.F,700.F });
 			
 
 		}
