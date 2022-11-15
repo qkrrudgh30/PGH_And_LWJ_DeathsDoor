@@ -83,3 +83,9 @@ enum
 	emcLantern = 3,
 	eEnd,
 };
+
+enum
+{
+	False = 0,
+	True = 1,
+};

@@ -25,75 +25,11 @@ ContentsCore::~ContentsCore()
 
 void ContentsCore::Start()
 {
-
 	GameEngineTime::SetLimitFrame(-1);
-	std::string_view Value = magic_enum::enum_name(OBJECTORDER::Player);
-	std::string Name = Value.data();
 
-	{   // 파란색, 디버그 충돌체 3dbox, getworld
-		GameEngineDirectory Dir;
-		Dir.MoveParentToExitsChildDirectory("ContentsResources");
-		Dir.Move("ContentsResources");
-		Dir.Move("Asset");
+	InitializeContentsResource();
 
-		// std::vector<GameEngineDirectory> DirList = Dir.GetRecursiveAllDirectory();
-
-		std::vector<GameEngineFile> Shaders = Dir.GetAllFile();
-
-		for (size_t i = 0; i < Shaders.size(); i++)
-		{
-			GameEngineTexture::Load(Shaders[i].GetFullPath());
-		}
-
-	}
-
-	{
-		GameEngineDirectory Dir;
-		Dir.MoveParentToExitsChildDirectory("ContentsResources");
-		Dir.Move("ContentsResources");
-		Dir.Move("Asset");
-		Dir.Move("GlobalUI");
-
-		std::vector<GameEngineFile> Shaders = Dir.GetAllFile();
-
-		for (size_t i = 0; i < Shaders.size(); i++)
-		{
-			GameEngineTexture::Load(Shaders[i].GetFullPath());
-		}
-
-
-	}
-
-
-	{
-		GameEngineDirectory Dir;
-
-		Dir.MoveParentToExitsChildDirectory("GameEngineResources");
-		Dir.Move("ContentsResources");
-		Dir.Move("Shader");
-
-		std::vector<GameEngineFile> Shaders = Dir.GetAllFile("hlsl");
-
-		for (size_t i = 0; i < Shaders.size(); i++)
-		{
-			GameEngineShader::AutoCompile(Shaders[i].GetFullPath());
-		}
-	}
-
-	//{
-	//	GameEngineRenderingPipeLine* NewPipe = GameEngineRenderingPipeLine::Create("YEffect");
-	//	NewPipe->SetInputAssembler1VertexBuffer("FullRect");
-	//	NewPipe->SetInputAssembler2IndexBuffer("FullRect");
-	//	NewPipe->SetVertexShader("YEffect.hlsl");
-	//	NewPipe->SetPixelShader("YEffect.hlsl");
-	//}
-
-	if (false == GameEngineInput::GetInst()->IsKey("LevelChangeKey"))
-	{
-		GameEngineInput::GetInst()->CreateKey("LevelChangeKey", 'P');
-	}
-
-	// RTTI 런 타임 타입 인포메이션
+#pragma region CreateContentsLevel
 	CreateLevel<LoginLevel>("00_LoginLevel");
 	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("00_LoginLevel", false));
 	CreateLevel<HuntingLevel1>("01_HuntingLevel1");
@@ -111,15 +47,18 @@ void ContentsCore::Start()
 	CreateLevel<EditLevel>("07_EditLevel");
 	CreateLevel<TestLevel>("08_TestLevel");
 
-
-
 	ChangeLevel("07_EditLevel");
 	ContentsLevel::mstrNextLevelName = "00_LoginLevel";
+#pragma endregion
+
+#pragma region CreateContentsGUI
 
 #ifdef _DEBUG
 	GameEngineGUI::CreateGUIWindow<GameEngineStatusWindow>("EngineStatus", nullptr);
 	GameEngineGUI::CreateGUIWindow<EditGUIWindow>("EditGUIWindow", nullptr);
 #endif
+
+#pragma endregion
 
 }
 
@@ -129,4 +68,5 @@ void ContentsCore::Update(float _DeltaTime)
 
 void ContentsCore::End()
 {
+	DestroyContentsResource();
 }

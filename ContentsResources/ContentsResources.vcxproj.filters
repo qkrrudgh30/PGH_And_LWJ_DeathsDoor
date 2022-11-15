@@ -13,6 +13,12 @@
     <Filter Include="Shader">
       <UniqueIdentifier>{4cc2f42b-61d5-45b3-b9d2-aa6b1a199c2d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Shader\2DShader">
+      <UniqueIdentifier>{96e90ba7-7aae-41e4-aa88-761b714604c2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Shader\3DShader">
+      <UniqueIdentifier>{c601ee1d-fe4e-4191-8c29-99882a8c416d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <Image Include="Texture\Test\4.png">
@@ -38,7 +44,10 @@
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\YEffect.hlsl">
-      <Filter>Shader</Filter>
+      <Filter>Shader\2DShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Fade.hlsl">
+      <Filter>Shader\2DShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

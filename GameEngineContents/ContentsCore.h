@@ -42,6 +42,8 @@ protected:
 	void End() override;
 
 private:
+	static void InitializeContentsResource();
+	static void DestroyContentsResource();
 
 };
 

@@ -179,6 +179,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Enums.h" />
+    <ClInclude Include="FadeRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="FlowerBullet.h">
       <SubType>
       </SubType>
@@ -335,6 +339,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="ContentsCore_Resources.cpp" />
     <ClCompile Include="ContentsLevel.cpp">
       <SubType>
       </SubType>
@@ -344,6 +349,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="EditLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FadeRenderer.cpp">
       <SubType>
       </SubType>
     </ClCompile>
