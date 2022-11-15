@@ -27,6 +27,22 @@ std::shared_ptr<GameEngineFBXMesh> GameEngineFBXMesh::Load(const std::string& _P
 
 void GameEngineFBXMesh::UserLoad(const std::string_view& _Path)
 {
+	GameEngineFile File = _Path.data();
+	File.Open(OpenMode::Read, FileMode::Binary);
+
+	File.Read(MeshInfos);
+	File.Read(RenderUnitInfos);
+	File.Read(AllBones);
+
+	for (size_t i = 0; i < AllBones.size(); i++)
+	{
+		std::map<std::string, Bone*>& Map = AllFindMap.emplace_back();
+
+		for (size_t boneindex = 0; boneindex < AllBones[i].size(); boneindex++)
+		{
+			Map.insert(std::make_pair(AllBones[i][boneindex].Name, &AllBones[i][boneindex]));
+		}
+	}
 
 }
 
@@ -34,35 +50,37 @@ void GameEngineFBXMesh::UserSave(const std::string_view& _Path)
 {
 	GameEngineFile File = _Path.data();
 	File.Open(OpenMode::Write, FileMode::Binary);
-	//File.Write(RenderUnitInfos);
-	//File.Write(AllBones);
+
+	File.Write(MeshInfos);
+	File.Write(RenderUnitInfos);
+	File.Write(AllBones);
 }
 
 void GameEngineFBXMesh::LoadMesh(const std::string& _Path, const std::string& _Name)
 {
-	// 
+	GameEngineFile SaveFile = GameEngineFile(_Path.c_str());
 
-	// GameEngineFile SaveFile = GameEngineFile(_Path.c_str());
-	// 
-	// SaveFile.ChangeExtension(".UserFBX");
-	// SaveFile.GetExtension();
+	SaveFile.ChangeExtension(".MeshFBX");
+	SaveFile.GetExtension();
 
-
-	//if (SaveFile.IsExits())
-	//{
-	//	// UserLoad();
-	//	return;
-	//}
 
 	FBXInit(_Path);
+	if (SaveFile.IsExits())
+	{
+		UserLoad(SaveFile.GetFullPath());
+		CreateGameEngineStructuredBuffer();
+		return;
+	}
+
 	// 버텍스 정보를 가진 노드를 조사한다.
 	MeshLoad();
+	CreateGameEngineStructuredBuffer();
 	// Bone을 조사한다.
 
-	//if (false == SaveFile.IsExits())
-	//{
-	//	UserSave(SaveFile.GetFullPath());
-	//}
+	if (false == SaveFile.IsExits())
+	{
+		UserSave(SaveFile.GetFullPath());
+	}
 }
 
 void GameEngineFBXMesh::MeshLoad()
@@ -73,7 +91,6 @@ void GameEngineFBXMesh::MeshLoad()
 
 	ImportBone();
 
-	CreateGameEngineStructuredBuffer();
 
 	AllBones; // 본정보체
 	AllFindMap;

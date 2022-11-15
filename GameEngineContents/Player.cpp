@@ -49,6 +49,7 @@ Player::Player()
 	, m_bArrowCameraCheck(false)
 	, m_fCameraLenZ(0.f)
 	, m_fCameraLenY(0.f)
+	, m_fAccTime(0.f)
 	, m_fArrowCameraActionPos(0.f)
 	//, UpgradeUI()
 	//, MainUI()
@@ -60,7 +61,6 @@ Player::Player()
 	, m_CSWAtt3()
 	, m_CHookAtt()
 	, m_CSWAtt2()
-
 {
 	MainPlayer = this;
 }
@@ -79,18 +79,22 @@ void Player::Start()
 #pragma region BUG_LoadPlayerMesh
 	
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
-	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 100.f, 100.f, 100.f });
+	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 10.f, 10.f, 10.f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
-	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
-	for (size_t i = 0; i <= 3; ++i)
+	FBXAnimationRenderer->SetFBXMesh("Player.fbx", "TextureAnimation");
+	/*for (size_t i = 0; i <= 6; ++i)
 	{
-		// if (14 == i || 15 == i) { continue;	}
-
+		if (4 == i || 5 == i) { continue; }
 		FBXAnimationRenderer->SetFBXMesh("Player.fbx", "TextureAnimation", i);
-	}
 
-	FBXAnimationRenderer->CreateFBXAnimation("Run", "Run.fbx");
-	FBXAnimationRenderer->ChangeAnimation("Run");
+	}*/
+
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Idle", "Player_Idle.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Roll", "Player_Roll.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Walk", "Player_Walk.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Test1", "Player_Test1.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Test2", "Player_Test2.fbx");
+	FBXAnimationRenderer->ChangeAnimation("Player_Idle");
 
 #pragma endregion
 
@@ -167,7 +171,7 @@ void Player::Start()
 	Collision->ChangeOrder(OBJECTORDER::Player);
 
 	StateManager.CreateStateMember("Idle"
-		, std::bind(&Player::IdleUpdate,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::IdleUpdate, this, std::placeholders::_1, std::placeholders::_2)
 		, std::bind(&Player::IdleStart,this, std::placeholders::_1)
 	);
 
@@ -1150,9 +1154,21 @@ CollisionReturn Player::MonsterCollision(std::shared_ptr < GameEngineCollision> 
 
 void Player::Update(float _DeltaTime)
 {
+#pragma region TestAboutAnimationChanges
+	if (10.f < m_fAccTime)
+	{
+		FBXAnimationRenderer->ChangeAnimation("Player_Test2");
+		if (20.f < m_fAccTime)
+		{
+			FBXAnimationRenderer->ChangeAnimation("Player_Test1");
+		}
+	}
+
+#pragma endregion
 
 
 	m_fStaticCollDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
+
 
 
 

@@ -300,6 +300,15 @@ void GameEngineFBXAnimation::ProcessAnimationLoad(std::shared_ptr <GameEngineFBX
 // 본을 가진 GameEngineFBXMesh기반으로 애니메이션 행렬을 만들어낸다.
 void GameEngineFBXAnimation::AnimationMatrixLoad(std::shared_ptr <GameEngineFBXMesh> _Mesh, std::shared_ptr<GameEngineFBXAnimationRenderer> _Renderer, int _AnimationIndex)
 {
+	GameEngineFile SaveFile = GameEngineFile(GetPath().c_str());
+	SaveFile.ChangeExtension(".AnimationFBX");
+	SaveFile.GetExtension();
+	if (SaveFile.IsExits())
+	{
+		UserLoad(SaveFile.GetFullPath());
+		return;
+	}
+
 	if (0 == AnimationDatas.size())
 	{
 		MsgBoxAssert("애니메이션 데이터가 존재하지 않는 매쉬로 애니메이션을 만들려고 했습니다.");
@@ -328,5 +337,24 @@ void GameEngineFBXAnimation::AnimationMatrixLoad(std::shared_ptr <GameEngineFBXM
 
 	ProcessAnimationCheckState(_Mesh, _AnimationIndex);
 
+	if (false == SaveFile.IsExits())
+	{
+		UserSave(SaveFile.GetFullPath());
+	}
+
 	AnimationDatas;
+}
+
+void GameEngineFBXAnimation::UserLoad(const std::string_view& _Path/*GameEngineFile& _File*/) 
+{
+	GameEngineFile File = _Path.data();
+	File.Open(OpenMode::Read, FileMode::Binary);
+	File.Read(AnimationDatas);
+}
+
+void GameEngineFBXAnimation::UserSave(const std::string_view& _Path/*GameEngineFile& _File*/) 
+{
+	GameEngineFile File = _Path.data();
+	File.Open(OpenMode::Write, FileMode::Binary);
+	File.Write(AnimationDatas);
 }

@@ -4,7 +4,7 @@
 
 
 
-class FbxExBoneFrameData
+class FbxExBoneFrameData : public GameEngineSerializer
 {
 public:
 	float4 S; // 크
@@ -20,31 +20,31 @@ public:
 
 	}
 
-	void Write(GameEngineFile* _File) const
+	void Write(GameEngineFile& _File) override
 	{
-		_File->Write(S);
-		_File->Write(Q);
-		_File->Write(T);
-		_File->Write(Time);
-		_File->Write(FrameMat);
-		_File->Write(&GlobalAnimation, sizeof(fbxsdk::FbxAMatrix));
-		_File->Write(&LocalAnimation, sizeof(fbxsdk::FbxAMatrix));
+		_File.Write(S);
+		_File.Write(Q);
+		_File.Write(T);
+		_File.Write(Time);
+		_File.Write(FrameMat);
+		_File.Write(GlobalAnimation);
+		_File.Write(LocalAnimation);
 	}
 
-	void Read(GameEngineFile* _File)
+	void Read(GameEngineFile& _File) override
 	{
-		_File->Read(S);
-		_File->Read(Q);
-		_File->Read(T);
-		_File->Read(Time);
-		_File->Read(FrameMat);
-		_File->Read(&GlobalAnimation, sizeof(fbxsdk::FbxAMatrix), sizeof(fbxsdk::FbxAMatrix));
-		_File->Read(&LocalAnimation, sizeof(fbxsdk::FbxAMatrix), sizeof(fbxsdk::FbxAMatrix));
+		_File.Read(S);
+		_File.Read(Q);
+		_File.Read(T);
+		_File.Read(Time);
+		_File.Read(FrameMat);
+		_File.Read(GlobalAnimation);
+		_File.Read(LocalAnimation);
 	}
 
 };
 
-class FbxExBoneFrame
+class FbxExBoneFrame : public GameEngineSerializer
 {
 public:
 	int BoneIndex;
@@ -57,23 +57,23 @@ public:
 
 	}
 
-	void Write(GameEngineFile* _File) const
+	void Write(GameEngineFile& _File) override
 	{
-		_File->Write(BoneIndex);
-		_File->Write(BoneParentIndex);
-		_File->Write(BoneMatData);
+		_File.Write(BoneIndex);
+		_File.Write(BoneParentIndex);
+		_File.Write(BoneMatData);
 	}
 
-	void Read(GameEngineFile* _File)
+	void Read(GameEngineFile& _File) override
 	{
-		_File->Read(BoneIndex);
-		_File->Read(BoneParentIndex);
-		_File->Read(BoneMatData);
+		_File.Read(BoneIndex);
+		_File.Read(BoneParentIndex);
+		_File.Read(BoneMatData);
 	}
 };
 
 // Take 001이라는 애니메이션이 있는데.
-class FbxExAniData
+class FbxExAniData : public GameEngineSerializer
 {
 public:
 	std::string				AniName;
@@ -92,33 +92,32 @@ public:
 	// meshInfo 1개 전신 20
 	std::map<size_t, std::vector<FbxExBoneFrame>> AniFrameData;
 
-	void Write(GameEngineFile* _File) const
+	void Write(GameEngineFile& _File) override
 	{
-		_File->Write(AniName);
-		_File->Write(&StartTime, sizeof(fbxsdk::FbxTime));
-		_File->Write(&EndTime, sizeof(fbxsdk::FbxTime));
-		_File->Write(&TimeStartCount, sizeof(fbxsdk::FbxLongLong));
-		_File->Write(&TimeEndCount, sizeof(fbxsdk::FbxLongLong));
-		_File->Write(&FrameCount, sizeof(fbxsdk::FbxLongLong));
-		_File->Write(&TimeMode, sizeof(fbxsdk::FbxTime::EMode));
-		_File->Write(&FbxModeCount, sizeof(__int64));
-		_File->Write(&FbxModeRate, sizeof(double));
-		// 박살날겁니다.
-		_File->Write(AniFrameData);
+		_File.Write(AniName);
+		_File.Write(StartTime);
+		_File.Write(EndTime);
+		_File.Write(TimeStartCount);
+		_File.Write(TimeEndCount);
+		_File.Write(FrameCount);
+		_File.Write(TimeMode);
+		_File.Write(FbxModeCount);
+		_File.Write(FbxModeRate);
+		_File.Write(AniFrameData);
 	}
 
-	void Read(GameEngineFile* _File)
+	void Read(GameEngineFile& _File) override
 	{
-		_File->Read(AniName);
-		_File->Read(&StartTime, sizeof(fbxsdk::FbxTime), sizeof(fbxsdk::FbxTime));
-		_File->Read(&EndTime, sizeof(fbxsdk::FbxTime), sizeof(fbxsdk::FbxTime));
-		_File->Read(&TimeStartCount, sizeof(fbxsdk::FbxLongLong), sizeof(fbxsdk::FbxLongLong));
-		_File->Read(&TimeEndCount, sizeof(fbxsdk::FbxLongLong), sizeof(fbxsdk::FbxLongLong));
-		_File->Read(&FrameCount, sizeof(fbxsdk::FbxLongLong), sizeof(fbxsdk::FbxLongLong));
-		_File->Read(&TimeMode, sizeof(fbxsdk::FbxTime::EMode), sizeof(fbxsdk::FbxTime::EMode));
-		_File->Read(&FbxModeCount, sizeof(__int64), sizeof(__int64));
-		_File->Read(&FbxModeRate, sizeof(double), sizeof(double));
-		_File->Read(AniFrameData);
+		_File.Read(AniName);
+		_File.Read(StartTime);
+		_File.Read(EndTime);
+		_File.Read(TimeStartCount);
+		_File.Read(TimeEndCount);
+		_File.Read(FrameCount);
+		_File.Read(TimeMode);
+		_File.Read(FbxModeCount);
+		_File.Read(FbxModeRate);
+		_File.Read(AniFrameData);
 	}
 
 
@@ -189,6 +188,9 @@ public:
 
 		return &AnimationDatas[_Index];
 	}
+
+	void UserLoad(const std::string_view& _Path/*GameEngineFile& _File*/);
+	void UserSave(const std::string_view& _Path/*GameEngineFile& _File*/);
 
 protected:
 	void LoadMesh(const std::string& _Path, const std::string& _Name);

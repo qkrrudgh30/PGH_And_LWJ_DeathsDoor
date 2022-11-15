@@ -87,7 +87,6 @@ protected:
 
 
 
-
 	// void MoveStart(const StateInfo& _Info);
 	void MoveUpdate(float _DeltaTime, const StateInfo& _Info);
 public:
@@ -175,5 +174,12 @@ private:
 	std::weak_ptr < PlayerSWAtt3>		 m_CSWAtt3;
 	std::weak_ptr < PlayerSWAttSlide> m_CSWAttSlide;
 	std::weak_ptr < PlayerHookAtt>	 m_CHookAtt;
+	
+#pragma region TestAboutAnimationChanges
+
+	float											m_fAccTime;
+
+#pragma endregion
+
 };
 

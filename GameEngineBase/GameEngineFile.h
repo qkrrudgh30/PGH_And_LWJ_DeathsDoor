@@ -3,7 +3,7 @@
 #include "GameEngineMath.h"
 
 class GameEngineFile;
-class Serializer
+class GameEngineSerializer
 {
 public:
 	virtual void Write(GameEngineFile& _File) = 0;
@@ -58,6 +58,8 @@ public:
 
 	void Write(const float& _Data);
 
+	void Write(const unsigned int& _Data);
+
 	template<typename Struct>
 	void Write(const Struct& _Data)
 	{
@@ -67,33 +69,62 @@ public:
 	template<typename Value>
 	void Write(std::vector<Value>& _Data)
 	{
-		/*int Size = static_cast<int>(_Data.size());
-		Write(&Size, sizeof(int));
+		unsigned int Size = static_cast<unsigned int>(_Data.size());
+		Write(Size);
 
 		if (Size <= 0)
 		{
 			return;
 		}
 
-		Value* Check = &_Data[0];
-
-		Serializer* Ser = dynamic_cast<Serializer*>(Check);
-
-
 		for (size_t i = 0; i < _Data.size(); i++)
 		{
-			if (nullptr == Ser)
+			if (false == std::is_base_of<GameEngineSerializer, Value>::value)
 			{
-				Write(&_Data[i], sizeof(Value));
+				Write(_Data[i]);
 			}
 			else 
 			{
-				_Data[i].Write(*this);
+				GameEngineSerializer* Ser = reinterpret_cast<GameEngineSerializer*>(&_Data[i]);
+				Ser->Write(*this);
 			}
 
-		}*/
+		}
+	}
 
-		// Write(reinterpret_cast<const void*>(&_Data), sizeof(Struct));
+	template<typename Key, typename  Value>
+	void Write(std::map<Key, Value>& _Data)
+	{
+		unsigned int Size = static_cast<unsigned int>(_Data.size());
+		Write(Size);
+
+		if (Size <= 0)
+		{
+			return;
+		}
+
+		for (std::pair<Key, Value> Pair : _Data)
+		{
+			if (false == std::is_base_of<GameEngineSerializer, Key>::value)
+			{
+				Write(Pair.first);
+			}
+			else
+			{
+				GameEngineSerializer* Ser = reinterpret_cast<GameEngineSerializer*>(&Pair.first);
+				Ser->Write(*this);
+			}
+
+			if (false == std::is_base_of<GameEngineSerializer, Value>::value)
+			{
+				Write(Pair.second);
+			}
+			else
+			{
+				GameEngineSerializer* Ser = reinterpret_cast<GameEngineSerializer*>(&Pair.second);
+				Ser->Write(*this);
+			}
+		}
 	}
 
 	// 받는용 버퍼
@@ -109,13 +140,81 @@ public:
 
 	void Read(float& _Data);
 
+	void Read(unsigned int& _Data);
+
 	template<typename Struct>
 	void Read(Struct& _Data)
 	{
 		Read(reinterpret_cast<void*>(&_Data), sizeof(Struct), sizeof(Struct));
 	}
 
+	template<typename Value>
+	void Read(std::vector<Value>& _Data)
+	{
+		unsigned int Size = 0;
+		Read(Size);
 
+		if (Size <= 0)
+		{
+			return;
+		}
+
+		_Data.resize(Size);
+
+		for (unsigned int i = 0; i < Size; i++)
+		{
+			if (false == std::is_base_of<GameEngineSerializer, Value>::value)
+			{
+				Read(_Data[i]);
+			}
+			else
+			{
+				GameEngineSerializer* Ser = reinterpret_cast<GameEngineSerializer*>(&_Data[i]);
+				Ser->Read(*this);
+			}
+
+		}
+	}
+
+	template<typename Key, typename  Value>
+	void Read(std::map<Key, Value>& _Data)
+	{
+		unsigned int Size = 0;
+		Read(Size);
+
+		if (Size <= 0)
+		{
+			return;
+		}
+
+		for (unsigned int i = 0; i < Size; ++i)
+		{
+			std::pair<Key, Value> Pair;
+
+			if (false == std::is_base_of<GameEngineSerializer, Key>::value)
+			{
+				Read(Pair.first);
+			}
+			else
+			{
+				GameEngineSerializer* Ser = reinterpret_cast<GameEngineSerializer*>(&Pair.first);
+				Ser->Read(*this);
+			}
+
+
+			if (false == std::is_base_of<GameEngineSerializer, Value>::value)
+			{
+				Read(Pair.second);
+			}
+			else
+			{
+				GameEngineSerializer* Ser = reinterpret_cast<GameEngineSerializer*>(&Pair.second);
+				Ser->Read(*this);
+			}
+
+			_Data.insert(Pair);
+		}
+	}
 
 	std::string GetString();
 
