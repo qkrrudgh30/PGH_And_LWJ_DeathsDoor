@@ -74,54 +74,13 @@ void Player::Start()
 {
 
 
-
-
-#pragma region BUG_LoadPlayerMesh
-	
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 10.f, 10.f, 10.f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
 	FBXAnimationRenderer->SetFBXMesh("Player.fbx", "TextureAnimation");
-	/*for (size_t i = 0; i <= 6; ++i)
-	{
-		if (4 == i || 5 == i) { continue; }
-		FBXAnimationRenderer->SetFBXMesh("Player.fbx", "TextureAnimation", i);
-
-	}*/
 
 	FBXAnimationRenderer->CreateFBXAnimation("Player_Idle", "Player_Idle.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Roll", "Player_Roll.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Walk", "Player_Walk.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Test1", "Player_Test1.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Test2", "Player_Test2.fbx");
 	FBXAnimationRenderer->ChangeAnimation("Player_Idle");
-
-#pragma endregion
-
-#pragma region TemporaryCode
-	
-	//FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
-	////FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 200.f, 0.f, -800.f });
-	//FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.3f, 0.3f, 0.3f });
-	//FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
-	//// FBXAnimationRenderer->SetFBXMesh("Player.FBX", "Texture");
-	//for (int i = 0; i < 4; ++i)
-	//{
-	//	if (i != 3)
-	//	{
-	//		// FBXAnimationRenderer->SetFBXMesh("Flower.FBX", "Texture", i);
-	//	}
-	//}
-	
-#pragma endregion
-
-#pragma region TeacherCode
-	/*
-	    Renderer->SetFBXMesh("AnimMan.FBX", "TextureAnimation");
-        Renderer->CreateFBXAnimation("Run", "ALS_N_Run_F.FBX");
-        Renderer->ChangeAnimation("Run");
-	*/
-#pragma endregion
 
 
 	//ui주석 풀어야함
@@ -1154,17 +1113,6 @@ CollisionReturn Player::MonsterCollision(std::shared_ptr < GameEngineCollision> 
 
 void Player::Update(float _DeltaTime)
 {
-#pragma region TestAboutAnimationChanges
-	if (10.f < m_fAccTime)
-	{
-		FBXAnimationRenderer->ChangeAnimation("Player_Test2");
-		if (20.f < m_fAccTime)
-		{
-			FBXAnimationRenderer->ChangeAnimation("Player_Test1");
-		}
-	}
-
-#pragma endregion
 
 
 	m_fStaticCollDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
