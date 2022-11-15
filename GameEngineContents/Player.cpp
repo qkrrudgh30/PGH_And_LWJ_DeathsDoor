@@ -80,7 +80,22 @@ void Player::Start()
 	FBXAnimationRenderer->SetFBXMesh("Player.fbx", "TextureAnimation");
 
 	FBXAnimationRenderer->CreateFBXAnimation("Player_Idle", "Player_Idle.fbx");
-	FBXAnimationRenderer->ChangeAnimation("Player_Idle");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Walk", "Player_Walk_S.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Arrow", "Player_Arrow.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Left", "Player_Att_Left.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Right", "Player_Att_R.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Att1", "Player_Att1.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Att2", "Player_Att2.fbx");
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Roll", "Player_Roll.fbx");
+
+	
+	
+	
+	
+	
+	
+	
+	FBXAnimationRenderer->ChangeAnimation("Player_Att1");
 
 
 	//ui주석 풀어야함
