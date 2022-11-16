@@ -314,11 +314,11 @@ void ContentsLevel::LoadResources2()
 			
 			if (l < muAnimationStartIndex)
 			{
-				if ("Collider" == mstrvecAllResourceNames[l])
+				/*if ("Collider" == mstrvecAllResourceNames[l])
 				{
 					mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 					continue;
-				}
+				}*/
 				std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
 				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 				if (l < muAllAnimatorCount)
@@ -346,11 +346,11 @@ void ContentsLevel::LoadResources2()
 			
 			if (i * muMyThreadCount + k < muAnimationStartIndex)
 			{
-				if ("Collider" == mstrvecAllResourceNames[l])
+				/*if ("Collider" == mstrvecAllResourceNames[l])
 				{
 					mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 					continue;
-				}
+				}*/
 				std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
 				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 				if (l < muAllAnimatorCount)
