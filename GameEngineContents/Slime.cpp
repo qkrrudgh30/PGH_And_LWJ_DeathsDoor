@@ -86,11 +86,6 @@ void Slime::Update(float _DeltaTime)
 
 	
 
-
-
-
-
-
 	if (m_Info.m_Hp <= 0)
 	{
 		Death();
@@ -107,7 +102,7 @@ void Slime::Update(float _DeltaTime)
 
 void Slime::MoveStart(const StateInfo& _Info)
 {
-
+	FBXAnimationRenderer->ChangeAnimation("Slime_Idle");
 }
 void Slime::MoveEnd(const StateInfo& _Info)
 {
@@ -228,6 +223,9 @@ void Slime::StunUpdate(float _DeltaTime, const StateInfo& _Info)
 
 void Slime::AttStart(const StateInfo& _Info)
 {
+
+	FBXAnimationRenderer->ChangeAnimation("Slime_Att");
+
 	m_bhitCheck = true;
 }
 void Slime::AttEnd(const StateInfo& _Info)
@@ -260,7 +258,7 @@ void Slime::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 void Slime::IdleStart(const StateInfo& _Info)
 {
-
+	FBXAnimationRenderer->ChangeAnimation("Slime_Idle");
 }
 void Slime::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 {
@@ -269,6 +267,7 @@ void Slime::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 		StateManager.ChangeState("Stun");
 		m_bHitCheck = false;
 	}
+
 
 
 
