@@ -46,7 +46,7 @@
     <FxCompile Include="Shader\YEffect.hlsl">
       <Filter>Shader\2DShader</Filter>
     </FxCompile>
-    <FxCompile Include="Fade.hlsl">
+    <FxCompile Include="Shader\Fade.hlsl">
       <Filter>Shader\2DShader</Filter>
     </FxCompile>
   </ItemGroup>
