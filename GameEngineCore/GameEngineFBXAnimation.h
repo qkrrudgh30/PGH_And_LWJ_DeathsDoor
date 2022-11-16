@@ -177,7 +177,7 @@ public:
 
 	// 애니메이션 프레임 행렬계산.
 	// 여기서 프레임의 의미는 Animation TimeEndCount - TimeStartCount
-	void AnimationMatrixLoad(std::shared_ptr <GameEngineFBXMesh> _Mesh, std::shared_ptr<GameEngineFBXAnimationRenderer> _Renderer, int _AnimationIndex);
+	void AnimationMatrixLoad(std::shared_ptr <GameEngineFBXMesh> _Mesh, const std::string_view& _Name, int _AnimationIndex);
 
 	FbxExAniData* GetAnimationData(int _Index)
 	{

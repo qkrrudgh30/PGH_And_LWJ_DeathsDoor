@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "GameEngineFile.h"
 #include "GameEngineDebug.h"
+#include "GameEngineDirectory.h"
+#include "GameEngineString.h"
 
 GameEngineFile::GameEngineFile() 
 	: FilePtr(nullptr)
@@ -195,4 +197,11 @@ uintmax_t GameEngineFile::GetFileSize() const
 /*static */uintmax_t GameEngineFile::GetFileSize(const std::filesystem::path& _Path)
 {
 	return std::filesystem::file_size(_Path);
+}
+
+GameEngineDirectory GameEngineFile::GetDirectory()
+{
+	std::string Path = GameEngineString::Replace(Path_.string(), GetFileName().c_str(), "");
+	Path.replace(Path.size() - 1, 2, "");
+	return GameEngineDirectory(Path.c_str());
 }

@@ -454,26 +454,14 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <CopyFileToFolders Include="ThirdParty\bin\Release\DirectXTex.lib">
-      <Filter>ThirdParty\Lib\Release</Filter>
-    </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\bin\Debug\DirectXTex.lib">
       <Filter>ThirdParty\Lib\Debug</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="ThirdParty\bin\Release\FW1FontWrapper.dll">
-      <Filter>ThirdParty\Lib\Release</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="ThirdParty\bin\Release\FW1FontWrapper.lib">
-      <Filter>ThirdParty\Lib\Release</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\bin\Debug\FW1FontWrapper.lib">
       <Filter>ThirdParty\Lib\Debug</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\bin\Debug\FW1FontWrapper.dll">
       <Filter>ThirdParty\Lib\Debug</Filter>
-    </CopyFileToFolders>
-    <CopyFileToFolders Include="ThirdParty\bin\Release\libfbxsdk.dll">
-      <Filter>ThirdParty\Lib\Release</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\bin\Debug\libfbxsdk.dll">
       <Filter>ThirdParty\Lib\Debug</Filter>
@@ -499,13 +487,31 @@
     <CopyFileToFolders Include="ThirdParty\bin\Debug\zlib-mt.lib">
       <Filter>ThirdParty\Lib\Debug</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Release\DirectXTex.lib">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Release\FW1FontWrapper.dll">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Release\FW1FontWrapper.lib">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Release\libfbxsdk.dll">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\bin\Release\libfbxsdk.lib">
       <Filter>ThirdParty\Lib\Release</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\bin\Release\libfbxsdk-md.lib">
       <Filter>ThirdParty\Lib\Release</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Release\libfbxsdk-md.zip">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\bin\Release\libfbxsdk-mt.lib">
+      <Filter>ThirdParty\Lib\Release</Filter>
+    </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Release\libfbxsdk-mt.zip">
       <Filter>ThirdParty\Lib\Release</Filter>
     </CopyFileToFolders>
     <CopyFileToFolders Include="ThirdParty\bin\Release\libxml2-md.lib">
@@ -520,19 +526,13 @@
     <CopyFileToFolders Include="ThirdParty\bin\Release\zlib-mt.lib">
       <Filter>ThirdParty\Lib\Release</Filter>
     </CopyFileToFolders>
+    <CopyFileToFolders Include="ThirdParty\bin\Debug\libfbxsdk-md.zip">
+      <Filter>ThirdParty\Lib\Debug</Filter>
+    </CopyFileToFolders>
   </ItemGroup>
   <ItemGroup>
-    <None Include="ThirdParty\bin\Debug\libfbxsdk-md.zip">
-      <Filter>ThirdParty\Lib\Debug</Filter>
-    </None>
     <None Include="ThirdParty\bin\Debug\libfbxsdk-mt.zip">
       <Filter>ThirdParty\Lib\Debug</Filter>
-    </None>
-    <None Include="ThirdParty\bin\Release\libfbxsdk-md.zip">
-      <Filter>ThirdParty\Lib\Release</Filter>
-    </None>
-    <None Include="ThirdParty\bin\Release\libfbxsdk-mt.zip">
-      <Filter>ThirdParty\Lib\Release</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -298,11 +298,15 @@ void GameEngineFBXAnimation::ProcessAnimationLoad(std::shared_ptr <GameEngineFBX
 
 
 // 본을 가진 GameEngineFBXMesh기반으로 애니메이션 행렬을 만들어낸다.
-void GameEngineFBXAnimation::AnimationMatrixLoad(std::shared_ptr <GameEngineFBXMesh> _Mesh, std::shared_ptr<GameEngineFBXAnimationRenderer> _Renderer, int _AnimationIndex)
+void GameEngineFBXAnimation::AnimationMatrixLoad(std::shared_ptr <GameEngineFBXMesh> _Mesh, const std::string_view& _Name, int _AnimationIndex)
 {
-	GameEngineFile SaveFile = GameEngineFile(GetPath().c_str());
-	SaveFile.ChangeExtension(".AnimationFBX");
-	SaveFile.GetExtension();
+	GameEngineFile DirFile = GetPath().c_str();
+
+	GameEngineDirectory Dir = DirFile.GetDirectory();
+	std::string FileName = _Name.data();
+	FileName += ".AnimationFBX";
+
+	GameEngineFile SaveFile = GameEngineFile(Dir.PlusFilePath(FileName));
 	if (SaveFile.IsExits())
 	{
 		UserLoad(SaveFile.GetFullPath());
@@ -325,12 +329,18 @@ void GameEngineFBXAnimation::AnimationMatrixLoad(std::shared_ptr <GameEngineFBXM
 		AnimationDatas[_AnimationIndex].AniFrameData[i];
 	}
 
-
 	for (UINT MeshCount = 0; MeshCount < _Mesh->MeshInfos.size(); MeshCount++)
 	{
 		// std::vector<std::vector<FbxExBoneFrame>> AniFrameData;
 		//    매쉬        본개수 
 		AnimationDatas[_AnimationIndex].AniFrameData[MeshCount].resize(_Mesh->GetBoneCount(MeshCount));
+	}
+
+	if (nullptr == _Mesh->RootNode)
+	{
+		GameEngineFile File = _Mesh->GetPath().c_str();
+		GameEngineDirectory Dir = File.GetDirectory();
+		_Mesh->FBXInit(Dir.PlusFilePath(_Mesh->FBXMeshName));
 	}
 
 	ProcessAnimationLoad(_Mesh, _Mesh->RootNode, _AnimationIndex);

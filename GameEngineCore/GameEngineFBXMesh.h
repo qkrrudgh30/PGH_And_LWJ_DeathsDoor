@@ -675,13 +675,18 @@ public:
 	void UserLoad(const std::string_view& _Path/*GameEngineFile& _File*/);
 	void UserSave(const std::string_view& _Path/*GameEngineFile& _File*/);
 
+	void UserSave(const std::string_view& _Path, size_t Index);
+
+	void UserSave(const std::string_view& _Path, std::vector<size_t> _Indexs);
+
 protected:
 	// 매쉬가 있어
-	std::vector<FbxExMeshInfo> MeshInfos;
 
-	// 매쉬의 버텍스가 이렇이렇게 되어있어.
+	std::string FBXMeshName;
+
+	std::vector<FbxExMeshInfo> MeshInfos;
 	std::vector<FbxRenderUnitInfo> RenderUnitInfos;
-	std::vector<std::vector<Bone>> AllBones; // 본정보체
+	std::vector<std::vector<Bone>> AllBones; 
 
 	std::vector<std::shared_ptr<GameEngineStructuredBuffer>> AllBoneStructuredBuffers; // 본정보체
 

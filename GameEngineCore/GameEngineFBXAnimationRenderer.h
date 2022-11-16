@@ -24,7 +24,7 @@ public:
 	UINT Start;
 	UINT End;
 
-	void Init(int _Index);
+	void Init(const std::string_view& _Name, int _Index);
 	void Reset();
 	void Update(float _DeltaTime);
 

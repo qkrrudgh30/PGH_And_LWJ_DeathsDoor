@@ -31,7 +31,7 @@ bool GameEnginePath::ChangeExtension(const std::string_view& _Extension)
 {
 	std::string Path = Path_.string();
 
-	GameEngineString::ToUpper(Path);
+	// GameEngineString::ToUpper(Path);
 
 	Path = GameEngineString::Replace(Path, GetExtension(), _Extension);
 

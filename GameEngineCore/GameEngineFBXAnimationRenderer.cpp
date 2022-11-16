@@ -18,12 +18,12 @@ GameEngineFBXAnimationRenderer::~GameEngineFBXAnimationRenderer()
 // _Index
 // 애니메이션을 가진 fbx의 AnimationDatas(vector)의 index를 의미한다.
 
-void FBXRendererAnimation::Init(int _Index)
+void FBXRendererAnimation::Init(const std::string_view& _Name, int _Index)
 {
 	// GameENgineFBXAnimation의 행렬 정보가 완전해지는것은 
 	// CalFbxExBoneFrameTransMatrix가 호출되고 난 후입니다.
 	// 애니메이션의 행렬이 계산되는겁니다.
-	Aniamtion->AnimationMatrixLoad(Mesh, ParentRenderer->CastThis<GameEngineFBXAnimationRenderer>(), _Index);
+	Aniamtion->AnimationMatrixLoad(Mesh, _Name, _Index);
 	FBXAnimationData = Aniamtion->GetAnimationData(_Index);
 	Start = 0;
 	End = static_cast<unsigned int>(FBXAnimationData->TimeEndCount);
@@ -274,7 +274,7 @@ void GameEngineFBXAnimationRenderer::CreateFBXAnimation(const std::string& _Anim
 	NewAnimation->Aniamtion = Animation;
 	NewAnimation->ParentRenderer = this;
 
-	NewAnimation->Init(_Index);
+	NewAnimation->Init(_AnimationName, _Index);
 
 	// 이순간 애니메이션 프레임 행렬에 대한 계산이 이때 이뤄지는데.
 	// 이건 느릴것이기 때문에 아마 추후 분명히.

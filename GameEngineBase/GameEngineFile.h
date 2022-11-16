@@ -23,6 +23,7 @@ enum class FileMode
 };
 
 // Ό³Έν :
+class GameEngineDirectory;
 class GameEngineFile : public GameEnginePath
 {
 public:
@@ -220,6 +221,7 @@ public:
 
 	uintmax_t GetFileSize() const;
 
+	GameEngineDirectory GetDirectory();
 
 protected:
 

@@ -215,3 +215,10 @@ bool GameEngineDirectory::MoveParentToExitsChildDirectory(const std::string& _Na
 
 	return false;
 }
+
+
+bool GameEngineDirectory::IsFileExist(const std::string_view& _FileName)
+{
+	GameEngineFile File = PlusFilePath(_FileName.data()).c_str();
+	return File.IsExits();
+}

@@ -20,6 +20,8 @@ public:
 
 	bool IsRoot();
 
+	bool IsFileExist(const std::string_view& _FileName);
+
 	void Move(const std::string& _Name);
 
 	std::string PlusFilePath(const std::string& _Name);
