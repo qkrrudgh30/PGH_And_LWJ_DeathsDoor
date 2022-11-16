@@ -23,7 +23,7 @@ public:
 	UnitBase& operator=(const UnitBase& _Other) = delete;
 	UnitBase& operator=(UnitBase&& _Other) noexcept = delete;
 
-protected:
+public:
 	std::shared_ptr < GameEngineDefaultRenderer> Renderer;
 	std::shared_ptr < GameEngineFBXStaticRenderer> FBXStaticRenderer;
 	std::shared_ptr <GameEngineFBXAnimationRenderer> FBXAnimationRenderer;

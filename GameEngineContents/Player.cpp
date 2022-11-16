@@ -19,7 +19,6 @@
 #include <iostream>
 #include <GameEngineCore/GameEngineFont.h>
 #include <GameEngineCore/GameEngineFBXAnimationRenderer.h>
-#include <GameEngineCore/GameEngineFBXAnimationRenderer.h>
 
 
 

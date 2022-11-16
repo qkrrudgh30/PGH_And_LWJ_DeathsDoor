@@ -2,6 +2,7 @@
 #include "StaticMesh.h"
 
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
+#include <GameEngineCore/GameEngineFBXAnimationRenderer.h>
 
 StaticMesh::StaticMesh() 
 	: mpFBXStaticRenderer(nullptr)
@@ -84,7 +85,45 @@ void StaticMesh::Update(float _DeltaTime)
 
 		}
 
-		mainPlayer->GetMainPlayer()->GetTransform().SetWorldMove(-(mainPlayer->m_fStaticCollDir) * PlayerSpeed * _DeltaTime);
+
+		float4 StaticPos = mpCollider->GetTransform().GetWorldPosition();
+		float4 PlayerPos = mainPlayer->GetTransform().GetWorldPosition();
+		float PlayerRotY = mainPlayer->FBXAnimationRenderer.get()->GetTransform().GetLocalRotation().y;
+		if (PlayerPos.x > StaticPos.x && PlayerPos.z > StaticPos.z)
+		{
+			
+			if (PlayerRotY >= 0 && PlayerRotY < 90)
+			{
+				return;
+			}
+		}
+		else if (PlayerPos.x > StaticPos.x && PlayerPos.z < StaticPos.z)
+		{
+			if (PlayerRotY >= 90 && PlayerRotY < 180)
+			{
+				return;
+			}
+		}
+		else if (PlayerPos.x < StaticPos.x && PlayerPos.z < StaticPos.z)
+		{
+			if (PlayerRotY >= 180 && PlayerRotY < 270)
+			{
+				return;
+			}
+		}
+		else if (PlayerPos.x < StaticPos.x && PlayerPos.z > StaticPos.z)
+		{
+			if (PlayerRotY >= 270 && PlayerRotY < 360)
+			{
+				return;
+			}
+		}
+
+
+		mainPlayer->GetTransform().SetWorldMove(-(mainPlayer->m_fStaticCollDir) * PlayerSpeed * _DeltaTime);
+
+
+
 
 	}
 
