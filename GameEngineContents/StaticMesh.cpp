@@ -18,7 +18,7 @@ StaticMesh::~StaticMesh()
 void StaticMesh::Start()
 {
 	mpFBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-	mpFBXStaticRenderer->Off();
+	
 	mpCollider = CreateComponent<GameEngineCollision>();
 	mpCollider->ChangeOrder(OBJECTORDER::StaticMesh);
 
@@ -26,6 +26,20 @@ void StaticMesh::Start()
 
 void StaticMesh::Update(float _DeltaTime)
 {
+	if (!m_bRenderOncheck)
+	{
+		m_bRenderOncheck = true;
+		float4 CheckScale = GetTransform().GetLocalScale();
+		if (CheckScale.x == 1 && CheckScale.y == 1 && CheckScale.z == 1)
+		{
+			mpFBXStaticRenderer->Off();
+		}
+
+	}
+	
+
+
+
 	if (false == mbPriorityInitialzed)
 	{
 		if (true == mbWithCollision)

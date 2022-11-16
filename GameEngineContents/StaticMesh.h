@@ -34,6 +34,7 @@ private:
 	bool mbPriorityInitialzed;
 	bool mbWithCollision;
 
+	bool m_bRenderOncheck = false;
 
 	CollisionReturn PlayerCollision(GameEngineCollision* _This, GameEngineCollision* _Other);
 
