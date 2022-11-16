@@ -56,6 +56,7 @@ void LoadingUI::Update(float _DeltaTime)
 
 		for (auto loaded : ContentsLevel::mstrvecAllResourceNames)
 		{
+			if ("Collider" == loaded) { continue; }
 			if (nullptr == GameEngineFBXMesh::Find(loaded + ".FBX"))
 			{
 				bLoop = false;

@@ -130,7 +130,6 @@ void ContentsLevel::LoadCreaturesFromFile(const std::string& _strFolderName)
 
 		std::string strCurrLevelName = GEngine::GetCurrentLevel()->GetNameCopy();
 		EditGUIWindow::GetCreatureMap()[strCurrLevelName].push_back(make_pair(strName, temp));
-		int a = 100;
 	}
 
 	fin.close();
@@ -316,12 +315,10 @@ void ContentsLevel::LoadResources2()
 			
 			if (l < muAnimationStartIndex)
 			{
-				/*if ("Collider" == mstrvecAllResourceNames[l])
+				if ("Collider" != mstrvecAllResourceNames[l])
 				{
-					mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
-					continue;
-				}*/
-				std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
+					std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
+				}
 				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 				if (l < muAllAnimatorCount)
 				{
@@ -348,12 +345,10 @@ void ContentsLevel::LoadResources2()
 			
 			if (i * muMyThreadCount + k < muAnimationStartIndex)
 			{
-				/*if ("Collider" == mstrvecAllResourceNames[l])
+				if ("Collider" != mstrvecAllResourceNames[l])
 				{
-					mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
-					continue;
-				}*/
-				std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
+					std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
+				}
 				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 				if (l < muAllAnimatorCount)
 				{

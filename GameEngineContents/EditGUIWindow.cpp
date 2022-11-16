@@ -213,21 +213,20 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			while (0 != i) { ++iterToSelectedObject; --i; }
 			tempStr = iterToSelectedObject->c_str();
 		}
-		std::shared_ptr<StaticMesh> temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
-		temp->SetPriorityInitialize();
+		std::weak_ptr<StaticMesh> temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
+		temp.lock()->SetPriorityInitialize();
 		if ("Collider" != tempStr)
 		{
-			temp->GetFBXRenderer()->SetFBXMesh(tempStr + ".fbx", "Texture");
+			temp.lock()->GetFBXRenderer()->SetFBXMesh(tempStr + ".fbx", "Texture");
 		}
-		temp->GetFBXRenderer()->SetFBXMesh(tempStr + ".fbx", "Texture");
 
-		temp->GetTransform().SetLocalScale(float4{ s_farrCurrScaleOnEditGUI[0], s_farrCurrScaleOnEditGUI[1], s_farrCurrScaleOnEditGUI[2] , 1.f });
-		temp->GetTransform().SetLocalRotate(float4{ s_farrCurrPositionOnEditGUI[0] , s_farrCurrPositionOnEditGUI[1] , s_farrCurrPositionOnEditGUI[2] });
-		temp->GetTransform().SetLocalPosition(float4{ s_farrCurrRotationOnEditGUI[0], s_farrCurrRotationOnEditGUI[1], s_farrCurrRotationOnEditGUI[2], 1.f });
+		temp.lock()->GetTransform().SetLocalScale(float4{ s_farrCurrScaleOnEditGUI[0], s_farrCurrScaleOnEditGUI[1], s_farrCurrScaleOnEditGUI[2] , 1.f });
+		temp.lock()->GetTransform().SetLocalRotate(float4{ s_farrCurrPositionOnEditGUI[0] , s_farrCurrPositionOnEditGUI[1] , s_farrCurrPositionOnEditGUI[2] });
+		temp.lock()->GetTransform().SetLocalPosition(float4{ s_farrCurrRotationOnEditGUI[0], s_farrCurrRotationOnEditGUI[1], s_farrCurrRotationOnEditGUI[2], 1.f });
 
-		temp->GetCollider()->GetTransform().SetLocalScale(float4{    s_farrCurrColliderScaleOnEditGUI[0],     s_farrCurrColliderScaleOnEditGUI[1],     s_farrCurrColliderScaleOnEditGUI[2] , 1.f });
-		temp->GetCollider()->GetTransform().SetLocalRotate(float4{   s_farrCurrColliderPositionOnEditGUI[0] , s_farrCurrColliderPositionOnEditGUI[1] , s_farrCurrColliderPositionOnEditGUI[2] });
-		temp->GetCollider()->GetTransform().SetLocalPosition(float4{ s_farrCurrColliderRotationOnEditGUI[0],  s_farrCurrColliderRotationOnEditGUI[1],  s_farrCurrColliderRotationOnEditGUI[2], 1.f });
+		temp.lock()->GetCollider()->GetTransform().SetLocalScale(float4{    s_farrCurrColliderScaleOnEditGUI[0],     s_farrCurrColliderScaleOnEditGUI[1],     s_farrCurrColliderScaleOnEditGUI[2] , 1.f });
+		temp.lock()->GetCollider()->GetTransform().SetLocalRotate(float4{   s_farrCurrColliderPositionOnEditGUI[0] , s_farrCurrColliderPositionOnEditGUI[1] , s_farrCurrColliderPositionOnEditGUI[2] });
+		temp.lock()->GetCollider()->GetTransform().SetLocalPosition(float4{ s_farrCurrColliderRotationOnEditGUI[0],  s_farrCurrColliderRotationOnEditGUI[1],  s_farrCurrColliderRotationOnEditGUI[2], 1.f });
 
 
 		std::pair tempPair(tempStr, temp);
