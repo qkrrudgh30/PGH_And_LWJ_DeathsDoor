@@ -114,24 +114,26 @@ void ContentsLevel::LoadCreaturesFromFile(const std::string& _strFolderName)
 			>> f4ColliderRotation.x >> f4ColliderRotation.y >> f4ColliderRotation.z
 			>> f4ColliderPosition.x >> f4ColliderPosition.y >> f4ColliderPosition.z;
 
-		std::shared_ptr<StaticMesh> temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
-		temp->SetPriorityInitialize();
+		std::weak_ptr<StaticMesh> temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
+		temp.lock()->SetPriorityInitialize();
 		if ("Collider" != strName)
 		{
-			temp->GetFBXRenderer()->SetFBXMesh(strName + ".fbx", "Texture");
+			temp.lock()->GetFBXRenderer()->SetFBXMesh(strName + ".fbx", "Texture");
 		}
-		temp->GetTransform().SetLocalScale(f4Scale);
-		temp->GetTransform().SetLocalRotate(f4Rotation);
-		temp->GetTransform().SetLocalPosition(f4Position);
+		temp.lock()->GetTransform().SetLocalScale(f4Scale);
+		temp.lock()->GetTransform().SetLocalRotate(f4Rotation);
+		temp.lock()->GetTransform().SetLocalPosition(f4Position);
 
-		temp->GetCollider()->GetTransform().SetLocalScale(f4ColliderScale);
-		temp->GetCollider()->GetTransform().SetLocalRotation(f4ColliderRotation);
-		temp->GetCollider()->GetTransform().SetLocalPosition(f4ColliderPosition);
+		temp.lock()->GetCollider()->GetTransform().SetLocalScale(f4ColliderScale);
+		temp.lock()->GetCollider()->GetTransform().SetLocalRotation(f4ColliderRotation);
+		temp.lock()->GetCollider()->GetTransform().SetLocalPosition(f4ColliderPosition);
 
 		std::string strCurrLevelName = GEngine::GetCurrentLevel()->GetNameCopy();
 		EditGUIWindow::GetCreatureMap()[strCurrLevelName].push_back(make_pair(strName, temp));
 		int a = 100;
 	}
+
+	fin.close();
 }
 
 void ContentsLevel::LoadFBXMesiesOfAnimator()
