@@ -215,7 +215,10 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		}
 		std::shared_ptr<StaticMesh> temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
 		temp->SetPriorityInitialize();
-		temp->GetFBXRenderer()->SetFBXMesh(tempStr + ".fbx", "Texture");
+		if ("Collider" != tempStr)
+		{
+			temp->GetFBXRenderer()->SetFBXMesh(tempStr + ".fbx", "Texture");
+		}
 
 		temp->GetTransform().SetLocalScale(float4{ s_farrCurrScaleOnEditGUI[0], s_farrCurrScaleOnEditGUI[1], s_farrCurrScaleOnEditGUI[2] , 1.f });
 		temp->GetTransform().SetLocalRotate(float4{ s_farrCurrPositionOnEditGUI[0] , s_farrCurrPositionOnEditGUI[1] , s_farrCurrPositionOnEditGUI[2] });

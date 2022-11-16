@@ -116,7 +116,10 @@ void ContentsLevel::LoadCreaturesFromFile(const std::string& _strFolderName)
 
 		std::shared_ptr<StaticMesh> temp = GEngine::GetCurrentLevel()->CreateActor<StaticMesh>();
 		temp->SetPriorityInitialize();
-		temp->GetFBXRenderer()->SetFBXMesh(strName + ".fbx", "Texture");
+		if ("Collider" != strName)
+		{
+			temp->GetFBXRenderer()->SetFBXMesh(strName + ".fbx", "Texture");
+		}
 		temp->GetTransform().SetLocalScale(f4Scale);
 		temp->GetTransform().SetLocalRotate(f4Rotation);
 		temp->GetTransform().SetLocalPosition(f4Position);
@@ -308,8 +311,13 @@ void ContentsLevel::LoadResources2()
 		for (j = 0; j < muMyThreadCount; ++j)
 		{
 			l = i * muMyThreadCount + j;
+			
 			if (l < muAnimationStartIndex)
 			{
+				if ("Collider" == mstrvecAllResourceNames[l])
+				{
+					continue;
+				}
 				std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
 				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 				if (l < muAllAnimatorCount)
@@ -334,8 +342,13 @@ void ContentsLevel::LoadResources2()
 		for (k = 0; k < muRemains; ++k)
 		{
 			l = i * muMyThreadCount + k;
+			
 			if (i * muMyThreadCount + k < muAnimationStartIndex)
 			{
+				if ("Collider" == mstrvecAllResourceNames[l])
+				{
+					continue;
+				}
 				std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
 				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 				if (l < muAllAnimatorCount)
