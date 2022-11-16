@@ -52,15 +52,15 @@ void CompileContentsShader()
 
 	for (size_t i = 0; i < Shaders.size(); i++)
 	{
-		GameEngineShader::AutoCompile(Shaders[i].GetFullPath());
+		// GameEngineShader::AutoCompile(Shaders[i].GetFullPath());
 	}
 }
 
 void CreateContentsMaterial()
 {
-	std::shared_ptr<GameEngineMaterial> FadeMaterial = GameEngineMaterial::Create("Fade");
-	FadeMaterial->SetVertexShader("Fade.hlsl");
-	FadeMaterial->SetPixelShader("Fade.hlsl");
+	// std::shared_ptr<GameEngineMaterial> FadeMaterial = GameEngineMaterial::Create("Fade");
+	// FadeMaterial->SetVertexShader("Fade.hlsl");
+	// FadeMaterial->SetPixelShader("Fade.hlsl");
 }
 
 void CreateContentsBlendAndDepthStencilDesc()

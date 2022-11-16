@@ -17,51 +17,54 @@ struct Output
 
 cbuffer FadeInfo : register(b1)
 {
+    float2  mf2FrameDataPos;
+    float2  mf2FrameDataSize;
+    float4  mf4PivotPos;
     float   mfFrom;
     float   mfTo;
     int     mbWrapping;
     int     mbLoop;
     int     mbIsUnityTexture;
-    float4  mf4PivotPos;
 }
 
 Output Fade_VS(Input _Input)
 {
 	Output NewOutput = (Output)0;
 
-	_Input.Pos += PivotPos;
+    _Input.Pos += mf4PivotPos;
 	NewOutput.Pos = mul(_Input.Pos, WorldViewProjection);
+    
 	NewOutput.PosLocal = _Input.Pos;
 
-	NewOutput.Tex.x = (_Input.Tex.x * TextureFrameSize.x) + TextureFramePos.x;
-	NewOutput.Tex.y = (_Input.Tex.y * TextureFrameSize.y) + TextureFramePos.y;
+    NewOutput.Tex.x = (_Input.Tex.x * mf2FrameDataSize.x) + mf2FrameDataPos.x;
+    NewOutput.Tex.y = (_Input.Tex.y * mf2FrameDataSize.y) + mf2FrameDataPos.y;
 
 	return NewOutput;
-}
-
-cbuffer PixelData : register(b0)
-{
-    float4 MulColor;
-    float4 PlusColor;
-    float4 Slice;
 }
 
 Texture2D Tex : register(t0);
 
 SamplerState LINEARWRAP : register(s0);
 
-float4 Fade_PS(Output _Input)
+float4 Fade_PS(Output _Input) : SV_Target0
 {
-    if (_Input.Tex.x < Slice.x)
-    {
-        clip(-1);
-    }
-	
-    if (_Input.Tex.y < Slice.y)
+    if (_Input.Tex.x < 0.f || _Input.Tex.y < 0.f)
     {
         clip(-1);
     }
     
+    float4 TexColor = Tex.Sample(LINEARWRAP, _Input.Tex.xy);
+    
+    if (TexColor.a == 0) { clip(-1); }
+    
+    float4 Result = Tex.Sample(LINEARWRAP, _Input.Tex.xy);
+    
+    if (1 <= Result.a)
+    {
+        Result.a = 1.0f;
+    }
+    
+    return Result;
 }
 
 

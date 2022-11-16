@@ -3,12 +3,13 @@
 
 struct FadeInfo
 {
+	float4  mf4FrameData;
+	float4	mf4PivotPos;
 	float	mfFrom;
 	float	mfTo;
 	int		miWrapping;
 	int		miLoop;
 	int		miIsUnityTexture;
-	float4	mf4PivotPos;
 };
 
 // Ό³Έν :

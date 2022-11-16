@@ -61,6 +61,12 @@ void FadeRenderer::InitializeFadeInfo(void)
 	mFadeInfo.miWrapping = False;
 	mFadeInfo.miLoop = False;
 	mFadeInfo.miIsUnityTexture = False;
+
+	mFadeInfo.mf4FrameData.PosX = 0.f;
+	mFadeInfo.mf4FrameData.PosY = 0.f;
+	mFadeInfo.mf4FrameData.SizeX = 1.f;
+	mFadeInfo.mf4FrameData.SizeY = 1.f;
+
 	mFadeInfo.mf4PivotPos = float4::ZERO;	
 }
 
