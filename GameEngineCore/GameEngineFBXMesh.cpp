@@ -113,7 +113,7 @@ void GameEngineFBXMesh::LoadMesh(const std::string& _Path, const std::string& _N
 	{
 		GameEngineDirectory Dir = SaveFile.GetDirectory();
 		UserLoad(SaveFile.GetFullPath());
-		FBXInit(Dir.PlusFilePath(FBXMeshName));
+		// FBXInit(Dir.PlusFilePath(FBXMeshName));
 		CreateGameEngineStructuredBuffer();
 		return;
 	}

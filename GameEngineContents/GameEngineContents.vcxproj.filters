@@ -139,15 +139,6 @@
     <Filter Include="02.Static\01_HuntingLevel1">
       <UniqueIdentifier>{1778e1f1-9795-4b84-8d53-af0f135d5c51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="95.Shader">
-      <UniqueIdentifier>{26840b92-c18a-4cb9-85c1-7f300d0c6361}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="95.Shader\2DShader">
-      <UniqueIdentifier>{3b27e1e0-58c7-428d-afcf-acb29299ffa2}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="95.Shader\3DShader">
-      <UniqueIdentifier>{8a2a6d9c-8c85-4b1e-b75e-d0ff74911397}</UniqueIdentifier>
-    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
