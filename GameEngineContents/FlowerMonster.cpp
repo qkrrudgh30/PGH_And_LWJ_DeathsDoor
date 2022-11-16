@@ -138,6 +138,7 @@ void FlowerMonster::StunUpdate(float _DeltaTime, const StateInfo& _Info)
 
 void FlowerMonster::AttStart(const StateInfo& _Info)
 {
+	FBXAnimationRenderer->ChangeAnimation("Flower_Att");
 	m_bhitCheck = true;
 }
 void FlowerMonster::AttEnd(const StateInfo& _Info)
@@ -212,7 +213,7 @@ void FlowerMonster::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 void FlowerMonster::IdleStart(const StateInfo& _Info)
 {
-
+	FBXAnimationRenderer->ChangeAnimation("Flower_Idle");
 }
 void FlowerMonster::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 {

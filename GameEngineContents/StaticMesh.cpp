@@ -18,8 +18,10 @@ StaticMesh::~StaticMesh()
 void StaticMesh::Start()
 {
 	mpFBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	mpFBXStaticRenderer->Off();
 	mpCollider = CreateComponent<GameEngineCollision>();
 	mpCollider->ChangeOrder(OBJECTORDER::StaticMesh);
+
 }
 
 void StaticMesh::Update(float _DeltaTime)
