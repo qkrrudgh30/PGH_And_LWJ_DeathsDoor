@@ -1,5 +1,6 @@
 #pragma once
 #include "GameEngineDefaultRenderer.h"
+#include "GameEngineRenderingEvent.h"
 
 enum class PIVOTMODE
 {
@@ -43,77 +44,13 @@ public:
 	float4 PivotPos;
 };
 
-
-class FrameAnimation_DESC 
-{
-public:
-	std::string TextureName;
-
-	unsigned int CurFrame;
-
-	std::vector<unsigned int> Frames;
-
-	float FrameTime;
-
-	float Inter; // 0.1f
-
-	bool Loop;
-	// 아틀라스 애니메이션
-
-	class GameEngineTextureRenderer* Renderer;
-
-public:
-	FrameAnimation_DESC()
-		: Loop(false)
-		, Inter(0.1f)
-		, CurFrame(-1)
-		, FrameTime(0.0f)
-	{
-
-	}
-
-	FrameAnimation_DESC(const std::string _TextureName, unsigned int _Start, unsigned int _End, float _Inter, bool _Loop = true)
-		: TextureName(_TextureName)
-		, Loop(_Loop)
-		, Inter(_Inter)
-		, CurFrame(0)
-		, FrameTime(0.0f)
-	{
-		for (unsigned int i = _Start; i <= _End; i++)
-		{
-			Frames.push_back(i);
-		}
-	}
-
-	FrameAnimation_DESC(const std::string _TextureName, const std::vector<unsigned int>& _Frames, float _Inter, bool _Loop = true)
-		: TextureName(_TextureName)
-		, Loop(_Loop)
-		, Inter(_Inter)
-		, Frames(_Frames)
-		, FrameTime(0.0f)
-	{
-		
-	}
-
-
-	FrameAnimation_DESC(const std::string _TextureName, float _Inter, bool _Loop = true)
-		: TextureName(_TextureName)
-		, Loop(_Loop)
-		, Inter(_Inter)
-		, CurFrame(0)
-		, FrameTime(0.0f)
-	{
-
-	}
-};
-
 class GameEngineFolderTexture;
 class GameEngineTextureRenderer;
 class FrameAnimation : public GameEngineNameObject
 {
 	friend GameEngineTextureRenderer;
 
-	FrameAnimation_DESC Info;
+	GameEngineRenderingEvent Info;
 
 	GameEngineTextureRenderer* ParentRenderer;
 	std::shared_ptr<GameEngineTexture> Texture;
@@ -122,10 +59,10 @@ class FrameAnimation : public GameEngineNameObject
 	bool Pause;
 	bool bOnceStart;
 	bool bOnceEnd;
-	std::function<void(const FrameAnimation_DESC&)> Frame;
-	std::function<void(const FrameAnimation_DESC&)> End;
-	std::function<void(const FrameAnimation_DESC&)> Start;
-	std::function<void(const FrameAnimation_DESC&, float)> Time;
+	std::function<void(const GameEngineRenderingEvent&)> Frame;
+	std::function<void(const GameEngineRenderingEvent&)> End;
+	std::function<void(const GameEngineRenderingEvent&)> Start;
+	std::function<void(const GameEngineRenderingEvent&, float)> Time;
 
 	void PauseSwtich();
 
@@ -206,9 +143,9 @@ public:
 
 	void SetFolderTextureToIndex(const std::string& _Text, UINT _Index);
 
-	void CreateFrameAnimationFolder(const std::string& _AnimationName, const FrameAnimation_DESC& _Desc);
+	void CreateFrameAnimationFolder(const std::string& _AnimationName, const GameEngineRenderingEvent& _Desc);
 
-	void CreateFrameAnimationCutTexture(const std::string& _AnimationName, const FrameAnimation_DESC& _Desc);
+	void CreateFrameAnimationCutTexture(const std::string& _AnimationName, const GameEngineRenderingEvent& _Desc);
 	void ChangeFrameAnimation(const std::string& _AnimationName, bool _Force = false);
 
 	void ScaleToTexture();
@@ -235,7 +172,7 @@ public:
 
 	// 애니메이션 바인드
 	// 시작 프레임에 들어온다.
-	void AnimationBindStart(const std::string& _AnimationName, std::function<void(const FrameAnimation_DESC&)> _Function)
+	void AnimationBindStart(const std::string& _AnimationName, std::function<void(const GameEngineRenderingEvent&)> _Function)
 	{
 		std::string Name = GameEngineString::ToUpperReturn(_AnimationName);
 
@@ -248,7 +185,7 @@ public:
 		FrameAni[Name].Start = _Function;
 	}
 	// 끝나는 프레임에 들어온다
-	void AnimationBindEnd(const std::string& _AnimationName, std::function<void(const FrameAnimation_DESC&)> _Function)
+	void AnimationBindEnd(const std::string& _AnimationName, std::function<void(const GameEngineRenderingEvent&)> _Function)
 	{
 		std::string Name = GameEngineString::ToUpperReturn(_AnimationName);
 
@@ -261,7 +198,7 @@ public:
 		FrameAni[Name].End = _Function;
 	}
 	// 프레임이 바뀔때마다 들어온다
-	void AnimationBindFrame(const std::string& _AnimationName, std::function<void(const FrameAnimation_DESC&)> _Function)
+	void AnimationBindFrame(const std::string& _AnimationName, std::function<void(const GameEngineRenderingEvent&)> _Function)
 	{
 		std::string Name = GameEngineString::ToUpperReturn(_AnimationName);
 
@@ -274,7 +211,7 @@ public:
 		FrameAni[Name].Frame = _Function;
 	}
 	// Update
-	void AnimationBindTime(const std::string& _AnimationName, std::function<void(const FrameAnimation_DESC&, float)> _Function)
+	void AnimationBindTime(const std::string& _AnimationName, std::function<void(const GameEngineRenderingEvent&, float)> _Function)
 	{
 		std::string Name = GameEngineString::ToUpperReturn(_AnimationName);
 

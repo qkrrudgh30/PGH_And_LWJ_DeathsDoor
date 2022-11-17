@@ -186,6 +186,9 @@
     <ClInclude Include="GameEngineFBXAnimationRenderer.h">
       <Filter>Object\Component\Rendering\Content</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineRenderingEvent.h">
+      <Filter>Object\Component\Rendering\Content</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineActor.cpp">
@@ -363,6 +366,9 @@
     <ClCompile Include="GameEngineFBXAnimationRenderer.cpp">
       <Filter>Object\Component\Rendering\Content</Filter>
     </ClCompile>
+    <ClCompile Include="GameEngineRenderingEvent.cpp">
+      <Filter>Object\Component\Rendering\Content</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Object">
@@ -529,10 +535,6 @@
     <CopyFileToFolders Include="ThirdParty\bin\Debug\libfbxsdk-md.zip">
       <Filter>ThirdParty\Lib\Debug</Filter>
     </CopyFileToFolders>
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ThirdParty\bin\Debug\libfbxsdk-mt.zip">
-      <Filter>ThirdParty\Lib\Debug</Filter>
-    </None>
+    <CopyFileToFolders Include="ThirdParty\bin\Debug\libfbxsdk-mt.zip" />
   </ItemGroup>
 </Project>

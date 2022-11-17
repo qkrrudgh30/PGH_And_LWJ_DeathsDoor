@@ -27,30 +27,94 @@ void FBXRendererAnimation::Init(const std::string_view& _Name, int _Index)
 	FBXAnimationData = Aniamtion->GetAnimationData(_Index);
 	Start = 0;
 	End = static_cast<unsigned int>(FBXAnimationData->TimeEndCount);
-	FrameTime = 0.02f;
+	Info.Inter = 0.1f;
 
+}
+
+void FBXRendererAnimation::PauseSwtich()
+{
+	Pause = !Pause;
 }
 
 void FBXRendererAnimation::Update(float _DeltaTime)
 {
 	// 0~24진행이죠?
-	CurFrameTime += _DeltaTime;
-	//                      0.1
-	// 1
-	while (CurFrameTime >= FrameTime)
+	if (false == Pause)
 	{
-		// 여분의 시간이 남게되죠?
-		// 여분의 시간이 중요합니다.
-		CurFrameTime -= FrameTime;
-		++CurFrame;
-
-		if (CurFrame >= End)
+		Info.CurFrameTime += _DeltaTime;
+		//                      0.1
+		// 1
+		while (Info.CurFrameTime >= Info.Inter)
 		{
-			CurFrame = Start;
+			// 여분의 시간이 남게되죠?
+			// 여분의 시간이 중요합니다.
+			Info.CurFrameTime -= Info.Inter;
+			++Info.CurFrame;
+
+			if (Info.CurFrame >= End)
+			{
+				Info.CurFrame = Start;
+			}
+		}
+
+
+		///////////////////////////////////////////////////////////////////////////////////
+
+		Info.CurFrameTime += _DeltaTime;
+
+		if (nullptr != TimeEvent)
+		{
+			TimeEvent(Info, _DeltaTime);
+		}
+
+		if (false == bOnceStart
+			&& Info.CurFrame == 0)
+		{
+			if (nullptr != StartEvent)
+			{
+				StartEvent(Info);
+			}
+			bOnceStart = true;
+			bOnceEnd = false;
+		}
+
+		if (Info.Inter <= Info.CurFrameTime)
+		{
+			if (Info.CurFrame == (Info.Frames.size() - 1)
+				&& false == bOnceEnd)
+			{
+				if (nullptr != EndEvent)
+				{
+					EndEvent(Info);
+				}
+				bOnceEnd = true;
+				bOnceStart = false;
+				return;
+			}
+
+			++Info.CurFrame;
+			if (nullptr != FrameEvent)
+			{
+				FrameEvent(Info);
+			}
+
+			if (Info.CurFrame >= Info.Frames.size())
+			{
+				if (true == Info.Loop)
+				{
+					Info.CurFrame = 0;
+				}
+				else
+				{
+					Info.CurFrame = static_cast<unsigned int>(Info.Frames.size()) - 1;
+				}
+			}
+
+			Info.CurFrameTime -= Info.Inter;
 		}
 	}
 
-	unsigned int NextFrame = CurFrame;
+	unsigned int NextFrame = Info.CurFrame;
 
 	++NextFrame;
 
@@ -58,6 +122,11 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 	{
 		NextFrame = 0;
 	}
+
+
+
+
+
 
 	// mesh      subset
 	std::vector<std::vector<GameEngineRenderUnit>>& Units = ParentRenderer->GetAllRenderUnit();
@@ -100,16 +169,16 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 				}
 
 				// 현재프레임과 
-				FbxExBoneFrameData& CurData = FBXAnimationData->AniFrameData[MeshIndex][i].BoneMatData[CurFrame];
+				FbxExBoneFrameData& CurData = FBXAnimationData->AniFrameData[MeshIndex][i].BoneMatData[Info.CurFrame];
 				// 다음프레임의 정보가 필요한데
 				FbxExBoneFrameData& NextData = FBXAnimationData->AniFrameData[MeshIndex][i].BoneMatData[NextFrame];
 
 				// 애니메이션이 바뀌는 순간 한번은 저장해야 한다.
-				AnimationBoneData[i].Scale = float4::Lerp(CurData.S, NextData.S, CurFrameTime);
+				AnimationBoneData[i].Scale = float4::Lerp(CurData.S, NextData.S, Info.CurFrameTime);
 				// 로컬 쿼터니온
-				AnimationBoneData[i].RotQuaternion = float4::SLerpQuaternion(CurData.Q, NextData.Q, CurFrameTime);
+				AnimationBoneData[i].RotQuaternion = float4::SLerpQuaternion(CurData.Q, NextData.Q, Info.CurFrameTime);
 				// 로컬 포지션
-				AnimationBoneData[i].Pos = float4::Lerp(CurData.T, NextData.T, CurFrameTime);
+				AnimationBoneData[i].Pos = float4::Lerp(CurData.T, NextData.T, Info.CurFrameTime);
 				// 새롭게 바뀐 애니메이션
 
 				// 애니메이션이 바뀌는 순간 한번은 저장해야 한다.
@@ -145,7 +214,9 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 
 void FBXRendererAnimation::Reset()
 {
-	Start = 0;
+	Info.CurFrameTime = 0.0f;
+	Info.CurFrame = 0;
+	// Start = 0;
 }
 
 void GameEngineFBXAnimationRenderer::SetFBXMesh(const std::string& _Name, std::string _Material)
@@ -242,9 +313,10 @@ GameEngineRenderUnit* GameEngineFBXAnimationRenderer::SetFBXMesh(const std::stri
 	return Unit;
 }
 
-void GameEngineFBXAnimationRenderer::CreateFBXAnimation(const std::string& _AnimationName
-	, const std::string& _AnimationFBX, int _Index)
+void GameEngineFBXAnimationRenderer::CreateFBXAnimation(const std::string& _AnimationName, const GameEngineRenderingEvent& _Desc, int _Index)
 {
+	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
+
 	// 본을 가진 fbx가 세팅되어 있는지 검사한다.
 	if (nullptr == GetFBXMesh())
 	{
@@ -254,27 +326,35 @@ void GameEngineFBXAnimationRenderer::CreateFBXAnimation(const std::string& _Anim
 
 	// 여기있는 함수를 외부에서 호출하면 됩니다.
 
-	if (Animations.end() != Animations.find(_AnimationName))
+	if (Animations.end() != Animations.find(UpperName))
 	{
-		MsgBoxAssertString("이미 존재하는 이름의 애니메이션입니다." + _AnimationName);
+		MsgBoxAssertString("이미 존재하는 이름의 애니메이션입니다." + UpperName);
 		return;
 	}
 
-	std::shared_ptr<GameEngineFBXAnimation> Animation = GameEngineFBXAnimation::Find(_AnimationFBX);
+	std::shared_ptr<GameEngineFBXAnimation> Animation = GameEngineFBXAnimation::Find(_Desc.ResourcesName);
 
 	if (nullptr == Animation)
 	{
-		MsgBoxAssertString("GameEngineFBXAnimation이 존재하지 않습니다. " + _AnimationFBX);
+		MsgBoxAssertString("GameEngineFBXAnimation이 존재하지 않습니다. " + _Desc.ResourcesName);
 		return;
 	}
 
 	std::shared_ptr<FBXRendererAnimation> NewAnimation = std::make_shared<FBXRendererAnimation>();
 
+	NewAnimation->Info = _Desc;
+	NewAnimation->Info.Renderer = this;
 	NewAnimation->Mesh = GetFBXMesh();
 	NewAnimation->Aniamtion = Animation;
 	NewAnimation->ParentRenderer = this;
+	NewAnimation->Reset();
 
 	NewAnimation->Init(_AnimationName, _Index);
+
+	for (size_t i = 0; i < NewAnimation->End - NewAnimation->Start; i++)
+	{
+		NewAnimation->Info.Frames.push_back(i);
+	}
 
 	// 이순간 애니메이션 프레임 행렬에 대한 계산이 이때 이뤄지는데.
 	// 이건 느릴것이기 때문에 아마 추후 분명히.
@@ -282,14 +362,16 @@ void GameEngineFBXAnimationRenderer::CreateFBXAnimation(const std::string& _Anim
 
 	RenderOptionInst.IsAnimation = 1;
 
-	Animations.insert(std::make_pair(_AnimationName, NewAnimation));
+	Animations.insert(std::make_pair(UpperName, NewAnimation));
 
 	Animation;
 }
 
 void GameEngineFBXAnimationRenderer::ChangeAnimation(const std::string& _AnimationName)
 {
-	std::map<std::string, std::shared_ptr<FBXRendererAnimation>>::iterator FindIter = Animations.find(_AnimationName);
+	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
+
+	std::map<std::string, std::shared_ptr<FBXRendererAnimation>>::iterator FindIter = Animations.find(UpperName);
 
 	if (Animations.end() == FindIter)
 	{

@@ -10,7 +10,7 @@ void FrameAnimation::PauseSwtich()
 
 void FrameAnimation::Reset()
 {
-	Info.FrameTime = 0.0f;
+	Info.Inter = 0.0f;
 	Info.CurFrame = 0;
 }
 
@@ -18,7 +18,7 @@ void FrameAnimation::Update(float _Delta)
 {
 	if (false == Pause)
 	{
-		Info.FrameTime += _Delta;
+		Info.Inter += _Delta;
 
 		if (nullptr != Time)
 		{
@@ -36,7 +36,7 @@ void FrameAnimation::Update(float _Delta)
 			bOnceEnd = false;
 		}
 
-		if (Info.Inter <= Info.FrameTime)
+		if (Info.Inter <= Info.Inter)
 		{
 			if (Info.CurFrame == (Info.Frames.size() - 1)
 				&& false == bOnceEnd)
@@ -68,7 +68,7 @@ void FrameAnimation::Update(float _Delta)
 					Info.CurFrame = static_cast<unsigned int>(Info.Frames.size()) - 1;
 				}
 			}
-			Info.FrameTime -= Info.Inter;
+			Info.Inter -= Info.Inter;
 		}
 	}
 
@@ -274,7 +274,7 @@ void GameEngineTextureRenderer::SetFolderTextureToIndex(const std::string& _Text
 	AtlasDataInst.FrameData.SizeY = 1.0f;
 }
 
-void GameEngineTextureRenderer::CreateFrameAnimationFolder(const std::string& _AnimationName, const FrameAnimation_DESC& _Desc)
+void GameEngineTextureRenderer::CreateFrameAnimationFolder(const std::string& _AnimationName, const GameEngineRenderingEvent& _Desc)
 {
 	std::string Name = GameEngineString::ToUpperReturn(_AnimationName);
 
@@ -289,7 +289,7 @@ void GameEngineTextureRenderer::CreateFrameAnimationFolder(const std::string& _A
 	NewAni.Info.Renderer = this;
 	NewAni.ParentRenderer = this;
 	NewAni.Texture = nullptr;
-	NewAni.FolderTexture = GameEngineFolderTexture::Find(_Desc.TextureName);
+	NewAni.FolderTexture = GameEngineFolderTexture::Find(_Desc.ResourcesName);
 
 	if (NewAni.Info.Frames.size() == 0)
 	{
@@ -300,7 +300,7 @@ void GameEngineTextureRenderer::CreateFrameAnimationFolder(const std::string& _A
 	}
 }
 
-void GameEngineTextureRenderer::CreateFrameAnimationCutTexture(const std::string& _AnimationName, const FrameAnimation_DESC& _Desc)
+void GameEngineTextureRenderer::CreateFrameAnimationCutTexture(const std::string& _AnimationName, const GameEngineRenderingEvent& _Desc)
 {
 	std::string Name = GameEngineString::ToUpperReturn(_AnimationName);
 
@@ -314,7 +314,7 @@ void GameEngineTextureRenderer::CreateFrameAnimationCutTexture(const std::string
 	NewAni.Info = _Desc;
 	NewAni.Info.Renderer = this;
 	NewAni.ParentRenderer = this;
-	NewAni.Texture = GameEngineTexture::Find(_Desc.TextureName);
+	NewAni.Texture = GameEngineTexture::Find(_Desc.ResourcesName);
 	NewAni.FolderTexture = nullptr;
 }
 
