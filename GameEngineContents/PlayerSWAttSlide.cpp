@@ -27,7 +27,7 @@ void PlayerSWAttSlide::Start()
 
 		Renderer->GetTransform().SetLocalScale({ 50.0f, 50.0f, 150.0f });
 		Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
-
+		Renderer->Off();
 	}
 
 

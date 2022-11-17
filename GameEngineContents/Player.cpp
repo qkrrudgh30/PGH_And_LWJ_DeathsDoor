@@ -81,72 +81,115 @@ void Player::Start()
 
 	Event.ResourcesName = "Player_Idle.FBX";
 	Event.Loop = true;
-	Event.Inter = 0.1f;
+	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Player_Idle", Event);
 
 
 
-	Event.ResourcesName = "Player_Walk_S.FBX";
-	Event.Loop = true;
-	Event.Inter = 0.5f;
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Walk", Event);
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_Walk_S.FBX";
+		Event2.Loop = true;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_Walk", Event2);
+	}
 
 
 
-	GameEngineRenderingEvent Event2;
-	Event2.ResourcesName = "Player_Arrow.FBX";
-	Event2.Loop = false;
-	Event2.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Arrow", Event2);
-	FBXAnimationRenderer->AnimationBindEnd("Player_Arrow", std::bind(&Player::AniIdleEnd, this, Event2));
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_Arrow.FBX";
+		Event2.Loop = false;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_Arrow", Event2);
+		
+	}
+
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_Att_Left.FBX";
+		Event2.Loop = false;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Left", Event2);
+		FBXAnimationRenderer->AnimationBindEnd("Player_Att_Left", std::bind(&Player::AniPlayer_Att_Left, this, Event2));
+	}
 
 
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_Att_R.FBX";
+		Event2.Loop = false;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Right", Event2);
+		FBXAnimationRenderer->AnimationBindEnd("Player_Att_Right", std::bind(&Player::AniPlayer_Att_R, this, Event2));
 
-	Event.ResourcesName = "Player_Att_Left.FBX";
-	Event.Loop = true;
-	Event.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Left", Event);
+	}
 
-	Event.ResourcesName = "Player_Att_R.FBX";
-	Event.Loop = true;
-	Event.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Right", Event);
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_Att1.FBX";
+		Event2.Loop = false;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_Att1", Event2);
+		FBXAnimationRenderer->AnimationBindEnd("Player_Att1", std::bind(&Player::AniPlayer_Att1, this, Event2));
 
-	Event.ResourcesName = "Player_Att1.FBX";
-	Event.Loop = true;
-	Event.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Att1", Event);
+	}
 
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_Att2.FBX";
+		Event2.Loop = false;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_Att2", Event2);
+		FBXAnimationRenderer->AnimationBindEnd("Player_Att2", std::bind(&Player::AniPlayer_Att2, this, Event2));
 
-	Event.ResourcesName = "Player_Att2.FBX";
-	Event.Loop = true;
-	Event.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Att2", Event);
+	}
 
-	Event.ResourcesName = "Player_Roll.FBX";
-	Event.Loop = true;
-	Event.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Roll", Event);
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_Roll.FBX";
+		Event2.Loop = false;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_Roll", Event2);
+		FBXAnimationRenderer->AnimationBindEnd("Player_Roll", std::bind(&Player::AniPlayer_Roll, this, Event2));
 
-	Event.ResourcesName = "Player_Hook.FBX";
-	Event.Loop = true;
-	Event.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Hook", Event);
+	}
 
-	Event.ResourcesName = "Player_Hook_Fly.FBX";
-	Event.Loop = true;
-	Event.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Player_Hook_FlyHook", Event);
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_Hook.FBX";
+		Event2.Loop = true;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_Hook", Event2);
 
-	Event.ResourcesName = "Player_Idle2.FBX";
-	Event.Loop = true;
-	Event.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Idle2", Event);
+	}
 
-	Event.ResourcesName = "Player_SlideAtt.FBX";
-	Event.Loop = true;
-	Event.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("Player_SlideAtt", Event);
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_Hook_Fly.FBX";
+		Event2.Loop = true;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_Hook_Fly", Event2);
+	}
+
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_Idle2.FBX";
+		Event2.Loop = true;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_Idle2", Event2);
+		FBXAnimationRenderer->AnimationBindEnd("Player_Idle2", std::bind(&Player::AniPlayer_Idle2, this, Event2));
+	}
+
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_SlideAtt.FBX";
+		Event2.Loop = false;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_SlideAtt", Event2);
+		FBXAnimationRenderer->AnimationBindEnd("Player_SlideAtt", std::bind(&Player::AniPlayer_SlideAtt, this, Event2));
+
+	}
 
 
 
@@ -156,7 +199,7 @@ void Player::Start()
 	
 
 	
-	FBXAnimationRenderer->ChangeAnimation("Player_Idle");
+	FBXAnimationRenderer->ChangeAnimation("Player_Idle2");
 
 
 	//ui주석 풀어야함
@@ -468,21 +511,7 @@ void Player::SworldAttUpdate(float _DeltaTime, const StateInfo& _Info)
 	}
 
 
-	if (m_fAttTestTime >= 0.4f)
-	{
-		m_fAttTestTime = 0.f;
 
-		if (m_bSWA2check)
-		{
-			StateManager.ChangeState("SworldAtt2");
-		}
-		else
-		{
-			StateManager.ChangeState("Idle");
-			m_bSAttccheck = true;
-		}
-		
-	}
 }
 
 
@@ -553,22 +582,7 @@ void Player::SworldAttUpdate2(float _DeltaTime, const StateInfo& _Info)
 
 
 
-	if (m_fAttTestTime >= 0.4f)
-	{
-		m_fAttTestTime = 0.f;
-
-		if (m_bSWA3check)
-		{
-			StateManager.ChangeState("SworldAtt3");
-
-		}
-		else
-		{
-			StateManager.ChangeState("Idle");
-			m_bSAttccheck = true;
-		}
-
-	}
+	
 }
 
 
@@ -611,24 +625,16 @@ void Player::SworldAttStart3(const StateInfo& _Info)
 void Player::SworldAttEnd3(const StateInfo& _Info)
 {
 
-
+	m_fAttTestTime = 0.f;
 	m_Info.Weapontype = m_eBeforeType;
-
+	m_bSAttccheck = true;
 	m_CSWAtt3.lock()->Death();
 	m_CSWAtt3.lock() = nullptr;
 }
 
 void Player::SworldAttUpdate3(float _DeltaTime, const StateInfo& _Info)
 {
-	m_fAttTestTime += _DeltaTime;
-
-
-	if (m_fAttTestTime >= 0.4f)
-	{
-		m_fAttTestTime = 0.f;
-		StateManager.ChangeState("Idle");
-		m_bSAttccheck = true;
-	}
+	
 }
 
 
@@ -876,7 +882,7 @@ void Player::SlideEnd(const StateInfo& _Info)
 	//슬라이드 끝나자 마자 공격 불가
 	m_bSAttccheck = true;
 
-
+	m_bSWASlidecheck = false;
 	m_bSlideCCheck = true;
 	m_fSlideSpeed = 700.f;
 }
@@ -910,25 +916,7 @@ void Player::SlideUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	GetTransform().SetWorldMove(MoveDir * m_fSlideSpeed * _DeltaTime);
 
-	m_fAttTestTime += _DeltaTime;
-
-	if (m_fAttTestTime >= 0.3f)
-	{
-		m_fAttTestTime = 0.f;
-
-
-		if (m_bSWASlidecheck)
-		{
-			StateManager.ChangeState("SlideAtt");
-		}
-		else
-		{
-			StateManager.ChangeState("Idle");
-		}
-		
-	}
-
-
+	
 
 }
 
@@ -964,15 +952,7 @@ void Player::SlideAttUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 
 
-	m_fAttTestTime += _DeltaTime;
-
-
-	if (m_fAttTestTime >= 0.3f)
-	{
-		m_fAttTestTime = 0.f;
-		StateManager.ChangeState("Idle");
-	}
-
+	
 
 	float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 
@@ -1359,9 +1339,104 @@ void Player::Update(float _DeltaTime)
 
 void Player::AniIdleEnd(const GameEngineRenderingEvent& _Data)
 {
-	int a = 0;
+
+
+	std::string A = " 아이들 끝 ";
+
+	GameEngineDebug::OutPutString(A);
+
+
 
 }
+void Player::AniPlayer_Att_Left(const GameEngineRenderingEvent& _Data)
+{
+
+	std::string A = " 3타 끝 ";
+
+	GameEngineDebug::OutPutString(A);
+
+
+	
+	StateManager.ChangeState("Idle");
+//	FBXAnimationRenderer->ChangeAnimation("Player_Idle2");
+
+
+
+
+}
+void Player::AniPlayer_Att_R(const GameEngineRenderingEvent& _Data)
+{
+
+		m_fAttTestTime = 0.f;
+
+		if (m_bSWA3check)
+		{
+			StateManager.ChangeState("SworldAtt3");
+
+		}
+		else
+		{
+			StateManager.ChangeState("Idle");
+			m_bSAttccheck = true;
+		}
+
+	
+
+}
+void Player::AniPlayer_Att1(const GameEngineRenderingEvent& _Data)
+{
+
+
+	m_fAttTestTime = 0.f;
+
+	if (m_bSWA2check)
+	{
+		StateManager.ChangeState("SworldAtt2");
+	}
+	else
+	{
+		StateManager.ChangeState("Idle");
+		m_bSAttccheck = true;
+	}
+
+
+
+
+}
+void Player::AniPlayer_Att2(const GameEngineRenderingEvent& _Data)
+{
+	StateManager.ChangeState("Idle");
+}
+void Player::AniPlayer_Roll(const GameEngineRenderingEvent& _Data)
+{
+
+	if (m_bSWASlidecheck)
+	{
+		StateManager.ChangeState("SlideAtt");
+	}
+	else
+	{
+		StateManager.ChangeState("Idle");
+	}
+
+
+
+}
+void Player::AniPlayer_Idle2(const GameEngineRenderingEvent& _Data)
+{
+
+	std::string A = " 아이들 끝 ";
+
+	GameEngineDebug::OutPutString(A);
+
+}
+void Player::AniPlayer_SlideAtt(const GameEngineRenderingEvent& _Data)
+{
+	StateManager.ChangeState("Idle");
+}
+
+
+
 
 void Player::UIOff()
 {

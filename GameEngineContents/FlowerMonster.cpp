@@ -39,20 +39,23 @@ void FlowerMonster::Start()
 
 	Event.ResourcesName = "Flower_Att.FBX";
 	Event.Loop = true;
-	Event.Inter = 0.1f;
+	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Flower_Att", Event);
+	FBXAnimationRenderer->AnimationBindEnd("Flower_Att", std::bind(&FlowerMonster::AniFlower_Att, this, Event));
 
 
 	Event.ResourcesName = "Flower_Death.FBX";
 	Event.Loop = true;
-	Event.Inter = 0.1f;
+	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Flower_Death", Event);
+	FBXAnimationRenderer->AnimationBindEnd("Flower_Death", std::bind(&FlowerMonster::AniFlower_Death, this, Event));
 
 
 	Event.ResourcesName = "Flower_Idle.FBX";
 	Event.Loop = true;
-	Event.Inter = 0.1f;
+	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Flower_Idle", Event);
+	FBXAnimationRenderer->AnimationBindEnd("Flower_Idle", std::bind(&FlowerMonster::AniFlower_Idle, this, Event));
 
 
 
@@ -100,6 +103,53 @@ void FlowerMonster::Start()
 
 void FlowerMonster::Update(float _DeltaTime)
 {
+
+
+
+	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
+
+	float Len = TarGetDir.Length();
+	TarGetDir = TarGetDir.Normalize3DReturn();
+
+
+
+	if (Len <= 800.f)
+	{
+
+		if(StateManager.GetCurStateStateName() != "Att")
+			StateManager.ChangeState("Att");
+
+		float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
+
+		float4 MyPos = GetTransform().GetWorldPosition();
+
+		TarGetDir.y = -TarGetDir.z;
+		MyPos.y = -MyPos.z;
+
+
+		TarGetDir.z = 0.f;
+		TarGetDir.w = 0.f;
+
+		MyPos.z = 0.f;
+		MyPos.w = 0.f;
+
+		float Angle = float4::VectorXYtoDegree(MyPos, TarGetDir);
+
+		Angle += 90.f;
+
+		if (Angle >= 360.f)
+		{
+			Angle -= 360.f;
+		}
+		else if (Angle <= 0.f)
+		{
+			Angle -= 0.f;
+		}
+
+		GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
+
+
+	}
 
 
 
@@ -170,57 +220,32 @@ void FlowerMonster::AttEnd(const StateInfo& _Info)
 }
 void FlowerMonster::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-	m_fHitTime += _DeltaTime;
+	
+	
 
-	if (m_fHitTime >= 2.f)
-	{
-		m_fHitTime = 0.f;
-
-
-		float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
-
-		float4 MyPos = GetTransform().GetWorldPosition();
-
-		TarGetDir.y = -TarGetDir.z;
-		MyPos.y = -MyPos.z;
+	//
+	////삭제 예정
+	//if (m_bHitCheck)
+	//{
+	//	StateManager.ChangeState("Stun");
+	//	m_bHitCheck = false;
+	//}
 
 
-		TarGetDir.z = 0.f;
-		TarGetDir.w = 0.f;
+}
 
-		MyPos.z = 0.f;
-		MyPos.w = 0.f;
+void FlowerMonster::AniFlower_Att(const GameEngineRenderingEvent& _Data)
+{
+	StateManager.ChangeState("Idle");
 
-		float Angle = float4::VectorXYtoDegree(MyPos, TarGetDir);
+}
 
-		Angle += 90.f;
+void FlowerMonster::AniFlower_Idle(const GameEngineRenderingEvent& _Data)
+{
+}
 
-		if (Angle >= 360.f)
-		{
-			Angle -= 360.f;
-		}
-		else if (Angle <= 0.f)
-		{
-			Angle -= 0.f;
-		}
-
-	GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
-
-
-
-		StateManager.ChangeState("Idle");
-
-	}
-
-
-	//삭제 예정
-	if (m_bHitCheck)
-	{
-		StateManager.ChangeState("Stun");
-		m_bHitCheck = false;
-	}
-
-
+void FlowerMonster::AniFlower_Death(const GameEngineRenderingEvent& _Data)
+{
 }
 
 
@@ -238,20 +263,6 @@ void FlowerMonster::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 		m_bHitCheck = false;
 	}
 
-
-
-
-	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
-
-	float Len = TarGetDir.Length();
-	TarGetDir = TarGetDir.Normalize3DReturn();
-
-
-	
-	if (Len <= 1000.f)
-	{
-		StateManager.ChangeState("Att");
-	}
 
 
 

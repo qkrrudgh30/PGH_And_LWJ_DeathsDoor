@@ -32,21 +32,24 @@ void Slime::Start()
 
 	Event.ResourcesName = "Slime_Att.FBX";
 	Event.Loop = true;
-	Event.Inter = 0.1f;
+	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Slime_Att", Event);
+	FBXAnimationRenderer->AnimationBindEnd("Slime_Att", std::bind(&Slime::AniSlime_Att, this, Event));
 
 
 	Event.ResourcesName = "Slime_Idle.FBX";
 	Event.Loop = true;
-	Event.Inter = 0.1f;
+	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Slime_Idle", Event);
+	FBXAnimationRenderer->AnimationBindEnd("Slime_Idle", std::bind(&Slime::AniSlime_Idle, this, Event));
 
 
 
 	Event.ResourcesName = "Slime_Move.FBX";
 	Event.Loop = true;
-	Event.Inter = 0.1f;
+	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Slime_Move", Event);
+	FBXAnimationRenderer->AnimationBindEnd("Slime_Move", std::bind(&Slime::AniSlime_Move, this, Event));
 
 
 
@@ -252,23 +255,34 @@ void Slime::AttEnd(const StateInfo& _Info)
 }
 void Slime::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-	m_fHitTime += _DeltaTime;
-
-	if (m_fHitTime >= 1.f)
-	{
-		m_fHitTime = 0.f;
-		StateManager.ChangeState("Idle");
-
-	}
+	
 
 
 	//삭제 예정
-	if (m_bHitCheck)
-	{
-		StateManager.ChangeState("Stun");
-		m_bHitCheck = false;
-	}
+	//if (m_bHitCheck)
+	//{
+	//	StateManager.ChangeState("Stun");
+	//	m_bHitCheck = false;
+	//}
 
+}
+
+void Slime::AniSlime_Att(const GameEngineRenderingEvent& _Data)
+{
+	
+
+		StateManager.ChangeState("Idle");
+
+
+
+}
+
+void Slime::AniSlime_Idle(const GameEngineRenderingEvent& _Data)
+{
+}
+
+void Slime::AniSlime_Move(const GameEngineRenderingEvent& _Data)
+{
 }
 
 

@@ -4,12 +4,12 @@
 #include "GameEngineVertexShader.h"
 #include "GameEngineFBXMesh.h"
 
-GameEngineFBXAnimationRenderer::GameEngineFBXAnimationRenderer() 
+GameEngineFBXAnimationRenderer::GameEngineFBXAnimationRenderer()
 {
-	
+
 }
 
-GameEngineFBXAnimationRenderer::~GameEngineFBXAnimationRenderer() 
+GameEngineFBXAnimationRenderer::~GameEngineFBXAnimationRenderer()
 {
 	Animations.clear();
 }
@@ -27,7 +27,6 @@ void FBXRendererAnimation::Init(const std::string_view& _Name, int _Index)
 	FBXAnimationData = Aniamtion->GetAnimationData(_Index);
 	Start = 0;
 	End = static_cast<unsigned int>(FBXAnimationData->TimeEndCount);
-	Info.Inter = 0.1f;
 
 }
 
@@ -41,7 +40,7 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 	// 0~24진행이죠?
 	if (false == Pause)
 	{
-		Info.CurFrameTime += _DeltaTime;
+		//Info.CurFrameTime += _DeltaTime;
 		//                      0.1
 		// 1
 		while (Info.CurFrameTime >= Info.Inter)
@@ -60,7 +59,7 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 
 		///////////////////////////////////////////////////////////////////////////////////
 
-		Info.CurFrameTime += _DeltaTime;
+		 Info.CurFrameTime += _DeltaTime;
 
 		if (nullptr != TimeEvent)
 		{

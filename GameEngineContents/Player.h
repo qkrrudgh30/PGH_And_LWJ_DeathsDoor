@@ -96,6 +96,13 @@ protected:
 
 
 	void AniIdleEnd(const GameEngineRenderingEvent& _Data);
+	void AniPlayer_Att_Left(const GameEngineRenderingEvent& _Data);
+	void AniPlayer_Att_R(const GameEngineRenderingEvent& _Data);
+	void AniPlayer_Att1(const GameEngineRenderingEvent& _Data);
+	void AniPlayer_Att2(const GameEngineRenderingEvent& _Data);
+	void AniPlayer_Roll(const GameEngineRenderingEvent& _Data);
+	void AniPlayer_Idle2(const GameEngineRenderingEvent& _Data);
+	void AniPlayer_SlideAtt(const GameEngineRenderingEvent& _Data);
 public:
 
 	void UIOff();
