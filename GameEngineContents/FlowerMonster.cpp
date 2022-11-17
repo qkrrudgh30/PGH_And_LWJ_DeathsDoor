@@ -37,10 +37,25 @@ void FlowerMonster::Start()
 	//FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ -90.f, 180.f,0.f });
 
 
+	Event.ResourcesName = "Flower_Att.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Flower_Att", Event);
 
-	FBXAnimationRenderer->CreateFBXAnimation("Flower_Att", "Flower_Att.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Flower_Death", "Flower_Death.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Flower_Idle", "Flower_Idle.fbx");
+
+	Event.ResourcesName = "Flower_Death.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Flower_Death", Event);
+
+
+	Event.ResourcesName = "Flower_Idle.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Flower_Idle", Event);
+
+
+
 
 
 	FBXAnimationRenderer->ChangeAnimation("Flower_Idle");

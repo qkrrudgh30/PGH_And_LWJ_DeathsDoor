@@ -89,6 +89,13 @@ protected:
 
 	// void MoveStart(const StateInfo& _Info);
 	void MoveUpdate(float _DeltaTime, const StateInfo& _Info);
+
+
+
+
+
+
+	void AniIdleEnd(const GameEngineRenderingEvent& _Data);
 public:
 
 	void UIOff();

@@ -29,6 +29,7 @@ public:
 	std::shared_ptr <GameEngineFBXAnimationRenderer> FBXAnimationRenderer;
 	std::shared_ptr < GameEngineCollision> Collision;
 	std::shared_ptr < GameEngineCollision> AttCollision;
+	GameEngineRenderingEvent Event;
 public:
 	GameEngineStateManager StateManager;
 

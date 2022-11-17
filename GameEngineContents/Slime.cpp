@@ -29,9 +29,27 @@ void Slime::Start()
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
 	FBXAnimationRenderer->SetFBXMesh("Slime.fbx", "TextureAnimation");
 
-	FBXAnimationRenderer->CreateFBXAnimation("Slime_Att", "Slime_Att.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Slime_Idle", "Slime_Idle.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Slime_Move", "Slime_Move.fbx");
+
+	Event.ResourcesName = "Slime_Att.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Slime_Att", Event);
+
+
+	Event.ResourcesName = "Slime_Idle.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Slime_Idle", Event);
+
+
+
+	Event.ResourcesName = "Slime_Move.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Slime_Move", Event);
+
+
+
 
 
 	FBXAnimationRenderer->ChangeAnimation("Slime_Idle");

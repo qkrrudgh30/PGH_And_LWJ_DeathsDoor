@@ -30,7 +30,13 @@ void HeadRoller::Start()
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
 	FBXAnimationRenderer->SetFBXMesh("HEADROLLER.fbx", "TextureAnimation");
 
-	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Roll", "HEADROLLER_Roll.fbx");
+
+	Event.ResourcesName = "HEADROLLER_Roll.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Roll", Event);
+
+
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 100.f, 100.f, 100.f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ -90.f, 0.f,0.f });
 

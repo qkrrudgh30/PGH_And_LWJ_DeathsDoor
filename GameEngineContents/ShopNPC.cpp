@@ -27,10 +27,34 @@ void ShopNPC::Start()
 	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 100.f,0.f });
 	FBXAnimationRenderer->SetFBXMesh("banker.fbx", "TextureAnimation");
 
-	FBXAnimationRenderer->CreateFBXAnimation("banker_S_R", "banker_S_R.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("banker_W_P", "banker_W_P.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("banker_W_R", "banker_W_R.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("banker_WStart", "banker_WStart.fbx");
+
+	Event.ResourcesName = "banker_S_R.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("banker_S_R", Event);
+
+
+
+	Event.ResourcesName = "banker_W_P.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("banker_W_P", Event);
+
+
+
+	Event.ResourcesName = "banker_W_R.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("banker_W_R", Event);
+
+
+
+	Event.ResourcesName = "banker_WStart.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("banker_WStart", Event);
+
+
 
 
 	FBXAnimationRenderer->ChangeAnimation("banker_W_R");

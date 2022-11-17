@@ -78,21 +78,80 @@ void Player::Start()
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
 	FBXAnimationRenderer->SetFBXMesh("Player.fbx", "TextureAnimation");
 
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Idle", "Player_Idle.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Walk", "Player_Walk_S.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Arrow", "Player_Arrow.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Left", "Player_Att_Left.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Right", "Player_Att_R.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Att1", "Player_Att1.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Att2", "Player_Att2.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Roll", "Player_Roll.fbx");
 
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Hook", "Player_Hook.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Hook_Fly", "Player_Hook_Fly.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_Idle2", "Player_Idle2.fbx");
-	FBXAnimationRenderer->CreateFBXAnimation("Player_SlideAtt", "Player_SlideAtt.fbx");
-	
-	
+	Event.ResourcesName = "Player_Idle.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Idle", Event);
+
+
+
+	Event.ResourcesName = "Player_Walk_S.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.5f;
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Walk", Event);
+
+
+
+	GameEngineRenderingEvent Event2;
+	Event2.ResourcesName = "Player_Arrow.FBX";
+	Event2.Loop = false;
+	Event2.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Arrow", Event2);
+	FBXAnimationRenderer->AnimationBindEnd("Player_Arrow", std::bind(&Player::AniIdleEnd, this, Event2));
+
+
+
+	Event.ResourcesName = "Player_Att_Left.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Left", Event);
+
+	Event.ResourcesName = "Player_Att_R.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Right", Event);
+
+	Event.ResourcesName = "Player_Att1.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Att1", Event);
+
+
+	Event.ResourcesName = "Player_Att2.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Att2", Event);
+
+	Event.ResourcesName = "Player_Roll.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Roll", Event);
+
+	Event.ResourcesName = "Player_Hook.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Hook", Event);
+
+	Event.ResourcesName = "Player_Hook_Fly.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Player_Hook_FlyHook", Event);
+
+	Event.ResourcesName = "Player_Idle2.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Player_Idle2", Event);
+
+	Event.ResourcesName = "Player_SlideAtt.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.1f;
+	FBXAnimationRenderer->CreateFBXAnimation("Player_SlideAtt", Event);
+
+
+
+
+
 	
 	
 
@@ -1295,6 +1354,12 @@ void Player::Update(float _DeltaTime)
 
 	StateManager.Update(_DeltaTime);
 
+
+}
+
+void Player::AniIdleEnd(const GameEngineRenderingEvent& _Data)
+{
+	int a = 0;
 
 }
 
