@@ -31,7 +31,7 @@ void PlayerSWAtt1::Start()
 
 
 	AttCollision = CreateComponent<GameEngineCollision>();
-	AttCollision->GetTransform().SetLocalScale({ 50.0f, 50.0f, 50.0f });
+	AttCollision->GetTransform().SetLocalScale({ 50.0f, 500.0f, 50.0f });
 	AttCollision->ChangeOrder(OBJECTORDER::PlayerAtt);
 	AttCollision->SetCollisionMode(CollisionMode::Ex);
 

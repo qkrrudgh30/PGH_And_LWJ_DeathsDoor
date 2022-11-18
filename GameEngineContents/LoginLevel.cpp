@@ -109,7 +109,7 @@ void LoginLevel::LevelStartEvent()
 		if (nullptr == Player::GetMainPlayer())
 		{
 			std::weak_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
-			NewPlayer.lock()->GetTransform().SetWorldPosition({-600.F,100.F,-150.F});
+			NewPlayer.lock()->GetTransform().SetWorldPosition({-600.F,120.F,-150.F});
 			NewPlayer.lock()->SetLevelOverOn();
 			NewPlayer.lock()->UIOff();
 			NewPlayer.lock()->m_bLogoLevelCheck = true;
@@ -118,7 +118,7 @@ void LoginLevel::LevelStartEvent()
 		}
 		else
 		{
-			Player::GetMainPlayer()->GetTransform().SetWorldPosition({ -600.F,100.F,-150.F });
+			Player::GetMainPlayer()->GetTransform().SetWorldPosition({ -600.F,120.F,-150.F });
 		}
 	}
 

@@ -19,6 +19,8 @@
 #include <iostream>
 #include <GameEngineCore/GameEngineFont.h>
 #include <GameEngineCore/GameEngineFBXAnimationRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
+
 
 
 
@@ -77,6 +79,19 @@ void Player::Start()
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 15.f, 15.f, 15.f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
 	FBXAnimationRenderer->SetFBXMesh("Player.fbx", "TextureAnimation");
+	//Renderer->SetParent(FBXAnimationRenderer);
+
+
+
+	Renderer = CreateComponent<GameEngineDefaultRenderer>();
+	Renderer->SetPipeLine("Color");
+	Renderer->GetRenderUnit().SetMesh("Box");
+	float4 ResultColor = { 1.f,1.f,1.f,1.f };
+	Renderer->GetTransform().SetLocalScale({ 10.0f, 10.0f, 10.0f });
+	Renderer->GetTransform().SetLocalPosition(GetTransform().GetForwardVector() * 500.f);
+	Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
+
+
 
 
 	Event.ResourcesName = "Player_Idle.FBX";
@@ -245,7 +260,7 @@ void Player::Start()
 	GetTransform().SetLocalScale({ 1, 1, 1 });
 
 	Collision = CreateComponent<GameEngineCollision>();
-	Collision->GetTransform().SetLocalScale({ 100.0f, 100.0f, 100.0f });
+	Collision->GetTransform().SetLocalScale({ 100.0f, 500.0f, 100.0f });
 	Collision->ChangeOrder(OBJECTORDER::Player);
 
 	StateManager.CreateStateMember("Idle"
@@ -669,12 +684,17 @@ void Player::ArrowAttStart(const StateInfo& _Info)
 void Player::ArrowAttEnd(const StateInfo& _Info)
 {
 	//화살 생성
+	float4 ArrowDir = FBXAnimationRenderer->GetTransform().GetLocalRotation();
+	float4 RenderFront = FBXAnimationRenderer->GetTransform().GetForwardVector();
+	float4 ArrowPos = GetTransform().GetWorldPosition() + (RenderFront.Normalize3DReturn() * 50.f);
 
 	if (m_Info.Weapontype == WEAPONTYPE::Arrow)
 	{
 		std::weak_ptr < PlayerArrowAtt> m_ArrowAtt = GetLevel()->CreateActor<PlayerArrowAtt>(OBJECTORDER::PlayerAtt);
-		m_ArrowAtt.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-		m_ArrowAtt.lock()->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
+
+		
+		m_ArrowAtt.lock()->GetTransform().SetWorldPosition(ArrowPos);
+		m_ArrowAtt.lock()->GetTransform().SetLocalRotation(ArrowDir);
 		m_bArrowCameraCheck = false;
 		m_Info.ArrowCount -= 1;
 	}
@@ -682,8 +702,8 @@ void Player::ArrowAttEnd(const StateInfo& _Info)
 	{
 
 		m_CHookAtt = GetLevel()->CreateActor<PlayerHookAtt>(OBJECTORDER::PlayerAtt);
-		m_CHookAtt.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-		m_CHookAtt.lock()->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
+		m_CHookAtt.lock()->GetTransform().SetWorldPosition(ArrowPos);
+		m_CHookAtt.lock()->GetTransform().SetLocalRotation(ArrowDir);
 
 
 		m_bArrowCameraCheck = false;
@@ -775,8 +795,8 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 		Len = 500.f;
 	}
 
-
-
+	Renderer->GetTransform().SetLocalPosition(GetTransform().GetForwardVector() * Len);
+	
 	float m_fAngle = float4::VectorXYtoDegree(MyPos, MousePos);
 	m_fAngle += 90.f;
 
@@ -799,9 +819,9 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	m_fArrowCameraActionPos = FBXAnimationRenderer->GetTransform().GetWorldPosition() + FBXAnimationRenderer->GetTransform().GetForwardVector() * Len;
 
-
+	Renderer->GetTransform().SetLocalPosition(FBXAnimationRenderer->GetTransform().GetForwardVector() * Len);
 	
-
+	//Renderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
 
 }
 
@@ -1278,6 +1298,7 @@ void Player::Update(float _DeltaTime)
 	float4 WorldPos;
 	if (!m_bArrowCameraCheck)
 	{
+		Renderer->Off();
 		if (m_bShopCameraActionCheck)
 		{
 			m_fCameraLenZ = 700.f;
@@ -1301,7 +1322,9 @@ void Player::Update(float _DeltaTime)
 	}
 	else
 	{
+		Renderer->On();
 		WorldPos = m_fArrowCameraActionPos; //* -1.f;
+		
 	}
 
 

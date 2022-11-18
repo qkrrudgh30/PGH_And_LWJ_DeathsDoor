@@ -33,7 +33,7 @@ void PlayerArrowAtt::Start()
 
 
 	AttCollision = CreateComponent<GameEngineCollision>();
-	AttCollision->GetTransform().SetLocalScale({ 20.f, 20.0f, 50.0f });
+	AttCollision->GetTransform().SetLocalScale({ 20.f, 500.0f, 50.0f });
 	AttCollision->ChangeOrder(OBJECTORDER::PlayerAtt);
 
 

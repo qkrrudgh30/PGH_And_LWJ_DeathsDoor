@@ -40,10 +40,12 @@ void FlowerMonster::Start()
 	Event.ResourcesName = "Flower_Att.FBX";
 	Event.Loop = true;
 	Event.Inter = 0.02f;
+	Event.CurFrame = 0;
 	FBXAnimationRenderer->CreateFBXAnimation("Flower_Att", Event);
 	FBXAnimationRenderer->AnimationBindEnd("Flower_Att", std::bind(&FlowerMonster::AniFlower_Att, this, Event));
+	FBXAnimationRenderer->AnimationBindFrame("Flower_Att", std::bind(&FlowerMonster::AniFlower_AttFrame, this, Event));
 
-
+	
 	Event.ResourcesName = "Flower_Death.FBX";
 	Event.Loop = true;
 	Event.Inter = 0.02f;
@@ -67,7 +69,7 @@ void FlowerMonster::Start()
 
 	{
 		Collision = CreateComponent<GameEngineCollision>();
-		Collision->GetTransform().SetLocalScale({ 100.0f, 100.0f, 100.0f });
+		Collision->GetTransform().SetLocalScale({ 100.0f, 500.0f, 100.0f });
 		Collision->ChangeOrder(OBJECTORDER::Monster);
 
 	}
@@ -210,11 +212,8 @@ void FlowerMonster::AttEnd(const StateInfo& _Info)
 {
 	m_bhitCheck = false;
 
-	//醚舅 积己
-	std::weak_ptr < FlowerBullet> m_ArrowAtt = GetLevel()->CreateActor<FlowerBullet>(OBJECTORDER::MonsterAtt);
-	m_ArrowAtt.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-	m_ArrowAtt.lock()->GetTransform().SetLocalRotation(GetTransform().GetLocalRotation());
-	
+
+
 
 
 }
@@ -237,6 +236,65 @@ void FlowerMonster::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 void FlowerMonster::AniFlower_Att(const GameEngineRenderingEvent& _Data)
 {
 	StateManager.ChangeState("Idle");
+
+}
+
+void FlowerMonster::AniFlower_AttFrame(const GameEngineRenderingEvent& _Data)
+{
+	if (_Data.CurFrame == 5)
+	{
+		int a = 0;
+	}
+	if (_Data.CurFrame == 8)
+	{
+		int a = 0;
+	}
+	if (_Data.CurFrame == 10)
+	{
+		int a = 0;
+	}
+	if (_Data.CurFrame == 13)
+	{
+		int a = 0;
+	}
+	if (_Data.CurFrame == 15)
+	{
+		int a = 0;
+	}
+	if (_Data.CurFrame == 20)
+	{
+		int a = 0;
+	}
+
+	if (_Data.CurFrame == 30)
+	{
+		float4 ArrowDir = GetTransform().GetLocalRotation();
+		float4 RenderFront = GetTransform().GetForwardVector();
+		float4 ArrowPos = GetTransform().GetWorldPosition() + (RenderFront.Normalize3DReturn() * 200.f);
+
+		ArrowPos.y += 70.f;
+
+		//醚舅 积己
+		std::weak_ptr < FlowerBullet> m_ArrowAtt = GetLevel()->CreateActor<FlowerBullet>(OBJECTORDER::MonsterAtt);
+		m_ArrowAtt.lock()->GetTransform().SetWorldPosition(ArrowPos);
+		m_ArrowAtt.lock()->GetTransform().SetLocalRotation(ArrowDir);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	}
 
 }
 

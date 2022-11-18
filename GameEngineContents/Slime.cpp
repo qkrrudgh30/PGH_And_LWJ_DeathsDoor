@@ -63,7 +63,7 @@ void Slime::Start()
 
 	{
 		Collision = CreateComponent<GameEngineCollision>();
-		Collision->GetTransform().SetLocalScale({ 100.0f, 100.0f, 100.0f });
+		Collision->GetTransform().SetLocalScale({ 100.0f, 500.0f, 100.0f });
 		Collision->ChangeOrder(OBJECTORDER::Monster);
 	
 	}
