@@ -1,5 +1,5 @@
-#include "..\GameEngineResources\GameEngineShader\TransformHeader.fx"
-#include "..\GameEngineResources\GameEngineShader\RenderOption.fx"
+#include "..\..\GameEngineResources\GameEngineShader\TransformHeader.fx"
+#include "..\..\GameEngineResources\GameEngineShader\RenderOption.fx"
 
 struct Input
 {
@@ -20,11 +20,13 @@ cbuffer FadeInfo : register(b1)
     float2  mf2FrameDataPos;
     float2  mf2FrameDataSize;
     float4  mf4PivotPos;
-    float   mfFrom;
-    float   mfTo;
-    int     mbWrapping;
-    int     mbLoop;
-    int     mbIsUnityTexture;
+    float   mfFromAlphaValue;
+    float   mfToAlphaValue;
+    float   mfSpeed;
+    float   mfDeltatime;
+    int     miIsWrapping;
+    int     miIsLoop;
+    int     miIsUnityTexture;
 }
 
 Output Fade_VS(Input _Input)
@@ -55,11 +57,10 @@ float4 Fade_PS(Output _Input) : SV_Target0
     
     float4 Result = Tex.Sample(LINEARWRAP, _Input.Tex.xy);
     
-    if (1 <= Result.a)
-    {
-        Result.a = 1.0f;
-    }
-    
+    Result.r = clamp(Result.r + mfDeltatime * 100.f, mfFromAlphaValue, mfToAlphaValue);
+    Result.g = clamp(Result.g + mfDeltatime * 100.f, mfFromAlphaValue, mfToAlphaValue);
+    Result.b = clamp(Result.b + mfDeltatime * 100.f, mfFromAlphaValue, mfToAlphaValue);
+        
     return Result;
 }
 

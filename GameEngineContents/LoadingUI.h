@@ -38,9 +38,9 @@ protected:
 	void End() override;
 
 private:
-	std::shared_ptr<GameEngineUIRenderer> mpUIRendererForBackground;
-	std::shared_ptr<GameEngineUIRenderer> mpUIRendererForProgressBar;
-	std::shared_ptr<GameEngineUIRenderer> mpUIRendererForFont;
+	std::weak_ptr<GameEngineUIRenderer> mpUIRendererForBackground;
+	std::weak_ptr<GameEngineUIRenderer> mpUIRendererForProgressBar;
+	std::weak_ptr<class FadeRenderer> mpUIRendererForFont;
 	
 	size_t muTotalCountOfResources;
 	size_t muCurrentCountOfLoadedResources;

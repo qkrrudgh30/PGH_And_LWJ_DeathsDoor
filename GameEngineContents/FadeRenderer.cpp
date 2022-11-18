@@ -50,24 +50,47 @@ void FadeRenderer::SetPivot(PIVOTMODE _mode)
 	}
 }
 
+void FadeRenderer::SetFadeInfo(float _fFromAlphaValue, float _fToAlphaValue, float _fSpeed, int _iIsWrapping, int _iIsLoop, int _iIsUnityTexture)
+{
+	mFadeInfo.mfFromAlphaValue = _fFromAlphaValue;
+	mFadeInfo.mfToAlphaValue = _fToAlphaValue;
+	mFadeInfo.mfSpeed = _fSpeed;
+	mFadeInfo.miIsWrapping = _iIsWrapping;
+	mFadeInfo.miIsLoop = _iIsLoop;
+	mFadeInfo.miIsUnityTexture = _iIsUnityTexture;
+}
+
+void FadeRenderer::SetTexture(const std::string& _strTextureName)
+{
+	mwpCurrTexture = GetShaderResources().SetTexture("Tex", _strTextureName);
+}
+
 void FadeRenderer::Start()
 {
+	SetFadeRendererSetting();
+}
+
+void FadeRenderer::Update(float _fDeltatime)
+{
+	mFadeInfo.mfDeltatime = _fDeltatime;
 }
 
 void FadeRenderer::InitializeFadeInfo(void)
 {
-	mFadeInfo.mfFrom = 0.f;
-	mFadeInfo.mfTo = 1.f;
-	mFadeInfo.miWrapping = False;
-	mFadeInfo.miLoop = False;
-	mFadeInfo.miIsUnityTexture = False;
-
 	mFadeInfo.mf4FrameData.PosX = 0.f;
 	mFadeInfo.mf4FrameData.PosY = 0.f;
 	mFadeInfo.mf4FrameData.SizeX = 1.f;
 	mFadeInfo.mf4FrameData.SizeY = 1.f;
 
-	mFadeInfo.mf4PivotPos = float4::ZERO;	
+	mFadeInfo.mf4PivotPos = float4::ZERO;
+
+	mFadeInfo.mfFromAlphaValue = 0.f;
+	mFadeInfo.mfToAlphaValue = 1.f;
+	mFadeInfo.mfDeltatime = 0.f;
+	mFadeInfo.mfSpeed = 10.f;
+	mFadeInfo.miIsWrapping = False;
+	mFadeInfo.miIsLoop = False;
+	mFadeInfo.miIsUnityTexture = False;
 }
 
 void FadeRenderer::SetFadeRendererSetting(void)
@@ -77,6 +100,5 @@ void FadeRenderer::SetFadeRendererSetting(void)
 	SetPipeLine("Fade");
 	
 	GetShaderResources().SetConstantBufferLink("FadeInfo", mFadeInfo);
-
 }
 
