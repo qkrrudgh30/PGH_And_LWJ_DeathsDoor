@@ -5,6 +5,10 @@
 
 FadeRenderer::FadeRenderer() 
 	: mFadeInfo()
+	, mfHoldingAccTimeForFade(0.f)
+	, mfCurrentAccTimeForFade(0.f)
+	, mbIsLooped(false)
+	, miInAndOut(1.f)
 {
 }
 
@@ -50,13 +54,11 @@ void FadeRenderer::SetPivot(PIVOTMODE _mode)
 	}
 }
 
-void FadeRenderer::SetFadeInfo(float _fFromAlphaValue, float _fToAlphaValue, float _fSpeed, int _iIsWrapping, int _iIsLoop, int _iIsUnityTexture)
+void FadeRenderer::SetFadeInfo(int _iInAndOut, float _fHoldingTime, bool _bIsLooped, int _iIsUnityTexture)
 {
-	mFadeInfo.mfFromAlphaValue = _fFromAlphaValue;
-	mFadeInfo.mfToAlphaValue = _fToAlphaValue;
-	mFadeInfo.mfSpeed = _fSpeed;
-	mFadeInfo.miIsWrapping = _iIsWrapping;
-	mFadeInfo.miIsLoop = _iIsLoop;
+	miInAndOut = _iInAndOut;
+	mfHoldingAccTimeForFade = _fHoldingTime;
+	mbIsLooped = _bIsLooped;
 	mFadeInfo.miIsUnityTexture = _iIsUnityTexture;
 }
 
@@ -72,7 +74,14 @@ void FadeRenderer::Start()
 
 void FadeRenderer::Update(float _fDeltatime)
 {
-	mFadeInfo.mfDeltatime = _fDeltatime;
+	mfCurrentAccTimeForFade += (_fDeltatime / mfHoldingAccTimeForFade);
+	mFadeInfo.mfAccValue = mFadeInfo.mfAccValue + (_fDeltatime / mfHoldingAccTimeForFade) * miInAndOut;
+
+	if (true == mbIsLooped && mfHoldingAccTimeForFade <= mfCurrentAccTimeForFade)
+	{
+		miInAndOut = miInAndOut * -1;
+		mfCurrentAccTimeForFade = 0.f;
+	}
 }
 
 void FadeRenderer::InitializeFadeInfo(void)
@@ -84,12 +93,7 @@ void FadeRenderer::InitializeFadeInfo(void)
 
 	mFadeInfo.mf4PivotPos = float4::ZERO;
 
-	mFadeInfo.mfFromAlphaValue = 0.f;
-	mFadeInfo.mfToAlphaValue = 1.f;
-	mFadeInfo.mfDeltatime = 0.f;
-	mFadeInfo.mfSpeed = 10.f;
-	mFadeInfo.miIsWrapping = False;
-	mFadeInfo.miIsLoop = False;
+	mFadeInfo.mfAccValue = 0.f;
 	mFadeInfo.miIsUnityTexture = False;
 }
 

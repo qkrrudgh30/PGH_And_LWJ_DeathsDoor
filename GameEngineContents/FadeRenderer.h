@@ -5,12 +5,7 @@ struct FadeInfo
 {
 	float4  mf4FrameData;
 	float4	mf4PivotPos;
-	float	mfFromAlphaValue;
-	float	mfToAlphaValue;
-	float   mfSpeed;
-	float   mfDeltatime;
-	int		miIsWrapping;
-	int		miIsLoop;
+	float   mfAccValue;
 	int		miIsUnityTexture;
 };
 
@@ -30,7 +25,7 @@ public:
 	FadeRenderer& operator=(FadeRenderer&& _Other) noexcept = delete;
 
 	void SetPivot(PIVOTMODE _mode);
-	void SetFadeInfo(float _fFromAlphaValue, float _fToAlphaValue, float _fSpeed, int _iIsWrapping = 0, int _iIsLoop = 0, int _iIsUnityTexture = 0);
+	void SetFadeInfo(int _iInAndOut, float _fHoldingTime, bool _bIsLooped, int _iIsUnityTexture = 0);
 	void SetTexture(const std::string& _strTextureName);
 
 protected:
@@ -43,5 +38,10 @@ private:
 
 	FadeInfo mFadeInfo;
 	std::weak_ptr<GameEngineTexture> mwpCurrTexture;
+
+	float	mfHoldingAccTimeForFade;
+	float	mfCurrentAccTimeForFade;
+	bool	mbIsLooped;
+	int     miInAndOut;	
 
 };

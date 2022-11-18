@@ -20,12 +20,7 @@ cbuffer FadeInfo : register(b1)
     float2  mf2FrameDataPos;
     float2  mf2FrameDataSize;
     float4  mf4PivotPos;
-    float   mfFromAlphaValue;
-    float   mfToAlphaValue;
-    float   mfSpeed;
-    float   mfDeltatime;
-    int     miIsWrapping;
-    int     miIsLoop;
+    float   mfAccValue;
     int     miIsUnityTexture;
 }
 
@@ -57,9 +52,13 @@ float4 Fade_PS(Output _Input) : SV_Target0
     
     float4 Result = Tex.Sample(LINEARWRAP, _Input.Tex.xy);
     
-    Result.r = clamp(Result.r + mfDeltatime * 100.f, mfFromAlphaValue, mfToAlphaValue);
-    Result.g = clamp(Result.g + mfDeltatime * 100.f, mfFromAlphaValue, mfToAlphaValue);
-    Result.b = clamp(Result.b + mfDeltatime * 100.f, mfFromAlphaValue, mfToAlphaValue);
+    Result.r = Result.r + 1e-2f;
+    Result.g = Result.g + 1e-2f;
+    Result.b = Result.b + 1e-2f;
+    
+    Result.r = clamp(Result.r + mfAccValue, 0.f, 1.f);
+    Result.g = clamp(Result.g + mfAccValue, 0.f, 1.f);
+    Result.b = clamp(Result.b + mfAccValue, 0.f, 1.f);
         
     return Result;
 }

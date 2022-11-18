@@ -35,6 +35,7 @@ void LoadingUI::Start()
 
 	mpUIRendererForFont = CreateComponent<FadeRenderer>();
 	mpUIRendererForFont.lock()->SetTexture("Loading.png");
+	mpUIRendererForFont.lock()->SetFadeInfo(-1, 1.f, True);
 	mpUIRendererForFont.lock()->ChangeCamera(CAMERAORDER::UICAMERA);
 	mpUIRendererForFont.lock()->GetTransform().SetLocalScale(float4{ 600.f, 120.f });
 	mpUIRendererForFont.lock()->GetTransform().SetLocalPosition(float4{ 0.f, 30.f, 0.f, 0.f });
