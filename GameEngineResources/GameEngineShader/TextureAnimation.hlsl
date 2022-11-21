@@ -62,10 +62,9 @@ float4 TextureAnimation_PS(Output _Input) : SV_Target0
 {
     float4 Color = DiffuseTexture.Sample(LINEARWRAP, _Input.TEXCOORD.xy);
     
-    if (Color.a <= 0.1f)
+    if (Color.a <= 0.0f)
     {
-        Color.a = 1.f;
-     //   clip(-1);
+        clip(-1);
     }
     
     return Color;
