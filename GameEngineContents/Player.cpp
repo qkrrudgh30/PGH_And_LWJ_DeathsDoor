@@ -821,7 +821,7 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	Renderer->GetTransform().SetLocalPosition(FBXAnimationRenderer->GetTransform().GetForwardVector() * Len);
 	
-	//Renderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
+	Renderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
 
 }
 

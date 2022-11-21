@@ -29,7 +29,7 @@ void Potal::Start()
 		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.25f, 0.25f, 0.25f });
 		FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f, 45.f, 0.f });
 		{
-			FBXStaticRenderer->SetFBXMesh("woodDoor.FBX", "Texture");
+			FBXStaticRenderer->SetFBXMesh("Door.FBX", "Texture");
 		}
 		
 	}

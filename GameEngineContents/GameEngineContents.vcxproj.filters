@@ -281,6 +281,12 @@
     <ClInclude Include="FadeRenderer.h">
       <Filter>96.Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Floor.h">
+      <Filter>02.Static\06_BossLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="Rock.h">
+      <Filter>02.Static\06_BossLevel</Filter>
+    </ClInclude>
     <ClInclude Include="BlurRenderer.h">
       <Filter>96.Renderer</Filter>
     </ClInclude>
@@ -425,6 +431,12 @@
     </ClCompile>
     <ClCompile Include="ContentsCore_Resources.cpp">
       <Filter>97.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Floor.cpp">
+      <Filter>02.Static\06_BossLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="Rock.cpp">
+      <Filter>02.Static\06_BossLevel</Filter>
     </ClCompile>
     <ClCompile Include="BlurRenderer.cpp">
       <Filter>96.Renderer</Filter>

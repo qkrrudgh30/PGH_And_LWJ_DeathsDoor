@@ -187,6 +187,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Floor.h" />
     <ClInclude Include="FlowerBullet.h">
       <SubType>
       </SubType>
@@ -268,6 +269,7 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Potal.h" />
+    <ClInclude Include="Rock.h" />
     <ClInclude Include="ROOM_Enter.h">
       <SubType>
       </SubType>
@@ -364,6 +366,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Floor.cpp" />
     <ClCompile Include="FlowerBullet.cpp">
       <SubType>
       </SubType>
@@ -445,6 +448,7 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Potal.cpp" />
+    <ClCompile Include="Rock.cpp" />
     <ClCompile Include="ROOM_Enter.cpp">
       <SubType>
       </SubType>

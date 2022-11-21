@@ -1,6 +1,7 @@
 
 #include "PreCompile.h"
 #include "PlayerArrowAtt.h"
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 PlayerArrowAtt::PlayerArrowAtt() 
 {
@@ -29,6 +30,14 @@ void PlayerArrowAtt::Start()
 
 	}
 
+	//{
+	//	FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+	//	FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
+	//	FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 1.f, 1.f, 1.f });
+	//	FBXStaticRenderer->SetFBXMesh("Arrow.FBX", "Texture");
+	//	
+
+	//}
 
 
 
