@@ -34,14 +34,14 @@ void Slime::Start()
 	Event.Loop = true;
 	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Slime_Att", Event);
-	FBXAnimationRenderer->AnimationBindEnd("Slime_Att", std::bind(&Slime::AniSlime_Att, this, Event));
+	FBXAnimationRenderer->AnimationBindEnd("Slime_Att", std::bind(&Slime::AniSlime_Att, this, std::placeholders::_1));
 
 
 	Event.ResourcesName = "Slime_Idle.FBX";
 	Event.Loop = true;
 	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Slime_Idle", Event);
-	FBXAnimationRenderer->AnimationBindEnd("Slime_Idle", std::bind(&Slime::AniSlime_Idle, this, Event));
+	FBXAnimationRenderer->AnimationBindEnd("Slime_Idle", std::bind(&Slime::AniSlime_Idle, this, std::placeholders::_1));
 
 
 
@@ -49,7 +49,7 @@ void Slime::Start()
 	Event.Loop = true;
 	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Slime_Move", Event);
-	FBXAnimationRenderer->AnimationBindEnd("Slime_Move", std::bind(&Slime::AniSlime_Move, this, Event));
+	FBXAnimationRenderer->AnimationBindEnd("Slime_Move", std::bind(&Slime::AniSlime_Move, this, std::placeholders::_1));
 
 
 
@@ -259,11 +259,11 @@ void Slime::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 
 	//삭제 예정
-	//if (m_bHitCheck)
-	//{
-	//	StateManager.ChangeState("Stun");
-	//	m_bHitCheck = false;
-	//}
+	if (m_bHitCheck)
+	{
+		StateManager.ChangeState("Stun");
+		m_bHitCheck = false;
+	}
 
 }
 

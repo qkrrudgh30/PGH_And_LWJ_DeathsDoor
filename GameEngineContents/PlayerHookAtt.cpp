@@ -3,6 +3,7 @@
 #include "PlayerHookAtt.h"
 #include "PlayerHookTrail.h"
 
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 PlayerHookAtt::PlayerHookAtt()
 {
 }
@@ -16,20 +17,14 @@ void PlayerHookAtt::Start()
 
 	m_fSpeed = 2000.f;
 
-
 	{
+		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+		FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
+		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 1.f, 1.f });
+		FBXStaticRenderer->SetFBXMesh("Arrow.FBX", "Texture");
 
-
-		Renderer = CreateComponent<GameEngineDefaultRenderer>();
-		Renderer->SetPipeLine("Color");
-		Renderer->GetRenderUnit().SetMesh("Box");
-		float4 ResultColor = { 1.f,1.f,1.f,1.f };
-
-		Renderer->GetTransform().SetLocalScale({ 20.f, 20.0f, 50.0f });
-		Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
 
 	}
-
 
 
 
@@ -59,7 +54,7 @@ void PlayerHookAtt::Update(float _DeltaTime)
 
 
 
-	float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+	float4 MoveDir = FBXStaticRenderer->GetTransform().GetForwardVector();
 
 
 	m_fLifeTime += _DeltaTime;
@@ -95,7 +90,7 @@ void PlayerHookAtt::Update(float _DeltaTime)
 		{
 			std::weak_ptr< PlayerHookTrail> HookTrail = GetLevel()->CreateActor<PlayerHookTrail>(OBJECTORDER::PlayerHookTrail);
 			HookTrail.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-			HookTrail.lock()->GetTransform().SetLocalRotation(Renderer->GetTransform().GetLocalRotation());
+			HookTrail.lock()->GetTransform().SetLocalRotation(GetTransform().GetLocalRotation());
 			HookTrail.lock()->m_cHook =  std::dynamic_pointer_cast<PlayerHookAtt>(shared_from_this());
 		}
 

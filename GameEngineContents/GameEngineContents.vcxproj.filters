@@ -139,6 +139,15 @@
     <Filter Include="02.Static\01_HuntingLevel1">
       <UniqueIdentifier>{1778e1f1-9795-4b84-8d53-af0f135d5c51}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\02.Monster\Flower">
+      <UniqueIdentifier>{5ca2d571-d4ee-4f2b-86b4-c04ceb96751a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\02.Monster\Slime">
+      <UniqueIdentifier>{113b7d27-50ef-40f1-99e2-c616976b56c5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\02.Monster\Tower">
+      <UniqueIdentifier>{44263e4c-c2e6-441f-97a7-bbce2d2534a7}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -212,9 +221,6 @@
     <ClInclude Include="PlayerArrowAtt.h">
       <Filter>01.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
     </ClInclude>
-    <ClInclude Include="FlowerMonster.h">
-      <Filter>01.Actor\02.Unit\02.Monster</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerHookAtt.h">
       <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
     </ClInclude>
@@ -269,12 +275,6 @@
     <ClInclude Include="LoadingUI.h">
       <Filter>01.Actor\01.UI\99.EditUI</Filter>
     </ClInclude>
-    <ClInclude Include="Slime.h">
-      <Filter>01.Actor\02.Unit\02.Monster</Filter>
-    </ClInclude>
-    <ClInclude Include="HeadRoller.h">
-      <Filter>01.Actor\02.Unit\02.Monster</Filter>
-    </ClInclude>
     <ClInclude Include="FlowerBullet.h">
       <Filter>01.Actor\02.Unit\03.Bullet\01.Monster</Filter>
     </ClInclude>
@@ -289,6 +289,15 @@
     </ClInclude>
     <ClInclude Include="BlurRenderer.h">
       <Filter>96.Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowerMonster.h">
+      <Filter>01.Actor\02.Unit\02.Monster\Flower</Filter>
+    </ClInclude>
+    <ClInclude Include="Slime.h">
+      <Filter>01.Actor\02.Unit\02.Monster\Slime</Filter>
+    </ClInclude>
+    <ClInclude Include="HeadRoller.h">
+      <Filter>01.Actor\02.Unit\02.Monster\Tower</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -360,9 +369,6 @@
     <ClCompile Include="PlayerArrowAtt.cpp">
       <Filter>01.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
     </ClCompile>
-    <ClCompile Include="FlowerMonster.cpp">
-      <Filter>01.Actor\02.Unit\02.Monster</Filter>
-    </ClCompile>
     <ClCompile Include="PlayerHookAtt.cpp">
       <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
     </ClCompile>
@@ -417,12 +423,6 @@
     <ClCompile Include="LoadingUI.cpp">
       <Filter>01.Actor\01.UI\99.EditUI</Filter>
     </ClCompile>
-    <ClCompile Include="Slime.cpp">
-      <Filter>01.Actor\02.Unit\02.Monster</Filter>
-    </ClCompile>
-    <ClCompile Include="HeadRoller.cpp">
-      <Filter>01.Actor\02.Unit\02.Monster</Filter>
-    </ClCompile>
     <ClCompile Include="FlowerBullet.cpp">
       <Filter>01.Actor\02.Unit\03.Bullet\01.Monster</Filter>
     </ClCompile>
@@ -440,6 +440,15 @@
     </ClCompile>
     <ClCompile Include="BlurRenderer.cpp">
       <Filter>96.Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowerMonster.cpp">
+      <Filter>01.Actor\02.Unit\02.Monster\Flower</Filter>
+    </ClCompile>
+    <ClCompile Include="Slime.cpp">
+      <Filter>01.Actor\02.Unit\02.Monster\Slime</Filter>
+    </ClCompile>
+    <ClCompile Include="HeadRoller.cpp">
+      <Filter>01.Actor\02.Unit\02.Monster\Tower</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

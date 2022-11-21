@@ -3,7 +3,6 @@
 #include "PlayerArrowAtt.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
-#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 PlayerArrowAtt::PlayerArrowAtt() 
 {
 }
@@ -18,27 +17,42 @@ void PlayerArrowAtt::Start()
 	m_fSpeed = 3000.f;
 
 
-	{
+	//{
 
 
-		Renderer = CreateComponent<GameEngineDefaultRenderer>();
-		Renderer->SetPipeLine("Color");
-		Renderer->GetRenderUnit().SetMesh("Box");
-		float4 ResultColor = { 1.f,1.f,1.f,1.f };
+	//	Renderer = CreateComponent<GameEngineDefaultRenderer>();
+	//	Renderer->SetPipeLine("Color");
+	//	Renderer->GetRenderUnit().SetMesh("Box");
+	//	float4 ResultColor = { 1.f,1.f,1.f,1.f };
 
-		Renderer->GetTransform().SetLocalScale({ 20.f, 20.0f, 50.0f });
-		Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
+	//	Renderer->GetTransform().SetLocalScale({ 20.f, 20.0f, 50.0f });
+	//	Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
 
-	}
+	//}
+
+	//float4 ResultColor = float4{ 0.9f, 0.9f, 0.9f, 1.f };
 
 	//{
 	//	FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-	//	FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
-	//	FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 1.f, 1.f, 1.f });
-	//	FBXStaticRenderer->SetFBXMesh("Arrow.FBX", "Texture");
-	//	
+	//	FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
+	//	FBXStaticRenderer->SetFBXMesh("Arrow.fbx", "Color");
+	//	FBXStaticRenderer->GetAllRenderUnit()[0][0].ShaderResources.SetConstantBufferLink("ResultColor", ResultColor);
+
 
 	//}
+
+
+
+
+
+	{
+		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+		FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
+		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 1.f, 1.f });
+		FBXStaticRenderer->SetFBXMesh("Arrow.FBX", "Texture");
+		
+
+	}
 
 
 
@@ -67,7 +81,7 @@ void PlayerArrowAtt::Update(float _DeltaTime)
 
 
 
-	float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+	float4 MoveDir = FBXStaticRenderer->GetTransform().GetForwardVector();
 	GetTransform().SetWorldMove(MoveDir * m_fSpeed * _DeltaTime);
 
 }

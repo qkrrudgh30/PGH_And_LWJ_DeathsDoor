@@ -83,13 +83,24 @@ void Player::Start()
 
 
 
-	Renderer = CreateComponent<GameEngineDefaultRenderer>();
-	Renderer->SetPipeLine("Color");
-	Renderer->GetRenderUnit().SetMesh("Box");
-	float4 ResultColor = { 1.f,1.f,1.f,1.f };
-	Renderer->GetTransform().SetLocalScale({ 10.0f, 10.0f, 10.0f });
-	Renderer->GetTransform().SetLocalPosition(GetTransform().GetForwardVector() * 500.f);
-	Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
+	//Renderer = CreateComponent<GameEngineDefaultRenderer>();
+	//Renderer->SetPipeLine("Color");
+	//Renderer->GetRenderUnit().SetMesh("Box");
+	//float4 ResultColor = { 1.f,1.f,1.f,1.f };
+	//Renderer->GetTransform().SetLocalScale({ 10.0f, 10.0f, 10.0f });
+	//Renderer->GetTransform().SetLocalPosition(GetTransform().GetForwardVector() * 500.f);
+	//Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
+
+
+
+	{
+		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+		FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
+		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 1.f, 1.f, 1.f });
+		FBXStaticRenderer->SetFBXMesh("Arrow.FBX", "Texture");
+		FBXStaticRenderer->Off();
+
+	}
 
 
 
@@ -126,7 +137,7 @@ void Player::Start()
 		Event2.Loop = false;
 		Event2.Inter = 0.02f;
 		FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Left", Event2);
-		FBXAnimationRenderer->AnimationBindEnd("Player_Att_Left", std::bind(&Player::AniPlayer_Att_Left, this, Event2));
+		FBXAnimationRenderer->AnimationBindEnd("Player_Att_Left", std::bind(&Player::AniPlayer_Att_Left, this, std::placeholders::_1));
 	}
 
 
@@ -136,7 +147,7 @@ void Player::Start()
 		Event2.Loop = false;
 		Event2.Inter = 0.02f;
 		FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Right", Event2);
-		FBXAnimationRenderer->AnimationBindEnd("Player_Att_Right", std::bind(&Player::AniPlayer_Att_R, this, Event2));
+		FBXAnimationRenderer->AnimationBindEnd("Player_Att_Right", std::bind(&Player::AniPlayer_Att_R, this, std::placeholders::_1));
 
 	}
 
@@ -146,7 +157,7 @@ void Player::Start()
 		Event2.Loop = false;
 		Event2.Inter = 0.02f;
 		FBXAnimationRenderer->CreateFBXAnimation("Player_Att1", Event2);
-		FBXAnimationRenderer->AnimationBindEnd("Player_Att1", std::bind(&Player::AniPlayer_Att1, this, Event2));
+		FBXAnimationRenderer->AnimationBindEnd("Player_Att1", std::bind(&Player::AniPlayer_Att1, this, std::placeholders::_1));
 
 	}
 
@@ -156,7 +167,7 @@ void Player::Start()
 		Event2.Loop = false;
 		Event2.Inter = 0.02f;
 		FBXAnimationRenderer->CreateFBXAnimation("Player_Att2", Event2);
-		FBXAnimationRenderer->AnimationBindEnd("Player_Att2", std::bind(&Player::AniPlayer_Att2, this, Event2));
+		FBXAnimationRenderer->AnimationBindEnd("Player_Att2", std::bind(&Player::AniPlayer_Att2, this, std::placeholders::_1));
 
 	}
 
@@ -166,7 +177,7 @@ void Player::Start()
 		Event2.Loop = false;
 		Event2.Inter = 0.02f;
 		FBXAnimationRenderer->CreateFBXAnimation("Player_Roll", Event2);
-		FBXAnimationRenderer->AnimationBindEnd("Player_Roll", std::bind(&Player::AniPlayer_Roll, this, Event2));
+		FBXAnimationRenderer->AnimationBindEnd("Player_Roll", std::bind(&Player::AniPlayer_Roll, this, std::placeholders::_1));
 
 	}
 
@@ -193,7 +204,7 @@ void Player::Start()
 		Event2.Loop = true;
 		Event2.Inter = 0.02f;
 		FBXAnimationRenderer->CreateFBXAnimation("Player_Idle2", Event2);
-		FBXAnimationRenderer->AnimationBindEnd("Player_Idle2", std::bind(&Player::AniPlayer_Idle2, this, Event2));
+		FBXAnimationRenderer->AnimationBindEnd("Player_Idle2", std::bind(&Player::AniPlayer_Idle2, this, std::placeholders::_1));
 	}
 
 	{
@@ -202,7 +213,7 @@ void Player::Start()
 		Event2.Loop = false;
 		Event2.Inter = 0.02f;
 		FBXAnimationRenderer->CreateFBXAnimation("Player_SlideAtt", Event2);
-		FBXAnimationRenderer->AnimationBindEnd("Player_SlideAtt", std::bind(&Player::AniPlayer_SlideAtt, this, Event2));
+		FBXAnimationRenderer->AnimationBindEnd("Player_SlideAtt", std::bind(&Player::AniPlayer_SlideAtt, this, std::placeholders::_1));
 
 	}
 
@@ -795,7 +806,7 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 		Len = 500.f;
 	}
 
-	Renderer->GetTransform().SetLocalPosition(GetTransform().GetForwardVector() * Len);
+	FBXStaticRenderer->GetTransform().SetLocalPosition(GetTransform().GetForwardVector() * Len);
 	
 	float m_fAngle = float4::VectorXYtoDegree(MyPos, MousePos);
 	m_fAngle += 90.f;
@@ -819,9 +830,9 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	m_fArrowCameraActionPos = FBXAnimationRenderer->GetTransform().GetWorldPosition() + FBXAnimationRenderer->GetTransform().GetForwardVector() * Len;
 
-	Renderer->GetTransform().SetLocalPosition(FBXAnimationRenderer->GetTransform().GetForwardVector() * Len);
+	FBXStaticRenderer->GetTransform().SetLocalPosition(FBXAnimationRenderer->GetTransform().GetForwardVector() * Len);
 	
-	Renderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
+	FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f,m_fAngle,0.f });
 
 }
 
@@ -953,7 +964,7 @@ void Player::SlideAttStart(const StateInfo& _Info)
 
 
 	//RenderFoward = MyWorldPos + RenderFoward;
-
+	MyWorldPos.y -= 20.f;
 	m_CSWAttSlide = GetLevel()->CreateActor<PlayerSWAttSlide>(OBJECTORDER::PlayerAtt);
 	m_CSWAttSlide.lock()->GetTransform().SetLocalPosition(MyWorldPos);
 	m_CSWAttSlide.lock()->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
@@ -1298,7 +1309,7 @@ void Player::Update(float _DeltaTime)
 	float4 WorldPos;
 	if (!m_bArrowCameraCheck)
 	{
-		Renderer->Off();
+		FBXStaticRenderer->Off();
 		if (m_bShopCameraActionCheck)
 		{
 			m_fCameraLenZ = 700.f;
@@ -1322,7 +1333,7 @@ void Player::Update(float _DeltaTime)
 	}
 	else
 	{
-		Renderer->On();
+		FBXStaticRenderer->On();
 		WorldPos = m_fArrowCameraActionPos; //* -1.f;
 		
 	}

@@ -16,6 +16,8 @@ void PlayerSWAttSlide::Start()
 
 	AttCollision = CreateComponent<GameEngineCollision>();
 	AttCollision->GetTransform().SetLocalScale({ 50.0f, 500.0f, 150.0f });
+	AttCollision->GetTransform().SetLocalPosition(AttCollision->GetTransform().GetForwardVector() * 100.f);
+
 	AttCollision->ChangeOrder(OBJECTORDER::PlayerAtt);
 	
 	{

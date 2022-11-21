@@ -42,22 +42,22 @@ void FlowerMonster::Start()
 	Event.Inter = 0.02f;
 	Event.CurFrame = 0;
 	FBXAnimationRenderer->CreateFBXAnimation("Flower_Att", Event);
-	FBXAnimationRenderer->AnimationBindEnd("Flower_Att", std::bind(&FlowerMonster::AniFlower_Att, this, Event));
-	FBXAnimationRenderer->AnimationBindFrame("Flower_Att", std::bind(&FlowerMonster::AniFlower_AttFrame, this, Event));
+	FBXAnimationRenderer->AnimationBindEnd("Flower_Att", std::bind(&FlowerMonster::AniFlower_Att, this, std::placeholders::_1));
+	FBXAnimationRenderer->AnimationBindFrame("Flower_Att", std::bind(&FlowerMonster::AniFlower_AttFrame, this, std::placeholders::_1));
 
 	
 	Event.ResourcesName = "Flower_Death.FBX";
 	Event.Loop = true;
 	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Flower_Death", Event);
-	FBXAnimationRenderer->AnimationBindEnd("Flower_Death", std::bind(&FlowerMonster::AniFlower_Death, this, Event));
+	FBXAnimationRenderer->AnimationBindEnd("Flower_Death", std::bind(&FlowerMonster::AniFlower_Death, this, std::placeholders::_1));
 
 
 	Event.ResourcesName = "Flower_Idle.FBX";
 	Event.Loop = true;
 	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Flower_Idle", Event);
-	FBXAnimationRenderer->AnimationBindEnd("Flower_Idle", std::bind(&FlowerMonster::AniFlower_Idle, this, Event));
+	FBXAnimationRenderer->AnimationBindEnd("Flower_Idle", std::bind(&FlowerMonster::AniFlower_Idle, this, std::placeholders::_1));
 
 
 
@@ -225,11 +225,11 @@ void FlowerMonster::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	//
 	////삭제 예정
-	//if (m_bHitCheck)
-	//{
-	//	StateManager.ChangeState("Stun");
-	//	m_bHitCheck = false;
-	//}
+	if (m_bHitCheck)
+	{
+		StateManager.ChangeState("Stun");
+		m_bHitCheck = false;
+	}
 
 
 }
@@ -240,34 +240,12 @@ void FlowerMonster::AniFlower_Att(const GameEngineRenderingEvent& _Data)
 
 }
 
+
 void FlowerMonster::AniFlower_AttFrame(const GameEngineRenderingEvent& _Data)
 {
-	if (_Data.CurFrame == 5)
-	{
-		int a = 0;
-	}
-	if (_Data.CurFrame == 8)
-	{
-		int a = 0;
-	}
-	if (_Data.CurFrame == 10)
-	{
-		int a = 0;
-	}
-	if (_Data.CurFrame == 13)
-	{
-		int a = 0;
-	}
-	if (_Data.CurFrame == 15)
-	{
-		int a = 0;
-	}
-	if (_Data.CurFrame == 20)
-	{
-		int a = 0;
-	}
 
-	if (_Data.CurFrame == 30)
+
+	if (_Data.CurFrame == 50)
 	{
 		float4 ArrowDir = GetTransform().GetLocalRotation();
 		float4 RenderFront = GetTransform().GetForwardVector();
@@ -279,18 +257,6 @@ void FlowerMonster::AniFlower_AttFrame(const GameEngineRenderingEvent& _Data)
 		std::weak_ptr < FlowerBullet> m_ArrowAtt = GetLevel()->CreateActor<FlowerBullet>(OBJECTORDER::MonsterAtt);
 		m_ArrowAtt.lock()->GetTransform().SetWorldPosition(ArrowPos);
 		m_ArrowAtt.lock()->GetTransform().SetLocalRotation(ArrowDir);
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
