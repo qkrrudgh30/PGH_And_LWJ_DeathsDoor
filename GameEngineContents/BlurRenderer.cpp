@@ -50,7 +50,7 @@ void BlurRenderer::SetPivot(PIVOTMODE _ePivotMode)
 	}
 }
 
-void BlurRenderer::SetBlurInfo(int _iIsUnityTexture)
+void BlurRenderer::SetBlurInfo(unsigned int _uBlurType, unsigned int _uAppliedCount, int _iIsUnityTexture)
 {
 	mBlurInfo.miIsUnityTexture = _iIsUnityTexture;
 }
