@@ -20,7 +20,7 @@ void ROOM_Enter::Start()
 	std::shared_ptr < GameEngineFBXStaticRenderer> Renderer = CreateComponent<GameEngineFBXStaticRenderer>();
 	Renderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
 	Renderer->GetTransform().SetLocalRotation({0.f,45.f,0.f});
-	Renderer->SetFBXMesh("ROOM_Enter.fbx", "Texture");
+	Renderer->SetFBXMesh("ROOM_Enter.fbx", "Texture", 0, 0);
 
 #pragma region ROOM_Enter (1).FBX
 

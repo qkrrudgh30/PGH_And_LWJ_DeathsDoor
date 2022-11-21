@@ -8,7 +8,7 @@ FadeRenderer::FadeRenderer()
 	, mfHoldingAccTimeForFade(0.f)
 	, mfCurrentAccTimeForFade(0.f)
 	, mbIsLooped(false)
-	, miInAndOut(1.f)
+	, miInAndOut(1)
 {
 }
 

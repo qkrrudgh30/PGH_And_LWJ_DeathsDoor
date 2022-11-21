@@ -281,6 +281,9 @@
     <ClInclude Include="FadeRenderer.h">
       <Filter>96.Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="BlurRenderer.h">
+      <Filter>96.Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -422,6 +425,9 @@
     </ClCompile>
     <ClCompile Include="ContentsCore_Resources.cpp">
       <Filter>97.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="BlurRenderer.cpp">
+      <Filter>96.Renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

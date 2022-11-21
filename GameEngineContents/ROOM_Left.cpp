@@ -20,8 +20,8 @@ void ROOM_Left::Start()
 	std::shared_ptr < GameEngineFBXStaticRenderer> Renderer = CreateComponent<GameEngineFBXStaticRenderer>();
 	Renderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
 	Renderer->GetTransform().SetLocalRotation({ 0.f,45.f,0.f });
-	// Renderer->SetFBXMesh("ROOM_Left.fbx", "Texture");
-	for (int i = 0; i < 3; ++i)
+	Renderer->SetFBXMesh("ROOM_Left.fbx", "Texture", 0, 0);
+	/*for (int i = 0; i < 3; ++i)
 	{
 		if (2 == i)
 		{
@@ -30,7 +30,7 @@ void ROOM_Left::Start()
 			continue;
 		}
 		Renderer->SetFBXMesh("ROOM_Left.fbx", "Texture", 0, i);
-	}
+	}*/
 
 #pragma region ROOM_Left (1).FBX
 
