@@ -8,6 +8,9 @@
 #include "Floor.h"
 #include "Rock.h"
 
+
+#include "Tower.h"
+
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -45,7 +48,12 @@ void BossLevel::LevelStartEvent()
 
 		std::weak_ptr < Floor> CFloor = CreateActor<Floor>(OBJECTORDER::BackGround);
 
+		{
+			std::weak_ptr < Tower> cMonster = CreateActor<Tower>(OBJECTORDER::Monster);
+			cMonster.lock()->GetTransform().SetWorldPosition({ 0.f,450.F,0.f });
 
+
+		}
 	}
 #pragma endregion
 	{

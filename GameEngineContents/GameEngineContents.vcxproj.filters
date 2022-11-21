@@ -148,6 +148,9 @@
     <Filter Include="01.Actor\02.Unit\02.Monster\Tower">
       <UniqueIdentifier>{44263e4c-c2e6-441f-97a7-bbce2d2534a7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\02.Monster\OldCrow">
+      <UniqueIdentifier>{2681a9a9-76c1-4299-8c24-a485eab0c553}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -304,6 +307,9 @@
       <Filter>96.Renderer</Filter>
 >>>>>>> Stashed changes
     </ClInclude>
+    <ClInclude Include="OldCrow.h">
+      <Filter>01.Actor\02.Unit\02.Monster\OldCrow</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -459,6 +465,9 @@
     <ClCompile Include="ContentsRenderer.cpp">
       <Filter>96.Renderer</Filter>
 >>>>>>> Stashed changes
+    </ClCompile>
+    <ClCompile Include="OldCrow.cpp">
+      <Filter>01.Actor\02.Unit\02.Monster\OldCrow</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
