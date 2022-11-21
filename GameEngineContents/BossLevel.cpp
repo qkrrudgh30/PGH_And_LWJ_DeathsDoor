@@ -4,6 +4,10 @@
 #include "UIMouse.h"
 #include "LoadingUI.h"
 
+
+#include "Floor.h"
+#include "Rock.h"
+
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -34,6 +38,14 @@ void BossLevel::LevelStartEvent()
 	{
 		LoadCreaturesFromFile("06_BossLevel");
 		mbPrimitiveInitialized = true;
+
+
+		std::weak_ptr < Rock> CRock = CreateActor<Rock>(OBJECTORDER::StaticMesh);
+
+
+		std::weak_ptr < Floor> CFloor = CreateActor<Floor>(OBJECTORDER::BackGround);
+
+
 	}
 #pragma endregion
 	{

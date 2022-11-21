@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "PlayerSWAttSlide.h"
 
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 PlayerSWAttSlide::PlayerSWAttSlide()
 {
 }
@@ -18,17 +19,12 @@ void PlayerSWAttSlide::Start()
 	AttCollision->ChangeOrder(OBJECTORDER::PlayerAtt);
 	
 	{
+		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
+		FBXStaticRenderer->SetFBXMesh("Sworld_Trail_3.fbx", "Texture");
 
-
-		Renderer = CreateComponent<GameEngineDefaultRenderer>();
-		Renderer->SetPipeLine("Color");
-		Renderer->GetRenderUnit().SetMesh("Box");
-		float4 ResultColor = { 1.f,1.f,1.f,1.f };
-
-		Renderer->GetTransform().SetLocalScale({ 50.0f, 50.0f, 150.0f });
-		Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
-		Renderer->Off();
 	}
+
 
 
 }

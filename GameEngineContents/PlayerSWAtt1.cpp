@@ -1,5 +1,7 @@
 #include "PreCompile.h"
 #include "PlayerSWAtt1.h"
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
+
 
 PlayerSWAtt1::PlayerSWAtt1() 
 {
@@ -13,20 +15,14 @@ void PlayerSWAtt1::Start()
 {
 	m_Info.Dammage = 1;
 
+
+
 	{
-
-
-		Renderer = CreateComponent<GameEngineDefaultRenderer>();
-		Renderer->SetPipeLine("Color");
-		Renderer->GetRenderUnit().SetMesh("Box");
-		float4 ResultColor = { 1.f,1.f,1.f,1.f };
-
-		Renderer->GetTransform().SetLocalScale({ 50.0f, 50.0f, 50.0f });
-		Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
+		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
+		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
+		FBXStaticRenderer->SetFBXMesh("Sworld_Trail_4.fbx", "Texture");
 
 	}
-
-
 
 
 

@@ -473,15 +473,15 @@ void Player::SworldAttStart(const StateInfo& _Info)
 
 
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
+	/*float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
 	RenderFoward = RenderFoward * 100.f;
 	
 
 
-	RenderFoward = MyWorldPos + RenderFoward;
+	RenderFoward = MyWorldPos + RenderFoward;*/
 
 	m_CSWAtt1 = GetLevel()->CreateActor<PlayerSWAtt1>(OBJECTORDER::PlayerAtt);
-	m_CSWAtt1.lock()->GetTransform().SetLocalPosition(RenderFoward);
+	m_CSWAtt1.lock()->GetTransform().SetLocalPosition(MyWorldPos);
 	m_CSWAtt1.lock()->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 	
 	
@@ -550,15 +550,15 @@ void Player::SworldAttStart2(const StateInfo& _Info)
 	m_bSWA2check = false;
 
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
+	/*float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
 	RenderFoward = RenderFoward * 100.f;
 
 
 
-	RenderFoward = MyWorldPos + RenderFoward;
+	RenderFoward = MyWorldPos + RenderFoward;*/
 
 	m_CSWAtt2 = GetLevel()->CreateActor<PlayerSWAtt2>(OBJECTORDER::PlayerAtt);
-	m_CSWAtt2.lock()->GetTransform().SetLocalPosition(RenderFoward);
+	m_CSWAtt2.lock()->GetTransform().SetLocalPosition(MyWorldPos);
 	m_CSWAtt2.lock()->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 
 
@@ -622,15 +622,15 @@ void Player::SworldAttStart3(const StateInfo& _Info)
 	m_bSWA3check = false;
 
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
+	/*float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
 	RenderFoward = RenderFoward * 100.f;
 
 
 
-	RenderFoward = MyWorldPos + RenderFoward;
+	RenderFoward = MyWorldPos + RenderFoward;*/
 
 	m_CSWAtt3= GetLevel()->CreateActor<PlayerSWAtt3>(OBJECTORDER::PlayerAtt);
-	m_CSWAtt3.lock()->GetTransform().SetLocalPosition(RenderFoward);
+	m_CSWAtt3.lock()->GetTransform().SetLocalPosition(MyWorldPos);
 	m_CSWAtt3.lock()->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 
 
@@ -948,14 +948,14 @@ void Player::SlideAttStart(const StateInfo& _Info)
 {
 	FBXAnimationRenderer->ChangeAnimation("Player_SlideAtt");
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
-	RenderFoward = RenderFoward * 100.f;
+	//float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
+	//RenderFoward = RenderFoward * 100.f;
 
 
-	RenderFoward = MyWorldPos + RenderFoward;
+	//RenderFoward = MyWorldPos + RenderFoward;
 
 	m_CSWAttSlide = GetLevel()->CreateActor<PlayerSWAttSlide>(OBJECTORDER::PlayerAtt);
-	m_CSWAttSlide.lock()->GetTransform().SetLocalPosition(RenderFoward);
+	m_CSWAttSlide.lock()->GetTransform().SetLocalPosition(MyWorldPos);
 	m_CSWAttSlide.lock()->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 
 }

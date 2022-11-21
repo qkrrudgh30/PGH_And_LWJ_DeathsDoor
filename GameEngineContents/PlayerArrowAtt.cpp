@@ -3,6 +3,7 @@
 #include "PlayerArrowAtt.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 PlayerArrowAtt::PlayerArrowAtt() 
 {
 }
