@@ -49,5 +49,8 @@
     <FxCompile Include="Shader\Fade.hlsl">
       <Filter>Shader\2DShader</Filter>
     </FxCompile>
+    <FxCompile Include="Shader\ContentsBlur.hlsl">
+      <Filter>Shader\2DShader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

@@ -5,6 +5,8 @@ struct BlurInfo
 {
 	float4 mf4FrameData;
 	float4 mf4PivotPos;
+	unsigned int muAppliedType;
+	unsigned int muAppliedCount;
 	int miIsUnityTexture;
 };
 
@@ -24,7 +26,7 @@ public:
 	BlurRenderer& operator=(BlurRenderer&& _Other) noexcept = delete;
 
 	void SetPivot(PIVOTMODE _ePivotMode);
-	void SetBlurInfo(int _iIsUnityTexture = 0);
+	void SetBlurInfo(unsigned int _uBlurType, unsigned int _uAppliedCount = 1u, int _iIsUnityTexture = 0);
 	void SetTexture(const std::string& _strTextureName);
 
 protected:

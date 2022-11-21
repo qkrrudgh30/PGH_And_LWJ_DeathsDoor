@@ -174,6 +174,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="ContentsRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EditGUIWindow.h">
       <SubType>
       </SubType>
@@ -351,6 +355,10 @@
     </ClCompile>
     <ClCompile Include="ContentsCore_Resources.cpp" />
     <ClCompile Include="ContentsLevel.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ContentsRenderer.cpp">
       <SubType>
       </SubType>
     </ClCompile>

@@ -58,9 +58,13 @@ void CompileContentsShader()
 
 void CreateContentsMaterial()
 {
-	std::shared_ptr<GameEngineMaterial> FadeMaterial = GameEngineMaterial::Create("Fade");
-	FadeMaterial->SetVertexShader("Fade.hlsl");
-	FadeMaterial->SetPixelShader("Fade.hlsl");
+	std::weak_ptr<GameEngineMaterial> FadeMaterial = GameEngineMaterial::Create("Fade");
+	FadeMaterial.lock()->SetVertexShader("Fade.hlsl");
+	FadeMaterial.lock()->SetPixelShader("Fade.hlsl");
+
+	std::weak_ptr<GameEngineMaterial> ContentsBlurMaterial = GameEngineMaterial::Create("ContentsBlur");
+	ContentsBlurMaterial.lock()->SetVertexShader("ContentsBlur.hlsl");
+	ContentsBlurMaterial.lock()->SetPixelShader("ContentsBlur.hlsl");
 }
 
 void CreateContentsBlendAndDepthStencilDesc()

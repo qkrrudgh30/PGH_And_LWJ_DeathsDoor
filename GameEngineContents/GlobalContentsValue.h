@@ -89,3 +89,10 @@ enum
 	False = 0,
 	True = 1,
 };
+
+enum BlurType
+{
+	eVertical,
+	eHorizontal,
+	eVerticalAndHorizontal,
+};
