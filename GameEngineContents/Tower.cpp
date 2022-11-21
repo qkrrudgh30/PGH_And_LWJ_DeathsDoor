@@ -28,19 +28,19 @@ void Tower::Start()
 
 
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
-	FBXAnimationRenderer->SetFBXMesh("OldCrow.fbx", "TextureAnimation");
+	FBXAnimationRenderer->SetFBXMesh("Tower.fbx", "TextureAnimation");
 
 
-	Event.ResourcesName = "OldCrow_Idle.FBX";
+	Event.ResourcesName = "Tower_Laser.FBX";
 	Event.Loop = true;
 	Event.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Idle", Event);
+	FBXAnimationRenderer->CreateFBXAnimation("Tower_Laser", Event);
 
 
-	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 100.f, 100.f, 100.f });
-	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 0.f,0.f });
+	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.01f, 0.01f, 0.01f });
+	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 0.f,0.f });
 
-	FBXAnimationRenderer->ChangeAnimation("OldCrow_Idle");
+	FBXAnimationRenderer->ChangeAnimation("Tower_Laser");
 
 
 

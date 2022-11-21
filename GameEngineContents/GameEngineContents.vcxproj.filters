@@ -139,14 +139,17 @@
     <Filter Include="02.Static\01_HuntingLevel1">
       <UniqueIdentifier>{1778e1f1-9795-4b84-8d53-af0f135d5c51}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Actor\02.Unit\02.Monster\Flower">
+    <Filter Include="01.Actor\02.Unit\02.Monster\00.Flower">
       <UniqueIdentifier>{5ca2d571-d4ee-4f2b-86b4-c04ceb96751a}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Actor\02.Unit\02.Monster\Slime">
+    <Filter Include="01.Actor\02.Unit\02.Monster\01.Slime">
       <UniqueIdentifier>{113b7d27-50ef-40f1-99e2-c616976b56c5}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Actor\02.Unit\02.Monster\Tower">
+    <Filter Include="01.Actor\02.Unit\02.Monster\02.Tower">
       <UniqueIdentifier>{44263e4c-c2e6-441f-97a7-bbce2d2534a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\02.Monster\03.OldCrow">
+      <UniqueIdentifier>{33bbc2bd-3eb8-4388-8fab-0bed0749f084}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -291,13 +294,16 @@
       <Filter>96.Renderer</Filter>
     </ClInclude>
     <ClInclude Include="FlowerMonster.h">
-      <Filter>01.Actor\02.Unit\02.Monster\Flower</Filter>
+      <Filter>01.Actor\02.Unit\02.Monster\00.Flower</Filter>
     </ClInclude>
     <ClInclude Include="Slime.h">
-      <Filter>01.Actor\02.Unit\02.Monster\Slime</Filter>
+      <Filter>01.Actor\02.Unit\02.Monster\01.Slime</Filter>
     </ClInclude>
     <ClInclude Include="Tower.h">
-      <Filter>01.Actor\02.Unit\02.Monster\Tower</Filter>
+      <Filter>01.Actor\02.Unit\02.Monster\02.Tower</Filter>
+    </ClInclude>
+    <ClInclude Include="OldCrow.h">
+      <Filter>01.Actor\02.Unit\02.Monster\03.OldCrow</Filter>
     </ClInclude>
     <ClInclude Include="ContentsRenderer.h">
       <Filter>96.Renderer</Filter>
@@ -445,13 +451,16 @@
       <Filter>96.Renderer</Filter>
     </ClCompile>
     <ClCompile Include="FlowerMonster.cpp">
-      <Filter>01.Actor\02.Unit\02.Monster\Flower</Filter>
+      <Filter>01.Actor\02.Unit\02.Monster\00.Flower</Filter>
     </ClCompile>
     <ClCompile Include="Slime.cpp">
-      <Filter>01.Actor\02.Unit\02.Monster\Slime</Filter>
+      <Filter>01.Actor\02.Unit\02.Monster\01.Slime</Filter>
     </ClCompile>
     <ClCompile Include="Tower.cpp">
-      <Filter>01.Actor\02.Unit\02.Monster\Tower</Filter>
+      <Filter>01.Actor\02.Unit\02.Monster\02.Tower</Filter>
+    </ClCompile>
+    <ClCompile Include="OldCrow.cpp">
+      <Filter>01.Actor\02.Unit\02.Monster\03.OldCrow</Filter>
     </ClCompile>
     <ClCompile Include="ContentsRenderer.cpp">
       <Filter>96.Renderer</Filter>
