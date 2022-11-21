@@ -1,20 +1,20 @@
 
 
 #include "PreCompile.h"
-#include "Hall.h"
+#include "Rock.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 //#include "GameEngineCore/GameEngineDefaultRenderer.h"
 
-Hall::Hall()
+Rock::Rock()
 	: ResultColor()
 {
 }
 
-Hall::~Hall()
+Rock::~Rock()
 {
 }
 
-void Hall::Start()
+void Rock::Start()
 {
 	GameEngineTransformBase* aAAAAA = dynamic_cast<GameEngineTransformBase*>(this);
 
@@ -53,7 +53,7 @@ void Hall::Start()
 
 }
 
-void Hall::Update(float _DeltaTime)
+void Rock::Update(float _DeltaTime)
 {
 
 }

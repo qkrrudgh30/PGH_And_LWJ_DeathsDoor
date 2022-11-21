@@ -5,18 +5,18 @@
 class GameEngineCollision;
 class GameEngineTextureRenderer;
 class UnitBase;
-class Hall : public UnitBase
+class Floor : public UnitBase
 {
 public:
 	// constrcuter destructer
-	Hall();
-	~Hall();
+	Floor();
+	~Floor();
 
 	// delete Function
-	Hall(const Hall& _Other) = delete;
-	Hall(Hall&& _Other) noexcept = delete;
-	Hall& operator=(const Hall& _Other) = delete;
-	Hall& operator=(Hall&& _Other) noexcept = delete;
+	Floor(const Floor& _Other) = delete;
+	Floor(Floor&& _Other) noexcept = delete;
+	Floor& operator=(const Floor& _Other) = delete;
+	Floor& operator=(Floor&& _Other) noexcept = delete;
 
 protected:
 	void Start() override;
