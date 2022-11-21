@@ -4,7 +4,7 @@
 #include "Potal.h"
 #include "ROOM_MainHall.h"
 #include "LoadingUI.h"
-#include "HeadRoller.h"
+
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -58,28 +58,6 @@ void HuntingLevel3::LevelStartEvent()
 		}
 
 
-		{
-			std::weak_ptr < HeadRoller> cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
-			cMonster.lock()->GetTransform().SetWorldPosition({ 305.f,0.F,-554.f });
-
-
-		}
-
-		{
-			std::weak_ptr < HeadRoller> cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
-			cMonster.lock()->GetTransform().SetWorldPosition({ -1020.f,0.F,169.f });
-
-
-		}
-
-
-
-		{
-			std::weak_ptr < HeadRoller> cMonster = CreateActor<HeadRoller>(OBJECTORDER::Monster);
-			cMonster.lock()->GetTransform().SetWorldPosition({ -800.f,0.F,1071.f });
-
-
-		}
 
 
 

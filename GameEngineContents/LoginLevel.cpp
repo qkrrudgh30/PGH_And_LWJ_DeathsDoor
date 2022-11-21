@@ -11,7 +11,7 @@
 #include <GameEngineBase/GameEngineInput.h>
 
 #include "UIMouse.h"
-
+#include "Tower.h"
 #include "ShopNPC.h"
 #include "Potal.h"
 
@@ -86,6 +86,12 @@ void LoginLevel::LevelStartEvent()
 			std::weak_ptr < ShopNPC> cShopNPC = CreateActor<ShopNPC>(OBJECTORDER::NPC);
 			cShopNPC.lock()->GetTransform().SetWorldPosition({ -350.f,100.F,700.F });
 			
+			{
+				std::weak_ptr < Tower> cMonster = CreateActor<Tower>(OBJECTORDER::Monster);
+				cMonster.lock()->GetTransform().SetWorldPosition({ 0.f,450.F,0.f });
+
+
+			}
 
 		}
 

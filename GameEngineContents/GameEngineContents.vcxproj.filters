@@ -296,7 +296,7 @@
     <ClInclude Include="Slime.h">
       <Filter>01.Actor\02.Unit\02.Monster\Slime</Filter>
     </ClInclude>
-    <ClInclude Include="HeadRoller.h">
+    <ClInclude Include="Tower.h">
       <Filter>01.Actor\02.Unit\02.Monster\Tower</Filter>
     </ClInclude>
   </ItemGroup>
@@ -447,7 +447,7 @@
     <ClCompile Include="Slime.cpp">
       <Filter>01.Actor\02.Unit\02.Monster\Slime</Filter>
     </ClCompile>
-    <ClCompile Include="HeadRoller.cpp">
+    <ClCompile Include="Tower.cpp">
       <Filter>01.Actor\02.Unit\02.Monster\Tower</Filter>
     </ClCompile>
   </ItemGroup>

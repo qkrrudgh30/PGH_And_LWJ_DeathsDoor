@@ -4,7 +4,7 @@
 #include "Potal.h"
 #include "ROOM_Far.h"
 #include "LoadingUI.h"
-
+#include "Tower.h"
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -57,7 +57,12 @@ void HuntingLevel5::LevelStartEvent()
 
 		}
 
+		{
+			std::weak_ptr < Tower> cMonster = CreateActor<Tower>(OBJECTORDER::Monster);
+			cMonster.lock()->GetTransform().SetWorldPosition({ 0.f,0.F,0.f });
 
+
+		}
 
 		mbPrimitiveInitialized = true;
 	}

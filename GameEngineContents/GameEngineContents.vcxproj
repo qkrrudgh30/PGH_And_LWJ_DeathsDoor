@@ -204,7 +204,7 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="HeadRoller.h" />
+    <ClInclude Include="Tower.h" />
     <ClInclude Include="HuntingLevel1.h">
       <SubType>
       </SubType>
@@ -383,7 +383,7 @@
       <SubType>
       </SubType>
     </ClCompile>
-    <ClCompile Include="HeadRoller.cpp" />
+    <ClCompile Include="Tower.cpp" />
     <ClCompile Include="HuntingLevel1.cpp">
       <SubType>
       </SubType>
