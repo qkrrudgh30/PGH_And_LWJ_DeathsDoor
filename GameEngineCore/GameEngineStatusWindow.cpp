@@ -3,6 +3,7 @@
 #include "GameEngineRenderTarget.h"
 #include "GameEngineCameraActor.h"
 #include "GEngine.h"
+#include "GameEngineContents/ContentsLevel.h"
 
 std::map<std::string, GameEngineRenderTarget*> GameEngineStatusWindow::DebugRenderTarget;
 
@@ -85,7 +86,8 @@ void GameEngineStatusWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 	{
 		if (true == ImGui::Button(Pair.first.c_str()))
 		{
-			GameEngineCore::ChangeLevel(Pair.first);
+			ContentsLevel::mstrNextLevelName = Pair.first;
+			GEngine::ChangeLevel("07_EditLevel");
 		}
 
 		ImGui::SameLine();

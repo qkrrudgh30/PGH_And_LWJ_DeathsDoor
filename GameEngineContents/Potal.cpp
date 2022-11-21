@@ -28,8 +28,19 @@ void Potal::Start()
 		FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
 		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.25f, 0.25f, 0.25f });
 		FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f, 45.f, 0.f });
+
+		for (size_t i = 0; i <= 23; ++i)
 		{
-			FBXStaticRenderer->SetFBXMesh("Door.FBX", "Texture");
+			if (6 != i)
+			{
+				FBXStaticRenderer->SetFBXMesh("Door.FBX", "Texture", i);
+			}
+			else
+			{
+				FBXStaticRenderer->SetFBXMesh("Door.FBX", "Color", i);
+				FBXStaticRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::RED);
+				// FBXStaticRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4{0.6f, 0.06f, 0.11f, 1.f});
+			}
 		}
 		
 	}
