@@ -290,7 +290,6 @@
     <ClInclude Include="BlurRenderer.h">
       <Filter>96.Renderer</Filter>
     </ClInclude>
-<<<<<<< Updated upstream
     <ClInclude Include="FlowerMonster.h">
       <Filter>01.Actor\02.Unit\02.Monster\Flower</Filter>
     </ClInclude>
@@ -299,10 +298,9 @@
     </ClInclude>
     <ClInclude Include="Tower.h">
       <Filter>01.Actor\02.Unit\02.Monster\Tower</Filter>
-=======
+    </ClInclude>
     <ClInclude Include="ContentsRenderer.h">
       <Filter>96.Renderer</Filter>
->>>>>>> Stashed changes
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -446,7 +444,6 @@
     <ClCompile Include="BlurRenderer.cpp">
       <Filter>96.Renderer</Filter>
     </ClCompile>
-<<<<<<< Updated upstream
     <ClCompile Include="FlowerMonster.cpp">
       <Filter>01.Actor\02.Unit\02.Monster\Flower</Filter>
     </ClCompile>
@@ -455,10 +452,9 @@
     </ClCompile>
     <ClCompile Include="Tower.cpp">
       <Filter>01.Actor\02.Unit\02.Monster\Tower</Filter>
-=======
+    </ClCompile>
     <ClCompile Include="ContentsRenderer.cpp">
       <Filter>96.Renderer</Filter>
->>>>>>> Stashed changes
     </ClCompile>
   </ItemGroup>
 </Project>
