@@ -53,10 +53,10 @@ void ContentsCore::Start()
 
 #pragma region CreateContentsGUI
 
-#ifdef _DEBUG
+// #ifdef _DEBUG
 	GameEngineGUI::CreateGUIWindow<GameEngineStatusWindow>("EngineStatus", nullptr);
 	GameEngineGUI::CreateGUIWindow<EditGUIWindow>("EditGUIWindow", nullptr);
-#endif
+// #endif
 
 #pragma endregion
 

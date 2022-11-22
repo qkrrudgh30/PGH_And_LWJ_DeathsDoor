@@ -96,3 +96,10 @@ enum BlurType
 	eHorizontal,
 	eVerticalAndHorizontal,
 };
+
+enum eResourceType
+{
+	UI,
+	Static,
+	Animator
+};
