@@ -32,21 +32,21 @@ void Tower::Start()
 	FBXAnimationRenderer->SetFBXMesh("Tower.fbx", "TextureAnimation");
 
 
-	//Event.ResourcesName = "Tower_Laser.FBX";
-	//Event.Loop = true;
-	//Event.Inter = 0.2f;
-	//FBXAnimationRenderer->CreateFBXAnimation("Tower_Laser", Event);
-
-
-	Event.ResourcesName = "Tower_Drop.FBX";
+	Event.ResourcesName = "Tower_Laser.FBX";
 	Event.Loop = true;
 	Event.Inter = 0.2f;
-	FBXAnimationRenderer->CreateFBXAnimation("Tower_Drop", Event);
+	FBXAnimationRenderer->CreateFBXAnimation("Tower_Laser", Event);
+
+
+	//Event.ResourcesName = "Tower_Drop.FBX";
+	//Event.Loop = true;
+	//Event.Inter = 0.2f;
+	//FBXAnimationRenderer->CreateFBXAnimation("Tower_Drop", Event);
 
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.005f, 0.005f, 0.005f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 225.f,0.f });
 
-	FBXAnimationRenderer->ChangeAnimation("Tower_Drop");
+	FBXAnimationRenderer->ChangeAnimation("Tower_Laser");
 
 
 
@@ -140,11 +140,10 @@ void Tower::Update(float _DeltaTime)
 void Tower::MoveStart(const StateInfo& _Info)
 {
 	Player::GetMainPlayer()->m_bTowerCameraCheck = true;
-	GetLevel()->GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
+	GetLevel()->GetMainCameraActorTransform().SetWorldRotation({ -12.f,43.f,0.f });
 	float4 PlayerPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
-	PlayerPos.y += 700.f;
-	PlayerPos.z -= 700.f;
-	GetLevel()->GetMainCameraActorTransform().SetWorldPosition(PlayerPos);
+
+	GetLevel()->GetMainCameraActorTransform().SetWorldPosition({-1185.f,68.f,-1445.f });
 
 
 }
@@ -167,13 +166,27 @@ void Tower::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 	m_fSpeed += _DeltaTime * 300.f;
 
-	GetTransform().SetWorldDownMove(m_fSpeed,_DeltaTime);
+	//GetTransform().SetWorldDownMove(m_fSpeed, _DeltaTime);
+
 	float4 MyPos = GetTransform().GetWorldPosition();
 	if (MyPos.y <= 0.f)
 	{
 		MyPos.y = 0.f;
 		GetTransform().SetWorldPosition(MyPos);
-		StateManager.ChangeState("Idle");
+		
+
+		m_fLifeTime += _DeltaTime;
+		if (m_fLifeTime >= 5.f)
+		{
+			StateManager.ChangeState("Idle");
+
+		}
+
+
+	}
+	else
+	{
+		GetTransform().SetWorldDownMove(m_fSpeed, _DeltaTime);
 	}
 
 

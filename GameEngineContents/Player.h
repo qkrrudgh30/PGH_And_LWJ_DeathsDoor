@@ -109,13 +109,10 @@ public:
 	void UIOn();
 
 	bool	m_bTowerCameraCheck = false;
-
-
-	bool   m_bLogoLevelCheck = false;
-
+	bool	m_bLogoLevelCheck = false;
 	bool	m_bHookEndcheck = false;
 	bool	m_bHookHitcheck = false;
-	float4 m_fHookPoint;
+	float4	m_fHookPoint;
 
 
 	bool m_bShopCameraActionCheck = false;

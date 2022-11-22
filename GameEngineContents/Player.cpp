@@ -1305,7 +1305,12 @@ void Player::Update(float _DeltaTime)
 
 	if (m_bTowerCameraCheck)
 	{
+		FBXAnimationRenderer->Off();
 		return;
+	}
+	else
+	{
+		FBXAnimationRenderer->On();
 	}
 
 

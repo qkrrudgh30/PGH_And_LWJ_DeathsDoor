@@ -43,7 +43,7 @@ void HuntingLevel2::LevelStartEvent()
 		{
 
 			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_.lock()->GetTransform().SetWorldPosition({ -1062.F,0.F,-1878.F });
+			Potal_.lock()->GetTransform().SetWorldPosition({ -1205.F,0.F,-3169.F });
 			Potal_.lock()->m_PotalType = PotalType::Stage2ToStage3;
 
 		}
