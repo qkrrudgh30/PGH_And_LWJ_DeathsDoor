@@ -44,4 +44,4 @@ struct InstTransformData
     float4x4 WorldViewProjection;
 };
 
-StructuredBuffer<InstTransformData> AllInstancingTransformData : register(t12);
+// StructuredBuffer<InstTransformData> AllInstancingTransformData : register(t12);

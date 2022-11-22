@@ -3,12 +3,9 @@
 #include "GameEngineInstancingBuffer.h"
 
 // 설명 :
+class GameEngineRenderUnit;
 class GameEngineInstancing
 {
-public:
-	static unsigned int MinInstancingCount;
-	static unsigned int StartInstancingCount;
-
 public:
 	// constrcuter destructer
 	GameEngineInstancing();
@@ -20,22 +17,21 @@ public:
 	GameEngineInstancing& operator=(const GameEngineInstancing& _Other) = delete;
 	GameEngineInstancing& operator=(GameEngineInstancing&& _Other) noexcept = delete;
 
+	void PushUnit(std::shared_ptr<GameEngineRenderUnit> _Unit);
 
-public:
-	int DataInsert;
+private:
 	std::vector<char> DataBuffer;
-	GameEngineShaderResourcesHelper ShaderResources;
-	GameEngineMaterial* InstancingPipeLine;
 	int Size;
 	unsigned int Count;
 	int MaxDataCount;
 	std::shared_ptr<GameEngineInstancingBuffer> Buffer;
 
+
+	GameEngineShaderResourcesHelper ShaderResources;
+	std::shared_ptr<GameEngineRenderUnit> InitUnit;
+
+	// 제한을 100개를 걸것이다.
+	std::vector<std::vector<std::shared_ptr<GameEngineRenderUnit>>> Units;
+
 	void InstancingBufferChangeData();
-
-protected:
-
-private:
-
 };
-

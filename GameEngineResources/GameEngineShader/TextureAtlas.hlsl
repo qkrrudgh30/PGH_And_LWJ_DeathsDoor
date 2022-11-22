@@ -112,6 +112,16 @@ float4 TextureAtlas_PS(Output _Input) : SV_Target0
     return Result;
 }
 
+struct InstAtlasData 
+{
+    float2 TextureFramePos;
+    float2 TextureFrameSize;
+    float4 PivotPos;
+};
+
+
+StructuredBuffer<InstTransformData> Inst_TransformData : register(t12);
+StructuredBuffer<InstAtlasData> Inst_AtlasData : register(t13);
 
 Output TextureAtlas_VSINST(Input _Input)
 {
@@ -123,8 +133,16 @@ Output TextureAtlas_VSINST(Input _Input)
     // 0.5, 0.5,     0.5 0.5
     Output NewOutPut = (Output) 0;
     NewOutPut.Pos = _Input.Pos;
-    NewOutPut.Pos = mul(_Input.Pos, AllInstancingTransformData[_Input.Index].WorldViewProjection);
-    NewOutPut.Tex = _Input.Tex;
+    NewOutPut.Pos = mul(_Input.Pos, Inst_TransformData[_Input.Index].WorldViewProjection);
+    
+    
+    // NewOutPut.Tex.x = (_Input.Tex.x * TextureFrameSize.x) + TextureFramePos.x;
+    // NewOutPut.Tex.y = (_Input.Tex.y * TextureFrameSize.y) + TextureFramePos.y;
+    
+    NewOutPut.Tex.x = (_Input.Tex.x * Inst_AtlasData[_Input.Index].TextureFrameSize.x) + Inst_AtlasData[_Input.Index].TextureFramePos.x;
+    NewOutPut.Tex.y = (_Input.Tex.y * Inst_AtlasData[_Input.Index].TextureFrameSize.y) + Inst_AtlasData[_Input.Index].TextureFramePos.y;
+
+    // NewOutPut.Tex = _Input.Tex;
     return NewOutPut;
 }
 

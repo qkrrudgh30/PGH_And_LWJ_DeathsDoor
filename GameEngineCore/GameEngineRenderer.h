@@ -24,6 +24,16 @@ public:
 
 	GameEngineRenderUnit(const GameEngineRenderUnit& _Render);
 
+	inline void On()
+	{
+		IsOn = true;
+	}
+
+	inline void Off()
+	{
+		IsOn = false;
+	}
+
 	void SetMesh(const std::string& _Name);
 
 	void SetMesh(std::shared_ptr<GameEngineMesh> _Mesh);
@@ -37,18 +47,20 @@ public:
 
 	void SetRenderer(std::shared_ptr < GameEngineRenderer> _Renderer);
 
-	std::shared_ptr < GameEngineMaterial> GetPipeLine();
+	std::shared_ptr < GameEngineMaterial> GetMaterial();
 
-	std::shared_ptr < GameEngineMaterial> GetClonePipeLine();
+	std::shared_ptr < GameEngineMaterial> GetCloneMaterial();
 
 	std::shared_ptr < GameEngineMaterial> ClonePipeLine(std::shared_ptr<GameEngineMaterial> _Rendering);
 
 	GameEngineShaderResourcesHelper ShaderResources;
 
 private:
+	bool IsOn;
+
 	std::weak_ptr<GameEngineRenderer> ParentRenderer;
 	std::shared_ptr < GameEngineMesh> Mesh; // 이 메쉬를
-	std::shared_ptr < GameEngineMaterial> PipeLine; // 이 설정으로
+	std::shared_ptr < GameEngineMaterial> Material; // 이 설정으로
 	std::shared_ptr < GameEngineInputLayOut> InputLayOut; // 인풋어셈블러1 세팅
 	// 	GameEngineShaderResourcesHelper ShaderResources; // 이 데이터를 가지고
 	D3D11_PRIMITIVE_TOPOLOGY Topology;// 이렇게 그린다.
@@ -96,10 +108,6 @@ public:
 	{
 		IsInstancing_ = true;
 	};
-
-	bool IsInstancing(std::shared_ptr<GameEngineMaterial> _Rendering);
-
-	void InstancingDataSetting(std::shared_ptr<GameEngineMaterial> _Line);
 
 	void EngineShaderResourcesSetting(GameEngineShaderResourcesHelper* _ShaderResources);
 

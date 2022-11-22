@@ -92,7 +92,7 @@ void GameEngineFBXRenderer::Render(float _DeltaTime)
 	{
 		for (size_t SubSetIndex = 0; SubSetIndex < Unit[UnitIndex].size(); SubSetIndex++)
 		{
-			if (nullptr == Unit[UnitIndex][SubSetIndex].GetPipeLine())
+			if (nullptr == Unit[UnitIndex][SubSetIndex].GetMaterial())
 			{
 				continue;
 			}

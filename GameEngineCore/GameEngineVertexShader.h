@@ -53,10 +53,9 @@ protected:
 private:
 	ID3D11VertexShader* ShaderPtr;
 
-	// ID3D11VertexShader* InstancingShaderPtr;
-
 	std::shared_ptr<GameEngineVertexShader> InstancingVertexShader;
 
+	// ID3D11VertexShader* InstancingShaderPtr;
 	// ID3DBlob* InstancingBinaryPtr;
 };
 

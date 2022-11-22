@@ -69,7 +69,7 @@ public:
 	//	return VertexBuffer;
 	//}
 
-	inline std::shared_ptr < GameEngineVertexShader> GetVertexShader()
+	inline std::shared_ptr <GameEngineVertexShader> GetVertexShader()
 	{
 		return VertexShader;
 	}

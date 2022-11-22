@@ -69,6 +69,8 @@ void FadeRenderer::SetTexture(const std::string& _strTextureName)
 
 void FadeRenderer::Start()
 {
+	GameEngineDefaultRenderer::Start();
+
 	SetFadeRendererSetting();
 }
 

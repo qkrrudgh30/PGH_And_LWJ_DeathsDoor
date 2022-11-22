@@ -14,24 +14,25 @@ GameEngineDefaultRenderer::~GameEngineDefaultRenderer()
 void GameEngineDefaultRenderer::Start()
 {
 	GameEngineRenderer::Start();
+	Unit = std::make_shared<GameEngineRenderUnit>();
 
 	// 뭔가 또 할일이 있다면 여기서 해라.
 }
 
 void GameEngineDefaultRenderer::SetMesh(const std::string& _Name)
 {
-	Unit.SetMesh(_Name);
+	Unit->SetMesh(_Name);
 }
 
 void GameEngineDefaultRenderer::SetPipeLine(const std::string& _Name)
 {
-	Unit.SetPipeLine(_Name);
-	Unit.SetRenderer(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()));
+	Unit->SetPipeLine(_Name);
+	Unit->SetRenderer(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()));
 }
 
 void GameEngineDefaultRenderer::Render(float _DeltaTime) 
 {
-	Unit.Render(_DeltaTime);
+	Unit->Render(_DeltaTime);
 
 	//if (nullptr == PipeLine)
 	//{
@@ -53,11 +54,4 @@ void GameEngineDefaultRenderer::Render(float _DeltaTime)
 	//	// 유저가 몇바이트짜리 인스턴
 	//	// Camera->PushInstancingIndex(PipeLine);
 	//}
-}
-
-void GameEngineDefaultRenderer::InstancingOn()
-{
-	GameEngineRenderer::InstancingOn();
-
-	// Camera->PushInstancing(PipeLine, 1);
 }

@@ -213,6 +213,11 @@ public:
 		return Data.WorldPosition;
 	}
 
+	inline float4 GetWorldRotation() const
+	{
+		return Data.WorldRotation;
+	}
+
 	inline float4x4 GetLocalWorld() const
 	{
 		return Data.LocalWorldMatrix;

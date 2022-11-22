@@ -19,9 +19,10 @@
 
 GameEngineRenderUnit::GameEngineRenderUnit() 
 	: ParentRenderer()
-	, PipeLine(nullptr)
+	, Material(nullptr)
 	, Topology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
 	, InputLayOut(nullptr)
+	, IsOn(true)
 {
 	SetMesh("rect");
 }
@@ -30,15 +31,15 @@ GameEngineRenderUnit::GameEngineRenderUnit(const GameEngineRenderUnit& _Render)
 {
 	ParentRenderer = _Render.ParentRenderer;
 	Mesh = _Render.Mesh;
-	PipeLine = _Render.PipeLine;
+	Material = _Render.Material;
 	InputLayOut = _Render.InputLayOut;
 	Topology = _Render.Topology;
 
-	if (nullptr == PipeLine)
+	if (nullptr == Material)
 	{
 		return;
 	}
-	ShaderResources.ResourcesCheck(PipeLine);
+	ShaderResources.ResourcesCheck(Material);
 }
 
 void GameEngineRenderUnit::EngineShaderResourcesSetting(std::shared_ptr<GameEngineRenderer> _Renderer)
@@ -73,12 +74,12 @@ void GameEngineRenderUnit::SetMesh(const std::string& _Name)
 		return;
 	}
 
-	if (nullptr == InputLayOut && nullptr != PipeLine)
+	if (nullptr == InputLayOut && nullptr != Material)
 	{
 		// 파이프라인의 버텍스 쉐이더와
 		// 매쉬의 버텍스 정보가 다 모여있으므로
 		// 인풋 레이아웃을 만들수가 있다.
-		InputLayOut = GameEngineInputLayOut::Create(Mesh->GetLayOutDesc(), PipeLine->GetVertexShader());
+		InputLayOut = GameEngineInputLayOut::Create(Mesh->GetLayOutDesc(), Material->GetVertexShader());
 	}
 
 }
@@ -93,17 +94,17 @@ void GameEngineRenderUnit::SetMesh(std::shared_ptr<GameEngineMesh> _Mesh)
 
 	Mesh = _Mesh;
 
-	if (nullptr == InputLayOut && nullptr != PipeLine)
+	if (nullptr == InputLayOut && nullptr != Material)
 	{
-		InputLayOut = GameEngineInputLayOut::Create(Mesh->GetLayOutDesc(), PipeLine->GetVertexShader());
+		InputLayOut = GameEngineInputLayOut::Create(Mesh->GetLayOutDesc(), Material->GetVertexShader());
 	}
 }
 
 void GameEngineRenderUnit::SetPipeLine(const std::string& _Name)
 {
-	PipeLine = GameEngineMaterial::Find(_Name);
+	Material = GameEngineMaterial::Find(_Name);
 
-	if (nullptr == PipeLine)
+	if (nullptr == Material)
 	{
 		MsgBoxAssert("존재하지 않는 파이프라인을 세팅하려고 했습니다.");
 		return;
@@ -115,11 +116,11 @@ void GameEngineRenderUnit::SetPipeLine(const std::string& _Name)
 		// 파이프라인의 버텍스 쉐이더와
 		// 매쉬의 버텍스 정보가 다 모여있으므로
 		// 인풋 레이아웃을 만들수가 있다.
-		InputLayOut = GameEngineInputLayOut::Create(Mesh->GetLayOutDesc(), PipeLine->GetVertexShader());
+		InputLayOut = GameEngineInputLayOut::Create(Mesh->GetLayOutDesc(), Material->GetVertexShader());
 	}
 
 
-	ShaderResources.ResourcesCheck(PipeLine);
+	ShaderResources.ResourcesCheck(Material);
 
 }
 
@@ -131,20 +132,20 @@ void GameEngineRenderUnit::SetRenderer(std::shared_ptr<GameEngineRenderer> _Rend
 }
 
 
-std::shared_ptr<GameEngineMaterial> GameEngineRenderUnit::GetPipeLine()
+std::shared_ptr<GameEngineMaterial> GameEngineRenderUnit::GetMaterial()
 {
-	return PipeLine;
+	return Material;
 }
 
-std::shared_ptr < GameEngineMaterial> GameEngineRenderUnit::GetClonePipeLine()
+std::shared_ptr < GameEngineMaterial> GameEngineRenderUnit::GetCloneMaterial()
 {
-	if (false == PipeLine->IsOriginal())
+	if (false == Material->IsOriginal())
 	{
-		return PipeLine;
+		return Material;
 	}
 
-	PipeLine = ClonePipeLine(PipeLine);
-	return PipeLine;
+	Material = ClonePipeLine(Material);
+	return Material;
 }
 
 
@@ -161,7 +162,12 @@ std::shared_ptr < GameEngineMaterial> GameEngineRenderUnit::ClonePipeLine(std::s
 
 void GameEngineRenderUnit::Render(float _DeltaTime)
 {
-	if (nullptr == PipeLine)
+	if (false == IsOn)
+	{
+		return;
+	}
+
+	if (nullptr == Material)
 	{
 		MsgBoxAssert("랜더링 파이프라인이 세팅되지 않으면 랜더링을 할수 없습니다.");
 	}
@@ -188,7 +194,7 @@ void GameEngineRenderUnit::Render(float _DeltaTime)
 	// 이 그리는 방식으로
 	GameEngineDevice::GetContext()->IASetPrimitiveTopology(Topology);
 	// 이 쉐이더와 색깔로 
-	PipeLine->Setting();
+	Material->Setting();
 	// 이 데이터를 기반으로
 	ShaderResources.AllResourcesSetting();
 	// 그려라
@@ -238,47 +244,6 @@ void GameEngineRenderer::SetRenderingOrder(int _Order)
 void GameEngineRenderer::PushRendererToUICamera()
 {
 	GetActor()->GetLevel()->PushRendererToUICamera(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()));
-}
-
-
-bool GameEngineRenderer::IsInstancing(std::shared_ptr<GameEngineMaterial> _Rendering)
-{
-	std::unordered_map<GameEngineMaterial*, GameEngineInstancing>::iterator InstancingIter = Camera.lock()->InstancingMap.find(_Rendering.get());
-
-	if (InstancingIter == Camera.lock()->InstancingMap.end())
-	{
-		return false;
-	}
-
-	return true == IsInstancing_ && GameEngineInstancing::MinInstancingCount <= InstancingIter->second.Count;
-}
-
-// 우리 엔진에서 인스턴싱을 한다면 무조건 숫자하나만 인스턴싱을 했으니까. 이건 ok
-void GameEngineRenderer::InstancingDataSetting(std::shared_ptr<GameEngineMaterial> _Line)
-{
-	// 몇번째 순서인지 알려주고 있어요
-	// 이녀석을 통해서 
-	int InstancingIndex = Camera.lock()->PushInstancingIndex(_Line);
-
-	GameEngineInstancing* Instancing = Camera.lock()->GetInstancing(_Line);
-
-	if (nullptr == Instancing)
-	{
-		MsgBoxAssert("인스턴싱이 켜져있지만 인스턴싱 정보는 없습니다.");
-	}
-
-	if (true == Instancing->ShaderResources.IsStructuredBuffer("AllInstancingTransformData"))
-	{
-		GameEngineStructuredBufferSetter* Setter = Instancing->ShaderResources.GetStructuredBuffer("AllInstancingTransformData");
-
-		Setter->Push(GetTransform().GetTransformData(), InstancingIndex);
-
-		
-
-		//Setter->Res
-
-		// GetTransform().GetTransformData()
-	}
 }
 
 

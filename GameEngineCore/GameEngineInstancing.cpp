@@ -1,17 +1,13 @@
 #include "PreCompile.h"
 #include "GameEngineInstancing.h"
+#include "GameEngineRenderer.h"
+#include "GameEngineVertexShader.h"
 
-// 최소 2개이상이 모여야 인스턴싱을 시작하겠다.
-unsigned int GameEngineInstancing::MinInstancingCount = 1;
-
-// 일단 시작했다면 100개는 할수 있다는 가정하에 이걸 하겠다.
-unsigned int GameEngineInstancing::StartInstancingCount = 100;
+const int Inst_Max = 100;
 
 GameEngineInstancing::GameEngineInstancing() 
 	: Buffer(nullptr)
 	, Count(0)
-	, DataInsert(0)
-
 {
 }
 
@@ -29,4 +25,31 @@ void GameEngineInstancing::InstancingBufferChangeData()
 	}
 
 	Buffer->ChangeData(&DataBuffer[0], DataBuffer.size());
+}
+
+void GameEngineInstancing::PushUnit(std::shared_ptr<GameEngineRenderUnit> _Unit)
+{
+	if (nullptr == InitUnit)
+	{
+		InitUnit = _Unit;
+	}
+
+	_Unit->Off();
+
+	if (false == _Unit->GetMaterial()->GetVertexShader()->IsInstancing())
+	{
+		MsgBoxAssert("인스턴싱용 메테리얼을 가지지 않은 유니트 입니다");
+	}
+
+	for (size_t i = 0; i < Units.size(); i++)
+	{
+
+	}
+
+	// Units.push_back(_Unit);
+
+	if (Units.size())
+	{
+
+	}
 }

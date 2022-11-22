@@ -205,5 +205,4 @@ void GameEngineVertexShader::InstancingShaderCompile(std::string _Path, std::str
 	}
 
 	InstancingVertexShader->ShaderResCheck(InstancingVertexShader->GetName());
-
 }

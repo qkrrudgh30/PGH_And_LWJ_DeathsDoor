@@ -82,6 +82,19 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		fArr[2] = temp.z;
 		ImGui::InputFloat3("PlayerPosition", fArr);
 	}
+
+	if (nullptr != GEngine::GetCurrentLevel())
+	{
+		ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "MainCamera World Information");
+		float4 temp = GEngine::GetCurrentLevel()->GetMainCamera()->GetTransform().GetWorldRotation();
+		float fArr[3] = { temp.x, temp.y, temp.z };
+		ImGui::InputFloat3("CameraRotation", fArr);
+		temp = GEngine::GetCurrentLevel()->GetMainCamera()->GetTransform().GetWorldPosition();
+		fArr[0] = temp.x;
+		fArr[1] = temp.y;
+		fArr[2] = temp.z;
+		ImGui::InputFloat3("CameraPosition", fArr);
+	}
 	
 
 	mstrNextLevelName = GEngine::GetCurrentLevel()->GetNameCopy();

@@ -22,7 +22,7 @@ void FlowerBullet::Start()
 
 		Renderer = CreateComponent<GameEngineDefaultRenderer>();
 		Renderer->SetPipeLine("Color");
-		Renderer->GetRenderUnit().SetMesh("Box");
+		Renderer->GetRenderUnit()->SetMesh("Box");
 		float4 ResultColor = { 1.f,1.f,1.f,1.f };
 
 		Renderer->GetTransform().SetLocalScale({ 20.f, 20.0f, 50.0f });

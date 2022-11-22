@@ -11,6 +11,8 @@ GameEngineUIRenderer::~GameEngineUIRenderer()
 
 void GameEngineUIRenderer::Start() 
 {
+	GameEngineDefaultRenderer::Start();
+
 	PushRendererToUICamera();
 
 	SetTextureRendererSetting();

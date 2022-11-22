@@ -33,9 +33,20 @@ UserLoad(SaveFile.GetFullPath());
 // FBXInit(Dir.PlusFilePath(FBXMeshName));
 
 7.
+inline float4 GetWorldPosition() const
+{
+    return Data.WorldPosition;
+}
+
+inline float4 GetWorldRotation() const
+{
+    return Data.WorldRotation;
+}
+
+8.
 size_t GameEngineThreadPool::GetMyThreadCount(void) { return static_cast<size_t>(ThreadCount); };
 
-8. lock
+9. lock
 bool GameEngineFBX::CreateFBXSystemInitialize(const std::string& _Path)
 {
     // 쓰레드에서 여기서 에러가 난다는 말이 있는데.
