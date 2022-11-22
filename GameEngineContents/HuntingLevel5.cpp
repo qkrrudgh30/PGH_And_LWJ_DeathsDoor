@@ -58,9 +58,9 @@ void HuntingLevel5::LevelStartEvent()
 		}
 
 		{
-			std::weak_ptr < Tower> cMonster = CreateActor<Tower>(OBJECTORDER::Monster);
-			cMonster.lock()->GetTransform().SetWorldPosition({ 0.f,0.F,0.f });
-
+			cMonster = CreateActor<Tower>(OBJECTORDER::Monster);
+			
+			//cMonster.lock()->m_bstart = true;
 
 		}
 
@@ -74,7 +74,7 @@ void HuntingLevel5::LevelStartEvent()
 		{
 			//std::shared_ptr < Player> NewPlayer = CreateActor<Player>(OBJECTORDER::Player);
 			//NewPlayer->SetLevelOverOn();
-
+		
 
 		}
 		else

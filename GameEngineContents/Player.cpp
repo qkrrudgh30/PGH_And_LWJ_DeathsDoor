@@ -135,7 +135,7 @@ void Player::Start()
 		GameEngineRenderingEvent Event2;
 		Event2.ResourcesName = "Player_Att_Left.FBX";
 		Event2.Loop = false;
-		Event2.Inter = 0.02f;
+		Event2.Inter = 0.01f;
 		FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Left", Event2);
 		FBXAnimationRenderer->AnimationBindEnd("Player_Att_Left", std::bind(&Player::AniPlayer_Att_Left, this, std::placeholders::_1));
 	}
@@ -145,7 +145,7 @@ void Player::Start()
 		GameEngineRenderingEvent Event2;
 		Event2.ResourcesName = "Player_Att_R.FBX";
 		Event2.Loop = false;
-		Event2.Inter = 0.02f;
+		Event2.Inter = 0.01f;
 		FBXAnimationRenderer->CreateFBXAnimation("Player_Att_Right", Event2);
 		FBXAnimationRenderer->AnimationBindEnd("Player_Att_Right", std::bind(&Player::AniPlayer_Att_R, this, std::placeholders::_1));
 
@@ -155,7 +155,7 @@ void Player::Start()
 		GameEngineRenderingEvent Event2;
 		Event2.ResourcesName = "Player_Att1.FBX";
 		Event2.Loop = false;
-		Event2.Inter = 0.02f;
+		Event2.Inter = 0.01f;
 		FBXAnimationRenderer->CreateFBXAnimation("Player_Att1", Event2);
 		FBXAnimationRenderer->AnimationBindEnd("Player_Att1", std::bind(&Player::AniPlayer_Att1, this, std::placeholders::_1));
 
@@ -165,7 +165,7 @@ void Player::Start()
 		GameEngineRenderingEvent Event2;
 		Event2.ResourcesName = "Player_Att2.FBX";
 		Event2.Loop = false;
-		Event2.Inter = 0.02f;
+		Event2.Inter = 0.01f;
 		FBXAnimationRenderer->CreateFBXAnimation("Player_Att2", Event2);
 		FBXAnimationRenderer->AnimationBindEnd("Player_Att2", std::bind(&Player::AniPlayer_Att2, this, std::placeholders::_1));
 
@@ -490,7 +490,7 @@ void Player::SworldAttStart(const StateInfo& _Info)
 
 
 	RenderFoward = MyWorldPos + RenderFoward;*/
-
+	MyWorldPos.y += 20.f;
 	m_CSWAtt1 = GetLevel()->CreateActor<PlayerSWAtt1>(OBJECTORDER::PlayerAtt);
 	m_CSWAtt1.lock()->GetTransform().SetLocalPosition(MyWorldPos);
 	m_CSWAtt1.lock()->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
@@ -567,7 +567,7 @@ void Player::SworldAttStart2(const StateInfo& _Info)
 
 
 	RenderFoward = MyWorldPos + RenderFoward;*/
-
+	MyWorldPos.y += 20.f;
 	m_CSWAtt2 = GetLevel()->CreateActor<PlayerSWAtt2>(OBJECTORDER::PlayerAtt);
 	m_CSWAtt2.lock()->GetTransform().SetLocalPosition(MyWorldPos);
 	m_CSWAtt2.lock()->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
@@ -639,7 +639,7 @@ void Player::SworldAttStart3(const StateInfo& _Info)
 
 
 	RenderFoward = MyWorldPos + RenderFoward;*/
-
+	MyWorldPos.y += 20.f;
 	m_CSWAtt3= GetLevel()->CreateActor<PlayerSWAtt3>(OBJECTORDER::PlayerAtt);
 	m_CSWAtt3.lock()->GetTransform().SetLocalPosition(MyWorldPos);
 	m_CSWAtt3.lock()->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
@@ -698,7 +698,7 @@ void Player::ArrowAttEnd(const StateInfo& _Info)
 	float4 ArrowDir = FBXAnimationRenderer->GetTransform().GetLocalRotation();
 	float4 RenderFront = FBXAnimationRenderer->GetTransform().GetForwardVector();
 	float4 ArrowPos = GetTransform().GetWorldPosition() + (RenderFront.Normalize3DReturn() * 50.f);
-
+	ArrowPos.y += 20.f;
 	if (m_Info.Weapontype == WEAPONTYPE::Arrow)
 	{
 		std::weak_ptr < PlayerArrowAtt> m_ArrowAtt = GetLevel()->CreateActor<PlayerArrowAtt>(OBJECTORDER::PlayerAtt);

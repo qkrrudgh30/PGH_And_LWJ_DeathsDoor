@@ -22,9 +22,10 @@ void Tower::Start()
 	m_Info.m_Hp = 10;
 	m_Info.m_MaxHp = 10;
 	m_Info.Dammage = 1;
-	m_fSpeed = 150.f;
+	m_fSpeed = 100.f;
 	
-
+	//GetTransform().SetLocalRotation({0.f,-45.f,0.f});
+	GetTransform().SetWorldPosition({ 356.f,3000.F,25.f });
 
 
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
@@ -37,13 +38,21 @@ void Tower::Start()
 	FBXAnimationRenderer->CreateFBXAnimation("Tower_Laser", Event);
 
 
-	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.01f, 0.01f, 0.01f });
-	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 0.f,0.f });
+	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.005f, 0.005f, 0.005f });
+	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 225.f,0.f });
 
 	FBXAnimationRenderer->ChangeAnimation("Tower_Laser");
 
 
 
+
+	{
+		StartCollision = CreateComponent<GameEngineCollision>();
+		StartCollision->GetTransform().SetLocalScale({ 500.0f, 500.0f, 200.0f });
+		StartCollision->GetTransform().SetWorldPosition({-1010.f, 0.f , -1200.f});
+		StartCollision->ChangeOrder(OBJECTORDER::Monster);
+
+	}
 
 
 
@@ -91,7 +100,18 @@ void Tower::Start()
 void Tower::Update(float _DeltaTime)
 {
 
-	
+
+	if (!m_bstart)
+	{
+		if (true == StartCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB))
+		{
+
+			m_bstart = true;
+
+		}
+	}
+
+
 
 
 
@@ -118,79 +138,20 @@ void Tower::MoveStart(const StateInfo& _Info)
 }
 void Tower::MoveEnd(const StateInfo& _Info)
 {
-
+	m_bstart = false;
 }
 void Tower::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 {
+	m_fSpeed += _DeltaTime * 300.f;
 
-
-	if (m_bHitCheck)
-	{
-		StateManager.ChangeState("Stun");
-		m_bHitCheck = false;
-	}
-
-
-
-
-
-
-
-	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
-
-	float4 TarGetDirAngle = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
-
-	float Len = TarGetDir.Length();
-	TarGetDir = TarGetDir.Normalize3DReturn();
-
-
-	//각도 수정
-
+	GetTransform().SetWorldDownMove(m_fSpeed,_DeltaTime);
 	float4 MyPos = GetTransform().GetWorldPosition();
-
-	TarGetDirAngle.y = -TarGetDirAngle.z;
-	MyPos.y = -MyPos.z;
-
-
-	TarGetDirAngle.z = 0.f;
-	TarGetDirAngle.w = 0.f;
-
-	MyPos.z = 0.f;
-	MyPos.w = 0.f;
-
-	float Angle = float4::VectorXYtoDegree(MyPos, TarGetDirAngle);
-
-	Angle += 90.f;
-
-	if (Angle >= 360.f)
+	if (MyPos.y <= 0.f)
 	{
-		Angle -= 360.f;
-	}
-	else if (Angle <= 0.f)
-	{
-		Angle -= 0.f;
-	}
-	GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
-
-
-
-
-
-	GetTransform().SetWorldMove(TarGetDir * m_fSpeed * _DeltaTime);
-
-
-	if (Len <= 150.f)
-	{
-		StateManager.ChangeState("Att");
-	}
-	else if (Len >= 600.f)
-	{
+		MyPos.y = 0.f;
+		GetTransform().SetWorldPosition(MyPos);
 		StateManager.ChangeState("Idle");
 	}
-
-	
-
-
 
 
 }
@@ -199,8 +160,8 @@ void Tower::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 void Tower::StunStart(const StateInfo& _Info)
 {
-	m_fHitDir = GetTransform().GetWorldPosition() - m_fHitPos;
-	m_fHitDir = m_fHitDir.Normalize3DReturn();
+	//m_fHitDir = GetTransform().GetWorldPosition() - m_fHitPos;
+	//m_fHitDir = m_fHitDir.Normalize3DReturn();
 }
 void Tower::StunEnd(const StateInfo& _Info)
 {
@@ -211,20 +172,20 @@ void Tower::StunEnd(const StateInfo& _Info)
 void Tower::StunUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 
-	hitTime += _DeltaTime;
+	//hitTime += _DeltaTime;
 
-	if (hitTime <= 0.2f)
-	{
+	//if (hitTime <= 0.2f)
+	//{
+	////	hitTime = 0.f;
+	//	GetTransform().SetWorldMove(m_fHitDir * 500.f * _DeltaTime);
+	////	StateManager.ChangeState("Idle");
+	//}
+	//else if (hitTime >= 0.5f)
+	//{
 	//	hitTime = 0.f;
-		GetTransform().SetWorldMove(m_fHitDir * 500.f * _DeltaTime);
 	//	StateManager.ChangeState("Idle");
-	}
-	else if (hitTime >= 0.5f)
-	{
-		hitTime = 0.f;
-		StateManager.ChangeState("Idle");
-	}
-	
+	//}
+	//
 
 	
 
@@ -275,11 +236,6 @@ void Tower::IdleStart(const StateInfo& _Info)
 }
 void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-	if (m_bHitCheck)
-	{
-		StateManager.ChangeState("Stun");
-		m_bHitCheck = false;
-	}
 
 
 
@@ -290,11 +246,29 @@ void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 	TarGetDir = TarGetDir.Normalize3DReturn();
 
 
-	if (Len <= 600.f)
+	if (Len <= 2000.f)
+	{
+		if(StateManager.GetCurStateStateName() != "Move")
+			StateManager.ChangeState("Att");
+	}
+	else
+	{
+		if (!m_bstart)
+		{
+			if (true == StartCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB))
+			{
+
+				m_bstart = true;
+
+			}
+		}
+
+	}
+
+	if (m_bstart)
 	{
 		StateManager.ChangeState("Move");
 	}
-
 
 
 }

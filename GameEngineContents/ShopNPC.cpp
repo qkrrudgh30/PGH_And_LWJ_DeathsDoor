@@ -74,8 +74,7 @@ void ShopNPC::Update(float _DeltaTime)
 CollisionReturn ShopNPC::CollisionPlayer(GameEngineCollision* _This, GameEngineCollision* _Other)
 {
 
-
-
+	
 
 
 

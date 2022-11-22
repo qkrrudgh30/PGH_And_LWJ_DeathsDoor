@@ -15,14 +15,14 @@ void PlayerSWAtt2::Start()
 
 	m_Info.Dammage = 1;
 	AttCollision = CreateComponent<GameEngineCollision>();
-	AttCollision->GetTransform().SetLocalScale({ 200.0f, 500.0f, 200.0f });
+	AttCollision->GetTransform().SetLocalScale({ 150.0f, 500.0f, 150.0f });
 	AttCollision->GetTransform().SetLocalPosition(AttCollision->GetTransform().GetForwardVector() * 100.f);
 
 	AttCollision->ChangeOrder(OBJECTORDER::PlayerAtt);
 	AttCollision->SetCollisionMode(CollisionMode::Ex);
 	{
 		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
-		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
+		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.4f, 0.4f, 0.4f });
 		FBXStaticRenderer->SetFBXMesh("Sworld_Trail_1.fbx", "Texture");
 
 	}

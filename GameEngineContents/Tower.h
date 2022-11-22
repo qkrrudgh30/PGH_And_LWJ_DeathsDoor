@@ -59,6 +59,9 @@ protected:
 
 private:
 	float4 Pos;
+	std::shared_ptr < GameEngineCollision> StartCollision;
+public : 
+	bool m_bstart = false;
 
 };
 
