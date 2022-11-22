@@ -1302,8 +1302,11 @@ void Player::Update(float _DeltaTime)
 	
 		return;
 	}
-	
 
+	if (m_bTowerCameraCheck)
+	{
+		return;
+	}
 
 
 	float4 WorldPos;

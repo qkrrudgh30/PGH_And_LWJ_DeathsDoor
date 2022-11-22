@@ -108,6 +108,8 @@ public:
 	void UIOff();
 	void UIOn();
 
+	bool	m_bTowerCameraCheck = false;
+
 
 	bool   m_bLogoLevelCheck = false;
 
