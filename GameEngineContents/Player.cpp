@@ -1427,7 +1427,7 @@ void Player::AniPlayer_Att_R(const GameEngineRenderingEvent& _Data)
 }
 void Player::AniPlayer_Att1(const GameEngineRenderingEvent& _Data)
 {
-
+	
 
 	m_fAttTestTime = 0.f;
 

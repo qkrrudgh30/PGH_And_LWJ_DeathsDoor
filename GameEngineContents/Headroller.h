@@ -45,19 +45,22 @@ protected:
 	void MoveUpdate(float _DeltaTime, const StateInfo& _Info);
 
 
-	void StunStart(const StateInfo& _Info);
-	void StunEnd(const StateInfo& _Info);
-	void StunUpdate(float _DeltaTime, const StateInfo& _Info);
+	void DeathStart(const StateInfo& _Info);
+	void DeathEnd(const StateInfo& _Info);
+	void DeathUpdate(float _DeltaTime, const StateInfo& _Info);
 
 	void AttStart(const StateInfo& _Info);
 	void AttEnd(const StateInfo& _Info);
 	void AttUpdate(float _DeltaTime, const StateInfo& _Info);
 
 
-	void AniSlime_Att(const GameEngineRenderingEvent& _Data);
-	void AniSlime_Idle(const GameEngineRenderingEvent& _Data);
-	void AniSlime_Move(const GameEngineRenderingEvent& _Data);
-
+	void Ani_Att(const GameEngineRenderingEvent& _Data);
+	void Ani_Att2(const GameEngineRenderingEvent& _Data);
+	void Ani_Idle(const GameEngineRenderingEvent& _Data);
+	void Ani_Dash(const GameEngineRenderingEvent& _Data);
+	void Ani_Dash_E(const GameEngineRenderingEvent& _Data);
+	void Ani_Dash_S(const GameEngineRenderingEvent& _Data);
+	void Ani_Death(const GameEngineRenderingEvent& _Data);
 
 	void End() {}
 
@@ -65,6 +68,10 @@ protected:
 
 private:
 	float4 Pos;
+	float m_Len = 0;
+	float Angle = 0;
 
+	bool m_bAtt = false;
+	bool m_bMove =  false;
 };
 

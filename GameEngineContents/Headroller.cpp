@@ -23,7 +23,7 @@ void Headroller::Start()
 	m_Info.m_Hp = 10;
 	m_Info.m_MaxHp = 10;
 	m_Info.Dammage = 1;
-	m_fSpeed = 150.f;
+	m_fSpeed = 600.f;
 
 
 
@@ -33,55 +33,55 @@ void Headroller::Start()
 
 
 	Event.ResourcesName = "HEADROLLER_Att.FBX";
-	Event.Loop = true;
+	Event.Loop = false;
 	Event.Inter = 0.03f;
 	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Att", Event);
-	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Att", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Att", std::bind(&Headroller::Ani_Att, this, std::placeholders::_1));
 
 
 
 
 	Event.ResourcesName = "HEADROLLER_Att2.FBX";
-	Event.Loop = true;
+	Event.Loop = false;
 	Event.Inter = 0.03f;
 	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Att2", Event);
-	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Att2", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Att2", std::bind(&Headroller::Ani_Att2, this, std::placeholders::_1));
 
 
 	Event.ResourcesName = "HEADROLLER_Dash.FBX";
 	Event.Loop = true;
 	Event.Inter = 0.03f;
 	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Dash", Event);
-	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Dash", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Dash", std::bind(&Headroller::Ani_Dash, this, std::placeholders::_1));
 
 	Event.ResourcesName = "HEADROLLER_Dash_E.FBX";
-	Event.Loop = true;
+	Event.Loop = false;
 	Event.Inter = 0.03f;
 	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Dash_E", Event);
-	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Dash_E", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Dash_E", std::bind(&Headroller::Ani_Dash_E, this, std::placeholders::_1));
 
 	Event.ResourcesName = "HEADROLLER_Dash_S.FBX";
-	Event.Loop = true;
+	Event.Loop = false;
 	Event.Inter = 0.03f;
 	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Dash_S", Event);
-	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Dash_S", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Dash_S", std::bind(&Headroller::Ani_Dash_S, this, std::placeholders::_1));
 
 	Event.ResourcesName = "HEADROLLER_Death.FBX";
-	Event.Loop = true;
+	Event.Loop = false;
 	Event.Inter = 0.03f;
 	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Death", Event);
-	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Death", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Death", std::bind(&Headroller::Ani_Death, this, std::placeholders::_1));
 
 	Event.ResourcesName = "HEADROLLER_Idle.FBX";
 	Event.Loop = true;
 	Event.Inter = 0.03f;
 	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Idle", Event);
-	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Idle", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Idle", std::bind(&Headroller::Ani_Idle, this, std::placeholders::_1));
 
 
 
 
-	FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Att");
+	FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Idle");
 
 
 
@@ -109,10 +109,10 @@ void Headroller::Start()
 
 
 
-	StateManager.CreateStateMember("Stun"
-		, std::bind(&Headroller::StunUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Headroller::StunStart, this, std::placeholders::_1)
-		, std::bind(&Headroller::StunEnd, this, std::placeholders::_1)
+	StateManager.CreateStateMember("Death"
+		, std::bind(&Headroller::DeathUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Headroller::DeathStart, this, std::placeholders::_1)
+		, std::bind(&Headroller::DeathEnd, this, std::placeholders::_1)
 	);
 
 
@@ -130,45 +130,9 @@ void Headroller::Start()
 
 void Headroller::Update(float _DeltaTime)
 {
-
-
-
-	if (m_Info.m_Hp <= 0)
-	{
-		Death();
-	}
-
-	StateManager.Update(_DeltaTime);
-
-}
-
-
-
-
-
-
-void Headroller::MoveStart(const StateInfo& _Info)
-{
-//	FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Att");
-}
-void Headroller::MoveEnd(const StateInfo& _Info)
-{
-
-}
-void Headroller::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
-{
-
-
-	if (m_bHitCheck)
-	{
-		StateManager.ChangeState("Stun");
-		m_bHitCheck = false;
-	}
-
-
 	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
 	float4 TarGetDirAngle = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
-	float Len = TarGetDir.Length();
+	m_Len = TarGetDir.Length();
 	TarGetDir = TarGetDir.Normalize3DReturn();
 
 
@@ -188,7 +152,7 @@ void Headroller::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	MyPos.z = 0.f;
 	MyPos.w = 0.f;
 
-	float Angle = float4::VectorXYtoDegree(MyPos, TarGetDirAngle);
+	Angle = float4::VectorXYtoDegree(MyPos, TarGetDirAngle);
 
 	Angle += 90.f;
 
@@ -201,64 +165,90 @@ void Headroller::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 		Angle -= 0.f;
 	}
 
+	
+	
+
+	if (m_Len <= 200.f)
+	{
+		if(m_bAtt)
+			StateManager.ChangeState("Att");
+	}
+	else if (m_Len <= 700.f)
+	{
+		 if(StateManager.GetCurStateStateName() != "Move")
+			StateManager.ChangeState("Move");
+	}
+	else
+	{
+		//StateManager.ChangeState("Idle");
+	}
+
+
+
+
+
+
+	if (m_Info.m_Hp <= 0)
+	{
+		StateManager.ChangeState("Death");
+	}
+
+	StateManager.Update(_DeltaTime);
+
+}
+
+
+
+
+
+
+void Headroller::MoveStart(const StateInfo& _Info)
+{
 	FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
-
-
-
-
-
-	GetTransform().SetWorldMove(TarGetDir * m_fSpeed * _DeltaTime);
-
-
-	if (Len <= 150.f)
+	FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Dash_S");
+	m_bMove = false;
+	m_bAtt = false;
+}
+void Headroller::MoveEnd(const StateInfo& _Info)
+{
+	
+	m_bMove = false;
+}
+void Headroller::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
+{
+	if (m_bMove)
 	{
-		StateManager.ChangeState("Att");
+		//이동
+		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
+		float4 TarGetDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
+		GetTransform().SetWorldMove(TarGetDir * m_fSpeed * _DeltaTime);
+
+		if (m_Len <= 200.f)
+		{
+			FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Dash_E");
+		}
+
 	}
-	else if (Len >= 600.f)
-	{
-		StateManager.ChangeState("Idle");
-	}
-
-
-
-
-
+	
 
 }
 
 
 
-void Headroller::StunStart(const StateInfo& _Info)
+void Headroller::DeathStart(const StateInfo& _Info)
 {
-	m_fHitDir = GetTransform().GetWorldPosition() - m_fHitPos;
-	m_fHitDir = m_fHitDir.Normalize3DReturn();
+	
 }
-void Headroller::StunEnd(const StateInfo& _Info)
+void Headroller::DeathEnd(const StateInfo& _Info)
 {
 
 
 
 }
-void Headroller::StunUpdate(float _DeltaTime, const StateInfo& _Info)
+void Headroller::DeathUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 
-	hitTime += _DeltaTime;
-
-	if (hitTime <= 0.2f)
-	{
-		//	hitTime = 0.f;
-		GetTransform().SetWorldMove(m_fHitDir * 500.f * _DeltaTime);
-		//	StateManager.ChangeState("Idle");
-	}
-	else if (hitTime >= 0.5f)
-	{
-		hitTime = 0.f;
-		StateManager.ChangeState("Idle");
-	}
-
-
-
-
+	
 
 
 }
@@ -270,77 +260,74 @@ void Headroller::StunUpdate(float _DeltaTime, const StateInfo& _Info)
 
 void Headroller::AttStart(const StateInfo& _Info)
 {
-
-	//FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Att");
-
-	m_bhitCheck = true;
+	m_bAtt = false;
+	FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Att");
+	FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
 }
 void Headroller::AttEnd(const StateInfo& _Info)
 {
-	m_bhitCheck = false;
+	m_bAtt = true;
 }
 void Headroller::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 
 
 
-	//삭제 예정
-	if (m_bHitCheck)
-	{
-		StateManager.ChangeState("Stun");
-		m_bHitCheck = false;
-	}
-
 }
 
-void Headroller::AniSlime_Att(const GameEngineRenderingEvent& _Data)
-{
-
-
-	StateManager.ChangeState("Idle");
-
-
-
-}
-
-void Headroller::AniSlime_Idle(const GameEngineRenderingEvent& _Data)
-{
-}
-
-void Headroller::AniSlime_Move(const GameEngineRenderingEvent& _Data)
-{
-}
 
 
 
 
 void Headroller::IdleStart(const StateInfo& _Info)
 {
-	//FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Att");
+	FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Idle");
+
 }
 void Headroller::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-	if (m_bHitCheck)
-	{
-		StateManager.ChangeState("Stun");
-		m_bHitCheck = false;
-	}
-
-
-
-
-
-	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
-
-	float Len = TarGetDir.Length();
-	TarGetDir = TarGetDir.Normalize3DReturn();
-
-
-	if (Len <= 600.f)
-	{
-		StateManager.ChangeState("Move");
-	}
-
-
+	
 
 }
+void Headroller::Ani_Att(const GameEngineRenderingEvent& _Data)
+{
+	FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Att2");
+
+}
+
+void Headroller::Ani_Att2(const GameEngineRenderingEvent& _Data)
+{
+
+	StateManager.ChangeState("Idle");
+}
+
+
+void Headroller::Ani_Idle(const GameEngineRenderingEvent& _Data)
+{
+}
+
+
+void Headroller::Ani_Dash(const GameEngineRenderingEvent& _Data)
+{
+}
+
+
+void Headroller::Ani_Dash_E(const GameEngineRenderingEvent& _Data)
+{
+	m_bAtt = true;
+	StateManager.ChangeState("Idle");
+}
+
+
+void Headroller::Ani_Dash_S(const GameEngineRenderingEvent& _Data)
+{
+	FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Dash");
+	m_bMove = true;
+}
+
+
+void Headroller::Ani_Death(const GameEngineRenderingEvent& _Data)
+{
+}
+
+
