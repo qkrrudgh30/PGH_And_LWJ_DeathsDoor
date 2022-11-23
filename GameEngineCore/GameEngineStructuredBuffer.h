@@ -125,9 +125,9 @@ public:
 
 	void CreateResize(const D3D11_SHADER_BUFFER_DESC& _Desc, int Count, void* _StartData = nullptr);
 
-	void CreateResize(int DataSize, int Count, void* _StartData = nullptr);
+	void CreateResize(size_t DataSize, size_t Count, void* _StartData = nullptr);
 
-	void CreateResize(int Count, void* _StartData = nullptr);
+	void CreateResize(size_t Count, void* _StartData = nullptr);
 
 	inline int GetDataSize() 
 	{

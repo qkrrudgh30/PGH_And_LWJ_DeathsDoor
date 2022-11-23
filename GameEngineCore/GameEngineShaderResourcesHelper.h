@@ -20,10 +20,10 @@ public:
 	~GameEngineShaderResourcesHelper();
 
 	// delete Function
-	GameEngineShaderResourcesHelper(const GameEngineShaderResourcesHelper& _Other) = delete;
-	GameEngineShaderResourcesHelper(GameEngineShaderResourcesHelper&& _Other) noexcept = delete;
-	GameEngineShaderResourcesHelper& operator=(const GameEngineShaderResourcesHelper& _Other) = delete;
-	GameEngineShaderResourcesHelper& operator=(GameEngineShaderResourcesHelper&& _Other) noexcept = delete;
+	//GameEngineShaderResourcesHelper(const GameEngineShaderResourcesHelper& _Other) = delete;
+	//GameEngineShaderResourcesHelper(GameEngineShaderResourcesHelper&& _Other) noexcept = delete;
+	//GameEngineShaderResourcesHelper& operator=(const GameEngineShaderResourcesHelper& _Other) = delete;
+	//GameEngineShaderResourcesHelper& operator=(GameEngineShaderResourcesHelper&& _Other) noexcept = delete;
 
 	void AllResourcesSetting();
 
@@ -100,9 +100,14 @@ public:
 
 	GameEngineStructuredBufferSetter* GetStructuredBuffer(const std::string& _Name);
 
+	std::multimap<std::string, GameEngineStructuredBufferSetter>& GetStructuredBufferSettingMap() 
+	{
+		return StructuredBufferSettingMap;
+	}
+
+	void ShaderCheck(std::shared_ptr < GameEngineShader> _Shader);
 
 protected:
-	void ShaderCheck(std::shared_ptr < GameEngineShader> _Shader);
 
 private:
 	// ÄÃ·¯°¡ 

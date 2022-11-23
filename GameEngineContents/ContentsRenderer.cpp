@@ -6,6 +6,7 @@
 #include <GameEngineCore/GameEngineVertexShader.h>
 
 ContentsRenderer::ContentsRenderer() 
+	: mShaderingInfo()
 {
 }
 
@@ -15,11 +16,15 @@ ContentsRenderer::~ContentsRenderer()
 
 void ContentsRenderer::Render(float _fDeltatime)
 {
-	if (eResourceType::UI == mShaderingInfo.miResourceType)
+	if (ResourceType::UI == mShaderingInfo.miResourceType)
 	{
 		mwptrRenderingUnit.lock()->Render(_fDeltatime);
 	}
-	else
+	else if (ResourceType::Static == mShaderingInfo.miResourceType)
+	{
+
+	}
+	else if (ResourceType::Animator == mShaderingInfo.miResourceType)
 	{
 
 	}
@@ -27,11 +32,15 @@ void ContentsRenderer::Render(float _fDeltatime)
 
 void ContentsRenderer::SetMesh(const std::string& _strMeshName)
 {
-	if (eResourceType::UI == mShaderingInfo.miResourceType)
+	if (ResourceType::UI == mShaderingInfo.miResourceType)
 	{
 		mwptrRenderingUnit.lock()->SetMesh(_strMeshName);
 	}
-	else
+	else if (ResourceType::Static == mShaderingInfo.miResourceType)
+	{
+
+	}
+	else if (ResourceType::Animator == mShaderingInfo.miResourceType)
 	{
 
 	}
@@ -40,12 +49,16 @@ void ContentsRenderer::SetMesh(const std::string& _strMeshName)
 
 void ContentsRenderer::SetMaterial(const std::string& _strMaterialName)
 {
-	if (eResourceType::UI == mShaderingInfo.miResourceType)
+	if (ResourceType::UI == mShaderingInfo.miResourceType)
 	{
 		mwptrRenderingUnit.lock()->SetPipeLine(_strMaterialName);
 		mwptrRenderingUnit.lock()->SetRenderer(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()));
 	}
-	else
+	else if (ResourceType::Static == mShaderingInfo.miResourceType)
+	{
+
+	}
+	else if (ResourceType::Animator == mShaderingInfo.miResourceType)
 	{
 
 	}
@@ -61,6 +74,15 @@ void ContentsRenderer::SetTexture()
 
 void ContentsRenderer::Set2DUIShaderingInfo()
 {
+	// miResourceType = ResourceType::UI;
+	// miShaderType = ShaderType::
+	// miIsUnityTexture;
+	// mf4FrameData;
+	// mf4PivotPos;
+	// muBlurDirection;
+	// muBlurAppliedCount;
+	// mfBloomLuminanceThreshold;
+	// mfBloomIntensity;
 }
 
 void ContentsRenderer::Set3DStaticShaderingInfo()
@@ -75,11 +97,15 @@ void ContentsRenderer::Start(void)
 {
 	GameEngineRenderer::Start();
 
-	if (eResourceType::UI == mShaderingInfo.miResourceType)
+	if (ResourceType::UI == mShaderingInfo.miResourceType)
 	{
 		mwptrRenderingUnit = std::make_shared<GameEngineRenderUnit>();
 	}
-	else
+	else if (ResourceType::Static == mShaderingInfo.miResourceType)
+	{
+
+	}
+	else if (ResourceType::Animator == mShaderingInfo.miResourceType)
 	{
 
 	}
@@ -92,9 +118,26 @@ void ContentsRenderer::Update(float _fDeltatime)
 
 void ContentsRenderer::InitializeShaderingInfo(void)
 {
+	if (ResourceType::UI == mShaderingInfo.miResourceType)
+	{
+		Set2DUIShaderingInfo();
+	}
+	else if (ResourceType::Static == mShaderingInfo.miResourceType)
+	{
+		Set3DStaticShaderingInfo();
+	}
+	else if (ResourceType::Animator == mShaderingInfo.miResourceType)
+	{
+		Set3DAnimatorShaderingInfo();
+	}
 }
 
 void ContentsRenderer::SetRenderingPipeline(void)
 {
+	InitializeShaderingInfo();
+
+	SetMaterial("ContentsShader");
+
+	GetShaderResources().SetConstantBufferLink("ShaderingInfo", mShaderingInfo);
 }
 

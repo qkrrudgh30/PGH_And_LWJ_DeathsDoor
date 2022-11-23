@@ -107,6 +107,8 @@ void GameEngineCamera::Render(float _DeltaTime)
 
 		for (; StartIter != EndIter; ++StartIter)
 		{
+			StartIter->second.RenderInstancing();
+
 			//if (GameEngineInstancing::MinInstancingCount > StartIter->second.Count)
 			//{
 			//	continue;

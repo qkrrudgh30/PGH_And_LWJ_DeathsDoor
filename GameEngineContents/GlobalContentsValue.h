@@ -97,9 +97,18 @@ enum BlurType
 	eVerticalAndHorizontal,
 };
 
-enum eResourceType
+enum ResourceType
 {
+	None,
 	UI,
 	Static,
 	Animator
+};
+
+enum ShaderBitFlag : unsigned long
+{
+	eNone = 0x00,
+	eFade = 0x01,
+	eBlur = 0x02,
+	eBloom = 0x04,
 };

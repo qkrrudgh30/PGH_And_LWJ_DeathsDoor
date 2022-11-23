@@ -47,11 +47,13 @@ public:
 
 	void SetRenderer(std::shared_ptr < GameEngineRenderer> _Renderer);
 
+	std::shared_ptr < GameEngineMesh> GetMesh();
+
 	std::shared_ptr < GameEngineMaterial> GetMaterial();
 
 	std::shared_ptr < GameEngineMaterial> GetCloneMaterial();
 
-	std::shared_ptr < GameEngineMaterial> ClonePipeLine(std::shared_ptr<GameEngineMaterial> _Rendering);
+	std::shared_ptr < GameEngineMaterial> CloneMaterial(std::shared_ptr<GameEngineMaterial> _Rendering);
 
 	GameEngineShaderResourcesHelper ShaderResources;
 

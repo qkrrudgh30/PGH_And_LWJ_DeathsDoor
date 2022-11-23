@@ -49,19 +49,19 @@ void GameEngineStructuredBuffer::CreateResize(const D3D11_SHADER_BUFFER_DESC& _D
 	CreateResize(ShaderDesc.Size, Count, _StartData);
 }
 
-void GameEngineStructuredBuffer::CreateResize(int Count, void* _StartData /*= nullptr*/)
+void GameEngineStructuredBuffer::CreateResize(size_t Count, void* _StartData /*= nullptr*/)
 {
 	CreateResize(DataSize, Count, _StartData);
 }
 
-void GameEngineStructuredBuffer::CreateResize(int _DataSize, int Count, void* _StartData/* = nullptr*/)
+void GameEngineStructuredBuffer::CreateResize(size_t _DataSize, size_t Count, void* _StartData/* = nullptr*/)
 {
 	if (0 == _DataSize)
 	{
 		MsgBoxAssert("데이터 사이즈가 0인 구조화 버퍼를 만들수는 없습니다.");
 	}
 
-	DataSize = _DataSize;
+	DataSize = static_cast<int>(_DataSize);
 
 	if (0 == Count)
 	{
@@ -74,7 +74,7 @@ void GameEngineStructuredBuffer::CreateResize(int _DataSize, int Count, void* _S
 	}
 
 	Release();
-	DataCount = Count;
+	DataCount = static_cast<int>(Count);
 
 	BufferDesc.ByteWidth = DataSize * DataCount; // GPU 에 생성할 구조화 버퍼 메모리 크기(최소단위 ??)
 	BufferDesc.Usage = D3D11_USAGE_DYNAMIC;

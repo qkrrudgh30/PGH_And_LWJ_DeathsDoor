@@ -120,6 +120,7 @@ struct InstAtlasData
 };
 
 
+// Inst_
 StructuredBuffer<InstTransformData> Inst_TransformData : register(t12);
 StructuredBuffer<InstAtlasData> Inst_AtlasData : register(t13);
 

@@ -4,6 +4,7 @@
 struct ShaderingInfo
 {
 	int             miResourceType;
+	int				miShaderType;
 	int				miIsUnityTexture;
 
 	/*       2D UI      */
@@ -22,6 +23,7 @@ struct ShaderingInfo
 
 
 	/*   3D Animator   */
+
 };
 
 class GameEngineTexture;
@@ -46,6 +48,7 @@ public:
 	virtual void Render(float _fDeltatime);
 	void SetMesh(const std::string& _strMeshName);
 	void SetMaterial(const std::string& _strMaterialName);
+	void SetShader(ShaderBitFlag _eShaderType);
 
 	/*      2D UI      */
 	void SetPivot();

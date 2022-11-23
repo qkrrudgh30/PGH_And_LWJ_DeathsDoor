@@ -40,7 +40,7 @@ int GameEngineStructuredBufferSetter::GetDataSize()
 	return Res->GetDataSize();
 }
 
-void GameEngineStructuredBufferSetter::Resize(int _Count)
+void GameEngineStructuredBufferSetter::Resize(size_t _Count)
 {
 	Res->CreateResize(_Count, nullptr);
 	OriginalData.resize(Res->GetDataSize() * _Count);

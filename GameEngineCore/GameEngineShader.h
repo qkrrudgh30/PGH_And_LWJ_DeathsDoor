@@ -92,7 +92,7 @@ class GameEngineStructuredBufferSetter : public ShaderResSetter
 public:
 	void Setting() const;
 
-	void Resize(int _Count);
+	void Resize(size_t _Count);
 	void Bind();
 
 	template<typename DataType>
