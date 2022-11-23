@@ -38,6 +38,7 @@ void CreateContentsMesh()
 
 void CreateContentsInputLayout()
 {
+	GameEngineVertex::LayOut.AddInputLayOut("CLONEDTEXCOORD", DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, 0);
 }
 
 void CompileContentsShader()

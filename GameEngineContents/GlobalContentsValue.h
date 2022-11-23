@@ -92,17 +92,17 @@ enum
 
 enum BlurType
 {
-	eVertical,
-	eHorizontal,
-	eVerticalAndHorizontal,
+	eVertical = 1,
+	eHorizontal = 2,
+	eVerticalAndHorizontal = 3,
 };
 
 enum ResourceType
 {
-	None,
-	UI,
-	Static,
-	Animator
+	None = 0,
+	UI = 1,
+	Static = 2,
+	Animator = 3
 };
 
 enum ShaderBitFlag : unsigned long

@@ -41,6 +41,9 @@
     <None Include="Texture\Meta\death_anim_blood.png.meta">
       <Filter>Texture\Meta</Filter>
     </None>
+    <None Include="Shader\ContentsShader.hlsli">
+      <Filter>Shader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\YEffect.hlsl">
@@ -51,6 +54,9 @@
     </FxCompile>
     <FxCompile Include="Shader\ContentsBlur.hlsl">
       <Filter>Shader\2DShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\ContentsShader.hlsl">
+      <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

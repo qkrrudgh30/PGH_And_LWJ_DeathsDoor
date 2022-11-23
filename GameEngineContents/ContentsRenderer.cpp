@@ -74,15 +74,23 @@ void ContentsRenderer::SetTexture()
 
 void ContentsRenderer::Set2DUIShaderingInfo()
 {
-	// miResourceType = ResourceType::UI;
-	// miShaderType = ShaderType::
-	// miIsUnityTexture;
-	// mf4FrameData;
-	// mf4PivotPos;
-	// muBlurDirection;
-	// muBlurAppliedCount;
-	// mfBloomLuminanceThreshold;
-	// mfBloomIntensity;
+	 mShaderingInfo.miResourceType = ResourceType::UI;
+	 mShaderingInfo.miShaderType = ShaderBitFlag::eNone;
+
+	 mShaderingInfo.miIsUnityTexture = False;
+
+	 mShaderingInfo.mf4FrameData.PosX = 0.f;
+	 mShaderingInfo.mf4FrameData.PosY = 0.f;
+	 mShaderingInfo.mf4FrameData.SizeX = 1.f;
+	 mShaderingInfo.mf4FrameData.SizeY = 1.f;
+
+	 mShaderingInfo.mf4PivotPos = float4::ZERO;
+
+	 mShaderingInfo.muBlurDirection = BlurType::eVerticalAndHorizontal;
+	 mShaderingInfo.muBlurAppliedCount = 1u;
+
+	 mShaderingInfo.mfBloomLuminanceThreshold = 0.3f;
+	 mShaderingInfo.mfBloomIntensity = 1.f;
 }
 
 void ContentsRenderer::Set3DStaticShaderingInfo()

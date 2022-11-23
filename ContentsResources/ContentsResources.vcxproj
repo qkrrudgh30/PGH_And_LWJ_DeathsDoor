@@ -134,10 +134,12 @@
     <Image Include="Texture\Test\4.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Shader\ContentsShader.hlsli" />
     <None Include="Texture\Meta\death_anim_blood.png.meta" />
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\ContentsBlur.hlsl" />
+    <FxCompile Include="Shader\ContentsShader.hlsl" />
     <FxCompile Include="Shader\Fade.hlsl" />
     <FxCompile Include="Shader\YEffect.hlsl" />
   </ItemGroup>
