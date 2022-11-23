@@ -46,9 +46,17 @@ protected:
 	void AttEnd(const StateInfo& _Info);
 	void AttUpdate(float _DeltaTime, const StateInfo& _Info);
 
+	void DeathStart(const StateInfo& _Info);
+	void DeathEnd(const StateInfo& _Info);
+	void DeathUpdate(float _DeltaTime, const StateInfo& _Info);
+
+
+
 	void AniFlower_Att(const GameEngineRenderingEvent& _Data);
 	void AniFlower_AttFrame(const GameEngineRenderingEvent& _Data);
 	void AniFlower_Idle(const GameEngineRenderingEvent& _Data);
+
+
 	void AniFlower_Death(const GameEngineRenderingEvent& _Data);
 
 

@@ -7,6 +7,8 @@
 
 #include "Floor.h"
 #include "Rock.h"
+#include "OldCrow.h"
+
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -45,7 +47,7 @@ void BossLevel::LevelStartEvent()
 
 		std::weak_ptr < Floor> CFloor = CreateActor<Floor>(OBJECTORDER::BackGround);
 
-
+		std::weak_ptr < OldCrow> COldCrow = CreateActor<OldCrow>(OBJECTORDER::BackGround);
 	}
 #pragma endregion
 	{

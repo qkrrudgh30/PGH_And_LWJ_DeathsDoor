@@ -5,6 +5,10 @@
 #include "ROOM_MainHall.h"
 #include "LoadingUI.h"
 
+
+#include "Headroller.h"
+
+
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -59,6 +63,12 @@ void HuntingLevel3::LevelStartEvent()
 
 
 
+		{
+			std::weak_ptr < Headroller> cMonster = CreateActor<Headroller>(OBJECTORDER::Monster);
+			cMonster.lock()->GetTransform().SetWorldPosition({ 78.f,0.F,-1672.f });
+
+
+		}
 
 
 		mbPrimitiveInitialized = true;

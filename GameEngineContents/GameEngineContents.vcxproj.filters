@@ -151,6 +151,9 @@
     <Filter Include="01.Actor\02.Unit\02.Monster\03.OldCrow">
       <UniqueIdentifier>{33bbc2bd-3eb8-4388-8fab-0bed0749f084}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\02.Monster\04.HEADROLLER">
+      <UniqueIdentifier>{8cf56f73-7606-4ce3-b183-908cddb40df8}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -165,9 +168,6 @@
     </ClInclude>
     <ClInclude Include="Player.h">
       <Filter>01.Actor\02.Unit\01.Player</Filter>
-    </ClInclude>
-    <ClInclude Include="Monster.h">
-      <Filter>01.Actor\02.Unit\02.Monster</Filter>
     </ClInclude>
     <ClInclude Include="LoginUI.h">
       <Filter>01.Actor\01.UI\00.LevelUI\00.LoginLevel</Filter>
@@ -308,6 +308,12 @@
     <ClInclude Include="ContentsRenderer.h">
       <Filter>96.Renderer</Filter>
     </ClInclude>
+    <ClInclude Include="Monster.h">
+      <Filter>01.Actor\02.Unit\02.Monster</Filter>
+    </ClInclude>
+    <ClInclude Include="Headroller.h">
+      <Filter>01.Actor\02.Unit\02.Monster\04.HEADROLLER</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -319,9 +325,6 @@
     </ClCompile>
     <ClCompile Include="Player.cpp">
       <Filter>01.Actor\02.Unit\01.Player</Filter>
-    </ClCompile>
-    <ClCompile Include="Monster.cpp">
-      <Filter>01.Actor\02.Unit\02.Monster</Filter>
     </ClCompile>
     <ClCompile Include="LoginUI.cpp">
       <Filter>01.Actor\01.UI\00.LevelUI\00.LoginLevel</Filter>
@@ -464,6 +467,12 @@
     </ClCompile>
     <ClCompile Include="ContentsRenderer.cpp">
       <Filter>96.Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Monster.cpp">
+      <Filter>01.Actor\02.Unit\02.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="Headroller.cpp">
+      <Filter>01.Actor\02.Unit\02.Monster\04.HEADROLLER</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

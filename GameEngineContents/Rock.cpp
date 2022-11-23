@@ -20,7 +20,7 @@ void Rock::Start()
 	Renderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
 	Renderer->GetTransform().SetLocalPosition(float4{ 0.f, 10.f, 0.f });
 	Renderer->SetFBXMesh("Rock.fbx", "Texture");
-
+	
 
 }
 

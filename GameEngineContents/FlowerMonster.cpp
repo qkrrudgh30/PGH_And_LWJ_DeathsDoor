@@ -99,6 +99,12 @@ void FlowerMonster::Start()
 		, std::bind(&FlowerMonster::AttEnd, this, std::placeholders::_1)
 	);
 
+	StateManager.CreateStateMember("Death"
+		, std::bind(&FlowerMonster::DeathUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&FlowerMonster::DeathStart, this, std::placeholders::_1)
+		, std::bind(&FlowerMonster::DeathEnd, this, std::placeholders::_1)
+	);
+
 
 	StateManager.ChangeState("Idle");
 }
@@ -157,7 +163,7 @@ void FlowerMonster::Update(float _DeltaTime)
 
 	if (m_Info.m_Hp <= 0)
 	{
-		Death();
+		StateManager.ChangeState("Death");
 	}
 
 	StateManager.Update(_DeltaTime);
@@ -165,6 +171,27 @@ void FlowerMonster::Update(float _DeltaTime)
 }
 
 
+
+
+
+
+
+void FlowerMonster::DeathStart(const StateInfo& _Info)
+{
+	FBXAnimationRenderer->ChangeAnimation("Flower_Death");
+}
+void FlowerMonster::DeathEnd(const StateInfo& _Info)
+{
+
+
+
+}
+void FlowerMonster::DeathUpdate(float _DeltaTime, const StateInfo& _Info)
+{
+
+	
+
+}
 
 
 
@@ -271,6 +298,7 @@ void FlowerMonster::AniFlower_Idle(const GameEngineRenderingEvent& _Data)
 
 void FlowerMonster::AniFlower_Death(const GameEngineRenderingEvent& _Data)
 {
+	Death();
 }
 
 

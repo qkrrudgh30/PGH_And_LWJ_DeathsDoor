@@ -84,7 +84,7 @@ CollisionReturn Potal::CollisionPlayer(std::shared_ptr < GameEngineCollision> _T
 
 	if (m_PotalType == PotalType::Stage3ToStage4)
 	{
-		ContentsLevel::mstrNextLevelName = "04_HuntingLevel4";
+		ContentsLevel::mstrNextLevelName = "05_HuntingLevel5";
 		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
@@ -107,7 +107,7 @@ CollisionReturn Potal::CollisionPlayer(std::shared_ptr < GameEngineCollision> _T
 	if (m_PotalType == PotalType::Stage5ToStage4)
 	{
 		ContentsLevel::mstrNextLevelName = "Previous";
-		ContentsLevel::mstrPrevLevelName = "04_HuntingLevel4";
+		ContentsLevel::mstrPrevLevelName = "03_HuntingLevel3";
 		GEngine::ChangeLevel("07_EditLevel");
 		Player::GetMainPlayer()->GetTransform().SetWorldPosition({ 0.F,0.F,-100.F });
 	}
