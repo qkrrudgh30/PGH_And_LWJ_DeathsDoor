@@ -30,11 +30,20 @@ void ContentsRenderer::Render(float _fDeltatime)
 	}
 }
 
+void ContentsRenderer::SetTexture(const std::string& _strTextureName)
+{
+	mwptrCurrent2DTexture = GetShaderResources().SetTexture("Tex", _strTextureName);
+
+	mShaderingInfo.miResourceType = ResourceType::UI;
+}
+
 void ContentsRenderer::SetMesh(const std::string& _strMeshName)
 {
 	if (ResourceType::UI == mShaderingInfo.miResourceType)
 	{
 		mwptrRenderingUnit.lock()->SetMesh(_strMeshName);
+
+		mShaderingInfo.miResourceType = ResourceType::Static;
 	}
 	else if (ResourceType::Static == mShaderingInfo.miResourceType)
 	{
@@ -64,6 +73,13 @@ void ContentsRenderer::SetMaterial(const std::string& _strMaterialName)
 	}
 }
 
+void ContentsRenderer::SetShader(ShaderBitFlag _eShaderType)
+{
+	mShaderingInfo.miShaderType |= _eShaderType;
+
+	int a = 100;
+}
+
 void ContentsRenderer::SetPivot()
 {
 }
@@ -85,6 +101,8 @@ void ContentsRenderer::Set2DUIShaderingInfo()
 	 mShaderingInfo.mf4FrameData.SizeY = 1.f;
 
 	 mShaderingInfo.mf4PivotPos = float4::ZERO;
+
+	 mShaderingInfo.mfFadeAccValue = 0.f;
 
 	 mShaderingInfo.muBlurDirection = BlurType::eVerticalAndHorizontal;
 	 mShaderingInfo.muBlurAppliedCount = 1u;

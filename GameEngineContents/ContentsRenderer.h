@@ -11,6 +11,8 @@ struct ShaderingInfo
 	float4			mf4FrameData;
 	float4			mf4PivotPos;
 
+	float			mfFadeAccValue;
+
 	unsigned int	muBlurDirection;
 	unsigned int	muBlurAppliedCount;
 
@@ -46,6 +48,7 @@ public:
 	inline GameEngineShaderResourcesHelper& GetShaderResources() { return mwptrRenderingUnit.lock()->ShaderResources; }
 
 	virtual void Render(float _fDeltatime);
+	void SetTexture(const std::string& _strTextureName);
 	void SetMesh(const std::string& _strMeshName);
 	void SetMaterial(const std::string& _strMaterialName);
 	void SetShader(ShaderBitFlag _eShaderType);

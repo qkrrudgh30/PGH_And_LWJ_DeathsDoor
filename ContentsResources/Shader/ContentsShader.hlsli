@@ -32,20 +32,22 @@ struct Output
 
 cbuffer ShaderingInfo : register(b1)
 {
-    int miResourceType;
-    int miShaderType;
-    int miIsUnityTexture;
+    int             miResourceType;
+    int             miShaderType;
+    int             miIsUnityTexture;
 
 	/*       2D UI      */
-    float2 mf2FrameDataPos;
-    float2 mf2FrameDataSize;
-    float4 mf4PivotPos;
+    float2          mf2FrameDataPos;
+    float2          mf2FrameDataSize;
+    float4          mf4PivotPos;
+    
+    float           mfFadeAccValue;
 
-    unsigned int muBlurDirection;
-    unsigned int muBlurAppliedCount;
+    unsigned int    muBlurDirection;
+    unsigned int    muBlurAppliedCount;
 
-    float mfBloomLuminanceThreshold;
-    float mfBloomIntensity;
+    float           mfBloomLuminanceThreshold;
+    float           mfBloomIntensity;
 
 	/*    3D Static    */
 
@@ -60,5 +62,8 @@ Texture2D DiffuseTexture : register(t0);
 Texture2D Tex : register(t1);
 Texture2D ClonedTex : register(t2);
 
-SamplerState LINEWRAP : register(s0);
+SamplerState LINEARWRAP : register(s0);
+SamplerState POINTWRAP : register(s0);
+
+static float GaussianBlur1D[5] = { 0.0545f, 0.2442f, 0.4026f, 0.2442f, 0.0545f };
 
