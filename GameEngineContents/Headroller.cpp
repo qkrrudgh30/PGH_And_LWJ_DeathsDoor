@@ -31,12 +31,52 @@ void Headroller::Start()
 	FBXAnimationRenderer->SetFBXMesh("HEADROLLER.fbx", "TextureAnimation");
 	FBXAnimationRenderer->GetTransform().SetLocalScale({0.5f,0.5f,.5f});
 
-	Event.ResourcesName = "HEADROLLER_Att2.FBX";
+
+	Event.ResourcesName = "HEADROLLER_Att.FBX";
 	Event.Loop = true;
-	Event.Inter = 0.05f;
+	Event.Inter = 0.03f;
 	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Att", Event);
 	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Att", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
 
+
+
+
+	Event.ResourcesName = "HEADROLLER_Att2.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.03f;
+	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Att2", Event);
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Att2", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
+
+
+	Event.ResourcesName = "HEADROLLER_Dash.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.03f;
+	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Dash", Event);
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Dash", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
+
+	Event.ResourcesName = "HEADROLLER_Dash_E.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.03f;
+	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Dash_E", Event);
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Dash_E", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
+
+	Event.ResourcesName = "HEADROLLER_Dash_S.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.03f;
+	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Dash_S", Event);
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Dash_S", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
+
+	Event.ResourcesName = "HEADROLLER_Death.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.03f;
+	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Death", Event);
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Death", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
+
+	Event.ResourcesName = "HEADROLLER_Idle.FBX";
+	Event.Loop = true;
+	Event.Inter = 0.03f;
+	FBXAnimationRenderer->CreateFBXAnimation("HEADROLLER_Idle", Event);
+	FBXAnimationRenderer->AnimationBindEnd("HEADROLLER_Idle", std::bind(&Headroller::AniSlime_Att, this, std::placeholders::_1));
 
 
 
