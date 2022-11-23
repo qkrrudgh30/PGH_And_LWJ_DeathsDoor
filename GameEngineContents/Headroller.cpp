@@ -175,7 +175,7 @@ void Headroller::Update(float _DeltaTime)
 	}
 	else if (m_Len <= 700.f)
 	{
-		 if(StateManager.GetCurStateStateName() != "Move")
+		 if(StateManager.GetCurStateStateName() == "Idle")
 			StateManager.ChangeState("Move");
 	}
 	else
@@ -221,11 +221,15 @@ void Headroller::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 		//ÀÌµ¿
 		FBXAnimationRenderer->GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
 		float4 TarGetDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
-		GetTransform().SetWorldMove(TarGetDir * m_fSpeed * _DeltaTime);
-
+	
 		if (m_Len <= 200.f)
 		{
 			FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Dash_E");
+		}
+		else
+		{
+			GetTransform().SetWorldMove(TarGetDir * m_fSpeed * _DeltaTime);
+
 		}
 
 	}
@@ -237,7 +241,7 @@ void Headroller::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 void Headroller::DeathStart(const StateInfo& _Info)
 {
-	
+	FBXAnimationRenderer->ChangeAnimation("HEADROLLER_Death");
 }
 void Headroller::DeathEnd(const StateInfo& _Info)
 {
@@ -328,6 +332,7 @@ void Headroller::Ani_Dash_S(const GameEngineRenderingEvent& _Data)
 
 void Headroller::Ani_Death(const GameEngineRenderingEvent& _Data)
 {
+	Death();
 }
 
 

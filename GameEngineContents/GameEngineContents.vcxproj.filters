@@ -314,6 +314,9 @@
     <ClInclude Include="Headroller.h">
       <Filter>01.Actor\02.Unit\02.Monster\04.HEADROLLER</Filter>
     </ClInclude>
+    <ClInclude Include="Spike.h">
+      <Filter>02.Static\05_HuntingLevel5</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -473,6 +476,9 @@
     </ClCompile>
     <ClCompile Include="Headroller.cpp">
       <Filter>01.Actor\02.Unit\02.Monster\04.HEADROLLER</Filter>
+    </ClCompile>
+    <ClCompile Include="Spike.cpp">
+      <Filter>02.Static\05_HuntingLevel5</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

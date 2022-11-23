@@ -164,7 +164,7 @@ void Tower::MoveEnd(const StateInfo& _Info)
 }
 void Tower::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-	m_fSpeed += _DeltaTime * 300.f;
+	m_fSpeed += _DeltaTime * 600.f;
 
 	//GetTransform().SetWorldDownMove(m_fSpeed, _DeltaTime);
 

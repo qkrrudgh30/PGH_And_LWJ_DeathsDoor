@@ -5,6 +5,10 @@
 #include "ROOM_Far.h"
 #include "LoadingUI.h"
 #include "Tower.h"
+#include "Spike.h"
+
+
+
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -59,8 +63,8 @@ void HuntingLevel5::LevelStartEvent()
 
 		{
 			cMonster = CreateActor<Tower>(OBJECTORDER::Monster);
+			std::weak_ptr < Spike> CSpike = CreateActor<Spike>(OBJECTORDER::StaticMesh);
 			
-			//cMonster.lock()->m_bstart = true;
 
 		}
 

@@ -14,6 +14,8 @@
 #include "ShopNPC.h"
 #include "Potal.h"
 
+
+
 #include "PlayerMainUI.h"
 #include "PlayerUpgradeUI.h"
 
@@ -96,8 +98,8 @@ void LoginLevel::LevelStartEvent()
 			Potal_.lock()->m_PotalType = PotalType::LoginToStage1;
 
 		}
-
-
+	
+		
 
 	}
 
