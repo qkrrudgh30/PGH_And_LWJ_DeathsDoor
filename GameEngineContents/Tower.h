@@ -9,6 +9,7 @@
 // // dj
 
 // Ό³Έν :
+class Spike;
 class Player;
 class Tower : public UnitBase
 {
@@ -62,6 +63,7 @@ private:
 	std::shared_ptr < GameEngineCollision> StartCollision;
 public : 
 	bool m_bstart = false;
+	std::weak_ptr<Spike> m_cSpike;
 
 };
 

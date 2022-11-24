@@ -20,11 +20,14 @@ void PlayerHookTrail::Start()
 
 
 	{
+		float4 color = {1.f,0.f,0.f,1.f};
 
 		TexRenderer = CreateComponent<GameEngineTextureRenderer>();
 		TexRenderer->SetTexture("chain.png");
 		TexRenderer->GetTransform().SetLocalScale({ 50.f, 100.0f, 10.f });
 		TexRenderer->GetTransform().SetLocalRotation({ -90.f,90.f,0.f });
+		TexRenderer->GetPixelData().MulColor = color;
+		
 	}
 
 

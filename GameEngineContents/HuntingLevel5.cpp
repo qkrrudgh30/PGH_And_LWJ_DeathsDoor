@@ -64,7 +64,7 @@ void HuntingLevel5::LevelStartEvent()
 		{
 			cMonster = CreateActor<Tower>(OBJECTORDER::Monster);
 			std::weak_ptr < Spike> CSpike = CreateActor<Spike>(OBJECTORDER::StaticMesh);
-			
+			cMonster.lock()->m_cSpike = CSpike;
 
 		}
 

@@ -3,7 +3,7 @@
 #include "Player.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
-
+#include "Spike.h"
 Tower::Tower() :
 	StartPostion()
 	, DirPower()
@@ -32,19 +32,13 @@ void Tower::Start()
 	FBXAnimationRenderer->SetFBXMesh("Tower.fbx", "TextureAnimation");
 
 
+	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.005f, 0.005f, 0.005f });
+	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 225.f,0.f });
+
 	Event.ResourcesName = "Tower_Laser.FBX";
 	Event.Loop = true;
 	Event.Inter = 0.2f;
 	FBXAnimationRenderer->CreateFBXAnimation("Tower_Laser", Event);
-
-
-	//Event.ResourcesName = "Tower_Drop.FBX";
-	//Event.Loop = true;
-	//Event.Inter = 0.2f;
-	//FBXAnimationRenderer->CreateFBXAnimation("Tower_Drop", Event);
-
-	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.005f, 0.005f, 0.005f });
-	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 225.f,0.f });
 
 	FBXAnimationRenderer->ChangeAnimation("Tower_Laser");
 
@@ -126,6 +120,7 @@ void Tower::Update(float _DeltaTime)
 	if (m_Info.m_Hp <= 0)
 	{
 		Death();
+		m_cSpike.lock()->Death();
 	}
 
 	StateManager.Update(_DeltaTime);
