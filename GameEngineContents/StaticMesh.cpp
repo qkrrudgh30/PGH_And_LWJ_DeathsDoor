@@ -64,7 +64,7 @@ void StaticMesh::Update(float _DeltaTime)
 		Player* mainPlayer = Player::GetMainPlayer();
 		float PlayerSpeed = 0.f;
 
-		if (mainPlayer->StateManager.GetCurStateStateName() == "Slide")
+		if (mainPlayer->StateManager.GetCurStateStateName() == "Slide" || mainPlayer->StateManager.GetCurStateStateName() == "SlideAtt")
 		{
 			PlayerSpeed = mainPlayer->m_fSlideSpeed;
 

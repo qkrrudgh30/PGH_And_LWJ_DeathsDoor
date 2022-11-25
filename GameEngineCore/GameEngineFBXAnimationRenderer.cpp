@@ -353,6 +353,9 @@ void GameEngineFBXAnimationRenderer::CreateFBXAnimation(const std::string& _Anim
 
 void GameEngineFBXAnimationRenderer::ChangeAnimation(const std::string& _AnimationName)
 {
+
+
+
 	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
 
 	std::map<std::string, std::shared_ptr<FBXRendererAnimation>>::iterator FindIter = Animations.find(UpperName);
@@ -363,15 +366,13 @@ void GameEngineFBXAnimationRenderer::ChangeAnimation(const std::string& _Animati
 		return;
 	}
 
-	if (CurAnimation)
+
+
+	if (FindIter->second == CurAnimation)
 	{
-
-		if (FindIter->second->Info.ResourcesName != CurAnimation->Info.ResourcesName)
-		{
-
-			CurAnimation->Reset();
-		}
+		return;
 	}
+	
 
 	CurAnimation = FindIter->second;
 	CurAnimation->Reset();

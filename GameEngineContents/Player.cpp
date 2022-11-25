@@ -41,7 +41,7 @@ Player::Player()
 	, m_bSWASlidecheck(false)
 	, m_bSAttccheck(false)
 	, m_fAttCTime(0.f)
-	, m_fAttCTimeMax(0.5f)
+	, m_fAttCTimeMax(0.2f)
 	, m_bUpgradeUIcheck(false)
 	, m_bUpgradeUICoolcheck(false)
 	, m_fArrowCTime(0.f)
@@ -959,11 +959,7 @@ void Player::SlideAttStart(const StateInfo& _Info)
 {
 	FBXAnimationRenderer->ChangeAnimation("Player_SlideAtt");
 	float4 MyWorldPos = GetTransform().GetWorldPosition();
-	//float4 RenderFoward = FBXAnimationRenderer->GetTransform().GetForwardVector();
-	//RenderFoward = RenderFoward * 100.f;
 
-
-	//RenderFoward = MyWorldPos + RenderFoward;
 	MyWorldPos.y -= 20.f;
 	m_CSWAttSlide = GetLevel()->CreateActor<PlayerSWAttSlide>(OBJECTORDER::PlayerAtt);
 	m_CSWAttSlide.lock()->GetTransform().SetLocalPosition(MyWorldPos);
@@ -988,8 +984,10 @@ void Player::SlideAttUpdate(float _DeltaTime, const StateInfo& _Info)
 	float4 MoveDir = FBXAnimationRenderer->GetTransform().GetForwardVector();
 
 	GetTransform().SetWorldMove(MoveDir * m_fSlideSpeed * _DeltaTime);
-	m_CSWAttSlide.lock()->GetTransform().SetWorldMove(MoveDir * m_fSlideSpeed * _DeltaTime);
-
+	
+	float4 MyWorldPos = GetTransform().GetWorldPosition();
+	MyWorldPos.y -= 20.f;
+	m_CSWAttSlide.lock()->GetTransform().SetLocalPosition(MyWorldPos);
 }
 
 
