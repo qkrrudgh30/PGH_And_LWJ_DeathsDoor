@@ -1,7 +1,6 @@
 #pragma once
 #include "ContentsLevel.h"
 
-// Ό³Έν :
 class TestLevel : public ContentsLevel
 {
 public:
@@ -22,6 +21,16 @@ protected:
 	void LevelStartEvent() override;
 
 private:
+
+
+public:
+
+
+protected:
+
+
+private:
+	std::shared_ptr<class ContentsBlur> msptrContentsBlur;
 
 };
 

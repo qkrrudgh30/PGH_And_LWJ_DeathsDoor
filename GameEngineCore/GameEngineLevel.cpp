@@ -22,11 +22,20 @@ GameEngineLevel::GameEngineLevel()
 	}
 
 	{
+		std::weak_ptr<GameEngineCameraActor> wptrBlurCameraActor = CreateActor<GameEngineCameraActor>();
+		wptrBlurCameraActor.lock()->GetTransform().SetLocalPosition({ 0.0f, 0.0f, -100.0f });
+		wptrBlurCameraActor.lock()->GetCameraComponent()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
+		wptrBlurCameraActor.lock()->GetCameraComponent()->SetCameraOrder(CAMERAORDER::USER0);
+	}
+
+	{
 		std::shared_ptr<GameEngineCameraActor> CameraActor = CreateActor<GameEngineCameraActor>();
 		CameraActor->GetTransform().SetLocalPosition({ 0.0f, 0.0f, -100.0f });
 		CameraActor->GetCameraComponent()->SetProjectionMode(CAMERAPROJECTIONMODE::Orthographic);
 		CameraActor->GetCameraComponent()->SetCameraOrder(CAMERAORDER::UICAMERA);
 	}
+
+	
 }
 
 GameEngineLevel::~GameEngineLevel() 

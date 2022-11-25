@@ -44,6 +44,8 @@ ContentsLevel::ContentsLevel()
 	mstrvecAllResourcePaths.reserve(64u);
 
 	// GameEngineFBX::CreateManager();
+
+	
 }
 
 ContentsLevel::~ContentsLevel() 
@@ -305,6 +307,12 @@ void ContentsLevel::LoadResources2()
 	muLines = static_cast<size_t>(muAllResourcesCount / muMyThreadCount);
 	muRemains = muAllResourcesCount % muMyThreadCount;
 	muFBXLoadedCount = 0u;
+
+	if (0u == muAllResourcesCount) 
+	{ 
+		mpLoadingUI->SetProgressAmount(1u, 1u);
+		return; 
+	}
 
 	size_t i = 0, j = 0, k = 0, l = 0;
 	for (i = 0; i < muLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 

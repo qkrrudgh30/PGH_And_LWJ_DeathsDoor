@@ -129,8 +129,8 @@ public:
 
 	void EffectProcess();
 
-
 protected:
+
 	std::vector< std::shared_ptr<GameEngineTexture>> RenderTargets;
 	std::vector<ID3D11RenderTargetView*> RenderTargetViews;
 	std::vector<ID3D11ShaderResourceView*> ShaderResourceViews;

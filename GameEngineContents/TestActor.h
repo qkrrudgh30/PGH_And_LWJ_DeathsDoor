@@ -2,8 +2,6 @@
 #include "UnitBase.h"
 
 // Ό³Έν :
-class GameEngineCollision;
-class GameEngineTextureRenderer;
 class UnitBase;
 class TestActor : public UnitBase
 {
@@ -24,7 +22,6 @@ protected:
 	void End() {}
 
 private:
-	float4 ResultColor;
 
 };
 

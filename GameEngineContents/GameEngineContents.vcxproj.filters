@@ -154,6 +154,9 @@
     <Filter Include="01.Actor\02.Unit\02.Monster\04.HEADROLLER">
       <UniqueIdentifier>{8cf56f73-7606-4ce3-b183-908cddb40df8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="95.PostProcessEffects">
+      <UniqueIdentifier>{78c776ed-d975-4754-8f59-5a633144dc1a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -317,6 +320,9 @@
     <ClInclude Include="Spike.h">
       <Filter>02.Static\05_HuntingLevel5</Filter>
     </ClInclude>
+    <ClInclude Include="ContentsBlur.h">
+      <Filter>95.PostProcessEffects</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -479,6 +485,9 @@
     </ClCompile>
     <ClCompile Include="Spike.cpp">
       <Filter>02.Static\05_HuntingLevel5</Filter>
+    </ClCompile>
+    <ClCompile Include="ContentsBlur.cpp">
+      <Filter>95.PostProcessEffects</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
