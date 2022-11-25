@@ -19,33 +19,18 @@ void ContentsBlur::EffectInit()
 	mAppliedRenderUnit.SetPipeLine("ContentsBlur");
 }
 
-void ContentsBlur::Effect(GameEngineRenderTarget* _rptrRenderTarget)
-{
-	//std::shared_ptr<GameEngineRenderTarget> sptrRenderTarget = std::make_shared<GameEngineRenderTarget>(_rptrRenderTarget);
-	//msptrRenderTargetForBlur->Copy(sptrRenderTarget);
-	//// msptrRenderTargetForBlur을 모두 지우고, _sptrRenderTarget의 그림을 그려라.
-
-	//mAppliedRenderUnit.ShaderResources.SetTexture("Tex", msptrRenderTargetForBlur->GetRenderTargetTexture(0));
-	//// msptrRenderTargetForBlur에 그려진 그림을 mAppliedRenderUnit의 셰이더 리소스로 세팅함. (셰이더가 적용되게 하기 위함.)
-
-	//_rptrRenderTarget->Clear();
-	//_rptrRenderTarget->Setting();
-	//_rptrRenderTarget->Effect(mAppliedRenderUnit);
-	//// _sptrRenderTarget에다가 완성된 mAppliedRenderUnit의 효과가 적용되게끔 함.
-}
-
 void ContentsBlur::Effect(std::shared_ptr<GameEngineRenderTarget> _sptrRenderTarget)
 {
-	//msptrRenderTargetForBlur->Copy(_sptrRenderTarget);
-	//// msptrRenderTargetForBlur을 모두 지우고, _sptrRenderTarget의 그림을 그려라.
+	msptrRenderTargetForBlur->Copy(_sptrRenderTarget);
+	// msptrRenderTargetForBlur을 모두 지우고, _sptrRenderTarget의 그림을 그려라.
 
-	//mAppliedRenderUnit.ShaderResources.SetTexture("Tex", msptrRenderTargetForBlur->GetRenderTargetTexture(0));
-	//// msptrRenderTargetForBlur에 그려진 그림을 mAppliedRenderUnit의 셰이더 리소스로 세팅함. (셰이더가 적용되게 하기 위함.)
+	mAppliedRenderUnit.ShaderResources.SetTexture("Tex", msptrRenderTargetForBlur->GetRenderTargetTexture(0));
+	// msptrRenderTargetForBlur에 그려진 그림을 mAppliedRenderUnit의 셰이더 리소스로 세팅함. (셰이더가 적용되게 하기 위함.)
 
-	//_sptrRenderTarget->Clear();
-	//_sptrRenderTarget->Setting();
-	//_sptrRenderTarget->Effect(mAppliedRenderUnit);
-	//// _sptrRenderTarget에다가 완성된 mAppliedRenderUnit의 효과가 적용되게끔 함.
+	_sptrRenderTarget->Clear();
+	_sptrRenderTarget->Setting();
+	_sptrRenderTarget->Effect(mAppliedRenderUnit);
+	// _sptrRenderTarget에다가 완성된 mAppliedRenderUnit의 효과가 적용되게끔 함.
 
 }
 

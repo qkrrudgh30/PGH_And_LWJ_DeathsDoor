@@ -27,7 +27,6 @@ public:
 	ContentsBlur& operator=(ContentsBlur&& _Other) noexcept = delete;
 
 	virtual void EffectInit();
-	virtual void Effect(class GameEngineRenderTarget* _rptrRenderTarget);
 	virtual void Effect(std::shared_ptr<GameEngineRenderTarget> _sptrRenderTarget);
 
 	void SetBlurInfo(unsigned int _uBlurType, unsigned int _uAppliedCount = 1u, float _fRadius = 0.f, int _iIsUnityTexture = 0);
