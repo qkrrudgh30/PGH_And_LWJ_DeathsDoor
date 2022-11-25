@@ -193,6 +193,6 @@ void GameEngineRenderTarget::EffectProcess()
 			continue;
 		}
 
-		Effect->Effect(this);
+		Effect->Effect(shared_from_this());
 	}
 }

@@ -47,6 +47,8 @@ public:
 
 	void SetRenderer(std::shared_ptr < GameEngineRenderer> _Renderer);
 
+	void RenderInstancing(float _DeltaTime, size_t _RanderingCount, std::shared_ptr<GameEngineInstancingBuffer> _Buffer);
+
 	std::shared_ptr < GameEngineMesh> GetMesh();
 
 	std::shared_ptr < GameEngineMaterial> GetMaterial();

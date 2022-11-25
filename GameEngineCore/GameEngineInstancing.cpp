@@ -2,6 +2,7 @@
 #include "GameEngineInstancing.h"
 #include "GameEngineRenderer.h"
 #include "GameEngineVertexShader.h"
+#include "GameEngineStructuredBuffer.h"
 
 void GameEngineInstancing::InstancingData::Link(const std::string_view& _Name, const void* _Data)
 {
@@ -46,9 +47,6 @@ void GameEngineInstancing::InstancingData::Init(std::multiset<std::string>& _Set
 size_t GameEngineInstancing::MaxInstancingCount = 100;
 
 GameEngineInstancing::GameEngineInstancing() 
-	: Buffer(nullptr)
-	, Count(0)
-
 {
 	// CreateInstancingUnit();
 }
@@ -57,17 +55,19 @@ std::list<GameEngineInstancing::InstancingData>& GameEngineInstancing::CreateIns
 {
 	// 새로운 100개 짜리 그룹이 만들어진다.
 	std::list<InstancingData>& NewGroup = Units.emplace_back();
-	// 거기에 들어갈 인스턴싱용 버퍼도 만들어져
-	std::vector<char>& Data = DataBuffer.emplace_back();
 	// 헬퍼
 	GameEngineShaderResourcesHelper& Helper = ShaderResources.emplace_back();
 
 	Helper.ShaderCheck(InitUnit->GetMaterial()->GetVertexShader()->GetInstancingShader());
 
+	std::shared_ptr<GameEngineInstancingBuffer>& BufferPtr = InstancingBuffer.emplace_back();
+
+	std::vector<char>& BufferData = InstancingBufferData.emplace_back();
 
 	unsigned int size = static_cast<unsigned int>(InitUnit->GetMesh()->GetLayOutDesc().InstancingSize);
-	Buffer = GameEngineInstancingBuffer::Create(MaxInstancingCount, size);
-	Data.resize(MaxInstancingCount * size);
+	BufferPtr = GameEngineInstancingBuffer::Create(MaxInstancingCount, size);
+
+	BufferData.resize(MaxInstancingCount * BufferPtr->GetDataSize());
 
 	// 스트럭처드 버퍼 조사
 	std::multimap<std::string, GameEngineStructuredBufferSetter>& StructuredBuffers
@@ -80,7 +80,9 @@ std::list<GameEngineInstancing::InstancingData>& GameEngineInstancing::CreateIns
 	{
 		if (std::string::npos != Start->first.find("INST_"))
 		{
+			Start->second.Res = GameEngineStructuredBuffer::Create(Start->second.Res->GetShaderDesc(), MaxInstancingCount);
 			Start->second.Resize(MaxInstancingCount);
+			Start->second.Bind();
 		}
 	}
 
@@ -93,6 +95,7 @@ std::list<GameEngineInstancing::InstancingData>& GameEngineInstancing::CreateIns
 		{
 			if (std::string::npos != Start->first.find("INST_"))
 			{
+
 				StructuredBufferSet.insert(Start->first);
 			}
 		}
@@ -105,20 +108,100 @@ GameEngineInstancing::~GameEngineInstancing()
 {
 }
 
-void GameEngineInstancing::RenderInstancing() 
+void GameEngineInstancing::RenderInstancing(float _DeltaTime) 
 {
+	InstancingBuffer;
+	InitUnit;
+	Units;
+	ShaderResources;
+	StructuredBufferSet;
 
-}
-
-void GameEngineInstancing::InstancingBufferChangeData()
-{
-	if (nullptr == Buffer)
+	std::multimap<std::string, GameEngineStructuredBufferSetter>::iterator SetterStart;
+	std::multimap<std::string, GameEngineStructuredBufferSetter>::iterator SetterEnd;
+	// 100 개
+	// 100 개
+	// 100 개
+	for (size_t instancingGroupIndex = 0; instancingGroupIndex < Units.size(); instancingGroupIndex++)
 	{
-		MsgBoxAssert("인스턴싱에 버퍼를 만들지 않았습니다. 않았습니다.")
+		// 그룹 유니트
+		std::list<InstancingData>& Group = Units[instancingGroupIndex];
+
+		// 그룹 랜더용 쉐이더 리소스
+		GameEngineShaderResourcesHelper& ShaderResource = ShaderResources[instancingGroupIndex];
+
+		// 인스턴싱용 구조화 버퍼 
+		std::multimap<std::string, GameEngineStructuredBufferSetter>& StructuredBuffers
+			= ShaderResource.GetStructuredBufferSettingMap();
+
+		// 인스턴싱 버퍼
+		std::shared_ptr<GameEngineInstancingBuffer> Buffer = InstancingBuffer[instancingGroupIndex];
+
+		// 인스턴싱 버퍼용 데이터 버퍼
+		std::vector<char>& Data = InstancingBufferData[instancingGroupIndex];
+
+		int Count = 0;
+
+		int* Ptr = reinterpret_cast<int*>(&Data[0]);
+
+
+		for (InstancingData& Data : Group)
+		{
+			Data.Unit;
+			Data.Data;
+
+			//            이 상수버퍼  이 데이터를 넣어줘라.
+			std::map<std::string, const void*>::iterator DataStart = Data.Data.begin();
+			std::map<std::string, const void*>::iterator DataEnd = Data.Data.end();
+
+			for (; DataStart != DataEnd; ++DataStart)
+			{
+				SetterStart = StructuredBuffers.lower_bound(DataStart->first);
+				SetterEnd = StructuredBuffers.upper_bound(DataStart->first);
+
+				for (; SetterStart != SetterEnd; ++SetterStart)
+				{
+					char* DataPtr = &SetterStart->second.OriginalData[Count * SetterStart->second.Size];
+					size_t DataSize = SetterStart->second.Size;
+
+					memcpy_s(DataPtr, SetterStart->second.Size, DataStart->second, DataSize);
+				}
+			}
+
+			*Ptr = Count;
+			++Count;
+			Ptr += 1;
+		}
+
+
+		Buffer->ChangeData(&Data[0], Data.size());
+		// 문제라는거 인식하고.
+		ShaderResource.AllResourcesSetting();
+		InitUnit->RenderInstancing(_DeltaTime, Group.size(), Buffer);
 	}
 
-	Buffer->ChangeData(&DataBuffer[0], DataBuffer.size());
+
+
+	// 끝나고 나서 제거작업도 한다.
+	for (size_t instancingGroupIndex = 0; instancingGroupIndex < Units.size(); instancingGroupIndex++)
+	{
+		//for (size_t UnitIndex = 0; UnitIndex < Units[instancingGroupIndex].size(); UnitIndex++)
+		//{
+		//	Units[instancingGroupIndex]
+		//}
+	}
+
+	int a = 0;
 }
+
+//void GameEngineInstancing::InstancingBufferChangeData()
+//{
+//	if (nullptr == Buffer)
+//	{
+//		MsgBoxAssert("인스턴싱에 버퍼를 만들지 않았습니다. 않았습니다.")
+//	}
+//
+//	Buffer->ChangeData(&DataBuffer[0], DataBuffer.size());
+//}
 
 void GameEngineInstancing::PushUnit(std::shared_ptr<GameEngineRenderUnit> _Unit, std::function<void(InstancingData&)> _Function)
 {

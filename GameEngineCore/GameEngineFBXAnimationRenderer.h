@@ -23,7 +23,6 @@ public:
 
 	GameEngineRenderingEvent Info;
 
-	bool Pause;
 	bool bOnceStart;
 	bool bOnceEnd;
 	std::function<void(const GameEngineRenderingEvent&)> FrameEvent;
@@ -42,7 +41,6 @@ public:
 	FBXRendererAnimation() 
 		: Start(0)
 		, End(0)
-		, Pause(false)
 		, bOnceStart(false)
 		, bOnceEnd(false)
 	{
@@ -92,7 +90,7 @@ public:
 
 	void Update(float _DeltaTime) override;
 
-
+	void PauseSwtich();
 
 	// 애니메이션 바인드
 	// 시작 프레임에 들어온다.
@@ -151,6 +149,8 @@ public:
 protected:
 
 private:
+	bool Pause;
+
 	std::map<std::string, std::shared_ptr<FBXRendererAnimation>> Animations;
 	std::shared_ptr<FBXRendererAnimation> CurAnimation;
 

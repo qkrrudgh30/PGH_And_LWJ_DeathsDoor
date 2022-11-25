@@ -32,7 +32,7 @@ public:
 
 	private:
 		std::shared_ptr<GameEngineRenderUnit> Unit;
-		std::multimap<std::string, const void*> Data;
+		std::map<std::string, const void*> Data;
 
 	};
 
@@ -49,29 +49,24 @@ public:
 
 	void PushUnit(std::shared_ptr<GameEngineRenderUnit> _Unit, std::function<void(InstancingData&)> _Function);
 
-	void RenderInstancing();
+	void RenderInstancing(float _DeltaTime);
 
 
 private:
-	int Size;
+	std::vector<std::shared_ptr<GameEngineInstancingBuffer>> InstancingBuffer;
 
-	unsigned int Count;
-
-	int MaxDataCount;
-
-	std::shared_ptr<GameEngineInstancingBuffer> Buffer;
+	std::vector<std::vector<char>> InstancingBufferData;
 
 	std::shared_ptr<GameEngineRenderUnit> InitUnit;
 
 	std::vector<std::list<InstancingData>> Units;
-	// std::vector<std::multimap<std::string, std::list<void*>>> Datas;
+
 	std::vector<GameEngineShaderResourcesHelper> ShaderResources;
-	std::vector<std::vector<char>> DataBuffer;
 
 	std::multiset<std::string> StructuredBufferSet;
 
 
-	void InstancingBufferChangeData();
+	// void InstancingBufferChangeData();
 
 	std::list<InstancingData>& CreateInstancingUnit();
 

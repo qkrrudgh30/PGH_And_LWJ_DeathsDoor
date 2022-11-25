@@ -118,3 +118,28 @@ void GameEngineMesh::Render()
 {
 	GameEngineDevice::GetContext()->DrawIndexed(IndexBuffer->GetIndexCount(), 0, 0);
 }
+
+void GameEngineMesh::RenderInstancing(size_t _InstancingCount)
+{
+	GameEngineDevice::GetContext()->DrawIndexedInstanced(IndexBuffer->GetIndexCount(), static_cast<unsigned int>(_InstancingCount), 0, 0, 0);
+}
+
+void GameEngineMesh::SettingInstancing(std::shared_ptr<GameEngineInstancingBuffer> _Buffer)
+{
+	// InputLayOut->Setting();
+	// 버텍스 버퍼는 세팅할게 없다.
+	// VertexBuffer->Setting();
+
+	// 2번째는 인스턴싱 버퍼의 
+
+	ID3D11Buffer* ArrBuffer[2] = { VertexBuffer->GetBuffer(), _Buffer->GetBuffer() };
+	UINT ArrVertexSize[2] = { VertexBuffer->GetVertexSize(), _Buffer->GetDataSize()};
+	UINT ArrOffset[2] = { 0, 0 };
+
+	GameEngineDevice::GetContext()->IASetVertexBuffers(
+		0, // 버텍스 버퍼를 이중포인터로 세팅해줬을대의 사용시작 인덱스
+		2, ArrBuffer, ArrVertexSize, ArrOffset);
+
+	InputAssembler2IndexBufferSetting();
+
+}

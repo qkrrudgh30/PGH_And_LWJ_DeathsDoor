@@ -161,8 +161,38 @@ std::shared_ptr < GameEngineMaterial> GameEngineRenderUnit::CloneMaterial(std::s
 	return Clone;
 }
 
+void GameEngineRenderUnit::RenderInstancing(float _DeltaTime, size_t _RanderingCount, std::shared_ptr<GameEngineInstancingBuffer> _Buffer)
+{
+	if (nullptr == Material)
+	{
+		MsgBoxAssert("랜더링 파이프라인이 세팅되지 않으면 랜더링을 할수 없습니다.");
+	}
+
+	if (nullptr == Mesh)
+	{
+		MsgBoxAssert("매쉬가 없으므로 랜더링을 할수 없습니다.");
+	}
+
+	if (nullptr == InputLayOut)
+	{
+		MsgBoxAssert("인풋 레이아웃이 없으므로 랜더링을 할수 없습니다.");
+	}
 
 
+	// 이 매쉬를 
+	Mesh->SettingInstancing(_Buffer);
+	InputLayOut->Setting();
+	GameEngineDevice::GetContext()->IASetPrimitiveTopology(Topology);
+	Material->SettingInstancing();
+	ShaderResources.AllResourcesSetting();
+
+	// GameEngineDevice::GetContext()->DrawIndexedInstanced(IndexBuffer->GetIndexCount(), _RenderingCount, 0, 0, 0);
+
+
+	Mesh->RenderInstancing(_RanderingCount);
+	ShaderResources.AllResourcesReset();
+
+}
 
 void GameEngineRenderUnit::Render(float _DeltaTime)
 {

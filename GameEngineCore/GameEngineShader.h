@@ -119,6 +119,7 @@ public:
 	std::shared_ptr < GameEngineStructuredBuffer> Res;
 	const void* SetData;
 	size_t Size;
+	size_t Count;
 	std::vector<char> OriginalData;
 };
 

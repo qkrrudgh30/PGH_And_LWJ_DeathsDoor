@@ -165,11 +165,9 @@ void GameEngineMaterial::Setting()
 
 }
 
-void GameEngineMaterial::RenderingInstancing(int _RenderingCount, std::shared_ptr < GameEngineInstancingBuffer> _Buffer)
+void GameEngineMaterial::SettingInstancing()
 {
-	InputAssembler1InstancingVertexBufferSetting(_Buffer);
-
-	VertexShaderSetting();
+	InstancingVertexShaderSetting();
 
 	// InputAssembler2IndexBufferSetting();
 
@@ -180,10 +178,27 @@ void GameEngineMaterial::RenderingInstancing(int _RenderingCount, std::shared_pt
 	OutputMergerBlendSetting();
 
 	OutputMergerDepthStencilSetting();
-
-	InstancingDraw(_RenderingCount);
-
 }
+
+//void GameEngineMaterial::SettingInstancing(int _RenderingCount, std::shared_ptr < GameEngineInstancingBuffer> _Buffer)
+//{
+//	InputAssembler1InstancingVertexBufferSetting(_Buffer);
+//
+//	VertexShaderSetting();
+//
+//	// InputAssembler2IndexBufferSetting();
+//
+//	RasterizerSetting();
+//
+//	PixelShaderSetting();
+//
+//	OutputMergerBlendSetting();
+//
+//	OutputMergerDepthStencilSetting();
+//
+//	InstancingDraw(_RenderingCount);
+//
+//}
 
 void GameEngineMaterial::InstancingDataCollect()
 {
@@ -192,32 +207,37 @@ void GameEngineMaterial::InstancingDataCollect()
 
 // 실직적으로 세팅의 순서는 그다지 중요하지 않다.
 
-void GameEngineMaterial::InputAssembler1InstancingVertexBufferSetting(std::shared_ptr < GameEngineInstancingBuffer> _Buffer)
-{
-	// 그래픽리소스에 Setting이라는 함수가 존재한다면
-// 그건 이제부터 그 설정으로 랜더링 파이프라인이 돌아가게 된다는 뜻이 됩니다.
-	// InputLayOut->Setting();
-	// 버텍스 버퍼는 세팅할게 없다.
-	// VertexBuffer->Setting();
-
-	// 2번째는 인스턴싱 버퍼의 
-
-	// GameEngineVertexBuffer* InstancingBuffer;
-
-	//ID3D11Buffer* ArrBuffer[2] = { VertexBuffer->GetBuffer(), _Buffer->GetBuffer() };
-	//UINT ArrVertexSize[2] = { VertexBuffer->GetVertexSize(), _Buffer->GetDataSize()};
-	//UINT ArrOffset[2] = { 0, 0 };
-
-	//GameEngineDevice::GetContext()->IASetVertexBuffers(
-	//	0, // 버텍스 버퍼를 이중포인터로 세팅해줬을대의 사용시작 인덱스
-	//	2, ArrBuffer, ArrVertexSize, ArrOffset);
-}
+//void GameEngineMaterial::InputAssembler1InstancingVertexBufferSetting(std::shared_ptr < GameEngineInstancingBuffer> _Buffer)
+//{
+//	// 그래픽리소스에 Setting이라는 함수가 존재한다면
+//// 그건 이제부터 그 설정으로 랜더링 파이프라인이 돌아가게 된다는 뜻이 됩니다.
+//	// InputLayOut->Setting();
+//	// 버텍스 버퍼는 세팅할게 없다.
+//	// VertexBuffer->Setting();
+//
+//	// 2번째는 인스턴싱 버퍼의 
+//
+//	GameEngineVertexBuffer* InstancingBuffer;
+//
+//	ID3D11Buffer* ArrBuffer[2] = { VertexBuffer->GetBuffer(), _Buffer->GetBuffer() };
+//	UINT ArrVertexSize[2] = { VertexBuffer->GetVertexSize(), _Buffer->GetDataSize()};
+//	UINT ArrOffset[2] = { 0, 0 };
+//
+//	GameEngineDevice::GetContext()->IASetVertexBuffers(
+//		0, // 버텍스 버퍼를 이중포인터로 세팅해줬을대의 사용시작 인덱스
+//		2, ArrBuffer, ArrVertexSize, ArrOffset);
+//}
 
 void GameEngineMaterial::VertexShaderSetting() 
 {
 	VertexShader->Setting();
 	// 위치 
 	// D3D11_PRIMITIVE_TOPOLOGY_TRIANGLELIST;
+}
+
+void GameEngineMaterial::InstancingVertexShaderSetting()
+{
+	VertexShader->GetInstancingShader()->Setting();
 }
 
 

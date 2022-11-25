@@ -5,6 +5,7 @@
 #include "GameEngineFBXMesh.h"
 
 GameEngineFBXAnimationRenderer::GameEngineFBXAnimationRenderer()
+	: Pause(false)
 {
 
 }
@@ -30,15 +31,11 @@ void FBXRendererAnimation::Init(const std::string_view& _Name, int _Index)
 
 }
 
-void FBXRendererAnimation::PauseSwtich()
-{
-	Pause = !Pause;
-}
 
 void FBXRendererAnimation::Update(float _DeltaTime)
 {
 	// 0~24진행이죠?
-	if (false == Pause)
+	if (false == ParentRenderer->Pause)
 	{
 		Info.CurFrameTime += _DeltaTime;
 		Info.PlayTime += _DeltaTime;
@@ -50,11 +47,6 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 			// 여분의 시간이 중요합니다.
 			Info.CurFrameTime -= Info.Inter;
 			++Info.CurFrame;
-
-			if (Info.CurFrame >= End)
-			{
-				Info.CurFrame = Start;
-			}
 
 			if (false == bOnceStart
 				&& Info.CurFrame == 0)
@@ -89,11 +81,11 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 				TimeEvent(Info, _DeltaTime);
 			}
 
-			if (Info.CurFrame >= Info.Frames.size())
+			if (Info.CurFrame >= Info.Frames.size() - 1)
 			{
 				if (true == Info.Loop)
 				{
-					Info.CurFrame = 0;
+					Info.CurFrame = Start;
 				}
 				else
 				{
@@ -295,12 +287,19 @@ GameEngineRenderUnit* GameEngineFBXAnimationRenderer::SetFBXMesh(const std::stri
 
 		// 링크를 걸어준것.
 		AnimationBuffer->SetData = &AnimationBoneMatrixs[_MeshIndex][0];
-		AnimationBuffer->Size = AnimationBoneMatrixs[_MeshIndex].size() * sizeof(float4x4);
+		AnimationBuffer->Size = sizeof(float4x4);
+		AnimationBuffer->Count = AnimationBoneMatrixs[_MeshIndex].size();
 		AnimationBuffer->Bind();
 
 	}
 
 	return Unit;
+}
+
+
+void GameEngineFBXAnimationRenderer::PauseSwtich()
+{
+	Pause = !Pause;
 }
 
 void GameEngineFBXAnimationRenderer::CreateFBXAnimation(const std::string& _AnimationName, const GameEngineRenderingEvent& _Desc, int _Index)
@@ -332,26 +331,18 @@ void GameEngineFBXAnimationRenderer::CreateFBXAnimation(const std::string& _Anim
 
 	std::shared_ptr<FBXRendererAnimation> NewAnimation = std::make_shared<FBXRendererAnimation>();
 
+	FbxExAniData* AnimData = Animation->GetAnimationData(_Index);
+
 	NewAnimation->Info = _Desc;
+	NewAnimation->Info.Init(AnimData->TimeStartCount, AnimData->TimeEndCount);
 	NewAnimation->Info.Renderer = this;
 	NewAnimation->Mesh = GetFBXMesh();
 	NewAnimation->Aniamtion = Animation;
 	NewAnimation->ParentRenderer = this;
 	NewAnimation->Reset();
-
 	NewAnimation->Init(_AnimationName, _Index);
 
-	for (unsigned int i = 0; i < NewAnimation->End - NewAnimation->Start; i++)
-	{
-		NewAnimation->Info.Frames.push_back(i);
-	}
-
-	// 이순간 애니메이션 프레임 행렬에 대한 계산이 이때 이뤄지는데.
-	// 이건 느릴것이기 때문에 아마 추후 분명히.
-	// 다른 툴이나 함수로 한번 로드하고 우리 포맷으로 저장하는 일을 해야할겁니다.
-
 	RenderOptionInst.IsAnimation = 1;
-
 	Animations.insert(std::make_pair(UpperName, NewAnimation));
 
 	Animation;

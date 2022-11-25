@@ -23,6 +23,14 @@ public:
 
 	class GameEngineRenderer* Renderer;
 
+	void Init(size_t _Start, size_t _End)
+	{
+		for (size_t i = _Start; i <= _End; i++)
+		{
+			Frames.push_back(static_cast<unsigned>(i));
+		}
+	}
+
 public:
 	GameEngineRenderingEvent()
 		: Loop(false)

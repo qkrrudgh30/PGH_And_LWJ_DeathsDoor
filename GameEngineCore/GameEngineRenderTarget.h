@@ -56,7 +56,7 @@ public:
 
 public:
 	virtual void EffectInit() = 0;
-	virtual void Effect(class GameEngineRenderTarget* _Render) = 0;
+	virtual void Effect(class std::shared_ptr<GameEngineRenderTarget> _Render) = 0;
 
 	virtual ~GameEnginePostEffect() 
 	{
@@ -68,6 +68,7 @@ public:
 class GameEngineStatusWindow;
 class GameEngineDepthStencilTexture;
 class GameEngineRenderTarget : public GameEngineRes <GameEngineRenderTarget>
+	, public std::enable_shared_from_this<GameEngineRenderTarget>
 {
 	friend GameEngineStatusWindow;
 
@@ -129,8 +130,8 @@ public:
 
 	void EffectProcess();
 
-protected:
 
+protected:
 	std::vector< std::shared_ptr<GameEngineTexture>> RenderTargets;
 	std::vector<ID3D11RenderTargetView*> RenderTargetViews;
 	std::vector<ID3D11ShaderResourceView*> ShaderResourceViews;
