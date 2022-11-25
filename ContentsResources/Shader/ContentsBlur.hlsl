@@ -5,24 +5,20 @@ struct Input
 {
     float4 Pos : POSITION;
     float4 Tex : TEXCOORD;
-    uint Index : ROWINDEX;
 };
 
 struct Output
 {
     float4 Pos : SV_POSITION;
-    float4 PosLocal : POSITION;
     float4 Tex : TEXCOORD;    
 };
 
 cbuffer BlurInfo : register(b1)
 {
-    float2 mf2FrameDataPos;
-    float2 mf2FrameDataSize;
-    float4 mf4PivotPos;
     uint muAppliedType;
     uint muAppliedCount;
-    int miIsUnityTexture;
+    float mfRadius;
+    float4 mf4WindowSize;
 }
 
 static float GaussianBlur1D[5] = { 0.0545f, 0.2442f, 0.4026f, 0.2442f, 0.0545f };
@@ -32,13 +28,9 @@ Output ContentsBlur_VS(Input _Input)
 {
     Output NewOutput = (Output)0;
     
-    _Input.Pos += mf4PivotPos;
-    NewOutput.Pos = mul(_Input.Pos, WorldViewProjection);
+    NewOutput.Pos = _Input.Pos;
     
-    NewOutput.PosLocal = _Input.Pos;
-
-    NewOutput.Tex.x = (_Input.Tex.x * mf2FrameDataSize.x) + mf2FrameDataPos.x;
-    NewOutput.Tex.y = (_Input.Tex.y * mf2FrameDataSize.y) + mf2FrameDataPos.y;
+    NewOutput.Tex = _Input.Tex;
     
     return NewOutput;
 }
@@ -56,7 +48,7 @@ float4 ContentsBlur_PS(Output _Input) : SV_Target0
     
     float4 Result = 0.f;
     
-    float2 UVSize = float2(1.f / mf2FrameDataSize.x, 1.f / mf2FrameDataSize.y);
+    float2 UVSize = float2(1.f / mf4WindowSize.x, 1.f / mf4WindowSize.y);
     float2 UVCenterPos = _Input.Tex.xy;
     float2 UVStartPos = UVCenterPos + (-UVSize * 2.f);
     float2 UVCurrentPos = UVStartPos;

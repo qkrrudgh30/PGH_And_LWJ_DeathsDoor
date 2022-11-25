@@ -4,12 +4,10 @@
 
 struct BlurInfo
 {
-	float4			mf4FrameData;
-	float4			mf4PivotPos;
 	unsigned int	muAppliedType;
 	unsigned int	muAppliedCount;
 	float			mfRadius;
-	int				miIsUnityTexture;
+	float4			mf4WindowSize;
 };
 
 // Ό³Έν :

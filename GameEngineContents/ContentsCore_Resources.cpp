@@ -67,9 +67,9 @@ void CreateContentsMaterial()
 	ContentsBlurMaterial.lock()->SetVertexShader("ContentsBlur.hlsl");
 	ContentsBlurMaterial.lock()->SetPixelShader("ContentsBlur.hlsl");
 
-	std::weak_ptr<GameEngineMaterial> ContentsShaderMaterial = GameEngineMaterial::Create("ContentsShader");
-	ContentsBlurMaterial.lock()->SetVertexShader("ContentsShader.hlsl");
-	ContentsBlurMaterial.lock()->SetPixelShader("ContentsShader.hlsl");
+	// std::weak_ptr<GameEngineMaterial> ContentsShaderMaterial = GameEngineMaterial::Create("ContentsShader");
+	// ContentsBlurMaterial.lock()->SetVertexShader("ContentsShader.hlsl");
+	// ContentsBlurMaterial.lock()->SetPixelShader("ContentsShader.hlsl");
 }
 
 void CreateContentsBlendAndDepthStencilDesc()

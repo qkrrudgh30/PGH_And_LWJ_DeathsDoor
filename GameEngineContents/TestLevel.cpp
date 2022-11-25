@@ -27,8 +27,8 @@ void TestLevel::LevelStartEvent()
 
 	CreateActor<Hall>(); // Test Code.
 
-	msptrContentsBlur = GetMainCamera()->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
-	// msptrContentsBlur->SetBlurInfo();
+	// msptrContentsBlur = GetMainCamera()->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
+	// msptrContentsBlur->SetBlurInfo(BlurType::eVerticalAndHorizontal, 0u);
 
 }
 

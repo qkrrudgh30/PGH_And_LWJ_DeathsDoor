@@ -374,7 +374,7 @@ void GameEngineFBXAnimationRenderer::ChangeAnimation(const std::string& _Animati
 	}
 
 	CurAnimation = FindIter->second;
-
+	CurAnimation->Reset();
 }
 
 void GameEngineFBXAnimationRenderer::Update(float _DeltaTime)
