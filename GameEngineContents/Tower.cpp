@@ -42,7 +42,7 @@ void Tower::Start()
 
 	FBXAnimationRenderer->ChangeAnimation("Tower_Laser");
 
-
+	                                                                                                                                                                     
 
 
 	{
@@ -121,6 +121,11 @@ void Tower::Update(float _DeltaTime)
 	{
 		Death();
 		m_cSpike.lock()->Death();
+	}
+	else
+	{
+
+
 	}
 
 	StateManager.Update(_DeltaTime);

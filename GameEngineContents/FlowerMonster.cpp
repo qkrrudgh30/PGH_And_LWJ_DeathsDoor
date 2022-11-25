@@ -47,7 +47,7 @@ void FlowerMonster::Start()
 
 	
 	Event.ResourcesName = "Flower_Death.FBX";
-	Event.Loop = true;
+	Event.Loop = false;
 	Event.Inter = 0.02f;
 	FBXAnimationRenderer->CreateFBXAnimation("Flower_Death", Event);
 	FBXAnimationRenderer->AnimationBindEnd("Flower_Death", std::bind(&FlowerMonster::AniFlower_Death, this, std::placeholders::_1));
@@ -114,56 +114,61 @@ void FlowerMonster::Update(float _DeltaTime)
 
 
 
-	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
-
-	float Len = TarGetDir.Length();
-	TarGetDir = TarGetDir.Normalize3DReturn();
-
-
-
-	if (Len <= 800.f)
-	{
-
-		if(StateManager.GetCurStateStateName() != "Att")
-			StateManager.ChangeState("Att");
-
-		float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
-
-		float4 MyPos = GetTransform().GetWorldPosition();
-
-		TarGetDir.y = -TarGetDir.z;
-		MyPos.y = -MyPos.z;
-
-
-		TarGetDir.z = 0.f;
-		TarGetDir.w = 0.f;
-
-		MyPos.z = 0.f;
-		MyPos.w = 0.f;
-
-		float Angle = float4::VectorXYtoDegree(MyPos, TarGetDir);
-
-		Angle += 90.f;
-
-		if (Angle >= 360.f)
-		{
-			Angle -= 360.f;
-		}
-		else if (Angle <= 0.f)
-		{
-			Angle -= 0.f;
-		}
-
-		GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
-
-
-	}
-
 
 
 	if (m_Info.m_Hp <= 0)
 	{
 		StateManager.ChangeState("Death");
+	}
+	else
+	{
+
+		float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
+
+		float Len = TarGetDir.Length();
+		TarGetDir = TarGetDir.Normalize3DReturn();
+
+
+		if (Len <= 800.f)
+		{
+
+			if (StateManager.GetCurStateStateName() != "Att")
+				StateManager.ChangeState("Att");
+
+			float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
+
+			float4 MyPos = GetTransform().GetWorldPosition();
+
+			TarGetDir.y = -TarGetDir.z;
+			MyPos.y = -MyPos.z;
+
+
+			TarGetDir.z = 0.f;
+			TarGetDir.w = 0.f;
+
+			MyPos.z = 0.f;
+			MyPos.w = 0.f;
+
+			float Angle = float4::VectorXYtoDegree(MyPos, TarGetDir);
+
+			Angle += 90.f;
+
+			if (Angle >= 360.f)
+			{
+				Angle -= 360.f;
+			}
+			else if (Angle <= 0.f)
+			{
+				Angle -= 0.f;
+			}
+
+			GetTransform().SetLocalRotation({ 0.0f, Angle, 0.0f });
+
+
+		}
+
+
+
 	}
 
 	StateManager.Update(_DeltaTime);

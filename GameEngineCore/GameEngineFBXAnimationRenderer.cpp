@@ -48,8 +48,7 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 			Info.CurFrameTime -= Info.Inter;
 			++Info.CurFrame;
 
-			if (false == bOnceStart
-				&& Info.CurFrame == 0)
+			if ( Info.CurFrame == 0)
 			{
 				if (nullptr != StartEvent)
 				{
@@ -59,8 +58,7 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 				bOnceEnd = false;
 			}
 
-			if (Info.CurFrame == (Info.Frames.size() - 1)
-				&& false == bOnceEnd)
+			if (Info.CurFrame == (Info.Frames.size() - 1))
 			{
 				if (nullptr != EndEvent)
 				{
@@ -90,6 +88,7 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 				else
 				{
 					Info.CurFrame = static_cast<unsigned int>(Info.Frames.size()) - 1;
+				
 				}
 			}
 		}
@@ -195,6 +194,10 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 
 void FBXRendererAnimation::Reset()
 {
+
+
+
+
 	Info.CurFrameTime = 0.0f;
 	Info.CurFrame = 0;
 	Info.PlayTime = 0.0f;
@@ -360,7 +363,18 @@ void GameEngineFBXAnimationRenderer::ChangeAnimation(const std::string& _Animati
 		return;
 	}
 
+	if (CurAnimation)
+	{
+
+		if (FindIter->second->Info.ResourcesName != CurAnimation->Info.ResourcesName)
+		{
+
+			CurAnimation->Reset();
+		}
+	}
+
 	CurAnimation = FindIter->second;
+
 }
 
 void GameEngineFBXAnimationRenderer::Update(float _DeltaTime)

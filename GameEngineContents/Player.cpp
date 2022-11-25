@@ -996,7 +996,7 @@ void Player::SlideAttUpdate(float _DeltaTime, const StateInfo& _Info)
 void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 
-
+	//if(FBXAnimationRenderer->)
 	FBXAnimationRenderer->ChangeAnimation("Player_Walk");
 
 

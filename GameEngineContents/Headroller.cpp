@@ -130,60 +130,6 @@ void Headroller::Start()
 
 void Headroller::Update(float _DeltaTime)
 {
-	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
-	float4 TarGetDirAngle = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
-	m_Len = TarGetDir.Length();
-	TarGetDir = TarGetDir.Normalize3DReturn();
-
-
-
-
-	//각도 수정
-
-	float4 MyPos = GetTransform().GetWorldPosition();
-
-	TarGetDirAngle.y = -TarGetDirAngle.z;
-	MyPos.y = -MyPos.z;
-
-
-	TarGetDirAngle.z = 0.f;
-	TarGetDirAngle.w = 0.f;
-
-	MyPos.z = 0.f;
-	MyPos.w = 0.f;
-
-	Angle = float4::VectorXYtoDegree(MyPos, TarGetDirAngle);
-
-	Angle += 90.f;
-
-	if (Angle >= 360.f)
-	{
-		Angle -= 360.f;
-	}
-	else if (Angle <= 0.f)
-	{
-		Angle -= 0.f;
-	}
-
-	
-	
-
-	if (m_Len <= 200.f)
-	{
-		if(m_bAtt)
-			StateManager.ChangeState("Att");
-	}
-	else if (m_Len <= 700.f)
-	{
-		 if(StateManager.GetCurStateStateName() == "Idle")
-			StateManager.ChangeState("Move");
-	}
-	else
-	{
-		//StateManager.ChangeState("Idle");
-	}
-
-
 
 
 
@@ -191,6 +137,66 @@ void Headroller::Update(float _DeltaTime)
 	if (m_Info.m_Hp <= 0)
 	{
 		StateManager.ChangeState("Death");
+	}
+	else
+	{
+
+		float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
+		float4 TarGetDirAngle = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
+		m_Len = TarGetDir.Length();
+		TarGetDir = TarGetDir.Normalize3DReturn();
+
+
+
+
+		//각도 수정
+
+		float4 MyPos = GetTransform().GetWorldPosition();
+
+		TarGetDirAngle.y = -TarGetDirAngle.z;
+		MyPos.y = -MyPos.z;
+
+
+		TarGetDirAngle.z = 0.f;
+		TarGetDirAngle.w = 0.f;
+
+		MyPos.z = 0.f;
+		MyPos.w = 0.f;
+
+		Angle = float4::VectorXYtoDegree(MyPos, TarGetDirAngle);
+
+		Angle += 90.f;
+
+		if (Angle >= 360.f)
+		{
+			Angle -= 360.f;
+		}
+		else if (Angle <= 0.f)
+		{
+			Angle -= 0.f;
+		}
+
+
+
+
+		if (m_Len <= 200.f)
+		{
+			if (m_bAtt)
+				StateManager.ChangeState("Att");
+		}
+		else if (m_Len <= 700.f)
+		{
+			if (StateManager.GetCurStateStateName() == "Idle")
+				StateManager.ChangeState("Move");
+		}
+		else
+		{
+			//StateManager.ChangeState("Idle");
+		}
+
+
+
+
 	}
 
 	StateManager.Update(_DeltaTime);
