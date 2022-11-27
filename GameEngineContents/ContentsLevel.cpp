@@ -308,7 +308,7 @@ void ContentsLevel::LoadResources2()
 	muRemains = muAllResourcesCount % muMyThreadCount;
 	muFBXLoadedCount = 0u;
 
-	if (0u == muAllResourcesCount || ) 
+	if (0u == muAllResourcesCount)
 	{ 
 		mpLoadingUI->SetProgressAmount(1u, 1u);
 		return; 

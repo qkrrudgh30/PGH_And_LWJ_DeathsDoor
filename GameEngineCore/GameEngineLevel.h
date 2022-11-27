@@ -66,6 +66,21 @@ public:
 
 	GameEngineTransform& GetUICameraActorTransform();
 
+#pragma region TemporaryCode
+
+	std::shared_ptr<GameEngineCamera> GetBlurCamera()
+	{
+		return Cameras[static_cast<int>(CAMERAORDER::USER0)];
+	}
+
+	std::shared_ptr<GameEngineCameraActor> GetBlurCameraActor();
+	
+
+	GameEngineTransform& GetBlurCameraActorTransform();
+
+#pragma endregion
+
+
 	//template<typename ReturnType, typename ActorType, typename GroupIndexType>
 	//ReturnType* CreateActor(GroupIndexType _ObjectGroupIndex)
 	//{

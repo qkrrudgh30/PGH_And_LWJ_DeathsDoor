@@ -82,6 +82,5 @@ private:
 	static float s_farrPrevColliderPositionOnEditGUI[3];
 
 
-
 };
 

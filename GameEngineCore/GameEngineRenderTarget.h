@@ -130,11 +130,15 @@ public:
 
 	void EffectProcess();
 
+#pragma region TemporaryCode
+
+	std::vector<ID3D11ShaderResourceView*> ShaderResourceViews;
+
+#pragma endregion
 
 protected:
 	std::vector< std::shared_ptr<GameEngineTexture>> RenderTargets;
 	std::vector<ID3D11RenderTargetView*> RenderTargetViews;
-	std::vector<ID3D11ShaderResourceView*> ShaderResourceViews;
 	std::vector<float4> ClearColors;
 
 	// std::vector<ID3D11RenderTargetView*> RenderTargetViews;

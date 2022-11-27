@@ -1,6 +1,9 @@
 #include "PreCompile.h"
 #include "ContentsBlur.h"
 
+std::weak_ptr<ContentsBlur> ContentsBlur::msptrContentsBlur;
+BlurInfo ContentsBlur::mBlurInfo = { 0, };
+
 ContentsBlur::ContentsBlur()
 {
 }
@@ -16,9 +19,11 @@ void ContentsBlur::EffectInit()
 
 	InitializeBlurInfo();
 
-	mAppliedRenderUnit.SetPipeLine("ContentsBlur");
 
-	// msptrRenderTargetForBlur->GetShaderResources().SetConstantBufferLink("BlurInfo", mBlurInfo);
+	mAppliedRenderUnit.SetMesh("FullRect");
+	// mAppliedRenderUnit.SetPipeLine("Blur");
+	mAppliedRenderUnit.SetPipeLine("ContentsBlur");
+	mAppliedRenderUnit.ShaderResources.SetConstantBufferLink("BlurInfo", mBlurInfo);
 }
 
 void ContentsBlur::Effect(std::shared_ptr<GameEngineRenderTarget> _sptrRenderTarget)
@@ -27,7 +32,6 @@ void ContentsBlur::Effect(std::shared_ptr<GameEngineRenderTarget> _sptrRenderTar
 	// msptrRenderTargetForBlur을 모두 지우고, _sptrRenderTarget의 그림을 그려라.
 
 	mAppliedRenderUnit.ShaderResources.SetTexture("Tex", msptrRenderTargetForBlur->GetRenderTargetTexture(0));
-	mAppliedRenderUnit.ShaderResources.SetConstantBufferLink("BlurInfo", mBlurInfo);
 	// msptrRenderTargetForBlur에 그려진 그림을 mAppliedRenderUnit의 셰이더 리소스로 세팅함. (셰이더가 적용되게 하기 위함.)
 
 	_sptrRenderTarget->Clear();
@@ -46,8 +50,8 @@ void ContentsBlur::SetBlurInfo(unsigned int _uBlurType, unsigned int _uAppliedCo
 
 void ContentsBlur::InitializeBlurInfo(void)
 {
-	mBlurInfo.muAppliedType = BlurType::eVerticalAndHorizontal;
-	mBlurInfo.muAppliedCount = 1u;
+	mBlurInfo.muAppliedType = BlurType::eNoBlur;
+	mBlurInfo.muAppliedCount = 0u;
 
 	mBlurInfo.mfRadius = 0.f;
 

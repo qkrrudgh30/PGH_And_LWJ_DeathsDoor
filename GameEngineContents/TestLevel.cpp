@@ -2,6 +2,7 @@
 #include "TestLevel.h"
 #include "Hall.h"
 #include "ContentsBlur.h"
+#include "TestActor.h"
 
 TestLevel::TestLevel() 
 {
@@ -25,16 +26,16 @@ void TestLevel::LevelStartEvent()
 	}
 #pragma endregion
 
-	CreateActor<Hall>(); // Test Code.
+	CreateActor<Hall>(); 
+	CreateActor<TestActor>(); 
 
-	msptrContentsBlur = GetMainCamera()->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
-	// msptrContentsBlur->SetBlurInfo(BlurType::eVerticalAndHorizontal, 0u);
+	ContentsBlur::GetBlurInstance();
+	// GEngine::GetCurrentLevel()->GetUICamera()->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
 
 }
 
 void TestLevel::Update(float _DeltaTime) 
 {
-	int a = 100;
 }
 
 void TestLevel::End() {}

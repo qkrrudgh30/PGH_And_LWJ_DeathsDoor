@@ -20,13 +20,17 @@ GameEngineLevel::GameEngineLevel()
 		CameraActor->GetCameraComponent()->SetProjectionMode(CAMERAPROJECTIONMODE::Orthographic);
 		CameraActor->GetCameraComponent()->SetCameraOrder(CAMERAORDER::MAINCAMERA);
 	}
-
+#pragma region TemporaryCode
+	
 	{
 		std::weak_ptr<GameEngineCameraActor> wptrBlurCameraActor = CreateActor<GameEngineCameraActor>();
 		wptrBlurCameraActor.lock()->GetTransform().SetLocalPosition({ 0.0f, 0.0f, -100.0f });
 		wptrBlurCameraActor.lock()->GetCameraComponent()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
 		wptrBlurCameraActor.lock()->GetCameraComponent()->SetCameraOrder(CAMERAORDER::USER0);
 	}
+
+#pragma endregion
+
 
 	{
 		std::shared_ptr<GameEngineCameraActor> CameraActor = CreateActor<GameEngineCameraActor>();
@@ -150,6 +154,16 @@ std::shared_ptr<GameEngineCameraActor> GameEngineLevel::GetMainCameraActor()
 GameEngineTransform& GameEngineLevel::GetUICameraActorTransform()
 {
 	return Cameras[static_cast<int>(CAMERAORDER::UICAMERA)]->GetActor()->GetTransform();
+}
+
+std::shared_ptr<GameEngineCameraActor> GameEngineLevel::GetBlurCameraActor()
+{
+	return Cameras[static_cast<int>(CAMERAORDER::USER0)]->GetActor<GameEngineCameraActor>();
+}
+
+GameEngineTransform& GameEngineLevel::GetBlurCameraActorTransform()
+{
+	return Cameras[static_cast<int>(CAMERAORDER::USER0)]->GetActor<GameEngineCameraActor>()->GetTransform();
 }
 
 

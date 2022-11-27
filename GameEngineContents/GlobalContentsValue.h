@@ -92,6 +92,7 @@ enum
 
 enum BlurType
 {
+	eNoBlur = 0,
 	eVertical = 1,
 	eHorizontal = 2,
 	eVerticalAndHorizontal = 3,
