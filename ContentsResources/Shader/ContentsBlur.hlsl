@@ -55,16 +55,27 @@ float4 ContentsBlur_PS(Output _Input) : SV_Target0
         return Result;
     }
     
-    
     if (1u == muAppliedType || 3u == muAppliedType)
     {
         for (uint count = 0; count <= muAppliedCount; ++count)
         {
+            float4 f4NeighborColorSum = { 0.f, 0.f, 0.f, 1.f };
+            
             for (uint i = 0; i <= 4; ++i)
             {
-                Result += Tex.Sample(POINTWRAP, UVCurrentPos) * GaussianBlur1D[i];
+                // Result += Tex.Sample(POINTWRAP, UVCurrentPos) * GaussianBlur1D[i];
+                
+                f4NeighborColorSum.r += ((Tex.Sample(POINTWRAP, UVCurrentPos)).r * GaussianBlur1D[i]);
+                f4NeighborColorSum.g += ((Tex.Sample(POINTWRAP, UVCurrentPos)).g * GaussianBlur1D[i]);
+                f4NeighborColorSum.b += ((Tex.Sample(POINTWRAP, UVCurrentPos)).b * GaussianBlur1D[i]);
+                
                 UVCurrentPos.x += UVSize.x;
             }
+            
+            Result.r = f4NeighborColorSum.r;
+            Result.g = f4NeighborColorSum.g;
+            Result.b = f4NeighborColorSum.b;
+            
             UVCurrentPos.x = UVStartPos.x;
         }
     }
@@ -73,11 +84,23 @@ float4 ContentsBlur_PS(Output _Input) : SV_Target0
     {
         for (uint count = 0; count <= muAppliedCount; ++count)
         {
+            float4 f4NeighborColorSum = { 0.f, 0.f, 0.f, 1.f };
+            
             for (uint i = 0; i <= 4; ++i)
             {
-                Result += Tex.Sample(POINTWRAP, UVCurrentPos) * GaussianBlur1D[i];
+                // Result += Tex.Sample(POINTWRAP, UVCurrentPos) * GaussianBlur1D[i];
+                
+                f4NeighborColorSum.r += ((Tex.Sample(POINTWRAP, UVCurrentPos)).r * GaussianBlur1D[i]);
+                f4NeighborColorSum.g += ((Tex.Sample(POINTWRAP, UVCurrentPos)).g * GaussianBlur1D[i]);
+                f4NeighborColorSum.b += ((Tex.Sample(POINTWRAP, UVCurrentPos)).b * GaussianBlur1D[i]);
+                
                 UVCurrentPos.y += UVSize.y;
             }
+            
+            Result.r = f4NeighborColorSum.r;
+            Result.g = f4NeighborColorSum.g;
+            Result.b = f4NeighborColorSum.b;
+            
             UVCurrentPos.y = UVStartPos.y;
         }
     }
