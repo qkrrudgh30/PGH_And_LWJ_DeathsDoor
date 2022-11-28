@@ -29,10 +29,12 @@ void Tower::Start()
 
 
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
+
+
 	FBXAnimationRenderer->SetFBXMesh("Tower.fbx", "TextureAnimation");
+	
 
-
-	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 0.005f, 0.005f, 0.005f });
+	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 1.005f, 1.005f, 1.005f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 225.f,0.f });
 
 	Event.ResourcesName = "Tower_Laser.FBX";
