@@ -31,8 +31,17 @@ void Tower::Start()
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
 
 
-	FBXAnimationRenderer->SetFBXMesh("Tower.fbx", "TextureAnimation");
 	
+	for (size_t i = 0; i < 11; ++i) // 
+	{
+		if (5 == i || 6 == i || 8 == i)
+		{
+			// FBXAnimationRenderer->SetFBXMesh("Tower.fbx", "TextureAnimation", 0);
+			continue;
+		}
+		FBXAnimationRenderer->SetFBXMesh("Tower.fbx", "TextureAnimation", i);
+	}
+
 
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 1.005f, 1.005f, 1.005f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 225.f,0.f });
