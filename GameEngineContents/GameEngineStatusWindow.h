@@ -1,5 +1,5 @@
 #pragma once
-#include "GameEngineGUI.h"
+#include <GameEngineCore/GameEngineGUI.h>
 
 class GameEngineImageShotWindow : public GameEngineGUIWindow
 {
@@ -18,6 +18,9 @@ public:
 // Ό³Έν :
 class GameEngineStatusWindow : public GameEngineGUIWindow
 {
+public:
+	static bool IsHost;
+
 public:
 	// constrcuter destructer
 	GameEngineStatusWindow();

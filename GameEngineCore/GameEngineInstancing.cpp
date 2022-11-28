@@ -80,7 +80,7 @@ std::list<GameEngineInstancing::InstancingData>& GameEngineInstancing::CreateIns
 	{
 		if (std::string::npos != Start->first.find("INST_"))
 		{
-			Start->second.Res = GameEngineStructuredBuffer::Create(Start->second.Res->GetShaderDesc(), MaxInstancingCount);
+			Start->second.Res = GameEngineStructuredBuffer::Create(Start->second.Res->GetShaderDesc(), static_cast<int>(MaxInstancingCount));
 			Start->second.Resize(MaxInstancingCount);
 			Start->second.Bind();
 		}

@@ -41,21 +41,20 @@ void ContentsBlur::Effect(std::shared_ptr<GameEngineRenderTarget> _sptrRenderTar
 
 }
 
-void ContentsBlur::SetBlurInfo(unsigned int _uBlurType, unsigned int _uAppliedCount, float _fRadius, int _iIsUnityTexture)
+void ContentsBlur::SetBlurInfo(unsigned int _uOnOff, unsigned int _uAppliedArea, float _fIntence)
 {
-	mBlurInfo.muAppliedType = _uBlurType;
-	mBlurInfo.muAppliedCount = _uAppliedCount;
-	mBlurInfo.mfRadius = _fRadius;
+	mBlurInfo.muOnOff = _uOnOff;
+	mBlurInfo.muAppliedArea = _uAppliedArea;
+	mBlurInfo.mfIntence = _fIntence;
 }
 
 void ContentsBlur::InitializeBlurInfo(void)
 {
-	mBlurInfo.muAppliedType = BlurType::eNoBlur;
-	mBlurInfo.muAppliedCount = 0u;
+	mBlurInfo.muOnOff = 0u;
+	mBlurInfo.muAppliedArea = 3u;
+	mBlurInfo.mfIntence = 0.f;
 
-	mBlurInfo.mfRadius = 0.f;
-
-	mBlurInfo.mf4WindowSize.x = GameEngineWindow::GetInst()->GetScale().x;
-	mBlurInfo.mf4WindowSize.y = GameEngineWindow::GetInst()->GetScale().y;
+	mBlurInfo.mf4WindowSize.x = GameEngineWindow::GetScale().x;
+	mBlurInfo.mf4WindowSize.y = GameEngineWindow::GetScale().y;
 }
 

@@ -37,6 +37,9 @@
     <Filter Include="Thread">
       <UniqueIdentifier>{62483e24-254f-455b-876f-f083ff7adccc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Server">
+      <UniqueIdentifier>{b0e47173-069c-4f4b-929e-88b937d7825d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameEngineDebug.cpp">
@@ -92,6 +95,15 @@
     </ClCompile>
     <ClCompile Include="GameEngineThread.cpp">
       <Filter>Thread</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineNetServer.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineNet.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineNetClient.cpp">
+      <Filter>Server</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -154,6 +166,15 @@
     </ClInclude>
     <ClInclude Include="GameEngineThread.h">
       <Filter>Thread</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineNetServer.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineNet.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GameEngineNetClient.h">
+      <Filter>Server</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

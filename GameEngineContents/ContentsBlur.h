@@ -4,10 +4,10 @@
 
 struct BlurInfo
 {
-	unsigned int	muAppliedType;
-	unsigned int	muAppliedCount;
-	float			mfRadius;
-	float4			mf4WindowSize;
+	unsigned int	muOnOff;
+	unsigned int	muAppliedArea;
+	float           mfIntence;
+	float4          mf4WindowSize;
 };
 
 // Ό³Έν :
@@ -27,7 +27,7 @@ public:
 	virtual void EffectInit();
 	virtual void Effect(std::shared_ptr<GameEngineRenderTarget> _sptrRenderTarget);
 
-	static void SetBlurInfo(unsigned int _uBlurType, unsigned int _uAppliedCount = 1u, float _fRadius = 0.f, int _iIsUnityTexture = 0);
+	static void SetBlurInfo(unsigned int _uOnOff, unsigned int _uAppliedArea = 3u, float _fIntence = 0.f);
 
 	static std::weak_ptr<ContentsBlur> GetBlurInstance(void) 
 	{ 

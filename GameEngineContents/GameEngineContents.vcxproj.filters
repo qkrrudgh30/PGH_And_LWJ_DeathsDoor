@@ -323,6 +323,9 @@
     <ClInclude Include="ContentsBlur.h">
       <Filter>95.PostProcessEffects</Filter>
     </ClInclude>
+    <ClInclude Include="GameEngineStatusWindow.h">
+      <Filter>97.Core</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -488,6 +491,9 @@
     </ClCompile>
     <ClCompile Include="ContentsBlur.cpp">
       <Filter>95.PostProcessEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameEngineStatusWindow.cpp">
+      <Filter>97.Core</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

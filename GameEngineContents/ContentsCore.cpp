@@ -11,6 +11,7 @@
 #include "GameEngineContents/TestLevel.h"
 #include "GameEngineContents/EditLevel.h"
 #include "GameEngineContents/EditGUIWindow.h"
+#include "GameEngineStatusWindow.h"
 
 #pragma comment(lib, "GameEngineBase.lib")
 

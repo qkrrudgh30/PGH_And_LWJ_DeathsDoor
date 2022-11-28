@@ -413,7 +413,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			//GEngine::GetCurrentLevel()->GetBlurCamera()->;
 			{
 				ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "Blur");
-				ImGui::BeginChild("##colors", ImVec2(400, 130), true, ImGuiWindowFlags_NavFlattened);
+				ImGui::BeginChild("##colors", ImVec2(400, 100), true, ImGuiWindowFlags_NavFlattened);
 
 #pragma region ShowRendertarget
 
@@ -436,44 +436,48 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 #pragma endregion
 
 				static bool s_bAnyChanges = false;
-				static bool s_bVertical = false;
-				static bool s_bHorizontal = false;
-				static int s_iPrevBlurType = 0;
-				static int s_iCurrBlurType = 0;
-				s_bAnyChanges |= ImGui::Checkbox("Vertical", &s_bVertical);
-				s_bAnyChanges |= ImGui::Checkbox("Horizontal", &s_bHorizontal);
 
-				s_iCurrBlurType = true == s_bVertical ? s_iCurrBlurType + 1 : s_iCurrBlurType;
-				s_iCurrBlurType = true == s_bHorizontal ? s_iCurrBlurType + 1 : s_iCurrBlurType;
+				//static bool s_bVertical = false;
+				//static bool s_bHorizontal = false;
+				static bool s_bOnOffBlur = false;
+				static unsigned int s_uOnOff = 0;
+				//static int s_iCurrBlurType = 0;
+				//s_bAnyChanges |= ImGui::Checkbox("Vertical", &s_bVertical);
+				//s_bAnyChanges |= ImGui::Checkbox("Horizontal", &s_bHorizontal);
+				s_bAnyChanges |= ImGui::Checkbox("On/Off blur", &s_bOnOffBlur);
+				s_uOnOff = true == s_bOnOffBlur ? 1u : 0u;
 
-				static int s_iPrevAppliedCount = 0u;
-				static int s_iCurrAppliedCount = 0u;
-				s_bAnyChanges |= ImGui::InputInt("Applied count", &s_iCurrAppliedCount);
+				//if (false == s_bVertical && false == s_bHorizontal) { s_iCurrBlurType = 0; }
+				//else if (true == s_bVertical && false == s_bHorizontal) { s_iCurrBlurType = 1; }
+				//else if (false == s_bVertical && true == s_bHorizontal) { s_iCurrBlurType = 2; }
+				//else if (true == s_bVertical && true == s_bHorizontal) { s_iCurrBlurType = 3; }
 
-				static float s_fPrevRadius = 0.f;
-				static float s_fCurrRadius = 0.f;
-				s_bAnyChanges |= ImGui::InputFloat("Applied radius", &s_fCurrRadius);
+				static int s_iCurrAppliedArea = 3;
+				s_bAnyChanges |= ImGui::InputInt("Applied area", &s_iCurrAppliedArea, 2);
+
+				if (s_iCurrAppliedArea < 3) { s_iCurrAppliedArea = 3; }
+				if (7 < s_iCurrAppliedArea) { s_iCurrAppliedArea = 7; }
+
+				static float s_fCurrIntence = 0.f;
+				s_bAnyChanges |= ImGui::InputFloat("Intence", &s_fCurrIntence, 1.f);
+
+				if (s_fCurrIntence < 0) { s_fCurrIntence = 0; }
+				if (3 == s_iCurrAppliedArea && 15.f < s_fCurrIntence) { s_fCurrIntence = 15.f; }
+				if (5 == s_iCurrAppliedArea && 272.f < s_fCurrIntence) { s_fCurrIntence = 272.f; }
+				if (7 == s_iCurrAppliedArea && 1000.f < s_fCurrIntence) { s_fCurrIntence = 1000.f; }
 
 				if (true == s_bAnyChanges)
 				{
-					ContentsBlur::SetBlurInfo(s_iCurrBlurType, static_cast<unsigned int>(s_iCurrAppliedCount), s_fCurrRadius);
+					ContentsBlur::SetBlurInfo(s_uOnOff, s_iCurrAppliedArea, s_fCurrIntence);
 				}
 
 				s_bAnyChanges = false;
 
-				// if (s_iPrevBlurType != s_iCurrBlurType || s_iPrevAppliedCount != s_iCurrAppliedCount || s_fPrevRadius != s_fCurrRadius)
-				// {
-				// 	ContentsBlur::SetBlurInfo(s_iCurrBlurType, static_cast<unsigned int>(s_iPrevAppliedCount), s_fPrevRadius);
-				// }
-
-				s_iPrevBlurType = s_iCurrBlurType;
-				s_iCurrBlurType = 0;
-				// s_iPrevAppliedCount = s_iCurrAppliedCount;
-				// s_iCurrAppliedCount = 0;
-				// s_fPrevRadius = s_fCurrRadius;
-				// s_fCurrRadius = 0.f;
-
 				ImGui::EndChild();
+			}
+
+			{
+
 			}
 			
 

@@ -1,5 +1,11 @@
 #pragma once
 
+#include <WS2tcpip.h> // inet_pton 함수를 사용하기 위한 헤더
+#include <WinSock2.h>
+#include <stdint.h>
+#include <sstream>
+#include <Windows.h>
+
 // std
 #include <string>
 #include <string_view>
@@ -9,8 +15,6 @@
 #include <set>
 #include <vector>
 #include <chrono>
-
-#include <Windows.h>
 
 #include <d3d11_4.h>
 #include <d3dcompiler.h>

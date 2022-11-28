@@ -15,14 +15,40 @@ struct Output
 
 cbuffer BlurInfo : register(b1)
 {
-    uint muAppliedType;
-    uint muAppliedCount;
-    float mfRadius;
+    uint muOnOff;
+    uint muAppliedArea;
+    float mfIntence;
     float4 mf4WindowSize;
 }
 
-static float GaussianBlur1D[5] = { 0.0545f, 0.2442f, 0.4026f, 0.2442f, 0.0545f };
+// static float GaussianBlur1D[5] = { 0.0545f, 0.2442f, 0.4026f, 0.2442f, 0.0545f };
 // static float GaussianBlur1D[5] = { 6.f, 24.f, 36.f, 24.f, 6.f };
+static float GaussianBlur7x7[7][7] =
+{
+    { 0,  0,  1,   2,  1,  0, 0 }, // 3
+    { 0,  3, 13,  22, 13,  3, 0 }, // 54
+    { 1, 13, 59,  97, 59, 13, 1 }, // 243
+    { 2, 22, 97, 159, 97, 22, 2 }, // 401
+    { 1, 13, 59,  97, 59, 13, 1 }, // 243
+    { 0,  3, 13,  22, 13,  3, 0 }, // 54
+    { 0,  0,  1,   2,  1,  0, 0 }  // 3
+};
+
+static float GaussianBlur5x5[5][5] =
+{
+    { 1,  4,  7,  4, 1 }, // 17
+    { 4, 16, 26, 16, 4 }, // 66
+    { 7, 26, 41, 26, 7 }, // 107
+    { 4, 16, 26, 16, 4 }, // 66
+    { 1,  4,  7,  4, 1 }  // 17
+};
+
+static float GaussianBlur3x3[3][3] =
+{
+    { 1, 2, 1},
+    { 2, 4, 2},    
+    { 1, 2, 1}
+};
 
 Output ContentsBlur_VS(Input _Input)
 {
@@ -41,78 +67,63 @@ SamplerState POINTWRAP : register(s0);
 
 float4 ContentsBlur_PS(Output _Input) : SV_Target0
 {    
-    float2 UVSize = float2(1.f / mf4WindowSize.x, 1.f / mf4WindowSize.y);
-    float2 UVCenterPos = _Input.Tex.xy;
-    float2 UVStartPos = UVCenterPos + (-UVSize * 2.f);
-    float2 UVCurrentPos = UVStartPos;
+    float2 f2UVSize = float2(1.f / mf4WindowSize.x, 1.f / mf4WindowSize.y);
+    float2 f2UVCenterPos = _Input.Tex.xy;
+    float2 f2UVStartPos = f2UVCenterPos + (-f2UVSize * 2.f);
+    float2 f2UVCurrentPos = f2UVStartPos;
+    float4 f4Result = (float) 0.f;    
     
-    float4 Result = (float) 0.f;    
-    
-    if (0u == muAppliedType || 0u == muAppliedCount)
+    if (0u == muOnOff)
     {
-        Result = Tex.Sample(POINTWRAP, _Input.Tex.xy);
+        f4Result = Tex.Sample(POINTWRAP, _Input.Tex.xy);
+        return f4Result;
+    }
+    
+    for (int y = 0; y < muAppliedArea; ++y)
+    {
+        for (int x = 0; x < muAppliedArea; ++x)
+        {
+            if (3 == muAppliedArea)
+            {
+                f4Result += Tex.Sample(POINTWRAP, f2UVCurrentPos) * GaussianBlur3x3[y][x];
+            }
+            if (5 == muAppliedArea)
+            {
+                f4Result += Tex.Sample(POINTWRAP, f2UVCurrentPos) * GaussianBlur5x5[y][x];
+            }
+            if (7 == muAppliedArea)
+            {
+                f4Result += Tex.Sample(POINTWRAP, f2UVCurrentPos) * GaussianBlur7x7[y][x];
+            }
         
-        return Result;
-    }
-    
-    if (1u == muAppliedType || 3u == muAppliedType)
-    {
-        for (uint count = 0; count <= muAppliedCount; ++count)
-        {
-            float4 f4NeighborColorSum = { 0.f, 0.f, 0.f, 1.f };
-            
-            for (uint i = 0; i <= 4; ++i)
-            {
-                // Result += Tex.Sample(POINTWRAP, UVCurrentPos) * GaussianBlur1D[i];
-                
-                f4NeighborColorSum.r += ((Tex.Sample(POINTWRAP, UVCurrentPos)).r * GaussianBlur1D[i]);
-                f4NeighborColorSum.g += ((Tex.Sample(POINTWRAP, UVCurrentPos)).g * GaussianBlur1D[i]);
-                f4NeighborColorSum.b += ((Tex.Sample(POINTWRAP, UVCurrentPos)).b * GaussianBlur1D[i]);
-                
-                UVCurrentPos.x += UVSize.x;
-            }
-            
-            Result.r = f4NeighborColorSum.r;
-            Result.g = f4NeighborColorSum.g;
-            Result.b = f4NeighborColorSum.b;
-            
-            UVCurrentPos.x = UVStartPos.x;
+            f2UVCurrentPos.x += f2UVSize.x;
         }
+        
+        f2UVCurrentPos.x = f2UVStartPos.x;
+        f2UVCurrentPos.y += f2UVSize.y;
     }
-     
-    if (2u == muAppliedType || 3u == muAppliedType)
+    
+    if (3 == muAppliedArea)
     {
-        for (uint count = 0; count <= muAppliedCount; ++count)
-        {
-            float4 f4NeighborColorSum = { 0.f, 0.f, 0.f, 1.f };
-            
-            for (uint i = 0; i <= 4; ++i)
-            {
-                // Result += Tex.Sample(POINTWRAP, UVCurrentPos) * GaussianBlur1D[i];
-                
-                f4NeighborColorSum.r += ((Tex.Sample(POINTWRAP, UVCurrentPos)).r * GaussianBlur1D[i]);
-                f4NeighborColorSum.g += ((Tex.Sample(POINTWRAP, UVCurrentPos)).g * GaussianBlur1D[i]);
-                f4NeighborColorSum.b += ((Tex.Sample(POINTWRAP, UVCurrentPos)).b * GaussianBlur1D[i]);
-                
-                UVCurrentPos.y += UVSize.y;
-            }
-            
-            Result.r = f4NeighborColorSum.r;
-            Result.g = f4NeighborColorSum.g;
-            Result.b = f4NeighborColorSum.b;
-            
-            UVCurrentPos.y = UVStartPos.y;
-        }
+        f4Result /= (16.f - mfIntence);
+    }
+    if (5 == muAppliedArea)
+    {
+        f4Result /= (273.f - mfIntence);
+    }
+    if (7 == muAppliedArea)
+    {
+        f4Result /= (1001.f - mfIntence);
     }
     
-    Result.r += 1e-2f;
-    Result.g += 1e-2f;
-    Result.b += 1e-2f;
+    f4Result.r += 1e-2f;
+    f4Result.g += 1e-2f;
+    f4Result.b += 1e-2f;
     
-    if (Result.a <= 0.0f)
+    if (f4Result.a <= 0.0f)
     {
         clip(-1);
     }
     
-    return Result;
+    return f4Result;
 }

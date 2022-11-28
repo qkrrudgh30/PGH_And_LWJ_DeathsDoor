@@ -206,6 +206,7 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="GameEngineStatusWindow.h" />
     <ClInclude Include="GlobalContentsValue.h">
       <SubType>
       </SubType>
@@ -405,6 +406,7 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="GameEngineStatusWindow.cpp" />
     <ClCompile Include="GlobalContentsValue.cpp">
       <SubType>
       </SubType>

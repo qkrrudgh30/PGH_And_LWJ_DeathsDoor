@@ -58,6 +58,11 @@ public:
 		return Cameras[static_cast<int>(CAMERAORDER::UICAMERA)];
 	}
 
+	std::shared_ptr<GameEngineCamera> GetCamera(CAMERAORDER _Order)
+	{
+		return Cameras[static_cast<int>(_Order)];
+	}
+
 	std::shared_ptr<GameEngineCameraActor> GetMainCameraActor();
 
 	GameEngineTransform& GetMainCameraActorTransform();
@@ -65,21 +70,6 @@ public:
 	std::shared_ptr<GameEngineCameraActor> GetUICameraActor();
 
 	GameEngineTransform& GetUICameraActorTransform();
-
-#pragma region TemporaryCode
-
-	std::shared_ptr<GameEngineCamera> GetBlurCamera()
-	{
-		return Cameras[static_cast<int>(CAMERAORDER::USER0)];
-	}
-
-	std::shared_ptr<GameEngineCameraActor> GetBlurCameraActor();
-	
-
-	GameEngineTransform& GetBlurCameraActorTransform();
-
-#pragma endregion
-
 
 	//template<typename ReturnType, typename ActorType, typename GroupIndexType>
 	//ReturnType* CreateActor(GroupIndexType _ObjectGroupIndex)
@@ -148,11 +138,6 @@ public:
 	}
 
 	void AllClear();
-
-protected:
-	
-
-
 
 private:
 	void PushActor(std::shared_ptr < GameEngineActor> _Actor, int _ObjectGroupIndex);

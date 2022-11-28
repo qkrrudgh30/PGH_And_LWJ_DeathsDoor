@@ -129,9 +129,6 @@
     <ClInclude Include="imgui.h">
       <Filter>GUI\IMGUI</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineStatusWindow.h">
-      <Filter>GUI\EngineGUIWindow</Filter>
-    </ClInclude>
     <ClInclude Include="GameEngineUIRenderer.h">
       <Filter>Object\Component\Rendering\Content</Filter>
     </ClInclude>
@@ -311,9 +308,6 @@
     </ClCompile>
     <ClCompile Include="imgui_draw.cpp">
       <Filter>GUI\IMGUI</Filter>
-    </ClCompile>
-    <ClCompile Include="GameEngineStatusWindow.cpp">
-      <Filter>GUI\EngineGUIWindow</Filter>
     </ClCompile>
     <ClCompile Include="GameEngineUIRenderer.cpp">
       <Filter>Object\Component\Rendering\Content</Filter>
