@@ -3,6 +3,9 @@
 #include "Player.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
+
+#include "GameEngineBase/GameEngineRandom.h"
+
 #include "Spike.h"
 Tower::Tower() :
 	StartPostion()
@@ -29,31 +32,111 @@ void Tower::Start()
 
 
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
-
-
-	
-	for (size_t i = 0; i < 11; ++i) // 
+	for (size_t i = 0; i < 10; ++i) 
 	{
-		if (5 == i || 6 == i || 8 == i)
+		if (8 == i ||  5 == i || 6 == i )
 		{
-			// FBXAnimationRenderer->SetFBXMesh("Tower.fbx", "TextureAnimation", 0);
+			
 			continue;
 		}
 		FBXAnimationRenderer->SetFBXMesh("Tower.fbx", "TextureAnimation", i);
 	}
 
 
-	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 1.005f, 1.005f, 1.005f });
-	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 225.f,0.f });
+	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 100.5f, 100.5f, 100.5f });
+	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 225.f,0.f });
 
-	Event.ResourcesName = "Tower_Laser.FBX";
-	Event.Loop = true;
-	Event.Inter = 0.2f;
-	FBXAnimationRenderer->CreateFBXAnimation("Tower_Laser", Event);
+	{
+		Event.ResourcesName = "Tower_Idle.FBX";
+		Event.Loop = true;
+		Event.Inter = 0.05f;
+		FBXAnimationRenderer->CreateFBXAnimation("Tower_Idle", Event);
 
-	FBXAnimationRenderer->ChangeAnimation("Tower_Laser");
+	
+	}
 
-	                                                                                                                                                                     
+
+	{
+		Event.ResourcesName = "Tower_Fall_Start.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.05f;
+		FBXAnimationRenderer->CreateFBXAnimation("Tower_Fall_Start", Event);
+
+
+	}
+
+
+	{
+		Event.ResourcesName = "Tower_Jump.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.05f;
+		FBXAnimationRenderer->CreateFBXAnimation("Tower_Jump", Event);
+		FBXAnimationRenderer->AnimationBindEnd("Tower_Jump", std::bind(&Tower::AniJumpEnd, this, std::placeholders::_1));
+
+
+	}
+
+
+
+	{
+		Event.ResourcesName = "Tower_Laser.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.05f;
+		FBXAnimationRenderer->CreateFBXAnimation("Tower_Laser", Event);
+		FBXAnimationRenderer->AnimationBindEnd("Tower_Laser", std::bind(&Tower::AniLaserEnd, this, std::placeholders::_1));
+
+
+	}
+
+
+	{
+		Event.ResourcesName = "Tower_Laser_E.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.05f;
+		FBXAnimationRenderer->CreateFBXAnimation("Tower_Laser_E", Event);
+		FBXAnimationRenderer->AnimationBindEnd("Tower_Laser_E", std::bind(&Tower::AniLaserEEnd, this, std::placeholders::_1));
+
+
+	}
+
+
+
+	{
+		Event.ResourcesName = "Tower_Slam.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.05f;
+		FBXAnimationRenderer->CreateFBXAnimation("Tower_Slam", Event);
+		FBXAnimationRenderer->AnimationBindEnd("Tower_Slam", std::bind(&Tower::AniSlamEnd, this, std::placeholders::_1));
+
+
+	}
+
+
+
+
+	{
+		Event.ResourcesName = "Tower_Snap.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.05f;
+		FBXAnimationRenderer->CreateFBXAnimation("Tower_Snap", Event);
+		FBXAnimationRenderer->AnimationBindEnd("Tower_Snap", std::bind(&Tower::AniSnapEnd, this, std::placeholders::_1));
+
+
+	}
+
+	{
+		Event.ResourcesName = "Tower_Stand.FBX";
+		Event.Loop = true;
+		Event.Inter = 0.05f;
+		FBXAnimationRenderer->CreateFBXAnimation("Tower_Stand", Event);
+
+
+	}
+
+
+
+	FBXAnimationRenderer->ChangeAnimation("Tower_Slam");
+	FBXAnimationRenderer->PauseSwtich();
 
 
 	{
@@ -73,6 +156,10 @@ void Tower::Start()
 	
 	}
 
+	StateManager.CreateStateMember("Start"
+		, std::bind(&Tower::StateStartUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Tower::StateStart, this, std::placeholders::_1)
+	);
 
 
 	StateManager.CreateStateMember("Idle"
@@ -88,10 +175,10 @@ void Tower::Start()
 
 
 
-	StateManager.CreateStateMember("Stun"
-		, std::bind(&Tower::StunUpdate,this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&Tower::StunStart,this, std::placeholders::_1)
-		, std::bind(&Tower::StunEnd,this, std::placeholders::_1)
+	StateManager.CreateStateMember("Laser"
+		, std::bind(&Tower::LaserUpdate,this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Tower::LaserStart,this, std::placeholders::_1)
+		, std::bind(&Tower::LaserEnd,this, std::placeholders::_1)
 	);
 
 
@@ -103,8 +190,14 @@ void Tower::Start()
 		, std::bind(&Tower::AttEnd,this, std::placeholders::_1)
 	);
 
+	StateManager.CreateStateMember("Jump"
+		, std::bind(&Tower::JumpUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Tower::JumpStart, this, std::placeholders::_1)
+		, std::bind(&Tower::JumpEnd, this, std::placeholders::_1)
+	);
 
-	StateManager.ChangeState("Idle");
+
+	StateManager.ChangeState("Start");
 }
 
 void Tower::Update(float _DeltaTime)
@@ -117,7 +210,7 @@ void Tower::Update(float _DeltaTime)
 		{
 
 			m_bstart = true;
-
+			StateManager.ChangeState("Move");
 		}
 	}
 
@@ -145,9 +238,6 @@ void Tower::Update(float _DeltaTime)
 
 
 
-
-
-
 void Tower::MoveStart(const StateInfo& _Info)
 {
 	Player::GetMainPlayer()->m_bTowerCameraCheck = true;
@@ -155,7 +245,7 @@ void Tower::MoveStart(const StateInfo& _Info)
 	float4 PlayerPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
 
 	GetLevel()->GetMainCameraActorTransform().SetWorldPosition({-1185.f,68.f,-1445.f });
-
+	FBXAnimationRenderer->ChangeAnimation("Tower_Slam");
 
 }
 void Tower::MoveEnd(const StateInfo& _Info)
@@ -175,7 +265,7 @@ void Tower::MoveEnd(const StateInfo& _Info)
 }
 void Tower::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-	m_fSpeed += _DeltaTime * 600.f;
+	m_fSpeed += _DeltaTime * 1200.f;
 
 	//GetTransform().SetWorldDownMove(m_fSpeed, _DeltaTime);
 
@@ -190,9 +280,17 @@ void Tower::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 		if (m_fLifeTime >= 5.f)
 		{
 			StateManager.ChangeState("Idle");
+			float4 MyPos = GetTransform().GetWorldPosition();
+			MyPos.y = 25.f;
+			GetTransform().SetWorldPosition(MyPos);
 
 		}
 
+		if(!m_bStartPause)
+		{
+			m_bStartPause = true;
+			FBXAnimationRenderer->PauseSwtich();
+		}
 
 	}
 	else
@@ -202,44 +300,80 @@ void Tower::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 
 }
-
-
-
-void Tower::StunStart(const StateInfo& _Info)
+void Tower::AniSlamEnd(const GameEngineRenderingEvent& _Data)
 {
-	//m_fHitDir = GetTransform().GetWorldPosition() - m_fHitPos;
-	//m_fHitDir = m_fHitDir.Normalize3DReturn();
+
+	FBXAnimationRenderer->ChangeAnimation("Tower_Stand");
+
 }
-void Tower::StunEnd(const StateInfo& _Info)
+
+
+
+
+
+
+
+
+
+void Tower::LaserStart(const StateInfo& _Info)
+{
+	m_bLaserUP = true;
+	m_bLaserDown = false;
+	m_fLaserMoveTime = 0.f;
+}
+void Tower::LaserEnd(const StateInfo& _Info)
 {
 
 	
 
 }
-void Tower::StunUpdate(float _DeltaTime, const StateInfo& _Info)
+void Tower::LaserUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-
-	//hitTime += _DeltaTime;
-
-	//if (hitTime <= 0.2f)
-	//{
-	////	hitTime = 0.f;
-	//	GetTransform().SetWorldMove(m_fHitDir * 500.f * _DeltaTime);
-	////	StateManager.ChangeState("Idle");
-	//}
-	//else if (hitTime >= 0.5f)
-	//{
-	//	hitTime = 0.f;
-	//	StateManager.ChangeState("Idle");
-	//}
-	//
-
-	
+	m_fLaserMoveTime += _DeltaTime;
 
 
+	if (m_bLaserUP)
+	{
+		GetTransform().SetWorldUpMove(35.f, _DeltaTime);
+
+
+		if (m_fLaserMoveTime >= 2.f)
+		{
+			m_bLaserUP = false;
+			m_fLaserMoveTime = 0.f;
+			FBXAnimationRenderer->ChangeAnimation("Tower_Laser");
+		}
+	}
+
+	if (m_bLaserDown)
+	{
+
+		GetTransform().SetWorldDownMove(55.f, _DeltaTime);
+		float4 MyPos = GetTransform().GetWorldPosition();
+		if (MyPos.y <= 5.f)
+		{
+			m_bLaserDown = false;
+			
+		}
+
+	}
 
 }
 	 
+void Tower::AniLaserEnd(const GameEngineRenderingEvent& _Data)
+{
+	m_bLaserDown = true;
+	m_bLaserUP = false;
+	m_fLaserMoveTime = 0.f;
+	FBXAnimationRenderer->ChangeAnimation("Tower_Laser_E");
+
+
+}
+
+void Tower::AniLaserEEnd(const GameEngineRenderingEvent& _Data)
+{
+	StateManager.ChangeState("Idle");
+}
 
 
 
@@ -247,75 +381,127 @@ void Tower::StunUpdate(float _DeltaTime, const StateInfo& _Info)
 
 void Tower::AttStart(const StateInfo& _Info)
 {
-	m_bhitCheck = true;
+	FBXAnimationRenderer->ChangeAnimation("Tower_Snap");
 }
 void Tower::AttEnd(const StateInfo& _Info)
 {
-	m_bhitCheck = false;
+	
+
 }
 void Tower::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-	m_fHitTime += _DeltaTime;
+	
 
-	if (m_fHitTime >= 1.f)
-	{
-		m_fHitTime = 0.f;
-		StateManager.ChangeState("Idle");
-
-	}
-
-
-	//삭제 예정
-	if (m_bHitCheck)
-	{
-		StateManager.ChangeState("Stun");
-		m_bHitCheck = false;
-	}
 
 }
 
+
+
+
+void Tower::JumpStart(const StateInfo& _Info)
+{
+	FBXAnimationRenderer->ChangeAnimation("Tower_Jump");
+}
+
+void Tower::JumpEnd(const StateInfo& _Info)
+{
+
+}
+
+void Tower::JumpUpdate(float _DeltaTime, const StateInfo& _Info)
+{
+
+}
+
+
+void Tower::AniJumpEnd(const GameEngineRenderingEvent& _Data)
+{
+
+	StateManager.ChangeState("Idle");
+}
+
+
+
+
+void Tower::AniSnapEnd(const GameEngineRenderingEvent& _Data)
+{
+
+	StateManager.ChangeState("Idle");
+
+}
 
 
 
 void Tower::IdleStart(const StateInfo& _Info)
 {
-
+	FBXAnimationRenderer->ChangeAnimation("Tower_Idle");
+	m_bIdleUpDown = false;
+	m_fUpDownTime = 0.f;
+	AttType = 0;
 }
+
 void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 
+	m_fUpDownTime += _DeltaTime;
 
+	m_fAttCTime += _DeltaTime;
 
-
-	float4 TarGetDir = Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
-
-	float Len = TarGetDir.Length();
-	TarGetDir = TarGetDir.Normalize3DReturn();
-
-
-	if (Len <= 2000.f)
+	if (m_bIdleUpDown)
 	{
-		if(StateManager.GetCurStateStateName() != "Move")
-			StateManager.ChangeState("Att");
+		if (m_fUpDownTime > 1.f)
+		{
+			m_fUpDownTime = 0.f;
+			m_bIdleUpDown = !m_bIdleUpDown;
+		}
+		GetTransform().SetWorldDownMove(25.f, _DeltaTime);
 	}
 	else
 	{
-		if (!m_bstart)
+
+		if (m_fUpDownTime > 1.f)
 		{
-			if (true == StartCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB))
-			{
-
-				m_bstart = true;
-
-			}
+			m_fUpDownTime = 0.f;
+			m_bIdleUpDown = !m_bIdleUpDown;
 		}
 
+
+		GetTransform().SetWorldUpMove(25.f, _DeltaTime);
 	}
 
-	if (m_bstart)
+
+	if (m_fAttCTime >= 3.f)
 	{
-		StateManager.ChangeState("Move");
+		m_fAttCTime = 0.;
+		AttType =  GameEngineRandom::MainRandom.RandomInt(0, 3);
+	//	AttType = 2;
+	}
+
+	
+	if (AttType == 1)
+	{
+		StateManager.ChangeState("Laser");
+		AttType = 0;
+	}
+	else if (AttType == 2)
+	{
+		StateManager.ChangeState("Att");
+		AttType = 0;
+	}
+	else if (AttType == 3)
+	{
+		StateManager.ChangeState("Jump");
+		AttType = 0;
 	}
 
 
+
+}
+
+
+void Tower::StateStart(const StateInfo& _Info)
+{
+}
+void Tower::StateStartUpdate(float _DeltaTime, const StateInfo& _Info)
+{
 }

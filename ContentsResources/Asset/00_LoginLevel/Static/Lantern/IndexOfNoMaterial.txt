@@ -1,0 +1,3 @@
+Mesh Count: 3
+Index of no material: 1
+Appropriate Color: YELLOW

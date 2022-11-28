@@ -9,6 +9,17 @@
 // // dj
 
 // Ό³Έν :
+
+//enum class TowerAttType
+//{
+//	Jump = ,
+//	Laser,
+//	Meteo,
+//	None
+//};
+
+
+
 class Spike;
 class Player;
 class Tower : public UnitBase
@@ -35,6 +46,11 @@ protected:
 	float4 DirPower;
 
 
+
+	void StateStart(const StateInfo& _Info);
+	void StateStartUpdate(float _DeltaTime, const StateInfo& _Info);
+
+
 	void IdleUpdate(float _DeltaTime, const StateInfo& _Info);
 	void IdleStart(const StateInfo& _Info);
 
@@ -44,15 +60,18 @@ protected:
 	void MoveUpdate(float _DeltaTime, const StateInfo& _Info);
 
 
-	void StunStart(const StateInfo& _Info);
-	void StunEnd(const StateInfo& _Info);
-	void StunUpdate(float _DeltaTime, const StateInfo& _Info);
+	void LaserStart(const StateInfo& _Info);
+	void LaserEnd(const StateInfo& _Info);
+	void LaserUpdate(float _DeltaTime, const StateInfo& _Info);
 
 	void AttStart(const StateInfo& _Info);
 	void AttEnd(const StateInfo& _Info);
 	void AttUpdate(float _DeltaTime, const StateInfo& _Info);
 
-
+	void JumpStart(const StateInfo& _Info);
+	void JumpEnd(const StateInfo& _Info);
+	void JumpUpdate(float _DeltaTime, const StateInfo& _Info);
+		 
 
 	void End() {}
 
@@ -61,9 +80,32 @@ protected:
 private:
 	float4 Pos;
 	std::shared_ptr < GameEngineCollision> StartCollision;
+
+	bool m_bStartPause = false;
+	bool m_bIdleUpDown = false;
+	float m_fUpDownTime = 0.f;
+	float m_fAttCTime = 0.f;
+	int AttType = 0;
+
+
+
+	bool m_bLaserUP = false;
+	bool m_bLaserDown = false;
+	float m_fLaserMoveTime = 0.f;
 public : 
 	bool m_bstart = false;
 	std::weak_ptr<Spike> m_cSpike;
+
+
+
+private:
+	void AniSlamEnd(const GameEngineRenderingEvent& _Data);
+	void AniLaserEnd(const GameEngineRenderingEvent& _Data);
+	void AniLaserEEnd(const GameEngineRenderingEvent& _Data);
+	void AniSnapEnd(const GameEngineRenderingEvent& _Data);
+	void AniJumpEnd(const GameEngineRenderingEvent& _Data);
+
+
 
 };
 
