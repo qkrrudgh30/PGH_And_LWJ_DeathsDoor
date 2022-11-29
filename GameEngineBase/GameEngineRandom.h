@@ -1,5 +1,6 @@
 #pragma once
 #include <random>
+#include "GameEngineMath.h"
 
 // 00000000
 // 10110010
@@ -34,6 +35,17 @@ public:
 	{
 		std::uniform_real_distribution<float> Uniform(_Min, _Max);
 		return Uniform(mt_);
+	}
+
+	float4 RandomFloat4(float _Min, float _Max)
+	{
+		float4 Vector;
+		std::uniform_real_distribution<float> Uniform(_Min, _Max);
+		Vector.x = Uniform(mt_);
+		Vector.y = Uniform(mt_);
+		Vector.z = Uniform(mt_);
+		Vector.w = 1.0f;
+		return Vector;
 	}
 
 public:
