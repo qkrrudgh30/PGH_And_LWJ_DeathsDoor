@@ -14,9 +14,24 @@ public:
 	GameEngineThread(std::string _ThreadName, std::function<void(GameEngineThread*)> _CallBack);
 	~GameEngineThread();
 
+	GameEngineThread(const GameEngineThread& _Other) 
+		: Thread()
+		, WorkFunction(nullptr)
+	{
+
+	}
+
+	GameEngineThread(GameEngineThread&& _Other) noexcept
+		: Thread()
+		, WorkFunction(nullptr)
+	{
+		
+	}
+
+
 	// delete Function
-	GameEngineThread(const GameEngineThread& _Other) = delete;
-	GameEngineThread(GameEngineThread&& _Other) noexcept = delete;
+	// GameEngineThread(const GameEngineThread& _Other) = delete;
+	// GameEngineThread(GameEngineThread&& _Other) noexcept = delete;
 	GameEngineThread& operator=(const GameEngineThread& _Other) = delete;
 	GameEngineThread& operator=(GameEngineThread&& _Other) noexcept = delete;
 

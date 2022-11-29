@@ -31,18 +31,18 @@ public:
 
 	static std::weak_ptr<ContentsBlur> GetBlurInstance(void) 
 	{ 
-		if (nullptr == msptrContentsBlur.lock())
+		if (nullptr == mwptrContentsBlur.lock())
 		{
 #pragma region TemporaryCode
 
-			msptrContentsBlur = GEngine::GetCurrentLevel()->GetMainCamera()->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
+			mwptrContentsBlur = GEngine::GetCurrentLevel()->GetMainCamera()->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
 
 #pragma endregion
 
 			// sptrContentsBlur = GEngine::GetCurrentLevel()->GetBlurCamera()->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
 
 		}
-		return msptrContentsBlur; 
+		return mwptrContentsBlur; 
 	}
 
 protected:
@@ -55,7 +55,7 @@ public:
 protected:
 
 private:
-	static std::weak_ptr<ContentsBlur>		msptrContentsBlur;
+	static std::weak_ptr<ContentsBlur>		mwptrContentsBlur;
 	std::shared_ptr<GameEngineRenderTarget>	msptrRenderTargetForBlur;
 	GameEngineRenderUnit					mAppliedRenderUnit;
 	static BlurInfo							mBlurInfo;

@@ -1,5 +1,6 @@
 #pragma once
 #include "GameEngineNet.h"
+#include "GameEngineThread.h"
 // 설명 :
 class GameEngineNetServer : public GameEngineNet
 {
@@ -9,11 +10,12 @@ public:
 	~GameEngineNetServer();
 
 	// delete Function
-	GameEngineNetServer(const GameEngineNetServer& _Other) = delete;
-	GameEngineNetServer(GameEngineNetServer&& _Other) noexcept = delete;
-	GameEngineNetServer& operator=(const GameEngineNetServer& _Other) = delete;
-	GameEngineNetServer& operator=(GameEngineNetServer&& _Other) noexcept = delete;
+	//GameEngineNetServer(const GameEngineNetServer& _Other) = delete;
+	//GameEngineNetServer(GameEngineNetServer&& _Other) noexcept = delete;
+	//GameEngineNetServer& operator=(const GameEngineNetServer& _Other) = delete;
+	//GameEngineNetServer& operator=(GameEngineNetServer&& _Other) noexcept = delete;
 
+	// 이제부터 내가 접속자를 받겠다.
 	void Accept(int Port);
 
 protected:
@@ -29,7 +31,19 @@ private:
 	// SOCKET의 역할은 크게 2가지가 존재하는데.
 	// 1. 내가 어떤 컴퓨터와의 연결이 되어있는지에 대한 핸들
 	// 2. 내가 만든 서버를 대표하는 
+
+	std::atomic<bool> IsRun;
+
 	SOCKET ServerAccpetSocket;
+
+	GameEngineThread AcceptThread;
+
+	std::vector<SOCKET> UserSockets;
+	std::vector<GameEngineThread> UserThreads;
+
+	void AcceptFunction(GameEngineThread* Thread);
+
+	void UserFunction(GameEngineThread* Thread, SOCKET _Socket);
 
 };
 

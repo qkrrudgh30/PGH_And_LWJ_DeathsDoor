@@ -18,9 +18,11 @@ public:
 
 	void Connect(std::string _Ip, int Port);
 
+	int Send(const char* Data, size_t _Size) override;
+
 protected:
 
 private:
-
+	SOCKET SessionSocket;
 };
 

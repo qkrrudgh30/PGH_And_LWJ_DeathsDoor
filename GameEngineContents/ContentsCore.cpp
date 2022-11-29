@@ -32,24 +32,24 @@ void ContentsCore::Start()
 
 #pragma region CreateContentsLevel
 	CreateLevel<LoginLevel>("00_LoginLevel");
-	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("00_LoginLevel", false));
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("00_LOGINLEVEL", false));
 	CreateLevel<HuntingLevel1>("01_HuntingLevel1");
-	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("01_HuntingLevel1", false));
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("01_HUNTINGLEVEL1", false));
 	CreateLevel<HuntingLevel2>("02_HuntingLevel2");
-	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("02_HuntingLevel2", false));
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("02_HUNTINGLEVELl2", false));
 	CreateLevel<HuntingLevel3>("03_HuntingLevel3");
-	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("03_HuntingLevel3", false));
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("03_HUNTINGLEVEL3", false));
 	CreateLevel<HuntingLevel4>("04_HuntingLevel4");
-	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("04_HuntingLevel4", false));
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("04_HUNTINGLEVEL4", false));
 	CreateLevel<HuntingLevel5>("05_HuntingLevel5");
-	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("05_HuntingLevel5", false));
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("05_HUNTINGLEVEL5", false));
 	CreateLevel<BossLevel>("06_BossLevel");
-	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("06_BossLevel", false));
+	ContentsLevel::mmapPrimitiveInitialized.insert(std::make_pair("06_BOSSLEVEL", false));
 	CreateLevel<EditLevel>("07_EditLevel");
 	CreateLevel<TestLevel>("08_TestLevel");
 
 	ChangeLevel("07_EditLevel");
-	ContentsLevel::mstrNextLevelName = "00_LoginLevel";
+	ContentsLevel::mstrNextLevelName = "00_LOGINLEVEL";
 #pragma endregion
 
 #pragma region CreateContentsGUI

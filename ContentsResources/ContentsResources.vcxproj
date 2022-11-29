@@ -138,6 +138,7 @@
     <None Include="Texture\Meta\death_anim_blood.png.meta" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="Shader\ContentsBloom.hlsl" />
     <FxCompile Include="Shader\ContentsBlur.hlsl" />
     <FxCompile Include="Shader\ContentsShader.hlsl" />
     <FxCompile Include="Shader\Fade.hlsl" />

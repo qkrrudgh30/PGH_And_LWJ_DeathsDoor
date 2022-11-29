@@ -58,5 +58,8 @@
     <FxCompile Include="Shader\ContentsShader.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="Shader\ContentsBloom.hlsl">
+      <Filter>Shader\2DShader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

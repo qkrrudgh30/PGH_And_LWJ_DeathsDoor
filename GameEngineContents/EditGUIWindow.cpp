@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "StaticMesh.h"
 #include "ContentsBlur.h"
+#include "ContentsBloom.h"
 
 #include <filesystem>
 #include <fstream>
@@ -410,50 +411,20 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 
 		if (true == ImGui::BeginTabItem("Post Process Effects"))
 		{
-			//GEngine::GetCurrentLevel()->GetBlurCamera()->;
+
 			{
 				ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "Blur");
-				ImGui::BeginChild("##colors", ImVec2(400, 100), true, ImGuiWindowFlags_NavFlattened);
-
-#pragma region ShowRendertarget
-
-				/*if (true == ImGui::TreeNodeEx("Blur Camera Render Target"))
-				{
-					std::shared_ptr<GameEngineRenderTarget> RenderTarget = GEngine::GetCurrentLevel()->GetBlurCamera()->GetCameraRenderTarget();
-
-					float4 f4Scale = GameEngineWindow::GetScale() * 0.2f;
-					ID3D11ShaderResourceView* rptrShaderResourceView = RenderTarget->ShaderResourceViews[1];
-
-					if (true == ImGui::ImageButton(static_cast<ImTextureID>(rptrShaderResourceView), { f4Scale.x, f4Scale.y }))
-					{
-						std::shared_ptr<GameEngineImageShotWindow> NewWindow = GameEngineGUI::CreateGUIWindow<GameEngineImageShotWindow>("ImageShot", nullptr);
-						NewWindow->RenderTextureSetting(static_cast<ImTextureID>(rptrShaderResourceView), { GameEngineWindow::GetScale().x ,GameEngineWindow::GetScale().y });
-					}
-
-					ImGui::TreePop();
-				}*/
-
-#pragma endregion
+				ImGui::BeginChild("##colors1", ImVec2(400, 100), true, ImGuiWindowFlags_NavFlattened);
 
 				static bool s_bAnyChanges = false;
 
-				//static bool s_bVertical = false;
-				//static bool s_bHorizontal = false;
 				static bool s_bOnOffBlur = false;
 				static unsigned int s_uOnOff = 0;
-				//static int s_iCurrBlurType = 0;
-				//s_bAnyChanges |= ImGui::Checkbox("Vertical", &s_bVertical);
-				//s_bAnyChanges |= ImGui::Checkbox("Horizontal", &s_bHorizontal);
 				s_bAnyChanges |= ImGui::Checkbox("On/Off blur", &s_bOnOffBlur);
 				s_uOnOff = true == s_bOnOffBlur ? 1u : 0u;
 
-				//if (false == s_bVertical && false == s_bHorizontal) { s_iCurrBlurType = 0; }
-				//else if (true == s_bVertical && false == s_bHorizontal) { s_iCurrBlurType = 1; }
-				//else if (false == s_bVertical && true == s_bHorizontal) { s_iCurrBlurType = 2; }
-				//else if (true == s_bVertical && true == s_bHorizontal) { s_iCurrBlurType = 3; }
-
 				static int s_iCurrAppliedArea = 3;
-				s_bAnyChanges |= ImGui::InputInt("Applied area", &s_iCurrAppliedArea, 2);
+				s_bAnyChanges |= ImGui::InputInt("Applied area for blur", &s_iCurrAppliedArea, 2);
 
 				if (s_iCurrAppliedArea < 3) { s_iCurrAppliedArea = 3; }
 				if (7 < s_iCurrAppliedArea) { s_iCurrAppliedArea = 7; }
@@ -477,7 +448,41 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			}
 
 			{
+				ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "Bloom");
+				ImGui::BeginChild("##colors2", ImVec2(400, 130), true, ImGuiWindowFlags_NavFlattened);
 
+				static bool s_bAnyChangesForBloom = false;
+
+				static bool s_bOnOffBloom = false;
+				static unsigned int s_uOnOff = 0;
+				s_bAnyChangesForBloom |= ImGui::Checkbox("On/Off Bloom", &s_bOnOffBloom);
+				s_uOnOff = true == s_bOnOffBloom ? 1u : 0u;
+
+				static int s_iAppliedAreaForBloom = 1;
+				s_bAnyChangesForBloom |= ImGui::InputInt("Applied area for bloom", &s_iAppliedAreaForBloom);
+
+				if (s_iAppliedAreaForBloom < 3) { s_iAppliedAreaForBloom = 3; }
+
+				static float s_fLuminanceForBloom = 0.3f;
+				s_bAnyChangesForBloom |= ImGui::InputFloat("Luminance", &s_fLuminanceForBloom, 0.01f);
+
+				if (s_fLuminanceForBloom < 0.f) { s_fLuminanceForBloom = 0.f; }
+				if (1.f <= s_fLuminanceForBloom) { s_fLuminanceForBloom = 1.f; }
+
+				static float s_fIntenceForBloom = 0.f;
+				s_bAnyChangesForBloom |= ImGui::InputFloat("Intence", &s_fIntenceForBloom, 1.f);
+
+				if (s_fIntenceForBloom < 0.f) { s_fIntenceForBloom = 0.f; }
+				if (static_cast<float>(s_iAppliedAreaForBloom) < s_fIntenceForBloom) { s_fIntenceForBloom = static_cast<float>(s_iAppliedAreaForBloom); }
+
+				if (true == s_bAnyChangesForBloom)
+				{
+					ContentsBloom::SetBloomInfo(s_uOnOff, s_iAppliedAreaForBloom, s_fLuminanceForBloom, s_fIntenceForBloom);
+				}
+
+				s_bAnyChangesForBloom = false;
+
+				ImGui::EndChild();
 			}
 			
 

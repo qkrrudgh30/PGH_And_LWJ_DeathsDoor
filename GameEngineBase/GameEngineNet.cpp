@@ -30,3 +30,13 @@ void GameEngineNet::WindowNetStartUp()
 
 	IsStart = true;
 }
+
+int GameEngineNet::Send(SOCKET _Socket, const char* Data, size_t _Size)
+{
+	return send(_Socket, Data, static_cast<int>(_Size), 0);
+}
+
+int GameEngineNet::Send(const char* Data, size_t _Size)
+{
+	return 0;
+}

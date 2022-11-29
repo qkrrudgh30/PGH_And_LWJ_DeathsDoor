@@ -67,6 +67,10 @@ void CreateContentsMaterial()
 	ContentsBlurMaterial.lock()->SetVertexShader("ContentsBlur.hlsl");
 	ContentsBlurMaterial.lock()->SetPixelShader("ContentsBlur.hlsl");
 
+	std::weak_ptr<GameEngineMaterial> ContentsBloomMaterial = GameEngineMaterial::Create("ContentsBloom");
+	ContentsBloomMaterial.lock()->SetVertexShader("ContentsBloom.hlsl");
+	ContentsBloomMaterial.lock()->SetPixelShader("ContentsBloom.hlsl");
+
 	// std::weak_ptr<GameEngineMaterial> ContentsShaderMaterial = GameEngineMaterial::Create("ContentsShader");
 	// ContentsBlurMaterial.lock()->SetVertexShader("ContentsShader.hlsl");
 	// ContentsBlurMaterial.lock()->SetPixelShader("ContentsShader.hlsl");

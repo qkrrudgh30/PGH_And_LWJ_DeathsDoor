@@ -2,6 +2,7 @@
 #include "TestLevel.h"
 #include "Hall.h"
 #include "ContentsBlur.h"
+#include "ContentsBloom.h"
 #include "TestActor.h"
 
 TestLevel::TestLevel() 
@@ -30,6 +31,7 @@ void TestLevel::LevelStartEvent()
 	CreateActor<TestActor>(); 
 
 	ContentsBlur::GetBlurInstance();
+	ContentsBloom::GetBloomInstance();
 	// GEngine::GetCurrentLevel()->GetUICamera()->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
 
 }
