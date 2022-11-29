@@ -33,14 +33,7 @@ public:
 	{
 		if (nullptr == mwptrContentsBloom.lock())
 		{
-#pragma region TemporaryCode
-
-			mwptrContentsBloom = GEngine::GetCurrentLevel()->GetMainCamera()->GetCameraRenderTarget()->AddEffect<ContentsBloom>();
-
-#pragma endregion
-
-			// sptrContentsBlur = GEngine::GetCurrentLevel()->GetBlurCamera()->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
-
+			mwptrContentsBloom = GEngine::GetCurrentLevel()->GetCamera(CAMERAORDER::USER1)->GetCameraRenderTarget()->AddEffect<ContentsBloom>();
 		}
 		return mwptrContentsBloom;
 	}

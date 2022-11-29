@@ -8,6 +8,8 @@
 #include "Floor.h"
 #include "Rock.h"
 #include "OldCrow.h"
+#include "ContentsBloom.h"
+#include "ContentsBlur.h"
 
 
 #include <GameEngineCore/GameEngineCameraActor.h>
@@ -27,6 +29,13 @@ void BossLevel::Start()
 
 void BossLevel::Update(float _DeltaTime)
 {
+
+
+
+#pragma region EngineCode
+	msptrBlurCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+	msptrBloomCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+#pragma endregion
 }
 
 void BossLevel::End()
@@ -39,7 +48,8 @@ void BossLevel::LevelStartEvent()
 	if (false == mbPrimitiveInitialized)
 	{
 		LoadCreaturesFromFile("06_BossLevel");
-		mbPrimitiveInitialized = true;
+		ContentsBlur::GetBlurInstance();
+		ContentsBloom::GetBloomInstance();
 
 
 		std::weak_ptr < Rock> CRock = CreateActor<Rock>(OBJECTORDER::StaticMesh);
@@ -48,6 +58,8 @@ void BossLevel::LevelStartEvent()
 		std::weak_ptr < Floor> CFloor = CreateActor<Floor>(OBJECTORDER::BackGround);
 
 		std::weak_ptr < OldCrow> COldCrow = CreateActor<OldCrow>(OBJECTORDER::BackGround);
+
+		mbPrimitiveInitialized = true;
 	}
 #pragma endregion
 	{

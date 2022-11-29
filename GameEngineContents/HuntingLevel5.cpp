@@ -6,6 +6,8 @@
 #include "LoadingUI.h"
 #include "Tower.h"
 #include "Spike.h"
+#include "ContentsBloom.h"
+#include "ContentsBlur.h"
 
 
 
@@ -26,6 +28,13 @@ void HuntingLevel5::Start()
 
 void HuntingLevel5::Update(float _DeltaTime)
 {
+
+
+
+#pragma region EngineCode
+	msptrBlurCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+	msptrBloomCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+#pragma endregion
 }
 
 void HuntingLevel5::End()
@@ -38,6 +47,8 @@ void HuntingLevel5::LevelStartEvent()
 	if (false == mbPrimitiveInitialized)
 	{
 		LoadCreaturesFromFile("05_HuntingLevel5");
+		ContentsBlur::GetBlurInstance();
+		ContentsBloom::GetBloomInstance();
 
 		{
 			std::weak_ptr < ROOM_Far> pMap = CreateActor<ROOM_Far>(OBJECTORDER::StaticMesh);

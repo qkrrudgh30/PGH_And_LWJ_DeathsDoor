@@ -45,6 +45,14 @@ ContentsLevel::ContentsLevel()
 
 	// GameEngineFBX::CreateManager();
 
+	msptrBlurCameraActor = CreateActor<GameEngineCameraActor>();
+	msptrBlurCameraActor->GetCameraComponent()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
+	msptrBlurCameraActor->GetCameraComponent()->SetCameraOrder(CAMERAORDER::USER0);
+	
+
+	msptrBloomCameraActor = CreateActor<GameEngineCameraActor>();
+	msptrBloomCameraActor->GetCameraComponent()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
+	msptrBloomCameraActor->GetCameraComponent()->SetCameraOrder(CAMERAORDER::USER1);
 	
 }
 

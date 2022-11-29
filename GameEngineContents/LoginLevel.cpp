@@ -19,6 +19,8 @@
 #include "PlayerMainUI.h"
 #include "PlayerUpgradeUI.h"
 
+#include "ContentsBloom.h"
+#include "ContentsBlur.h"
 
 
 LoginLevel::LoginLevel()	:
@@ -60,6 +62,11 @@ void LoginLevel::Start()
 		std::shared_ptr < UIMouse> m_UIMouse = CreateActor<UIMouse>(OBJECTORDER::MouseUI);
 		m_UIMouse->SetLevelOverOn();
 	}
+
+
+
+
+
 }
 
 void LoginLevel::LevelStartEvent()
@@ -68,8 +75,13 @@ void LoginLevel::LevelStartEvent()
 	if (false == mbPrimitiveInitialized)
 	{
 		LoadCreaturesFromFile("00_LoginLevel");
+		ContentsBlur::GetBlurInstance();
+		ContentsBloom::GetBloomInstance();
+
 		mbPrimitiveInitialized = true;
 	}
+
+
 #pragma endregion
 	
 
@@ -157,6 +169,12 @@ void LoginLevel::Update(float _DeltaTime)
 	//GameEngineDebug::OutPutString(B1);
 	//GameEngineDebug::OutPutString(C1);
 
+#pragma region EngineCode
+
+	msptrBlurCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+	msptrBloomCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+
+#pragma endregion
 }
 
 void LoginLevel::End()

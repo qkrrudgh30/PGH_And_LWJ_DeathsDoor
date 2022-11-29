@@ -6,6 +6,8 @@
 #include "Potal.h"
 #include "ROOM_Enter.h"
 #include "LoadingUI.h"
+#include "ContentsBloom.h"
+#include "ContentsBlur.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -24,6 +26,12 @@ void HuntingLevel1::Start()
 
 void HuntingLevel1::Update(float _DeltaTime)
 {
+#pragma region EngineCode
+
+	msptrBlurCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+	msptrBloomCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+
+#pragma endregion
 }
 
 void HuntingLevel1::End()
@@ -36,7 +44,8 @@ void HuntingLevel1::LevelStartEvent()
 	if (false == mbPrimitiveInitialized)
 	{
 		LoadCreaturesFromFile("01_HuntingLevel1");
-
+		ContentsBlur::GetBlurInstance();
+		ContentsBloom::GetBloomInstance();
 
 		{
 			std::weak_ptr < ROOM_Enter> pMap = CreateActor<ROOM_Enter>(OBJECTORDER::StaticMesh);

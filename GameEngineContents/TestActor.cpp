@@ -36,7 +36,7 @@ void TestActor::Start()
 	sptrTestPicture->GetTransform().SetLocalScale({ 500, 500, 1 });
 	sptrTestPicture->GetTransform().SetLocalRotation({ 0.f,0.f,-30.f });
 	sptrTestPicture->GetTransform().SetLocalPosition({ -1500.f,1500.f, -250.f });
-	sptrTestPicture->ChangeCamera(CAMERAORDER::MAINCAMERA);
+	sptrTestPicture->ChangeCamera(CAMERAORDER::USER1);
 }
 
 void TestActor::Update(float _DeltaTime)

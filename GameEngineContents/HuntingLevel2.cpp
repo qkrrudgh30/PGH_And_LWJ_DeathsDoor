@@ -5,6 +5,8 @@
 #include "ROOM_Left.h"
 #include "LoadingUI.h"
 #include "FlowerMonster.h"
+#include "ContentsBloom.h"
+#include "ContentsBlur.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -23,6 +25,13 @@ void HuntingLevel2::Start()
 
 void HuntingLevel2::Update(float _DeltaTime)
 {
+
+
+
+#pragma region EngineCode
+	msptrBlurCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+	msptrBloomCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+#pragma endregion
 }
 
 void HuntingLevel2::End()
@@ -35,6 +44,8 @@ void HuntingLevel2::LevelStartEvent()
 	if (false == mbPrimitiveInitialized)
 	{
 		LoadCreaturesFromFile("02_HuntingLevel2");
+		ContentsBlur::GetBlurInstance();
+		ContentsBloom::GetBloomInstance();
 
 		{
 			std::weak_ptr < ROOM_Left> pMap = CreateActor<ROOM_Left>(OBJECTORDER::StaticMesh);

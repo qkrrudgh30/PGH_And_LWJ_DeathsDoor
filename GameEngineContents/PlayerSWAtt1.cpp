@@ -21,6 +21,7 @@ void PlayerSWAtt1::Start()
 		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
 		FBXStaticRenderer->SetFBXMesh("Sworld_Trail_4.fbx", "Texture");
+		FBXStaticRenderer->ChangeCamera(CAMERAORDER::USER1);
 
 	}
 

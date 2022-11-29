@@ -4,6 +4,8 @@
 #include "Potal.h"
 #include "ROOM_MainHall.h"
 #include "LoadingUI.h"
+#include "ContentsBloom.h"
+#include "ContentsBlur.h"
 
 
 #include "Headroller.h"
@@ -26,6 +28,13 @@ void HuntingLevel3::Start()
 
 void HuntingLevel3::Update(float _DeltaTime)
 {
+
+
+
+#pragma region EngineCode
+	msptrBlurCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+	msptrBloomCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+#pragma endregion
 }
 
 void HuntingLevel3::End()
@@ -38,6 +47,8 @@ void HuntingLevel3::LevelStartEvent()
 	if (false == mbPrimitiveInitialized)
 	{
 		LoadCreaturesFromFile("03_HuntingLevel3");
+		ContentsBlur::GetBlurInstance();
+		ContentsBloom::GetBloomInstance();
 
 		{
 			std::weak_ptr < ROOM_MainHall> pMap = CreateActor<ROOM_MainHall>(OBJECTORDER::StaticMesh);

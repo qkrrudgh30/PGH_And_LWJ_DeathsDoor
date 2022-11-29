@@ -41,7 +41,8 @@ protected:
 	bool mbPrimitiveInitialized;
 	std::shared_ptr<class LoadingUI> mpLoadingUI;
 
-
+	std::shared_ptr<class GameEngineCameraActor> msptrBlurCameraActor;
+	std::shared_ptr<class GameEngineCameraActor> msptrBloomCameraActor;
 
 private:
 	void LoadFBXMesiesOfAnimator();

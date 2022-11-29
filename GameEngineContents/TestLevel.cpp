@@ -30,14 +30,26 @@ void TestLevel::LevelStartEvent()
 	CreateActor<Hall>(); 
 	CreateActor<TestActor>(); 
 
+#pragma region EngineCode
 	ContentsBlur::GetBlurInstance();
 	ContentsBloom::GetBloomInstance();
+#pragma endregion
+
+	
 	// GEngine::GetCurrentLevel()->GetUICamera()->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
 
 }
 
 void TestLevel::Update(float _DeltaTime) 
 {
+
+#pragma region EngineCode
+
+	msptrBlurCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+	msptrBloomCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());
+
+#pragma endregion
+
 }
 
 void TestLevel::End() {}
