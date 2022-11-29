@@ -88,7 +88,7 @@ private:
 	int AttType = 0;
 
 
-
+	bool ShakeOneCheck = false;
 	bool m_bLaserUP = false;
 	bool m_bLaserDown = false;
 	float m_fLaserMoveTime = 0.f;
@@ -104,7 +104,7 @@ private:
 	void AniLaserEEnd(const GameEngineRenderingEvent& _Data);
 	void AniSnapEnd(const GameEngineRenderingEvent& _Data);
 	void AniJumpEnd(const GameEngineRenderingEvent& _Data);
-
+	void AniJumpFrame(const GameEngineRenderingEvent& _Data);
 
 
 };

@@ -3,7 +3,7 @@
 #include "Player.h"
 
 #include"SnapBase.h"
-#include"TowerJumpAtt.h"
+#include"SnapCircle.h"
 
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
@@ -76,6 +76,7 @@ void Tower::Start()
 		Event.Inter = 0.05f;
 		FBXAnimationRenderer->CreateFBXAnimation("Tower_Jump", Event);
 		FBXAnimationRenderer->AnimationBindEnd("Tower_Jump", std::bind(&Tower::AniJumpEnd, this, std::placeholders::_1));
+		FBXAnimationRenderer->AnimationBindFrame("Tower_Jump", std::bind(&Tower::AniJumpFrame, this, std::placeholders::_1));
 
 
 	}
@@ -207,6 +208,9 @@ void Tower::Start()
 void Tower::Update(float _DeltaTime)
 {
 
+	BaseUpdate(_DeltaTime);
+
+
 
 	if (!m_bstart)
 	{
@@ -260,8 +264,7 @@ void Tower::MoveEnd(const StateInfo& _Info)
 	PlayerPos.y +=  1700.f;
 	PlayerPos.z -=  1700.f;
 	GetLevel()->GetMainCameraActorTransform().SetWorldPosition(PlayerPos);
-
-
+	
 
 
 	Player::GetMainPlayer()->m_bTowerCameraCheck = false;
@@ -278,6 +281,15 @@ void Tower::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	{
 		MyPos.y = 0.f;
 		GetTransform().SetWorldPosition(MyPos);
+		
+		GetLevel()->GetMainCameraActor();
+
+
+		if (!ShakeOneCheck)
+		{
+			CameraShake(1.f);
+			ShakeOneCheck = true;
+		}
 		
 
 		m_fLifeTime += _DeltaTime;
@@ -408,8 +420,9 @@ void Tower::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 void Tower::JumpStart(const StateInfo& _Info)
 {
 	FBXAnimationRenderer->ChangeAnimation("Tower_Jump");
-	std::weak_ptr < TowerJumpAtt> Bullet = GetLevel()->CreateActor<TowerJumpAtt>(OBJECTORDER::MonsterAtt);
-	Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+	
+
+
 }
 
 void Tower::JumpEnd(const StateInfo& _Info)
@@ -427,6 +440,32 @@ void Tower::AniJumpEnd(const GameEngineRenderingEvent& _Data)
 {
 
 	StateManager.ChangeState("Idle");
+}
+
+void Tower::AniJumpFrame(const GameEngineRenderingEvent& _Data)
+{
+
+
+	if (_Data.CurFrame == 22)
+	{
+		std::weak_ptr < SnapCircle> Bullet = GetLevel()->CreateActor<SnapCircle>(OBJECTORDER::MonsterAtt);
+		Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+		CameraShake(0.5f);
+	}
+
+	if (_Data.CurFrame == 55)
+	{
+		std::weak_ptr < SnapCircle> Bullet = GetLevel()->CreateActor<SnapCircle>(OBJECTORDER::MonsterAtt);
+		Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+		CameraShake(0.5f);
+	}
+
+	if (_Data.CurFrame == 100)
+	{
+		std::weak_ptr < SnapCircle> Bullet = GetLevel()->CreateActor<SnapCircle>(OBJECTORDER::MonsterAtt);
+		Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+		CameraShake(0.5f);
+	}
 }
 
 
@@ -492,7 +531,7 @@ void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 	{
 		m_fAttCTime = 0.;
 		AttType =  GameEngineRandom::MainRandom.RandomInt(0, 3);
-		AttType = 3;
+	
 	}
 
 	

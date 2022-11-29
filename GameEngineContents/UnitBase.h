@@ -3,11 +3,6 @@
 #include "GlobalContentsValue.h"
 
 
-
-
-
-
-
 // Ό³Έν :
 class GameEngineFBXStaticRenderer;
 class UnitBase : public GameEngineActor
@@ -22,6 +17,12 @@ public:
 	UnitBase(UnitBase&& _Other) noexcept = delete;
 	UnitBase& operator=(const UnitBase& _Other) = delete;
 	UnitBase& operator=(UnitBase&& _Other) noexcept = delete;
+protected:
+	
+	void BaseUpdate(float _DeltaTime);
+
+
+
 
 public:
 	std::shared_ptr < GameEngineDefaultRenderer> Renderer;
@@ -49,7 +50,23 @@ public:
 	float m_fHitTime = 0.f;
 	bool m_bhitCheck = false;
 
+public:
+	void CameraShake(float _Time);
+
+
 private:
+	float ShakeMaxTime = 0.f;
+	float ShakeTime = 0.f;
+
+	float ShakeForce = 1000.f;
+	float ShakeTCheck = 0.f;
+	bool ShakeDirCheck = false;
+
+
+	bool ShakeCheck = false;
+
+	float4 CameraLastDir = {};
+
 
 };
 
