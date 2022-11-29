@@ -157,6 +157,12 @@
     <Filter Include="95.PostProcessEffects">
       <UniqueIdentifier>{78c776ed-d975-4754-8f59-5a633144dc1a}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\02.Tower">
+      <UniqueIdentifier>{b30850b0-11ed-4708-bcd8-827763b719d6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap">
+      <UniqueIdentifier>{cdc9b86f-8c19-458b-abcd-4c0000a52384}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -325,6 +331,18 @@
     </ClInclude>
     <ClInclude Include="GameEngineStatusWindow.h">
       <Filter>97.Core</Filter>
+    </ClInclude>
+    <ClInclude Include="SnapBase.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
+    </ClInclude>
+    <ClInclude Include="SnapTarGet.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
+    </ClInclude>
+    <ClInclude Include="SnapBullet.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
+    </ClInclude>
+    <ClInclude Include="SnapEffect.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
     </ClInclude>
     <ClInclude Include="ContentsBloom.h">
       <Filter>95.PostProcessEffects</Filter>
@@ -497,6 +515,18 @@
     </ClCompile>
     <ClCompile Include="GameEngineStatusWindow.cpp">
       <Filter>97.Core</Filter>
+    </ClCompile>
+    <ClCompile Include="SnapBase.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
+    </ClCompile>
+    <ClCompile Include="SnapTarGet.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
+    </ClCompile>
+    <ClCompile Include="SnapBullet.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
+    </ClCompile>
+    <ClCompile Include="SnapEffect.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
     </ClCompile>
     <ClCompile Include="ContentsBloom.cpp">
       <Filter>95.PostProcessEffects</Filter>

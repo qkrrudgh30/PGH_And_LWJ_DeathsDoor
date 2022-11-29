@@ -227,6 +227,22 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="SnapBase.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SnapBullet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SnapEffect.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SnapTarGet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Spike.h">
       <SubType>
       </SubType>
@@ -428,6 +444,22 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="OldCrow.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SnapBase.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SnapBullet.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SnapEffect.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SnapTarGet.cpp">
       <SubType>
       </SubType>
     </ClCompile>

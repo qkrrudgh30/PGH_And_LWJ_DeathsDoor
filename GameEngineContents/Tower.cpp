@@ -1,6 +1,9 @@
 #include "PreCompile.h"
 #include "Tower.h"
 #include "Player.h"
+
+#include"SnapBase.h"
+
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
 
@@ -386,6 +389,9 @@ void Tower::AttStart(const StateInfo& _Info)
 void Tower::AttEnd(const StateInfo& _Info)
 {
 	
+	/*std::weak_ptr < SnapBase> Bullet = */
+	GetLevel()->CreateActor<SnapBase>(OBJECTORDER::MonsterAtt);
+
 
 }
 void Tower::AttUpdate(float _DeltaTime, const StateInfo& _Info)
