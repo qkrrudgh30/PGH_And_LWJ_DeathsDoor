@@ -107,7 +107,39 @@ float4 TextureAtlas_PS(Output _Input) : SV_Target0
 
     }
     
-    // Result.a = 1.0f;
+  
+
+    if (Temp1 == 10)
+    {
+       // clip(-1);
+
+
+
+      /*  float4 A = _Input.Pos;
+        A.z = 0.f;
+        A.w = 0.f;*/
+
+        float4 A = _Input.Tex;
+        A.x -= 0.5f;
+        A.y -= 0.5f;
+
+        float len = length(A);
+
+        if (len <= 0.4)
+        {
+            clip(-1);
+        }
+
+        if (len >= 0.5)
+        {
+            clip(-1);
+        }
+     /*   if (_Input.Tex.xy < Slice.xy)
+                {
+                    clip(-1);
+                }*/
+
+    }
     
     return Result;
 }

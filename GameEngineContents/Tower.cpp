@@ -3,6 +3,7 @@
 #include "Player.h"
 
 #include"SnapBase.h"
+#include"TowerJumpAtt.h"
 
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
@@ -407,6 +408,8 @@ void Tower::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 void Tower::JumpStart(const StateInfo& _Info)
 {
 	FBXAnimationRenderer->ChangeAnimation("Tower_Jump");
+	std::weak_ptr < TowerJumpAtt> Bullet = GetLevel()->CreateActor<TowerJumpAtt>(OBJECTORDER::MonsterAtt);
+	Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
 }
 
 void Tower::JumpEnd(const StateInfo& _Info)
@@ -444,6 +447,15 @@ void Tower::IdleStart(const StateInfo& _Info)
 	m_bIdleUpDown = false;
 	m_fUpDownTime = 0.f;
 	AttType = 0;
+
+	float4 MyPos = GetTransform().GetWorldPosition();
+	MyPos.y = 25.f;
+
+	GetTransform().SetWorldPosition(MyPos);
+
+
+
+
 }
 
 void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
@@ -480,7 +492,7 @@ void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 	{
 		m_fAttCTime = 0.;
 		AttType =  GameEngineRandom::MainRandom.RandomInt(0, 3);
-		AttType = 2;
+		AttType = 3;
 	}
 
 	

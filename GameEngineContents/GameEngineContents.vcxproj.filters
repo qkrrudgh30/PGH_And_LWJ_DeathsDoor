@@ -163,6 +163,9 @@
     <Filter Include="01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap">
       <UniqueIdentifier>{cdc9b86f-8c19-458b-abcd-4c0000a52384}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\02.Tower\01.Jump">
+      <UniqueIdentifier>{8b8cf2f8-ad97-4f7e-95e8-ea51d0a3509d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -346,6 +349,9 @@
     </ClInclude>
     <ClInclude Include="ContentsBloom.h">
       <Filter>95.PostProcessEffects</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerJumpAtt.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\01.Jump</Filter>
     </ClInclude>
     <ClInclude Include="SnapCircle.h">
       <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
@@ -536,6 +542,9 @@
     </ClCompile>
     <ClCompile Include="SnapCircle.cpp">
       <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerJumpAtt.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\01.Jump</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
