@@ -20,7 +20,7 @@ protected:
 	void End() {}
 
 private:
-
+	float m_fTime = 0.f;
 
 
 };
