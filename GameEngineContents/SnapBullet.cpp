@@ -25,8 +25,8 @@ void SnapBullet::Start()
 	
 		TexRenderer = CreateComponent<GameEngineTextureRenderer>();
 		TexRenderer->SetTexture("BulletTest.png");
-		TexRenderer->ScaleToTexture();
-	//	TexRenderer->GetTransform().SetLocalScale({ 70.f, 70.f, 10.f });
+		//TexRenderer->ScaleToTexture();
+		TexRenderer->GetTransform().SetLocalScale({ 40.f, 70.f, 10.f });
 		TexRenderer->GetPixelData().MulColor = color;
 
 	}
@@ -46,7 +46,7 @@ void SnapBullet::Update(float _DeltaTime)
 
 	
 
-	GetTransform().SetWorldDownMove(600.f, _DeltaTime);
+	GetTransform().SetWorldDownMove(1000.f, _DeltaTime);
 
 
 
