@@ -1360,13 +1360,6 @@ void Player::Update(float _DeltaTime)
 
 		GetLevel()->GetMainCameraActorTransform().SetWorldPosition(LerpPos);
 
-#pragma region TemporaryCode
-
-		// GetLevel()->GetBlurCameraActorTransform().SetWorldPosition(LerpPos);
-
-#pragma endregion
-
-
 	}
 
 	
