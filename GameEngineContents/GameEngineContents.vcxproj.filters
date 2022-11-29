@@ -347,6 +347,9 @@
     <ClInclude Include="ContentsBloom.h">
       <Filter>95.PostProcessEffects</Filter>
     </ClInclude>
+    <ClInclude Include="SnapCircle.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -530,6 +533,9 @@
     </ClCompile>
     <ClCompile Include="ContentsBloom.cpp">
       <Filter>95.PostProcessEffects</Filter>
+    </ClCompile>
+    <ClCompile Include="SnapCircle.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

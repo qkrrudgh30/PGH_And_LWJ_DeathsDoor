@@ -4,6 +4,13 @@
 #include "SnapBullet.h"
 #include "SnapTarGet.h"
 
+#pragma region TestCode
+
+#include "SnapCircle.h"
+
+#pragma endregion
+
+
 SnapBullet::SnapBullet()
 {
 }
@@ -78,12 +85,20 @@ void SnapBullet::Update(float _DeltaTime)
 
 CollisionReturn SnapBullet::PlayerCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other)
 {
+#pragma region TestCode
 
+	std::shared_ptr<SnapCircle> swptrCircle = GetLevel()->CreateActor<SnapCircle>();
+	swptrCircle->GetTransform().SetLocalPosition(m_pTarget.lock()->GetTransform().GetLocalPosition());
+
+#pragma endregion
 
 	m_pTarget.lock()->Death();
 	m_pTarget.reset();
 
 	Death();
+
+
+
 	
 
 	return CollisionReturn::Break;
