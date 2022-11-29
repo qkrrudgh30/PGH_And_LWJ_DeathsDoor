@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "SnapTarGet.h"
+#include "SnapBullet.h"
 
 SnapTarGet::SnapTarGet() 
 {
@@ -35,7 +36,25 @@ void SnapTarGet::Update(float _DeltaTime)
 
 	m_fTime += _DeltaTime;
 
-	if (m_fTime >= 3.f)
-		Death();
+
+
+	if (!m_bMakeCheck)
+	{
+		m_bMakeCheck = true;
+		float4 MyPos = GetTransform().GetWorldPosition();
+		MyPos.y += 1500.f;
+
+		std::weak_ptr < SnapBullet> Bullet = GetLevel()->CreateActor<SnapBullet>(OBJECTORDER::MonsterAtt);
+		Bullet.lock()->GetTransform().SetWorldPosition(MyPos);
+		Bullet.lock()->m_pTarget = std::dynamic_pointer_cast<SnapTarGet>(shared_from_this());
+
+
+	
+	}
+
+
+
+
+
 }
 

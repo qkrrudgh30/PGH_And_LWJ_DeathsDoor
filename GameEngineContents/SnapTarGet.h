@@ -21,7 +21,7 @@ protected:
 
 private:
 	float m_fTime = 0.f;
-
+	bool m_bMakeCheck = false;
 
 };
 

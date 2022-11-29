@@ -5,6 +5,7 @@
 #include "UnitBase.h"
 
 // Ό³Έν :
+class SnapTarGet;
 class SnapBullet : public UnitBase
 {
 public:
@@ -27,7 +28,8 @@ private:
 
 	CollisionReturn PlayerCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other);
 
-
+public:
+	std::weak_ptr<SnapTarGet> m_pTarget = {};
 
 };
 
