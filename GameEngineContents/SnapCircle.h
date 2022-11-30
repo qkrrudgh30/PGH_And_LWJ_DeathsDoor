@@ -20,6 +20,6 @@ protected:
 	void End() {}
 
 private:
-
+	float m_fScale = 100.f;
 };
 

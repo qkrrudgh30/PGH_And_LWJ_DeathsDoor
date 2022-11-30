@@ -166,6 +166,9 @@
     <Filter Include="01.Actor\02.Unit\03.Bullet\02.Tower\01.Jump">
       <UniqueIdentifier>{8b8cf2f8-ad97-4f7e-95e8-ea51d0a3509d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser">
+      <UniqueIdentifier>{5e4d9d2a-694e-4dc7-90c4-8cb27c8379ca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -354,7 +357,13 @@
       <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\01.Jump</Filter>
     </ClInclude>
     <ClInclude Include="SnapCircle.h">
-      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\01.Jump</Filter>
+    </ClInclude>
+    <ClInclude Include="LaserTarget.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerLaser.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -540,11 +549,17 @@
     <ClCompile Include="ContentsBloom.cpp">
       <Filter>95.PostProcessEffects</Filter>
     </ClCompile>
-    <ClCompile Include="SnapCircle.cpp">
-      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\00.Snap</Filter>
-    </ClCompile>
     <ClCompile Include="TowerJumpAtt.cpp">
       <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\01.Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="SnapCircle.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\01.Jump</Filter>
+    </ClCompile>
+    <ClCompile Include="LaserTarget.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerLaser.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

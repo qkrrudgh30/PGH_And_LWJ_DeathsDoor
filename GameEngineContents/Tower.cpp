@@ -4,6 +4,8 @@
 
 #include"SnapBase.h"
 #include"SnapCircle.h"
+#include"LaserTarget.h"
+
 
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
@@ -89,6 +91,7 @@ void Tower::Start()
 		Event.Inter = 0.05f;
 		FBXAnimationRenderer->CreateFBXAnimation("Tower_Laser", Event);
 		FBXAnimationRenderer->AnimationBindEnd("Tower_Laser", std::bind(&Tower::AniLaserEnd, this, std::placeholders::_1));
+		FBXAnimationRenderer->AnimationBindFrame("Tower_Laser", std::bind(&Tower::AniLaserFrame, this, std::placeholders::_1));
 
 
 	}
@@ -336,6 +339,10 @@ void Tower::LaserStart(const StateInfo& _Info)
 	m_bLaserUP = true;
 	m_bLaserDown = false;
 	m_fLaserMoveTime = 0.f;
+
+
+
+
 }
 void Tower::LaserEnd(const StateInfo& _Info)
 {
@@ -381,10 +388,30 @@ void Tower::AniLaserEnd(const GameEngineRenderingEvent& _Data)
 	m_bLaserDown = true;
 	m_bLaserUP = false;
 	m_fLaserMoveTime = 0.f;
+	m_CLaserTarget.lock()->Death();
+	m_CLaserTarget.reset();
 	FBXAnimationRenderer->ChangeAnimation("Tower_Laser_E");
 
 
 }
+
+void Tower::AniLaserFrame(const GameEngineRenderingEvent& _Data)
+{
+
+	if (_Data.CurFrame == 1)
+	{
+		m_CLaserTarget = GetLevel()->CreateActor<LaserTarget>(OBJECTORDER::MonsterAtt);
+		
+	}
+
+}
+
+
+
+
+
+
+
 
 void Tower::AniLaserEEnd(const GameEngineRenderingEvent& _Data)
 {
@@ -450,7 +477,7 @@ void Tower::AniJumpFrame(const GameEngineRenderingEvent& _Data)
 	{
 		std::weak_ptr < SnapCircle> Bullet = GetLevel()->CreateActor<SnapCircle>(OBJECTORDER::MonsterAtt);
 		Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-		CameraShake(0.5f);
+		CameraShake(1.f);
 	}
 
 	if (_Data.CurFrame == 55)

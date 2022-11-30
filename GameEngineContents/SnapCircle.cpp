@@ -22,9 +22,13 @@ void SnapCircle::Start()
 
 void SnapCircle::Update(float _DeltaTime)
 {
-	TexRenderer->GetTransform().SetLocalScale(TexRenderer->GetTransform().GetLocalScale() * _DeltaTime * 100.f);
+	m_fScale += _DeltaTime * 70000.f;
+	
+	
+	
+	TexRenderer->GetTransform().SetLocalScale({ m_fScale ,m_fScale ,10.f});
 
-	if (3.f < GetAccTime())
+	if (1.f < GetAccTime())
 	{
 		Death();
 	}

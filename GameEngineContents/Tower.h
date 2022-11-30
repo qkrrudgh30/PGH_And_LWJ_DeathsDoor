@@ -22,6 +22,7 @@
 
 class Spike;
 class Player;
+class LaserTarget;
 class Tower : public UnitBase
 {
 public:
@@ -95,12 +96,13 @@ private:
 public : 
 	bool m_bstart = false;
 	std::weak_ptr<Spike> m_cSpike;
-
+	std::weak_ptr < LaserTarget> m_CLaserTarget;
 
 
 private:
 	void AniSlamEnd(const GameEngineRenderingEvent& _Data);
 	void AniLaserEnd(const GameEngineRenderingEvent& _Data);
+	void AniLaserFrame(const GameEngineRenderingEvent& _Data);
 	void AniLaserEEnd(const GameEngineRenderingEvent& _Data);
 	void AniSnapEnd(const GameEngineRenderingEvent& _Data);
 	void AniJumpEnd(const GameEngineRenderingEvent& _Data);

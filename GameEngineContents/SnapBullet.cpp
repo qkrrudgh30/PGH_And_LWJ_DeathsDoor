@@ -60,7 +60,7 @@ void SnapBullet::Update(float _DeltaTime)
 	float4 TarGetDir = m_pTarget.lock()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
 	float Len = TarGetDir.Length();
 
-	if (Len <= 80.f)
+	if (Len <= 40.f)
 	{
 
 		AttCollision->On();
@@ -70,7 +70,7 @@ void SnapBullet::Update(float _DeltaTime)
 	}
 
 
-	if (Len <= 40.f)
+	if (Len <= 20.f)
 	{
 
 		m_pTarget.lock()->Death();
@@ -85,21 +85,15 @@ void SnapBullet::Update(float _DeltaTime)
 
 CollisionReturn SnapBullet::PlayerCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other)
 {
-#pragma region TestCode
+	if (m_pTarget.lock())
+	{
+		m_pTarget.lock()->Death();
+		m_pTarget.reset();
+	}
 
-	std::shared_ptr<SnapCircle> swptrCircle = GetLevel()->CreateActor<SnapCircle>();
-	swptrCircle->GetTransform().SetLocalPosition(m_pTarget.lock()->GetTransform().GetLocalPosition());
-
-#pragma endregion
-
-	m_pTarget.lock()->Death();
-	m_pTarget.reset();
 
 	Death();
 
-
-
-	
 
 	return CollisionReturn::Break;
 
