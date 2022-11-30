@@ -439,7 +439,8 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 
 				if (true == s_bAnyChanges)
 				{
-					ContentsBlur::SetBlurInfo(s_uOnOff, s_iCurrAppliedArea, s_fCurrIntence);
+					ContentsLevel* rptrContentsLevel = dynamic_cast<ContentsLevel*>(GEngine::GetCurrentLevel());
+					rptrContentsLevel->GetContentsBlur()->SetBlurInfo(s_uOnOff, s_iCurrAppliedArea, s_fCurrIntence);
 				}
 
 				s_bAnyChanges = false;
@@ -477,7 +478,8 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 
 				if (true == s_bAnyChangesForBloom)
 				{
-					ContentsBloom::SetBloomInfo(s_uOnOff, s_iAppliedAreaForBloom, s_fLuminanceForBloom, s_fIntenceForBloom);
+					ContentsLevel* rptrContentsLevel = dynamic_cast<ContentsLevel*>(GEngine::GetCurrentLevel());
+					rptrContentsLevel->GetContentsBloom()->SetBloomInfo(s_uOnOff, s_iAppliedAreaForBloom, s_fLuminanceForBloom, s_fIntenceForBloom);
 				}
 
 				s_bAnyChangesForBloom = false;

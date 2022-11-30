@@ -1,10 +1,8 @@
 #include "PreCompile.h"
 #include "ContentsBlur.h"
 
-std::weak_ptr<ContentsBlur> ContentsBlur::mwptrContentsBlur;
-BlurInfo ContentsBlur::mBlurInfo = { 0, };
-
 ContentsBlur::ContentsBlur()
+	: mBlurInfo{}
 {
 }
 

@@ -31,8 +31,8 @@ void TestLevel::LevelStartEvent()
 	CreateActor<TestActor>(); 
 
 #pragma region EngineCode
-	ContentsBlur::GetBlurInstance();
-	ContentsBloom::GetBloomInstance();
+	msptrContentsBlur->InitializeContentsBlur(msptrContentsBlur);
+	msptrContentsBloom->InitializeBloom(msptrContentsBloom);
 #pragma endregion
 
 	

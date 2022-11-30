@@ -48,8 +48,8 @@ void BossLevel::LevelStartEvent()
 	if (false == mbPrimitiveInitialized)
 	{
 		LoadCreaturesFromFile("06_BossLevel");
-		ContentsBlur::GetBlurInstance();
-		ContentsBloom::GetBloomInstance();
+		msptrContentsBlur->InitializeContentsBlur(msptrContentsBlur);
+		msptrContentsBloom->InitializeBloom(msptrContentsBloom);
 
 
 		std::weak_ptr < Rock> CRock = CreateActor<Rock>(OBJECTORDER::StaticMesh);

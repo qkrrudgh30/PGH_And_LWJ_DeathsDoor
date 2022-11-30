@@ -27,15 +27,11 @@ public:
 	virtual void EffectInit();
 	virtual void Effect(std::shared_ptr<GameEngineRenderTarget> _sptrRenderTarget);
 
-	static void SetBloomInfo(unsigned int _uOnOff, unsigned int muAppliedArea = 30u, float _fLuminance = 0.3f, float _fIntence = 0.f);
+	void SetBloomInfo(unsigned int _uOnOff, unsigned int muAppliedArea = 30u, float _fLuminance = 0.3f, float _fIntence = 0.f);
 
-	static std::weak_ptr<ContentsBloom> GetBloomInstance(void)
+	void InitializeBloom(std::shared_ptr<ContentsBloom>& _sptrContentsBloom)
 	{
-		if (nullptr == mwptrContentsBloom.lock())
-		{
-			mwptrContentsBloom = GEngine::GetCurrentLevel()->GetCamera(CAMERAORDER::USER1)->GetCameraRenderTarget()->AddEffect<ContentsBloom>();
-		}
-		return mwptrContentsBloom;
+		_sptrContentsBloom = GEngine::GetCurrentLevel()->GetCamera(CAMERAORDER::USER1)->GetCameraRenderTarget()->AddEffect<ContentsBloom>();
 	}
 
 protected:
@@ -48,8 +44,8 @@ public:
 protected:
 
 private:
-	static std::weak_ptr<ContentsBloom>		mwptrContentsBloom;
-	static BloomInfo						mBloomInfo;
+	std::weak_ptr<ContentsBloom>		mwptrContentsBloom;
+	BloomInfo						mBloomInfo;
 	std::shared_ptr<GameEngineRenderTarget>	msptrRenderTargetForBloom;
 	GameEngineRenderUnit					mAppliedRenderUnit;
 

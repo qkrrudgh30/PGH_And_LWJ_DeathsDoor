@@ -43,8 +43,9 @@ void HuntingLevel4::LevelStartEvent()
 	if (false == mbPrimitiveInitialized)
 	{
 		LoadCreaturesFromFile("04_HuntingLevel4");
-		ContentsBlur::GetBlurInstance();
-		ContentsBloom::GetBloomInstance();
+		msptrContentsBlur->InitializeContentsBlur(msptrContentsBlur);
+		msptrContentsBloom->InitializeBloom(msptrContentsBloom);
+
 		{
 			std::weak_ptr < ROOM_Right> pMap = CreateActor<ROOM_Right>(OBJECTORDER::StaticMesh);
 		}

@@ -1,10 +1,8 @@
 #include "PreCompile.h"
 #include "ContentsBloom.h"
 
-std::weak_ptr<ContentsBloom>	ContentsBloom::mwptrContentsBloom;
-BloomInfo						ContentsBloom::mBloomInfo = { 0, };
-
 ContentsBloom::ContentsBloom() 
+	: mBloomInfo{}
 {
 }
 

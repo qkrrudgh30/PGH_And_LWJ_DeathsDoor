@@ -27,15 +27,11 @@ public:
 	virtual void EffectInit();
 	virtual void Effect(std::shared_ptr<GameEngineRenderTarget> _sptrRenderTarget);
 
-	static void SetBlurInfo(unsigned int _uOnOff, unsigned int _uAppliedArea = 3u, float _fIntence = 0.f);
+	void SetBlurInfo(unsigned int _uOnOff, unsigned int _uAppliedArea = 3u, float _fIntence = 0.f);
 
-	static std::weak_ptr<ContentsBlur> GetBlurInstance(void) 
+	void InitializeContentsBlur(std::shared_ptr<ContentsBlur>& _sptrContentsBlur) 
 	{ 
-		if (nullptr == mwptrContentsBlur.lock())
-		{
-			mwptrContentsBlur = GEngine::GetCurrentLevel()->GetCamera(CAMERAORDER::USER0)->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
-		}
-		return mwptrContentsBlur; 
+		_sptrContentsBlur = GEngine::GetCurrentLevel()->GetCamera(CAMERAORDER::USER0)->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
 	}
 
 protected:
@@ -48,10 +44,10 @@ public:
 protected:
 
 private:
-	static std::weak_ptr<ContentsBlur>		mwptrContentsBlur;
+	std::weak_ptr<ContentsBlur>		mwptrContentsBlur;
 	std::shared_ptr<GameEngineRenderTarget>	msptrRenderTargetForBlur;
 	GameEngineRenderUnit					mAppliedRenderUnit;
-	static BlurInfo							mBlurInfo;
+	BlurInfo							mBlurInfo;
 
 };
 

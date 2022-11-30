@@ -14,6 +14,7 @@ class GameEngineDirectory;
 class ContentsLevel : public GameEngineLevel
 {
 	friend class LoadingUI;
+	friend class EditGUIWindow;
 
 public:
 	// constrcuter destructer
@@ -26,23 +27,14 @@ public:
 	ContentsLevel& operator=(const ContentsLevel& _Other) = delete;
 	ContentsLevel& operator=(ContentsLevel&& _Other) noexcept = delete;
 
-	static std::string mstrNextLevelName;
-	static std::string mstrPrevLevelName;
-	static std::map<std::string, bool> mmapPrimitiveInitialized;
+	std::shared_ptr<class ContentsBlur>	 GetContentsBlur() { return msptrContentsBlur; }
+	std::shared_ptr<class ContentsBloom> GetContentsBloom() { return msptrContentsBloom; }
 
 protected:
 	void PlacePathOn(const std::string& _strFolderName);
 	void LoadFBXFiles();
 
 	void LoadCreaturesFromFile(const std::string& _strFolderName);
-
-	static std::atomic<unsigned int> muFBXLoadedCount;
-	std::vector<GameEngineDirectory> mvecDirectories;
-	bool mbPrimitiveInitialized;
-	std::shared_ptr<class LoadingUI> mpLoadingUI;
-
-	std::shared_ptr<class GameEngineCameraActor> msptrBlurCameraActor;
-	std::shared_ptr<class GameEngineCameraActor> msptrBloomCameraActor;
 
 private:
 	void LoadFBXMesiesOfAnimator();
@@ -52,6 +44,24 @@ private:
 	void LoadResources();
 	void LoadResources2();
 
+public:
+	static std::string mstrNextLevelName;
+	static std::string mstrPrevLevelName;
+	static std::map<std::string, bool> mmapPrimitiveInitialized;
+
+protected:
+	static std::atomic<unsigned int> muFBXLoadedCount;
+	std::vector<GameEngineDirectory> mvecDirectories;
+	bool mbPrimitiveInitialized;
+	std::shared_ptr<class LoadingUI> mpLoadingUI;
+
+	std::shared_ptr<class GameEngineCameraActor> msptrBlurCameraActor;
+	std::shared_ptr<class GameEngineCameraActor> msptrBloomCameraActor;
+
+	std::shared_ptr<class ContentsBlur>  msptrContentsBlur;
+	std::shared_ptr<class ContentsBloom> msptrContentsBloom;
+
+private:
 	std::vector<std::string> mstrvecAnimationFileNames;
 	std::vector<std::string> mstrvecAnimatorMeshFileNames;
 	std::vector<std::string> mstrvecAnimatorMeshFileNamesForEdit;
