@@ -335,7 +335,7 @@ void ContentsLevel::LoadResources2()
 				{
 					std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
 				}
-				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
+
 				if (l < muAllAnimatorCount)
 				{
 					EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAllResourceNames[l]);
@@ -348,8 +348,10 @@ void ContentsLevel::LoadResources2()
 			else
 			{
 				std::shared_ptr<GameEngineFBXAnimation> Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
-				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 			}
+
+			if (nullptr != mpLoadingUI) { mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount); }
+				
 		}
 	}
 
@@ -365,7 +367,7 @@ void ContentsLevel::LoadResources2()
 				{
 					std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[l]);
 				}
-				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
+
 				if (l < muAllAnimatorCount)
 				{
 					EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAllResourceNames[l]);
@@ -379,8 +381,9 @@ void ContentsLevel::LoadResources2()
 			else
 			{
 				std::shared_ptr<GameEngineFBXAnimation> Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[l]);
-				mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount);
 			}
+
+			if (nullptr != mpLoadingUI) { mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount); }
 		}
 	}
 }
