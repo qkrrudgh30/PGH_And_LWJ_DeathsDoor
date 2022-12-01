@@ -618,6 +618,11 @@ public:
 		return *this;
 	}
 
+	bool operator==(const float4& _f4Other)
+	{
+		return (this->x == _f4Other.x) && (this->y == _f4Other.y) && (this->z == _f4Other.z) && (this->w == _f4Other.w);
+	}
+
 	float4 DegreeRotationToQuaternionReturn() const
 	{
 		float4 Rot = *this;

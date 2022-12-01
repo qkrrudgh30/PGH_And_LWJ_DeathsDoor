@@ -1,13 +1,7 @@
 #pragma once
 #include <GameEngineCore/GameEngineFBXAnimationRenderer.h>
 
-struct PaperBurnInfo
-{
-	unsigned int muOnOffPaperBurn;
-	float mfEffectTime;
-	float mfPadding1;
-	float mfPadding2;
-};
+
 
 // Ό³Έν :
 class PaperburnRenderer : public GameEngineFBXAnimationRenderer
@@ -32,7 +26,7 @@ protected:
 	void End();
 
 private:
-	PaperBurnInfo mPaperBurnInfo;
+	
 
 
 };

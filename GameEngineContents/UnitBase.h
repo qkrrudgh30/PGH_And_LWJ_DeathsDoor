@@ -2,6 +2,14 @@
 #include <GameEngineCore/CoreMinimal.h>
 #include "GlobalContentsValue.h"
 
+struct PaperBurnInfo
+{
+	unsigned int	muOnOffPaperBurn;
+	float			mfEffectTime;
+	float			mfPadding1;
+	float			mfPadding2;
+};
+
 // Ό³Έν :
 class GameEngineFBXStaticRenderer;
 class UnitBase : public GameEngineActor
@@ -119,7 +127,7 @@ private:
 
 	float4 CameraLastDir = {};
 
-
+	PaperBurnInfo mPaperBurnInfo;
 
 
 };

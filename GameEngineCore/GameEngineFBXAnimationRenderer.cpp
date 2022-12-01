@@ -159,6 +159,11 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 				AnimationBoneData[i].RotQuaternion = float4::SLerpQuaternion(CurData.Q, NextData.Q, Info.CurFrameTime);
 				// 로컬 포지션
 				AnimationBoneData[i].Pos = float4::Lerp(CurData.T, NextData.T, Info.CurFrameTime);
+
+				if (float4::ZERO == AnimationBoneData[i].Pos)
+				{
+					int a = 100;
+				}
 				// 새롭게 바뀐 애니메이션
 
 				// 애니메이션이 바뀌는 순간 한번은 저장해야 한다.
