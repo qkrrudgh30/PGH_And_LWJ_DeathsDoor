@@ -2,18 +2,6 @@
 #include <GameEngineCore/CoreMinimal.h>
 #include "GlobalContentsValue.h"
 
-#pragma region EngineCode
-
-struct PaperBurnInfo
-{
-	unsigned int muOnOffPaperBurn;
-	float mfEffectTime;
-	float mfPadding1;
-	float mfPadding2;
-};
-
-#pragma endregion
-
 // Ό³Έν :
 class GameEngineFBXStaticRenderer;
 class UnitBase : public GameEngineActor
@@ -28,13 +16,6 @@ public:
 	UnitBase(UnitBase&& _Other) noexcept = delete;
 	UnitBase& operator=(const UnitBase& _Other) = delete;
 	UnitBase& operator=(UnitBase&& _Other) noexcept = delete;
-
-#pragma region EngineCode
-
-	void InitializePaperBurn(std::shared_ptr <GameEngineFBXAnimationRenderer>& _sptrFBXAnimationRenderer);
-	void SetPaperBurnInfo(unsigned int _uOnOffPaperBurn, float _fEffectTime);
-
-#pragma endregion
 
 protected:
 	void BaseUpdate(float _DeltaTime);
@@ -127,11 +108,6 @@ private:
 
 	float4 CameraLastDir = {};
 
-#pragma region EngineCode
-
-	PaperBurnInfo mPaperBurnInfo;
-
-#pragma endregion
 
 
 
