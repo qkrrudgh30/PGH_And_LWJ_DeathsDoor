@@ -170,17 +170,12 @@ void GameEngineWindow::MessageLoop(std::function<void()> _Init, std::function<vo
             DispatchMessage(&msg);
         }
 
-            // 윈도우가 일하지 않는 데드 타임.
-            // 여기서 무슨게임을 돌릴까요?
-
         if (nullptr == _Loop)
         {
             continue;
         }
 
         _Loop();
-
-        
     }
 
     if (nullptr != _End)

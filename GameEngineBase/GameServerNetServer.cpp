@@ -1,8 +1,9 @@
 #include "PreCompile.h"
-#include "GameEngineNetServer.h"
+#include "GameServerNetServer.h"
 #include "GameEngineString.h"
 #include "GameEngineDebug.h"
 #include "GameEngineThread.h"
+#include "GameServerSerializer.h"
 
 //enum PacketType
 //{
@@ -15,11 +16,11 @@
 //};
 
 
-GameEngineNetServer::GameEngineNetServer()
+GameServerNetServer::GameServerNetServer()
 {
 }
 
-GameEngineNetServer::~GameEngineNetServer()
+GameServerNetServer::~GameServerNetServer()
 {
 	for (size_t i = 0; i < UserThreads.size(); i++)
 	{
@@ -36,9 +37,9 @@ GameEngineNetServer::~GameEngineNetServer()
 	}
 }
 
-void GameEngineNetServer::Accept(int Port)
+void GameServerNetServer::Accept(int Port)
 {
-	GameEngineNet::WindowNetStartUp();
+	GameServerNet::WindowNetStartUp();
 
 	// windowapi에서 서버통신을 하려면 무조건 소켓을 우선적으로 만들어줘야 한다.
 
@@ -88,11 +89,11 @@ void GameEngineNetServer::Accept(int Port)
 		return;
 	}
 
-	AcceptThread.Start("AcceptThread", std::bind(&GameEngineNetServer::AcceptFunction, this, &AcceptThread));
+	AcceptThread.Start("AcceptThread", std::bind(&GameServerNetServer::AcceptFunction, this, &AcceptThread));
 }
 
 
-void GameEngineNetServer::AcceptFunction(GameEngineThread* Thread) 
+void GameServerNetServer::AcceptFunction(GameEngineThread* Thread) 
 {
 	// 쓰레드에서 따로 돌아갈 겁니다.
 	while (ServerAccpetSocket)
@@ -111,12 +112,10 @@ void GameEngineNetServer::AcceptFunction(GameEngineThread* Thread)
 		}
 
 		GameEngineThread& NewThread = UserThreads.emplace_back();
-		
-
 		std::stringstream ThreadName;
 		ThreadName << NewUser;
 		ThreadName << "UserThread";
-		NewThread.Start(ThreadName.str(), std::bind(&GameEngineNetServer::UserFunction, this, &NewThread, NewUser));
+		NewThread.Start(ThreadName.str(), std::bind(&GameServerNetServer::UserFunction, this, &NewThread, NewUser));
 		UserSockets.push_back(NewUser);
 
 
@@ -125,7 +124,7 @@ void GameEngineNetServer::AcceptFunction(GameEngineThread* Thread)
 	}
 }
 
-void GameEngineNetServer::UserFunction(GameEngineThread* Thread, SOCKET _Socket)
+void GameServerNetServer::UserFunction(GameEngineThread* Thread, SOCKET _Socket)
 {
 	char Packet[1024] = { 0 };
 
@@ -133,11 +132,24 @@ void GameEngineNetServer::UserFunction(GameEngineThread* Thread, SOCKET _Socket)
 	{
 		int Result = recv(_Socket, Packet, sizeof(Packet), 0);
 
-		int a = 0;
-
 		if (-1 == Result)
 		{
-			
+			// MsgBoxAssert("네트워크 에러");
+			// 서버가 꺼졌어.
+			// 상대가 꺼졌어.
+			return;
 		}
+
+		GameServerSerializer Ser = GameServerSerializer(Packet, 1024);
+
+		int PacketType;
+		int PacketSize;
+
+		memcpy_s(&PacketType, sizeof(int), Ser.GetDataPtr(), sizeof(int));
+		memcpy_s(&PacketSize, sizeof(int), Ser.GetDataPtr() + 4, sizeof(int));
+
+		std::shared_ptr<GameServerPacket> Packet = Dis.PacketReturnCallBack(PacketType, PacketSize, Ser);
+
+		Dis.ProcessPacket(Packet);
 	}
 }

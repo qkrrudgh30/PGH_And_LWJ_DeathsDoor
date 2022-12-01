@@ -71,6 +71,10 @@ void CreateContentsMaterial()
 	ContentsBloomMaterial.lock()->SetVertexShader("ContentsBloom.hlsl");
 	ContentsBloomMaterial.lock()->SetPixelShader("ContentsBloom.hlsl");
 
+	std::weak_ptr<GameEngineMaterial> ContentsPaperBurnMaterial = GameEngineMaterial::Create("PaperBurn");
+	ContentsPaperBurnMaterial.lock()->SetVertexShader("PaperBurn.hlsl");
+	ContentsPaperBurnMaterial.lock()->SetPixelShader("PaperBurn.hlsl");
+
 	// std::weak_ptr<GameEngineMaterial> ContentsShaderMaterial = GameEngineMaterial::Create("ContentsShader");
 	// ContentsBlurMaterial.lock()->SetVertexShader("ContentsShader.hlsl");
 	// ContentsBlurMaterial.lock()->SetPixelShader("ContentsShader.hlsl");
@@ -90,26 +94,26 @@ void CreateContentsBlendAndDepthStencilDesc()
 		Desc.RenderTarget[0].BlendEnable = true;
 			// 혼합을 사용하거나 사용하지 않도록 설정합니다.
 
-		Desc.RenderTarget[0].SrcBlend = D3D11_BLEND_SRC_ALPHA;
+		Desc.RenderTarget[0].SrcBlend = D3D11_BLEND::D3D11_BLEND_ONE;
 			// 픽셀 셰이더가 출력하는 RGB 값에 대해 수행할 작업을 지정합니다. BlendOp 멤버는 SrcBlend 및 DestBlend 작업을 결합하는 방법을 정의합니다.
-		Desc.RenderTarget[0].DestBlend = D3D11_BLEND_INV_SRC_ALPHA;
+		Desc.RenderTarget[0].DestBlend = D3D11_BLEND::D3D11_BLEND_ONE;
 			// 렌더링 대상의 현재 RGB 값에 대해 수행할 작업을 지정합니다. BlendOp 멤버는 SrcBlend 및 DestBlend 작업을 결합하는 방법을 정의합니다.
-		Desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP_ADD;
+		Desc.RenderTarget[0].BlendOp = D3D11_BLEND_OP::D3D11_BLEND_OP_MAX;
 			// SrcBlend 및 DestBlend 작업을 결합하는 방법을 정의합니다.
 
-		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP_ADD;
+		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND::D3D11_BLEND_ONE;
 			// 픽셀 셰이더가 출력하는 알파 값에 대해 수행할 작업을 지정합니다. _COLOR 끝나는 혼합 옵션은 허용되지 않습니다. 
 			// BlendOpAlpha 멤버는 SrcBlendAlpha 및 DestBlendAlpha 작업을 결합하는 방법을 정의합니다.
-		Desc.RenderTarget[0].SrcBlendAlpha = D3D11_BLEND_ONE;
+		Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND::D3D11_BLEND_ONE;
 			// 렌더링 대상의 현재 알파 값에 대해 수행할 작업을 지정합니다. _COLOR 끝나는 혼합 옵션은 허용되지 않습니다. 
 			// BlendOpAlpha 멤버는 SrcBlendAlpha 및 DestBlendAlpha 작업을 결합하는 방법을 정의합니다.
-		Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND_ONE;
+		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_MAX;
 			// SrcBlendAlpha 및 DestBlendAlpha 작업을 결합하는 방법을 정의합니다.
 
 		Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;
 			// 쓰기 마스크입니다. https://learn.microsoft.com/ko-kr/windows/win32/api/d3d11/ne-d3d11-d3d11_color_write_enable#constants
 
-		GameEngineBlend::Create("OverLay", Desc);
+		GameEngineBlend::Create("Lighten", Desc);
 	}
 }
 

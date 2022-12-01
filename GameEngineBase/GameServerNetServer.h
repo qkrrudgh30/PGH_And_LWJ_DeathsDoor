@@ -1,22 +1,32 @@
 #pragma once
-#include "GameEngineNet.h"
+#include "GameServerNet.h"
 #include "GameEngineThread.h"
+#include "GameServerDispatcher.h"
 // 설명 :
-class GameEngineNetServer : public GameEngineNet
+class GameServerNetServer : public GameServerNet
 {
 public:
+
 	// constrcuter destructer
-	GameEngineNetServer();
-	~GameEngineNetServer();
+	GameServerNetServer();
+	~GameServerNetServer();
 
 	// delete Function
-	//GameEngineNetServer(const GameEngineNetServer& _Other) = delete;
-	//GameEngineNetServer(GameEngineNetServer&& _Other) noexcept = delete;
-	//GameEngineNetServer& operator=(const GameEngineNetServer& _Other) = delete;
-	//GameEngineNetServer& operator=(GameEngineNetServer&& _Other) noexcept = delete;
+	//GameServerNetServer(const GameServerNetServer& _Other) = delete;
+	//GameServerNetServer(GameServerNetServer&& _Other) noexcept = delete;
+	//GameServerNetServer& operator=(const GameServerNetServer& _Other) = delete;
+	//GameServerNetServer& operator=(GameServerNetServer&& _Other) noexcept = delete;
 
 	// 이제부터 내가 접속자를 받겠다.
 	void Accept(int Port);
+
+	int Send(const char* Data, size_t _Size) {
+		return 0;
+	}
+
+	int SendPacket(std::shared_ptr<GameServerPacket> _Packet) {
+		return 0;
+	}
 
 protected:
 

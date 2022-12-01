@@ -3,7 +3,7 @@
 #include "GameEngineMath.h"
 
 class GameEngineFile;
-class GameEngineSerializer
+class GameEngineSerializObject
 {
 public:
 	virtual void Write(GameEngineFile& _File) = 0;
@@ -80,13 +80,13 @@ public:
 
 		for (size_t i = 0; i < _Data.size(); i++)
 		{
-			if (false == std::is_base_of<GameEngineSerializer, Value>::value)
+			if (false == std::is_base_of<GameEngineSerializObject, Value>::value)
 			{
 				Write(_Data[i]);
 			}
 			else 
 			{
-				GameEngineSerializer* Ser = reinterpret_cast<GameEngineSerializer*>(&_Data[i]);
+				GameEngineSerializObject* Ser = reinterpret_cast<GameEngineSerializObject*>(&_Data[i]);
 				Ser->Write(*this);
 			}
 
@@ -106,23 +106,23 @@ public:
 
 		for (std::pair<Key, Value> Pair : _Data)
 		{
-			if (false == std::is_base_of<GameEngineSerializer, Key>::value)
+			if (false == std::is_base_of<GameEngineSerializObject, Key>::value)
 			{
 				Write(Pair.first);
 			}
 			else
 			{
-				GameEngineSerializer* Ser = reinterpret_cast<GameEngineSerializer*>(&Pair.first);
+				GameEngineSerializObject* Ser = reinterpret_cast<GameEngineSerializObject*>(&Pair.first);
 				Ser->Write(*this);
 			}
 
-			if (false == std::is_base_of<GameEngineSerializer, Value>::value)
+			if (false == std::is_base_of<GameEngineSerializObject, Value>::value)
 			{
 				Write(Pair.second);
 			}
 			else
 			{
-				GameEngineSerializer* Ser = reinterpret_cast<GameEngineSerializer*>(&Pair.second);
+				GameEngineSerializObject* Ser = reinterpret_cast<GameEngineSerializObject*>(&Pair.second);
 				Ser->Write(*this);
 			}
 		}
@@ -164,13 +164,13 @@ public:
 
 		for (unsigned int i = 0; i < Size; i++)
 		{
-			if (false == std::is_base_of<GameEngineSerializer, Value>::value)
+			if (false == std::is_base_of<GameEngineSerializObject, Value>::value)
 			{
 				Read(_Data[i]);
 			}
 			else
 			{
-				GameEngineSerializer* Ser = reinterpret_cast<GameEngineSerializer*>(&_Data[i]);
+				GameEngineSerializObject* Ser = reinterpret_cast<GameEngineSerializObject*>(&_Data[i]);
 				Ser->Read(*this);
 			}
 
@@ -192,24 +192,24 @@ public:
 		{
 			std::pair<Key, Value> Pair;
 
-			if (false == std::is_base_of<GameEngineSerializer, Key>::value)
+			if (false == std::is_base_of<GameEngineSerializObject, Key>::value)
 			{
 				Read(Pair.first);
 			}
 			else
 			{
-				GameEngineSerializer* Ser = reinterpret_cast<GameEngineSerializer*>(&Pair.first);
+				GameEngineSerializObject* Ser = reinterpret_cast<GameEngineSerializObject*>(&Pair.first);
 				Ser->Read(*this);
 			}
 
 
-			if (false == std::is_base_of<GameEngineSerializer, Value>::value)
+			if (false == std::is_base_of<GameEngineSerializObject, Value>::value)
 			{
 				Read(Pair.second);
 			}
 			else
 			{
-				GameEngineSerializer* Ser = reinterpret_cast<GameEngineSerializer*>(&Pair.second);
+				GameEngineSerializObject* Ser = reinterpret_cast<GameEngineSerializObject*>(&Pair.second);
 				Ser->Read(*this);
 			}
 

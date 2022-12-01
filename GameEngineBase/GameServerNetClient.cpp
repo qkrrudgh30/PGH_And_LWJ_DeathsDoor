@@ -1,18 +1,18 @@
 #include "PreCompile.h"
-#include "GameEngineNetClient.h"
+#include "GameServerNetClient.h"
 #include "GameEngineDebug.h"
 
-GameEngineNetClient::GameEngineNetClient() 
+GameServerNetClient::GameServerNetClient() 
 {
 }
 
-GameEngineNetClient::~GameEngineNetClient() 
+GameServerNetClient::~GameServerNetClient() 
 {
 }
 
-void GameEngineNetClient::Connect(std::string _Ip, int Port)
+void GameServerNetClient::Connect(std::string _Ip, int Port)
 {
-	GameEngineNet::WindowNetStartUp();
+	GameServerNet::WindowNetStartUp();
 
 	if (0 == SessionSocket)
 	{
@@ -45,7 +45,13 @@ void GameEngineNetClient::Connect(std::string _Ip, int Port)
 	int a = 0;
 }
 
-int GameEngineNetClient::Send(const char* Data, size_t _Size)
+int GameServerNetClient::Send(const char* Data, size_t _Size)
 {
-	return GameEngineNet::Send(SessionSocket, Data, _Size);
+	return GameServerNet::Send(SessionSocket, Data, _Size);
+}
+
+int GameServerNetClient::SendPacket(std::shared_ptr<GameServerPacket> _Packet)
+{
+	GameServerSerializer Ser = PacketSerializ(_Packet);
+	return Send(Ser.GetDataPtrConvert<const char*>(), Ser.GetOffSet());
 }

@@ -44,7 +44,7 @@ void ContentsBloom::SetBloomInfo(unsigned int _uOnOff, unsigned int muAppliedAre
 void ContentsBloom::InitializeBloomInfo(void)
 {
 	mBloomInfo.muOnOff = 0u;
-	mBloomInfo.muAppliedArea = 30u;
+	mBloomInfo.muAppliedArea = 1u;
 	mBloomInfo.mfLuminance = 0.3f;
 	mBloomInfo.mfIntence = 0.f;
 

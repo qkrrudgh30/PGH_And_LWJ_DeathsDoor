@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "PlayerSWAtt1.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
+// #include <>
 
 
 PlayerSWAtt1::PlayerSWAtt1() 
@@ -21,8 +22,22 @@ void PlayerSWAtt1::Start()
 		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
 		FBXStaticRenderer->SetFBXMesh("Sworld_Trail_4.fbx", "Texture");
-		FBXStaticRenderer->ChangeCamera(CAMERAORDER::USER1);
+		FBXStaticRenderer->ChangeCamera(CAMERAORDER::MAINCAMERA);
+		FBXStaticRenderer->GetAllRenderUnit()[0][0].GetCloneMaterial()->SetOutputMergerBlend("Lighten");
+		
 
+		//static bool bOnce = false;
+		//if (false == bOnce)
+		//{
+			// std::shared_ptr<GameEngineMaterial> sptrMaterial = GameEngineMaterial::Create("Lighten");
+			// sptrMaterial->Copy(FBXStaticRenderer->GetAllRenderUnit()[0][0].GetMaterial());
+			// sptrMaterial->SetOutputMergerBlend("Lighten");
+			// bOnce = true;
+		//}
+		// FBXStaticRenderer->GetAllRenderUnit()[0][0].SetPipeLine("Lighten");
+
+		// FBXStaticRenderer->GetAllRenderUnit()[0][0].ShaderResources.SetConstantBufferLink("TRANSFORMDATA", FBXStaticRenderer->GetTransformData());
+		// FBXStaticRenderer->GetAllRenderUnit()[0][0].ShaderResources.SetConstantBufferLink("RENDEROPTION", FBXStaticRenderer->RenderOptionInst);
 	}
 
 	
@@ -33,6 +48,7 @@ void PlayerSWAtt1::Start()
 	AttCollision->ChangeOrder(OBJECTORDER::PlayerAtt);
 	AttCollision->SetCollisionMode(CollisionMode::Ex);
 
+	
 
 }
 

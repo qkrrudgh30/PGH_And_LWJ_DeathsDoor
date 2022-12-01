@@ -31,7 +31,7 @@ public:
 
 	void InitializeContentsBlur(std::shared_ptr<ContentsBlur>& _sptrContentsBlur) 
 	{ 
-		_sptrContentsBlur = GEngine::GetCurrentLevel()->GetCamera(CAMERAORDER::USER0)->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
+		_sptrContentsBlur = GEngine::GetCurrentLevel()->GetCamera(CAMERAORDER::MAINCAMERA)->GetCameraRenderTarget()->AddEffect<ContentsBlur>();
 	}
 
 protected:

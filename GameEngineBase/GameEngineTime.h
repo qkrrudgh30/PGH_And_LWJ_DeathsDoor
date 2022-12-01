@@ -38,16 +38,11 @@ public:
 
 	static inline float GetDeltaTime()
 	{
-		if (0.05f <= Inst_->DeltaTimef)
+		if (Inst_->FrameLimit != -1 && 
+			0.05f <= Inst_->SumDeltaTimef)
 		{
-			Inst_->DeltaTimef = 0.05f;
+			Inst_->SumDeltaTimef = 0.05f;
 		}
-
-		if (Inst_->FrameLimit == -1)
-		{
-			return Inst_->DeltaTimef * Inst_->GlobalScale;
-		}
-
 
 		return Inst_->SumDeltaTimef * Inst_->GlobalScale;
 	}
@@ -56,7 +51,8 @@ public:
 	{
 		Inst_->FrameLimit = _Frame;
 		Inst_->FrameTime = 1.0f / Inst_->FrameLimit;
-		Inst_->CurFrameTime = 0.0f;
+		Inst_->FrameCheckTime = 0.0f;
+		Inst_->CalDeltaTimef = 0.0f;
 	}
 
 	template<typename EnumType>
@@ -102,6 +98,26 @@ public:
 		return Inst_->FrameUpdate;
 	}
 
+	static int GetFrameLimit()
+	{
+		return Inst_->FrameLimit;
+	}
+
+	static float GetFrameTime()
+	{
+		return Inst_->FrameTime;
+	}
+
+	static int FrameUpdateCount()
+	{
+		return Inst_->UpdateCount;
+	}
+
+	static void FrameUpdateCountReset()
+	{
+		Inst_->UpdateCount = 0;
+	}
+
 protected:
 
 private:
@@ -110,18 +126,22 @@ private:
 	double DeltaTimed;
 	float DeltaTimef;
 	float SumDeltaTimef;
-	std::map<int, float> TimeScale_;
+	float CalDeltaTimef;
 	float GlobalScale;
-
-	float FrameCheckTime;
-	int SumFPS;
-	int SumFPSCount;
-	int FPS;
-
-	int FrameLimit;
-	float FrameTime;
-	float CurFrameTime;
+	std::map<int, float> TimeScale_;
+	int Frame;
 	bool FrameUpdate;
+
+	// 프레임 제한 관련
+	int UpdateCount;
+	int FrameLimit;
+	float FrameTime; // 1 / 프레임
+	
+
+	// FrameCheck
+	float FrameCheckTime; // 1초
+	int SumFPS;
+	int FPS;
 
 	GameEngineTime();
 	~GameEngineTime();

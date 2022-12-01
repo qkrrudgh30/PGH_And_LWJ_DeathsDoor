@@ -24,7 +24,8 @@ void PlayerSWAtt3::Start()
 		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.35f, 0.35f, 0.35f });
 		FBXStaticRenderer->SetFBXMesh("Sworld_Trail_2.fbx", "Texture");
-		FBXStaticRenderer->ChangeCamera(CAMERAORDER::USER1);
+		FBXStaticRenderer->ChangeCamera(CAMERAORDER::MAINCAMERA);
+		FBXStaticRenderer->GetAllRenderUnit()[0][0].GetCloneMaterial()->SetOutputMergerBlend("Lighten");
 
 	}
 

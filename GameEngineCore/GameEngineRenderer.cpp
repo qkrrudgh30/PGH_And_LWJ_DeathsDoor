@@ -21,7 +21,7 @@ GameEngineRenderUnit::GameEngineRenderUnit()
 	: ParentRenderer()
 	, Material(nullptr)
 	, Topology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
-	, InputLayOut(nullptr)
+	, InputLayOut(nullptr)  
 	, IsOn(true)
 {
 	SetMesh("rect");

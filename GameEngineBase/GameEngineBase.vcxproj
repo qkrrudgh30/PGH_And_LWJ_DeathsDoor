@@ -169,9 +169,6 @@
     <ClCompile Include="GameEngineInput.cpp" />
     <ClCompile Include="GameEngineMath.cpp" />
     <ClCompile Include="GameEngineNameObject.cpp" />
-    <ClCompile Include="GameEngineNet.cpp" />
-    <ClCompile Include="GameEngineNetClient.cpp" />
-    <ClCompile Include="GameEngineNetServer.cpp" />
     <ClCompile Include="GameEnginePath.cpp" />
     <ClCompile Include="GameEngineRandom.cpp" />
     <ClCompile Include="GameEngineSound.cpp" />
@@ -191,6 +188,12 @@
     </ClCompile>
     <ClCompile Include="GameEngineTransform_Collision.cpp" />
     <ClCompile Include="GameEngineWindow.cpp" />
+    <ClCompile Include="GameServerDispatcher.cpp" />
+    <ClCompile Include="GameServerNet.cpp" />
+    <ClCompile Include="GameServerNetClient.cpp" />
+    <ClCompile Include="GameServerNetServer.cpp" />
+    <ClCompile Include="GameServerPacket.cpp" />
+    <ClCompile Include="GameServerSerializer.cpp" />
     <ClCompile Include="PreCompile.cpp">
       <SubType>
       </SubType>
@@ -209,9 +212,6 @@
     <ClInclude Include="GameEngineInput.h" />
     <ClInclude Include="GameEngineMath.h" />
     <ClInclude Include="GameEngineNameObject.h" />
-    <ClInclude Include="GameEngineNet.h" />
-    <ClInclude Include="GameEngineNetClient.h" />
-    <ClInclude Include="GameEngineNetServer.h" />
     <ClInclude Include="GameEnginePath.h" />
     <ClInclude Include="GameEngineRandom.h" />
     <ClInclude Include="GameEngineSound.h" />
@@ -230,6 +230,12 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="GameEngineWindow.h" />
+    <ClInclude Include="GameServerDispatcher.h" />
+    <ClInclude Include="GameServerNet.h" />
+    <ClInclude Include="GameServerNetClient.h" />
+    <ClInclude Include="GameServerNetServer.h" />
+    <ClInclude Include="GameServerPacket.h" />
+    <ClInclude Include="GameServerSerializer.h" />
     <ClInclude Include="magic_enum.hpp" />
     <ClInclude Include="magic_enum_format.hpp" />
     <ClInclude Include="magic_enum_fuse.hpp" />

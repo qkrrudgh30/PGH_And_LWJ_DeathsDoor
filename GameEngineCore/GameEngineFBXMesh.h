@@ -19,7 +19,7 @@ public:
 };
 
 
-class FbxExMaterialSettingData : public GameEngineSerializer
+class FbxExMaterialSettingData : public GameEngineSerializObject
 {
 public:
 	std::string Name;
@@ -80,7 +80,7 @@ public:
 	~FbxExMaterialSettingData() {}
 };
 
-struct FbxExMeshInfo : public GameEngineSerializer
+struct FbxExMeshInfo : public GameEngineSerializObject
 {
 	fbxsdk::FbxMesh* Mesh;
 	std::string Name;
@@ -152,7 +152,7 @@ struct FbxExMeshInfo : public GameEngineSerializer
 
 // 사람
 // 대검
-struct FbxRenderUnitInfo : public GameEngineSerializer
+struct FbxRenderUnitInfo : public GameEngineSerializObject
 {
 public:
 	int VectorIndex;
@@ -563,7 +563,7 @@ public:
 
 
 
-struct Bone : public GameEngineSerializer
+struct Bone : public GameEngineSerializObject
 {
 	std::string Name;
 

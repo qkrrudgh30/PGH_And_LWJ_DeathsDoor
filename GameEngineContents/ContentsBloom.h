@@ -27,11 +27,11 @@ public:
 	virtual void EffectInit();
 	virtual void Effect(std::shared_ptr<GameEngineRenderTarget> _sptrRenderTarget);
 
-	void SetBloomInfo(unsigned int _uOnOff, unsigned int muAppliedArea = 30u, float _fLuminance = 0.3f, float _fIntence = 0.f);
+	void SetBloomInfo(unsigned int _uOnOff, unsigned int muAppliedArea = 1u, float _fLuminance = 0.3f, float _fIntence = 0.f);
 
 	void InitializeBloom(std::shared_ptr<ContentsBloom>& _sptrContentsBloom)
 	{
-		_sptrContentsBloom = GEngine::GetCurrentLevel()->GetCamera(CAMERAORDER::USER1)->GetCameraRenderTarget()->AddEffect<ContentsBloom>();
+		_sptrContentsBloom = GEngine::GetCurrentLevel()->GetCamera(CAMERAORDER::MAINCAMERA)->GetCameraRenderTarget()->AddEffect<ContentsBloom>();
 	}
 
 protected:

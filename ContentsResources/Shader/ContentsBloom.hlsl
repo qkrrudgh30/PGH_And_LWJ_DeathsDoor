@@ -42,10 +42,15 @@ float4 ContentsBloom_PS(Output _Input) : SV_Target0
     float2 f2UVCurrentPos = f2UVStartPos;
     float4 f4Result = (float) 0.f;
     
-    if (0u == muOnOff)
+    // float4 f4CheckWhite = (Tex.Sample(POINTWRAP, _Input.Tex.xy));
+    // float fCheckWhite = f4CheckWhite.r + f4CheckWhite.g + f4CheckWhite.b;
+    
+    float4 f4ClonedTex = Tex.Sample(POINTWRAP, _Input.Tex.xy);
+    float relativeLuminance = f4ClonedTex.r * 0.2126f + f4ClonedTex.g * 0.7152f + f4ClonedTex.b * 0.0722f;
+    
+    if (0u == muOnOff )
     {
-        f4Result = Tex.Sample(POINTWRAP, _Input.Tex.xy);
-        return f4Result;
+        return f4ClonedTex;
     }
     
     for (int y = 0; y < muAppliedArea; ++y)
@@ -61,13 +66,16 @@ float4 ContentsBloom_PS(Output _Input) : SV_Target0
         f2UVCurrentPos.y += f2UVSize.y;
     }
     
-    float4 f4ClonedTex = Tex.Sample(POINTWRAP, _Input.Tex.xy);
-    const float relativeLuminance = f4ClonedTex.r * 0.2126f + f4ClonedTex.g * 0.7152f + f4ClonedTex.b * 0.0722f;
+    
     if (relativeLuminance < mfLuminance)
     {
         f4Result.r += f4ClonedTex.r;
         f4Result.g += f4ClonedTex.g;
         f4Result.b += f4ClonedTex.b;
+    }
+    else
+    {
+        return f4ClonedTex;
     }
     
     f4Result.r += 1e-2f;

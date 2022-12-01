@@ -28,7 +28,9 @@ void TestLevel::LevelStartEvent()
 #pragma endregion
 
 	CreateActor<Hall>(); 
-	CreateActor<TestActor>(); 
+	CreateActor<TestActor>()->GetTransform().SetLocalMove(float4{ 100.f, 0.f, 0.f, 0.f });
+	// CreateActor<TestActor>()->GetTransform().SetLocalMove(float4{ 300.f, 0.f, 0.f, 0.f });
+	// CreateActor<TestActor>()->GetTransform().SetLocalMove(float4{ 500.f, 0.f, 0.f, 0.f });
 
 #pragma region EngineCode
 	msptrContentsBlur->InitializeContentsBlur(msptrContentsBlur);

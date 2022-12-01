@@ -21,6 +21,26 @@ protected:
 	void Update(float _DeltaTime);
 	void End() {}
 
+	void IdleUpdate(float _DeltaTime, const StateInfo& _Info);
+	void IdleStart(const StateInfo& _Info);
+
+	void MoveStart(const StateInfo& _Info);
+	void MoveEnd(const StateInfo& _Info) {}
+	void MoveUpdate(float _DeltaTime, const StateInfo& _Info);
+
+	void StunStart(const StateInfo& _Info);
+	void StunEnd(const StateInfo& _Info) {}
+	void StunUpdate(float _DeltaTime, const StateInfo& _Info);
+
+	void AttStart(const StateInfo& _Info);
+	void AttEnd(const StateInfo& _Info);
+	void AttUpdate(float _DeltaTime, const StateInfo& _Info);
+
+	void AniTestActor_Att(const GameEngineRenderingEvent& _Data);
+	void AniTestActor_Idle(const GameEngineRenderingEvent& _Data) {}
+	void AniTestActor_Move(const GameEngineRenderingEvent& _Data) {}
+
+
 private:
 
 };

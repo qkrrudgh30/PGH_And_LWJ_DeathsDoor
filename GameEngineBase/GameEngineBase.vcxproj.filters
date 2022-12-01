@@ -96,13 +96,22 @@
     <ClCompile Include="GameEngineThread.cpp">
       <Filter>Thread</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineNetServer.cpp">
+    <ClCompile Include="GameServerNet.cpp">
       <Filter>Server</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineNet.cpp">
+    <ClCompile Include="GameServerDispatcher.cpp">
       <Filter>Server</Filter>
     </ClCompile>
-    <ClCompile Include="GameEngineNetClient.cpp">
+    <ClCompile Include="GameServerSerializer.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServerPacket.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServerNetServer.cpp">
+      <Filter>Server</Filter>
+    </ClCompile>
+    <ClCompile Include="GameServerNetClient.cpp">
       <Filter>Server</Filter>
     </ClCompile>
   </ItemGroup>
@@ -167,13 +176,22 @@
     <ClInclude Include="GameEngineThread.h">
       <Filter>Thread</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineNetServer.h">
+    <ClInclude Include="GameServerNet.h">
       <Filter>Server</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineNet.h">
+    <ClInclude Include="GameServerDispatcher.h">
       <Filter>Server</Filter>
     </ClInclude>
-    <ClInclude Include="GameEngineNetClient.h">
+    <ClInclude Include="GameServerSerializer.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServerPacket.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServerNetServer.h">
+      <Filter>Server</Filter>
+    </ClInclude>
+    <ClInclude Include="GameServerNetClient.h">
       <Filter>Server</Filter>
     </ClInclude>
   </ItemGroup>

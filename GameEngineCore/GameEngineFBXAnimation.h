@@ -4,7 +4,7 @@
 
 
 
-class FbxExBoneFrameData : public GameEngineSerializer
+class FbxExBoneFrameData : public GameEngineSerializObject
 {
 public:
 	float4 S; // 크
@@ -44,7 +44,7 @@ public:
 
 };
 
-class FbxExBoneFrame : public GameEngineSerializer
+class FbxExBoneFrame : public GameEngineSerializObject
 {
 public:
 	int BoneIndex;
@@ -73,7 +73,7 @@ public:
 };
 
 // Take 001이라는 애니메이션이 있는데.
-class FbxExAniData : public GameEngineSerializer
+class FbxExAniData : public GameEngineSerializObject
 {
 public:
 	std::string				AniName;

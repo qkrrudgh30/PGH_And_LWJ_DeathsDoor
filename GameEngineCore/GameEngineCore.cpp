@@ -76,8 +76,6 @@ void GameEngineCore::CoreStart(GameEngineCore* _UserCore)
 
 void GameEngineCore::CoreUpdate(GameEngineCore* _UserCore)
 {
-	// HWND hWnd = GetFocus();
-	// if (nullptr == hWnd) { return; }
 	if (nullptr != NextLevel)
 	{
 		if (nullptr != CurrentLevel)
@@ -112,11 +110,36 @@ void GameEngineCore::CoreUpdate(GameEngineCore* _UserCore)
 	float DeltaTime = GameEngineTime::GetDeltaTime();
 	GameEngineInput::GetInst()->Update(DeltaTime);
 
-	if (true == GameEngineTime::IsFrameCheck())
+	// 60 1.0f
+
+	if (-1 == GameEngineTime::GetFrameLimit())
 	{
-		// 엔진수준에서 유저가 하고 싶은일.
 		_UserCore->Update(DeltaTime);
 		CurrentLevel->LevelUpdate(DeltaTime);
+		CurrentLevel->Release(DeltaTime);
+		CurrentLevel->Render(DeltaTime);
+		return;
+	}
+
+	if (true == GameEngineTime::IsFrameCheck())
+	{
+		int Count = GameEngineTime::FrameUpdateCount();
+
+		if (10 <= Count)
+		{
+			GameEngineTime::FrameUpdateCountReset();
+		}
+
+		while (Count--)
+		{
+			_UserCore->Update(DeltaTime);
+			CurrentLevel->LevelUpdate(DeltaTime);
+			CurrentLevel->Release(DeltaTime);
+		}
+
+		CurrentLevel->Render(DeltaTime);
+
+		GameEngineTime::FrameUpdateCountReset();
 	}
 }
 
