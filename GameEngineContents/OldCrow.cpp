@@ -34,16 +34,16 @@ void OldCrow::Start()
 	FBXAnimationRenderer->SetFBXMesh("OldCrow.fbx", "TextureAnimation");
 
 
-	Event.ResourcesName = "OldCrow_Idle.FBX";
+	Event.ResourcesName = "OldCrow_Run.FBX";
 	Event.Loop = true;
 	Event.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Idle", Event);
+	FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Run", Event);
 
 
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 60.f, 60.f, 60.f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 0.f,0.f });
 
-	FBXAnimationRenderer->ChangeAnimation("OldCrow_Idle");
+	FBXAnimationRenderer->ChangeAnimation("OldCrow_Run");
 
 
 
