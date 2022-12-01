@@ -45,15 +45,8 @@ void TowerLaser::Update(float _DeltaTime)
 	TexRenderer->GetTransform().SetLocalScale({ Len, RandomF, 1.f });
 	
 
-	//float4 Angle = GetDegree3D(MyPos, TarGetPos);
-
-	
-
-	float4 Angle = float4::SLerpQuaternion(MyPos, TarGetPos,_DeltaTime);
-
-	//GetTransform().SetLocalRotation(Angle);
-
-	//GetTransform().SetLocalRotation({ Angle.x - 45.f ,Angle.y - 45.f,Angle.z  });
+	float4 Angle = GetDegree3D(MyPos, TarGetPos);
+	GetTransform().SetLocalRotation(Angle);
 
 
 }

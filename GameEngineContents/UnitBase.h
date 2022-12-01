@@ -57,17 +57,28 @@ public :
 	{
 		float4 v3 = _Right - _Left;
 	
-		
 		float xAngle = atan2(v3.y, v3.z) * 180 / GameEngineMath::PI;
 		float yAngle = atan2(v3.x, -v3.z) * 180 / GameEngineMath::PI;
 		float zAngle = atan2(v3.y, -v3.x) * 180 / GameEngineMath::PI;
 
-		
-		
+
+		if (_Right.z < _Left.z)
+		{
+			yAngle = 360.f - yAngle;
+			xAngle = 360.f - xAngle;
+		}
+		if (_Right.x < _Left.x)
+		{
+			yAngle = 360.f - yAngle;
+			zAngle = 360.f - zAngle;
+		}
+
 
 
 
 		float4 Result = { xAngle , yAngle, zAngle };
+
+		
 		return Result;
 	}
 

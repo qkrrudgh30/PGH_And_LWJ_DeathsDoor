@@ -22,7 +22,7 @@ void SnapCircle::Start()
 
 void SnapCircle::Update(float _DeltaTime)
 {
-	m_fScale += _DeltaTime * 70000.f;
+	m_fScale += _DeltaTime * 40000.f;
 	
 	
 	

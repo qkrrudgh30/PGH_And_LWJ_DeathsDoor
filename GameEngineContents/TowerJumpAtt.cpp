@@ -25,16 +25,22 @@ void TowerJumpAtt::Start()
 
 	}
 	m_fSpeed = 100.f;
+
+
+	Death(3.f);
+
+
 }
 
 void TowerJumpAtt::Update(float _DeltaTime)
 {
-	m_fSpeed += _DeltaTime * 1500;
+	m_fSpeed += _DeltaTime * 40000.f;
 
 	TexRenderer->GetTransform().SetLocalScale({ m_fSpeed, m_fSpeed, 10.f });
 
-	if (m_fSpeed >= 2000.f)
-		Death();
+	//if (m_fSpeed >= 2000.f)
+
+
 
 
 }
