@@ -5,7 +5,7 @@
 #include"SnapBase.h"
 #include"SnapCircle.h"
 #include"LaserTarget.h"
-
+#include "TowerLaser.h"
 
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
@@ -388,8 +388,12 @@ void Tower::AniLaserEnd(const GameEngineRenderingEvent& _Data)
 	m_bLaserDown = true;
 	m_bLaserUP = false;
 	m_fLaserMoveTime = 0.f;
-	m_CLaserTarget.lock()->Death();
-	m_CLaserTarget.reset();
+	//m_CLaserTarget.lock()->Death();
+	//m_CLaserTarget.reset();
+
+	//m_CLaser.lock()->Death();
+	//m_CLaser.reset();
+
 	FBXAnimationRenderer->ChangeAnimation("Tower_Laser_E");
 
 
@@ -400,8 +404,24 @@ void Tower::AniLaserFrame(const GameEngineRenderingEvent& _Data)
 
 	if (_Data.CurFrame == 1)
 	{
-		m_CLaserTarget = GetLevel()->CreateActor<LaserTarget>(OBJECTORDER::MonsterAtt);
-		
+		if (m_CLaserTarget.lock() == nullptr)
+		{
+			m_CLaserTarget = GetLevel()->CreateActor<LaserTarget>(OBJECTORDER::MonsterAtt);
+		}
+	}
+
+	if (_Data.CurFrame == 63)
+	{
+
+		if(m_CLaser.lock() == nullptr)
+		{
+			m_CLaser = GetLevel()->CreateActor<TowerLaser>(OBJECTORDER::MonsterAtt);
+			float4 mPos = GetTransform().GetWorldPosition();
+			mPos.y += 200.f;
+			m_CLaser.lock()->GetTransform().SetWorldPosition(mPos);
+			m_CLaser.lock()->m_CLaserTarget = m_CLaserTarget;
+		}
+
 	}
 
 }
@@ -558,7 +578,7 @@ void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 	{
 		m_fAttCTime = 0.;
 		AttType =  GameEngineRandom::MainRandom.RandomInt(0, 3);
-	
+		AttType = 1;
 	}
 
 	

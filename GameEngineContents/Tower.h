@@ -22,6 +22,8 @@
 
 class Spike;
 class Player;
+class TowerLaser;
+
 class LaserTarget;
 class Tower : public UnitBase
 {
@@ -97,6 +99,7 @@ public :
 	bool m_bstart = false;
 	std::weak_ptr<Spike> m_cSpike;
 	std::weak_ptr < LaserTarget> m_CLaserTarget;
+	std::weak_ptr < TowerLaser> m_CLaser;
 
 
 private:

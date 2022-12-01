@@ -50,6 +50,51 @@ public:
 public:
 	GameEngineStateManager StateManager;
 
+
+
+public :
+	float4 GetDegree3D(const float4& _Left, const float4& _Right)
+	{
+		float4 v3 = _Right - _Left;
+	
+		
+		float xAngle = atan2(v3.y, v3.z) * 180 / GameEngineMath::PI;
+		float yAngle = atan2(v3.x, -v3.z) * 180 / GameEngineMath::PI;
+		float zAngle = atan2(v3.y, -v3.x) * 180 / GameEngineMath::PI;
+
+		
+		
+
+
+
+		float4 Result = { xAngle , yAngle, zAngle };
+		return Result;
+	}
+
+
+	float4 fromtwovectors(float4 u, float4 v)
+	{
+		float norm_u_norm_v = sqrt((float4:: DotProduct3D(u, u)) * (float4::DotProduct3D(v, v)));
+		float real_part = norm_u_norm_v + (float4::DotProduct3D(u, v));
+		float4 w;
+
+		if (real_part < 1.e-6f * norm_u_norm_v)
+		{
+		
+			real_part = 0.0f;
+			w = abs(u.x) > abs(u.z) ? float4(-u.y, u.x, 0.f)
+				: float4(0.f, -u.z, u.y);
+		}
+		else
+		{
+		
+			w = float4::Cross3D(u, v);
+		}
+
+		return (float4(real_part, w.x, w.y, w.z)).Normalize3DReturn();
+	}
+	
+
 public:
 	UINFO	m_Info;
 	float m_fLifeTime;
