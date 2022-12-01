@@ -365,6 +365,9 @@
     <ClInclude Include="TowerLaser.h">
       <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser</Filter>
     </ClInclude>
+    <ClInclude Include="PaperburnRenderer.h">
+      <Filter>96.Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -560,6 +563,9 @@
     </ClCompile>
     <ClCompile Include="TowerLaser.cpp">
       <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser</Filter>
+    </ClCompile>
+    <ClCompile Include="PaperburnRenderer.cpp">
+      <Filter>96.Renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

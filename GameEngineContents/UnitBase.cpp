@@ -21,7 +21,6 @@ UnitBase::UnitBase() :
 	, hitTime()
 	, m_fHitTime()
 	, m_bhitCheck()
-	, mPaperBurnInfo{}
 {
 	m_Info.Dammage = 3;
 	m_Info.Gold = 1000;
@@ -82,46 +81,6 @@ void UnitBase::BaseUpdate(float _DeltaTime)
 
 }
 
-#pragma region EngineCode
-
-void UnitBase::InitializePaperBurn(std::shared_ptr<GameEngineFBXAnimationRenderer>& _sptrFBXAnimationRenderer)
-{
-	size_t uMeshCount = _sptrFBXAnimationRenderer->GetAllRenderUnit().size();
-	std::vector<size_t> vuSubsetCount;
-	vuSubsetCount.resize(uMeshCount, 0);
-	for (size_t i = 0; i < uMeshCount; ++i)
-	{
-		vuSubsetCount.at(i) = _sptrFBXAnimationRenderer->GetAllRenderUnit()[i].size();
-	}
-
-	for (size_t i = 0; i < uMeshCount; ++i)
-	{
-		for (size_t j = 0; j < vuSubsetCount.at(i); ++j)
-		{
-			_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].GetCloneMaterial()->SetVertexShader("PaperBurn.hlsl");
-			_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].GetCloneMaterial()->SetPixelShader("PaperBurn.hlsl");
-
-			if (true == _sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].ShaderResources.IsConstantBuffer("PaperBurnInfo"))
-			{
-				_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetConstantBufferLink("PaperBurnInfo", mPaperBurnInfo);
-			}
-
-			if (true == _sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].ShaderResources.IsTexture("CloudTexture"))
-			{
-				_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetTexture("CloudTexture", "CloudTexture.png");
-			}
-
-		}
-	}
-}
-
-void UnitBase::SetPaperBurnInfo(unsigned int _uOnOffPaperBurn, float _fEffectTime)
-{
-	mPaperBurnInfo.muOnOffPaperBurn = _uOnOffPaperBurn;
-	mPaperBurnInfo.mfEffectTime = _fEffectTime;
-}
-
-#pragma endregion
 
 void UnitBase::CameraShake(float _Time)
 {
