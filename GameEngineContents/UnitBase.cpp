@@ -21,6 +21,10 @@ UnitBase::UnitBase() :
 	, hitTime()
 	, m_fHitTime()
 	, m_bhitCheck()
+	, mfPaperburnDeathTime(1.5f)
+	, mPaperBurnInfo{}
+	, mbOnce(false)
+	, mbOnDeath(false)
 {
 	m_Info.Dammage = 3;
 	m_Info.Gold = 1000;
@@ -78,7 +82,7 @@ void UnitBase::BaseUpdate(float _DeltaTime)
 		}
 	}
 
-
+	
 }
 
 
@@ -94,3 +98,27 @@ void UnitBase::CameraShake(float _Time)
 
 }
 
+void UnitBase::InitializePaperBurn(std::shared_ptr<GameEngineFBXAnimationRenderer>& _sptrFBXAnimationRenderer)
+{
+	size_t uMeshCount = _sptrFBXAnimationRenderer->GetAllRenderUnit().size();
+	std::vector<size_t> vuSubsetCount;
+	vuSubsetCount.resize(uMeshCount, 0);
+	for (size_t i = 0; i < uMeshCount; ++i)
+	{
+		vuSubsetCount[i] = _sptrFBXAnimationRenderer->GetAllRenderUnit()[i].size();
+	}
+
+	for (size_t i = 0; i < uMeshCount; ++i)
+	{
+		for (size_t j = 0; j < vuSubsetCount[i]; ++j)
+		{
+			_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetConstantBufferLink("PaperBurnInfo", mPaperBurnInfo);
+		}
+	}
+}
+
+void UnitBase::SetPaperBurnInfo(unsigned int _uOnOffPaperBurn, float _fEffectTime)
+{
+	mPaperBurnInfo.muOnOffPaperBurn = _uOnOffPaperBurn;
+	mPaperBurnInfo.mfEffectTime = _fEffectTime;
+}

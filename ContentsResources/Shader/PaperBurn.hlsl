@@ -70,10 +70,10 @@ float4 Texture_PS(Output _Input) : SV_Target0
         return f4Orignal;
     }
     
-    if (f4Orignal.a <= 0.0f)
-    {
-        clip(-1);
-    }
+    //if (f4Orignal.a <= 0.0f)
+    //{
+    //    clip(-1);
+    //}
     
     
     
@@ -86,20 +86,20 @@ float4 Texture_PS(Output _Input) : SV_Target0
         f4Orignal.a = 1;
     }
 
-    // if (mfEffectTime - 0.05 <= f4Cloud.r && f4Cloud.r <= mfEffectTime + 0.05)
-    // {
-    //     f4Orignal = float4(1, 0, 0, 1);
-    // }
-    // 
-    // if (mfEffectTime - 0.03 <= f4Cloud.r && f4Cloud.r <= mfEffectTime + 0.03)
-    // {
-    //     f4Orignal = float4(1, 1, 0, 1);
-    // }
-    // 
-    // if (mfEffectTime - 0.025 <= f4Cloud.r && f4Cloud.r <= mfEffectTime + 0.025)
-    // {
-    //     f4Orignal = float4(1, 1, 1, 1);
-    // }
+    if (mfEffectTime - 0.05 <= f4Cloud.r && f4Cloud.r <= mfEffectTime + 0.05)
+    {
+        f4Orignal = float4(1, 0, 0, 1);
+    }
+     
+    if (mfEffectTime - 0.03 <= f4Cloud.r && f4Cloud.r <= mfEffectTime + 0.03)
+    {
+        f4Orignal = float4(1, 1, 0, 1);
+    }
+     
+    if (mfEffectTime - 0.025 <= f4Cloud.r && f4Cloud.r <= mfEffectTime + 0.025)
+    {
+        f4Orignal = float4(1, 1, 1, 1);
+    }
     
     return f4Orignal;
 }

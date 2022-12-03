@@ -51,6 +51,7 @@ void Tower::Start()
 
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 100.5f, 100.5f, 100.5f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 225.f,0.f });
+	FBXAnimationRenderer->ChangeCamera(CAMERAORDER::USER1);
 
 	{
 		Event.ResourcesName = "Tower_Idle.FBX";

@@ -311,6 +311,41 @@ void ContentsLevel::LoadResources()
 void ContentsLevel::LoadResources2()
 {
 	// size_t uThreadCount = GameEngineCore::EngineThreadPool.GetThreadCount();
+	muFBXLoadedCount = 0u;
+
+	if (0u == muAllResourcesCount)
+	{ 
+		mpLoadingUI->SetProgressAmount(1u, 1u);
+		return; 
+	}
+
+	for (size_t i = 0; i < muAllResourcesCount; ++i)
+	{
+		if (i < muAnimationStartIndex)
+		{
+			if ("Collider" != mstrvecAllResourceNames[i])
+			{
+				std::shared_ptr<GameEngineFBXMesh> Mesh = GameEngineFBXMesh::Load(mstrvecAllResourcePaths[i]);
+			}
+
+			if (i < muAllAnimatorCount)
+			{
+				EditGUIWindow::GetLoadedFromAnimatorSet().insert(mstrvecAllResourceNames[i]);
+			}
+			else
+			{
+				EditGUIWindow::GetLoadedFromStaticSet().insert(mstrvecAllResourceNames[i]);
+			}
+		}
+		else
+		{
+			std::shared_ptr<GameEngineFBXAnimation> Mesh = GameEngineFBXAnimation::Load(mstrvecAllResourcePaths[i]);
+		}
+
+		if (nullptr != mpLoadingUI) { mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount); }
+	}
+
+	/*
 	muMyThreadCount = 6u;
 	muLines = static_cast<size_t>(muAllResourcesCount / muMyThreadCount);
 	muRemains = muAllResourcesCount % muMyThreadCount;
@@ -321,7 +356,7 @@ void ContentsLevel::LoadResources2()
 		mpLoadingUI->SetProgressAmount(1u, 1u);
 		return; 
 	}
-
+	 
 	size_t i = 0, j = 0, k = 0, l = 0;
 	for (i = 0; i < muLines; ++i) // 여러 줄인 경우, 딱 uLines * uThreadCount 까지만 순회. 1줄도 안되는 경우엔 자동으로 넘어가게끔. 
 	{
@@ -386,4 +421,6 @@ void ContentsLevel::LoadResources2()
 			if (nullptr != mpLoadingUI) { mpLoadingUI->SetProgressAmount(muAllResourcesCount, ++muFBXLoadedCount); }
 		}
 	}
+	*/
+
 }

@@ -75,6 +75,11 @@ void CreateContentsMaterial()
 	ContentsPaperBurnMaterial.lock()->SetVertexShader("PaperBurn.hlsl");
 	ContentsPaperBurnMaterial.lock()->SetPixelShader("PaperBurn.hlsl");
 
+	std::weak_ptr<GameEngineMaterial> ContentsBillboardMaterial = GameEngineMaterial::Create("Billboard");
+	ContentsBillboardMaterial.lock()->SetVertexShader("Billboard.hlsl");
+	ContentsBillboardMaterial.lock()->SetPixelShader("Billboard.hlsl");
+	
+
 	// std::weak_ptr<GameEngineMaterial> ContentsShaderMaterial = GameEngineMaterial::Create("ContentsShader");
 	// ContentsBlurMaterial.lock()->SetVertexShader("ContentsShader.hlsl");
 	// ContentsBlurMaterial.lock()->SetPixelShader("ContentsShader.hlsl");

@@ -20,9 +20,10 @@ void TestActor::Start()
 	m_fSpeed = 150.f;
 
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
-	FBXAnimationRenderer->SetFBXMesh("Slime.fbx", "TextureAnimation");
+	FBXAnimationRenderer->SetFBXMesh("Slime.fbx", "PaperBurn");
 	FBXAnimationRenderer->GetTransform().SetLocalMove(float4{0.f, 120.f, 0.f, 0.f});
-	
+	InitializePaperBurn(FBXAnimationRenderer);
+
 
 	Event.ResourcesName = "Slime_Att.FBX";
 	Event.Loop = true;
@@ -76,9 +77,29 @@ void TestActor::Start()
 
 void TestActor::Update(float _DeltaTime)
 {
-	static bool bOnce = false, bOnDeath = false;
+
 
 	StateManager.Update(_DeltaTime);
+
+
+
+#pragma region PaperBurn
+	if (m_Info.m_Hp <= 0 && false == mbOnce)
+	{
+		Death(mfPaperburnDeathTime);
+		mbOnce = true;
+		mbOnDeath = true;
+	}
+
+	if (m_Info.m_Hp <= 0 && true == mbOnDeath)
+	{
+		static float fSinTime = 0.f;
+		fSinTime += _DeltaTime * 20;
+		SetPaperBurnInfo(1u, fSinTime);
+	}
+#pragma endregion
+
+	
 }
 
 void TestActor::IdleUpdate(float _DeltaTime, const StateInfo& _Info)

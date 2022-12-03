@@ -4,6 +4,7 @@
 #include "ContentsBlur.h"
 #include "ContentsBloom.h"
 #include "TestActor.h"
+#include "TestStaticActor.h"
 
 TestLevel::TestLevel() 
 {
@@ -28,6 +29,8 @@ void TestLevel::LevelStartEvent()
 #pragma endregion
 
 	CreateActor<Hall>(); 
+	CreateActor<TestStaticActor>();
+
 	CreateActor<TestActor>()->GetTransform().SetLocalMove(float4{ 100.f, 0.f, 0.f, 0.f });
 	// CreateActor<TestActor>()->GetTransform().SetLocalMove(float4{ 300.f, 0.f, 0.f, 0.f });
 	// CreateActor<TestActor>()->GetTransform().SetLocalMove(float4{ 500.f, 0.f, 0.f, 0.f });

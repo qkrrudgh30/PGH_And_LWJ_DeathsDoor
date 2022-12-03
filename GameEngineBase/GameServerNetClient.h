@@ -1,5 +1,6 @@
 #pragma once
 #include "GameServerNet.h"
+#include "GameEngineThread.h"
 
 
 // Ό³Έν :
@@ -26,5 +27,8 @@ protected:
 
 private:
 	SOCKET SessionSocket;
+	GameEngineThread RecvThread;
+
+	void RecvThreadFunction(GameEngineThread* _Thread);
 };
 

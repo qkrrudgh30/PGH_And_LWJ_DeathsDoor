@@ -10,7 +10,7 @@
 #include "OldCrow.h"
 #include "ContentsBloom.h"
 #include "ContentsBlur.h"
-
+#include "EditGUIWindow.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -61,6 +61,7 @@ void BossLevel::LevelStartEvent()
 
 		mbPrimitiveInitialized = true;
 	}
+	EditGUIWindow::OffStartingLevel();
 #pragma endregion
 	{
 		if (nullptr == Player::GetMainPlayer())

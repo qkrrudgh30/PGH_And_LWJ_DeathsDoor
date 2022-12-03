@@ -6,6 +6,7 @@
 #include "LoadingUI.h"
 #include "ContentsBloom.h"
 #include "ContentsBlur.h"
+#include "EditGUIWindow.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -73,6 +74,7 @@ void HuntingLevel4::LevelStartEvent()
 
 		mbPrimitiveInitialized = true;
 	}
+	EditGUIWindow::OffStartingLevel();
 #pragma endregion
 	
 	{

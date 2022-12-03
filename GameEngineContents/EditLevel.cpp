@@ -1,6 +1,8 @@
 #include "PreCompile.h"
 #include "EditLevel.h"
 #include "LoadingUI.h"
+#include "ContentsBlur.h"
+#include "ContentsBloom.h"
 
 EditLevel::EditLevel()
 {
@@ -35,6 +37,20 @@ void EditLevel::End()
 
 void EditLevel::LevelStartEvent()
 {
+#pragma region LoadFBXMeshiesAndAnimation
+	if (false == mbPrimitiveInitialized)
+	{
+		msptrContentsBlur->InitializeContentsBlur(msptrContentsBlur);
+		msptrContentsBloom->InitializeBloom(msptrContentsBloom);
+
+
+
+		mbPrimitiveInitialized = true;
+	}
+
+
+#pragma endregion
+
 	mpLoadingUI = CreateActor<LoadingUI>(); // Fade-In
 
 	if ("Previous" == ContentsLevel::mstrNextLevelName) 

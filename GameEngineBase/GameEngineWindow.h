@@ -51,6 +51,11 @@ public:
 		return Inst_->Scale_;
 	}
 
+	static inline bool GetIsFocus()
+	{
+		return Inst_->IsFocus;
+	}
+
 	void SetMessageCallBack(const std::function<LRESULT(HWND, UINT, WPARAM, LPARAM)>& _MessageCallBack) 
 	{
 		MessageCallBack = _MessageCallBack;
@@ -65,6 +70,7 @@ private:
 	HWND hWnd_;
 	HDC HDC_;
 	float4 Scale_;
+	bool IsFocus;
 
 	// constrcuter destructer
 	GameEngineWindow();

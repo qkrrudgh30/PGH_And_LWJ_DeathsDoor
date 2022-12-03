@@ -31,7 +31,8 @@ public:
 
 	void InitializeBloom(std::shared_ptr<ContentsBloom>& _sptrContentsBloom)
 	{
-		_sptrContentsBloom = GEngine::GetCurrentLevel()->GetCamera(CAMERAORDER::MAINCAMERA)->GetCameraRenderTarget()->AddEffect<ContentsBloom>();
+		_sptrContentsBloom = GEngine::GetCurrentLevel()->GetCamera(CAMERAORDER::USER1)->GetCameraRenderTarget()->AddEffect<ContentsBloom>();
+		// _sptrContentsBloom = GEngine::GetCurrentLevel()->GetCamera(CAMERAORDER::MAINCAMERA)->GetCameraRenderTarget()->AddEffect<ContentsBloom>();
 	}
 
 protected:

@@ -42,6 +42,16 @@ LRESULT CALLBACK GameEngineWindow::MessageProcess(HWND hWnd, UINT message, WPARA
         GameEngineWindow::GetInst()->Off();
         break;
     }
+    case WM_SETFOCUS:
+    {
+        GameEngineWindow::GetInst()->IsFocus = true;
+        break;
+    }
+    case WM_KILLFOCUS:
+    {
+        GameEngineWindow::GetInst()->IsFocus = false;
+        break;
+    }
     case WM_MOUSEWHEEL:
     {
         GameEngineInput::GetInst()->WheelValue = (SHORT)HIWORD(wParam);

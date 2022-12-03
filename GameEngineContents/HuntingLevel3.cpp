@@ -6,7 +6,7 @@
 #include "LoadingUI.h"
 #include "ContentsBloom.h"
 #include "ContentsBlur.h"
-
+#include "EditGUIWindow.h"
 
 #include "Headroller.h"
 
@@ -84,6 +84,7 @@ void HuntingLevel3::LevelStartEvent()
 
 		mbPrimitiveInitialized = true;
 	}
+	EditGUIWindow::OffStartingLevel();
 #pragma endregion
 	
 

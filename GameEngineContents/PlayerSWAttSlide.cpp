@@ -24,6 +24,7 @@ void PlayerSWAttSlide::Start()
 		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
 		FBXStaticRenderer->SetFBXMesh("Sworld_Trail_3.fbx", "Texture");
+		FBXStaticRenderer->GetAllRenderUnit()[0][0].GetCloneMaterial()->SetOutputMergerBlend("Lighten");
 
 	}
 

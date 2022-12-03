@@ -108,7 +108,10 @@ void GameEngineCore::CoreUpdate(GameEngineCore* _UserCore)
 	GameEngineSound::Update();
 	GameEngineTime::GetInst()->Update();
 	float DeltaTime = GameEngineTime::GetDeltaTime();
-	GameEngineInput::GetInst()->Update(DeltaTime);
+	if (true == GameEngineWindow::GetInst()->GetIsFocus())
+	{
+		GameEngineInput::GetInst()->Update(DeltaTime);
+	}
 
 	// 60 1.0f
 

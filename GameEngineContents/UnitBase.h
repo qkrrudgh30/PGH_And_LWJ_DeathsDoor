@@ -10,6 +10,8 @@ struct PaperBurnInfo
 	float			mfPadding2;
 };
 
+
+
 // Ό³Έν :
 class GameEngineFBXStaticRenderer;
 class UnitBase : public GameEngineActor
@@ -113,6 +115,10 @@ public:
 public:
 	void CameraShake(float _Time);
 
+	void InitializePaperBurn(std::shared_ptr <GameEngineFBXAnimationRenderer>& _sptrFBXAnimationRenderer);
+	void SetPaperBurnInfo(unsigned int _uOnOffPaperBurn, float _fEffectTime);
+
+	
 
 private:
 	float ShakeMaxTime = 0.f;
@@ -127,8 +133,13 @@ private:
 
 	float4 CameraLastDir = {};
 
+protected:
 	PaperBurnInfo mPaperBurnInfo;
+	float mfPaperburnDeathTime;
+	bool mbOnce;
+	bool mbOnDeath;
 
-
+	
+	
 };
 

@@ -36,6 +36,10 @@ public:
 	void SaveData(const std::string& _strTitle);
 	// void SaveTileData(const std::wstring& _strFilePath, const std::string& _strTitle);
 
+	void SavePostEffectInfo();
+	static void LoadPostEffectInfo();
+	static void OffStartingLevel() { s_mbStartingLevel = false; }
+
 	void PrepareForLoading();
 	void LoadData(const std::string& _strFilePath);
 
@@ -59,7 +63,7 @@ private:
 	static size_t uSelectedObject;
 	static size_t uSelectedActor;
 
-	GameEngineDirectory m_ProjectDirectory;
+	static GameEngineDirectory m_ProjectDirectory;
 	static std::set<std::string> m_setLoadedFromAnimator;
 	static std::set<std::string> m_setLoadedFromStatic;
 
@@ -81,6 +85,19 @@ private:
 	static float s_farrCurrColliderPositionOnEditGUI[3];
 	static float s_farrPrevColliderPositionOnEditGUI[3];
 
+	static bool s_bAnyChanges;
+	static bool s_bOnOffBlur;
+	static unsigned int s_uOnOffBlur;
+	static int s_iCurrAppliedArea;
+	static float s_fCurrIntence;
 
+	static bool s_bAnyChangesForBloom;
+	static bool s_bOnOffBloom;
+	static unsigned int s_uOnOffBloom;
+	static int s_iAppliedAreaForBloom;
+	static float s_fLuminanceForBloom;
+	static float s_fIntenceForBloom;
+
+	static bool s_mbStartingLevel;
 };
 

@@ -21,6 +21,7 @@ size_t EditGUIWindow::uSelectedPannel = AnimatorPannel;
 size_t EditGUIWindow::uSelectedObject = 0;
 size_t EditGUIWindow::uSelectedActor = 0;
 
+GameEngineDirectory EditGUIWindow::m_ProjectDirectory;
 std::set<std::string> EditGUIWindow::m_setLoadedFromAnimator;
 std::set<std::string> EditGUIWindow::m_setLoadedFromStatic;
 std::map<std::string, std::vector<std::pair<std::string, std::weak_ptr<class StaticMesh>>>> EditGUIWindow::m_vCreatedActors;
@@ -38,6 +39,21 @@ float EditGUIWindow::s_farrCurrColliderRotationOnEditGUI[3] = { 0.f, 0.f, 0.f };
 float EditGUIWindow::s_farrPrevColliderRotationOnEditGUI[3] = { 0.f, 0.f, 0.f };
 float EditGUIWindow::s_farrCurrColliderPositionOnEditGUI[3] = { 0.f, 0.f, 0.f };
 float EditGUIWindow::s_farrPrevColliderPositionOnEditGUI[3] = { 0.f, 0.f, 0.f };
+
+bool			EditGUIWindow::s_bAnyChanges = false;
+bool			EditGUIWindow::s_bOnOffBlur = false;
+unsigned int	EditGUIWindow::s_uOnOffBlur = 0;
+int				EditGUIWindow::s_iCurrAppliedArea = 3;
+float			EditGUIWindow::s_fCurrIntence = 0.f;
+
+bool			EditGUIWindow::s_bAnyChangesForBloom = false;
+bool			EditGUIWindow::s_bOnOffBloom = false;
+unsigned int	EditGUIWindow::s_uOnOffBloom = 0;
+int				EditGUIWindow::s_iAppliedAreaForBloom = 1;
+float			EditGUIWindow::s_fLuminanceForBloom = 0.3f;
+float			EditGUIWindow::s_fIntenceForBloom = 0.f;
+
+bool            EditGUIWindow::s_mbStartingLevel = false;
 
 #pragma endregion
 
@@ -67,6 +83,8 @@ void EditGUIWindow::Initialize(GameEngineLevel* _Level)
 		GameEngineInput::GetInst()->CreateKey("SelectedObjectBackward", 'Y');
 		GameEngineInput::GetInst()->CreateKey("SelectedObjectRotate", MK_LBUTTON);
 	}
+
+	
 }
 
 void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
@@ -409,27 +427,32 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			ImGui::EndTabItem();
 		}
 
+		if (false == s_mbStartingLevel)
+		{
+			ContentsLevel* rptrContentsLevel = dynamic_cast<ContentsLevel*>(GEngine::GetCurrentLevel());
+			rptrContentsLevel->GetContentsBlur()->SetBlurInfo(s_uOnOffBlur, s_iCurrAppliedArea, s_fCurrIntence);
+			rptrContentsLevel->GetContentsBloom()->SetBloomInfo(s_uOnOffBloom, s_iAppliedAreaForBloom, s_fLuminanceForBloom, s_fIntenceForBloom);
+
+			s_mbStartingLevel = true;
+		}
+
 		if (true == ImGui::BeginTabItem("Post Process Effects"))
 		{
+
+#pragma region Blur
 
 			{
 				ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "Blur");
 				ImGui::BeginChild("##colors1", ImVec2(400, 100), true, ImGuiWindowFlags_NavFlattened);
 
-				static bool s_bAnyChanges = false;
-
-				static bool s_bOnOffBlur = false;
-				static unsigned int s_uOnOff = 0;
 				s_bAnyChanges |= ImGui::Checkbox("On/Off blur", &s_bOnOffBlur);
-				s_uOnOff = true == s_bOnOffBlur ? 1u : 0u;
+				s_uOnOffBlur = true == s_bOnOffBlur ? 1u : 0u;
 
-				static int s_iCurrAppliedArea = 3;
 				s_bAnyChanges |= ImGui::InputInt("Applied area for blur", &s_iCurrAppliedArea, 2);
 
 				if (s_iCurrAppliedArea < 3) { s_iCurrAppliedArea = 3; }
 				if (7 < s_iCurrAppliedArea) { s_iCurrAppliedArea = 7; }
 
-				static float s_fCurrIntence = 0.f;
 				s_bAnyChanges |= ImGui::InputFloat("Intence", &s_fCurrIntence, 1.f);
 
 				if (s_fCurrIntence < 0) { s_fCurrIntence = 0; }
@@ -440,7 +463,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 				if (true == s_bAnyChanges)
 				{
 					ContentsLevel* rptrContentsLevel = dynamic_cast<ContentsLevel*>(GEngine::GetCurrentLevel());
-					rptrContentsLevel->GetContentsBlur()->SetBlurInfo(s_uOnOff, s_iCurrAppliedArea, s_fCurrIntence);
+					rptrContentsLevel->GetContentsBlur()->SetBlurInfo(s_uOnOffBlur, s_iCurrAppliedArea, s_fCurrIntence);
 				}
 
 				s_bAnyChanges = false;
@@ -448,29 +471,27 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 				ImGui::EndChild();
 			}
 
+#pragma endregion
+
+#pragma region Bloom
+
 			{
+
 				ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "Bloom");
 				ImGui::BeginChild("##colors2", ImVec2(400, 130), true, ImGuiWindowFlags_NavFlattened);
 
-				static bool s_bAnyChangesForBloom = false;
-
-				static bool s_bOnOffBloom = false;
-				static unsigned int s_uOnOff = 0;
 				s_bAnyChangesForBloom |= ImGui::Checkbox("On/Off Bloom", &s_bOnOffBloom);
-				s_uOnOff = true == s_bOnOffBloom ? 1u : 0u;
+				s_uOnOffBloom = true == s_bOnOffBloom ? 1u : 0u;
 
-				static int s_iAppliedAreaForBloom = 1;
 				s_bAnyChangesForBloom |= ImGui::InputInt("Applied area for bloom", &s_iAppliedAreaForBloom);
 
 				if (s_iAppliedAreaForBloom < 3) { s_iAppliedAreaForBloom = 3; }
 
-				static float s_fLuminanceForBloom = 0.3f;
 				s_bAnyChangesForBloom |= ImGui::InputFloat("Luminance", &s_fLuminanceForBloom, 0.01f);
 
 				if (s_fLuminanceForBloom < 0.f) { s_fLuminanceForBloom = 0.f; }
 				if (1.f <= s_fLuminanceForBloom) { s_fLuminanceForBloom = 1.f; }
 
-				static float s_fIntenceForBloom = 0.f;
 				s_bAnyChangesForBloom |= ImGui::InputFloat("Intence", &s_fIntenceForBloom, 1.f);
 
 				if (s_fIntenceForBloom < 0.f) { s_fIntenceForBloom = 0.f; }
@@ -479,12 +500,20 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 				if (true == s_bAnyChangesForBloom)
 				{
 					ContentsLevel* rptrContentsLevel = dynamic_cast<ContentsLevel*>(GEngine::GetCurrentLevel());
-					rptrContentsLevel->GetContentsBloom()->SetBloomInfo(s_uOnOff, s_iAppliedAreaForBloom, s_fLuminanceForBloom, s_fIntenceForBloom);
+					rptrContentsLevel->GetContentsBloom()->SetBloomInfo(s_uOnOffBloom, s_iAppliedAreaForBloom, s_fLuminanceForBloom, s_fIntenceForBloom);
 				}
 
 				s_bAnyChangesForBloom = false;
 
 				ImGui::EndChild();
+			}
+
+#pragma endregion
+
+
+			if (true == ImGui::Button("Save the info"))
+			{
+				SavePostEffectInfo();
 			}
 			
 
@@ -695,7 +724,44 @@ void EditGUIWindow::SaveData(const std::string& _strTitle)
 	}
 
 	fout.close();
-	}
+}
+
+void EditGUIWindow::SavePostEffectInfo()
+{
+	std::ofstream fout;
+
+	fout.open(m_ProjectDirectory.GetFullPath() + "/PostEffectInfo.txt", 'w');
+
+	fout << s_uOnOffBlur << ' '
+		<< s_iCurrAppliedArea << ' '
+		<< s_fCurrIntence << ' '
+		<< s_uOnOffBloom << ' '
+		<< s_iAppliedAreaForBloom << ' '
+		<< s_fLuminanceForBloom << ' '
+		<< s_fIntenceForBloom << std::endl;
+
+	fout.close();
+}
+
+void EditGUIWindow::LoadPostEffectInfo()
+{
+	std::ifstream fin;
+
+	fin.open(m_ProjectDirectory.GetFullPath() + "\\PostEffectInfo.txt");
+
+	fin >> s_uOnOffBlur
+		>> s_iCurrAppliedArea
+		>> s_fCurrIntence
+		>> s_uOnOffBloom
+		>> s_iAppliedAreaForBloom
+		>> s_fLuminanceForBloom
+		>> s_fIntenceForBloom;
+
+	s_bOnOffBlur = s_uOnOffBlur == 1u ? true : false;
+	s_bOnOffBloom = s_uOnOffBloom == 1u ? true : false;
+
+	fin.close();
+}
 
 void EditGUIWindow::PrepareForLoading()
 {

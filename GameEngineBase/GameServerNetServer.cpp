@@ -18,6 +18,7 @@
 
 GameServerNetServer::GameServerNetServer()
 {
+	IsHost = true;
 }
 
 GameServerNetServer::~GameServerNetServer()
@@ -115,6 +116,12 @@ void GameServerNetServer::AcceptFunction(GameEngineThread* Thread)
 		std::stringstream ThreadName;
 		ThreadName << NewUser;
 		ThreadName << "UserThread";
+
+		if (nullptr != AcceptCallBack)
+		{
+			AcceptCallBack(NewUser);
+		}
+
 		NewThread.Start(ThreadName.str(), std::bind(&GameServerNetServer::UserFunction, this, &NewThread, NewUser));
 		UserSockets.push_back(NewUser);
 
@@ -152,4 +159,14 @@ void GameServerNetServer::UserFunction(GameEngineThread* Thread, SOCKET _Socket)
 
 		Dis.ProcessPacket(Packet);
 	}
+}
+
+int GameServerNetServer::SendPacket(std::shared_ptr<GameServerPacket> _Packet)
+{
+	for (size_t i = 0; i < UserSockets.size(); i++)
+	{
+		NetSendPacket(UserSockets[i], _Packet);
+	}
+
+	return 0;
 }

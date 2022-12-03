@@ -160,6 +160,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BillboardRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BlurRenderer.h">
       <SubType>
       </SubType>
@@ -256,6 +260,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Spike.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TestStaticActor.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -400,6 +408,10 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="BillboardRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BlurRenderer.cpp">
       <SubType>
       </SubType>
@@ -496,6 +508,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Spike.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TestStaticActor.cpp">
       <SubType>
       </SubType>
     </ClCompile>

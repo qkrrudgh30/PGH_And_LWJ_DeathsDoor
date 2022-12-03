@@ -8,6 +8,7 @@
 #include "LoadingUI.h"
 #include "ContentsBloom.h"
 #include "ContentsBlur.h"
+#include "EditGUIWindow.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -97,7 +98,7 @@ void HuntingLevel1::LevelStartEvent()
 
 
 	}
-
+	EditGUIWindow::OffStartingLevel();
 
 
 

@@ -8,7 +8,7 @@
 #include "Spike.h"
 #include "ContentsBloom.h"
 #include "ContentsBlur.h"
-
+#include "EditGUIWindow.h"
 
 
 #include <GameEngineCore/GameEngineCameraActor.h>
@@ -81,6 +81,7 @@ void HuntingLevel5::LevelStartEvent()
 
 		mbPrimitiveInitialized = true;
 	}
+	EditGUIWindow::OffStartingLevel();
 #pragma endregion
 	
 

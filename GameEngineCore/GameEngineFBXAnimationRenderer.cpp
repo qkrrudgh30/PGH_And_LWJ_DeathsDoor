@@ -162,8 +162,9 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 
 				if (float4::ZERO == AnimationBoneData[i].Pos)
 				{
-					int a = 100;
+
 				}
+
 				// 새롭게 바뀐 애니메이션
 
 				// 애니메이션이 바뀌는 순간 한번은 저장해야 한다.

@@ -64,5 +64,8 @@
     <FxCompile Include="Shader\PaperBurn.hlsl">
       <Filter>Shader\2DShader</Filter>
     </FxCompile>
+    <FxCompile Include="Shader\Billboard.hlsl">
+      <Filter>Shader\2DShader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

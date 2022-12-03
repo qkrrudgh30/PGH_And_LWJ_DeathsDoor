@@ -21,6 +21,7 @@
 
 #include "ContentsBloom.h"
 #include "ContentsBlur.h"
+#include "EditGUIWindow.h"
 
 
 LoginLevel::LoginLevel()	:
@@ -77,12 +78,12 @@ void LoginLevel::LevelStartEvent()
 		LoadCreaturesFromFile("00_LoginLevel");
 		msptrContentsBlur->InitializeContentsBlur(msptrContentsBlur);
 		msptrContentsBloom->InitializeBloom(msptrContentsBloom);
-
+		EditGUIWindow::LoadPostEffectInfo();
 
 
 		mbPrimitiveInitialized = true;
 	}
-
+	EditGUIWindow::OffStartingLevel();
 
 #pragma endregion
 	
