@@ -27,6 +27,7 @@
     <FxCompile Include="TextureAnimation.hlsl">
       <Filter>Object</Filter>
     </FxCompile>
+    <FxCompile Include="LightHeader.fx" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Debug">

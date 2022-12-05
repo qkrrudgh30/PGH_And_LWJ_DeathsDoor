@@ -284,7 +284,6 @@ void EngineRenderingPipeLine()
 		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("TextureAtlas");
 		NewPipe->SetVertexShader("TextureAtlas.hlsl");
 		NewPipe->SetPixelShader("TextureAtlas.hlsl");
-		// NewPipe->InstancingSetting();
 	}
 
 	{
@@ -292,7 +291,6 @@ void EngineRenderingPipeLine()
 		NewPipe->SetVertexShader("TextureAnimation.hlsl");
 		NewPipe->SetPixelShader("TextureAnimation.hlsl");
 	}
-
 
 	{
 		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("3DDebug");
@@ -333,10 +331,10 @@ void EngineMesh()
 
 	{
 		std::vector<GameEngineVertex> Vertex;
-		Vertex.push_back({ float4(-0.5f, 0.5f)	, float4(0.0f, 0.0f) }); // 왼쪽 위
-		Vertex.push_back({ float4(0.5f, 0.5f)	, float4(1.0f, 0.0f) });  // 오른쪽 위점
-		Vertex.push_back({ float4(0.5f, -0.5f)	, float4(1.0f, 1.0f) }); // 오른쪽 아래점
-		Vertex.push_back({ float4(-0.5f, -0.5f)	, float4(0.0f, 1.0f) }); // 왼쪽 아래점
+		Vertex.push_back({ float4(-0.5f, 0.5f)	, float4(0.0f, 0.0f), float4(1.0f), float4(0.0f, 0.0f, -1.0f) }); // 왼쪽 위
+		Vertex.push_back({ float4(0.5f, 0.5f)	, float4(1.0f, 0.0f), float4(1.0f), float4(0.0f, 0.0f, -1.0f) });  // 오른쪽 위점
+		Vertex.push_back({ float4(0.5f, -0.5f)	, float4(1.0f, 1.0f), float4(1.0f), float4(0.0f, 0.0f, -1.0f) }); // 오른쪽 아래점
+		Vertex.push_back({ float4(-0.5f, -0.5f)	, float4(0.0f, 1.0f), float4(1.0f), float4(0.0f, 0.0f, -1.0f) }); // 왼쪽 아래점
 		GameEngineVertexBuffer::Create("Rect", Vertex);
 	}
 
@@ -406,40 +404,40 @@ void EngineMesh()
 		std::vector<GameEngineVertex> Vertex;
 		Vertex.resize(24);
 		// 앞면
-		Vertex[0] = { float4(-0.5f, 0.5f, 0.5f) , float4(0.0f, 0.0f)};
-		Vertex[1] = { float4(0.5f, 0.5f, 0.5f)  , float4(1.0f, 0.0f)};
-		Vertex[2] = { float4(0.5f, -0.5f, 0.5f) , float4(1.0f, 1.0f)};
-		Vertex[3] = { float4(-0.5f, -0.5f, 0.5f), float4(0.0f, 1.0f) };
+		Vertex[0] = { float4(-0.5f, 0.5f, 0.5f) , float4(0.0f, 0.0f), float4(1.0f), float4(0.0f, 0.0f, 1.0f) };
+		Vertex[1] = { float4(0.5f, 0.5f, 0.5f)  , float4(1.0f, 0.0f), float4(1.0f), float4(0.0f, 0.0f, 1.0f) };
+		Vertex[2] = { float4(0.5f, -0.5f, 0.5f) , float4(1.0f, 1.0f), float4(1.0f), float4(0.0f, 0.0f, 1.0f) };
+		Vertex[3] = { float4(-0.5f, -0.5f, 0.5f), float4(0.0f, 1.0f), float4(1.0f), float4(0.0f, 0.0f, 1.0f) };
 
 		// 뒷면
-		Vertex[4] = {float4::VectorRotationToDegreeXAxis(Vertex[0].POSITION, 180.f), float4(0.0f, 0.0f) };
-		Vertex[5] = {float4::VectorRotationToDegreeXAxis(Vertex[1].POSITION, 180.f), float4(1.0f, 0.0f) };
-		Vertex[6] = {float4::VectorRotationToDegreeXAxis(Vertex[2].POSITION, 180.f), float4(1.0f, 1.0f) };
-		Vertex[7] = {float4::VectorRotationToDegreeXAxis(Vertex[3].POSITION, 180.f), float4(0.0f, 1.0f) };
+		Vertex[4] = {float4::VectorRotationToDegreeXAxis(Vertex[0].POSITION, 180.f), float4(0.0f, 0.0f), float4(1.0f), float4(0.0f, 0.0f, -1.0f) };
+		Vertex[5] = {float4::VectorRotationToDegreeXAxis(Vertex[1].POSITION, 180.f), float4(1.0f, 0.0f), float4(1.0f), float4(0.0f, 0.0f, -1.0f) };
+		Vertex[6] = {float4::VectorRotationToDegreeXAxis(Vertex[2].POSITION, 180.f), float4(1.0f, 1.0f), float4(1.0f), float4(0.0f, 0.0f, -1.0f) };
+		Vertex[7] = {float4::VectorRotationToDegreeXAxis(Vertex[3].POSITION, 180.f), float4(0.0f, 1.0f), float4(1.0f), float4(0.0f, 0.0f, -1.0f) };
 
 		// 왼쪽
-		Vertex[8] = {float4::VectorRotationToDegreeYAxis(Vertex[0].POSITION, -90.f)  , float4(0.0f, 0.0f) };
-		Vertex[9] = {float4::VectorRotationToDegreeYAxis(Vertex[1].POSITION, -90.f)  , float4(1.0f, 0.0f) };
-		Vertex[11] = { float4::VectorRotationToDegreeYAxis(Vertex[3].POSITION, -90.f), float4(1.0f, 1.0f)  };
-		Vertex[10] ={ float4::VectorRotationToDegreeYAxis(Vertex[2].POSITION, -90.f) , float4(0.0f, 1.0f) };
+		Vertex[8] = {float4::VectorRotationToDegreeYAxis(Vertex[0].POSITION, -90.f)  , float4(0.0f, 0.0f), float4(1.0f), float4(1.0f, 0.0f, 0.0f) };
+		Vertex[9] = {float4::VectorRotationToDegreeYAxis(Vertex[1].POSITION, -90.f)  , float4(1.0f, 0.0f), float4(1.0f), float4(1.0f, 0.0f, 0.0f) };
+		Vertex[11] = { float4::VectorRotationToDegreeYAxis(Vertex[3].POSITION, -90.f), float4(1.0f, 1.0f), float4(1.0f), float4(1.0f, 0.0f, 0.0f) };
+		Vertex[10] ={ float4::VectorRotationToDegreeYAxis(Vertex[2].POSITION, -90.f) , float4(0.0f, 1.0f), float4(1.0f), float4(1.0f, 0.0f, 0.0f) };
 
 		// 오른쪽
-		Vertex[12] = {float4::VectorRotationToDegreeYAxis(Vertex[0].POSITION, 90.f), float4(0.0f, 0.0f)};
-		Vertex[13] = {float4::VectorRotationToDegreeYAxis(Vertex[1].POSITION, 90.f), float4(1.0f, 0.0f)};
-		Vertex[14] = {float4::VectorRotationToDegreeYAxis(Vertex[2].POSITION, 90.f), float4(1.0f, 1.0f)};
-		Vertex[15] = {float4::VectorRotationToDegreeYAxis(Vertex[3].POSITION, 90.f), float4(0.0f, 1.0f)};
+		Vertex[12] = {float4::VectorRotationToDegreeYAxis(Vertex[0].POSITION, 90.f), float4(0.0f, 0.0f), float4(1.0f), float4(-1.0f, 0.0f, 0.0f) };
+		Vertex[13] = {float4::VectorRotationToDegreeYAxis(Vertex[1].POSITION, 90.f), float4(1.0f, 0.0f), float4(1.0f), float4(-1.0f, 0.0f, 0.0f) };
+		Vertex[14] = {float4::VectorRotationToDegreeYAxis(Vertex[2].POSITION, 90.f), float4(1.0f, 1.0f), float4(1.0f), float4(-1.0f, 0.0f, 0.0f) };
+		Vertex[15] = {float4::VectorRotationToDegreeYAxis(Vertex[3].POSITION, 90.f), float4(0.0f, 1.0f), float4(1.0f), float4(-1.0f, 0.0f, 0.0f) };
 
 		// 위
-		Vertex[16] = {float4::VectorRotationToDegreeXAxis(Vertex[0].POSITION, -90.f) , float4(0.0f, 0.0f) };
-		Vertex[17] = {float4::VectorRotationToDegreeXAxis(Vertex[1].POSITION, -90.f) , float4(1.0f, 0.0f) };
-		Vertex[18] = {float4::VectorRotationToDegreeXAxis(Vertex[2].POSITION, -90.f) , float4(1.0f, 1.0f) };
-		Vertex[19] = { float4::VectorRotationToDegreeXAxis(Vertex[3].POSITION, -90.f), float4(0.0f, 1.0f)  };
+		Vertex[16] = {float4::VectorRotationToDegreeXAxis(Vertex[0].POSITION, -90.f) , float4(0.0f, 0.0f) , float4(1.0f), float4(0.0f, 1.0f, 0.0f) };
+		Vertex[17] = {float4::VectorRotationToDegreeXAxis(Vertex[1].POSITION, -90.f) , float4(1.0f, 0.0f) , float4(1.0f), float4(0.0f, 1.0f, 0.0f) };
+		Vertex[18] = {float4::VectorRotationToDegreeXAxis(Vertex[2].POSITION, -90.f) , float4(1.0f, 1.0f) , float4(1.0f), float4(0.0f, 1.0f, 0.0f) };
+		Vertex[19] = { float4::VectorRotationToDegreeXAxis(Vertex[3].POSITION, -90.f), float4(0.0f, 1.0f) , float4(1.0f), float4(0.0f, 1.0f, 0.0f)  };
 
 		// 아래
-		Vertex[20] = {float4::VectorRotationToDegreeXAxis(Vertex[0].POSITION, 90.f) , float4(0.0f, 0.0f)};
-		Vertex[21] = {float4::VectorRotationToDegreeXAxis(Vertex[1].POSITION, 90.f) , float4(1.0f, 0.0f)};
-		Vertex[22] = {float4::VectorRotationToDegreeXAxis(Vertex[2].POSITION, 90.f) , float4(1.0f, 1.0f)};
-		Vertex[23] = { float4::VectorRotationToDegreeXAxis(Vertex[3].POSITION, 90.f), float4(0.0f, 1.0f) };
+		Vertex[20] = {float4::VectorRotationToDegreeXAxis(Vertex[0].POSITION, 90.f) , float4(0.0f, 0.0f), float4(1.0f), float4(0.0f, -1.0f, 0.0f) };
+		Vertex[21] = { float4::VectorRotationToDegreeXAxis(Vertex[1].POSITION, 90.f) , float4(1.0f, 0.0f), float4(1.0f), float4(0.0f, -1.0f, 0.0f) };
+		Vertex[22] = { float4::VectorRotationToDegreeXAxis(Vertex[2].POSITION, 90.f) , float4(1.0f, 1.0f), float4(1.0f), float4(0.0f, -1.0f, 0.0f) };
+		Vertex[23] = { float4::VectorRotationToDegreeXAxis(Vertex[3].POSITION, 90.f), float4(0.0f, 1.0f), float4(1.0f), float4(0.0f, -1.0f, 0.0f) };
 
 
 		GameEngineVertexBuffer::Create("Box", Vertex);

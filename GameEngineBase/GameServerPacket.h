@@ -43,6 +43,22 @@ public:
 		PacketID = static_cast<int>(_Enum);
 	}
 
+	SOCKET GetMaster()
+	{
+		return Master;
+	}
+
+	void SetMaster(SOCKET _Master)
+	{
+		if (Master != -1)
+		{
+			return;
+		}
+
+		Master = _Master;
+	}
+
+
 	void SerializePacket(GameServerSerializer& _Ser)
 	{
 		Serialize(_Ser);
@@ -57,12 +73,14 @@ public:
 
 	GameServerPacket() 
 		: PacketID(GameServerPacketError)
+		, Master(-1)
 	{
 
 	}
 
 	GameServerPacket(int _PacketType)
 		: PacketID(_PacketType)
+		, Master(-1)
 	{
 
 	}
@@ -78,11 +96,13 @@ protected:
 	{
 		_Ser << PacketID;
 		_Ser << Size;
+		_Ser << Master;
 	}
 	virtual void DeSerialize(GameServerSerializer& _Ser) = 0
 	{
 		_Ser >> PacketID;
 		_Ser >> Size;
+		_Ser >> Master;
 	}
 
 
@@ -90,6 +110,7 @@ protected:
 private:
 	unsigned int PacketID; // 패킷의 종류
 	unsigned int Size; // 패킷의 크기
+	SOCKET Master; // 패킷의 크기
 
 
 	void SerializeEnd(GameServerSerializer& _Ser) 

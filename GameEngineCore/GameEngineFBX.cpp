@@ -277,7 +277,14 @@ std::vector<FBXNodeInfo> GameEngineFBX::CheckAllNode()
 {
 	std::vector<FBXNodeInfo> AllNode;
 
-	RecursiveAllNode(RootNode);
+	RecursiveAllNode(RootNode, [&](fbxsdk::FbxNode* _Node)
+		{
+			FBXNodeInfo& _NodeInfo = AllNode.emplace_back();
+
+			_NodeInfo.Name = _Node->GetName();
+			_NodeInfo.Node = _Node;
+
+		});
 
 	return AllNode;
 }
@@ -307,14 +314,18 @@ void GameEngineFBX::RecursiveAllNode(fbxsdk::FbxNode* _Node, std::function<void(
 
 	fbxsdk::FbxNodeAttribute* Info = _Node->GetNodeAttribute();
 
-	fbxsdk::FbxNodeAttribute::EType Type = Info->GetAttributeType();
+	if (nullptr != Info)
+	{
+		fbxsdk::FbxNodeAttribute::EType Type = Info->GetAttributeType();
+	}
+
 
 	int Count = _Node->GetChildCount();
 
 	for (int i = 0; i < Count; i++)
 	{
 		fbxsdk::FbxNode* Node = _Node->GetChild(i);
-		RecursiveAllNode(Node);
+		RecursiveAllNode(Node, _Function);
 	}
 
 }

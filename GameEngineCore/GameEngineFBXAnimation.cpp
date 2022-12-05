@@ -155,7 +155,7 @@ bool GameEngineFBXAnimation::AnimationLoad(std::shared_ptr <GameEngineFBXMesh> _
 			{
 				pCurrCluster = pCurrSkin->GetCluster(clusterIndex);
 				currJointName = pCurrCluster->GetLink()->GetName();
-				pBone = _Mesh->FindBone(0, currJointName);
+				pBone = _Mesh->FindBone(MeshIndex, currJointName);
 
 				pCurrCluster->GetTransformMatrix(transformMatrix);
 				pCurrCluster->GetTransformLinkMatrix(transformLinkMatrix);
@@ -163,7 +163,6 @@ bool GameEngineFBXAnimation::AnimationLoad(std::shared_ptr <GameEngineFBXMesh> _
 
 				linkName = pCurrCluster->GetLink()->GetName();
 				fbxsdk::FbxNode* pLinkNode = Scene->FindNodeByName(linkName.c_str());
-				if (nullptr == pLinkNode) { continue; }
 
 				FbxExBoneFrame& Frame = CurAniData.AniFrameData[MeshIndex][pBone->Index];
 				Frame.BoneMatData.resize(endTime - startTime + 1);
@@ -200,7 +199,101 @@ bool GameEngineFBXAnimation::AnimationLoad(std::shared_ptr <GameEngineFBXMesh> _
 
 	}
 
-	return true;
+	if (0 != deformerCount)
+	{
+		return true;
+	}
+
+	// return;
+
+	{
+		endTime = end.GetFrameCount(timeMode);
+		startTime = start.GetFrameCount(timeMode);
+
+		FbxExAniData& CurAniData = AnimationDatas[AnimationIndex];
+		CurAniData.EndTime = endTime;
+		CurAniData.StartTime = startTime;
+		CurAniData.TimeMode = timeMode;
+
+
+		std::vector<FBXNodeInfo> ALLNODE = CheckAllNode();
+
+		_Mesh->AllBones;
+		
+
+		fbxsdk::FbxNode* pLinkNode = Scene->FindNodeByName(linkName.c_str());
+
+		// ALLNODE[0].Node->GetAnimationEvaluator();
+
+		for (size_t i = 0; i < ALLNODE.size(); i++)
+		{
+
+			//FbxAnimEvaluator* AnimEvaluator = ALLNODE[i].Node->GetAnimationEvaluator();
+
+			//ALLNODE[i].Node->GetAnimationInterval()
+
+			//if (nullptr == AnimEvaluator)
+			//{
+			//	continue;
+			//}
+
+
+			//// AnimEvaluator->()
+
+			//continue;
+
+
+			for (size_t MeshIndex = 0; MeshIndex < CurAniData.AniFrameData.size(); ++MeshIndex)
+			{
+				for (size_t boneIndex = 0; boneIndex < CurAniData.AniFrameData[MeshIndex].size(); boneIndex++)
+				{
+					FbxExBoneFrame& Frame = CurAniData.AniFrameData[MeshIndex][boneIndex];
+					Frame.BoneMatData.resize(endTime - startTime + 1);
+					Frame.BoneIndex = boneIndex;
+					Frame.BoneParentIndex = boneIndex;
+
+					for (fbxsdk::FbxLongLong i = startTime; i <= endTime; ++i)
+					{
+						fixIndex = i - startTime;
+
+						FbxExBoneFrameData& FrameData = Frame.BoneMatData[fixIndex];
+
+						currTime.SetFrame(fixIndex, timeMode);
+						// 로
+						currentTransformOffset = _Node->EvaluateGlobalTransform(currTime) * JointMatrix * geometryTransform;
+						// 시간을 넣어주면 그때의 본의 행렬을 가져와 준다.
+						// 커브 
+
+						fbxsdk::FbxNode* Node = ALLNODE[i].Node;
+
+						globalTransform = currentTransformOffset.Inverse() * Node->EvaluateGlobalTransform(currTime);
+
+						localTransform.SetS(Node->EvaluateLocalScaling(currTime));
+						localTransform.SetR(Node->EvaluateLocalRotation(currTime));
+						localTransform.SetT(Node->EvaluateLocalTranslation(currTime));
+
+						FrameData.Time = currTime.GetSecondDouble();
+						FrameData.LocalAnimation = localTransform;
+						FrameData.GlobalAnimation = globalTransform;
+						FrameData.FrameMat = FbxMatTofloat4x4(FrameData.GlobalAnimation);
+						FrameData.S = FbxVecTofloat4(FrameData.GlobalAnimation.GetS());
+						FrameData.Q = FbxQuaternionTofloat4(FrameData.GlobalAnimation.GetQ());
+						FrameData.T = FbxVecToTransform(FrameData.GlobalAnimation.GetT());
+					}
+				}
+
+			}
+		}
+
+
+		int a = 0;
+
+	}
+
+
+
+
+	return false;
 }
 
 

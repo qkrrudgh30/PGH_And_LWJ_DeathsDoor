@@ -113,6 +113,8 @@ private:
 
 	std::unordered_map<std::string, GameEngineInstancing> InstancingMap;
 
+	// std::list<GameEngineLight>
+
 	float4x4 View; // 바라보는것
 	float4x4 Projection;
 	float4x4 ViewPort;

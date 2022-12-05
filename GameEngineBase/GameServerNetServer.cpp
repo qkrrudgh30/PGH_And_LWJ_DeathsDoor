@@ -27,7 +27,7 @@ GameServerNetServer::~GameServerNetServer()
 	{
 		closesocket(UserSockets[i]);
 		UserSockets[i] = 0;
-		UserThreads[i].Join();
+		UserThreads[i]->Join();
 	}
 
 	if (0 != ServerAccpetSocket)
@@ -112,7 +112,8 @@ void GameServerNetServer::AcceptFunction(GameEngineThread* Thread)
 			return;
 		}
 
-		GameEngineThread& NewThread = UserThreads.emplace_back();
+		std::shared_ptr<GameEngineThread> NewThread = std::make_shared<GameEngineThread>();
+		UserThreads.push_back(NewThread);
 		std::stringstream ThreadName;
 		ThreadName << NewUser;
 		ThreadName << "UserThread";
@@ -122,8 +123,8 @@ void GameServerNetServer::AcceptFunction(GameEngineThread* Thread)
 			AcceptCallBack(NewUser);
 		}
 
-		NewThread.Start(ThreadName.str(), std::bind(&GameServerNetServer::UserFunction, this, &NewThread, NewUser));
 		UserSockets.push_back(NewUser);
+		NewThread->Start(ThreadName.str(), std::bind(&GameServerNetServer::UserFunction, this, NewThread.get(), NewUser));
 
 
 		// 처리해야할께 많다고만 해둘께요.
@@ -155,7 +156,10 @@ void GameServerNetServer::UserFunction(GameEngineThread* Thread, SOCKET _Socket)
 		memcpy_s(&PacketType, sizeof(int), Ser.GetDataPtr(), sizeof(int));
 		memcpy_s(&PacketSize, sizeof(int), Ser.GetDataPtr() + 4, sizeof(int));
 
-		std::shared_ptr<GameServerPacket> Packet = Dis.PacketReturnCallBack(PacketType, PacketSize, Ser);
+		std::shared_ptr<GameServerPacket> Packet = 
+			Dis.PacketReturnCallBack(PacketType, PacketSize, Ser);
+
+		Packet->SetMaster(_Socket);
 
 		Dis.ProcessPacket(Packet);
 	}
@@ -163,8 +167,14 @@ void GameServerNetServer::UserFunction(GameEngineThread* Thread, SOCKET _Socket)
 
 int GameServerNetServer::SendPacket(std::shared_ptr<GameServerPacket> _Packet)
 {
+	// 문제가 있음.
 	for (size_t i = 0; i < UserSockets.size(); i++)
 	{
+		if (UserSockets[i] == _Packet->GetMaster())
+		{
+			continue;
+		}
+
 		NetSendPacket(UserSockets[i], _Packet);
 	}
 

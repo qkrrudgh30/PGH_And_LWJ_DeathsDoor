@@ -48,7 +48,7 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 			Info.CurFrameTime -= Info.Inter;
 			++Info.CurFrame;
 
-			if ( Info.CurFrame == 0)
+			if (Info.CurFrame == 0)
 			{
 				if (nullptr != StartEvent)
 				{
@@ -88,7 +88,6 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 				else
 				{
 					Info.CurFrame = static_cast<unsigned int>(Info.Frames.size()) - 1;
-				
 				}
 			}
 		}
@@ -136,6 +135,11 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 
 			for (int i = 0; i < AnimationBoneMatrix.size(); i++)
 			{
+				if (0 == FBXAnimationData->AniFrameData[MeshIndex].size())
+				{
+					continue;
+				}
+
 				Bone* BoneData = ParentRenderer->GetFBXMesh()->FindBone(MeshIndex, i);
 
 				if (true == FBXAnimationData->AniFrameData[MeshIndex][i].BoneMatData.empty())
@@ -159,12 +163,6 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 				AnimationBoneData[i].RotQuaternion = float4::SLerpQuaternion(CurData.Q, NextData.Q, Info.CurFrameTime);
 				// 로컬 포지션
 				AnimationBoneData[i].Pos = float4::Lerp(CurData.T, NextData.T, Info.CurFrameTime);
-
-				if (float4::ZERO == AnimationBoneData[i].Pos)
-				{
-
-				}
-
 				// 새롭게 바뀐 애니메이션
 
 				// 애니메이션이 바뀌는 순간 한번은 저장해야 한다.
@@ -200,10 +198,6 @@ void FBXRendererAnimation::Update(float _DeltaTime)
 
 void FBXRendererAnimation::Reset()
 {
-
-
-
-
 	Info.CurFrameTime = 0.0f;
 	Info.CurFrame = 0;
 	Info.PlayTime = 0.0f;
@@ -359,9 +353,6 @@ void GameEngineFBXAnimationRenderer::CreateFBXAnimation(const std::string& _Anim
 
 void GameEngineFBXAnimationRenderer::ChangeAnimation(const std::string& _AnimationName)
 {
-
-
-
 	std::string UpperName = GameEngineString::ToUpperReturn(_AnimationName);
 
 	std::map<std::string, std::shared_ptr<FBXRendererAnimation>>::iterator FindIter = Animations.find(UpperName);
@@ -372,13 +363,11 @@ void GameEngineFBXAnimationRenderer::ChangeAnimation(const std::string& _Animati
 		return;
 	}
 
-
-
 	if (FindIter->second == CurAnimation)
 	{
 		return;
 	}
-	
+
 
 	CurAnimation = FindIter->second;
 	CurAnimation->Reset();
