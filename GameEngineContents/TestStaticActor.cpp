@@ -23,7 +23,7 @@ void TestStaticActor::Start()
 	sptrTestPicture->SetBillboardInfo(1u);
 
 	Collision = CreateComponent<GameEngineCollision>();
-	Collision->GetTransform().SetLocalScale(float4{100.f, 100.f, 30000.f});
+	Collision->GetTransform().SetWorldScale(float4{200.f, 100.f, 100.f});
 	Collision->SetParent(sptrTestPicture);
 	Collision->GetTransform().SetLocalPosition(float4{0.f, 0.f, 0.f});
 

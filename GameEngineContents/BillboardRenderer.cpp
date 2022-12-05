@@ -121,4 +121,24 @@ float4x4 BillboardRenderer::GetMainCameraRotation(const float4& _f4EyePosition, 
 	Mat.Transpose();
 
 	return Mat;
+
+	/*float4 R2 = float4::Normalize3DReturn(_f4EyeFocus);
+
+	float4 R0 = float4::Cross3D(_f4Up, R2);
+	R0.Normalize3D();
+
+	float4 R1 = float4::Cross3D(R2, R0);
+
+	float4 P = float4{ 0.f, 0.f, 0.f, 0.f };
+
+	float4 Control = { 0xff, 0xff, 0xff, 0 };
+	float4x4 Mat;
+	Mat.ArrV[0] = float4::Select(P, R0, Control);
+	Mat.ArrV[1] = float4::Select(P, R1, Control);
+	Mat.ArrV[2] = float4::Select(P, R2, Control);
+	Mat.ArrV[3] = float4{ 0.f, 0.f, 0.f, 1.f };
+
+	Mat.Transpose();
+
+	return Mat;*/
 }
