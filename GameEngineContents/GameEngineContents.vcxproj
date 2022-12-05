@@ -483,6 +483,8 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="OldCrowAni.cpp" />
+    <ClCompile Include="OldCrowState.cpp" />
     <ClCompile Include="PaperburnRenderer.cpp">
       <SubType>
       </SubType>

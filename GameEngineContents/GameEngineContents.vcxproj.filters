@@ -583,5 +583,11 @@
     <ClCompile Include="BillboardRenderer.cpp">
       <Filter>96.Renderer</Filter>
     </ClCompile>
+    <ClCompile Include="OldCrowState.cpp">
+      <Filter>01.Actor\02.Unit\02.Monster\03.OldCrow</Filter>
+    </ClCompile>
+    <ClCompile Include="OldCrowAni.cpp">
+      <Filter>01.Actor\02.Unit\02.Monster\03.OldCrow</Filter>
+    </ClCompile>
   </ItemGroup>
 </Project>

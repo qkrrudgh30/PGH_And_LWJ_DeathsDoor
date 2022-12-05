@@ -32,16 +32,127 @@ void OldCrow::Start()
 
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
 	FBXAnimationRenderer->SetFBXMesh("OldCrow.fbx", "TextureAnimation");
-
-
-	Event.ResourcesName = "OldCrow_Run.FBX";
-	Event.Loop = true;
-	Event.Inter = 0.1f;
-	FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Run", Event);
-
-
-	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 60.f, 60.f, 60.f });
+	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 30.f, 30.f, 30.f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 0.f,0.f });
+
+
+	{
+		Event.ResourcesName = "OldCrow_Dash.FBX";
+		Event.Loop = true;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Dash", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Dash", std::bind(&OldCrow::AniDashEnd, this, std::placeholders::_1));
+
+	}
+
+	{
+		Event.ResourcesName = "OldCrow_Dash_Start.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Dash_Start", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Dash_Start", std::bind(&OldCrow::AniDashStartEnd, this, std::placeholders::_1));
+
+	}
+
+	{
+		Event.ResourcesName = "OldCrow_Death_Run.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Death_Run", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Death_Run", std::bind(&OldCrow::AniDeathRunEnd, this, std::placeholders::_1));
+
+	}
+
+	{
+		Event.ResourcesName = "OldCrow_Death_Stand.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Death_Stand", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Death_Stand", std::bind(&OldCrow::AniDeathStandEnd, this, std::placeholders::_1));
+
+	}
+
+	{
+		Event.ResourcesName = "OldCrow_Idle.FBX";
+		Event.Loop = true;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Idle", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Idle", std::bind(&OldCrow::AniIdleEnd, this, std::placeholders::_1));
+
+	}
+
+	{
+		Event.ResourcesName = "OldCrow_Jump_Start.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Jump_Start", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Jump_Start", std::bind(&OldCrow::AniJumpStartEnd, this, std::placeholders::_1));
+
+	}
+
+	{
+		Event.ResourcesName = "OldCrow_Run.FBX";
+		Event.Loop = true;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Run", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Run", std::bind(&OldCrow::AniRunEnd, this, std::placeholders::_1));
+
+	}
+
+	{
+		Event.ResourcesName = "OldCrow_Run_S.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Run_S", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Run_S", std::bind(&OldCrow::AniRunStartEnd, this, std::placeholders::_1));
+
+	}
+
+	{
+		Event.ResourcesName = "OldCrow_Scream.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Scream", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Scream", std::bind(&OldCrow::AniScreamEnd, this, std::placeholders::_1));
+
+	}
+
+	{
+		Event.ResourcesName = "OldCrow_Slam.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Slam", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Slam", std::bind(&OldCrow::AniSlamEnd, this, std::placeholders::_1));
+
+	}
+
+	{
+		Event.ResourcesName = "OldCrow_Slam_End.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Slam_End", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Slam_End", std::bind(&OldCrow::AniSlamEndEnd, this, std::placeholders::_1));
+
+	}
+
+	{
+		Event.ResourcesName = "OldCrow_Turn_Left.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Turn_Left", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Turn_Left", std::bind(&OldCrow::AniTurnLeftEnd, this, std::placeholders::_1));
+
+	}
+
+	{
+		Event.ResourcesName = "OldCrow_Turn_Right.FBX";
+		Event.Loop = false;
+		Event.Inter = 0.025f;
+		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Turn_Right", Event);
+		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Turn_Right", std::bind(&OldCrow::AniTurnRightEnd, this, std::placeholders::_1));
+
+	}
+
 
 	FBXAnimationRenderer->ChangeAnimation("OldCrow_Run");
 
@@ -57,11 +168,21 @@ void OldCrow::Start()
 
 	}
 
-
+	StateManager.CreateStateMember("StartAct"
+		, std::bind(&OldCrow::StartActUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::StartActStart, this, std::placeholders::_1)
+		, std::bind(&OldCrow::StartActEnd, this, std::placeholders::_1)
+	);
 
 	StateManager.CreateStateMember("Idle"
 		, std::bind(&OldCrow::IdleUpdate, this, std::placeholders::_1, std::placeholders::_2)
 		, std::bind(&OldCrow::IdleStart, this, std::placeholders::_1)
+	);
+
+	StateManager.CreateStateMember("MoveReady"
+		, std::bind(&OldCrow::MoveReadyUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::MoveReadyStart, this, std::placeholders::_1)
+		, std::bind(&OldCrow::MoveReadyEnd, this, std::placeholders::_1)
 	);
 
 	StateManager.CreateStateMember("Move"
@@ -71,24 +192,81 @@ void OldCrow::Start()
 	);
 
 
+	StateManager.CreateStateMember("TurnLeft"
+		, std::bind(&OldCrow::TurnLUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::TurnLStart, this, std::placeholders::_1)
+		, std::bind(&OldCrow::TurnLEnd, this, std::placeholders::_1)
+	);
 
-	StateManager.CreateStateMember("Stun"
-		, std::bind(&OldCrow::StunUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&OldCrow::StunStart, this, std::placeholders::_1)
-		, std::bind(&OldCrow::StunEnd, this, std::placeholders::_1)
+	StateManager.CreateStateMember("TurnRight"
+		, std::bind(&OldCrow::TurnRUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::TurnRStart, this, std::placeholders::_1)
+		, std::bind(&OldCrow::TurnREnd, this, std::placeholders::_1)
+	);
+
+
+	StateManager.CreateStateMember("DashReady"
+		, std::bind(&OldCrow::DashReadyUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::DashReadyStart, this, std::placeholders::_1)
+		, std::bind(&OldCrow::DashReadyEnd, this, std::placeholders::_1)
+	);
+
+
+	StateManager.CreateStateMember("Dash"
+		, std::bind(&OldCrow::DashUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::DashStart, this, std::placeholders::_1)
+		, std::bind(&OldCrow::DashEnd, this, std::placeholders::_1)
+	);
+
+
+	StateManager.CreateStateMember("Jump"
+		, std::bind(&OldCrow::JumpUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::JumpStart, this, std::placeholders::_1)
+		, std::bind(&OldCrow::JumpEnd, this, std::placeholders::_1)
+	);
+
+
+	StateManager.CreateStateMember("JumpReady"
+		, std::bind(&OldCrow::JumpReadyUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::JumpReadyStart, this, std::placeholders::_1)
+		, std::bind(&OldCrow::JumpReadyEnd, this, std::placeholders::_1)
+	);
+
+
+	StateManager.CreateStateMember("JumpEnd"
+		, std::bind(&OldCrow::JumpEndUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::JumpEndStart, this, std::placeholders::_1)
+		, std::bind(&OldCrow::JumpEndEnd, this, std::placeholders::_1)
+	);
+
+
+	StateManager.CreateStateMember("Scream"
+		, std::bind(&OldCrow::ScreamUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::ScreamStart, this, std::placeholders::_1)
+		, std::bind(&OldCrow::ScreamEnd, this, std::placeholders::_1)
+	);
+
+
+	StateManager.CreateStateMember("DashDeath"
+		, std::bind(&OldCrow::DashDeathUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::DashDeathStart, this, std::placeholders::_1)
+		, std::bind(&OldCrow::DashDeathEnd, this, std::placeholders::_1)
+	);
+
+
+	StateManager.CreateStateMember("StandDeath"
+		, std::bind(&OldCrow::StandDeathUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::StandDeathStart, this, std::placeholders::_1)
+		, std::bind(&OldCrow::StandDeathEnd, this, std::placeholders::_1)
 	);
 
 
 
 
-	StateManager.CreateStateMember("Att"
-		, std::bind(&OldCrow::AttUpdate, this, std::placeholders::_1, std::placeholders::_2)
-		, std::bind(&OldCrow::AttStart, this, std::placeholders::_1)
-		, std::bind(&OldCrow::AttEnd, this, std::placeholders::_1)
-	);
 
 
-	StateManager.ChangeState("Idle");
+
+	StateManager.ChangeState("StartAct");
 }
 
 void OldCrow::Update(float _DeltaTime)
@@ -103,7 +281,7 @@ void OldCrow::Update(float _DeltaTime)
 
 	if (m_Info.m_Hp <= 0)
 	{
-		Death();
+		StateManager.ChangeState("StandDeath");
 	}
 
 	StateManager.Update(_DeltaTime);
@@ -113,69 +291,3 @@ void OldCrow::Update(float _DeltaTime)
 
 
 
-
-
-void OldCrow::MoveStart(const StateInfo& _Info)
-{
-
-}
-void OldCrow::MoveEnd(const StateInfo& _Info)
-{
-
-}
-void OldCrow::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
-{
-
-
-
-}
-
-
-
-void OldCrow::StunStart(const StateInfo& _Info)
-{
-}
-void OldCrow::StunEnd(const StateInfo& _Info)
-{
-
-
-
-}
-void OldCrow::StunUpdate(float _DeltaTime, const StateInfo& _Info)
-{
-
-
-
-
-}
-
-
-
-
-
-
-void OldCrow::AttStart(const StateInfo& _Info)
-{
-	
-}
-void OldCrow::AttEnd(const StateInfo& _Info)
-{
-	
-}
-void OldCrow::AttUpdate(float _DeltaTime, const StateInfo& _Info)
-{
-
-}
-
-
-
-
-void OldCrow::IdleStart(const StateInfo& _Info)
-{
-
-}
-void OldCrow::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
-{
-
-
-}
