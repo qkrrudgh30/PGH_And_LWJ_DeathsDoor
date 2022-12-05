@@ -21,7 +21,7 @@ UnitBase::UnitBase() :
 	, hitTime()
 	, m_fHitTime()
 	, m_bhitCheck()
-	, mfPaperburnDeathTime(1.5f)
+	, mfPaperburnDeathTime(2.f)
 	, mPaperBurnInfo{}
 	, mbOnce(false)
 	, mbOnDeath(false)
@@ -113,6 +113,7 @@ void UnitBase::InitializePaperBurn(std::shared_ptr<GameEngineFBXAnimationRendere
 		for (size_t j = 0; j < vuSubsetCount[i]; ++j)
 		{
 			_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetConstantBufferLink("PaperBurnInfo", mPaperBurnInfo);
+			_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetTexture("CloudTexture", "CloudTexture.png");
 		}
 	}
 }

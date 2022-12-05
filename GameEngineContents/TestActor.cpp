@@ -94,7 +94,7 @@ void TestActor::Update(float _DeltaTime)
 	if (m_Info.m_Hp <= 0 && true == mbOnDeath)
 	{
 		static float fSinTime = 0.f;
-		fSinTime += _DeltaTime * 20;
+		fSinTime += _DeltaTime / mfPaperburnDeathTime;
 		SetPaperBurnInfo(1u, fSinTime);
 	}
 #pragma endregion
