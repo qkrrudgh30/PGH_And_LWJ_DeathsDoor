@@ -21,7 +21,7 @@ GameEngineRenderUnit::GameEngineRenderUnit()
 	: ParentRenderer()
 	, Material(nullptr)
 	, Topology(D3D11_PRIMITIVE_TOPOLOGY::D3D10_PRIMITIVE_TOPOLOGY_TRIANGLELIST)
-	, InputLayOut(nullptr)  
+	, InputLayOut(nullptr)
 	, IsOn(true)
 {
 	SetMesh("rect");
@@ -100,7 +100,7 @@ void GameEngineRenderUnit::SetMesh(std::shared_ptr<GameEngineMesh> _Mesh)
 	}
 }
 
-void GameEngineRenderUnit::SetPipeLine(const std::string& _Name)
+void GameEngineRenderUnit::SetMaterial(const std::string& _Name)
 {
 	Material = GameEngineMaterial::Find(_Name);
 

@@ -18,7 +18,7 @@ void ContentsBlur::EffectInit()
 	InitializeBlurInfo();
 
 	mAppliedRenderUnit.SetMesh("FullRect");
-	mAppliedRenderUnit.SetPipeLine("ContentsBlur");
+	mAppliedRenderUnit.SetMaterial("ContentsBlur");
 	mAppliedRenderUnit.ShaderResources.SetConstantBufferLink("BlurInfo", mBlurInfo);
 }
 

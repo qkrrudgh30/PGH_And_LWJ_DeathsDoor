@@ -21,7 +21,7 @@ void FlowerBullet::Start()
 
 
 		Renderer = CreateComponent<GameEngineDefaultRenderer>();
-		Renderer->SetPipeLine("Color");
+		Renderer->SetMaterial("Color");
 		Renderer->GetRenderUnit()->SetMesh("Box");
 		float4 ResultColor = { 1.f,1.f,1.f,1.f };
 

@@ -22,7 +22,7 @@ void GameEngineBlur::EffectInit()
 	CopyTarget->CreateRenderTargetTexture(GameEngineWindow::GetScale(), DXGI_FORMAT::DXGI_FORMAT_R32G32B32A32_FLOAT, float4::ZERO);
 
 	EffectSet.SetMesh("FullRect");
-	EffectSet.SetPipeLine("Blur");
+	EffectSet.SetMaterial("Blur");
 }
 
 void GameEngineBlur::Effect(std::shared_ptr<GameEngineRenderTarget> _Target)

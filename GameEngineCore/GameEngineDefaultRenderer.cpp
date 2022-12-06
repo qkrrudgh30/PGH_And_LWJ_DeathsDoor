@@ -24,9 +24,9 @@ void GameEngineDefaultRenderer::SetMesh(const std::string& _Name)
 	Unit->SetMesh(_Name);
 }
 
-void GameEngineDefaultRenderer::SetPipeLine(const std::string& _Name)
+void GameEngineDefaultRenderer::SetMaterial(const std::string& _Name)
 {
-	Unit->SetPipeLine(_Name);
+	Unit->SetMaterial(_Name);
 	Unit->SetRenderer(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()));
 }
 

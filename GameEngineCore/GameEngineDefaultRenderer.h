@@ -31,7 +31,7 @@ public:
 
 
 	void SetMesh(const std::string& _Name);
-	void SetPipeLine(const std::string& _Name);
+	void SetMaterial(const std::string& _Name);
 
 	inline GameEngineShaderResourcesHelper& GetShaderResources()
 	{

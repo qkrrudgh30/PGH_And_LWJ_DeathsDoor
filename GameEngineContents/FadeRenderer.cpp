@@ -103,7 +103,7 @@ void FadeRenderer::SetFadeRendererSetting(void)
 {
 	InitializeFadeInfo();
 
-	SetPipeLine("Fade");
+	SetMaterial("Fade");
 	
 	GetShaderResources().SetConstantBufferLink("FadeInfo", mFadeInfo);
 }

@@ -66,7 +66,7 @@ GameEngineRenderUnit* GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name
 	}
 	
 	GameEngineRenderUnit& RenderUnit = Unit[Index][_SubSetIndex];
-	RenderUnit.SetPipeLine(_Material);
+	RenderUnit.SetMaterial(_Material);
 
 	std::shared_ptr <GameEngineMesh> FbxMesh = FBXMesh->GetGameEngineMesh(Index, _SubSetIndex);
 	RenderUnit.SetMesh(FbxMesh);

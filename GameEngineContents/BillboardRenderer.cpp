@@ -46,7 +46,7 @@ void BillboardRenderer::SetBillboardRenderingSetting()
 {
 	InitializeBillboard();
 
-	SetPipeLine("Billboard");
+	SetMaterial("Billboard");
 
 	GetShaderResources().SetConstantBufferLink("BillboardInfo", mBillboardInfo);
 	GetShaderResources().SetConstantBufferLink("PixelData", mPixelData);

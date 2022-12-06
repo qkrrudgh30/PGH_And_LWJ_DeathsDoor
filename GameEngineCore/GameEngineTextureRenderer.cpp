@@ -129,7 +129,7 @@ GameEngineTextureRenderer::~GameEngineTextureRenderer()
 
 void GameEngineTextureRenderer::SetTextureRendererSetting()
 {
-	SetPipeLine("TextureAtlas");
+	SetMaterial("TextureAtlas");
 
 	AtlasDataInst.FrameData.PosX = 0.0f;
 	AtlasDataInst.FrameData.PosY = 0.0f;

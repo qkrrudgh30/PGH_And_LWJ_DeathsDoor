@@ -144,6 +144,7 @@
     <FxCompile Include="Shader\ContentsShader.hlsl" />
     <FxCompile Include="Shader\Fade.hlsl" />
     <FxCompile Include="Shader\PaperBurn.hlsl" />
+    <FxCompile Include="Shader\PreviousColor.hlsl" />
     <FxCompile Include="Shader\YEffect.hlsl" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

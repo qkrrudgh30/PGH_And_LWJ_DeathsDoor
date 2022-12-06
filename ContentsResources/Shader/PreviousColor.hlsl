@@ -6,22 +6,19 @@
 // t1
 
 // Create("TransformData");
-#include "TransformHeader.fx"
-#include "LightHeader.fx"
+#include "../../GameEngineResources/GameEngineShader/TransformHeader.fx"
 
 // cbuffer Color : 
 // TestColor;
 struct Input
 {
     float4 Pos : POSITION;
-    float4 Normal : NORMAL0;
 };
 
 struct Output
 {
     float4 Pos : SV_POSITION;
-    float4 ViewPos : POSITION;
-    float4 Normal : NORMAL0;
+    float4 PosLocal : POSITION;
 };
 
 //cbuffer ResultColor : register(b2)
@@ -49,14 +46,6 @@ Output Color_VS(Input _Input)
     
     NewOutPut.Pos = mul(_Input.Pos, WorldViewProjection);
     
-    NewOutPut.ViewPos = mul(_Input.Pos, WorldView);
-    
-    _Input.Normal.w = 0.0f;
-    NewOutPut.Normal = mul(_Input.Normal, WorldView);
-    NewOutPut.Normal.w = 0.0f;
-    
-    // NewOutPut.Normal = _Input.Normal;
-    
     return NewOutPut;
 }
 
@@ -67,14 +56,5 @@ cbuffer ResultColor : register(b8)
 
 float4 Color_PS(Output _Input) : SV_Target0
 {
-    LightData Data;
-    Data.LightDir = float4(1.0f, 0.0f, 0.0f, 0.0f);
-    Data.LightRevDir = float4(-1.0f, 0.0f, 0.0f, 0.0f);
-    Data.LightRevDir = mul(Data.LightRevDir, WorldView);
-    
-    float4 DiffuseLight = CalDiffuseLight(_Input.Normal, Data);
-    
-    float4 Result = Color * DiffuseLight;
-    
-    return Result;
+    return Color;
 }

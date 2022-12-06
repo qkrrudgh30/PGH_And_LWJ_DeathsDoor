@@ -65,7 +65,7 @@ float4 TextureAnimation_PS(Output _Input) : SV_Target0
     
     if (Color.a <= 0.0f)
     {
-        clip(-1);
+        Color.a = 1.f;
     }
     
     return Color;

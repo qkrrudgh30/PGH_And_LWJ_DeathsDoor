@@ -3,6 +3,7 @@
 #include <GameEngineBase/GameEngineMath.h>
 #include <GameEngineBase/GameEngineWindow.h>
 #include "GameEngineInstancingBuffer.h"
+#include <set>
 
 enum class CAMERAPROJECTIONMODE
 {
@@ -12,6 +13,7 @@ enum class CAMERAPROJECTIONMODE
 
 
 // 설명 :
+class GameEngineLight;
 class GameEngineLevel;
 class GameEngineCamera;
 class GameEngineInstancing;
@@ -83,7 +85,6 @@ public:
 	}
 
 	//                  개수
-
 	GameEngineInstancing& GetInstancing(const std::string& _Name);
 	//void PushInstancing(std::shared_ptr < GameEngineMaterial> _Pipe, int Count);
 	//int PushInstancingData(std::shared_ptr < GameEngineMaterial> _Pipe, void* _DataPtr, int _Size);
@@ -91,10 +92,13 @@ public:
 
 	float4 GetWorldPositionToScreenPosition(const float4& _Pos);
 
+	void PushLight(std::shared_ptr<class GameEngineLight> _Light);
+
 protected:
 	void Start();
 
 	void ChangeRenderingOrder(std::shared_ptr < GameEngineRenderer> _Renderer, int _ChangeOrder);
+
 
 private:
 	void Render(float _DeltaTime);
@@ -105,13 +109,15 @@ private:
 
 	void Update(float _DeltaTime) override;
 
-	void OverRenderer(std::shared_ptr < GameEngineCamera> _NextOver);
+	void OverRenderer(std::shared_ptr<GameEngineCamera> _NextOver);
 
 	std::shared_ptr<class GameEngineRenderTarget> CameraRenderTarget;
 
 	std::map<int, std::list<std::shared_ptr<class GameEngineRenderer>>> AllRenderer_;
 
 	std::unordered_map<std::string, GameEngineInstancing> InstancingMap;
+
+	std::set<std::shared_ptr<class GameEngineLight>> AllLight;
 
 	// std::list<GameEngineLight>
 

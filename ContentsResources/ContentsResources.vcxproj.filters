@@ -67,5 +67,8 @@
     <FxCompile Include="Shader\Billboard.hlsl">
       <Filter>Shader\2DShader</Filter>
     </FxCompile>
+    <FxCompile Include="Shader\PreviousColor.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

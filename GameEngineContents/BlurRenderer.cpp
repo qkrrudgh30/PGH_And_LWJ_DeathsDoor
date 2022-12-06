@@ -86,7 +86,7 @@ void BlurRenderer::SetBlurRenderingPipeline(void)
 {
 	InitializeBlurInfo();
 
-	SetPipeLine("Blur");
+	SetMaterial("Blur");
 
 	GetShaderResources().SetConstantBufferLink("BlurInfo", mBlurInfo);
 }

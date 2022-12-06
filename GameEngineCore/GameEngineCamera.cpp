@@ -19,7 +19,7 @@ GameEngineCamera::GameEngineCamera()
 	Size = GameEngineWindow::GetInst()->GetScale();
 	Mode = CAMERAPROJECTIONMODE::PersPective;
 	Near = 0.1f;
-	Far = 100000.0f;
+	Far = 10000.0f;
 	Fov = 60.0f;
 
 	ViewPortDesc.TopLeftX = 0;
@@ -262,4 +262,14 @@ float4 GameEngineCamera::GetWorldPositionToScreenPosition(const float4& _Pos)
 
 	Pos = Pos * ViewPort;
 	return Pos;
+}
+
+void GameEngineCamera::PushLight(std::shared_ptr<class GameEngineLight> _Light)
+{
+	if (true == AllLight.contains(_Light))
+	{
+		return;
+	}
+
+	AllLight.insert(_Light);
 }

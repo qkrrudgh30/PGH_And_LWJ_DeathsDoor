@@ -18,7 +18,7 @@ void ContentsBloom::EffectInit()
 	InitializeBloomInfo();
 
 	mAppliedRenderUnit.SetMesh("FullRect");
-	mAppliedRenderUnit.SetPipeLine("ContentsBloom");
+	mAppliedRenderUnit.SetMaterial("ContentsBloom");
 	mAppliedRenderUnit.ShaderResources.SetConstantBufferLink("BloomInfo", mBloomInfo);
 }
 
