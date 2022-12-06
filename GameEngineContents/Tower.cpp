@@ -578,7 +578,7 @@ void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 	if (m_fAttCTime >= 3.f)
 	{
 		m_fAttCTime = 0.;
-		AttType =  GameEngineRandom::MainRandom.RandomInt(0, 3);
+		AttType =  GameEngineRandom::MainRandom.RandomInt(1, 3);
 		//AttType = 3;
 	}
 

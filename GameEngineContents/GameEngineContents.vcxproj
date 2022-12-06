@@ -192,6 +192,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="DashBullet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="DashTrail.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="EditGUIWindow.h">
       <SubType>
       </SubType>
@@ -438,6 +446,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="ContentsRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="DashBullet.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="DashTrail.cpp">
       <SubType>
       </SubType>
     </ClCompile>

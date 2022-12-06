@@ -169,6 +169,12 @@
     <Filter Include="01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser">
       <UniqueIdentifier>{5e4d9d2a-694e-4dc7-90c4-8cb27c8379ca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\03.OldCrow">
+      <UniqueIdentifier>{582cffde-6ad7-4201-9da8-56dbda91d3b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\03.OldCrow\00.Dash">
+      <UniqueIdentifier>{9e7ad755-6058-4ed3-8273-553633d1cb9f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -375,6 +381,12 @@
     </ClInclude>
     <ClInclude Include="BillboardRenderer.h">
       <Filter>96.Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="DashTrail.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\00.Dash</Filter>
+    </ClInclude>
+    <ClInclude Include="DashBullet.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\00.Dash</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -588,6 +600,12 @@
     </ClCompile>
     <ClCompile Include="OldCrowAni.cpp">
       <Filter>01.Actor\02.Unit\02.Monster\03.OldCrow</Filter>
+    </ClCompile>
+    <ClCompile Include="DashBullet.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\00.Dash</Filter>
+    </ClCompile>
+    <ClCompile Include="DashTrail.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\00.Dash</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

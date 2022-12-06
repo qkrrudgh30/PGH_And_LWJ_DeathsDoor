@@ -1301,6 +1301,12 @@ void Player::Update(float _DeltaTime)
 		return;
 	}
 
+	if (m_bOldCrowCameraCheck)
+	{
+		return;
+	}
+
+
 	if (m_bTowerCameraCheck)
 	{
 		FBXAnimationRenderer->Off();

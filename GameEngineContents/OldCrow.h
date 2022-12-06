@@ -11,6 +11,7 @@
 
 // Ό³Έν :
 class Player;
+class DashBullet;
 class OldCrow : public UnitBase
 {
 public:
@@ -27,12 +28,28 @@ public:
 
 
 
-protected:
+public:
 	void Start() override;
 
+	std::weak_ptr<DashBullet> m_cHook;
+	float AttAngle = 0.f;
 
-	float4 StartPostion;
-	float4 DirPower;
+
+	float m_fJumpSpeed = 0.f;
+
+
+	float4 StartPostion = {};
+	float4 DirPower = {};
+
+
+	float m_fAttCTime = 0.f;
+	int AttType = 0;
+
+	int AttCount = 0;
+
+
+	bool DashStartCheck = false;
+	bool DashEndCheck = false;
 
 
 	void IdleUpdate(float _DeltaTime, const StateInfo& _Info);
@@ -70,6 +87,27 @@ protected:
 	void DashEnd(const StateInfo& _Info);
 	void DashUpdate(float _DeltaTime, const StateInfo& _Info);
 
+
+	void DashReady2Start(const StateInfo& _Info);
+	void DashReady2End(const StateInfo& _Info);
+	void DashReady2Update(float _DeltaTime, const StateInfo& _Info);
+
+
+	void Dash2Start(const StateInfo& _Info);
+	void Dash2End(const StateInfo& _Info);
+	void Dash2Update(float _DeltaTime, const StateInfo& _Info);
+
+	void DashReady3Start(const StateInfo& _Info);
+	void DashReady3End(const StateInfo& _Info);
+	void DashReady3Update(float _DeltaTime, const StateInfo& _Info);
+
+
+	void Dash3Start(const StateInfo& _Info);
+	void Dash3End(const StateInfo& _Info);
+	void Dash3Update(float _DeltaTime, const StateInfo& _Info);
+
+
+
 	void JumpStart(const StateInfo& _Info);
 	void JumpEnd(const StateInfo& _Info);
 	void JumpUpdate(float _DeltaTime, const StateInfo& _Info);
@@ -104,6 +142,10 @@ protected:
 
 private:
 	float4 Pos;
+	bool StartAnicheck = false;
+	bool ScreamAnicheck = false;
+
+	float m_fStartTime = 0.f;
 private:
 	void AniDashEnd(const GameEngineRenderingEvent& _Data);
 	void AniDashStartEnd(const GameEngineRenderingEvent& _Data);

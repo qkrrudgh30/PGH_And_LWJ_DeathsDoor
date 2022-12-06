@@ -2,6 +2,9 @@
 #include "PreCompile.h"
 #include "OldCrow.h"
 #include "Player.h"
+#include "UnitBase.h"
+
+
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
 
@@ -154,7 +157,7 @@ void OldCrow::Start()
 	}
 
 
-	FBXAnimationRenderer->ChangeAnimation("OldCrow_Run");
+	FBXAnimationRenderer->ChangeAnimation("OldCrow_Idle");
 
 
 
@@ -219,6 +222,35 @@ void OldCrow::Start()
 	);
 
 
+	StateManager.CreateStateMember("Dash2Ready"
+		, std::bind(&OldCrow::DashReady2Update, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::DashReady2Start, this, std::placeholders::_1)
+		, std::bind(&OldCrow::DashReady2End, this, std::placeholders::_1)
+	);
+
+
+	StateManager.CreateStateMember("Dash2"
+		, std::bind(&OldCrow::Dash2Update, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::Dash2Start, this, std::placeholders::_1)
+		, std::bind(&OldCrow::Dash2End, this, std::placeholders::_1)
+	);
+
+
+
+	StateManager.CreateStateMember("Dash3Ready"
+		, std::bind(&OldCrow::DashReady3Update, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::DashReady3Start, this, std::placeholders::_1)
+		, std::bind(&OldCrow::DashReady3End, this, std::placeholders::_1)
+	);
+
+	StateManager.CreateStateMember("Dash3"
+		, std::bind(&OldCrow::Dash3Update, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&OldCrow::Dash3Start, this, std::placeholders::_1)
+		, std::bind(&OldCrow::Dash3End, this, std::placeholders::_1)
+	);
+
+
+
 	StateManager.CreateStateMember("Jump"
 		, std::bind(&OldCrow::JumpUpdate, this, std::placeholders::_1, std::placeholders::_2)
 		, std::bind(&OldCrow::JumpStart, this, std::placeholders::_1)
@@ -274,6 +306,7 @@ void OldCrow::Update(float _DeltaTime)
 
 
 
+	BaseUpdate(_DeltaTime);
 
 
 
