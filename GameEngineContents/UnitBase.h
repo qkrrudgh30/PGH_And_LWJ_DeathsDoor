@@ -74,26 +74,34 @@ public :
 	}
 
 
-	float4 fromtwovectors(float4 u, float4 v)
+	float DirToRot(float4 u, float4 v)
 	{
-		float norm_u_norm_v = sqrt((float4:: DotProduct3D(u, u)) * (float4::DotProduct3D(v, v)));
-		float real_part = norm_u_norm_v + (float4::DotProduct3D(u, v));
-		float4 w;
 
-		if (real_part < 1.e-6f * norm_u_norm_v)
+		u.y = -u.z;
+		v.y = -v.z;
+
+
+		u.z = 0.f;
+		u.w = 0.f;
+
+		v.z = 0.f;
+		v.w = 0.f;
+
+		float Angle = float4::VectorXYtoDegree(v, u);
+
+		Angle += 90.f;
+
+		if (Angle >= 360.f)
 		{
-		
-			real_part = 0.0f;
-			w = abs(u.x) > abs(u.z) ? float4(-u.y, u.x, 0.f)
-				: float4(0.f, -u.z, u.y);
+			Angle -= 360.f;
 		}
-		else
+		else if (Angle <= 0.f)
 		{
-		
-			w = float4::Cross3D(u, v);
+			Angle += 360.f;
 		}
 
-		return (float4(real_part, w.x, w.y, w.z)).Normalize3DReturn();
+		return Angle;
+
 	}
 	
 
