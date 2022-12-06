@@ -147,6 +147,7 @@ protected:
 	float mfPaperburnDeathTime;
 	bool mbOnce;
 	bool mbOnDeath;
+	static float s_fAccTimeForPaperburn;
 
 	
 	

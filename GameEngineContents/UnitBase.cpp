@@ -7,6 +7,8 @@
 
 #include <array>
 
+float UnitBase::s_fAccTimeForPaperburn = 0.f;
+
 UnitBase::UnitBase() :
 	m_fLifeTime(0.f)
 	,m_fSpeed(0.f)

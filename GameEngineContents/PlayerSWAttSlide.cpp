@@ -23,8 +23,16 @@ void PlayerSWAttSlide::Start()
 	{
 		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
-		FBXStaticRenderer->SetFBXMesh("Sworld_Trail_3.fbx", "Texture");
-		FBXStaticRenderer->GetAllRenderUnit()[0][0].GetCloneMaterial()->SetOutputMergerBlend("Lighten");
+		FBXStaticRenderer->SetFBXMesh("Sworld_Trail_3.fbx", "StaticPaperBurn");
+		// FBXStaticRenderer->GetAllRenderUnit()[0][0].GetCloneMaterial()->SetOutputMergerBlend("Lighten");
+		
+#pragma region StaticPaperBurn
+
+		InitializePaperBurn(FBXStaticRenderer);
+		s_fAccTimeForPaperburn = 0.f;
+		mfPaperburnDeathTime = 5.f;
+
+#pragma endregion
 
 	}
 
@@ -48,7 +56,10 @@ void PlayerSWAttSlide::Update(float _DeltaTime)
 
 
 
-
+#pragma region StaticPaperBurn
+	s_fAccTimeForPaperburn += _DeltaTime * mfPaperburnDeathTime;
+	SetPaperBurnInfo(1u, s_fAccTimeForPaperburn);
+#pragma endregion	
 }
 
 CollisionReturn PlayerSWAttSlide::MonsterCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other)

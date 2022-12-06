@@ -70,7 +70,7 @@
     <FxCompile Include="Shader\PreviousColor.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
-    <FxCompile Include="StaticPaperBurn.hlsl">
+    <FxCompile Include="Shader\StaticPaperBurn.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
   </ItemGroup>

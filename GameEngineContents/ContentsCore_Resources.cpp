@@ -82,6 +82,10 @@ void CreateContentsMaterial()
 	std::weak_ptr<GameEngineMaterial> ContentsPreviousColorMaterial = GameEngineMaterial::Create("PreviousColor");
 	ContentsPreviousColorMaterial.lock()->SetVertexShader("PreviousColor.hlsl");
 	ContentsPreviousColorMaterial.lock()->SetPixelShader("PreviousColor.hlsl");
+
+	std::weak_ptr<GameEngineMaterial> ContentsStaticPaperBurnMaterial = GameEngineMaterial::Create("StaticPaperBurn");
+	ContentsStaticPaperBurnMaterial.lock()->SetVertexShader("StaticPaperBurn.hlsl");
+	ContentsStaticPaperBurnMaterial.lock()->SetPixelShader("StaticPaperBurn.hlsl");
 	
 	// std::weak_ptr<GameEngineMaterial> ContentsShaderMaterial = GameEngineMaterial::Create("ContentsShader");
 	// ContentsBlurMaterial.lock()->SetVertexShader("ContentsShader.hlsl");
