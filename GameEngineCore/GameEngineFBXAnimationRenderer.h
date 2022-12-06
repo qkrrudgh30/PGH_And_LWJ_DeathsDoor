@@ -147,7 +147,32 @@ public:
 	}
 
 	std::shared_ptr<FBXRendererAnimation> GetCurAnimation() { return CurAnimation; }
-	std::shared_ptr<FBXRendererAnimation> GetAnimationWithName(const std::string& _strName) { return Animations[_strName]; }
+	std::shared_ptr<FBXRendererAnimation> GetAnimationWithName(const std::string& _strName) 
+	{ 
+		std::string UpperName = GameEngineString::ToUpperReturn(_strName);
+
+		std::map<std::string, std::shared_ptr<FBXRendererAnimation>>::iterator FindIter = Animations.find(UpperName);
+
+		return FindIter->second;
+	}
+
+	bool CheckCurrentAnimation(std::string _strName)
+	{
+		std::string UpperName = GameEngineString::ToUpperReturn(_strName);
+
+		std::map<std::string, std::shared_ptr<FBXRendererAnimation>>::iterator FindIter = Animations.find(UpperName);
+
+		if (Animations.end() == FindIter)
+		{
+			MsgBox("존재하지 않는 애니메이션입니다.");
+			return false;
+		}
+
+		if (FindIter->second == CurAnimation)
+		{
+			return true;
+		}
+	}
 
 protected:
 
