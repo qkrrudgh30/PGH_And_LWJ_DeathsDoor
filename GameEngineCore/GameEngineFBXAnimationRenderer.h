@@ -146,6 +146,9 @@ public:
 		Animations[Name]->TimeEvent = _Function;
 	}
 
+	std::shared_ptr<FBXRendererAnimation> GetCurAnimation() { return CurAnimation; }
+	std::shared_ptr<FBXRendererAnimation> GetAnimationWithName(const std::string& _strName) { return Animations[_strName]; }
+
 protected:
 
 private:

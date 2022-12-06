@@ -116,6 +116,7 @@ public:
 	void CameraShake(float _Time);
 
 	void InitializePaperBurn(std::shared_ptr <GameEngineFBXAnimationRenderer>& _sptrFBXAnimationRenderer);
+	void InitializePaperBurn(std::shared_ptr <GameEngineFBXStaticRenderer>& _sptrFBXStaticRenderer);
 	void SetPaperBurnInfo(unsigned int _uOnOffPaperBurn, float _fEffectTime);
 
 	

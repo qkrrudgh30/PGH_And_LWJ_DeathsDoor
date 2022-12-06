@@ -24,6 +24,7 @@ void PlayerSWAtt1::Start()
 		FBXStaticRenderer->SetFBXMesh("Sworld_Trail_4.fbx", "Texture");
 		FBXStaticRenderer->ChangeCamera(CAMERAORDER::MAINCAMERA);
 		FBXStaticRenderer->GetAllRenderUnit()[0][0].GetCloneMaterial()->SetOutputMergerBlend("Lighten");
+		// InitializePaperBurn(FBXStaticRenderer);
 		
 
 		//static bool bOnce = false;
@@ -62,8 +63,6 @@ void PlayerSWAtt1::Update(float _DeltaTime)
 	AttCollision->IsCollisionEnterBase(CollisionType::CT_OBB,static_cast<int>(OBJECTORDER::Monster), CollisionType::CT_OBB,
 		std::bind(&PlayerSWAtt1::MonsterCollision,this, std::placeholders::_1, std::placeholders::_2)
 	);
-
-
 
 }
 

@@ -3,6 +3,7 @@
 
 #include <GameEngineCore/GameEngineFBXRenderer.h>
 #include <GameEngineCore/GameEngineFBXAnimationRenderer.h>
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 #include <array>
 
@@ -114,6 +115,26 @@ void UnitBase::InitializePaperBurn(std::shared_ptr<GameEngineFBXAnimationRendere
 		{
 			_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetConstantBufferLink("PaperBurnInfo", mPaperBurnInfo);
 			_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetTexture("CloudTexture", "CloudTexture.png");
+		}
+	}
+}
+
+void UnitBase::InitializePaperBurn(std::shared_ptr<GameEngineFBXStaticRenderer>& _sptrFBXStaticRenderer)
+{
+	size_t uMeshCount = _sptrFBXStaticRenderer->GetAllRenderUnit().size();
+	std::vector<size_t> vuSubsetCount;
+	vuSubsetCount.resize(uMeshCount, 0);
+	for (size_t i = 0; i < uMeshCount; ++i)
+	{
+		vuSubsetCount[i] = _sptrFBXStaticRenderer->GetAllRenderUnit()[i].size();
+	}
+
+	for (size_t i = 0; i < uMeshCount; ++i)
+	{
+		for (size_t j = 0; j < vuSubsetCount[i]; ++j)
+		{
+			_sptrFBXStaticRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetConstantBufferLink("PaperBurnInfo", mPaperBurnInfo);
+			_sptrFBXStaticRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetTexture("CloudTexture", "CloudTexture.png");
 		}
 	}
 }

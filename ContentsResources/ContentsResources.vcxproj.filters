@@ -70,5 +70,8 @@
     <FxCompile Include="Shader\PreviousColor.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="StaticPaperBurn.hlsl">
+      <Filter>Shader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>
