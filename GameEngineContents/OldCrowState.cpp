@@ -104,6 +104,30 @@ void OldCrow::MoveStart(const StateInfo& _Info)
 	FBXAnimationRenderer->ChangeAnimation("OldCrow_Idle");
 	m_fSpeed = 650.f;
 	m_fAttCTime = 0.f;
+
+
+	m_vMovePlayerPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
+	m_vMoveMyPos = GetTransform().GetWorldPosition();
+
+	m_vMovePlayerPos.y = 10.f;
+	m_vMoveMyPos.y = 10.f;
+
+
+
+	m_vMoveTarGetDir = (m_vMovePlayerPos - m_vMoveMyPos).Normalize3DReturn();
+
+	m_vMoveGoPos = m_vMovePlayerPos + m_vMoveTarGetDir * 1200.f;
+
+	m_vMoveGoDir = GetTransform().GetForwardVector();
+
+
+	AttAngle = DirToRot(m_vMoveGoPos, m_vMoveMyPos);
+
+	GetTransform().SetLocalRotation({ 0.0f,AttAngle, 0.0f });
+
+
+
+
 }
 void OldCrow::MoveEnd(const StateInfo& _Info)
 {
@@ -113,55 +137,72 @@ void OldCrow::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 
 	m_fAttCTime += _DeltaTime;
+
 	//여기서부터 플레이어 추적 
-	float4 PlayerPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
-	float4 MyPos = GetTransform().GetWorldPosition();
 
-	PlayerPos.y = 10.f;
-	MyPos.y = 10.f;
+	MoveLen = (m_vMovePlayerPos - m_vMoveMyPos).Length();
 
-	float Len = (PlayerPos - MyPos).Length();
-
-
-	float4 TarGetDir = (PlayerPos - MyPos).Normalize3DReturn();
-
-	float4 MoveDir = GetTransform().GetForwardVector();
+	m_vMoveMyPos = GetTransform().GetWorldPosition();
+	m_vMoveTarGetDir = (m_vMovePlayerPos - m_vMoveMyPos).Normalize3DReturn();
+	m_vMoveGoDir = GetTransform().GetForwardVector();
 
 
-	
-	float4 Cross = float4::Cross3D(MoveDir, TarGetDir);
 
-	// 왼쪽 
-	if (Cross.y > 0)
+	float4 Cross = float4::Cross3D(m_vMoveGoDir, m_vMoveTarGetDir);
+
+
+	float4 LerpPos = float4::Lerp(m_vMoveMyPos, m_vMoveGoPos, _DeltaTime * 1.f);
+
+	GetTransform().SetWorldPosition(LerpPos);
+
+
+	float TarGetLen = (m_vMoveMyPos - m_vMoveGoPos).Length();
+
+
+	if (TarGetLen <= 700.f)
 	{
-		GetTransform().SetAddWorldRotation(float4(0.0f, 60.f * _DeltaTime ,0.0f ));
-	}
-	// 오른쪽
-	else
-	{
-		GetTransform().SetAddWorldRotation(float4(0.0f, -60.f * _DeltaTime, 0.0f));
-	}
-
-
-	GetTransform().SetWorldMove(MoveDir * m_fSpeed * _DeltaTime);
-
-
-
-	if (Len >= 900.f)
-	{
-		if (m_fAttCTime >= 3.f)
+		if (Cross.y > 0)
 		{
-			m_fAttCTime = 0.f;
+			if(FBXAnimationRenderer->CheckCurrentAnimation("OldCrow_Idle"))
+			{
 
-			AttType = GameEngineRandom::MainRandom.RandomInt(0, 4);
-			//AttType = 1;
+				FBXAnimationRenderer->ChangeAnimation("OldCrow_Turn_Left");
+
+			}
+			
+		}
+		// 오른쪽
+		else
+		{
+			if (FBXAnimationRenderer->CheckCurrentAnimation("OldCrow_Idle"))
+			{
+
+				FBXAnimationRenderer->ChangeAnimation("OldCrow_Turn_Right");
+			}
+
+
 		}
 
 	}
+	
+
+
+
+	//if (Len >= 900.f)
+	//{
+	//	if (m_fAttCTime >= 3.f)
+	//	{
+	//		m_fAttCTime = 0.f;
+
+	//		AttType = GameEngineRandom::MainRandom.RandomInt(0, 4);
+	//		//AttType = 1;
+	//	}
+
+	//}
 
 	if (AttType == 1)
 	{
-		AttAngle = DirToRot(PlayerPos, MyPos);
+		AttAngle = DirToRot(m_vMovePlayerPos, m_vMoveMyPos);
 		GetTransform().SetLocalRotation({ 0.0f,AttAngle, 0.0f});
 		StateManager.ChangeState("DashReady");
 
@@ -475,6 +516,7 @@ void OldCrow::JumpReadyUpdate(float _DeltaTime, const StateInfo& _Info)
 void OldCrow::JumpEndStart(const StateInfo& _Info)
 {
 	FBXAnimationRenderer->ChangeAnimation("OldCrow_Slam_End");
+	CameraShake(0.5f);
 }
 void OldCrow::JumpEndEnd(const StateInfo& _Info)
 {
@@ -540,9 +582,11 @@ void OldCrow::StandDeathStart(const StateInfo& _Info)
 void OldCrow::StandDeathEnd(const StateInfo& _Info)
 {
 
+
 }
 void OldCrow::StandDeathUpdate(float _DeltaTime, const StateInfo& _Info)
 {
+
 
 }
 

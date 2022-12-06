@@ -38,6 +38,19 @@ public:
 	float m_fJumpSpeed = 0.f;
 
 
+
+	float4 m_vMovePlayerPos = {};
+	float4 m_vMoveMyPos = {};
+
+	float4 m_vMoveTarGetDir = {};
+
+	float4 m_vMoveGoPos = {};
+	float4 m_vMoveGoDir = {};
+
+	float MoveLen = 0.f;
+
+
+
 	float4 StartPostion = {};
 	float4 DirPower = {};
 

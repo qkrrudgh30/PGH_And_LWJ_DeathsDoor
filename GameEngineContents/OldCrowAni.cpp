@@ -4,7 +4,7 @@
 #include "UnitBase.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
-
+#include "GameEngineBase/GameEngineRandom.h"
 
 void OldCrow::AniDashEnd(const GameEngineRenderingEvent& _Data)
 {
@@ -75,8 +75,12 @@ void OldCrow::AniSlamEndEnd(const GameEngineRenderingEvent& _Data)
 void OldCrow::AniTurnLeftEnd(const GameEngineRenderingEvent& _Data)
 {
 	StateManager.ChangeState("Move");
+
+	AttType = GameEngineRandom::MainRandom.RandomInt(0, 4);
 }
 void OldCrow::AniTurnRightEnd(const GameEngineRenderingEvent& _Data)
 {
 	StateManager.ChangeState("Move");
+
+	AttType = GameEngineRandom::MainRandom.RandomInt(0, 4);
 }
