@@ -60,7 +60,7 @@ namespace GameEngineDebug
 		static GameEngineTransform DebugTrans;
 
 		DebugTrans.Copy(_Trans);
-		DebugTrans.SetView(_Camera->GetView());
+		DebugTrans.SetView(_Camera->GetViewMatrix());
 		DebugTrans.SetProjection(_Camera->GetProjectionMatrix());
 		DebugTrans.CalculateWorldViewProjection();
 
@@ -102,7 +102,7 @@ namespace GameEngineDebug
 			DebugTrans.SetLocalScale(_Texture->GetScale());
 		}
 
-		DebugTrans.SetView(_Camera->GetView());
+		DebugTrans.SetView(_Camera->GetViewMatrix());
 		DebugTrans.SetProjection(_Camera->GetProjectionMatrix());
 		DebugTrans.CalculateWorldViewProjection();
 
@@ -121,7 +121,7 @@ namespace GameEngineDebug
 		static GameEngineTransform DebugTrans;
 
 		DebugTrans.Copy(_Trans);
-		DebugTrans.SetView(_Camera->GetView());
+		DebugTrans.SetView(_Camera->GetViewMatrix());
 		DebugTrans.SetProjection(_Camera->GetProjectionMatrix());
 		DebugTrans.CalculateWorldViewProjection();
 

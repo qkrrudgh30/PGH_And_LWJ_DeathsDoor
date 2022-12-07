@@ -51,7 +51,7 @@ void GameEngineFontRenderer::Render(float _DeltaTime)
 	{
 		Pos = GetTransform().GetWorldPosition();
 
-		Pos *= Camera.lock()->GetView();
+		Pos *= Camera.lock()->GetViewMatrix();
 		Pos *= Camera.lock()->GetProjectionMatrix();
 
 		float4x4 ViewPort;

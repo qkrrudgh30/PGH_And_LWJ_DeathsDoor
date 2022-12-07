@@ -119,7 +119,7 @@ void CreateContentsBlendAndDepthStencilDesc()
 		Desc.RenderTarget[0].DestBlendAlpha = D3D11_BLEND::D3D11_BLEND_ONE;
 			// 렌더링 대상의 현재 알파 값에 대해 수행할 작업을 지정합니다. _COLOR 끝나는 혼합 옵션은 허용되지 않습니다. 
 			// BlendOpAlpha 멤버는 SrcBlendAlpha 및 DestBlendAlpha 작업을 결합하는 방법을 정의합니다.
-		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_MAX;
+		Desc.RenderTarget[0].BlendOpAlpha = D3D11_BLEND_OP::D3D11_BLEND_OP_MIN;
 			// SrcBlendAlpha 및 DestBlendAlpha 작업을 결합하는 방법을 정의합니다.
 
 		Desc.RenderTarget[0].RenderTargetWriteMask = D3D11_COLOR_WRITE_ENABLE_ALL;

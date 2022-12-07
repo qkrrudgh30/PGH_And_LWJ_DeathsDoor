@@ -29,7 +29,7 @@ void PlayerSWAttSlide::Start()
 #pragma region StaticPaperBurn
 
 		InitializePaperBurn(FBXStaticRenderer);
-		s_fAccTimeForPaperburn = 0.f;
+		m_fAccTimeForPaperburn = 0.f;
 		mfPaperburnDeathTime = 5.f;
 
 #pragma endregion
@@ -57,8 +57,8 @@ void PlayerSWAttSlide::Update(float _DeltaTime)
 
 
 #pragma region StaticPaperBurn
-	s_fAccTimeForPaperburn += _DeltaTime * mfPaperburnDeathTime;
-	SetPaperBurnInfo(1u, s_fAccTimeForPaperburn);
+	m_fAccTimeForPaperburn += _DeltaTime * mfPaperburnDeathTime;
+	SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
 #pragma endregion	
 }
 

@@ -113,6 +113,11 @@ public:
 		IsInstancing_ = true;
 	};
 
+	std::shared_ptr<class GameEngineCamera> GetCamera()
+	{
+		return Camera.lock();
+	}
+
 	void EngineShaderResourcesSetting(GameEngineShaderResourcesHelper* _ShaderResources);
 
 	void PushRendererToMainCamera();

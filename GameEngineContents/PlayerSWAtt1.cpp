@@ -23,12 +23,13 @@ void PlayerSWAtt1::Start()
 		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
 		FBXStaticRenderer->SetFBXMesh("Sworld_Trail_4.fbx", "StaticPaperBurn");
 		FBXStaticRenderer->ChangeCamera(CAMERAORDER::MAINCAMERA);
-		// FBXStaticRenderer->GetAllRenderUnit()[0][0].GetCloneMaterial()->SetOutputMergerBlend("Lighten");
+		
+		// FBXStaticRenderer->GetAllRenderUnit()[0][0].GetCloneMaterial()->SetOutputMergerBlend("TransparentBlend");
 
 #pragma region StaticPaperBurn
 
 		InitializePaperBurn(FBXStaticRenderer);
-		s_fAccTimeForPaperburn = 0.f;
+		m_fAccTimeForPaperburn = 0.f;
 		mfPaperburnDeathTime = 5.f;
 
 #pragma endregion
@@ -73,8 +74,8 @@ void PlayerSWAtt1::Update(float _DeltaTime)
 	);
 
 #pragma region StaticPaperBurn
-	s_fAccTimeForPaperburn += _DeltaTime * mfPaperburnDeathTime;
-	SetPaperBurnInfo(1u, s_fAccTimeForPaperburn);
+	m_fAccTimeForPaperburn += _DeltaTime * mfPaperburnDeathTime;
+	SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
 #pragma endregion	
 }
 

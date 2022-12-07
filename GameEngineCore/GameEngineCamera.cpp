@@ -73,6 +73,16 @@ void GameEngineCamera::Render(float _DeltaTime)
 	float4 WindowSize = GameEngineWindow::GetInst()->GetScale();
 
 	{
+		LightDataObject.Count = static_cast<int>(AllLight.size());
+		int LightCount = 0;
+		for (std::shared_ptr<GameEngineLight> Light : AllLight)
+		{
+			Light->LightDataUpdate(this);
+			LightDataObject.Lights[LightCount++] = Light->GetLightData();
+		}
+	}
+
+	{
 		for (std::pair<const int, std::list<std::shared_ptr<GameEngineRenderer>>>& Group : AllRenderer_)
 		{
 			float ScaleTime = GameEngineTime::GetInst()->GetDeltaTime(Group.first);
@@ -127,6 +137,7 @@ void GameEngineCamera::Start()
 	// CameraRenderTarget->CreateDepthTexture()
 }
 
+// n개의 랜더 유니트가 있는건 이미 정해져있어 
 void GameEngineCamera::PushRenderer(std::shared_ptr<GameEngineRenderer> _Renderer)
 {
 	AllRenderer_[_Renderer->RenderingOrder].push_back(_Renderer);

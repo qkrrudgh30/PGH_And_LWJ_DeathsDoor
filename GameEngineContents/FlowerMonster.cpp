@@ -32,10 +32,17 @@ void FlowerMonster::Start()
 	
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ -90.f, 0.f,0.f });
 
-	FBXAnimationRenderer->SetFBXMesh("Flower.fbx", "TextureAnimation");
+	FBXAnimationRenderer->SetFBXMesh("Flower.fbx", "PaperBurn");
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 5000.f, 5000.f, 5000.f });
 	//FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ -90.f, 180.f,0.f });
 
+#pragma region PaperBurn
+
+	InitializePaperBurn(FBXAnimationRenderer);
+	m_fAccTimeForPaperburn = 0.f;
+	mfPaperburnDeathTime = 5.f;
+
+#pragma endregion
 
 	Event.ResourcesName = "Flower_Att.FBX";
 	Event.Loop = true;
@@ -174,6 +181,22 @@ void FlowerMonster::Update(float _DeltaTime)
 
 	StateManager.Update(_DeltaTime);
 
+#pragma region PaperBurn
+	if (m_Info.m_Hp <= 0 && false == mbOnce)
+	{
+		Death(mfPaperburnDeathTime);
+		mbOnce = true;
+		mbOnDeath = true;
+	}
+
+
+	if (m_Info.m_Hp <= 0 && true == mbOnDeath && true == m_bDeathEnd)
+	{
+		m_fAccTimeForPaperburn += (_DeltaTime);
+		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
+	}
+#pragma endregion
+
 }
 
 
@@ -304,7 +327,8 @@ void FlowerMonster::AniFlower_Idle(const GameEngineRenderingEvent& _Data)
 
 void FlowerMonster::AniFlower_Death(const GameEngineRenderingEvent& _Data)
 {
-	Death();
+	// Death();
+	m_bDeathEnd = true;
 }
 
 

@@ -190,6 +190,11 @@ public:
 		SetWorldPosition(Data.WorldPosition + _Value);
 	}
 
+	inline float4x4 GetViewMatrix() const
+	{
+		return Data.ViewMatrix;
+	}
+
 	inline float4 GetWorldScale() const
 	{
 		return Data.WorldScaling;
@@ -233,6 +238,38 @@ public:
 		return Data.WorldViewProjectionMatrix;
 	}
 
+	// local
+	inline float4 GetLocalForwardVector() const
+	{
+		return Data.LocalWorldMatrix.ArrV[2].Normalize3DReturn();
+	}
+
+	inline float4 GetLocalBackVector() const
+	{
+		return -(Data.LocalWorldMatrix.ArrV[2].Normalize3DReturn());
+	}
+
+	inline float4 GetLocalUpVector() const
+	{
+		return Data.LocalWorldMatrix.ArrV[1].Normalize3DReturn();
+	}
+
+	inline float4 GetLocalDownVector() const
+	{
+		return -(Data.LocalWorldMatrix.ArrV[1].Normalize3DReturn());
+	}
+
+	inline float4 GetLocalRightVector() const
+	{
+		return Data.LocalWorldMatrix.ArrV[0].Normalize3DReturn();
+	}
+
+	inline float4 GetLocalLeftVector() const
+	{
+		return -(Data.LocalWorldMatrix.ArrV[0].Normalize3DReturn());
+	}
+
+	// World
 	inline float4 GetForwardVector() const
 	{
 		return Data.WorldWorldMatrix.ArrV[2].Normalize3DReturn();

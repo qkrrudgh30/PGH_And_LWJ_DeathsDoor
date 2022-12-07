@@ -45,8 +45,16 @@ void Tower::Start()
 			
 			continue;
 		}
-		FBXAnimationRenderer->SetFBXMesh("Tower.fbx", "TextureAnimation", i);
+		FBXAnimationRenderer->SetFBXMesh("Tower.fbx", "PaperBurn", i);
+
 	}
+
+#pragma region PaperBurn
+
+		InitializePaperBurn(FBXAnimationRenderer);
+		m_fAccTimeForPaperburn = 0.f;
+
+#pragma endregion
 
 
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 100.5f, 100.5f, 100.5f });
@@ -245,6 +253,21 @@ void Tower::Update(float _DeltaTime)
 	}
 
 	StateManager.Update(_DeltaTime);
+
+#pragma region PaperBurn
+	if (m_Info.m_Hp <= 0 && false == mbOnce)
+	{
+		Death(mfPaperburnDeathTime);
+		mbOnce = true;
+		mbOnDeath = true;
+	}
+
+	if (m_Info.m_Hp <= 0 && true == mbOnDeath)
+	{
+		m_fAccTimeForPaperburn += _DeltaTime / mfPaperburnDeathTime;
+		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
+	}
+#pragma endregion
 
 }
 

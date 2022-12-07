@@ -23,7 +23,7 @@ void TestActor::Start()
 	FBXAnimationRenderer->SetFBXMesh("Slime.fbx", "PaperBurn");
 	FBXAnimationRenderer->GetTransform().SetLocalMove(float4{0.f, 120.f, 0.f, 0.f});
 	InitializePaperBurn(FBXAnimationRenderer);
-	s_fAccTimeForPaperburn = 0.f;
+	m_fAccTimeForPaperburn = 0.f;
 
 
 	Event.ResourcesName = "Slime_Att.FBX";
@@ -94,8 +94,8 @@ void TestActor::Update(float _DeltaTime)
 
 	if (m_Info.m_Hp <= 0 && true == mbOnDeath)
 	{
-		s_fAccTimeForPaperburn += _DeltaTime / mfPaperburnDeathTime;
-		SetPaperBurnInfo(1u, s_fAccTimeForPaperburn);
+		m_fAccTimeForPaperburn += _DeltaTime / mfPaperburnDeathTime;
+		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
 	}
 #pragma endregion
 

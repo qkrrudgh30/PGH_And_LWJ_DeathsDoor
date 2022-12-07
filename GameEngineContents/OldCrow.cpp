@@ -34,9 +34,16 @@ void OldCrow::Start()
 
 
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
-	FBXAnimationRenderer->SetFBXMesh("OldCrow.fbx", "TextureAnimation");
+	FBXAnimationRenderer->SetFBXMesh("OldCrow.fbx", "PaperBurn");
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 30.f, 30.f, 30.f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 0.f,0.f });
+
+#pragma region PaperBurn
+
+	InitializePaperBurn(FBXAnimationRenderer);
+	m_fAccTimeForPaperburn = 0.f;
+
+#pragma endregion
 
 
 	{
@@ -318,6 +325,21 @@ void OldCrow::Update(float _DeltaTime)
 	}
 
 	StateManager.Update(_DeltaTime);
+
+#pragma region PaperBurn
+	if (m_Info.m_Hp <= 0 && false == mbOnce)
+	{
+		Death(mfPaperburnDeathTime);
+		mbOnce = true;
+		mbOnDeath = true;
+	}
+
+	if (m_Info.m_Hp <= 0 && true == mbOnDeath)
+	{
+		m_fAccTimeForPaperburn += _DeltaTime / mfPaperburnDeathTime;
+		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
+	}
+#pragma endregion
 
 }
 

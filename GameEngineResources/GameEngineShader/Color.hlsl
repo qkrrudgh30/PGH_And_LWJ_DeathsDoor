@@ -67,12 +67,12 @@ cbuffer ResultColor : register(b8)
 
 float4 Color_PS(Output _Input) : SV_Target0
 {
-    LightData Data;
-    Data.LightDir = float4(1.0f, 0.0f, 0.0f, 0.0f);
-    Data.LightRevDir = float4(-1.0f, 0.0f, 0.0f, 0.0f);
-    Data.LightRevDir = mul(Data.LightRevDir, WorldView);
+    //LightData Data;
+    //Data.LightDir = float4(1.0f, 0.0f, 0.0f, 0.0f);
+    //Data.LightRevDir = float4(-1.0f, 0.0f, 0.0f, 0.0f);
+    //Data.LightRevDir = mul(Data.LightRevDir, WorldView);
     
-    float4 DiffuseLight = CalDiffuseLight(_Input.Normal, Data);
+    float4 DiffuseLight = CalDiffuseLights(_Input.Normal);
     
     float4 Result = Color * DiffuseLight;
     

@@ -3,6 +3,7 @@
 #include <GameEngineBase/GameEngineMath.h>
 #include <GameEngineBase/GameEngineWindow.h>
 #include "GameEngineInstancingBuffer.h"
+#include "GameEngineLight.h"
 #include <set>
 
 enum class CAMERAPROJECTIONMODE
@@ -19,10 +20,12 @@ class GameEngineCamera;
 class GameEngineInstancing;
 class GameEngineRenderTarget;
 class GameEngineMaterial;
+class GameEngineRenderUnit;
 class GameEngineCamera : public GameEngineTransformComponent
 {
 	friend GameEngineLevel;
 	friend GameEngineRenderer;
+	friend GameEngineRenderUnit;
 
 public:
 	// constrcuter destructer
@@ -59,7 +62,7 @@ public:
 
 	float4 GetMouseWorldPositionToActor();
 
-	inline float4x4 GetView() 
+	inline float4x4 GetViewMatrix() 
 	{
 		return View;
 	}
@@ -118,6 +121,8 @@ private:
 	std::unordered_map<std::string, GameEngineInstancing> InstancingMap;
 
 	std::set<std::shared_ptr<class GameEngineLight>> AllLight;
+
+	LightDatas LightDataObject;
 
 	// std::list<GameEngineLight>
 

@@ -28,9 +28,16 @@ void Headroller::Start()
 
 
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
-	FBXAnimationRenderer->SetFBXMesh("HEADROLLER.fbx", "TextureAnimation");
+	FBXAnimationRenderer->SetFBXMesh("HEADROLLER.fbx", "PaperBurn");
 	FBXAnimationRenderer->GetTransform().SetLocalScale({0.5f,0.5f,.5f});
 
+#pragma region PaperBurn
+
+	InitializePaperBurn(FBXAnimationRenderer);
+	m_fAccTimeForPaperburn = 0.f;
+	mfPaperburnDeathTime = 4.f;
+
+#pragma endregion
 
 	Event.ResourcesName = "HEADROLLER_Att.FBX";
 	Event.Loop = false;
@@ -201,6 +208,21 @@ void Headroller::Update(float _DeltaTime)
 
 	StateManager.Update(_DeltaTime);
 
+#pragma region PaperBurn
+	if (m_Info.m_Hp <= 0 && false == mbOnce)
+	{
+		Death(mfPaperburnDeathTime);
+		mbOnce = true;
+		mbOnDeath = true;
+	}
+
+	if (m_Info.m_Hp <= 0 && true == mbOnDeath && true == m_bDeathEnd)
+	{
+		m_fAccTimeForPaperburn += _DeltaTime;
+		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
+	}
+#pragma endregion
+
 }
 
 
@@ -338,7 +360,8 @@ void Headroller::Ani_Dash_S(const GameEngineRenderingEvent& _Data)
 
 void Headroller::Ani_Death(const GameEngineRenderingEvent& _Data)
 {
-	Death();
+	// Death();
+	m_bDeathEnd = true;
 }
 
 

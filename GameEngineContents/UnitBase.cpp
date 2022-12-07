@@ -7,8 +7,6 @@
 
 #include <array>
 
-float UnitBase::s_fAccTimeForPaperburn = 0.f;
-
 UnitBase::UnitBase() :
 	m_fLifeTime(0.f)
 	,m_fSpeed(0.f)
@@ -28,6 +26,8 @@ UnitBase::UnitBase() :
 	, mPaperBurnInfo{}
 	, mbOnce(false)
 	, mbOnDeath(false)
+	, m_bDeathEnd(false)
+	, m_fAccTimeForPaperburn(0.f)
 {
 	m_Info.Dammage = 3;
 	m_Info.Gold = 1000;

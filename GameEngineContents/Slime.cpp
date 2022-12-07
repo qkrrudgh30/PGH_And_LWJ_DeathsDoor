@@ -27,7 +27,15 @@ void Slime::Start()
 	
 
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
-	FBXAnimationRenderer->SetFBXMesh("Slime.fbx", "TextureAnimation");
+	FBXAnimationRenderer->SetFBXMesh("Slime.fbx", "PaperBurn");
+
+#pragma region PaperBurn
+
+	InitializePaperBurn(FBXAnimationRenderer);
+	m_fAccTimeForPaperburn = 0.f;
+
+#pragma endregion
+
 
 
 	Event.ResourcesName = "Slime_Att.FBX";
@@ -104,16 +112,22 @@ void Slime::Start()
 
 void Slime::Update(float _DeltaTime) 
 {
-
-	
-
-	if (m_Info.m_Hp <= 0)
-	{
-		Death();
-	}
-
 	StateManager.Update(_DeltaTime);
 
+#pragma region PaperBurn
+	if (m_Info.m_Hp <= 0 && false == mbOnce)
+	{
+		Death(mfPaperburnDeathTime);
+		mbOnce = true;
+		mbOnDeath = true;
+	}
+
+	if (m_Info.m_Hp <= 0 && true == mbOnDeath)
+	{
+		m_fAccTimeForPaperburn += _DeltaTime / mfPaperburnDeathTime;
+		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
+	}
+#pragma endregion
 }
 
 
