@@ -138,6 +138,8 @@ void Headroller::Start()
 void Headroller::Update(float _DeltaTime)
 {
 
+	//맞을때 이 함수만 추가해 주세요
+	HitUpdate(_DeltaTime, 0.5f);
 
 
 
