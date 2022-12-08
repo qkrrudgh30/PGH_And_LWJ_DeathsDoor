@@ -22,9 +22,9 @@ void OldCrowBullet::Start()
 		float4 color = { 0.1f,0.1f,0.1f,1.f };
 		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 		FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
-		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 100.5f, 100.5f, 100.5f });
+		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 1.5f, 1.5f, 1.5f });
 		FBXStaticRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 0.f, 0.f });
-		FBXStaticRenderer->SetFBXMesh("BigCrow.FBX", "Color");
+		FBXStaticRenderer->SetFBXMesh("SmallCrow.FBX", "Color");
 		FBXStaticRenderer->GetAllRenderUnit()[0][0].ShaderResources.SetConstantBufferLink("ResultColor", color);
 
 	}
