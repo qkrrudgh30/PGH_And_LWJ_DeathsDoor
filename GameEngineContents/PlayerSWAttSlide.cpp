@@ -66,7 +66,8 @@ CollisionReturn PlayerSWAttSlide::MonsterCollision(std::shared_ptr <GameEngineCo
 {
 
 
-	
+	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_bHitActionCheck = true;
+
 
 	return CollisionReturn::Break;
 }

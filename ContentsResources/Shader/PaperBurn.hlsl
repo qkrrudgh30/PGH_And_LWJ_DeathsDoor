@@ -90,7 +90,7 @@ float4 Texture_PS(Output _Input) : SV_Target0
     
     if (0u == muOnOffPaperBurn)
     {
-        if (f4Orignal.a <= 0.0f)
+        if (f4Orignal.a <= 0.1f)
         {
             f4Orignal.a = 1.f;
         }

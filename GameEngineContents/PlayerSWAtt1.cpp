@@ -85,7 +85,7 @@ CollisionReturn PlayerSWAtt1::MonsterCollision(std::shared_ptr <GameEngineCollis
 
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_Info.m_Hp -= m_Info.Dammage;
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_bHitCheck = true;
-	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_fHitPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
+	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_bHitActionCheck = true;
 
 	return CollisionReturn::Break;
 	

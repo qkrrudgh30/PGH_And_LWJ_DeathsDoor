@@ -35,8 +35,10 @@ void OldCrow::Start()
 
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
 	FBXAnimationRenderer->SetFBXMesh("OldCrow.fbx", "PaperBurn");
-	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 30.f, 30.f, 30.f });
+	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 90.f, 90.f, 90.f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 0.f,0.f });
+
+
 
 #pragma region PaperBurn
 
@@ -314,8 +316,19 @@ void OldCrow::Update(float _DeltaTime)
 {
 
 
+	//float4 MyWorldPos = GetTransform().GetWorldPosition();
+	//float4 MyFoward = FBXAnimationRenderer->GetTransform().GetBackVector();
+
+
+
+	//FBXAnimationRenderer->GetTransform().SetLocalPosition(MyWorldPos - MyFoward * 200.f);
+
 
 	BaseUpdate(_DeltaTime);
+
+	//맞을때 이 함수만 추가해 주세요
+	HitUpdate(_DeltaTime, 0.5f);
+
 
 
 	if (m_Info.m_Hp != m_Info.m_MaxHp)

@@ -119,8 +119,8 @@ void FlowerMonster::Start()
 void FlowerMonster::Update(float _DeltaTime)
 {
 
-
-
+	//맞을때 이 함수만 추가해 주세요
+	HitUpdate(_DeltaTime, 0.5f);
 
 
 	if (m_Info.m_Hp <= 0)
@@ -262,21 +262,16 @@ void FlowerMonster::StunUpdate(float _DeltaTime, const StateInfo& _Info)
 void FlowerMonster::AttStart(const StateInfo& _Info)
 {
 	FBXAnimationRenderer->ChangeAnimation("Flower_Att");
-	m_bhitCheck = true;
+	m_bhitCheck = false;
 }
 void FlowerMonster::AttEnd(const StateInfo& _Info)
 {
 	m_bhitCheck = false;
 
 
-
-
-
 }
 void FlowerMonster::AttUpdate(float _DeltaTime, const StateInfo& _Info)
 {
-	
-	
 	
 
 	//
