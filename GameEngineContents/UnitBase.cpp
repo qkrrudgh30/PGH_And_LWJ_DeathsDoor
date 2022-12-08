@@ -28,6 +28,7 @@ UnitBase::UnitBase() :
 	, mbOnDeath(false)
 	, m_bDeathEnd(false)
 	, m_fAccTimeForPaperburn(0.f)
+	, m_fAccTimeForHitted(0.f)
 {
 	m_Info.Dammage = 3;
 	m_Info.Gold = 1000;

@@ -65,9 +65,26 @@ float4 Texture_PS(Output _Input) : SV_Target0
     float4 f4Orignal = DiffuseTexture.Sample(LINEARWRAP, _Input.TEXCOORD.xy);
     float4 f4Cloud = CloudTexture.Sample(LINEARWRAP, _Input.TEXCOORD.xy);    
     
-    if (1e-2f < mfHitted)
+    if (1e-2f < mfHitted && 1u != muOnOffPaperBurn)
     {
-        float4 f4Red = { 1.f, 0.f, 0.f, 1.f };
+        float2 PixelUVSize = float2(1.0f / 1280.0f, 1.0f / 720.0f);
+        float2 PixelUVCenter = _Input.TEXCOORD.xy;
+        float2 StartUV = PixelUVCenter + (-PixelUVSize * 2);
+        float2 CurUV = StartUV;
+        float4 f4Red = { 0.0f, 0.f, 0.f, 0.f };
+        
+        for (int i = 0; i <= 4; ++i)
+        {
+            for (int j = 0; j <= 4; ++j)
+            {
+                f4Red += DiffuseTexture.Sample(LINEARWRAP, CurUV) * (1.f / 16.f);
+                CurUV.x += PixelUVSize.x;
+            }
+        
+            CurUV.x = StartUV.x;
+            CurUV.y += PixelUVSize.y;
+        }
+        
         return f4Red;
     }
     

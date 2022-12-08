@@ -151,6 +151,7 @@ protected:
 	float m_fAccTimeForPaperburn;
 	bool m_bDeathEnd;
 	
+	float m_fAccTimeForHitted;
 	
 };
 
