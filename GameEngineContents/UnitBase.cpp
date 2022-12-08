@@ -121,6 +121,23 @@ void UnitBase::InitializePaperBurn(std::shared_ptr<GameEngineFBXAnimationRendere
 	}
 }
 
+void UnitBase::InitializePaperBurn(std::shared_ptr<GameEngineFBXAnimationRenderer>& _sptrFBXAnimationRenderer, const size_t& _uMeshIndex)
+{
+	size_t uMeshCount = _sptrFBXAnimationRenderer->GetAllRenderUnit().size();
+	std::vector<size_t> vuSubsetCount;
+	vuSubsetCount.resize(uMeshCount, 0);
+	for (size_t i = 0; i < uMeshCount; ++i)
+	{
+		vuSubsetCount[i] = _sptrFBXAnimationRenderer->GetAllRenderUnit()[i].size();
+	}
+
+	for (size_t j = 0; j < vuSubsetCount[_uMeshIndex]; ++j)
+	{
+		_sptrFBXAnimationRenderer->GetAllRenderUnit()[_uMeshIndex][j].ShaderResources.SetConstantBufferLink("PaperBurnInfo", mPaperBurnInfo);
+		_sptrFBXAnimationRenderer->GetAllRenderUnit()[_uMeshIndex][j].ShaderResources.SetTexture("CloudTexture", "CloudTexture.png");
+	}
+}
+
 void UnitBase::InitializePaperBurn(std::shared_ptr<GameEngineFBXStaticRenderer>& _sptrFBXStaticRenderer)
 {
 	size_t uMeshCount = _sptrFBXStaticRenderer->GetAllRenderUnit().size();

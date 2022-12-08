@@ -6,7 +6,7 @@ struct PaperBurnInfo
 {
 	unsigned int	muOnOffPaperBurn;
 	float			mfEffectTime;
-	float			mfPadding1;
+	float			mfHitted;
 	float			mfPadding2;
 };
 
@@ -124,10 +124,11 @@ public:
 	void CameraShake(float _Time);
 
 	void InitializePaperBurn(std::shared_ptr <GameEngineFBXAnimationRenderer>& _sptrFBXAnimationRenderer);
+	void InitializePaperBurn(std::shared_ptr <GameEngineFBXAnimationRenderer>& _sptrFBXAnimationRenderer, const size_t& _uMeshIndex);
 	void InitializePaperBurn(std::shared_ptr <GameEngineFBXStaticRenderer>& _sptrFBXStaticRenderer);
 	void SetPaperBurnInfo(unsigned int _uOnOffPaperBurn, float _fEffectTime);
 
-	
+	void SetHitted(float _fHitted) { mPaperBurnInfo.mfHitted = _fHitted; };
 
 private:
 	float ShakeMaxTime = 0.f;

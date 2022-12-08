@@ -47,12 +47,13 @@ void Tower::Start()
 		}
 		FBXAnimationRenderer->SetFBXMesh("Tower.fbx", "PaperBurn", i);
 
+		InitializePaperBurn(FBXAnimationRenderer, i);
 	}
 
 #pragma region PaperBurn
 
-		InitializePaperBurn(FBXAnimationRenderer);
 		m_fAccTimeForPaperburn = 0.f;
+		mfPaperburnDeathTime = 2.0f;
 
 #pragma endregion
 
@@ -243,8 +244,8 @@ void Tower::Update(float _DeltaTime)
 
 	if (m_Info.m_Hp <= 0)
 	{
-		Death();
-		m_cSpike.lock()->Death();
+		// Death();
+		m_bDeathEnd = true;
 	}
 	else
 	{
@@ -258,13 +259,14 @@ void Tower::Update(float _DeltaTime)
 	if (m_Info.m_Hp <= 0 && false == mbOnce)
 	{
 		Death(mfPaperburnDeathTime);
+		m_cSpike.lock()->Death(mfPaperburnDeathTime);
 		mbOnce = true;
 		mbOnDeath = true;
 	}
 
-	if (m_Info.m_Hp <= 0 && true == mbOnDeath)
+	if (m_Info.m_Hp <= 0 && true == mbOnDeath && true == m_bDeathEnd)
 	{
-		m_fAccTimeForPaperburn += _DeltaTime / mfPaperburnDeathTime;
+		m_fAccTimeForPaperburn += _DeltaTime;
 		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
 	}
 #pragma endregion

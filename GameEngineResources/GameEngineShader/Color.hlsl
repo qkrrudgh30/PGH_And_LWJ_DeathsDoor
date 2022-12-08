@@ -73,8 +73,13 @@ float4 Color_PS(Output _Input) : SV_Target0
     //Data.LightRevDir = mul(Data.LightRevDir, WorldView);
     
     float4 DiffuseLight = CalDiffuseLights(_Input.Normal);
+    float4 SpacularLight = CalSpacularLight(_Input.ViewPos, _Input.Normal);
+    float4 AmbientLight = CalAmbientLight();
     
-    float4 Result = Color * DiffuseLight;
     
-    return Result;
+    // Color
+    float4 LightEffectResult = Color * (DiffuseLight + SpacularLight + AmbientLight);
+    LightEffectResult.w = 1.0f;
+    
+    return LightEffectResult;
 }

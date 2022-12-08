@@ -35,4 +35,5 @@ void GameEngineLight::LightDataUpdate(GameEngineCamera* _Camera)
 	Data.ViewLightRevDir = Data.LightRevDir * GetTransform().GetViewMatrix();
 	Data.ViewLightRevDir.Normalize3D();
 	Data.ViewLightRevDir.w = 0.0f;
+	Data.CameraPosition = _Camera->GetTransform().GetWorldPosition() * GetTransform().GetViewMatrix();
 }

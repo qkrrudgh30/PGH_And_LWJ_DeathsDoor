@@ -25,7 +25,7 @@ cbuffer PaperBurnInfo : register(b1)
 {
     uint muOnOffPaperBurn;
     float mfEffectTime;
-    float mfPadding1;    
+    float mfHitted;
     float mfPadding2;    
 }
 
@@ -65,22 +65,27 @@ float4 Texture_PS(Output _Input) : SV_Target0
     float4 f4Orignal = DiffuseTexture.Sample(LINEARWRAP, _Input.TEXCOORD.xy);
     float4 f4Cloud = CloudTexture.Sample(LINEARWRAP, _Input.TEXCOORD.xy);    
     
-    if (0u == muOnOffPaperBurn)
+    if (1e-2f < mfHitted)
     {
-        return f4Orignal;
+        float4 f4Red = { 1.f, 0.f, 0.f, 1.f };
+        return f4Red;
     }
     
-    //if (f4Orignal.a <= 0.0f)
-    //{
-    //    clip(-1);
-    //}
+    if (0u == muOnOffPaperBurn)
+    {
+        if (f4Orignal.a <= 0.0f)
+        {
+            f4Orignal.a = 1.f;
+        }
+        return f4Orignal;
+    }
     
     
     
     if (f4Cloud.r <= mfEffectTime)
     {
         f4Orignal.a = 0;
-    }        
+    }
     else
     {
         f4Orignal.a = 1;

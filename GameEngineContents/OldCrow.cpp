@@ -42,6 +42,7 @@ void OldCrow::Start()
 
 	InitializePaperBurn(FBXAnimationRenderer);
 	m_fAccTimeForPaperburn = 0.f;
+	mfPaperburnDeathTime = 6.0f;
 
 #pragma endregion
 
@@ -321,6 +322,7 @@ void OldCrow::Update(float _DeltaTime)
 
 	if (m_Info.m_Hp <= 0)
 	{
+		m_bDeathEnd = true;
 		StateManager.ChangeState("StandDeath");
 	}
 
@@ -334,9 +336,9 @@ void OldCrow::Update(float _DeltaTime)
 		mbOnDeath = true;
 	}
 
-	if (m_Info.m_Hp <= 0 && true == mbOnDeath)
+	if (m_Info.m_Hp <= 0 && true == mbOnDeath && true == m_bDeathEnd)
 	{
-		m_fAccTimeForPaperburn += _DeltaTime / mfPaperburnDeathTime;
+		m_fAccTimeForPaperburn += _DeltaTime;
 		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
 	}
 #pragma endregion
