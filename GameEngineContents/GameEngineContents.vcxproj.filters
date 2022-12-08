@@ -178,6 +178,9 @@
     <Filter Include="01.Actor\02.Unit\03.Bullet\03.OldCrow\01.Scream">
       <UniqueIdentifier>{a235d734-8877-4340-ac28-46c24a18b495}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\03.OldCrow\02.CrowBullet">
+      <UniqueIdentifier>{534e501c-f3f5-4b70-ade1-6e034610b414}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -396,6 +399,9 @@
     </ClInclude>
     <ClInclude Include="ScreamBullet.h">
       <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\01.Scream</Filter>
+    </ClInclude>
+    <ClInclude Include="OldCrowBullet.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\02.CrowBullet</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -621,6 +627,9 @@
     </ClCompile>
     <ClCompile Include="ScreamBullet.cpp">
       <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\01.Scream</Filter>
+    </ClCompile>
+    <ClCompile Include="OldCrowBullet.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\02.CrowBullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

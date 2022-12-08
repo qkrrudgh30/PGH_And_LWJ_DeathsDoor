@@ -43,6 +43,15 @@ void DashTrail::Start()
 void DashTrail::Update(float _DeltaTime)
 {
 
+
+	if (m_OldCorw.lock() == nullptr)
+	{
+		Death();
+		return;
+
+	}
+
+
 	//if (m_OldCorw.lock()->DashStartCheck == true)
 	{
 		float4 Dir = m_OldCorw.lock()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();

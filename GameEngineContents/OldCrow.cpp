@@ -3,7 +3,7 @@
 #include "OldCrow.h"
 #include "Player.h"
 #include "UnitBase.h"
-
+#include "OldCrowBullet.h"
 
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
@@ -23,8 +23,8 @@ void OldCrow::Start()
 {
 
 
-	m_Info.m_Hp = 10;
-	m_Info.m_MaxHp = 10;
+	m_Info.m_Hp = 10500;
+	m_Info.m_MaxHp = 10500;
 	m_Info.Dammage = 1;
 	m_fSpeed = 150.f;
 
@@ -71,6 +71,7 @@ void OldCrow::Start()
 		Event.Inter = 0.025f;
 		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Death_Run", Event);
 		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Death_Run", std::bind(&OldCrow::AniDeathRunEnd, this, std::placeholders::_1));
+	
 
 	}
 
@@ -107,7 +108,7 @@ void OldCrow::Start()
 		Event.Inter = 0.025f;
 		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Run", Event);
 		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Run", std::bind(&OldCrow::AniRunEnd, this, std::placeholders::_1));
-
+		FBXAnimationRenderer->AnimationBindFrame("OldCrow_Run", std::bind(&OldCrow::AniRunFrame, this, std::placeholders::_1));
 	}
 
 	{
@@ -316,6 +317,17 @@ void OldCrow::Update(float _DeltaTime)
 
 	BaseUpdate(_DeltaTime);
 
+
+	if (m_Info.m_Hp != m_Info.m_MaxHp)
+	{
+		m_Info.m_MaxHp = m_Info.m_Hp;
+		//타격시 생성
+
+		std::weak_ptr<OldCrowBullet> m_Bullet = GetLevel()->CreateActor<OldCrowBullet>(OBJECTORDER::CrowBullet);
+		m_Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+
+
+	}
 
 
 

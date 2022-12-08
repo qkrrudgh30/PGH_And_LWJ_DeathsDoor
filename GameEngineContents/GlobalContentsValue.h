@@ -38,6 +38,7 @@ enum class OBJECTORDER
 	MonsterAtt,
 	NPC,
 	StaticMesh,
+	CrowBullet,
 	UI = 1000,
 };
 

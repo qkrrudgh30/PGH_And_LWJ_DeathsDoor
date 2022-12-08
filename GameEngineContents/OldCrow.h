@@ -167,6 +167,7 @@ private:
 	void AniIdleEnd(const GameEngineRenderingEvent& _Data);
 	void AniJumpStartEnd(const GameEngineRenderingEvent& _Data);
 	void AniRunEnd(const GameEngineRenderingEvent& _Data);
+	void AniRunFrame(const GameEngineRenderingEvent& _Data);
 	void AniRunStartEnd(const GameEngineRenderingEvent& _Data);
 	void AniScreamEnd(const GameEngineRenderingEvent& _Data);
 	void AniSlamEnd(const GameEngineRenderingEvent& _Data);

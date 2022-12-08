@@ -42,6 +42,13 @@ void DashBullet::Update(float _DeltaTime)
 
 
 
+	if (m_OldCorw.lock() == nullptr)
+	{
+		Death();
+		return;
+
+	}
+
 	float4 TarGetPos = m_OldCorw.lock()->GetTransform().GetWorldPosition();
 	float4 myPos = GetTransform().GetWorldPosition();
 

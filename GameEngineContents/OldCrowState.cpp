@@ -188,17 +188,6 @@ void OldCrow::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 
 
-	//if (Len >= 900.f)
-	//{
-	//	if (m_fAttCTime >= 3.f)
-	//	{
-	//		m_fAttCTime = 0.f;
-
-	//		AttType = GameEngineRandom::MainRandom.RandomInt(0, 4);
-	//		//AttType = 1;
-	//	}
-
-	//}
 
 	if (AttType == 1)
 	{

@@ -32,8 +32,17 @@ void OldCrow::AniJumpStartEnd(const GameEngineRenderingEvent& _Data)
 }
 void OldCrow::AniRunEnd(const GameEngineRenderingEvent& _Data)
 {
-	//StateManager.ChangeState("StartAct");
+
+
 }
+
+void OldCrow::AniRunFrame(const GameEngineRenderingEvent& _Data)
+{
+	
+	
+}
+
+
 void OldCrow::AniRunStartEnd(const GameEngineRenderingEvent& _Data)
 {
 
