@@ -57,6 +57,10 @@ void BossLevel::LevelStartEvent()
 
 		std::weak_ptr < Floor> CFloor = CreateActor<Floor>(OBJECTORDER::BackGround);
 
+		/*CFloor = CreateActor<Floor>(OBJECTORDER::BackGround);
+		CFloor.lock()->GetTransform().SetWorldPosition({0.f,-10.f, 5000.f});*/
+
+
 		std::weak_ptr < OldCrow> COldCrow = CreateActor<OldCrow>(OBJECTORDER::BackGround);
 
 		mbPrimitiveInitialized = true;

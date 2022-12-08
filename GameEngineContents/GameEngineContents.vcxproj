@@ -243,7 +243,15 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="OldCrowScreamBase.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PaperburnRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ScreamBullet.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -500,8 +508,16 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="OldCrowAni.cpp" />
+    <ClCompile Include="OldCrowScreamBase.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="OldCrowState.cpp" />
     <ClCompile Include="PaperburnRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ScreamBullet.cpp">
       <SubType>
       </SubType>
     </ClCompile>

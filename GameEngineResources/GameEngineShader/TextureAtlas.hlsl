@@ -111,13 +111,7 @@ float4 TextureAtlas_PS(Output _Input) : SV_Target0
 
     if (Temp1 == 10)
     {
-       // clip(-1);
 
-
-
-      /*  float4 A = _Input.Pos;
-        A.z = 0.f;
-        A.w = 0.f;*/
 
         float4 A = _Input.Tex;
         A.x -= 0.5f;
@@ -134,10 +128,7 @@ float4 TextureAtlas_PS(Output _Input) : SV_Target0
         {
             clip(-1);
         }
-     /*   if (_Input.Tex.xy < Slice.xy)
-                {
-                    clip(-1);
-                }*/
+
 
     }
     

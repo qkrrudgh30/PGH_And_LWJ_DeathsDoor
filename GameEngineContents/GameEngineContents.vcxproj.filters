@@ -175,6 +175,9 @@
     <Filter Include="01.Actor\02.Unit\03.Bullet\03.OldCrow\00.Dash">
       <UniqueIdentifier>{9e7ad755-6058-4ed3-8273-553633d1cb9f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\03.OldCrow\01.Scream">
+      <UniqueIdentifier>{a235d734-8877-4340-ac28-46c24a18b495}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -387,6 +390,12 @@
     </ClInclude>
     <ClInclude Include="DashBullet.h">
       <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\00.Dash</Filter>
+    </ClInclude>
+    <ClInclude Include="OldCrowScreamBase.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\01.Scream</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreamBullet.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\01.Scream</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -606,6 +615,12 @@
     </ClCompile>
     <ClCompile Include="DashTrail.cpp">
       <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\00.Dash</Filter>
+    </ClCompile>
+    <ClCompile Include="OldCrowScreamBase.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\01.Scream</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreamBullet.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\01.Scream</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

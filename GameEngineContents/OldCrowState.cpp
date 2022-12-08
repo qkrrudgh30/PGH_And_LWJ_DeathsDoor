@@ -6,7 +6,7 @@
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
 #include "GameEngineBase/GameEngineRandom.h"
-
+#include "OldCrowScreamBase.h"
 
 #include "DashBullet.h"
 
@@ -101,7 +101,7 @@ void OldCrow::MoveReadyUpdate(float _DeltaTime, const StateInfo& _Info)
 void OldCrow::MoveStart(const StateInfo& _Info)
 {
 	//FBXAnimationRenderer->ChangeAnimation("OldCrow_Run");
-	FBXAnimationRenderer->ChangeAnimation("OldCrow_Idle");
+	FBXAnimationRenderer->ChangeAnimation("OldCrow_Run");
 	m_fSpeed = 650.f;
 	m_fAttCTime = 0.f;
 
@@ -163,7 +163,7 @@ void OldCrow::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	{
 		if (Cross.y > 0)
 		{
-			if(FBXAnimationRenderer->CheckCurrentAnimation("OldCrow_Idle"))
+			if(FBXAnimationRenderer->CheckCurrentAnimation("OldCrow_Run"))
 			{
 
 				FBXAnimationRenderer->ChangeAnimation("OldCrow_Turn_Left");
@@ -174,7 +174,7 @@ void OldCrow::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 		// ¿À¸¥ÂÊ
 		else
 		{
-			if (FBXAnimationRenderer->CheckCurrentAnimation("OldCrow_Idle"))
+			if (FBXAnimationRenderer->CheckCurrentAnimation("OldCrow_Run"))
 			{
 
 				FBXAnimationRenderer->ChangeAnimation("OldCrow_Turn_Right");
@@ -544,6 +544,14 @@ void OldCrow::JumpEndUpdate(float _DeltaTime, const StateInfo& _Info)
 void OldCrow::ScreamStart(const StateInfo& _Info)
 {
 	FBXAnimationRenderer->ChangeAnimation("OldCrow_Scream");
+
+	std::weak_ptr < OldCrowScreamBase> Bullet = GetLevel()->CreateActor<OldCrowScreamBase>(OBJECTORDER::MonsterAtt);
+	float4 MyPos = GetTransform().GetWorldPosition();
+	MyPos.y = 50.f;
+	Bullet.lock()->GetTransform().SetWorldPosition(MyPos);
+
+
+
 }
 void OldCrow::ScreamEnd(const StateInfo& _Info)
 {
@@ -553,11 +561,10 @@ void OldCrow::ScreamUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 
 }
+//
 
 
-
-
-
+//
 void OldCrow::DashDeathStart(const StateInfo& _Info)
 {
 	FBXAnimationRenderer->ChangeAnimation("OldCrow_Death_Run");
