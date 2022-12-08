@@ -106,6 +106,33 @@ public :
 	
 
 public:
+	bool	m_bHitActionCheck = false;
+	float m_fcurHitTime = 0.f;
+	//맞을때 이 함수만 추가해 주세요
+	void HitUpdate(float _Delta , float HitTime)
+	{
+
+		if (!m_bHitActionCheck)
+			return;
+
+
+
+
+
+
+		m_fcurHitTime += _Delta;
+
+		if (m_fcurHitTime >= HitTime)
+		{
+			m_bHitActionCheck = false;
+			m_fcurHitTime = 0.f;
+		}
+	
+	}
+
+
+
+public:
 	UINFO	m_Info;
 	float m_fLifeTime;
 	float m_fSpeed;
