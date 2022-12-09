@@ -34,7 +34,10 @@ public:
 	std::shared_ptr < GameEngineDefaultRenderer> Renderer;
 	std::shared_ptr < GameEngineFBXStaticRenderer> FBXStaticRenderer;
 	std::shared_ptr <GameEngineFBXAnimationRenderer> FBXAnimationRenderer;
+	
 	std::shared_ptr < GameEngineTextureRenderer> TexRenderer;
+	std::shared_ptr < GameEngineTextureRenderer> TexRenderer2;
+
 	std::shared_ptr < GameEngineCollision> Collision;
 	std::shared_ptr < GameEngineCollision> AttCollision;
 	GameEngineRenderingEvent Event;
@@ -74,6 +77,38 @@ public :
 	}
 
 
+	float DirToRotY(float4 u, float4 v)
+	{
+
+		u.y = -u.z;
+		v.y = -v.z;
+
+
+		u.z = 0.f;
+		u.w = 0.f;
+
+		v.z = 0.f;
+		v.w = 0.f;
+
+		float Angle = float4::VectorXYtoDegree(v, u);
+
+	
+
+		if (Angle >= 360.f)
+		{
+			Angle -= 360.f;
+		}
+		else if (Angle <= 0.f)
+		{
+			Angle += 360.f;
+		}
+
+		return Angle;
+
+	}
+
+
+
 	float DirToRot(float4 u, float4 v)
 	{
 
@@ -103,7 +138,66 @@ public :
 		return Angle;
 
 	}
+	//x = zy
+	//y = xz 
+	//z = yx
+
+	float DirToRotX(float4 u, float4 v)
+	{
+		
+		u.x = u.z;
+		v.x = v.z;
+
+		u.z = 0.f;
+		u.w = 0.f;
+
+		v.z = 0.f;
+		v.w = 0.f;
+
+		float Angle = float4::VectorXYtoDegree(v, u);
+
 	
+
+		if (Angle >= 360.f)
+		{
+			Angle -= 360.f;
+		}
+		else if (Angle <= 0.f)
+		{
+			Angle += 360.f;
+		}
+
+		return Angle;
+
+	}
+
+	float DirToRotZ(float4 u, float4 v)
+	{
+
+	
+		u.z = 0.f;
+		u.w = 0.f;
+
+		v.z = 0.f;
+		v.w = 0.f;
+
+		float Angle = float4::VectorXYtoDegree(v, u);
+
+		//Angle += 90.f;
+
+		if (Angle >= 360.f)
+		{
+			Angle -= 360.f;
+		}
+		else if (Angle <= 0.f)
+		{
+			Angle += 360.f;
+		}
+
+		return Angle;
+
+	}
+
 
 public:
 	bool	m_bHitActionCheck = false;

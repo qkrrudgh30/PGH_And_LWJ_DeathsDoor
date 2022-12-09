@@ -316,13 +316,6 @@ void OldCrow::Update(float _DeltaTime)
 {
 
 
-	//float4 MyWorldPos = GetTransform().GetWorldPosition();
-	//float4 MyFoward = FBXAnimationRenderer->GetTransform().GetBackVector();
-
-
-
-	//FBXAnimationRenderer->GetTransform().SetLocalPosition(MyWorldPos - MyFoward * 200.f);
-
 
 	BaseUpdate(_DeltaTime);
 

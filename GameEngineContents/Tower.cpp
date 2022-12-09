@@ -416,11 +416,11 @@ void Tower::AniLaserEnd(const GameEngineRenderingEvent& _Data)
 	m_bLaserDown = true;
 	m_bLaserUP = false;
 	m_fLaserMoveTime = 0.f;
-	m_CLaserTarget.lock()->Death();
+	/*m_CLaserTarget.lock()->Death();
 	m_CLaserTarget.reset();
 
 	m_CLaser.lock()->Death();
-	m_CLaser.reset();
+	m_CLaser.reset();*/
 
 	FBXAnimationRenderer->ChangeAnimation("Tower_Laser_E");
 
@@ -441,7 +441,7 @@ void Tower::AniLaserFrame(const GameEngineRenderingEvent& _Data)
 	if (_Data.CurFrame == 63)
 	{
 
-		//if(m_CLaser.lock() == nullptr)
+		if(m_CLaser.lock() == nullptr)
 		{
 			m_CLaser = GetLevel()->CreateActor<TowerLaser>(OBJECTORDER::MonsterAtt);
 			float4 mPos = GetTransform().GetWorldPosition();
@@ -606,7 +606,7 @@ void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 	{
 		m_fAttCTime = 0.;
 		AttType =  GameEngineRandom::MainRandom.RandomInt(1, 3);
-		//AttType = 3;
+		AttType = 1;
 	}
 
 	
