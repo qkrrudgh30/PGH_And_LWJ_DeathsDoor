@@ -155,62 +155,62 @@ void OldCrow::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	float4 LerpPos = float4::Lerp(m_vMoveMyPos, m_vMoveGoPos, _DeltaTime * 1.f);
 
-	//GetTransform().SetWorldPosition(LerpPos);
+	GetTransform().SetWorldPosition(LerpPos);
 
 
-	//float TarGetLen = (m_vMoveMyPos - m_vMoveGoPos).Length();
+	float TarGetLen = (m_vMoveMyPos - m_vMoveGoPos).Length();
 
 
-	//if (TarGetLen <= 700.f)
-	//{
-	//	if (Cross.y > 0)
-	//	{
-	//		if(FBXAnimationRenderer->CheckCurrentAnimation("OldCrow_Run"))
-	//		{
+	if (TarGetLen <= 700.f)
+	{
+		if (Cross.y > 0)
+		{
+			if(FBXAnimationRenderer->CheckCurrentAnimation("OldCrow_Run"))
+			{
 
-	//			FBXAnimationRenderer->ChangeAnimation("OldCrow_Turn_Left");
+				FBXAnimationRenderer->ChangeAnimation("OldCrow_Turn_Left");
 
-	//		}
-	//		
-	//	}
-	//	// 오른쪽
-	//	else
-	//	{
-	//		if (FBXAnimationRenderer->CheckCurrentAnimation("OldCrow_Run"))
-	//		{
+			}
+			
+		}
+		// 오른쪽
+		else
+		{
+			if (FBXAnimationRenderer->CheckCurrentAnimation("OldCrow_Run"))
+			{
 
-	//			FBXAnimationRenderer->ChangeAnimation("OldCrow_Turn_Right");
-	//		}
-
-
-	//	}
-
-	//}
-	//
+				FBXAnimationRenderer->ChangeAnimation("OldCrow_Turn_Right");
+			}
 
 
+		}
+
+	}
+	
 
 
-	//if (AttType == 1)
-	//{
-	//	AttAngle = DirToRot(m_vMovePlayerPos, m_vMoveMyPos);
-	//	GetTransform().SetLocalRotation({ 0.0f,AttAngle, 0.0f});
-	//	StateManager.ChangeState("DashReady");
 
 
-	//	AttType = 0;
-	//}
-	//else if (AttType == 2)
-	//{
-	//	StateManager.ChangeState("Scream");
-	//	AttType = 0;
-	//}
-	//else if (AttType == 3)
-	//{
-	//	StateManager.ChangeState("JumpReady");
-	//	m_fJumpSpeed = 800.f;
-	//	AttType = 0;
-	//}
+	if (AttType == 1)
+	{
+		AttAngle = DirToRot(m_vMovePlayerPos, m_vMoveMyPos);
+		GetTransform().SetLocalRotation({ 0.0f,AttAngle, 0.0f});
+		StateManager.ChangeState("DashReady");
+
+
+		AttType = 0;
+	}
+	else if (AttType == 2)
+	{
+		StateManager.ChangeState("Scream");
+		AttType = 0;
+	}
+	else if (AttType == 3)
+	{
+		StateManager.ChangeState("JumpReady");
+		m_fJumpSpeed = 800.f;
+		AttType = 0;
+	}
 
 
 
