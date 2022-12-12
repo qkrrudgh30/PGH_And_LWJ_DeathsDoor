@@ -209,17 +209,23 @@ public:
 		if (!m_bHitActionCheck)
 			return;
 
-
-
+		if (false == m_bHittedSound)
+		{
+			HittedSound();
+			m_bHittedSound = true;
+		}
 
 
 
 		m_fcurHitTime += _Delta;
+		SetHitted(m_fcurHitTime);
 
 		if (m_fcurHitTime >= HitTime)
 		{
 			m_bHitActionCheck = false;
+			m_bHittedSound = false;
 			m_fcurHitTime = 0.f;
+			SetHitted(m_fcurHitTime);
 		}
 	
 	}
@@ -251,6 +257,8 @@ public:
 
 	void SetHitted(float _fHitted) { mPaperBurnInfo.mfHitted = _fHitted; };
 
+	virtual void HittedSound() {};
+
 private:
 	float ShakeMaxTime = 0.f;
 	float ShakeTime = 0.f;
@@ -273,6 +281,10 @@ protected:
 	bool m_bDeathEnd;
 	
 	float m_fAccTimeForHitted;
+
+	class GameEngineSoundPlayer m_structSoundPlayer;
+
+	bool m_bHittedSound;
 	
 };
 

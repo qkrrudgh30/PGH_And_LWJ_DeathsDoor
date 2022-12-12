@@ -47,6 +47,9 @@ public:
 	static std::set<std::string>& GetLoadedFromStaticSet(void) { return m_setLoadedFromStatic; }
 	static std::map<std::string, std::vector<std::pair<std::string, std::weak_ptr<class StaticMesh>>>>& GetCreatureMap(void) { return m_vCreatedActors; }
 
+	void SaveLightData();
+	static void LoadLightData();
+
 protected:
 
 private:
@@ -97,6 +100,14 @@ private:
 	static int s_iAppliedAreaForBloom;
 	static float s_fLuminanceForBloom;
 	static float s_fIntenceForBloom;
+
+	static bool s_bAnyChangesForLight;
+	static bool s_bOnOffLight;
+	static unsigned int s_uOnOffLight;
+	static float s_fDiffuseLightIntensity;
+	static float s_fAmbientLightIntensity;
+	static float s_fSpecularLightIntensity;
+	static float s_fSpecularLightPower;
 
 	static bool s_mbStartingLevel;
 };

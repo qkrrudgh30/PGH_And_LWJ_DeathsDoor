@@ -191,7 +191,11 @@ void Headroller::Update(float _DeltaTime)
 		if (m_Len <= 200.f)
 		{
 			if (m_bAtt)
+			{
+				m_structSoundPlayer.Stop();
+				m_structSoundPlayer = GameEngineSound::SoundPlayControl("15_HeadRollerAttack.mp3");
 				StateManager.ChangeState("Att");
+			}
 		}
 		else if (m_Len <= 700.f)
 		{
@@ -214,6 +218,8 @@ void Headroller::Update(float _DeltaTime)
 	if (m_Info.m_Hp <= 0 && false == mbOnce)
 	{
 		Death(mfPaperburnDeathTime);
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("18_HeadRollerDeath.mp3");
 		mbOnce = true;
 		mbOnDeath = true;
 	}

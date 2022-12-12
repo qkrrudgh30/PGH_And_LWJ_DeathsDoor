@@ -5,6 +5,8 @@
 #include <GameEngineCore/GameEngineFBXAnimationRenderer.h>
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
+#include <GameEngineBase/GameEngineSound.h>
+
 #include <array>
 
 UnitBase::UnitBase() :
@@ -29,6 +31,8 @@ UnitBase::UnitBase() :
 	, m_bDeathEnd(false)
 	, m_fAccTimeForPaperburn(0.f)
 	, m_fAccTimeForHitted(0.f)
+	, m_structSoundPlayer{}
+	, m_bHittedSound(false)
 {
 	m_Info.Dammage = 3;
 	m_Info.Gold = 1000;

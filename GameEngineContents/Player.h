@@ -173,6 +173,8 @@ private:
 
 	WEAPONTYPE	m_eBeforeType;
 
+	
+
 
 private:
 	void ChangeRendererRotation(float _DeltaTime, int _Ratate);

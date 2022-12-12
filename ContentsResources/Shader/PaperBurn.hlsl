@@ -85,6 +85,9 @@ float4 Texture_PS(Output _Input) : SV_Target0
             CurUV.y += PixelUVSize.y;
         }
         
+        f4Red.r = 1.f;
+        f4Red.a = 1.f;
+        
         return f4Red;
     }
     

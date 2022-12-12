@@ -24,7 +24,7 @@ public:
 	FlowerMonster& operator=(const FlowerMonster& _Other) = delete;
 	FlowerMonster& operator=(FlowerMonster&& _Other) noexcept = delete;
 
-
+	void HittedSound() override { m_structSoundPlayer.Stop(); m_structSoundPlayer = GameEngineSound::SoundPlayControl("12_FlowerHitted.mp3"); }
 
 
 protected:

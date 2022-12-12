@@ -30,6 +30,7 @@
 #include <GameEngineCore/GameEngineRasterizer.h>
 #include <GameEngineCore/GameEngineBlend.h>
 #include <GameEngineCore/GameEngineMaterial.h>
+#include <GameEngineBase/GameEngineSound.h>
 
 void CreateContentsMesh()
 {
@@ -86,6 +87,10 @@ void CreateContentsMaterial()
 	std::weak_ptr<GameEngineMaterial> ContentsStaticPaperBurnMaterial = GameEngineMaterial::Create("StaticPaperBurn");
 	ContentsStaticPaperBurnMaterial.lock()->SetVertexShader("StaticPaperBurn.hlsl");
 	ContentsStaticPaperBurnMaterial.lock()->SetPixelShader("StaticPaperBurn.hlsl");
+
+	std::weak_ptr<GameEngineMaterial> ContentsWaveMaterial = GameEngineMaterial::Create("Wave");
+	ContentsWaveMaterial.lock()->SetVertexShader("Wave.hlsl");
+	ContentsWaveMaterial.lock()->SetPixelShader("Wave.hlsl");
 	
 	// std::weak_ptr<GameEngineMaterial> ContentsShaderMaterial = GameEngineMaterial::Create("ContentsShader");
 	// ContentsBlurMaterial.lock()->SetVertexShader("ContentsShader.hlsl");
@@ -145,6 +150,21 @@ void LoadContentsUITexture()
 	}
 }
 
+void LoadSound()
+{
+	GameEngineDirectory Dir;
+	Dir.MoveParentToExitsChildDirectory("ContentsResources");
+	Dir.Move("ContentsResources");
+	Dir.Move("Sound");
+
+	std::vector<GameEngineFile> Sounds = Dir.GetAllFile();
+
+	for (size_t i = 0; i < Sounds.size(); i++)
+	{
+		GameEngineSound::LoadRessource(Sounds[i].GetFullPath());
+	}
+}
+
 void ContentsCore::InitializeContentsResource()
 {
 	CreateContentsMesh();
@@ -158,6 +178,8 @@ void ContentsCore::InitializeContentsResource()
 	CreateContentsBlendAndDepthStencilDesc();
 
 	LoadContentsUITexture();
+
+	LoadSound();
 }
 
 void ContentsCore::DestroyContentsResource()

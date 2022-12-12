@@ -73,5 +73,8 @@
     <FxCompile Include="Shader\StaticPaperBurn.hlsl">
       <Filter>Shader</Filter>
     </FxCompile>
+    <FxCompile Include="Shader\Wave.hlsl">
+      <Filter>Shader\2DShader</Filter>
+    </FxCompile>
   </ItemGroup>
 </Project>

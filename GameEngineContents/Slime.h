@@ -23,7 +23,7 @@ public:
 	Slime& operator=(const Slime& _Other) = delete;
 	Slime& operator=(Slime&& _Other) noexcept = delete;
 
-
+	void HittedSound() override { m_structSoundPlayer.Stop(); m_structSoundPlayer = GameEngineSound::SoundPlayControl("09_SlimeHitted.mp3"); }
 
 	
 protected:

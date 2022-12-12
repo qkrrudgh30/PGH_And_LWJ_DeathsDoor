@@ -21,7 +21,7 @@
 #include <GameEngineCore/GameEngineFBXAnimationRenderer.h>
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
-
+#include <GameEngineBase/GameEngineSound.h>
 
 
 Player* Player::MainPlayer = nullptr;
@@ -498,8 +498,8 @@ void Player::SworldAttStart(const StateInfo& _Info)
 	
 	//AttCollision->GetTransform().SetLocalPosition(RenderFoward * 100.f);
 //	AttCollision->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
-
-	
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("03_PlayerAttack.mp3");
 }
 
 void Player::SworldAttEnd(const StateInfo& _Info)
@@ -574,7 +574,8 @@ void Player::SworldAttStart2(const StateInfo& _Info)
 
 
 
-
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("03_PlayerAttack.mp3");
 }
 
 void Player::SworldAttEnd2(const StateInfo& _Info)
@@ -645,7 +646,8 @@ void Player::SworldAttStart3(const StateInfo& _Info)
 	m_CSWAtt3.lock()->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 
 
-
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("03_PlayerAttack.mp3");
 }
 
 void Player::SworldAttEnd3(const StateInfo& _Info)
@@ -690,6 +692,8 @@ void Player::ArrowAttStart(const StateInfo& _Info)
 
 	}
 
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("07_PlayerBow.mp3");
 }
 
 void Player::ArrowAttEnd(const StateInfo& _Info)
@@ -904,6 +908,8 @@ void Player::SlideStart(const StateInfo& _Info)
 	m_fSlideSpeed = 700.f;
 	m_bSWASlidecheck = false;
 	FBXAnimationRenderer->ChangeAnimation("Player_Roll");
+
+	
 }
 
 void Player::SlideEnd(const StateInfo& _Info)
@@ -965,6 +971,8 @@ void Player::SlideAttStart(const StateInfo& _Info)
 	m_CSWAttSlide.lock()->GetTransform().SetLocalPosition(MyWorldPos);
 	m_CSWAttSlide.lock()->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("05_PlayerThrust.mp3");
 }
 
 void Player::SlideAttEnd(const StateInfo& _Info)
@@ -1158,10 +1166,6 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 
 	}
-
-
-
-
 }
 
 void Player::ChangeRendererRotation(float _DeltaTime, int _Ratate)

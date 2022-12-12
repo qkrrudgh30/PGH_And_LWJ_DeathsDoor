@@ -26,7 +26,7 @@ Tower::~Tower()
 
 void Tower::Start()
 {
-
+	
 
 	m_Info.m_Hp = 10;
 	m_Info.m_MaxHp = 10;
@@ -125,6 +125,7 @@ void Tower::Start()
 		Event.Inter = 0.05f;
 		FBXAnimationRenderer->CreateFBXAnimation("Tower_Slam", Event);
 		FBXAnimationRenderer->AnimationBindEnd("Tower_Slam", std::bind(&Tower::AniSlamEnd, this, std::placeholders::_1));
+		FBXAnimationRenderer->AnimationBindFrame("Tower_Slam", std::bind(&Tower::AniSlamFrame, this, std::placeholders::_1));
 
 
 	}
@@ -262,6 +263,8 @@ void Tower::Update(float _DeltaTime)
 	{
 		Death(mfPaperburnDeathTime);
 		m_cSpike.lock()->Death(mfPaperburnDeathTime);
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("24_MiddleBossDeath.mp3");
 		mbOnce = true;
 		mbOnDeath = true;
 	}
@@ -347,6 +350,14 @@ void Tower::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 
 
 }
+void Tower::AniSlamFrame(const GameEngineRenderingEvent& _Data)
+{
+	if (1u == _Data.CurFrame)
+	{
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("22_MiddleBossJump.mp3");
+	}
+}
 void Tower::AniSlamEnd(const GameEngineRenderingEvent& _Data)
 {
 
@@ -368,7 +379,7 @@ void Tower::LaserStart(const StateInfo& _Info)
 	m_bLaserDown = false;
 	m_fLaserMoveTime = 0.f;
 
-
+	
 
 
 }
@@ -385,6 +396,7 @@ void Tower::LaserUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	if (m_bLaserUP)
 	{
+		
 		GetTransform().SetWorldUpMove(35.f, _DeltaTime);
 
 
@@ -472,6 +484,7 @@ void Tower::AniLaserEEnd(const GameEngineRenderingEvent& _Data)
 
 void Tower::AttStart(const StateInfo& _Info)
 {
+
 	FBXAnimationRenderer->ChangeAnimation("Tower_Snap");
 }
 void Tower::AttEnd(const StateInfo& _Info)
@@ -496,7 +509,7 @@ void Tower::JumpStart(const StateInfo& _Info)
 {
 	FBXAnimationRenderer->ChangeAnimation("Tower_Jump");
 	
-
+	
 
 }
 
@@ -519,24 +532,45 @@ void Tower::AniJumpEnd(const GameEngineRenderingEvent& _Data)
 
 void Tower::AniJumpFrame(const GameEngineRenderingEvent& _Data)
 {
-
+	if (19u == _Data.CurFrame)
+	{
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("22-1_MiddleBossSmash.mp3");
+	}
 
 	if (_Data.CurFrame == 22)
 	{
+		
 		std::weak_ptr < SnapCircle> Bullet = GetLevel()->CreateActor<SnapCircle>(OBJECTORDER::MonsterAtt);
 		Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
 		CameraShake(1.f);
 	}
 
+
+	if (51u == _Data.CurFrame)
+	{
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("22-1_MiddleBossSmash.mp3");
+	}
 	if (_Data.CurFrame == 55)
 	{
+		
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("22-1_MiddleBossSmash.mp3");
 		std::weak_ptr < SnapCircle> Bullet = GetLevel()->CreateActor<SnapCircle>(OBJECTORDER::MonsterAtt);
 		Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
 		CameraShake(0.5f);
 	}
 
+	if (95u == _Data.CurFrame)
+	{
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("22-1_MiddleBossSmash.mp3");
+	}
 	if (_Data.CurFrame == 100)
 	{
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("22-1_MiddleBossSmash.mp3");
 		std::weak_ptr < SnapCircle> Bullet = GetLevel()->CreateActor<SnapCircle>(OBJECTORDER::MonsterAtt);
 		Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
 		CameraShake(0.5f);

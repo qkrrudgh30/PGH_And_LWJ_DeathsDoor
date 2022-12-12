@@ -185,6 +185,8 @@ void FlowerMonster::Update(float _DeltaTime)
 	if (m_Info.m_Hp <= 0 && false == mbOnce)
 	{
 		Death(mfPaperburnDeathTime);
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("13_FlowerDeath.mp3");
 		mbOnce = true;
 		mbOnDeath = true;
 	}
@@ -262,6 +264,8 @@ void FlowerMonster::StunUpdate(float _DeltaTime, const StateInfo& _Info)
 void FlowerMonster::AttStart(const StateInfo& _Info)
 {
 	FBXAnimationRenderer->ChangeAnimation("Flower_Att");
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("11_FlowerAttack.mp3");
 	m_bhitCheck = false;
 }
 void FlowerMonster::AttEnd(const StateInfo& _Info)

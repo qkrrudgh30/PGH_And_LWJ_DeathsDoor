@@ -350,6 +350,8 @@ void OldCrow::Update(float _DeltaTime)
 	if (m_Info.m_Hp <= 0 && false == mbOnce)
 	{
 		Death(mfPaperburnDeathTime);
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("33_LastBossDeath.mp3");
 		mbOnce = true;
 		mbOnDeath = true;
 	}

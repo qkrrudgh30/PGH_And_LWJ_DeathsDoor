@@ -38,7 +38,7 @@ public:
 	Tower& operator=(const Tower& _Other) = delete;
 	Tower& operator=(Tower&& _Other) noexcept = delete;
 
-
+	void HittedSound() override { m_structSoundPlayer.Stop(); m_structSoundPlayer = GameEngineSound::SoundPlayControl("20_MiddleBossHitted.mp3"); }
 
 	
 protected:
@@ -103,6 +103,7 @@ public :
 
 
 private:
+	void AniSlamFrame(const GameEngineRenderingEvent& _Data);
 	void AniSlamEnd(const GameEngineRenderingEvent& _Data);
 	void AniLaserEnd(const GameEngineRenderingEvent& _Data);
 	void AniLaserFrame(const GameEngineRenderingEvent& _Data);

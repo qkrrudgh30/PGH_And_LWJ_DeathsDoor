@@ -145,7 +145,8 @@ CollisionReturn Potal::CollisionPlayer(std::shared_ptr < GameEngineCollision> _T
 	}
 
 
-
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("02_Portal.mp3");
 
 	return CollisionReturn::ContinueCheck;
 }

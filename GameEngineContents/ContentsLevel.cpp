@@ -1,6 +1,7 @@
 #include "PreCompile.h"
 #include "GameEngineBase/GameEngineDirectory.h"
 #include "GameEngineCore/GameEngineFBXStaticRenderer.h"
+#include "GameEngineCore/GameEngineLight.h"
 
 #include "ContentsLevel.h"
 #include "EditGUIWindow.h"
@@ -53,7 +54,10 @@ ContentsLevel::ContentsLevel()
 	msptrBloomCameraActor = CreateActor<GameEngineCameraActor>();
 	msptrBloomCameraActor->GetCameraComponent()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
 	msptrBloomCameraActor->GetCameraComponent()->SetCameraOrder(CAMERAORDER::USER1);
-	
+
+	mwptrLightForLevel = CreateActor<GameEngineLight>();
+	mwptrLightForLevel.lock()->GetTransform().SetWorldRotation(float4{0.f, 45.f, 0.f, 0.f});
+	GetMainCamera()->PushLight(mwptrLightForLevel.lock());	
 }
 
 ContentsLevel::~ContentsLevel() 

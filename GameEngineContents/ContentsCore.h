@@ -2,6 +2,8 @@
 #include <GameEngineCore/CoreMinimal.h>
 #include <GameEngineCore/GameEngineCore.h>
 
+#include <GameEngineBase/GameEngineSound.h>
+
 // 설명 : 프로그램 자체를 시작하게 한다.
 class ContentsCore : public GameEngineCore
 {
@@ -44,6 +46,18 @@ protected:
 private:
 	static void InitializeContentsResource();
 	static void DestroyContentsResource();
+
+	void ChangeLevelNumber();
+
+public:
+
+protected:
+
+private:
+	static int m_nCurrentLevel;
+	static int m_nNextLevel;
+	std::weak_ptr<class ContentsLevel> m_wptrCurrentLevel;
+	class GameEngineSoundPlayer mstructSoundPlayer;
 
 };
 

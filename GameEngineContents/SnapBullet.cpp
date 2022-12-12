@@ -72,6 +72,8 @@ void SnapBullet::Update(float _DeltaTime)
 
 	if (Len <= 20.f)
 	{
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("21-1_MeteorHit.mp3");
 
 		m_pTarget.lock()->Death();
 		m_pTarget.reset();
@@ -85,6 +87,8 @@ void SnapBullet::Update(float _DeltaTime)
 
 CollisionReturn SnapBullet::PlayerCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other)
 {
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("21-1_MeteorHit.mp3");
 	if (m_pTarget.lock())
 	{
 		m_pTarget.lock()->Death();

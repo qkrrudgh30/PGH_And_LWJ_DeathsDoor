@@ -79,7 +79,7 @@ void LoginLevel::LevelStartEvent()
 		msptrContentsBlur->InitializeContentsBlur(msptrContentsBlur);
 		msptrContentsBloom->InitializeBloom(msptrContentsBloom);
 		EditGUIWindow::LoadPostEffectInfo();
-
+		EditGUIWindow::LoadLightData();
 
 		mbPrimitiveInitialized = true;
 	}

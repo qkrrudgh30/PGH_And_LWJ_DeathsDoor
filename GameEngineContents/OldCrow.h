@@ -25,7 +25,7 @@ public:
 	OldCrow& operator=(const OldCrow& _Other) = delete;
 	OldCrow& operator=(OldCrow&& _Other) noexcept = delete;
 
-
+	void HittedSound() override { m_structSoundPlayer.Stop(); m_structSoundPlayer = GameEngineSound::SoundPlayControl("32_LastBossHitted.mp3"); }
 
 
 public:

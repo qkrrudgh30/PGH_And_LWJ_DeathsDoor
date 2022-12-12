@@ -12,8 +12,26 @@
 #include "GameEngineContents/EditLevel.h"
 #include "GameEngineContents/EditGUIWindow.h"
 #include "GameEngineStatusWindow.h"
+#include "ContentsLevel.h"
 
 #pragma comment(lib, "GameEngineBase.lib")
+
+int ContentsCore::m_nCurrentLevel = -1;
+int ContentsCore::m_nNextLevel = -1;
+
+enum
+{
+	LOGIN_LEVEL = 0,
+	HUNTING_LEVEL1 = 1,
+	HUNTING_LEVEL2 = 2,
+	HUNTING_LEVEL3 = 3,
+	HUNTING_LEVEL4 = 4,
+	HUNTING_LEVEL5 = 5,
+	BOSS_LEVEL = 6,
+	EDIT_LEVEL = 7,
+	TEST_LEVEL = 8,
+	NONE = -1
+};
 
 ContentsCore::ContentsCore() 
 	: GameEngineCore()
@@ -65,6 +83,62 @@ void ContentsCore::Start()
 
 void ContentsCore::Update(float _DeltaTime)
 {
+	if (nullptr != GEngine::GetCurrentLevel())
+	{
+		ChangeLevelNumber();
+
+		/*
+		00_LoginLevelBGM.mp3
+		01_HuntingLevelBGM.mp3
+		19_MiddleBossLevelBGM.mp3
+		26_LastBossLevelBGM.mp3
+		*/
+
+		if (m_nCurrentLevel != m_nNextLevel)
+		{
+			if (LOGIN_LEVEL == m_nNextLevel)
+			{
+				mstructSoundPlayer.Stop();
+				mstructSoundPlayer = GameEngineSound::SoundPlayControl("00_LoginLevelBGM.mp3", 10);
+			}
+
+			if (HUNTING_LEVEL1 == m_nNextLevel || HUNTING_LEVEL2 == m_nNextLevel || 
+				HUNTING_LEVEL3 == m_nNextLevel || HUNTING_LEVEL2 == m_nNextLevel )
+			{
+				mstructSoundPlayer.Stop();
+				mstructSoundPlayer = GameEngineSound::SoundPlayControl("01_HuntingLevelBGM.mp3", 10);
+			}
+
+			if (HUNTING_LEVEL5 == m_nNextLevel)
+			{
+				mstructSoundPlayer.Stop();
+				mstructSoundPlayer = GameEngineSound::SoundPlayControl("19_MiddleBossLevelBGM.mp3", 10);
+			}
+
+			if (BOSS_LEVEL == m_nNextLevel)
+			{
+				mstructSoundPlayer.Stop();
+				mstructSoundPlayer = GameEngineSound::SoundPlayControl("26_LastBossLevelBGM.mp3", 10);
+			}
+
+			mstructSoundPlayer.Volume(0.1f);
+			m_nCurrentLevel = m_nNextLevel;
+		}
+
+	}
+}
+
+void ContentsCore::ChangeLevelNumber()
+{
+	if (GameEngineString::ToUpperReturn("00_LoginLevel")		 == GEngine::GetCurrentLevel()->GetNameCopy()) { m_nNextLevel = LOGIN_LEVEL; }
+	else if (GameEngineString::ToUpperReturn("01_HuntingLevel1") == GEngine::GetCurrentLevel()->GetNameCopy()) { m_nNextLevel = HUNTING_LEVEL1; }
+	else if (GameEngineString::ToUpperReturn("02_HuntingLevel2") == GEngine::GetCurrentLevel()->GetNameCopy()) { m_nNextLevel = HUNTING_LEVEL2; }
+	else if (GameEngineString::ToUpperReturn("03_HuntingLevel3") == GEngine::GetCurrentLevel()->GetNameCopy()) { m_nNextLevel = HUNTING_LEVEL3; }
+	else if (GameEngineString::ToUpperReturn("04_HuntingLevel4") == GEngine::GetCurrentLevel()->GetNameCopy()) { m_nNextLevel = HUNTING_LEVEL4; }
+	else if (GameEngineString::ToUpperReturn("05_HuntingLevel5") == GEngine::GetCurrentLevel()->GetNameCopy()) { m_nNextLevel = HUNTING_LEVEL5; }
+	else if (GameEngineString::ToUpperReturn("06_BossLevel")     == GEngine::GetCurrentLevel()->GetNameCopy()) { m_nNextLevel = BOSS_LEVEL; }
+	else if (GameEngineString::ToUpperReturn("07_EditLevel")     == GEngine::GetCurrentLevel()->GetNameCopy()) { m_nNextLevel = EDIT_LEVEL; }
+	else if (GameEngineString::ToUpperReturn("08_TestLevel")     == GEngine::GetCurrentLevel()->GetNameCopy()) { m_nNextLevel = TEST_LEVEL; }
 }
 
 void ContentsCore::End()

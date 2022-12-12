@@ -42,16 +42,24 @@ float EditGUIWindow::s_farrPrevColliderPositionOnEditGUI[3] = { 0.f, 0.f, 0.f };
 
 bool			EditGUIWindow::s_bAnyChanges = false;
 bool			EditGUIWindow::s_bOnOffBlur = false;
-unsigned int	EditGUIWindow::s_uOnOffBlur = 0;
+unsigned int	EditGUIWindow::s_uOnOffBlur = 0u;
 int				EditGUIWindow::s_iCurrAppliedArea = 3;
 float			EditGUIWindow::s_fCurrIntence = 0.f;
 
 bool			EditGUIWindow::s_bAnyChangesForBloom = false;
 bool			EditGUIWindow::s_bOnOffBloom = false;
-unsigned int	EditGUIWindow::s_uOnOffBloom = 0;
+unsigned int	EditGUIWindow::s_uOnOffBloom = 0u;
 int				EditGUIWindow::s_iAppliedAreaForBloom = 1;
 float			EditGUIWindow::s_fLuminanceForBloom = 0.3f;
 float			EditGUIWindow::s_fIntenceForBloom = 0.f;
+
+bool			EditGUIWindow::s_bAnyChangesForLight = false;
+bool			EditGUIWindow::s_bOnOffLight = false;
+unsigned int	EditGUIWindow::s_uOnOffLight = 0u;
+float			EditGUIWindow::s_fDiffuseLightIntensity = 0.f;
+float			EditGUIWindow::s_fAmbientLightIntensity = 0.f;
+float			EditGUIWindow::s_fSpecularLightIntensity = 0.f;
+float			EditGUIWindow::s_fSpecularLightPower = 1.f;
 
 bool            EditGUIWindow::s_mbStartingLevel = false;
 
@@ -432,6 +440,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			ContentsLevel* rptrContentsLevel = dynamic_cast<ContentsLevel*>(GEngine::GetCurrentLevel());
 			rptrContentsLevel->GetContentsBlur()->SetBlurInfo(s_uOnOffBlur, s_iCurrAppliedArea, s_fCurrIntence);
 			rptrContentsLevel->GetContentsBloom()->SetBloomInfo(s_uOnOffBloom, s_iAppliedAreaForBloom, s_fLuminanceForBloom, s_fIntenceForBloom);
+			rptrContentsLevel->SetLightData(s_uOnOffLight, s_fDiffuseLightIntensity, s_fAmbientLightIntensity, s_fSpecularLightIntensity, s_fSpecularLightPower);
 
 			s_mbStartingLevel = true;
 		}
@@ -516,6 +525,58 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 				SavePostEffectInfo();
 			}
 			
+
+			ImGui::EndTabItem();
+		}
+
+		if (true == ImGui::BeginTabItem("Light"))
+		{
+			ContentsLevel* rptrContentsLevel = dynamic_cast<ContentsLevel*>(GEngine::GetCurrentLevel());
+
+			ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "Light");
+			ImGui::BeginChild("##colors4", ImVec2(400, 160), true, ImGuiWindowFlags_NavFlattened);
+
+			/*
+			bool			EditGUIWindow::s_bAnyChangesForLight = false;
+bool			EditGUIWindow::s_bOnOffLight = false;
+unsigned int	EditGUIWindow::s_uOnOffLight = 0u;
+float			EditGUIWindow::s_fDiffuseLightIntensity = 0.f;
+float			EditGUIWindow::s_fAmbientLightIntensity = 0.f;
+float			EditGUIWindow::s_fSpecularLightIntensity = 0.f;
+float			EditGUIWindow::s_fSpecularLightPower = 1.f;
+			
+			*/
+
+			s_bAnyChangesForBloom |= ImGui::Checkbox("On/Off Light", &s_bOnOffLight);
+			s_uOnOffLight = true == s_bOnOffLight ? 1u : 0u;
+
+			s_bAnyChangesForBloom |= ImGui::InputFloat("Diffuse", &s_fDiffuseLightIntensity, 1.f);
+
+			s_bAnyChangesForBloom |= ImGui::InputFloat("Ambient", &s_fAmbientLightIntensity, 1.f);
+
+			s_bAnyChangesForBloom |= ImGui::InputFloat("Specular", &s_fSpecularLightIntensity, 1.f);
+
+			s_bAnyChangesForBloom |= ImGui::InputFloat("Specular Power", &s_fSpecularLightPower, 1.f);
+
+			if (s_fDiffuseLightIntensity < 0.f) { s_fDiffuseLightIntensity = 0.f; }
+			if (s_fAmbientLightIntensity < 0.f) { s_fAmbientLightIntensity = 0.f; }
+			if (s_fSpecularLightIntensity < 0.f) { s_fSpecularLightIntensity = 0.f; }
+			if (s_fSpecularLightPower < 0.f) { s_fSpecularLightPower = 0.f; }
+
+			if (true == s_bAnyChangesForBloom)
+			{
+				ContentsLevel* rptrContentsLevel = dynamic_cast<ContentsLevel*>(GEngine::GetCurrentLevel());
+				rptrContentsLevel->SetLightData(s_uOnOffLight, s_fDiffuseLightIntensity, s_fAmbientLightIntensity, s_fSpecularLightIntensity, s_fSpecularLightPower);
+			}
+
+			s_bAnyChangesForBloom = false;
+
+			ImGui::EndChild();
+
+			if (true == ImGui::Button("Save the light data"))
+			{
+				SaveLightData();
+			}
 
 			ImGui::EndTabItem();
 		}
@@ -837,4 +898,36 @@ void EditGUIWindow::PrepareForLoading()
 void EditGUIWindow::LoadData(const std::string& _strFilePath)
 {
 	int a = 0;
+}
+
+void EditGUIWindow::SaveLightData()
+{
+	std::ofstream fout;
+
+	fout.open(m_ProjectDirectory.GetFullPath() + "/LightData.txt", 'w');
+
+	fout << s_uOnOffLight << ' '
+		<< s_fDiffuseLightIntensity << ' '
+		<< s_fAmbientLightIntensity << ' '
+		<< s_fSpecularLightIntensity << ' '
+		<< s_fSpecularLightPower << std::endl;
+
+	fout.close();
+}
+
+void EditGUIWindow::LoadLightData()
+{
+	std::ifstream fin;
+
+	fin.open(m_ProjectDirectory.GetFullPath() + "/LightData.txt");
+
+	fin >> s_uOnOffLight
+		>> s_fDiffuseLightIntensity
+		>> s_fAmbientLightIntensity
+		>> s_fSpecularLightIntensity
+		>> s_fSpecularLightPower;
+
+	s_bOnOffLight = 1u == s_uOnOffLight ? true : false;
+
+	fin.close();
 }

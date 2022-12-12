@@ -25,7 +25,7 @@ public:
 	Headroller& operator=(const Headroller& _Other) = delete;
 	Headroller& operator=(Headroller&& _Other) noexcept = delete;
 
-
+	void HittedSound() override { m_structSoundPlayer.Stop(); m_structSoundPlayer = GameEngineSound::SoundPlayControl("17_HeadRollerHitted.mp3"); }
 
 
 protected:

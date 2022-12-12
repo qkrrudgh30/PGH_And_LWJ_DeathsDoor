@@ -30,6 +30,22 @@ public:
 	std::shared_ptr<class ContentsBlur>	 GetContentsBlur() { return msptrContentsBlur; }
 	std::shared_ptr<class ContentsBloom> GetContentsBloom() { return msptrContentsBloom; }
 
+	void SetLightData(unsigned int _uOnOffLight, float _fDiffuseLightIntensity, float _fAmbientLightIntensity, float _fSpecularLightIntensity, float _fSpecularLightPower)
+	{
+		if (1u == _uOnOffLight)
+		{
+			_fDiffuseLightIntensity = 1.f;
+			_fAmbientLightIntensity = 0.f;
+			_fSpecularLightIntensity = 0.f;
+			_fSpecularLightPower = 1.f;
+		}
+
+		mwptrLightForLevel.lock()->GetLightData().DifLightPower = _fDiffuseLightIntensity;
+		mwptrLightForLevel.lock()->GetLightData().AmbLightPower = _fAmbientLightIntensity;
+		mwptrLightForLevel.lock()->GetLightData().SpcLightPower = _fSpecularLightIntensity;
+		mwptrLightForLevel.lock()->GetLightData().SpcPow = _fSpecularLightPower;
+	}
+
 protected:
 	void PlacePathOn(const std::string& _strFolderName);
 	void LoadFBXFiles();
@@ -60,6 +76,8 @@ protected:
 
 	std::shared_ptr<class ContentsBlur>  msptrContentsBlur;
 	std::shared_ptr<class ContentsBloom> msptrContentsBloom;
+
+	std::weak_ptr<class GameEngineLight> mwptrLightForLevel;
 
 private:
 	std::vector<std::string> mstrvecAnimationFileNames;

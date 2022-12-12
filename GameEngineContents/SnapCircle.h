@@ -1,4 +1,5 @@
 #pragma once
+#include "UnitBase.h"
 
 // Ό³Έν :
 class SnapCircle : public UnitBase
@@ -21,5 +22,6 @@ protected:
 
 private:
 	float m_fScale = 100.f;
+	std::weak_ptr<class WaveRenderer> m_wptrWaveRenderer;
 };
 

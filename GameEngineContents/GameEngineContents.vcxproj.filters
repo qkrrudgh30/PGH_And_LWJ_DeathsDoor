@@ -400,6 +400,9 @@
     <ClInclude Include="OldCrowBullet.h">
       <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\02.CrowBullet</Filter>
     </ClInclude>
+    <ClInclude Include="WaveRenderer.h">
+      <Filter>96.Renderer</Filter>
+    </ClInclude>
     <ClInclude Include="ShopNPC.h">
       <Filter>01.Actor\02.Unit\05.Potal</Filter>
     </ClInclude>
@@ -630,6 +633,9 @@
     </ClCompile>
     <ClCompile Include="OldCrowBullet.cpp">
       <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\02.CrowBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="WaveRenderer.cpp">
+      <Filter>96.Renderer</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
