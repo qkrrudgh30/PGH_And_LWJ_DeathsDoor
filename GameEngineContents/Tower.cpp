@@ -537,7 +537,6 @@ void Tower::AniJumpFrame(const GameEngineRenderingEvent& _Data)
 		m_structSoundPlayer.Stop();
 		m_structSoundPlayer = GameEngineSound::SoundPlayControl("22-1_MiddleBossSmash.mp3");
 	}
-
 	if (_Data.CurFrame == 22)
 	{
 		
