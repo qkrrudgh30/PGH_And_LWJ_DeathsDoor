@@ -244,9 +244,6 @@
     <ClInclude Include="UIMouse.h">
       <Filter>03.Mouse</Filter>
     </ClInclude>
-    <ClInclude Include="ShopNPC.h">
-      <Filter>01.Actor\02.Unit\04.NPC</Filter>
-    </ClInclude>
     <ClInclude Include="PlayerArrowAtt.h">
       <Filter>01.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
     </ClInclude>
@@ -402,6 +399,9 @@
     </ClInclude>
     <ClInclude Include="OldCrowBullet.h">
       <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\02.CrowBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="ShopNPC.h">
+      <Filter>01.Actor\02.Unit\05.Potal</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
