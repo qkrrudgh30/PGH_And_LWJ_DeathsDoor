@@ -100,6 +100,7 @@ void ContentsCore::Update(float _DeltaTime)
 			{
 				mstructSoundPlayer.Stop();
 				mstructSoundPlayer = GameEngineSound::SoundPlayControl("00_LoginLevelBGM.mp3", 10);
+				mstructSoundPlayer.Volume(0.3f);
 			}
 
 			if (HUNTING_LEVEL1 == m_nNextLevel || HUNTING_LEVEL2 == m_nNextLevel || 
@@ -107,21 +108,23 @@ void ContentsCore::Update(float _DeltaTime)
 			{
 				mstructSoundPlayer.Stop();
 				mstructSoundPlayer = GameEngineSound::SoundPlayControl("01_HuntingLevelBGM.mp3", 10);
+				mstructSoundPlayer.Volume(2.f);
 			}
 
 			if (HUNTING_LEVEL5 == m_nNextLevel)
 			{
 				mstructSoundPlayer.Stop();
 				mstructSoundPlayer = GameEngineSound::SoundPlayControl("19_MiddleBossLevelBGM.mp3", 10);
+				mstructSoundPlayer.Volume(0.3f);
 			}
 
 			if (BOSS_LEVEL == m_nNextLevel)
 			{
 				mstructSoundPlayer.Stop();
 				mstructSoundPlayer = GameEngineSound::SoundPlayControl("26_LastBossLevelBGM.mp3", 10);
+				mstructSoundPlayer.Volume(0.6f);
 			}
 
-			mstructSoundPlayer.Volume(0.1f);
 			m_nCurrentLevel = m_nNextLevel;
 		}
 

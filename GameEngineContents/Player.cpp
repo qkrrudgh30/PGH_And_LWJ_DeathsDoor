@@ -500,6 +500,7 @@ void Player::SworldAttStart(const StateInfo& _Info)
 //	AttCollision->GetTransform().SetLocalRotation(FBXAnimationRenderer->GetTransform().GetLocalRotation());
 	m_structSoundPlayer.Stop();
 	m_structSoundPlayer = GameEngineSound::SoundPlayControl("03_PlayerAttack.mp3");
+	m_structSoundPlayer.Volume(0.5f);
 }
 
 void Player::SworldAttEnd(const StateInfo& _Info)
@@ -576,6 +577,7 @@ void Player::SworldAttStart2(const StateInfo& _Info)
 
 	m_structSoundPlayer.Stop();
 	m_structSoundPlayer = GameEngineSound::SoundPlayControl("03_PlayerAttack.mp3");
+	m_structSoundPlayer.Volume(0.5f);
 }
 
 void Player::SworldAttEnd2(const StateInfo& _Info)
@@ -648,6 +650,7 @@ void Player::SworldAttStart3(const StateInfo& _Info)
 
 	m_structSoundPlayer.Stop();
 	m_structSoundPlayer = GameEngineSound::SoundPlayControl("03_PlayerAttack.mp3");
+	m_structSoundPlayer.Volume(0.5f);
 }
 
 void Player::SworldAttEnd3(const StateInfo& _Info)
@@ -694,6 +697,7 @@ void Player::ArrowAttStart(const StateInfo& _Info)
 
 	m_structSoundPlayer.Stop();
 	m_structSoundPlayer = GameEngineSound::SoundPlayControl("07_PlayerBow.mp3");
+	m_structSoundPlayer.Volume(0.5f);
 }
 
 void Player::ArrowAttEnd(const StateInfo& _Info)
@@ -973,6 +977,7 @@ void Player::SlideAttStart(const StateInfo& _Info)
 
 	m_structSoundPlayer.Stop();
 	m_structSoundPlayer = GameEngineSound::SoundPlayControl("05_PlayerThrust.mp3");
+	m_structSoundPlayer.Volume(0.5f);
 }
 
 void Player::SlideAttEnd(const StateInfo& _Info)

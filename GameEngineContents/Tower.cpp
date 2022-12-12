@@ -546,7 +546,7 @@ void Tower::AniJumpFrame(const GameEngineRenderingEvent& _Data)
 	}
 
 
-	if (51u == _Data.CurFrame)
+	if (50u == _Data.CurFrame)
 	{
 		m_structSoundPlayer.Stop();
 		m_structSoundPlayer = GameEngineSound::SoundPlayControl("22-1_MiddleBossSmash.mp3");
@@ -561,7 +561,7 @@ void Tower::AniJumpFrame(const GameEngineRenderingEvent& _Data)
 		CameraShake(0.5f);
 	}
 
-	if (95u == _Data.CurFrame)
+	if (93u == _Data.CurFrame)
 	{
 		m_structSoundPlayer.Stop();
 		m_structSoundPlayer = GameEngineSound::SoundPlayControl("22-1_MiddleBossSmash.mp3");
