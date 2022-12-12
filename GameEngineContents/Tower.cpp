@@ -23,7 +23,7 @@ Tower::Tower() :
 Tower::~Tower()
 {
 }
-
+ 
 void Tower::Start()
 {
 	
