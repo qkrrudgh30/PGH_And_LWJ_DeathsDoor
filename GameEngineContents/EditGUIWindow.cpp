@@ -1061,19 +1061,19 @@ void EditGUIWindow::LoadLightData()
 
 	s_bOnOffLight = 1u == s_uOnOffLight ? true : false;
 
-	// WorldLight::GetWorldLight()->GetTransform().SetLocalScale(float4{ s_farrCurrLightScaleOnEditGUI[0], s_farrCurrLightScaleOnEditGUI[1],      s_farrCurrLightScaleOnEditGUI[2] });
-	// WorldLight::GetWorldLight()->GetTransform().SetLocalRotation(float4{ s_farrCurrLightRotationOnEditGUI[0], s_farrCurrLightRotationOnEditGUI[1],   s_farrCurrLightRotationOnEditGUI[2] });
-	// WorldLight::GetWorldLight()->GetTransform().SetLocalPosition(float4{ s_farrCurrLightPositionOnEditGUI[0], s_farrCurrLightPositionOnEditGUI[1],   s_farrCurrLightPositionOnEditGUI[2] });
-	// WorldLight::SetWorldLightColor(float4{ s_farrCurrLightColorOnEditGUI[0], s_farrCurrLightColorOnEditGUI[1], s_farrCurrLightColorOnEditGUI[2] });
-	// 
-	// for (int i = 0; i < 3; ++i)
-	// {
-	// 	s_farrCurrLightScaleOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalScale().Arr1D[i];
-	// 	s_farrCurrLightRotationOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalRotation().Arr1D[i];
-	// 	s_farrCurrLightPositionOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalPosition().Arr1D[i];
-	// 	s_farrCurrLightColorOnEditGUI[i] = WorldLight::GetWorldLightColor().Arr1D[i];
-	// }
-	// 
+	WorldLight::GetWorldLight()->GetTransform().SetLocalScale(float4{ s_farrCurrLightScaleOnEditGUI[0], s_farrCurrLightScaleOnEditGUI[1],      s_farrCurrLightScaleOnEditGUI[2] });
+	WorldLight::GetWorldLight()->GetTransform().SetLocalRotation(float4{ s_farrCurrLightRotationOnEditGUI[0], s_farrCurrLightRotationOnEditGUI[1],   s_farrCurrLightRotationOnEditGUI[2] });
+	WorldLight::GetWorldLight()->GetTransform().SetLocalPosition(float4{ s_farrCurrLightPositionOnEditGUI[0], s_farrCurrLightPositionOnEditGUI[1],   s_farrCurrLightPositionOnEditGUI[2] });
+	WorldLight::SetWorldLightColor(float4{ s_farrCurrLightColorOnEditGUI[0], s_farrCurrLightColorOnEditGUI[1], s_farrCurrLightColorOnEditGUI[2] });
+	
+	for (int i = 0; i < 3; ++i)
+	{
+		s_farrPrevLightScaleOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalScale().Arr1D[i];
+		s_farrPrevLightRotationOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalRotation().Arr1D[i];
+		s_farrPrevLightPositionOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalPosition().Arr1D[i];
+		s_farrPrevLightColorOnEditGUI[i] = WorldLight::GetWorldLightColor().Arr1D[i];
+	}
+	 
 
 	fin.close();
 }

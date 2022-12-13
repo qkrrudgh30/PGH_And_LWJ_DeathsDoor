@@ -19,7 +19,6 @@ public:
 
 	std::weak_ptr < LoginUI> UI;
 
-
 	
 
 
@@ -30,6 +29,12 @@ protected:
 
 private:
 	void LevelStartEvent() override;
+
+#pragma region EngineCode
+
+	std::weak_ptr<class WorldLight> m_wptrWorldLight;
+
+#pragma endregion
 
 };
 

@@ -80,6 +80,13 @@ void LoginLevel::LevelStartEvent()
 		msptrContentsBlur->InitializeContentsBlur(msptrContentsBlur);
 		msptrContentsBloom->InitializeBloom(msptrContentsBloom);
 		EditGUIWindow::LoadPostEffectInfo();
+
+		if (nullptr == WorldLight::GetWorldLight())
+		{
+			m_wptrWorldLight = CreateActor<WorldLight>(OBJECTORDER::LIGHT);
+			m_wptrWorldLight.lock()->SetLevelOverOn();
+		}
+
 		EditGUIWindow::LoadLightData();
 
 		mbPrimitiveInitialized = true;
@@ -142,16 +149,7 @@ void LoginLevel::LevelStartEvent()
 
 #pragma region EngineCode
 
-	if (nullptr == WorldLight::GetWorldLight())
-	{
-		std::weak_ptr<WorldLight> wptrWorldLight = CreateActor<WorldLight>(OBJECTORDER::LIGHT);
-		// wptrWorldLight.lock()->GetTransform().SetWorldScale();
-		// wptrWorldLight.lock()->GetTransform().SetWorldRotation();
-		// wptrWorldLight.lock()->GetTransform().SetWorldPosition();
-		// wptrWorldLight.lock()->GetWorldLightColor().r = EditGUIWindow::;
-
-		wptrWorldLight.lock()->SetLevelOverOn();
-	}
+	
 
 #pragma endregion
 
