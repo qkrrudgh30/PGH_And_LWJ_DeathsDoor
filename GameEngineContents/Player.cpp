@@ -384,6 +384,9 @@ void Player::HitBackAttStart(const StateInfo& _Info)
 
 	FBXAnimationRenderer->ChangeAnimation("Player_HitBack");
 	//여기다가 넘어지는 사운드 작업 하시면 됩니다.
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("06_PlayerHitted.mp3");
+	m_structSoundPlayer.Volume(0.5f);
 
 	m_Info.m_Hp -= 1;
 
