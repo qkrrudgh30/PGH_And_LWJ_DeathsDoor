@@ -63,7 +63,7 @@ void ArrowEffMgr::Update(float _DeltaTime)
 
 
 
-	for (int i = 0; i <= 20; ++i)
+	for (int i = 0; i <= 40; ++i)
 	{
 
 		std::weak_ptr < ArrowEff> Bullet = GetLevel()->CreateActor<ArrowEff>(OBJECTORDER::Eff);
@@ -74,7 +74,7 @@ void ArrowEffMgr::Update(float _DeltaTime)
 		Bullet.lock()->TexRenderer->GetTransform().SetWorldRotation(Rot);
 		Bullet.lock()->m_fScaleMax = GameEngineRandom::MainRandom.RandomFloat(50.f, 200.f);
 
-		if (i == 20)
+		if (i == 40)
 		{
 			Death();
 		}
