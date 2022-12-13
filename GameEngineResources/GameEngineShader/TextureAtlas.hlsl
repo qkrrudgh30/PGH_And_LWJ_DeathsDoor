@@ -109,6 +109,14 @@ float4 TextureAtlas_PS(Output _Input) : SV_Target0
     
   
 
+    if (Temp1 == 15)
+    {
+        if (Result.x == 0.f)
+        {
+            clip(-1);
+        }
+    }
+
     if (Temp1 == 10)
     {
 

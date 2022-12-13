@@ -221,6 +221,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="FireEff.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="Firemgr.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Floor.h" />
     <ClInclude Include="FlowerBullet.h">
       <SubType>
@@ -498,6 +506,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="FadeRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="FireEff.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="Firemgr.cpp">
       <SubType>
       </SubType>
     </ClCompile>

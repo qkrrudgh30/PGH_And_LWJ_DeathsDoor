@@ -2,9 +2,8 @@
 
 #include "PreCompile.h"
 #include "ArrowEff.h"
-#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "BillboardRenderer.h"
-
+#include"GameEngineBase/GameEngineRandom.h"
 
 ArrowEff::ArrowEff()
 {
@@ -20,13 +19,18 @@ void ArrowEff::Start()
 	m_fSpeed = 800.f;
 
 
+	float R = GameEngineRandom::MainRandom.RandomFloat(700.f, 1000.f) / 1000.f;
+	float A = GameEngineRandom::MainRandom.RandomFloat(700.f, 1000.f) / 1000.f;
+
+
+	float4 color = { R ,0.f,0.f,A };
 	TexRenderer = CreateComponent<GameEngineTextureRenderer>();
 	TexRenderer->SetTexture("Soft.png");
 	TexRenderer->GetTransform().SetLocalScale({ 10.f, 10.f, 1 });
 	//sptrTestPicture->SetPivot(PIVOTMODE::LEFT);
 	TexRenderer->GetTransform().SetLocalRotation({ 0.f,0.f,0.f });
 	TexRenderer->ChangeCamera(CAMERAORDER::MAINCAMERA);
-	
+	TexRenderer->GetPixelData().MulColor = color;
 
 	AttCollision = CreateComponent<GameEngineCollision>();
 	AttCollision->GetTransform().SetLocalScale({ 10.f, 500.0f, 10.0f });
@@ -79,3 +83,4 @@ void ArrowEff::Update(float _DeltaTime)
 
 }
 
+//-436  218  43

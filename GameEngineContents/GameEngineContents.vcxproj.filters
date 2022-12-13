@@ -187,6 +187,9 @@
     <Filter Include="01.Actor\02.Unit\06.Effect\00.ArrowEff">
       <UniqueIdentifier>{6e6fe8e9-84b0-47df-899a-d5d92aecb669}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\06.Effect\02.Fire">
+      <UniqueIdentifier>{7d99f779-529a-42de-b7cb-2026d7d31844}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -417,6 +420,12 @@
     </ClInclude>
     <ClInclude Include="ArrowEff.h">
       <Filter>01.Actor\02.Unit\06.Effect\00.ArrowEff</Filter>
+    </ClInclude>
+    <ClInclude Include="Firemgr.h">
+      <Filter>01.Actor\02.Unit\06.Effect\02.Fire</Filter>
+    </ClInclude>
+    <ClInclude Include="FireEff.h">
+      <Filter>01.Actor\02.Unit\06.Effect\02.Fire</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -654,6 +663,12 @@
     </ClCompile>
     <ClCompile Include="ArrowEff.cpp">
       <Filter>01.Actor\02.Unit\06.Effect\00.ArrowEff</Filter>
+    </ClCompile>
+    <ClCompile Include="Firemgr.cpp">
+      <Filter>01.Actor\02.Unit\06.Effect\02.Fire</Filter>
+    </ClCompile>
+    <ClCompile Include="FireEff.cpp">
+      <Filter>01.Actor\02.Unit\06.Effect\02.Fire</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

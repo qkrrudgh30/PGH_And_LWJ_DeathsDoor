@@ -10,6 +10,9 @@
 #include "ContentsBlur.h"
 #include "EditGUIWindow.h"
 
+
+#include "Firemgr.h"
+
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -61,6 +64,13 @@ void HuntingLevel1::LevelStartEvent()
 		}
 
 
+		{
+
+			std::weak_ptr < Firemgr> Fire = CreateActor<Firemgr>(OBJECTORDER::Eff);
+			Fire.lock()->GetTransform().SetWorldPosition({ -436.f,280.f,43.f });
+		
+
+		}
 
 		{
 
