@@ -67,9 +67,6 @@
     <Filter Include="01.Actor\02.Unit\03.Bullet\00.Player\00.Sword">
       <UniqueIdentifier>{ec877df5-ec51-4b92-82de-89c01cb0e1bb}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Actor\02.Unit\03.Bullet\00.Player\01.Arrow">
-      <UniqueIdentifier>{47f4316c-fd00-435d-8042-8ed1e78480bf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Actor\02.Unit\03.Bullet\00.Player\02.Hook">
       <UniqueIdentifier>{f4637ab5-6376-467a-8601-caa7e9b4800b}</UniqueIdentifier>
     </Filter>
@@ -181,6 +178,15 @@
     <Filter Include="01.Actor\02.Unit\03.Bullet\03.OldCrow\02.CrowBullet">
       <UniqueIdentifier>{534e501c-f3f5-4b70-ade1-6e034610b414}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\06.Effect">
+      <UniqueIdentifier>{42a8076a-88aa-411d-bafd-390a9563ae24}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\00.Player\02.Hook\01.Arrow">
+      <UniqueIdentifier>{47f4316c-fd00-435d-8042-8ed1e78480bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\06.Effect\00.ArrowEff">
+      <UniqueIdentifier>{6e6fe8e9-84b0-47df-899a-d5d92aecb669}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -245,7 +251,7 @@
       <Filter>03.Mouse</Filter>
     </ClInclude>
     <ClInclude Include="PlayerArrowAtt.h">
-      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook\01.Arrow</Filter>
     </ClInclude>
     <ClInclude Include="PlayerHookAtt.h">
       <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
@@ -404,7 +410,13 @@
       <Filter>96.Renderer</Filter>
     </ClInclude>
     <ClInclude Include="ShopNPC.h">
-      <Filter>01.Actor\02.Unit\05.Potal</Filter>
+      <Filter>01.Actor\02.Unit\04.NPC</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowEffMgr.h">
+      <Filter>01.Actor\02.Unit\06.Effect\00.ArrowEff</Filter>
+    </ClInclude>
+    <ClInclude Include="ArrowEff.h">
+      <Filter>01.Actor\02.Unit\06.Effect\00.ArrowEff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -470,7 +482,7 @@
       <Filter>01.Actor\02.Unit\04.NPC</Filter>
     </ClCompile>
     <ClCompile Include="PlayerArrowAtt.cpp">
-      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook\01.Arrow</Filter>
     </ClCompile>
     <ClCompile Include="PlayerHookAtt.cpp">
       <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
@@ -636,6 +648,12 @@
     </ClCompile>
     <ClCompile Include="WaveRenderer.cpp">
       <Filter>96.Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowEffMgr.cpp">
+      <Filter>01.Actor\02.Unit\06.Effect\00.ArrowEff</Filter>
+    </ClCompile>
+    <ClCompile Include="ArrowEff.cpp">
+      <Filter>01.Actor\02.Unit\06.Effect\00.ArrowEff</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

@@ -26,6 +26,7 @@ public:
 	OldCrow& operator=(OldCrow&& _Other) noexcept = delete;
 
 	void HittedSound() override { m_structSoundPlayer.Stop(); m_structSoundPlayer = GameEngineSound::SoundPlayControl("32_LastBossHitted.mp3"); }
+	CollisionReturn PlayerCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other);
 
 
 public:

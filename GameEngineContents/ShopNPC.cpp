@@ -30,44 +30,117 @@ void ShopNPC::Start()
 
 	Event.ResourcesName = "banker_S_R.FBX";
 	Event.Loop = true;
-	Event.Inter = 0.1f;
+	Event.Inter = 0.025f;
 	FBXAnimationRenderer->CreateFBXAnimation("banker_S_R", Event);
 
 
 
 	Event.ResourcesName = "banker_W_P.FBX";
 	Event.Loop = true;
-	Event.Inter = 0.1f;
+	Event.Inter = 0.025f;
 	FBXAnimationRenderer->CreateFBXAnimation("banker_W_P", Event);
+	FBXAnimationRenderer->AnimationBindEnd("banker_W_P", std::bind(&ShopNPC::Ani_I, this, std::placeholders::_1));
 
 
 
 	Event.ResourcesName = "banker_W_R.FBX";
 	Event.Loop = true;
-	Event.Inter = 0.1f;
+	Event.Inter = 0.025f;
 	FBXAnimationRenderer->CreateFBXAnimation("banker_W_R", Event);
 
 
 
 	Event.ResourcesName = "banker_WStart.FBX";
 	Event.Loop = true;
-	Event.Inter = 0.1f;
+	Event.Inter = 0.025f;
 	FBXAnimationRenderer->CreateFBXAnimation("banker_WStart", Event);
+	FBXAnimationRenderer->AnimationBindEnd("banker_WStart", std::bind(&ShopNPC::Ani_W, this, std::placeholders::_1));
 
+
+
+
+
+	StateManager.CreateStateMember("Write"
+		, std::bind(&ShopNPC::WriteUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&ShopNPC::WriteStart, this, std::placeholders::_1)
+		, std::bind(&ShopNPC::WriteEnd, this, std::placeholders::_1)
+	);
+
+
+
+	StateManager.CreateStateMember("Idle"
+		, std::bind(&ShopNPC::IdleUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&ShopNPC::IdleStart, this, std::placeholders::_1)
+		, std::bind(&ShopNPC::IdleEnd, this, std::placeholders::_1)
+	);
 
 
 
 	FBXAnimationRenderer->ChangeAnimation("banker_W_R");
-	
+	StateManager.ChangeState("Write");
 }
-
+void ShopNPC::Ani_W(const GameEngineRenderingEvent& _Data)
+{
+	FBXAnimationRenderer->ChangeAnimation("banker_W_R");
+}
+void ShopNPC::Ani_I(const GameEngineRenderingEvent& _Data)
+{
+	FBXAnimationRenderer->ChangeAnimation("banker_S_R");
+}
 void ShopNPC::Update(float _DeltaTime)
 {
 
-	/*Collision->IsCollision(CollisionType::CT_OBB2D, OBJECTORDER::Player, CollisionType::CT_OBB2D,
-		std::bind(&ShopNPC::CollisionPlayer, this, std::placeholders::_1, std::placeholders::_2)
-	);*/
+	float4 PlayerPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
 
+	float4 MyPos = GetTransform().GetWorldPosition();
+
+
+	float Len = (PlayerPos - MyPos).Length();
+
+	if (Len <= 500.f)
+	{
+		if (StateManager.GetCurStateStateName() == "Write")
+		{
+			StateManager.ChangeState("Idle");
+
+
+		}
+	}
+	else
+	{
+		
+		if (StateManager.GetCurStateStateName() == "Idle")
+		{
+				StateManager.ChangeState("Write");
+		}
+	}
+
+
+}
+void ShopNPC::WriteStart(const StateInfo& _Info)
+{
+	FBXAnimationRenderer->ChangeAnimation("banker_WStart");
+}
+void ShopNPC::WriteEnd(const StateInfo& _Info)
+{
+
+}
+void ShopNPC::WriteUpdate(float _DeltaTime, const StateInfo& _Info)
+{
+
+}
+
+
+void ShopNPC::IdleStart(const StateInfo& _Info)
+{
+	FBXAnimationRenderer->ChangeAnimation("banker_W_P");
+}
+void ShopNPC::IdleEnd(const StateInfo& _Info)
+{
+
+}
+void ShopNPC::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
+{
 
 }
 

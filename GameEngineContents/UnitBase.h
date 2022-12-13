@@ -167,6 +167,12 @@ public :
 			Angle += 360.f;
 		}
 
+
+		if (Angle > 180.f)
+		{
+			int a = 0;
+		}
+
 		return Angle;
 
 	}
@@ -194,6 +200,10 @@ public :
 			Angle += 360.f;
 		}
 
+		if (Angle > 180.f)
+		{
+			int a = 0;
+		}
 		return Angle;
 
 	}

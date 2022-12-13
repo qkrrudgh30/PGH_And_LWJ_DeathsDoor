@@ -85,6 +85,9 @@ protected:
 	void HookAttEnd(const StateInfo& _Info);
 	void HookAttUpdate(float _DeltaTime, const StateInfo& _Info);
 
+	void HitBackAttStart(const StateInfo& _Info);
+	void HitBackAttEnd(const StateInfo& _Info);
+	void HitBackAttUpdate(float _DeltaTime, const StateInfo& _Info);
 
 
 	// void MoveStart(const StateInfo& _Info);
@@ -93,7 +96,8 @@ protected:
 
 
 
-
+	void AniHitBackEnd(const GameEngineRenderingEvent& _Data);
+	void AniHitStandEnd(const GameEngineRenderingEvent& _Data);
 
 	void AniIdleEnd(const GameEngineRenderingEvent& _Data);
 	void AniPlayer_Att_Left(const GameEngineRenderingEvent& _Data);
@@ -173,6 +177,9 @@ private:
 
 	WEAPONTYPE	m_eBeforeType;
 
+public:
+
+	bool m_bHitBackCheck = false;
 	
 
 

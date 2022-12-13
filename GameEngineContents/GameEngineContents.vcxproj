@@ -160,6 +160,14 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="ArrowEff.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="ArrowEffMgr.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="BillboardRenderer.h">
       <SubType>
       </SubType>
@@ -432,6 +440,14 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="ArrowEff.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="ArrowEffMgr.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="BillboardRenderer.cpp">
       <SubType>
       </SubType>

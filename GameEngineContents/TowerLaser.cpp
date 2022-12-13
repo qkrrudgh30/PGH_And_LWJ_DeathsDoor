@@ -68,10 +68,19 @@ void TowerLaser::Update(float _DeltaTime)
 
 	float Angle = 0.f;
 
+	if (AngleZ > AngleX)
+	{
+		Angle = AngleZ;
+	
+	}
+	else
+	{
+		Angle = AngleX;
+	
+	}
 
 
-
-	GetTransform().SetLocalRotation(float4{ AngleX , AngleY, AngleZ });
+	GetTransform().SetLocalRotation(float4{ 0.f , AngleY, Angle });
 
 	
 }

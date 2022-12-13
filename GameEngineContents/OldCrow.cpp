@@ -323,6 +323,11 @@ void OldCrow::Update(float _DeltaTime)
 	HitUpdate(_DeltaTime, 0.5f);
 
 
+	Collision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
+		std::bind(&OldCrow::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
+	);
+
+
 
 	if (m_Info.m_Hp != m_Info.m_MaxHp)
 	{
@@ -368,3 +373,10 @@ void OldCrow::Update(float _DeltaTime)
 
 
 
+CollisionReturn OldCrow::PlayerCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other)
+{
+	Player::GetMainPlayer()->m_bHitBackCheck = true;
+
+
+	return CollisionReturn::Break;
+}

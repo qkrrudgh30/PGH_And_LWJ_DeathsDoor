@@ -22,7 +22,18 @@ protected:
 	void Update(float _DeltaTime);
 	void End() {}
 
+	void WriteStart(const StateInfo& _Info);
+	void WriteEnd(const StateInfo& _Info);
+	void WriteUpdate(float _DeltaTime, const StateInfo& _Info);
 
+
+	void IdleStart(const StateInfo& _Info);
+	void IdleEnd(const StateInfo& _Info);
+	void IdleUpdate(float _DeltaTime, const StateInfo& _Info);
+
+
+	void Ani_W(const GameEngineRenderingEvent& _Data);
+	void Ani_I(const GameEngineRenderingEvent& _Data);
 private:
 	CollisionReturn CollisionPlayer(GameEngineCollision* _This, GameEngineCollision* _Other);
 

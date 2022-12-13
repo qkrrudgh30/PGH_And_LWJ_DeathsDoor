@@ -10,6 +10,11 @@
 #include "PlayerHookAtt.h"
 
 
+
+#include "ArrowEffMgr.h"
+
+
+
 #include "PlayerMainUI.h"
 #include "PlayerUpgradeUI.h"
 
@@ -130,6 +135,32 @@ void Player::Start()
 		FBXAnimationRenderer->CreateFBXAnimation("Player_Arrow", Event2);
 		
 	}
+
+
+
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_HitBack.FBX";
+		Event2.Loop = false;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_HitBack", Event2);
+		FBXAnimationRenderer->AnimationBindEnd("Player_HitBack", std::bind(&Player::AniHitBackEnd, this, std::placeholders::_1));
+
+	}
+
+
+
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_HitIdle.FBX";
+		Event2.Loop = false;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_HitIdle", Event2);
+		FBXAnimationRenderer->AnimationBindEnd("Player_HitIdle", std::bind(&Player::AniHitStandEnd, this, std::placeholders::_1));
+
+	}
+
+
 
 	{
 		GameEngineRenderingEvent Event2;
@@ -252,6 +283,8 @@ void Player::Start()
 		GameEngineInput::GetInst()->CreateKey("PlayerRight", 'D');
 
 
+		GameEngineInput::GetInst()->CreateKey("playerTest", 'M');
+
 		GameEngineInput::GetInst()->CreateKey("NPCClick", 'V');
 
 
@@ -279,6 +312,15 @@ void Player::Start()
 		, std::bind(&Player::IdleStart,this, std::placeholders::_1)
 	);
 
+
+
+	StateManager.CreateStateMember("HitBack"
+		, std::bind(&Player::HitBackAttUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Player::HitBackAttStart, this, std::placeholders::_1)
+		, std::bind(&Player::HitBackAttEnd, this, std::placeholders::_1)
+
+
+	);
 	StateManager.CreateStateMember("SworldAtt"
 		, std::bind(&Player::SworldAttUpdate,this, std::placeholders::_1, std::placeholders::_2)
 		, std::bind(&Player::SworldAttStart,this, std::placeholders::_1)
@@ -335,6 +377,28 @@ void Player::Start()
 
 
 }
+
+
+void Player::HitBackAttStart(const StateInfo& _Info)
+{
+
+	FBXAnimationRenderer->ChangeAnimation("Player_HitBack");
+	//여기다가 넘어지는 사운드 작업 하시면 됩니다.
+
+	m_Info.m_Hp -= 1;
+
+}
+void Player::HitBackAttEnd(const StateInfo& _Info)
+{
+
+}
+void Player::HitBackAttUpdate(float _DeltaTime, const StateInfo& _Info)
+{
+
+}
+
+
+
 
 void Player::IdleStart(const StateInfo& _Info)
 {
@@ -1377,8 +1441,31 @@ void Player::Update(float _DeltaTime)
 
 	}
 
+
+	if (true == GameEngineInput::GetInst()->IsPress("playerTest"))
+	{
+		m_bHitBackCheck = true;
+
+		std::weak_ptr < ArrowEffMgr> Bullet = GetLevel()->CreateActor<ArrowEffMgr>(OBJECTORDER::Eff);
+
+		Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+
+	}
 	
-	
+	if (m_bHitBackCheck)
+	{
+		if (StateManager.GetCurStateStateName() != "Slide" && StateManager.GetCurStateStateName() != "HitBack" )
+		{
+
+			
+
+			StateManager.ChangeState("HitBack");
+		}
+
+		m_bHitBackCheck = false;
+	}
+
+
 
 	if (m_bUpgradeUIcheck)
 	{
@@ -1488,6 +1575,16 @@ void Player::AniPlayer_SlideAtt(const GameEngineRenderingEvent& _Data)
 	StateManager.ChangeState("Idle");
 }
 
+
+void Player::AniHitBackEnd(const GameEngineRenderingEvent& _Data)
+{
+	FBXAnimationRenderer->ChangeAnimation("Player_HitIdle");
+}
+
+void Player::AniHitStandEnd(const GameEngineRenderingEvent& _Data)
+{
+	StateManager.ChangeState("Idle");
+}
 
 
 
