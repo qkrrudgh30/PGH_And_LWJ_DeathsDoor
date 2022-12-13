@@ -3,6 +3,7 @@
 #include "LoadingUI.h"
 #include "ContentsBlur.h"
 #include "ContentsBloom.h"
+#include "WorldLight.h"
 
 EditLevel::EditLevel()
 {
@@ -19,6 +20,8 @@ void EditLevel::Start()
 
 void EditLevel::Update(float _DeltaTime)
 {
+	ContentsLevel::Update(_DeltaTime);
+
 	if (false == GetMainCameraActor()->IsFreeCameraMode())
 	{
 		GetMainCameraActor()->FreeCameraModeOnOff();

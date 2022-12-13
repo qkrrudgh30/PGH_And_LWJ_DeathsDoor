@@ -26,6 +26,7 @@ public:
 	void SetPivot(PIVOTMODE _mode);
 	void SetBillboardInfo(unsigned int _uOnOffBillboard);
 	void SetTexture(const std::string& _strTextureName);
+	PixelData& GetPixelData() { return mPixelData; }
 
 protected:
 	void Start() override;

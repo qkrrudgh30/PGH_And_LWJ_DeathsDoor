@@ -23,6 +23,7 @@
 #include "ContentsBlur.h"
 #include "EditGUIWindow.h"
 
+#include "WorldLight.h"
 
 LoginLevel::LoginLevel()	:
 	UI()
@@ -139,10 +140,26 @@ void LoginLevel::LevelStartEvent()
 		}
 	}
 
+#pragma region EngineCode
+
+	if (nullptr == WorldLight::GetWorldLight())
+	{
+		std::weak_ptr<WorldLight> wptrWorldLight = CreateActor<WorldLight>(OBJECTORDER::LIGHT);
+		// wptrWorldLight.lock()->GetTransform().SetWorldScale();
+		// wptrWorldLight.lock()->GetTransform().SetWorldRotation();
+		// wptrWorldLight.lock()->GetTransform().SetWorldPosition();
+		// wptrWorldLight.lock()->GetWorldLightColor().r = EditGUIWindow::;
+
+		wptrWorldLight.lock()->SetLevelOverOn();
+	}
+
+#pragma endregion
+
 }
 
 void LoginLevel::Update(float _DeltaTime)
 {
+	ContentsLevel::Update(_DeltaTime);
 	//float4 MyPos = GetMainCameraActorTransform().GetWorldPosition();
 
 	//std::string A2 = std::to_string(MyPos.x);

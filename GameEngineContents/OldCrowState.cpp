@@ -66,8 +66,9 @@ void OldCrow::StartActUpdate(float _DeltaTime, const StateInfo& _Info)
 			CameraShake(1.f);
 			ScreamAnicheck = true;
 		}
-	
 	}
+
+	
 
 	if (m_fStartTime >= 5.f)
 	{
@@ -451,6 +452,16 @@ void OldCrow::JumpEnd(const StateInfo& _Info)
 }
 void OldCrow::JumpUpdate(float _DeltaTime, const StateInfo& _Info)
 {
+	static float fAccDeltatime = 0.f;
+	fAccDeltatime += _DeltaTime;
+
+	if (0.4f < fAccDeltatime)
+	{
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("31_LastBossJump.mp3");
+		fAccDeltatime = 0.f;
+	}
+
 	GetTransform().SetWorldForwardMove(m_fJumpSpeed, _DeltaTime);
 	GetTransform().SetWorldDownMove(2000.f, _DeltaTime);
 
@@ -458,6 +469,7 @@ void OldCrow::JumpUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	if (MyPos.y <= 10.f)
 	{
+		
 
 		MyPos.y = 10.f;
 		GetTransform().SetWorldPosition(MyPos);
@@ -541,6 +553,8 @@ void OldCrow::ScreamStart(const StateInfo& _Info)
 	MyPos.y = 50.f;
 	Bullet.lock()->GetTransform().SetWorldPosition(MyPos);
 
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("28_LastBossScream.mp3");
 
 
 }

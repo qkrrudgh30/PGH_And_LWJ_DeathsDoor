@@ -9,6 +9,7 @@
 #include "ContentsBloom.h"
 #include "ContentsBlur.h"
 #include "EditGUIWindow.h"
+#include "WorldLight.h"
 
 
 #include "Firemgr.h"
@@ -30,6 +31,8 @@ void HuntingLevel1::Start()
 
 void HuntingLevel1::Update(float _DeltaTime)
 {
+	ContentsLevel::Update(_DeltaTime);
+
 #pragma region EngineCode
 
 	msptrBlurCameraActor->GetTransform().Copy(GEngine::GetCurrentLevel()->GetMainCameraActorTransform());

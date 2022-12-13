@@ -128,6 +128,7 @@ void OldCrow::Start()
 		Event.Inter = 0.025f;
 		FBXAnimationRenderer->CreateFBXAnimation("OldCrow_Scream", Event);
 		FBXAnimationRenderer->AnimationBindEnd("OldCrow_Scream", std::bind(&OldCrow::AniScreamEnd, this, std::placeholders::_1));
+		FBXAnimationRenderer->AnimationBindFrame("OldCrow_Scream", std::bind(&OldCrow::AniScreamFrame, this, std::placeholders::_1));
 
 	}
 
@@ -314,7 +315,6 @@ void OldCrow::Start()
 
 void OldCrow::Update(float _DeltaTime)
 {
-
 
 
 	BaseUpdate(_DeltaTime);

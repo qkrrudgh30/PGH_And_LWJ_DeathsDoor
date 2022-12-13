@@ -73,6 +73,15 @@ void OldCrow::AniScreamEnd(const GameEngineRenderingEvent& _Data)
 	}
 	
 }
+void OldCrow::AniScreamFrame(const GameEngineRenderingEvent& _Data)
+{
+	if (5u == _Data.CurFrame)
+	{
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("28_LastBossScream.mp3");
+		
+	}
+}
 void OldCrow::AniSlamEnd(const GameEngineRenderingEvent& _Data)
 {
 

@@ -89,6 +89,8 @@ void PlayerArrowAtt::Update(float _DeltaTime)
 CollisionReturn PlayerArrowAtt::MonsterCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("07-1_PlayerBowHitted.mp3");
 
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_Info.m_Hp -= m_Info.Dammage;
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_bHitCheck = true;

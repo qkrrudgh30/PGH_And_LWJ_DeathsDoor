@@ -299,6 +299,14 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="TestBox.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TestSphere.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="TestStaticActor.h">
       <SubType>
       </SubType>
@@ -446,6 +454,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="WorldLight.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ArrowEff.cpp">
@@ -586,6 +598,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Spike.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TestBox.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TestSphere.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -735,6 +755,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="WaveRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="WorldLight.cpp">
       <SubType>
       </SubType>
     </ClCompile>

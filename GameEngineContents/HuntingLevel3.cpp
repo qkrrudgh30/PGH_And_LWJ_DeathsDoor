@@ -9,6 +9,7 @@
 #include "EditGUIWindow.h"
 
 #include "Headroller.h"
+#include "WorldLight.h"
 
 
 #include <GameEngineCore/GameEngineCameraActor.h>
@@ -28,6 +29,7 @@ void HuntingLevel3::Start()
 
 void HuntingLevel3::Update(float _DeltaTime)
 {
+	ContentsLevel::Update(_DeltaTime);
 
 
 

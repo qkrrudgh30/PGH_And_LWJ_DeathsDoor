@@ -12,10 +12,10 @@ struct LightData
 	float SpcLightPower = 1.0f;
 	float AmbLightPower = 1.0f;
 	float SpcPow = 50.0f;
-
-private:
 	float4 LightPos;
 	float4 LightDir;
+
+private:
 	float4 LightRevDir;
 
 	float4 ViewLightPos;

@@ -23,7 +23,7 @@ Output Wave_VS(Input _Input)
 {
     Output NewOutPut = (Output) 0;
     
-    float fCosTime = cos(m_fAccTime + _Input.Tex.x) * 0.1;
+    float fCosTime = cos(m_fAccTime * 10.f + _Input.Tex.x) * 0.1;
     _Input.Pos.y += fCosTime;
     
     NewOutPut.Pos = mul(_Input.Pos, WorldViewProjection);

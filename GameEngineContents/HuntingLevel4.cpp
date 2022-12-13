@@ -7,6 +7,7 @@
 #include "ContentsBloom.h"
 #include "ContentsBlur.h"
 #include "EditGUIWindow.h"
+#include "WorldLight.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -25,6 +26,7 @@ void HuntingLevel4::Start()
 
 void HuntingLevel4::Update(float _DeltaTime)
 {
+	ContentsLevel::Update(_DeltaTime);
 
 
 

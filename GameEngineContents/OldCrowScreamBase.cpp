@@ -17,7 +17,8 @@ OldCrowScreamBase::~OldCrowScreamBase()
 
 void OldCrowScreamBase::Start()
 {
-
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("29_LastBossBat.mp3");
 }
 
 void OldCrowScreamBase::Update(float _DeltaTime)

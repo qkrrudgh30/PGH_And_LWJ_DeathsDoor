@@ -171,6 +171,7 @@ private:
 	void AniRunFrame(const GameEngineRenderingEvent& _Data);
 	void AniRunStartEnd(const GameEngineRenderingEvent& _Data);
 	void AniScreamEnd(const GameEngineRenderingEvent& _Data);
+	void AniScreamFrame(const GameEngineRenderingEvent& _Data);
 	void AniSlamEnd(const GameEngineRenderingEvent& _Data);
 	void AniSlamEndEnd(const GameEngineRenderingEvent& _Data);
 	void AniTurnLeftEnd(const GameEngineRenderingEvent& _Data);

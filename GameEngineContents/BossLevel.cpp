@@ -11,6 +11,7 @@
 #include "ContentsBloom.h"
 #include "ContentsBlur.h"
 #include "EditGUIWindow.h"
+#include "WorldLight.h"
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -29,6 +30,7 @@ void BossLevel::Start()
 
 void BossLevel::Update(float _DeltaTime)
 {
+	ContentsLevel::Update(_DeltaTime);
 
 
 

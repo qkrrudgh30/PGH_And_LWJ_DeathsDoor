@@ -6,6 +6,7 @@
 #include "StaticMesh.h"
 #include "ContentsBlur.h"
 #include "ContentsBloom.h"
+#include "WorldLight.h"
 
 #include <filesystem>
 #include <fstream>
@@ -39,6 +40,15 @@ float EditGUIWindow::s_farrCurrColliderRotationOnEditGUI[3] = { 0.f, 0.f, 0.f };
 float EditGUIWindow::s_farrPrevColliderRotationOnEditGUI[3] = { 0.f, 0.f, 0.f };
 float EditGUIWindow::s_farrCurrColliderPositionOnEditGUI[3] = { 0.f, 0.f, 0.f };
 float EditGUIWindow::s_farrPrevColliderPositionOnEditGUI[3] = { 0.f, 0.f, 0.f };
+
+float EditGUIWindow::s_farrCurrLightScaleOnEditGUI[3] = { 1.f, 1.f, 1.f };
+float EditGUIWindow::s_farrPrevLightScaleOnEditGUI[3] = { 1.f, 1.f, 1.f };
+float EditGUIWindow::s_farrCurrLightRotationOnEditGUI[3] = { 0.f, 0.f, 0.f };
+float EditGUIWindow::s_farrPrevLightRotationOnEditGUI[3] = { 0.f, 0.f, 0.f };
+float EditGUIWindow::s_farrCurrLightPositionOnEditGUI[3] = { 0.f, 0.f, 0.f };
+float EditGUIWindow::s_farrPrevLightPositionOnEditGUI[3] = { 0.f, 0.f, 0.f };
+float EditGUIWindow::s_farrCurrLightColorOnEditGUI[3] = { 1.f, 1.f, 1.f };
+float EditGUIWindow::s_farrPrevLightColorOnEditGUI[3] = { 1.f, 1.f, 1.f };
 
 bool			EditGUIWindow::s_bAnyChanges = false;
 bool			EditGUIWindow::s_bOnOffBlur = false;
@@ -110,6 +120,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			}
 
 #pragma region ShowPlayerAndMainCameraInfo
+			
 			if (nullptr != Player::GetMainPlayer())
 			{
 				ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "Player Information");
@@ -140,6 +151,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 				fArr[2] = temp.z;
 				ImGui::InputFloat3("CameraPosition", fArr);
 			}
+
 #pragma endregion
 
 #pragma region SwitchPannel
@@ -533,19 +545,42 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 		{
 			ContentsLevel* rptrContentsLevel = dynamic_cast<ContentsLevel*>(GEngine::GetCurrentLevel());
 
+			if (nullptr != WorldLight::GetWorldLight())
+			{
+				ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "Light Information");
+
+				ImGui::InputFloat3("Light Scale", s_farrCurrLightScaleOnEditGUI);
+				ImGui::InputFloat3("Light Rotation", s_farrCurrLightRotationOnEditGUI);
+				ImGui::InputFloat3("Light Position", s_farrCurrLightPositionOnEditGUI);
+				ImGui::InputFloat3("Light Color", s_farrCurrLightColorOnEditGUI);
+
+				// 칸에 값 바꿈 curr - 칸 값과 이전값 바뀌었는지 체크 하고 이전값에 칸값 대입 - 원래 물체의 값도 갱신 
+
+				if (true == CheckChangesAboutCurrLightStaticValue())
+				{
+					WorldLight::GetWorldLight()->GetTransform().SetLocalScale(float4{ s_farrCurrLightScaleOnEditGUI[0], s_farrCurrLightScaleOnEditGUI[1],      s_farrCurrLightScaleOnEditGUI[2] });
+					WorldLight::GetWorldLight()->GetTransform().SetLocalRotation(float4{ s_farrCurrLightRotationOnEditGUI[0], s_farrCurrLightRotationOnEditGUI[1],   s_farrCurrLightRotationOnEditGUI[2] });
+					WorldLight::GetWorldLight()->GetTransform().SetLocalPosition(float4{ s_farrCurrLightPositionOnEditGUI[0], s_farrCurrLightPositionOnEditGUI[1],   s_farrCurrLightPositionOnEditGUI[2] });
+					WorldLight::SetWorldLightColor(float4{                               s_farrCurrLightColorOnEditGUI[0], s_farrCurrLightColorOnEditGUI[1], s_farrCurrLightColorOnEditGUI[2] });
+				}
+
+				// 원래 물체의 값 변경 - 원래물체값 바뀌었는지 체크 하고 이전값에 물체값 대입 - 물체값을 칸값에 대입
+
+				if (true == CheckChangesAboutLight())
+				{
+					for (int i = 0; i < 3; ++i)
+					{
+						s_farrCurrLightScaleOnEditGUI[i] =    WorldLight::GetWorldLight()->GetTransform().GetLocalScale().Arr1D[i];
+						s_farrCurrLightRotationOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalRotation().Arr1D[i];
+						s_farrCurrLightPositionOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalPosition().Arr1D[i];
+						s_farrCurrLightColorOnEditGUI[i] =    WorldLight::GetWorldLightColor().Arr1D[i];
+					}
+				}
+
+			}
+
 			ImGui::TextColored(ImVec4{ 1.f, 0.f, 0.f, 1.f }, "Light");
 			ImGui::BeginChild("##colors4", ImVec2(400, 160), true, ImGuiWindowFlags_NavFlattened);
-
-			/*
-			bool			EditGUIWindow::s_bAnyChangesForLight = false;
-bool			EditGUIWindow::s_bOnOffLight = false;
-unsigned int	EditGUIWindow::s_uOnOffLight = 0u;
-float			EditGUIWindow::s_fDiffuseLightIntensity = 0.f;
-float			EditGUIWindow::s_fAmbientLightIntensity = 0.f;
-float			EditGUIWindow::s_fSpecularLightIntensity = 0.f;
-float			EditGUIWindow::s_fSpecularLightPower = 1.f;
-			
-			*/
 
 			s_bAnyChangesForBloom |= ImGui::Checkbox("On/Off Light", &s_bOnOffLight);
 			s_uOnOffLight = true == s_bOnOffLight ? 1u : 0u;
@@ -720,6 +755,73 @@ bool EditGUIWindow::CheckChangesAboutCurrStaticValueCollider(size_t _uSelectedAc
 
 	return false;
 	}
+
+bool EditGUIWindow::CheckChangesAboutLight()
+{
+	if (
+		s_farrPrevLightScaleOnEditGUI[0] != WorldLight::GetWorldLight()->GetTransform().GetLocalScale().x ||
+		s_farrPrevLightScaleOnEditGUI[1] != WorldLight::GetWorldLight()->GetTransform().GetLocalScale().y ||
+		s_farrPrevLightScaleOnEditGUI[2] != WorldLight::GetWorldLight()->GetTransform().GetLocalScale().z ||
+		s_farrPrevLightRotationOnEditGUI[0] != WorldLight::GetWorldLight()->GetTransform().GetLocalRotation().x ||
+		s_farrPrevLightRotationOnEditGUI[1] != WorldLight::GetWorldLight()->GetTransform().GetLocalRotation().y ||
+		s_farrPrevLightRotationOnEditGUI[2] != WorldLight::GetWorldLight()->GetTransform().GetLocalRotation().z ||
+		s_farrPrevLightPositionOnEditGUI[0] != WorldLight::GetWorldLight()->GetTransform().GetLocalPosition().x ||
+		s_farrPrevLightPositionOnEditGUI[1] != WorldLight::GetWorldLight()->GetTransform().GetLocalPosition().y ||
+		s_farrPrevLightPositionOnEditGUI[2] != WorldLight::GetWorldLight()->GetTransform().GetLocalPosition().z ||
+		s_farrPrevLightColorOnEditGUI[0] != WorldLight::GetWorldLightColor().r ||
+		s_farrPrevLightColorOnEditGUI[1] != WorldLight::GetWorldLightColor().g ||
+		s_farrPrevLightColorOnEditGUI[2] != WorldLight::GetWorldLightColor().b
+		)
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			s_farrPrevLightScaleOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalScale().Arr1D[i];
+			s_farrPrevLightRotationOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalRotation().Arr1D[i];
+			s_farrPrevLightPositionOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalPosition().Arr1D[i];
+			s_farrPrevLightColorOnEditGUI[i] = WorldLight::GetWorldLightColor().Arr1D[i];
+		}
+
+		return true;
+	}
+
+	return false;
+
+	
+}
+
+bool EditGUIWindow::CheckChangesAboutCurrLightStaticValue()
+{
+	if (
+		s_farrPrevLightScaleOnEditGUI[0] != s_farrCurrLightScaleOnEditGUI[0] ||
+		s_farrPrevLightScaleOnEditGUI[1] != s_farrCurrLightScaleOnEditGUI[1] ||
+		s_farrPrevLightScaleOnEditGUI[2] != s_farrCurrLightScaleOnEditGUI[2] ||
+
+		s_farrPrevLightRotationOnEditGUI[0] != s_farrCurrLightRotationOnEditGUI[0] ||
+		s_farrPrevLightRotationOnEditGUI[1] != s_farrCurrLightRotationOnEditGUI[1] ||
+		s_farrPrevLightRotationOnEditGUI[2] != s_farrCurrLightRotationOnEditGUI[2] ||
+
+		s_farrPrevLightPositionOnEditGUI[0] != s_farrCurrLightPositionOnEditGUI[0] ||
+		s_farrPrevLightPositionOnEditGUI[1] != s_farrCurrLightPositionOnEditGUI[1] ||
+		s_farrPrevLightPositionOnEditGUI[2] != s_farrCurrLightPositionOnEditGUI[2] ||
+
+		s_farrPrevLightColorOnEditGUI[0] != s_farrCurrLightColorOnEditGUI[0] ||
+		s_farrPrevLightColorOnEditGUI[1] != s_farrCurrLightColorOnEditGUI[1] ||
+		s_farrPrevLightColorOnEditGUI[2] != s_farrCurrLightColorOnEditGUI[2]
+		)
+	{
+		for (int i = 0; i < 3; ++i)
+		{
+			s_farrPrevLightScaleOnEditGUI[i] = s_farrCurrLightScaleOnEditGUI[i];
+			s_farrPrevLightRotationOnEditGUI[i] = s_farrCurrLightRotationOnEditGUI[i];
+			s_farrPrevLightPositionOnEditGUI[i] = s_farrCurrLightPositionOnEditGUI[i];
+			s_farrPrevLightColorOnEditGUI[i] = s_farrCurrLightColorOnEditGUI[i];
+		}
+
+		return true;
+	}
+
+	return false;
+}
 
 void EditGUIWindow::PrepareForSaving()
 {
@@ -910,7 +1012,25 @@ void EditGUIWindow::SaveLightData()
 		<< s_fDiffuseLightIntensity << ' '
 		<< s_fAmbientLightIntensity << ' '
 		<< s_fSpecularLightIntensity << ' '
-		<< s_fSpecularLightPower << std::endl;
+		<< s_fSpecularLightPower << ' '
+		
+		<< s_farrCurrLightScaleOnEditGUI[0] << ' '
+		<< s_farrCurrLightScaleOnEditGUI[1] << ' '
+		<< s_farrCurrLightScaleOnEditGUI[2] << ' '
+		
+		<< s_farrCurrLightRotationOnEditGUI[0] << ' '
+		<< s_farrCurrLightRotationOnEditGUI[1] << ' '
+		<< s_farrCurrLightRotationOnEditGUI[2] << ' '
+
+		<< s_farrCurrLightPositionOnEditGUI[0] << ' '
+		<< s_farrCurrLightPositionOnEditGUI[1] << ' '
+		<< s_farrCurrLightPositionOnEditGUI[2] << ' '
+
+		<< s_farrCurrLightColorOnEditGUI[0] << ' '
+		<< s_farrCurrLightColorOnEditGUI[1] << ' '
+		<< s_farrCurrLightColorOnEditGUI[2] << ' '
+		
+		<< std::endl;
 
 	fout.close();
 }
@@ -925,9 +1045,35 @@ void EditGUIWindow::LoadLightData()
 		>> s_fDiffuseLightIntensity
 		>> s_fAmbientLightIntensity
 		>> s_fSpecularLightIntensity
-		>> s_fSpecularLightPower;
+		>> s_fSpecularLightPower
+		>> s_farrCurrLightScaleOnEditGUI[0]
+		>> s_farrCurrLightScaleOnEditGUI[1]
+		>> s_farrCurrLightScaleOnEditGUI[2]
+		>> s_farrCurrLightRotationOnEditGUI[0]
+		>> s_farrCurrLightRotationOnEditGUI[1]
+		>> s_farrCurrLightRotationOnEditGUI[2]
+		>> s_farrCurrLightPositionOnEditGUI[0]
+		>> s_farrCurrLightPositionOnEditGUI[1]
+		>> s_farrCurrLightPositionOnEditGUI[2]
+		>> s_farrCurrLightColorOnEditGUI[0]
+		>> s_farrCurrLightColorOnEditGUI[1]
+		>> s_farrCurrLightColorOnEditGUI[2];
 
 	s_bOnOffLight = 1u == s_uOnOffLight ? true : false;
+
+	// WorldLight::GetWorldLight()->GetTransform().SetLocalScale(float4{ s_farrCurrLightScaleOnEditGUI[0], s_farrCurrLightScaleOnEditGUI[1],      s_farrCurrLightScaleOnEditGUI[2] });
+	// WorldLight::GetWorldLight()->GetTransform().SetLocalRotation(float4{ s_farrCurrLightRotationOnEditGUI[0], s_farrCurrLightRotationOnEditGUI[1],   s_farrCurrLightRotationOnEditGUI[2] });
+	// WorldLight::GetWorldLight()->GetTransform().SetLocalPosition(float4{ s_farrCurrLightPositionOnEditGUI[0], s_farrCurrLightPositionOnEditGUI[1],   s_farrCurrLightPositionOnEditGUI[2] });
+	// WorldLight::SetWorldLightColor(float4{ s_farrCurrLightColorOnEditGUI[0], s_farrCurrLightColorOnEditGUI[1], s_farrCurrLightColorOnEditGUI[2] });
+	// 
+	// for (int i = 0; i < 3; ++i)
+	// {
+	// 	s_farrCurrLightScaleOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalScale().Arr1D[i];
+	// 	s_farrCurrLightRotationOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalRotation().Arr1D[i];
+	// 	s_farrCurrLightPositionOnEditGUI[i] = WorldLight::GetWorldLight()->GetTransform().GetLocalPosition().Arr1D[i];
+	// 	s_farrCurrLightColorOnEditGUI[i] = WorldLight::GetWorldLightColor().Arr1D[i];
+	// }
+	// 
 
 	fin.close();
 }

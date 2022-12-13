@@ -111,7 +111,8 @@ void OldCrowBullet::Update(float _DeltaTime)
 
 CollisionReturn OldCrowBullet::MonsterCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
-
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("03-2_PlayerParryingAttackHitted.mp3");
 
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_Info.m_Hp -= 1000;
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_Info.m_MaxHp = std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_Info.m_Hp;
@@ -125,7 +126,8 @@ CollisionReturn OldCrowBullet::MonsterCollision(std::shared_ptr < GameEngineColl
 
 CollisionReturn OldCrowBullet::PlayerCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
-
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("03-1_PlayerParryingAttack.mp3");
 
 	MoveDir = Player::GetMainPlayer()->FBXAnimationRenderer->GetTransform().GetForwardVector();
 

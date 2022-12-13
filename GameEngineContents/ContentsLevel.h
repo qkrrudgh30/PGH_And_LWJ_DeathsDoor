@@ -47,6 +47,7 @@ public:
 	}
 
 protected:
+	void Update(float _fDeltatime);
 	void PlacePathOn(const std::string& _strFolderName);
 	void LoadFBXFiles();
 

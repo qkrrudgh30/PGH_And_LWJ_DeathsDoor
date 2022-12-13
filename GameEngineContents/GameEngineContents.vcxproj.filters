@@ -427,6 +427,15 @@
     <ClInclude Include="FireEff.h">
       <Filter>01.Actor\02.Unit\06.Effect\02.Fire</Filter>
     </ClInclude>
+    <ClInclude Include="WorldLight.h">
+      <Filter>01.Actor\99.Global\Actor</Filter>
+    </ClInclude>
+    <ClInclude Include="TestBox.h">
+      <Filter>00.Level\08.TestLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSphere.h">
+      <Filter>00.Level\08.TestLevel</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -657,6 +666,15 @@
     </ClCompile>
     <ClCompile Include="WaveRenderer.cpp">
       <Filter>96.Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="WorldLight.cpp">
+      <Filter>01.Actor\99.Global\Actor</Filter>
+    </ClCompile>
+    <ClCompile Include="TestBox.cpp">
+      <Filter>00.Level\08.TestLevel</Filter>
+    </ClCompile>
+    <ClCompile Include="TestSphere.cpp">
+      <Filter>00.Level\08.TestLevel</Filter>
     </ClCompile>
     <ClCompile Include="ArrowEffMgr.cpp">
       <Filter>01.Actor\02.Unit\06.Effect\00.ArrowEff</Filter>

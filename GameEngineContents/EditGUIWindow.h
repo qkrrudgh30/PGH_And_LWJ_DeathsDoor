@@ -50,6 +50,8 @@ public:
 	void SaveLightData();
 	static void LoadLightData();
 
+	static bool IsLightOn() { return s_bOnOffLight; }
+
 protected:
 
 private:
@@ -59,6 +61,9 @@ private:
 	bool CheckChangesAboutCurrStaticValue(size_t _uSelectedActor);
 	bool CheckChangesAboutCreatureCollider(size_t _uSelectedActor);
 	bool CheckChangesAboutCurrStaticValueCollider(size_t _uSelectedActor);
+
+	bool CheckChangesAboutLight();
+	bool CheckChangesAboutCurrLightStaticValue();
 
 	// void CreateMultiple(int _XCount, int Y);
 
@@ -87,6 +92,15 @@ private:
 	static float s_farrPrevColliderRotationOnEditGUI[3];
 	static float s_farrCurrColliderPositionOnEditGUI[3];
 	static float s_farrPrevColliderPositionOnEditGUI[3];
+
+	static float s_farrCurrLightScaleOnEditGUI[3];
+	static float s_farrPrevLightScaleOnEditGUI[3];
+	static float s_farrCurrLightRotationOnEditGUI[3];
+	static float s_farrPrevLightRotationOnEditGUI[3];
+	static float s_farrCurrLightPositionOnEditGUI[3];
+	static float s_farrPrevLightPositionOnEditGUI[3];
+	static float s_farrCurrLightColorOnEditGUI[3];
+	static float s_farrPrevLightColorOnEditGUI[3];
 
 	static bool s_bAnyChanges;
 	static bool s_bOnOffBlur;

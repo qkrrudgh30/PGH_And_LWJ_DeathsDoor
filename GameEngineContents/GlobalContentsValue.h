@@ -39,6 +39,7 @@ enum class OBJECTORDER
 	NPC,
 	StaticMesh,
 	CrowBullet,
+	LIGHT,
 	Eff,
 	UI = 1000,
 };

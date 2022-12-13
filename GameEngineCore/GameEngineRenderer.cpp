@@ -51,7 +51,7 @@ void GameEngineRenderUnit::EngineShaderResourcesSetting(std::shared_ptr<GameEngi
 	}
 
 	ParentRenderer = _Renderer;
-
+	
 	std::shared_ptr<GameEngineCamera> Camera = ParentRenderer.lock()->GetCamera();
 
 	if (true == ShaderResources.IsConstantBuffer("LightDatas"))

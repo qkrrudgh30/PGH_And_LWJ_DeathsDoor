@@ -8,6 +8,8 @@
 #include "StaticMesh.h"
 #include "LoadingUI.h"
 
+#include "WorldLight.h"
+
 #include <filesystem>
 #include <fstream>
 
@@ -58,10 +60,23 @@ ContentsLevel::ContentsLevel()
 	mwptrLightForLevel = CreateActor<GameEngineLight>();
 	mwptrLightForLevel.lock()->GetTransform().SetWorldRotation(float4{0.f, 45.f, 0.f, 0.f});
 	GetMainCamera()->PushLight(mwptrLightForLevel.lock());	
+	
 }
 
 ContentsLevel::~ContentsLevel() 
 {
+}
+
+void ContentsLevel::Update(float _fDeltatime)
+{
+	// mwptrLightForLevel.lock()->GetLightData().LightDir = WorldLight::GetWorldLight()->GetTransform().GetWorldPosition();
+	if (nullptr != WorldLight::GetWorldLight())
+	{
+		mwptrLightForLevel.lock()->GetTransform().SetWorldRotation(WorldLight::GetWorldLight()->GetTransform().GetWorldRotation());
+		mwptrLightForLevel.lock()->GetTransform().SetWorldPosition(WorldLight::GetWorldLight()->GetTransform().GetWorldPosition());
+
+	}
+	// mwptrLightForLevel.lock()->GetTransformData();
 }
 
 void ContentsLevel::PlacePathOn(const std::string& _strFolderName)
