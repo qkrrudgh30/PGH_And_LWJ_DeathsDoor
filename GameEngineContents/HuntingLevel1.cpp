@@ -77,6 +77,16 @@ void HuntingLevel1::LevelStartEvent()
 
 		{
 
+			std::weak_ptr < Firemgr> Fire = CreateActor<Firemgr>(OBJECTORDER::Eff);
+			Fire.lock()->GetTransform().SetWorldPosition({ -1109.f,280.f,-636.f });
+
+
+		}
+
+
+
+		{
+
 			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 			Potal_.lock()->GetTransform().SetWorldPosition({ 503.F,0.F,-172.f });
 			Potal_.lock()->m_PotalType = PotalType::Stage1ToSLogin;
