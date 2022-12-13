@@ -29,10 +29,10 @@ void ArrowEffMgr::Update(float _DeltaTime)
 	float4 PlayerPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
 	float4 MyPos = GetTransform().GetWorldPosition();
 	float4 Rot = {};
-	float RandY = GameEngineRandom::MainRandom.RandomInt(0.f, 360.f);
+	float RandY = GameEngineRandom::MainRandom.RandomFloat(0.f, 360.f);
 													
-	float RandX = GameEngineRandom::MainRandom.RandomInt(0.f, 360.f);
-	float RandZ = GameEngineRandom::MainRandom.RandomInt(0.f, 360.f);
+	float RandX = GameEngineRandom::MainRandom.RandomFloat(0.f, 180.f) - 90.f;
+	float RandZ = GameEngineRandom::MainRandom.RandomFloat(0.f, 180.f) - 90.f;
 
 	Rot = { RandX ,RandY ,RandZ };
 

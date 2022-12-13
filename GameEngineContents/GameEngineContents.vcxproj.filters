@@ -190,6 +190,9 @@
     <Filter Include="01.Actor\02.Unit\06.Effect\02.Fire">
       <UniqueIdentifier>{7d99f779-529a-42de-b7cb-2026d7d31844}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\06.Effect\03.ScreamEff">
+      <UniqueIdentifier>{6b305ef4-f1ef-4b08-87cb-ff253287f697}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -435,6 +438,15 @@
     </ClInclude>
     <ClInclude Include="TestSphere.h">
       <Filter>00.Level\08.TestLevel</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreamEff.h">
+      <Filter>01.Actor\02.Unit\06.Effect\03.ScreamEff</Filter>
+    </ClInclude>
+    <ClInclude Include="ScreamMgr.h">
+      <Filter>01.Actor\02.Unit\06.Effect\03.ScreamEff</Filter>
+    </ClInclude>
+    <ClInclude Include="FlowerBulletEff.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\01.Monster</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -687,6 +699,15 @@
     </ClCompile>
     <ClCompile Include="FireEff.cpp">
       <Filter>01.Actor\02.Unit\06.Effect\02.Fire</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreamEff.cpp">
+      <Filter>01.Actor\02.Unit\06.Effect\03.ScreamEff</Filter>
+    </ClCompile>
+    <ClCompile Include="ScreamMgr.cpp">
+      <Filter>01.Actor\02.Unit\06.Effect\03.ScreamEff</Filter>
+    </ClCompile>
+    <ClCompile Include="FlowerBulletEff.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\01.Monster</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

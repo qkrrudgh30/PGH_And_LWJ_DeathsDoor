@@ -6,6 +6,7 @@
 #include "UnitBase.h"
 
 // Ό³Έν :
+class FlowerBulletEff;
 class FlowerBullet : public UnitBase
 {
 public:
@@ -25,7 +26,7 @@ protected:
 	void End() {}
 private:
 
-
+	std::vector<std::shared_ptr<FlowerBulletEff>> m_vFlowerEff = {};
 	CollisionReturn PlayerCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other);
 
 

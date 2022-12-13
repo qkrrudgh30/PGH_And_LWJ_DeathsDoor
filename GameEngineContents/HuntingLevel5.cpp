@@ -11,6 +11,11 @@
 #include "EditGUIWindow.h"
 #include "WorldLight.h"
 
+
+#include "Firemgr.h"
+
+
+
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -63,7 +68,31 @@ void HuntingLevel5::LevelStartEvent()
 
 		}
 
+		//Fire
+		{
 
+			std::weak_ptr < Firemgr> Fire = CreateActor<Firemgr>(OBJECTORDER::Eff);
+			Fire.lock()->GetTransform().SetWorldPosition({ -548.f,280.f,347.f });
+
+
+		}
+
+
+		{
+
+			std::weak_ptr < Firemgr> Fire = CreateActor<Firemgr>(OBJECTORDER::Eff);
+			Fire.lock()->GetTransform().SetWorldPosition({ -24.f,280.f,491.f });
+
+
+		}
+
+		{
+
+			std::weak_ptr < Firemgr> Fire = CreateActor<Firemgr>(OBJECTORDER::Eff);
+			Fire.lock()->GetTransform().SetWorldPosition({ 750.f,280.f,-287.f });
+
+
+		}
 
 		{
 

@@ -11,6 +11,9 @@
 #include "Headroller.h"
 #include "WorldLight.h"
 
+#include "Firemgr.h"
+
+
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -73,6 +76,26 @@ void HuntingLevel3::LevelStartEvent()
 			Potal_.lock()->m_PotalType = PotalType::Stage3ToStage2;
 
 		}
+
+
+		//Fire
+		{
+
+			std::weak_ptr < Firemgr> Fire = CreateActor<Firemgr>(OBJECTORDER::Eff);
+			Fire.lock()->GetTransform().SetWorldPosition({ 1418.f,280.f,-706.f });
+
+
+		}
+
+
+		{
+
+			std::weak_ptr < Firemgr> Fire = CreateActor<Firemgr>(OBJECTORDER::Eff);
+			Fire.lock()->GetTransform().SetWorldPosition({ -342.f,280.f,971.f });
+
+
+		}
+
 
 
 

@@ -1,24 +1,19 @@
 
-
 #include "PreCompile.h"
-#include "FireEff.h"
+#include "FlowerBulletEff.h"
 #include "BillboardRenderer.h"
 #include"GameEngineBase/GameEngineRandom.h"
 
-FireEff::FireEff()
+FlowerBulletEff::FlowerBulletEff()
 {
 }
 
-FireEff::~FireEff()
+FlowerBulletEff::~FlowerBulletEff()
 {
 }
 
-void FireEff::Start()
+void FlowerBulletEff::Start()
 {
-
-
-	//255	228
-	//255	94
 
 
 	m_fSpeed = 300.f;
@@ -40,53 +35,26 @@ void FireEff::Start()
 	TexRenderer->ChangeCamera(CAMERAORDER::USER1);
 
 
-	AttCollision = CreateComponent<GameEngineCollision>();
-	AttCollision->GetTransform().SetLocalScale({ 10.f, 500.0f, 10.0f });
-	AttCollision->ChangeOrder(OBJECTORDER::MonsterAtt);
-
-
-
-	//Death(1.f);
 }
 
-void FireEff::Update(float _DeltaTime)
+void FlowerBulletEff::Update(float _DeltaTime)
 {
-
-
-	m_fSpeed = GameEngineRandom::MainRandom.RandomFloat(200.f, 500.f);
-
 	float fScaleSpeed = GameEngineRandom::MainRandom.RandomFloat(300.f, 500.f);
 
 
 	float4 MyScale = TexRenderer->GetTransform().GetLocalScale();
 
-	if (m_bScalecheck)
+	
+	MyScale.x -= fScaleSpeed * _DeltaTime;
+	MyScale.y -= fScaleSpeed * _DeltaTime;
+	//	MyScale.z -= 100.f * _DeltaTime;
+
+	if (0.f >= MyScale.y)
 	{
-		MyScale.x -= fScaleSpeed * _DeltaTime;
-		MyScale.y -= fScaleSpeed * _DeltaTime;
-		//	MyScale.z -= 100.f * _DeltaTime;
 
-		if (0.f >= MyScale.y)
-		{
-		
-			TexRenderer->GetTransform().SetWorldPosition(m_fStartPos);
-			m_bScalecheck = !m_bScalecheck;
-		}
-
+		TexRenderer->GetTransform().SetWorldPosition(m_fStartPos);
+		m_bScalecheck = !m_bScalecheck;
 	}
-	else
-	{
-		MyScale.x += fScaleSpeed * _DeltaTime;
-		MyScale.y += fScaleSpeed * _DeltaTime;
-		//	MyScale.z += 100.f * _DeltaTime;
-
-		if (m_fScaleMax <= MyScale.y)
-		{
-			m_bScalecheck = !m_bScalecheck;
-		}
-	}
-
-
 
 	float4 MyRot = TexRenderer->GetTransform().GetLocalRotation();
 	MyRot.z += fScaleSpeed * _DeltaTime;
@@ -95,15 +63,7 @@ void FireEff::Update(float _DeltaTime)
 
 	TexRenderer->GetTransform().SetWorldScale(MyScale);
 
-	float4 UpVec = { 0.f,1.f,0.f };
-
-
-	TexRenderer->GetTransform().SetWorldMove(UpVec * _DeltaTime * m_fSpeed);
-
-
-
-
+	
 
 }
 
-//-436  218  43

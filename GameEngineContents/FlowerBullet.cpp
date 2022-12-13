@@ -2,6 +2,9 @@
 
 #include "PreCompile.h"
 #include "FlowerBullet.h"
+#include "FlowerBulletEff.h"
+#include"GameEngineBase/GameEngineRandom.h"
+
 
 FlowerBullet::FlowerBullet()
 {
@@ -14,24 +17,23 @@ FlowerBullet::~FlowerBullet()
 void FlowerBullet::Start()
 {
 
-	m_fSpeed = 1000.f;
+	m_fSpeed = 600.f;
 
 
+
+	for (size_t i = 0; i < 15; i++)
 	{
+		std::shared_ptr < FlowerBulletEff> Bullet = GetLevel()->CreateActor<FlowerBulletEff>(OBJECTORDER::Eff);
+		float4 MyPos = GetTransform().GetWorldPosition();
+		MyPos.y = GameEngineRandom::MainRandom.RandomFloat(MyPos.y - 5.f, MyPos.y + 5.f);
+		Bullet->GetTransform().SetWorldPosition(MyPos);
+		Bullet->m_fScaleMax = GameEngineRandom::MainRandom.RandomFloat(20.f, 60.f);
 
 
-		Renderer = CreateComponent<GameEngineDefaultRenderer>();
-		Renderer->SetMaterial("Color");
-		Renderer->GetRenderUnit()->SetMesh("Box");
-		Renderer->GetTransform().SetLocalScale({ 20.f, 20.0f, 50.0f });
-		float4 ResultColor = { 1.f,1.f,1.f,1.f };
 
-		Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
+		m_vFlowerEff.push_back(Bullet);
 
 	}
-
-
-
 
 	AttCollision = CreateComponent<GameEngineCollision>();
 	AttCollision->GetTransform().SetLocalScale({ 20.f, 500.0f, 50.0f });
@@ -46,6 +48,17 @@ void FlowerBullet::Update(float _DeltaTime)
 
 	m_fLifeTime += _DeltaTime;
 
+
+
+
+
+
+
+
+
+
+
+
 	if (m_fLifeTime >= 4.f)
 	{
 		Death();
@@ -58,7 +71,7 @@ void FlowerBullet::Update(float _DeltaTime)
 
 
 
-	float4 MoveDir = Renderer->GetTransform().GetForwardVector();
+	float4 MoveDir = GetTransform().GetForwardVector();
 	GetTransform().SetWorldMove(MoveDir * m_fSpeed * _DeltaTime);
 
 }

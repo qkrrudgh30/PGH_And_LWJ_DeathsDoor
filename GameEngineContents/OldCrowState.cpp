@@ -9,6 +9,7 @@
 #include "OldCrowScreamBase.h"
 
 #include "DashBullet.h"
+#include "ScreamMgr.h"
 
 
 void OldCrow::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
@@ -65,6 +66,15 @@ void OldCrow::StartActUpdate(float _DeltaTime, const StateInfo& _Info)
 			FBXAnimationRenderer->ChangeAnimation("OldCrow_Scream");
 			CameraShake(1.f);
 			ScreamAnicheck = true;
+
+			float4 MyPos = GetTransform().GetWorldPosition();
+			std::weak_ptr < ScreamMgr> ScreamBullet = GetLevel()->CreateActor<ScreamMgr>(OBJECTORDER::MonsterAtt);
+			MyPos.y = 200.f;
+
+			MyPos.x = GetTransform().GetForwardVector().x * 500.f;
+			ScreamBullet.lock()->GetTransform().SetWorldPosition(MyPos);
+
+
 		}
 	}
 
@@ -190,7 +200,7 @@ void OldCrow::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	
 
 
-
+	
 
 	if (AttType == 1)
 	{
@@ -556,6 +566,14 @@ void OldCrow::ScreamStart(const StateInfo& _Info)
 	m_structSoundPlayer.Stop();
 	m_structSoundPlayer = GameEngineSound::SoundPlayControl("28_LastBossScream.mp3");
 
+	//스크림 이펙트 생성
+
+
+	std::weak_ptr < ScreamMgr> ScreamBullet = GetLevel()->CreateActor<ScreamMgr>(OBJECTORDER::MonsterAtt);
+	MyPos.y = 200.f;
+
+	MyPos.x = GetTransform().GetForwardVector().x * 500.f;
+	ScreamBullet.lock()->GetTransform().SetWorldPosition(MyPos);
 
 }
 void OldCrow::ScreamEnd(const StateInfo& _Info)
