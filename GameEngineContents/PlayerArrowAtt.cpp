@@ -81,6 +81,11 @@ void PlayerArrowAtt::Update(float _DeltaTime)
 	);
 
 
+	AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::StaticMesh, CollisionType::CT_OBB,
+		std::bind(&PlayerArrowAtt::StaticCollision, this, std::placeholders::_1, std::placeholders::_2)
+	);
+
+
 
 	float4 MoveDir = FBXStaticRenderer->GetTransform().GetForwardVector();
 	GetTransform().SetWorldMove(MoveDir * m_fSpeed * _DeltaTime);
@@ -108,3 +113,22 @@ CollisionReturn PlayerArrowAtt::MonsterCollision(std::shared_ptr < GameEngineCol
 	return CollisionReturn::Break;
 }
 
+CollisionReturn PlayerArrowAtt::StaticCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
+{
+
+	m_structSoundPlayer.Stop();
+	m_structSoundPlayer = GameEngineSound::SoundPlayControl("07-1_PlayerBowHitted.mp3");
+
+
+
+	std::weak_ptr < ArrowEffMgr> Bullet = GEngine::GetCurrentLevel()->CreateActor<ArrowEffMgr>(OBJECTORDER::Eff);
+
+	Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+
+
+
+	Death();
+	return CollisionReturn::Break;
+
+
+}

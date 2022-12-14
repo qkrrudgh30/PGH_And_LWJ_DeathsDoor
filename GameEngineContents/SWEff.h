@@ -1,24 +1,23 @@
 
-
 #pragma once
 #include <GameEngineCore/CoreMinimal.h>
-#
+
 #include "UnitBase.h"
 
 // Ό³Έν :
 class BillboardRenderer;
-class PlayerFireEff : public UnitBase
+class SWEff : public UnitBase
 {
 public:
 	// constrcuter destructer
-	PlayerFireEff();
-	~PlayerFireEff();
+	SWEff();
+	~SWEff();
 
 	// delete Function
-	PlayerFireEff(const PlayerFireEff& _Other) = delete;
-	PlayerFireEff(PlayerFireEff&& _Other) noexcept = delete;
-	PlayerFireEff& operator=(const PlayerFireEff& _Other) = delete;
-	PlayerFireEff& operator=(PlayerFireEff&& _Other) noexcept = delete;
+	SWEff(const SWEff& _Other) = delete;
+	SWEff(SWEff&& _Other) noexcept = delete;
+	SWEff& operator=(const SWEff& _Other) = delete;
+	SWEff& operator=(SWEff&& _Other) noexcept = delete;
 
 protected:
 	void Start() override;
@@ -26,8 +25,7 @@ protected:
 	void End() {}
 public:
 
-	void ChangeColorBlue();
-
+	std::shared_ptr<BillboardRenderer> sptrTestPicture;
 public:
 	float m_fScaleMax = 0.f;
 	float m_fTime = 0.f;

@@ -32,10 +32,16 @@ void PalyerFireMgr::Update(float _DeltaTime)
 	float4 Rot = {};
 	
 
+	
 
-
-	for (int i = 0; i <= 20; ++i)
+	for (int i = 0; i <= 30; ++i)
 	{
+
+
+		MyPos.x = GameEngineRandom::MainRandom.RandomFloat(MyPos.x - 5.f, MyPos.x + 5.f);
+		MyPos.y = GameEngineRandom::MainRandom.RandomFloat(MyPos.y - 5.f, MyPos.y + 5.f);
+		MyPos.z = GameEngineRandom::MainRandom.RandomFloat(MyPos.z - 5.f, MyPos.z + 5.f);
+
 
 		float RandY = GameEngineRandom::MainRandom.RandomFloat(0.f, 360.f);
 
@@ -45,21 +51,24 @@ void PalyerFireMgr::Update(float _DeltaTime)
 		Rot = { RandX ,RandY ,RandZ };
 
 
+	
 		std::weak_ptr < PlayerFireEff> Bullet = GetLevel()->CreateActor<PlayerFireEff>(OBJECTORDER::Eff);
 
-		Bullet.lock()->GetTransform().SetWorldPosition(MyPos);
-		Bullet.lock()->GetTransform().SetWorldRotation(Rot);
-		float ScaleMax_f = GameEngineRandom::MainRandom.RandomFloat(30.f, 50.f);
-		float4 ScaleMax = { ScaleMax_f ,ScaleMax_f ,10.f};
-		Bullet.lock()->GetTransform().SetWorldScale(ScaleMax);
-
-
-		if (i == 20)
+		if (m_bColorBlue)
 		{
-			Death();
+			Bullet.lock()->ChangeColorBlue();
 		}
+		
+		Bullet.lock()->GetTransform().SetWorldPosition(MyPos);
+		Bullet.lock()->m_fScaleMax = GameEngineRandom::MainRandom.RandomFloat(20.f, 60.f);
+
+
+		
 	}
+	
 
 
+
+	Death();
 }
 

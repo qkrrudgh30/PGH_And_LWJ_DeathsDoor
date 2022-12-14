@@ -15,7 +15,7 @@ Potal::~Potal()
 
 void Potal::Start()
 {
-
+	m_fSpeed = 2000.f;
 
 	Collision = CreateComponent<GameEngineCollision>();
 	Collision->GetTransform().SetLocalScale({ 100.0f, 500.0f, 100.0f });
@@ -26,7 +26,7 @@ void Potal::Start()
 	{
 		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 		FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
-		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.25f, 0.25f, 0.25f });
+		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
 		FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f, 45.f, 0.f });
 
 		for (size_t i = 0; i <= 23; ++i)
@@ -54,6 +54,55 @@ void Potal::Update(float _DeltaTime)
 	Collision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
 		std::bind(&Potal::CollisionPlayer, this, std::placeholders::_1, std::placeholders::_2)
 	);
+
+
+
+	float Len = (Player::GetMainPlayer()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition()).Length();
+
+	float4 MyPos = FBXStaticRenderer->GetTransform().GetWorldPosition();
+	if (Len >= 400.f)
+	{
+
+
+		if (MyPos.y <= 0.f)
+		{
+			MyPos.y = 0.f;
+
+			FBXStaticRenderer->GetTransform().SetWorldPosition(MyPos);
+
+			m_fSpeed = 2000.f;
+		}
+		else
+		{
+
+			m_fSpeed += 1500.f * _DeltaTime;
+
+			FBXStaticRenderer->GetTransform().SetWorldDownMove(m_fSpeed, _DeltaTime);
+		}
+
+	}
+	else
+	{
+		if (MyPos.y >= 1000.f)
+		{
+			MyPos.y = 1000.f;
+			FBXStaticRenderer->GetTransform().SetWorldPosition(MyPos);
+
+			m_fSpeed = 2000.f;
+		}
+		else
+		{
+
+			m_fSpeed += 1500.f * _DeltaTime;
+
+
+			FBXStaticRenderer->GetTransform().SetWorldUpMove(m_fSpeed, _DeltaTime);
+		}
+
+	}
+
+
+
 
 
 }

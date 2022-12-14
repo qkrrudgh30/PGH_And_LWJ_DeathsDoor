@@ -97,7 +97,7 @@ void HuntingLevel5::LevelStartEvent()
 		{
 
 			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_.lock()->GetTransform().SetWorldPosition({ 650.F,0.F,415.f });
+			Potal_.lock()->GetTransform().SetWorldPosition({ 542.F,0.F,237.f });
 			Potal_.lock()->m_PotalType = PotalType::Stage5ToStage4;
 
 		}
@@ -126,7 +126,7 @@ void HuntingLevel5::LevelStartEvent()
 		else
 		{
 			Player* NewPlayer = Player::GetMainPlayer();
-			NewPlayer->GetTransform().SetWorldPosition({ 475.F,0.F,228.F });
+			NewPlayer->GetTransform().SetWorldPosition({ 369.F,0.F,66.F });
 			NewPlayer->UIOn();
 			//NewPlayer->m_bLogoLevelCheck = false;
 

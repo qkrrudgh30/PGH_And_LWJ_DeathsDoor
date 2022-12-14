@@ -1,5 +1,6 @@
 #include "PreCompile.h"
 #include "PlayerSWAtt3.h"
+#include "SWEffMgr.h"
 
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 PlayerSWAtt3::PlayerSWAtt3()
@@ -69,6 +70,10 @@ CollisionReturn PlayerSWAtt3::MonsterCollision(std::shared_ptr <GameEngineCollis
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_bHitCheck = true;
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_fHitPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_bHitActionCheck = true;
+
+	std::weak_ptr < SWEffMgr> Bullet = GEngine::GetCurrentLevel()->CreateActor<SWEffMgr>(OBJECTORDER::Eff);
+
+	Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
 
 
 	return CollisionReturn::Break;

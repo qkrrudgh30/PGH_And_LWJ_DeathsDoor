@@ -5,6 +5,10 @@
 #include "UnitBase.h"
 #include "OldCrowBullet.h"
 
+
+#include "OldCrowUI.h"
+
+
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
 
@@ -22,6 +26,7 @@ OldCrow::~OldCrow()
 void OldCrow::Start()
 {
 
+	MainUI = GetLevel()->CreateActor<OldCrowUI>(OBJECTORDER::UI);
 
 	m_Info.m_Hp = 10500;
 	m_Info.m_MaxHp = 10500;

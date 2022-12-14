@@ -14,6 +14,7 @@
 #include "ShopNPC.h"
 #include "Potal.h"
 
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 
 #include "PlayerMainUI.h"
@@ -119,7 +120,7 @@ void LoginLevel::LevelStartEvent()
 			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
 			Potal_.lock()->GetTransform().SetWorldPosition({ 250.F,100.F,-1300.F });
 			Potal_.lock()->m_PotalType = PotalType::LoginToStage1;
-
+			Potal_.lock()->FBXStaticRenderer->Off();
 		}
 	
 		

@@ -19,11 +19,18 @@ public:
 	PalyerFireMgr& operator=(const PalyerFireMgr& _Other) = delete;
 	PalyerFireMgr& operator=(PalyerFireMgr&& _Other) noexcept = delete;
 
+
+
+	bool	m_bColorBlue = false;
 protected:
 	void Start() override;
 	void Update(float _DeltaTime);
 	void End() {}
 private:
+
+
+
+
 
 	int m_iCount = 0;
 	int m_iCountMax = 20;

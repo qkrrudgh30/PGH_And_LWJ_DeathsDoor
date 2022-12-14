@@ -4,6 +4,8 @@
 #include "PreCompile.h"
 #include "ScreamBullet.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
+#include "SWEffMgr.h"
+
 
 ScreamBullet::ScreamBullet()
 {
@@ -100,6 +102,10 @@ void ScreamBullet::Update(float _DeltaTime)
 
 CollisionReturn ScreamBullet::MonsterCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
+
+	std::weak_ptr < SWEffMgr> Bullet = GEngine::GetCurrentLevel()->CreateActor<SWEffMgr>(OBJECTORDER::Eff);
+
+	Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
 
 
 	Death();

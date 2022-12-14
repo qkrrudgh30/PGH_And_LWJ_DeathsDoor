@@ -23,7 +23,7 @@
 class Spike;
 class Player;
 class TowerLaser;
-
+class TowerBossUI;
 class LaserTarget;
 class Tower : public UnitBase
 {
@@ -43,6 +43,8 @@ public:
 	
 protected:
 	void Start() override;
+
+	std::weak_ptr < TowerBossUI>		MainUI;
 
 
 	float4 StartPostion;
