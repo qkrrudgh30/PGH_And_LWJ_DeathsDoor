@@ -2,6 +2,7 @@
 #include "PreCompile.h"
 #include "PlayerArrowAtt.h"
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
+#include "ArrowEffMgr.h"
 
 PlayerArrowAtt::PlayerArrowAtt() 
 {
@@ -96,6 +97,11 @@ CollisionReturn PlayerArrowAtt::MonsterCollision(std::shared_ptr < GameEngineCol
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_bHitCheck = true;
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_fHitPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_bHitActionCheck = true;
+	
+	
+	std::shared_ptr < ArrowEffMgr> Bullet = GEngine::GetCurrentLevel()->CreateActor<ArrowEffMgr>(OBJECTORDER::Eff);
+
+	Bullet->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
 
 
 	Death();

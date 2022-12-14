@@ -23,7 +23,7 @@ void ScreamEff::Start()
 	float A = GameEngineRandom::MainRandom.RandomFloat(700.f, 1000.f) / 1000.f;
 
 
-	float4 color = { 1.f ,0.f,0.f,1.f };
+	float4 color = { 0.01f ,0.f,0.f,1.f };
 	TexRenderer = CreateComponent<GameEngineTextureRenderer>();
 	TexRenderer->SetTexture("Soft.png");
 	TexRenderer->GetTransform().SetLocalScale({ 10.f, 10.f, 1 });

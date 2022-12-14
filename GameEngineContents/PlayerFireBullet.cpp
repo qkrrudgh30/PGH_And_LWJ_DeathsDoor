@@ -1,30 +1,30 @@
 
 
 #include "PreCompile.h"
-#include "FlowerBullet.h"
-#include "FlowerBulletEff.h"
+#include "PlayerFireBullet.h"
+#include "PlayerFireBulletEff.h"
 #include"GameEngineBase/GameEngineRandom.h"
+
 #include "PalyerFireMgr.h"
 
-
-FlowerBullet::FlowerBullet()
+PlayerFireBullet::PlayerFireBullet()
 {
 }
 
-FlowerBullet::~FlowerBullet()
+PlayerFireBullet::~PlayerFireBullet()
 {
 }
 
-void FlowerBullet::Start()
+void PlayerFireBullet::Start()
 {
 
-	m_fSpeed = 600.f;
+	m_fSpeed = 800.f;
 
 
 
 	for (size_t i = 0; i < 10; i++)
 	{
-		std::shared_ptr < FlowerBulletEff> Bullet = GetLevel()->CreateActor<FlowerBulletEff>(OBJECTORDER::Eff);
+		std::shared_ptr < PlayerFireBulletEff> Bullet = GetLevel()->CreateActor<PlayerFireBulletEff>(OBJECTORDER::Eff);
 		float4 MyPos = GetTransform().GetWorldPosition();
 		MyPos.y = GameEngineRandom::MainRandom.RandomFloat(MyPos.y - 5.f, MyPos.y + 5.f);
 		Bullet->GetTransform().SetWorldPosition(MyPos);
@@ -44,7 +44,7 @@ void FlowerBullet::Start()
 
 }
 
-void FlowerBullet::Update(float _DeltaTime)
+void PlayerFireBullet::Update(float _DeltaTime)
 {
 
 	m_fLifeTime += _DeltaTime;
@@ -74,7 +74,7 @@ void FlowerBullet::Update(float _DeltaTime)
 
 
 	}
-	
+
 
 
 
@@ -93,8 +93,8 @@ void FlowerBullet::Update(float _DeltaTime)
 	}
 
 
-	AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
-		std::bind(&FlowerBullet::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
+	AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Monster, CollisionType::CT_OBB,
+		std::bind(&PlayerFireBullet::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
 	);
 
 
@@ -104,22 +104,22 @@ void FlowerBullet::Update(float _DeltaTime)
 
 }
 
-CollisionReturn FlowerBullet::PlayerCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
+CollisionReturn PlayerFireBullet::PlayerCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other)
 {
 
 
-	Player*  NewPlayer = Player::GetMainPlayer();
-
-	NewPlayer->m_Info.m_Hp -= 1;
+	
 
 	for (size_t i = 0; i < m_vFlowerEff.size(); i++)
 	{
 		m_vFlowerEff[i]->Death();
 	}
 
+
 	std::weak_ptr < PalyerFireMgr> Bullet = GetLevel()->CreateActor<PalyerFireMgr>(OBJECTORDER::Eff);
 	float4 MyPos = GetTransform().GetWorldPosition();
 	Bullet.lock()->GetTransform().SetWorldPosition(MyPos);
+
 
 	Death();
 	return CollisionReturn::Break;

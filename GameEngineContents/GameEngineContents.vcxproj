@@ -271,7 +271,27 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="PalyerFireMgr.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PaperburnRenderer.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="playerFireBoom.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerFireBullet.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerFireBulletEff.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="PlayerFireEff.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -585,7 +605,27 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="OldCrowState.cpp" />
+    <ClCompile Include="PalyerFireMgr.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PaperburnRenderer.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="playerFireBoom.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerFireBullet.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerFireBulletEff.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="PlayerFireEff.cpp">
       <SubType>
       </SubType>
     </ClCompile>

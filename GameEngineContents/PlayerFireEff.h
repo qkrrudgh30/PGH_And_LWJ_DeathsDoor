@@ -1,4 +1,5 @@
 
+
 #pragma once
 #include <GameEngineCore/CoreMinimal.h>
 
@@ -6,18 +7,18 @@
 
 // Ό³Έν :
 class BillboardRenderer;
-class FlowerBulletEff : public UnitBase
+class PlayerFireEff : public UnitBase
 {
 public:
 	// constrcuter destructer
-	FlowerBulletEff();
-	~FlowerBulletEff();
+	PlayerFireEff();
+	~PlayerFireEff();
 
 	// delete Function
-	FlowerBulletEff(const FlowerBulletEff& _Other) = delete;
-	FlowerBulletEff(FlowerBulletEff&& _Other) noexcept = delete;
-	FlowerBulletEff& operator=(const FlowerBulletEff& _Other) = delete;
-	FlowerBulletEff& operator=(FlowerBulletEff&& _Other) noexcept = delete;
+	PlayerFireEff(const PlayerFireEff& _Other) = delete;
+	PlayerFireEff(PlayerFireEff&& _Other) noexcept = delete;
+	PlayerFireEff& operator=(const PlayerFireEff& _Other) = delete;
+	PlayerFireEff& operator=(PlayerFireEff&& _Other) noexcept = delete;
 
 protected:
 	void Start() override;
@@ -31,8 +32,6 @@ public:
 	float m_fTime = 0.f;
 	bool  m_bScalecheck = false;
 
-	bool m_bScaleZero = true;
-	float4 m_fStartPos = {};
 
 	float4 m_fGoDir = {};
 

@@ -32,10 +32,6 @@ void ArrowEff::Start()
 	TexRenderer->ChangeCamera(CAMERAORDER::MAINCAMERA);
 	TexRenderer->GetPixelData().MulColor = color;
 
-	AttCollision = CreateComponent<GameEngineCollision>();
-	AttCollision->GetTransform().SetLocalScale({ 10.f, 500.0f, 10.0f });
-	AttCollision->ChangeOrder(OBJECTORDER::MonsterAtt);
-
 
 
 	//Death(1.f);
@@ -46,7 +42,7 @@ void ArrowEff::Update(float _DeltaTime)
 
 
 
-	float4 MyScale = TexRenderer->GetTransform().GetLocalScale();
+	float4 MyScale = TexRenderer->GetTransform().GetWorldScale();
 
 	if(m_bScalecheck)
 	{ 

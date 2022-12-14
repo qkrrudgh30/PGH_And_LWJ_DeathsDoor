@@ -26,6 +26,8 @@ protected:
 	void End() {}
 private:
 
+	float m_fEffTime = 0.1f;
+
 	std::vector<std::shared_ptr<FlowerBulletEff>> m_vFlowerEff = {};
 	CollisionReturn PlayerCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other);
 

@@ -9,7 +9,7 @@
 #include "PlayerArrowAtt.h"
 #include "PlayerHookAtt.h"
 
-
+#include "PlayerFireBullet.h"
 
 #include "ArrowEffMgr.h"
 
@@ -467,8 +467,10 @@ void Player::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 				}
 				else if (m_Info.Weapontype == WEAPONTYPE::Fire)
 				{
-
-					StateManager.ChangeState("ArrowAtt");
+					if (m_Info.ArrowCount > 0)
+					{
+						StateManager.ChangeState("ArrowAtt");
+					}
 				}
 
 			}
@@ -796,8 +798,13 @@ void Player::ArrowAttEnd(const StateInfo& _Info)
 	}
 	else if (m_Info.Weapontype == WEAPONTYPE::Fire)
 	{
+	
 
-
+		//ÃÑ¾Ë »ý¼º
+		std::weak_ptr < PlayerFireBullet> m_ArrowAtt = GetLevel()->CreateActor<PlayerFireBullet>(OBJECTORDER::PlayerAtt);
+		m_ArrowAtt.lock()->GetTransform().SetWorldPosition(ArrowPos);
+		m_ArrowAtt.lock()->GetTransform().SetLocalRotation(ArrowDir);
+		m_Info.ArrowCount -= 1;
 		m_bArrowCameraCheck = false;
 	}
 	
@@ -854,7 +861,7 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 		}
 		else if (m_Info.Weapontype == WEAPONTYPE::Fire)
 		{
-
+			StateManager.ChangeState("Idle");
 		}
 
 
@@ -1205,8 +1212,10 @@ void Player::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 				}
 				else if (m_Info.Weapontype == WEAPONTYPE::Fire)
 				{
-
-					StateManager.ChangeState("ArrowAtt");
+					if (m_Info.ArrowCount > 0)
+					{
+						StateManager.ChangeState("ArrowAtt");
+					}
 				}
 
 			}

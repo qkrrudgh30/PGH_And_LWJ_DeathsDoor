@@ -181,9 +181,6 @@
     <Filter Include="01.Actor\02.Unit\06.Effect">
       <UniqueIdentifier>{42a8076a-88aa-411d-bafd-390a9563ae24}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Actor\02.Unit\03.Bullet\00.Player\02.Hook\01.Arrow">
-      <UniqueIdentifier>{47f4316c-fd00-435d-8042-8ed1e78480bf}</UniqueIdentifier>
-    </Filter>
     <Filter Include="01.Actor\02.Unit\06.Effect\00.ArrowEff">
       <UniqueIdentifier>{6e6fe8e9-84b0-47df-899a-d5d92aecb669}</UniqueIdentifier>
     </Filter>
@@ -192,6 +189,15 @@
     </Filter>
     <Filter Include="01.Actor\02.Unit\06.Effect\03.ScreamEff">
       <UniqueIdentifier>{6b305ef4-f1ef-4b08-87cb-ff253287f697}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\00.Player\01.Arrow">
+      <UniqueIdentifier>{47f4316c-fd00-435d-8042-8ed1e78480bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\00.Player\03.PlayerFire">
+      <UniqueIdentifier>{8ccc5549-6006-4fc2-9859-a40a23073153}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\06.Effect\04.PlayerFireEff">
+      <UniqueIdentifier>{6f0dbbbd-6191-4524-9018-60d3a77ccea3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -257,7 +263,7 @@
       <Filter>03.Mouse</Filter>
     </ClInclude>
     <ClInclude Include="PlayerArrowAtt.h">
-      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook\01.Arrow</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
     </ClInclude>
     <ClInclude Include="PlayerHookAtt.h">
       <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
@@ -448,6 +454,21 @@
     <ClInclude Include="FlowerBulletEff.h">
       <Filter>01.Actor\02.Unit\03.Bullet\01.Monster</Filter>
     </ClInclude>
+    <ClInclude Include="PlayerFireBullet.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\03.PlayerFire</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFireBulletEff.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\03.PlayerFire</Filter>
+    </ClInclude>
+    <ClInclude Include="playerFireBoom.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\03.PlayerFire</Filter>
+    </ClInclude>
+    <ClInclude Include="PlayerFireEff.h">
+      <Filter>01.Actor\02.Unit\06.Effect\04.PlayerFireEff</Filter>
+    </ClInclude>
+    <ClInclude Include="PalyerFireMgr.h">
+      <Filter>01.Actor\02.Unit\06.Effect\04.PlayerFireEff</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -512,7 +533,7 @@
       <Filter>01.Actor\02.Unit\04.NPC</Filter>
     </ClCompile>
     <ClCompile Include="PlayerArrowAtt.cpp">
-      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook\01.Arrow</Filter>
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\01.Arrow</Filter>
     </ClCompile>
     <ClCompile Include="PlayerHookAtt.cpp">
       <Filter>01.Actor\02.Unit\03.Bullet\00.Player\02.Hook</Filter>
@@ -708,6 +729,21 @@
     </ClCompile>
     <ClCompile Include="FlowerBulletEff.cpp">
       <Filter>01.Actor\02.Unit\03.Bullet\01.Monster</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFireBullet.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\03.PlayerFire</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFireBulletEff.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\03.PlayerFire</Filter>
+    </ClCompile>
+    <ClCompile Include="playerFireBoom.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\00.Player\03.PlayerFire</Filter>
+    </ClCompile>
+    <ClCompile Include="PlayerFireEff.cpp">
+      <Filter>01.Actor\02.Unit\06.Effect\04.PlayerFireEff</Filter>
+    </ClCompile>
+    <ClCompile Include="PalyerFireMgr.cpp">
+      <Filter>01.Actor\02.Unit\06.Effect\04.PlayerFireEff</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

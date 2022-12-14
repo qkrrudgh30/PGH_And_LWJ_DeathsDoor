@@ -29,32 +29,36 @@ void ScreamMgr::Update(float _DeltaTime)
 	float4 PlayerPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
 	float4 MyPos = GetTransform().GetWorldPosition();
 	float4 Rot = {};
-	float RandY = GameEngineRandom::MainRandom.RandomFloat(90.f, 180.f);
 
-	float RandX = GameEngineRandom::MainRandom.RandomFloat(0.f, 360.f);
-	float RandZ = GameEngineRandom::MainRandom.RandomFloat(0.f, 360.f);
-
-	Rot = { RandX ,RandY ,RandZ };
-
-	if (m_fSpeed >= 0.5f)
+	if (m_fSpeed >= 0.1f)
 	{
-		m_fSpeed -= 0.5f;
+		m_fSpeed -= 0.1f;
 
 		++m_iCount;
-		
 
-		std::weak_ptr < ScreamEff> Bullet = GetLevel()->CreateActor<ScreamEff>(OBJECTORDER::Eff);
+		for (int i = 0; i <= 3; ++i)
+		{
 
-		Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-		Bullet.lock()->m_fHitDir = Rot;
-		//	Bullet.lock()->GetTransform().SetWorldRotation(Rot);
-		Bullet.lock()->TexRenderer->GetTransform().SetWorldRotation(Rot);
-		Bullet.lock()->m_fScaleMax = GameEngineRandom::MainRandom.RandomFloat(150.f, 350.f);
+			float RandY = GameEngineRandom::MainRandom.RandomFloat(90.f, 180.f);
+
+			float RandX = GameEngineRandom::MainRandom.RandomFloat(0.f, 360.f);
+			float RandZ = GameEngineRandom::MainRandom.RandomFloat(0.f, 360.f);
+
+			Rot = { RandX ,RandY ,RandZ };
 
 
+			std::weak_ptr < ScreamEff> Bullet = GetLevel()->CreateActor<ScreamEff>(OBJECTORDER::Eff);
+
+			Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+			Bullet.lock()->m_fHitDir = Rot;
+			//	Bullet.lock()->GetTransform().SetWorldRotation(Rot);
+			Bullet.lock()->TexRenderer->GetTransform().SetWorldRotation(Rot);
+			Bullet.lock()->m_fScaleMax = GameEngineRandom::MainRandom.RandomFloat(150.f, 350.f);
+
+		}
 
 
-		if (m_iCount >= 4)
+		if (m_iCount >= 20)
 		{
 			Death();
 		}

@@ -300,11 +300,11 @@ void FlowerMonster::AniFlower_AttFrame(const GameEngineRenderingEvent& _Data)
 {
 
 
-	if (_Data.CurFrame == 50)
+	if (_Data.CurFrame == 35)
 	{
 		float4 ArrowDir = GetTransform().GetLocalRotation();
 		float4 RenderFront = GetTransform().GetForwardVector();
-		float4 ArrowPos = GetTransform().GetWorldPosition() + (RenderFront.Normalize3DReturn() * 200.f);
+		float4 ArrowPos = GetTransform().GetWorldPosition() + (RenderFront.Normalize3DReturn() * 100.f);
 
 		ArrowPos.y += 70.f;
 

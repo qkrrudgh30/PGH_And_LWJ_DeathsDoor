@@ -71,7 +71,7 @@ void OldCrow::StartActUpdate(float _DeltaTime, const StateInfo& _Info)
 			std::weak_ptr < ScreamMgr> ScreamBullet = GetLevel()->CreateActor<ScreamMgr>(OBJECTORDER::MonsterAtt);
 			MyPos.y = 200.f;
 
-			MyPos.x = GetTransform().GetForwardVector().x * 500.f;
+			MyPos.x + GetTransform().GetForwardVector().x * 200.f;
 			ScreamBullet.lock()->GetTransform().SetWorldPosition(MyPos);
 
 
@@ -572,7 +572,7 @@ void OldCrow::ScreamStart(const StateInfo& _Info)
 	std::weak_ptr < ScreamMgr> ScreamBullet = GetLevel()->CreateActor<ScreamMgr>(OBJECTORDER::MonsterAtt);
 	MyPos.y = 200.f;
 
-	MyPos.x = GetTransform().GetForwardVector().x * 500.f;
+	MyPos.x = MyPos.x + GetTransform().GetForwardVector().x * 200.f;
 	ScreamBullet.lock()->GetTransform().SetWorldPosition(MyPos);
 
 }
