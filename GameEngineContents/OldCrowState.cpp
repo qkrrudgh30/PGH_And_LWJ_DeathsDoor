@@ -45,7 +45,7 @@ void OldCrow::StartActEnd(const StateInfo& _Info)
 	PlayerPos.z -= 1700.f;
 	GetLevel()->GetMainCameraActorTransform().SetWorldPosition(PlayerPos);
 
-
+	TexRenderer->Off();
 
 	Player::GetMainPlayer()->m_bOldCrowCameraCheck = false;
 	

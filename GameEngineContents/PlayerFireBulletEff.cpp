@@ -47,7 +47,6 @@ void PlayerFireBulletEff::Update(float _DeltaTime)
 
 	MyScale.x -= fScaleSpeed * _DeltaTime;
 	MyScale.y -= fScaleSpeed * _DeltaTime;
-	//	MyScale.z -= 100.f * _DeltaTime;
 
 	if (0.f >= MyScale.y)
 	{

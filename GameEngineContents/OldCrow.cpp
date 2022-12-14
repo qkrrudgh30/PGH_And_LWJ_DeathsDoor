@@ -33,6 +33,17 @@ void OldCrow::Start()
 	GetTransform().SetWorldPosition({0.f,0.f,500.f});
 
 
+
+	TexRenderer = CreateComponent<GameEngineTextureRenderer>();
+	TexRenderer->SetTexture("BossFloor.png");
+	TexRenderer->GetTransform().SetLocalScale({ 10000.f, 10000.f, 1 });
+
+	TexRenderer->GetTransform().SetLocalPosition({ 0.f,0.f,-1000.f });
+	TexRenderer->ChangeCamera(CAMERAORDER::MAINCAMERA);
+
+
+
+
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
 	FBXAnimationRenderer->SetFBXMesh("OldCrow.fbx", "PaperBurn");
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 90.f, 90.f, 90.f });

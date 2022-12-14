@@ -99,9 +99,9 @@ CollisionReturn PlayerArrowAtt::MonsterCollision(std::shared_ptr < GameEngineCol
 	std::dynamic_pointer_cast<UnitBase>(_Other->GetParent())->m_bHitActionCheck = true;
 	
 	
-	std::shared_ptr < ArrowEffMgr> Bullet = GEngine::GetCurrentLevel()->CreateActor<ArrowEffMgr>(OBJECTORDER::Eff);
+	std::weak_ptr < ArrowEffMgr> Bullet = GEngine::GetCurrentLevel()->CreateActor<ArrowEffMgr>(OBJECTORDER::Eff);
 
-	Bullet->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+	Bullet.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
 
 
 	Death();
