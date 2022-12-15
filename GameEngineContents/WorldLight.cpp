@@ -25,7 +25,7 @@ void WorldLight::Start()
 	FBXStaticRenderer->SetFBXMesh("Light.fbx", "PreviousColor");
 
 	s_f4LightColor = float4{ 1.f, 0.f, 0.f, 1.f }; 
-	FBXStaticRenderer->GetAllRenderUnit()[0][0].ShaderResources.SetConstantBufferLink("ResultColor", s_f4LightColor);
+	FBXStaticRenderer->GetAllRenderUnit()[0][0]->ShaderResources.SetConstantBufferLink("ResultColor", s_f4LightColor);
 
 	if (false == GameEngineInput::GetInst()->IsKey("LightF"))
 	{

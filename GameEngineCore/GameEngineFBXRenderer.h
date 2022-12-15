@@ -20,11 +20,11 @@ public:
 
 	virtual void SetFBXMesh(const std::string& _Name, std::string _Material);
 	virtual void SetFBXMesh(const std::string& _Name, std::string _Material, size_t MeshIndex);
-	virtual GameEngineRenderUnit* SetFBXMesh(const std::string& _Name, std::string _Material, size_t MeshIndex, size_t _SubSetIndex);
+	virtual std::shared_ptr<GameEngineRenderUnit> SetFBXMesh(const std::string& _Name, std::string _Material, size_t MeshIndex, size_t _SubSetIndex);
 
 	void Render(float _DeltaTime) override;
 
-	std::vector<std::vector<GameEngineRenderUnit>>& GetAllRenderUnit()
+	std::vector<std::vector<std::shared_ptr<GameEngineRenderUnit>>>& GetAllRenderUnit()
 	{
 		return Unit;
 	}
@@ -38,7 +38,7 @@ protected:
 
 private:
 	std::shared_ptr<GameEngineFBXMesh> FBXMesh;
-	std::vector<std::vector<GameEngineRenderUnit>> Unit;
+	std::vector<std::vector<std::shared_ptr<GameEngineRenderUnit>>> Unit;
 
 };
 

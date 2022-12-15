@@ -34,7 +34,7 @@ void GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name, std::string _Ma
 }
 
 // SetFbxMesh를 해서 만들어진 랜더 유니트를 사용하게 하기 위해서 리턴해준다.
-GameEngineRenderUnit* GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name,
+std::shared_ptr<GameEngineRenderUnit> GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name,
 	std::string _Material,
 	size_t Index, 
 	size_t _SubSetIndex /*= 0*/)
@@ -53,7 +53,7 @@ GameEngineRenderUnit* GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name
 	}
 	else if (nullptr != FBXMesh && FBXMesh != FindFBXMesh)
 	{
-		// 지금까지 만든거 다 날립니다.
+		// 지금까지 만든거 다 날립니다. 
 	}
 
 	if (Unit.empty())
@@ -61,29 +61,35 @@ GameEngineRenderUnit* GameEngineFBXRenderer::SetFBXMesh(const std::string& _Name
 		Unit.resize(FBXMesh->GetRenderUnitCount());
 		for (size_t i = 0; i < Unit.size(); i++)
 		{
-			Unit[i].resize(FBXMesh->GetSubSetCount(i));
+			size_t Count = FBXMesh->GetSubSetCount(i);
+
+			Unit[i].resize(Count);
+			for (size_t j = 0; j < Count; j++)
+			{
+				Unit[i][j] = CreateRenderUnit();
+			}
 		}
 	}
 	
-	GameEngineRenderUnit& RenderUnit = Unit[Index][_SubSetIndex];
-	RenderUnit.SetMaterial(_Material);
+	std::shared_ptr<GameEngineRenderUnit> RenderUnit = Unit[Index][_SubSetIndex];
+	RenderUnit->SetMaterial(_Material);
+	RenderUnit->PushCamera();
 
 	std::shared_ptr <GameEngineMesh> FbxMesh = FBXMesh->GetGameEngineMesh(Index, _SubSetIndex);
-	RenderUnit.SetMesh(FbxMesh);
+	RenderUnit->SetMesh(FbxMesh);
 
-	if (RenderUnit.ShaderResources.IsTexture("DiffuseTexture"))
+	if (RenderUnit->ShaderResources.IsTexture("DiffuseTexture"))
 	{
 		const FbxExMaterialSettingData& MatData = FBXMesh->GetMaterialSettingData(Index, _SubSetIndex);
 
 		if (nullptr != GameEngineTexture::Find(MatData.DifTextureName))
 		{
-			RenderUnit.ShaderResources.SetTexture("DiffuseTexture", MatData.DifTextureName);
+			RenderUnit->ShaderResources.SetTexture("DiffuseTexture", MatData.DifTextureName);
 		}
 	}
 
-	RenderUnit.SetRenderer(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()));
 
-	return &RenderUnit;
+	return RenderUnit;
 }
 
 void GameEngineFBXRenderer::Render(float _DeltaTime) 
@@ -92,12 +98,17 @@ void GameEngineFBXRenderer::Render(float _DeltaTime)
 	{
 		for (size_t SubSetIndex = 0; SubSetIndex < Unit[UnitIndex].size(); SubSetIndex++)
 		{
-			if (nullptr == Unit[UnitIndex][SubSetIndex].GetMaterial())
+			if (nullptr == Unit[UnitIndex][SubSetIndex]->GetMaterial())
 			{
 				continue;
 			}
 
-			Unit[UnitIndex][SubSetIndex].Render(_DeltaTime);
+			//if (nullptr == Unit[UnitIndex][SubSetIndex].GetMaterial()->GetPixelShader()->GetIsDeffered())
+			//{
+			//	continue;
+			//}
+
+			Unit[UnitIndex][SubSetIndex]->Render(_DeltaTime);
 		}
 	}
 }

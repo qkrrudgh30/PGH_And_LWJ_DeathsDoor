@@ -17,9 +17,11 @@ void ContentsBlur::EffectInit()
 
 	InitializeBlurInfo();
 
-	mAppliedRenderUnit.SetMesh("FullRect");
-	mAppliedRenderUnit.SetMaterial("ContentsBlur");
-	mAppliedRenderUnit.ShaderResources.SetConstantBufferLink("BlurInfo", mBlurInfo);
+	msptrAppliedRenderUnit = std::make_shared<GameEngineRenderUnit>();
+
+	msptrAppliedRenderUnit->SetMesh("FullRect");
+	msptrAppliedRenderUnit->SetMaterial("ContentsBlur");
+	msptrAppliedRenderUnit->ShaderResources.SetConstantBufferLink("BlurInfo", mBlurInfo);
 }
 
 void ContentsBlur::Effect(std::shared_ptr<GameEngineRenderTarget> _sptrRenderTarget)
@@ -27,12 +29,12 @@ void ContentsBlur::Effect(std::shared_ptr<GameEngineRenderTarget> _sptrRenderTar
 	msptrRenderTargetForBlur->Copy(_sptrRenderTarget);
 	// msptrRenderTargetForBlur을 모두 지우고, _sptrRenderTarget의 그림을 그려라.
 
-	mAppliedRenderUnit.ShaderResources.SetTexture("Tex", msptrRenderTargetForBlur->GetRenderTargetTexture(0u));
+	msptrAppliedRenderUnit->ShaderResources.SetTexture("Tex", msptrRenderTargetForBlur->GetRenderTargetTexture(0u));
 	// msptrRenderTargetForBlur에 그려진 그림을 mAppliedRenderUnit의 셰이더 리소스로 세팅함. (셰이더가 적용되게 하기 위함.)
 
 	_sptrRenderTarget->Clear();
 	_sptrRenderTarget->Setting();
-	_sptrRenderTarget->Effect(mAppliedRenderUnit);
+	_sptrRenderTarget->Effect(msptrAppliedRenderUnit);
 	// _sptrRenderTarget에다가 완성된 mAppliedRenderUnit의 효과가 적용되게끔 함.
 
 }

@@ -82,7 +82,11 @@ protected:
 
 	virtual void Render(float _DeltaTime);
 
+	bool FontDraw(float _DeltaTime);
+
 	static std::shared_ptr<GameEngineRenderTarget> FontTarget;
+
+	std::shared_ptr<GameEngineRenderUnit> FontUnit;
 
 	std::string Text;
 	std::shared_ptr<GameEngineFont> Font;

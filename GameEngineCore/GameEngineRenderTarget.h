@@ -126,26 +126,22 @@ public:
 	
 	// void Effect(GameEngineMaterial* _Other, GameEngineShaderResourcesHelper* _ShaderResourcesHelper);
 
-	void Effect(class GameEngineRenderUnit& _RenderSet);
+	void Effect(std::shared_ptr<GameEngineRenderUnit> _RenderSet);
 
 	void EffectProcess();
 
-#pragma region TemporaryCode
-
-	std::vector<ID3D11ShaderResourceView*> ShaderResourceViews;
-
-#pragma endregion
 
 protected:
 	std::vector< std::shared_ptr<GameEngineTexture>> RenderTargets;
 	std::vector<ID3D11RenderTargetView*> RenderTargetViews;
+	std::vector<ID3D11ShaderResourceView*> ShaderResourceViews;
 	std::vector<float4> ClearColors;
 
 	// std::vector<ID3D11RenderTargetView*> RenderTargetViews;
 
 	ID3D11DepthStencilView* DepthStencilView;
 
-	GameEngineRenderUnit MergeUnit;
+	std::shared_ptr<GameEngineRenderUnit> MergeUnit;
 
 	//GameEngineShaderResourcesHelper MergeShaderResourcesHelper;
 	//GameEngineMaterial* MergePipeLine;

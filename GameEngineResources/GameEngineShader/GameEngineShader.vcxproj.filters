@@ -12,9 +12,6 @@
     <FxCompile Include="TargetMerge.hlsl">
       <Filter>TargetEffect</Filter>
     </FxCompile>
-    <FxCompile Include="Color.hlsl">
-      <Filter>Object</Filter>
-    </FxCompile>
     <FxCompile Include="Texture.hlsl">
       <Filter>Object</Filter>
     </FxCompile>
@@ -28,6 +25,21 @@
       <Filter>Object</Filter>
     </FxCompile>
     <FxCompile Include="LightHeader.fx" />
+    <FxCompile Include="DeferredHeader.fx">
+      <Filter>Object</Filter>
+    </FxCompile>
+    <FxCompile Include="Color.hlsl">
+      <Filter>Object</Filter>
+    </FxCompile>
+    <FxCompile Include="DeferredColor.hlsl">
+      <Filter>Object</Filter>
+    </FxCompile>
+    <FxCompile Include="CalDeferredMerge.hlsl">
+      <Filter>Deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="CalDeferredLight.hlsl">
+      <Filter>Deferred</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Debug">
@@ -38,6 +50,9 @@
     </Filter>
     <Filter Include="TargetEffect">
       <UniqueIdentifier>{ae7b6a6e-95f0-4707-af5c-a8e2aed6810a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Deferred">
+      <UniqueIdentifier>{2e0cab30-9ef4-48df-b2d1-8385a9a249a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

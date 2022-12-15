@@ -61,7 +61,7 @@ void ContentsRenderer::SetMaterial(const std::string& _strMaterialName)
 	if (ResourceType::UI == mShaderingInfo.miResourceType)
 	{
 		mwptrRenderingUnit.lock()->SetMaterial(_strMaterialName);
-		mwptrRenderingUnit.lock()->SetRenderer(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()));
+		// mwptrRenderingUnit.lock()->SetRenderer(std::dynamic_pointer_cast<GameEngineRenderer>(shared_from_this()));
 	}
 	else if (ResourceType::Static == mShaderingInfo.miResourceType)
 	{

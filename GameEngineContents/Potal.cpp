@@ -38,7 +38,7 @@ void Potal::Start()
 			else
 			{
 				FBXStaticRenderer->SetFBXMesh("Door.FBX", "Color", i);
-				FBXStaticRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::RED);
+				FBXStaticRenderer->GetAllRenderUnit()[i][0]->ShaderResources.SetConstantBufferLink("ResultColor", float4::RED);
 				// FBXStaticRenderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4{0.6f, 0.06f, 0.11f, 1.f});
 			}
 		}

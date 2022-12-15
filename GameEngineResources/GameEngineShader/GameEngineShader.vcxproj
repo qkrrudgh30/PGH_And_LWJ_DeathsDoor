@@ -129,8 +129,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <FxCompile Include="Blur.hlsl" />
+    <FxCompile Include="CalDeferredLight.hlsl" />
+    <FxCompile Include="CalDeferredMerge.hlsl" />
     <FxCompile Include="Color.hlsl" />
     <FxCompile Include="Debug3D.hlsl" />
+    <FxCompile Include="DeferredColor.hlsl" />
+    <FxCompile Include="DeferredHeader.fx" />
     <FxCompile Include="LightHeader.fx" />
     <FxCompile Include="RenderOption.fx" />
     <FxCompile Include="TargetMerge.hlsl" />

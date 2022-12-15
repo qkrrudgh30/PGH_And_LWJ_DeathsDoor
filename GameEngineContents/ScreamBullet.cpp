@@ -27,7 +27,7 @@ void ScreamBullet::Start()
 		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
 		FBXStaticRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 0.f, 0.f });
 		FBXStaticRenderer->SetFBXMesh("SmallCrow.FBX", "PreviousColor");
-		FBXStaticRenderer->GetAllRenderUnit()[0][0].ShaderResources.SetConstantBufferLink("ResultColor", float4{ 0.1f, 0.1f, 0.1f, 1.f });
+		FBXStaticRenderer->GetAllRenderUnit()[0][0]->ShaderResources.SetConstantBufferLink("ResultColor", float4{ 0.1f, 0.1f, 0.1f, 1.f });
 	}
 
 

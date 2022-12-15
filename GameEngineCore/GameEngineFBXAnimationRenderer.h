@@ -81,7 +81,7 @@ public:
 	GameEngineFBXAnimationRenderer& operator=(GameEngineFBXAnimationRenderer&& _Other) noexcept = delete;
 
 	void SetFBXMesh(const std::string& _Name, std::string _Material) override;
-	GameEngineRenderUnit* SetFBXMesh(const std::string& _Name, std::string _Material, size_t _MeshIndex, size_t _SubSetIndex = 0) override;
+	std::shared_ptr<GameEngineRenderUnit> SetFBXMesh(const std::string& _Name, std::string _Material, size_t _MeshIndex, size_t _SubSetIndex = 0) override;
 
 	void CreateFBXAnimation(const std::string& _AnimationName, const GameEngineRenderingEvent& _Desc, int _Index = 0);
 
@@ -147,8 +147,8 @@ public:
 	}
 
 	std::shared_ptr<FBXRendererAnimation> GetCurAnimation() { return CurAnimation; }
-	std::shared_ptr<FBXRendererAnimation> GetAnimationWithName(const std::string& _strName) 
-	{ 
+	std::shared_ptr<FBXRendererAnimation> GetAnimationWithName(const std::string& _strName)
+	{
 		std::string UpperName = GameEngineString::ToUpperReturn(_strName);
 
 		std::map<std::string, std::shared_ptr<FBXRendererAnimation>>::iterator FindIter = Animations.find(UpperName);
@@ -175,6 +175,7 @@ public:
 		return false;
 
 	}
+
 
 protected:
 

@@ -30,7 +30,7 @@ void Hall::Start()
 	 	{
 	 		Renderer->SetFBXMesh("Hall.fbx", "Color", i);
 	 		
-	 		Renderer->GetAllRenderUnit()[i][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::BLACK);
+	 		Renderer->GetAllRenderUnit()[i][0]->ShaderResources.SetConstantBufferLink("ResultColor", float4::BLACK);
 	 		continue;
 	 	}
 	 

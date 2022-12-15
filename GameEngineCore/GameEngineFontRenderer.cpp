@@ -34,15 +34,20 @@ void GameEngineFontRenderer::Start()
 	}
 
 	PushRendererToMainCamera();
+
+	FontUnit = CreateRenderUnit();
+	FontUnit->RenderFunction = std::bind(&GameEngineFontRenderer::FontDraw, this, std::placeholders::_1);
+	FontUnit->PushCamera();
+
 }
 
-// 랜더링 파이프라인이 필요가 아직은 없어요
-void GameEngineFontRenderer::Render(float _DeltaTime)
+
+bool GameEngineFontRenderer::FontDraw(float _DeltaTime)
 {
-	// 이거는 랜더타겟을 해야겠네요.
+		// 이거는 랜더타겟을 해야겠네요.
 	if (nullptr == Font)
 	{
-		return;
+		return false;
 	}
 
 	float4 Pos = ScreenPostion;
@@ -51,8 +56,8 @@ void GameEngineFontRenderer::Render(float _DeltaTime)
 	{
 		Pos = GetTransform().GetWorldPosition();
 
-		Pos *= Camera.lock()->GetViewMatrix();
-		Pos *= Camera.lock()->GetProjectionMatrix();
+		Pos *= Camera->GetViewMatrix();
+		Pos *= Camera->GetProjectionMatrix();
 
 		float4x4 ViewPort;
 
@@ -62,20 +67,55 @@ void GameEngineFontRenderer::Render(float _DeltaTime)
 		Pos *= ViewPort;
 	}
 
-	// 이녀석이 내부에서 무슨짓을 하는지는 모르지만.
-	// 기존 화면에다가 그리면 안되죠?
-	// 랜더타겟
-	// 글자는 또다른 랜더타겟에 그릴겁니다.
-
-	// 이전에 존재했던 랜더타겟을 얻고
-	//GameEngineRenderTarget::GetPrevRenderTarget();
-	//FontTarget->Setting();
-
 	FontTarget->Clear();
 	FontTarget->Setting();
 	Font->FontDraw(Text, FontSize, Pos, Color, static_cast<int>(LR) | static_cast<int>(TB));
 	GameEngineMaterial::AllShaderReset();
-	Camera.lock()->GetCameraRenderTarget()->Merge(FontTarget);
+	// Camera->GetCameraRenderTarget()->Merge(FontTarget);
+	Camera->GetCurTarget()->Merge(FontTarget);
+
+	return false;
+}
+// 랜더링 파이프라인이 필요가 아직은 없어요
+void GameEngineFontRenderer::Render(float _DeltaTime)
+{
+	//// 이거는 랜더타겟을 해야겠네요.
+	//if (nullptr == Font)
+	//{
+	//	return;
+	//}
+
+	//float4 Pos = ScreenPostion;
+
+	//if (Mode == FontPositionMode::WORLD)
+	//{
+	//	Pos = GetTransform().GetWorldPosition();
+
+	//	Pos *= Camera->GetViewMatrix();
+	//	Pos *= Camera->GetProjectionMatrix();
+
+	//	float4x4 ViewPort;
+
+	//	float4 Size = GameEngineWindow::GetInst()->GetScale();
+	//	ViewPort.ViewPort(Size.x, Size.y, 0.0f, 0.0f, 0.0f, 1.0f);
+
+	//	Pos *= ViewPort;
+	//}
+
+	//// 이녀석이 내부에서 무슨짓을 하는지는 모르지만.
+	//// 기존 화면에다가 그리면 안되죠?
+	//// 랜더타겟
+	//// 글자는 또다른 랜더타겟에 그릴겁니다.
+
+	//// 이전에 존재했던 랜더타겟을 얻고
+	////GameEngineRenderTarget::GetPrevRenderTarget();
+	////FontTarget->Setting();
+
+	//FontTarget->Clear();
+	//FontTarget->Setting();
+	//Font->FontDraw(Text, FontSize, Pos, Color, static_cast<int>(LR) | static_cast<int>(TB));
+	//GameEngineMaterial::AllShaderReset();
+	//Camera->GetCameraRenderTarget()->Merge(FontTarget);
 
 	//GameEngineRenderTarget::SetPrevRenderTarget();
 	// FontTarget->R();

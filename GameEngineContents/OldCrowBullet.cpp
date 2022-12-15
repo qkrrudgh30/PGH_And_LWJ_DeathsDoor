@@ -25,7 +25,7 @@ void OldCrowBullet::Start()
 		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 1.5f, 1.5f, 1.5f });
 		FBXStaticRenderer->GetTransform().SetLocalRotation(float4{ 90.f, 0.f, 0.f });
 		FBXStaticRenderer->SetFBXMesh("SmallCrow.FBX", "PreviousColor");
-		FBXStaticRenderer->GetAllRenderUnit()[0][0].ShaderResources.SetConstantBufferLink("ResultColor", color);
+		FBXStaticRenderer->GetAllRenderUnit()[0][0]->ShaderResources.SetConstantBufferLink("ResultColor", color);
 
 	}
 

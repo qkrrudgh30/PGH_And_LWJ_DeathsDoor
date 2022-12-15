@@ -64,7 +64,7 @@ void FadeRenderer::SetFadeInfo(int _iInAndOut, float _fHoldingTime, bool _bIsLoo
 
 void FadeRenderer::SetTexture(const std::string& _strTextureName)
 {
-	mwpCurrTexture = GetShaderResources().SetTexture("Tex", _strTextureName);
+	mwpCurrTexture = GetShaderResources().SetTexture("Tex", _strTextureName);                                                                                                                                                                                                                                                          
 }
 
 void FadeRenderer::Start()

@@ -120,8 +120,8 @@ void UnitBase::InitializePaperBurn(std::shared_ptr<GameEngineFBXAnimationRendere
 	{
 		for (size_t j = 0; j < vuSubsetCount[i]; ++j)
 		{
-			_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetConstantBufferLink("PaperBurnInfo", mPaperBurnInfo);
-			_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetTexture("CloudTexture", "CloudTexture.png");
+			_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j]->ShaderResources.SetConstantBufferLink("PaperBurnInfo", mPaperBurnInfo);
+			_sptrFBXAnimationRenderer->GetAllRenderUnit()[i][j]->ShaderResources.SetTexture("CloudTexture", "CloudTexture.png");
 		}
 	}
 }
@@ -138,8 +138,8 @@ void UnitBase::InitializePaperBurn(std::shared_ptr<GameEngineFBXAnimationRendere
 
 	for (size_t j = 0; j < vuSubsetCount[_uMeshIndex]; ++j)
 	{
-		_sptrFBXAnimationRenderer->GetAllRenderUnit()[_uMeshIndex][j].ShaderResources.SetConstantBufferLink("PaperBurnInfo", mPaperBurnInfo);
-		_sptrFBXAnimationRenderer->GetAllRenderUnit()[_uMeshIndex][j].ShaderResources.SetTexture("CloudTexture", "CloudTexture.png");
+		_sptrFBXAnimationRenderer->GetAllRenderUnit()[_uMeshIndex][j]->ShaderResources.SetConstantBufferLink("PaperBurnInfo", mPaperBurnInfo);
+		_sptrFBXAnimationRenderer->GetAllRenderUnit()[_uMeshIndex][j]->ShaderResources.SetTexture("CloudTexture", "CloudTexture.png");
 	}
 }
 
@@ -157,8 +157,8 @@ void UnitBase::InitializePaperBurn(std::shared_ptr<GameEngineFBXStaticRenderer>&
 	{
 		for (size_t j = 0; j < vuSubsetCount[i]; ++j)
 		{
-			_sptrFBXStaticRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetConstantBufferLink("PaperBurnInfo", mPaperBurnInfo);
-			_sptrFBXStaticRenderer->GetAllRenderUnit()[i][j].ShaderResources.SetTexture("CloudTexture", "CloudTexture.png");
+			_sptrFBXStaticRenderer->GetAllRenderUnit()[i][j]->ShaderResources.SetConstantBufferLink("PaperBurnInfo", mPaperBurnInfo);
+			_sptrFBXStaticRenderer->GetAllRenderUnit()[i][j]->ShaderResources.SetTexture("CloudTexture", "CloudTexture.png");
 		}
 	}
 }

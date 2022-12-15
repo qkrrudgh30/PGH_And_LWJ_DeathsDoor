@@ -46,7 +46,7 @@ protected:
 private:
 	std::weak_ptr<ContentsBlur>		mwptrContentsBlur;
 	std::shared_ptr<GameEngineRenderTarget>	msptrRenderTargetForBlur;
-	GameEngineRenderUnit					mAppliedRenderUnit;
+	std::shared_ptr<GameEngineRenderUnit>	msptrAppliedRenderUnit;
 	BlurInfo							mBlurInfo;
 
 };

@@ -17,20 +17,22 @@ void ContentsBloom::EffectInit()
 
 	InitializeBloomInfo();
 
-	mAppliedRenderUnit.SetMesh("FullRect");
-	mAppliedRenderUnit.SetMaterial("ContentsBloom");
-	mAppliedRenderUnit.ShaderResources.SetConstantBufferLink("BloomInfo", mBloomInfo);
+	msptrAppliedRenderUnit = std::make_shared<GameEngineRenderUnit>();
+
+	msptrAppliedRenderUnit->SetMesh("FullRect");
+	msptrAppliedRenderUnit->SetMaterial("ContentsBloom");
+	msptrAppliedRenderUnit->ShaderResources.SetConstantBufferLink("BloomInfo", mBloomInfo);
 }
 
 void ContentsBloom::Effect(std::shared_ptr<GameEngineRenderTarget> _sptrRenderTarget)
 {
 	msptrRenderTargetForBloom->Copy(_sptrRenderTarget);
 
-	mAppliedRenderUnit.ShaderResources.SetTexture("Tex", msptrRenderTargetForBloom->GetRenderTargetTexture(0u));
+	msptrAppliedRenderUnit->ShaderResources.SetTexture("Tex", msptrRenderTargetForBloom->GetRenderTargetTexture(0u));
 
 	_sptrRenderTarget->Clear();
 	_sptrRenderTarget->Setting();
-	_sptrRenderTarget->Effect(mAppliedRenderUnit);
+	_sptrRenderTarget->Effect(msptrAppliedRenderUnit);
 }
 
 void ContentsBloom::SetBloomInfo(unsigned int _uOnOff, unsigned int muAppliedArea, float _fLuminance, float _fIntence)

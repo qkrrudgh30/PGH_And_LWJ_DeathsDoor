@@ -3,6 +3,7 @@
 
 GameEnginePixelShader::GameEnginePixelShader() 
 	: ShaderPtr(nullptr)
+	, IsDeferred(false)
 {
 	ShaderSettingType = ShaderType::Pixel;
 }

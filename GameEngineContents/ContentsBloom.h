@@ -48,7 +48,7 @@ private:
 	std::weak_ptr<ContentsBloom>		mwptrContentsBloom;
 	BloomInfo						mBloomInfo;
 	std::shared_ptr<GameEngineRenderTarget>	msptrRenderTargetForBloom;
-	GameEngineRenderUnit					mAppliedRenderUnit;
+	std::shared_ptr<GameEngineRenderUnit>	msptrAppliedRenderUnit;
 
 };
 

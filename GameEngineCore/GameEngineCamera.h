@@ -12,6 +12,15 @@ enum class CAMERAPROJECTIONMODE
 	Orthographic,
 };
 
+// 우리의 랜더링 순서.
+enum class RENDERINGPATHORDER
+{
+	FORWARD,
+	DEFERRED,
+	MAX,
+};
+
+
 
 // 설명 :
 class GameEngineLight;
@@ -48,6 +57,16 @@ public:
 		return CameraRenderTarget;
 	}
 
+	inline std::shared_ptr < GameEngineRenderTarget> GetCameraDeferredGBufferRenderTarget()
+	{
+		return CameraDeferredGBufferRenderTarget;
+	}
+
+	inline std::shared_ptr < GameEngineRenderTarget> GetCameraDeferredLightRenderTarget()
+	{
+		return CameraDeferredLightRenderTarget;
+	}
+
 	void SetCameraOrder(CAMERAORDER _Order);
 
 	inline void SetProjectionMode(CAMERAPROJECTIONMODE _Mode)
@@ -62,7 +81,7 @@ public:
 
 	float4 GetMouseWorldPositionToActor();
 
-	inline float4x4 GetViewMatrix() 
+	inline float4x4 GetViewMatrix()
 	{
 		return View;
 	}
@@ -87,6 +106,11 @@ public:
 		return Size;
 	}
 
+	inline std::shared_ptr<class GameEngineRenderTarget> GetCurTarget()
+	{
+		return CurTarget;
+	}
+
 	//                  개수
 	GameEngineInstancing& GetInstancing(const std::string& _Name);
 	//void PushInstancing(std::shared_ptr < GameEngineMaterial> _Pipe, int Count);
@@ -108,15 +132,31 @@ private:
 
 	void PushRenderer(std::shared_ptr < GameEngineRenderer> _Renderer);
 
+	void PushRenderUnit(std::shared_ptr < GameEngineRenderUnit> _RenderUnit);
+
 	void Release(float _DelataTime);
 
 	void Update(float _DeltaTime) override;
 
 	void OverRenderer(std::shared_ptr<GameEngineCamera> _NextOver);
 
+	std::shared_ptr<class GameEngineRenderTarget> CurTarget;
+
 	std::shared_ptr<class GameEngineRenderTarget> CameraRenderTarget;
 
+	std::shared_ptr<class GameEngineRenderTarget> CameraForwardRenderTarget;
+
+	std::shared_ptr<GameEngineRenderUnit> LightUnit;
+
+	std::shared_ptr<class GameEngineRenderTarget> CameraDeferredGBufferRenderTarget;
+
+	std::shared_ptr<class GameEngineRenderTarget> CameraDeferredLightRenderTarget;
+
+	std::shared_ptr<class GameEngineRenderTarget> CameraDeferredRenderTarget;
+
 	std::map<int, std::list<std::shared_ptr<class GameEngineRenderer>>> AllRenderer_;
+
+	std::map<RENDERINGPATHORDER, std::map<int, std::list<std::shared_ptr<class GameEngineRenderUnit>>>> AllRenderUnit_;
 
 	std::unordered_map<std::string, GameEngineInstancing> InstancingMap;
 

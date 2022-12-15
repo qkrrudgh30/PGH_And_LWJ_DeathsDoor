@@ -21,7 +21,7 @@ void Floor::Start()
 	std::shared_ptr < GameEngineFBXStaticRenderer> Renderer = CreateComponent<GameEngineFBXStaticRenderer>();
 	GetTransform().SetWorldPosition({ 0.f, 0.f,-5000.f });
 	Renderer->SetFBXMesh("Floor.fbx", "PreviousColor");
-	Renderer->GetAllRenderUnit()[0][0].ShaderResources.SetConstantBufferLink("ResultColor", float4::WHITE);
+	Renderer->GetAllRenderUnit()[0][0]->ShaderResources.SetConstantBufferLink("ResultColor", float4::WHITE);
 	
 }
 
