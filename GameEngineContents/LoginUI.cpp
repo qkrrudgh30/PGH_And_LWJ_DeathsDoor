@@ -82,6 +82,31 @@ void LoginUI::Start()
 	m_fEditPos2 = { 100.f,-250.f, -250.f };
 
 
+	{
+		FontPlay = CreateComponent<GameEngineUIRenderer>();
+		FontPlay->SetTexture("Start.png");
+		FontPlay->ScaleToTexture();
+		FontPlay->GetTransform().SetLocalScale({ 150, 50, 1 });
+		FontPlay->GetTransform().SetLocalPosition({ 0.f,-200.f, -250.f });
+		FontPlay->GetTransform().SetLocalRotation({ 0.f,0.f,0.f });
+		FontPlay->ChangeCamera(CAMERAORDER::UICAMERA);
+
+	}
+
+
+	{
+		FontEdit = CreateComponent<GameEngineUIRenderer>();
+		FontEdit->SetTexture("Exit.png");
+		FontEdit->ScaleToTexture();
+		FontEdit->GetTransform().SetLocalScale({ 150, 50, 1 });
+		FontEdit->GetTransform().SetLocalPosition({ 0.f,-250.f, -250.f });
+		FontEdit->GetTransform().SetLocalRotation({ 0.f,0.f,0.f });
+		FontEdit->ChangeCamera(CAMERAORDER::UICAMERA);
+
+	}
+
+
+
 
 	//{
 	//	FontPlay = CreateComponent<GameEngineFontRenderer>();

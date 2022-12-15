@@ -1,33 +1,33 @@
 
 
 #include "PreCompile.h"
-#include "ArrowEffMgr.h"
+#include "SWEffMgr.h"
 
-#include "ArrowEff.h"
+#include "SWEff.h"
 #include"GameEngineBase/GameEngineRandom.h"
 #include "BillboardRenderer.h"
-ArrowEffMgr::ArrowEffMgr()
+SWEffMgr::SWEffMgr()
 {
 }
 
-ArrowEffMgr::~ArrowEffMgr()
+SWEffMgr::~SWEffMgr()
 {
 }
 
 
 
-void ArrowEffMgr::Start()
+void SWEffMgr::Start()
 {
 
 }
 
-void ArrowEffMgr::Update(float _DeltaTime)
+void SWEffMgr::Update(float _DeltaTime)
 {
 	m_fSpeed += _DeltaTime;
 
 	float4 MyPos = GetTransform().GetWorldPosition();
 	float4 Rot = {};
-	
+
 
 
 
@@ -43,12 +43,12 @@ void ArrowEffMgr::Update(float _DeltaTime)
 		Rot = { RandX ,RandY ,RandZ };
 
 
-		
-		std::weak_ptr < ArrowEff> Bullet = GetLevel()->CreateActor<ArrowEff>(OBJECTORDER::Eff);
+
+		std::weak_ptr < SWEff> Bullet = GetLevel()->CreateActor<SWEff>(OBJECTORDER::Eff);
 
 		Bullet.lock()->GetTransform().SetWorldPosition(MyPos);
 		Bullet.lock()->m_fHitDir = Rot;
-	//	Bullet.lock()->GetTransform().SetWorldRotation(Rot);
+		//	Bullet.lock()->GetTransform().SetWorldRotation(Rot);
 		Bullet.lock()->TexRenderer->GetTransform().SetWorldRotation(Rot);
 		Bullet.lock()->m_fScaleMax = GameEngineRandom::MainRandom.RandomFloat(50.f, 100.f);
 

@@ -117,7 +117,8 @@ CollisionReturn PlayerFireBullet::PlayerCollision(std::shared_ptr < GameEngineCo
 
 
 	std::weak_ptr < PalyerFireMgr> Bullet = GetLevel()->CreateActor<PalyerFireMgr>(OBJECTORDER::Eff);
-	float4 MyPos = GetTransform().GetWorldPosition();
+	Bullet.lock()->m_bColorBlue = true;
+	float4 MyPos = _Other->GetTransform().GetWorldPosition();
 	Bullet.lock()->GetTransform().SetWorldPosition(MyPos);
 
 

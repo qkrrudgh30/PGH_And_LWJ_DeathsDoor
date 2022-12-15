@@ -118,7 +118,7 @@ CollisionReturn FlowerBullet::PlayerCollision(std::shared_ptr < GameEngineCollis
 	}
 
 	std::weak_ptr < PalyerFireMgr> Bullet = GetLevel()->CreateActor<PalyerFireMgr>(OBJECTORDER::Eff);
-	float4 MyPos = GetTransform().GetWorldPosition();
+	float4 MyPos = NewPlayer->GetTransform().GetWorldPosition();
 	Bullet.lock()->GetTransform().SetWorldPosition(MyPos);
 
 	Death();

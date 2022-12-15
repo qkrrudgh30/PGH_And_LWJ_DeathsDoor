@@ -271,6 +271,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="OldCrowUI.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="PalyerFireMgr.h">
       <SubType>
       </SubType>
@@ -328,6 +332,14 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="Spike.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SWEff.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="SWEffMgr.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -459,6 +471,10 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="TestActor.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="TowerBossUI.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -605,6 +621,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="OldCrowState.cpp" />
+    <ClCompile Include="OldCrowUI.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="PalyerFireMgr.cpp">
       <SubType>
       </SubType>
@@ -662,6 +682,14 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="Spike.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SWEff.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="SWEffMgr.cpp">
       <SubType>
       </SubType>
     </ClCompile>
@@ -795,6 +823,10 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="TestActor.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="TowerBossUI.cpp">
       <SubType>
       </SubType>
     </ClCompile>

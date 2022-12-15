@@ -11,6 +11,7 @@
 
 // Ό³Έν :
 class Player;
+class OldCrowUI;
 class DashBullet;
 class OldCrow : public UnitBase
 {
@@ -27,6 +28,10 @@ public:
 
 	void HittedSound() override { m_structSoundPlayer.Stop(); m_structSoundPlayer = GameEngineSound::SoundPlayControl("32_LastBossHitted.mp3"); }
 	CollisionReturn PlayerCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other);
+
+	std::weak_ptr < OldCrowUI>		MainUI;
+
+
 
 
 public:

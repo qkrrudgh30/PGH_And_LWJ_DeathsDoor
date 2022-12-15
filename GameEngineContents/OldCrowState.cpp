@@ -12,6 +12,9 @@
 #include "ScreamMgr.h"
 
 
+#include "OldCrowUI.h"
+
+
 void OldCrow::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 {
 
@@ -46,7 +49,7 @@ void OldCrow::StartActEnd(const StateInfo& _Info)
 	GetLevel()->GetMainCameraActorTransform().SetWorldPosition(PlayerPos);
 
 	TexRenderer->Off();
-
+	MainUI.lock()->Off();
 	Player::GetMainPlayer()->m_bOldCrowCameraCheck = false;
 	
 }
@@ -63,6 +66,7 @@ void OldCrow::StartActUpdate(float _DeltaTime, const StateInfo& _Info)
 	{
 		if (!ScreamAnicheck)
 		{
+			MainUI.lock()->m_bStartCheck = true;
 			FBXAnimationRenderer->ChangeAnimation("OldCrow_Scream");
 			CameraShake(1.f);
 			ScreamAnicheck = true;
@@ -71,7 +75,7 @@ void OldCrow::StartActUpdate(float _DeltaTime, const StateInfo& _Info)
 			std::weak_ptr < ScreamMgr> ScreamBullet = GetLevel()->CreateActor<ScreamMgr>(OBJECTORDER::MonsterAtt);
 			MyPos.y = 200.f;
 
-			MyPos.x + GetTransform().GetForwardVector().x * 200.f;
+			MyPos.x = MyPos.x + GetTransform().GetForwardVector().x * 200.f;
 			ScreamBullet.lock()->GetTransform().SetWorldPosition(MyPos);
 
 

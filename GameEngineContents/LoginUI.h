@@ -35,8 +35,8 @@ private:
 	float4 m_fEditPos2;
 
 
-	std::shared_ptr < GameEngineFontRenderer> FontPlay;
-	std::shared_ptr < GameEngineFontRenderer> FontEdit;
+	std::shared_ptr < GameEngineUIRenderer> FontPlay;
+	std::shared_ptr < GameEngineUIRenderer> FontEdit;
 	float TimeAngle;
 };
 

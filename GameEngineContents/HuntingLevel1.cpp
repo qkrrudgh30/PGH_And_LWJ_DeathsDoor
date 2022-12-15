@@ -13,6 +13,7 @@
 
 
 #include "Firemgr.h"
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
@@ -61,7 +62,9 @@ void HuntingLevel1::LevelStartEvent()
 		{
 
 			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_.lock()->GetTransform().SetWorldPosition({ -1231.F,0.F,-1875.F });
+			Potal_.lock()->GetTransform().SetWorldPosition({ -1025.F,0.F,-1815.F });
+			Potal_.lock()->FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.7f, 0.7f, 0.7f });
+			Potal_.lock()->FBXStaticRenderer->GetTransform().SetLocalRotation({ 0.f, 225.f, 0.f });
 			Potal_.lock()->m_PotalType = PotalType::Stage1ToStage2;
 
 		}
@@ -88,7 +91,8 @@ void HuntingLevel1::LevelStartEvent()
 		{
 
 			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_.lock()->GetTransform().SetWorldPosition({ 503.F,0.F,-172.f });
+			Potal_.lock()->GetTransform().SetWorldPosition({ 448.F,0.F,-290.f });
+			Potal_.lock()->FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
 			Potal_.lock()->m_PotalType = PotalType::Stage1ToSLogin;
 
 		}
@@ -138,7 +142,7 @@ void HuntingLevel1::LevelStartEvent()
 		else
 		{
 			Player*  NewPlayer = Player::GetMainPlayer();
-			NewPlayer->GetTransform().SetWorldPosition({ 357.F,0.F,-353.F });
+			NewPlayer->GetTransform().SetWorldPosition({ 340.F,0.F,-400.F });
 			NewPlayer->UIOn();
 			//NewPlayer->m_bLogoLevelCheck = false;
 

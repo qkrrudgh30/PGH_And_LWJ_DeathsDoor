@@ -7,6 +7,10 @@
 #include"LaserTarget.h"
 #include "TowerLaser.h"
 
+
+#include "TowerBossUI.h"
+
+
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
 
@@ -35,6 +39,11 @@ void Tower::Start()
 	
 	//GetTransform().SetLocalRotation({0.f,-45.f,0.f});
 	GetTransform().SetWorldPosition({ 356.f,3000.F,25.f });
+
+
+	MainUI = GetLevel()->CreateActor<TowerBossUI>(OBJECTORDER::UI);
+
+
 
 
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
@@ -289,9 +298,13 @@ void Tower::MoveStart(const StateInfo& _Info)
 	GetLevel()->GetMainCameraActorTransform().SetWorldPosition({-1185.f,68.f,-1445.f });
 	FBXAnimationRenderer->ChangeAnimation("Tower_Slam");
 
+	
+
 }
 void Tower::MoveEnd(const StateInfo& _Info)
 {
+
+	MainUI.lock()->Off();
 
 	GetLevel()->GetMainCameraActorTransform().SetWorldRotation({ 45.f,0.f,0.f });
 	float4 PlayerPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
@@ -313,6 +326,8 @@ void Tower::MoveUpdate(float _DeltaTime, const StateInfo& _Info)
 	float4 MyPos = GetTransform().GetWorldPosition();
 	if (MyPos.y <= 0.f)
 	{
+
+		MainUI.lock()->m_bStartCheck = true;
 		MyPos.y = 0.f;
 		GetTransform().SetWorldPosition(MyPos);
 		

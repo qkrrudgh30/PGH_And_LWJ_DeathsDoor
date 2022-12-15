@@ -199,6 +199,15 @@
     <Filter Include="01.Actor\02.Unit\06.Effect\04.PlayerFireEff">
       <UniqueIdentifier>{6f0dbbbd-6191-4524-9018-60d3a77ccea3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\01.UI\02.TowerUI">
+      <UniqueIdentifier>{6c8b74e2-5864-4136-9980-553ada400935}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\01.UI\03.OldCrowUI">
+      <UniqueIdentifier>{1dd76932-0a70-4a82-bded-c61cdf1875ff}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="01.Actor\02.Unit\06.Effect\05.SWEff">
+      <UniqueIdentifier>{4e51eee2-6265-41c8-9448-2242f26d7aca}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -468,6 +477,18 @@
     </ClInclude>
     <ClInclude Include="PalyerFireMgr.h">
       <Filter>01.Actor\02.Unit\06.Effect\04.PlayerFireEff</Filter>
+    </ClInclude>
+    <ClInclude Include="TowerBossUI.h">
+      <Filter>01.Actor\01.UI\02.TowerUI</Filter>
+    </ClInclude>
+    <ClInclude Include="OldCrowUI.h">
+      <Filter>01.Actor\01.UI\03.OldCrowUI</Filter>
+    </ClInclude>
+    <ClInclude Include="SWEff.h">
+      <Filter>01.Actor\02.Unit\06.Effect\05.SWEff</Filter>
+    </ClInclude>
+    <ClInclude Include="SWEffMgr.h">
+      <Filter>01.Actor\02.Unit\06.Effect\05.SWEff</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -744,6 +765,18 @@
     </ClCompile>
     <ClCompile Include="PalyerFireMgr.cpp">
       <Filter>01.Actor\02.Unit\06.Effect\04.PlayerFireEff</Filter>
+    </ClCompile>
+    <ClCompile Include="TowerBossUI.cpp">
+      <Filter>01.Actor\01.UI\02.TowerUI</Filter>
+    </ClCompile>
+    <ClCompile Include="OldCrowUI.cpp">
+      <Filter>01.Actor\01.UI\03.OldCrowUI</Filter>
+    </ClCompile>
+    <ClCompile Include="SWEff.cpp">
+      <Filter>01.Actor\02.Unit\06.Effect\05.SWEff</Filter>
+    </ClCompile>
+    <ClCompile Include="SWEffMgr.cpp">
+      <Filter>01.Actor\02.Unit\06.Effect\05.SWEff</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

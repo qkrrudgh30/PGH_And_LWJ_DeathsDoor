@@ -40,9 +40,6 @@ void FireEff::Start()
 	TexRenderer->ChangeCamera(CAMERAORDER::USER1);
 
 
-	AttCollision = CreateComponent<GameEngineCollision>();
-	AttCollision->GetTransform().SetLocalScale({ 10.f, 500.0f, 10.0f });
-	AttCollision->ChangeOrder(OBJECTORDER::MonsterAtt);
 
 
 
