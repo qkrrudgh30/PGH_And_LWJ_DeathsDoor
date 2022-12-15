@@ -82,5 +82,13 @@ void EditLevel::LevelStartEvent()
 		Death(); // Fade-Out
 	}
 
+
+
+
+
+	if (Player::GetMainPlayer())
+	{
+		Player::GetMainPlayer()->Off();
+	}
 	
 }

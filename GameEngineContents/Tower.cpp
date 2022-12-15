@@ -222,12 +222,84 @@ void Tower::Start()
 		, std::bind(&Tower::JumpEnd, this, std::placeholders::_1)
 	);
 
+	StateManager.CreateStateMember("Death"
+		, std::bind(&Tower::DeathUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Tower::DeathStart, this, std::placeholders::_1)
+		, std::bind(&Tower::DeathEnd, this, std::placeholders::_1)
+	);
+
+
 
 	StateManager.ChangeState("Start");
 }
 
+
+void Tower::DeathStart(const StateInfo& _Info)
+{
+	FBXAnimationRenderer->ChangeAnimation("Tower_Laser_E");
+
+	if (m_CLaserTarget.lock())
+	{
+		m_CLaserTarget.lock()->Death();
+		m_CLaserTarget.reset();
+
+
+	}
+	if (m_CLaser.lock())
+	{
+		m_CLaser.lock()->Death();
+		m_CLaser.reset();
+
+
+	}
+
+
+}
+
+void Tower::DeathEnd(const StateInfo& _Info)
+{
+
+}
+
+void Tower::DeathUpdate(float _DeltaTime, const StateInfo& _Info)
+{
+
+}
+
+
+
+
 void Tower::Update(float _DeltaTime)
 {
+
+
+
+#pragma region PaperBurn
+	if (m_Info.m_Hp <= 0 && false == mbOnce)
+	{
+		Death(mfPaperburnDeathTime);
+		m_cSpike.lock()->Death(mfPaperburnDeathTime);
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("24_MiddleBossDeath.mp3");
+		mbOnce = true;
+		mbOnDeath = true;
+		return;
+	}
+
+	if (m_Info.m_Hp <= 0 && true == mbOnDeath && true == m_bDeathEnd)
+	{
+		StateManager.ChangeState("Death");
+
+		m_fAccTimeForPaperburn += _DeltaTime;
+		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
+
+
+		return;
+	}
+#pragma endregion
+
+
+
 
 	BaseUpdate(_DeltaTime);
 
@@ -265,23 +337,7 @@ void Tower::Update(float _DeltaTime)
 
 	StateManager.Update(_DeltaTime);
 
-#pragma region PaperBurn
-	if (m_Info.m_Hp <= 0 && false == mbOnce)
-	{
-		Death(mfPaperburnDeathTime);
-		m_cSpike.lock()->Death(mfPaperburnDeathTime);
-		m_structSoundPlayer.Stop();
-		m_structSoundPlayer = GameEngineSound::SoundPlayControl("24_MiddleBossDeath.mp3");
-		mbOnce = true;
-		mbOnDeath = true;
-	}
 
-	if (m_Info.m_Hp <= 0 && true == mbOnDeath && true == m_bDeathEnd)
-	{
-		m_fAccTimeForPaperburn += _DeltaTime;
-		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
-	}
-#pragma endregion
 
 }
 

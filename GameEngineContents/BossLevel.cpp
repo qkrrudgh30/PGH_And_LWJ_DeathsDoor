@@ -80,6 +80,7 @@ void BossLevel::LevelStartEvent()
 		else
 		{
 			Player* NewPlayer = Player::GetMainPlayer();
+			NewPlayer->On();
 			NewPlayer->GetTransform().SetWorldPosition({ 1.F,0.F,1.F });
 			NewPlayer->UIOn();
 			//NewPlayer->m_bLogoLevelCheck = false;

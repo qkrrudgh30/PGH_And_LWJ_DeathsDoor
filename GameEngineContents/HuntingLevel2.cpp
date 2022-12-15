@@ -156,6 +156,7 @@ void HuntingLevel2::LevelStartEvent()
 		else
 		{
 			Player* NewPlayer = Player::GetMainPlayer();
+			NewPlayer->On();
 			NewPlayer->GetTransform().SetWorldPosition({ 482.F,0.F,-1013.F });
 			NewPlayer->UIOn();
 			//NewPlayer->m_bLogoLevelCheck = false;

@@ -83,6 +83,13 @@ void Slime::Start()
 		, std::bind(&Slime::IdleStart, this, std::placeholders::_1)
 	);
 
+	StateManager.CreateStateMember("Death"
+		, std::bind(&Slime::DeathUpdate, this, std::placeholders::_1, std::placeholders::_2)
+		, std::bind(&Slime::DeathStart, this, std::placeholders::_1)
+		, std::bind(&Slime::DeathEnd, this, std::placeholders::_1)
+	);
+
+
 	StateManager.CreateStateMember("Move"
 		, std::bind(&Slime::MoveUpdate, this, std::placeholders::_1, std::placeholders::_2)
 		, std::bind(&Slime::MoveStart, this, std::placeholders::_1)
@@ -136,6 +143,11 @@ void Slime::Update(float _DeltaTime)
 	{
 		m_fAccTimeForPaperburn += _DeltaTime / mfPaperburnDeathTime;
 		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
+
+		
+
+		StateManager.ChangeState("Death");
+
 	}
 #pragma endregion
 }
@@ -143,6 +155,19 @@ void Slime::Update(float _DeltaTime)
 
 
 
+void Slime::DeathStart(const StateInfo& _Info)
+{
+	FBXAnimationRenderer->ChangeAnimation("Slime_Idle");
+	FBXAnimationRenderer->PauseSwtich();
+}
+void Slime::DeathEnd(const StateInfo& _Info)
+{
+
+}
+void Slime::DeathUpdate(float _DeltaTime, const StateInfo& _Info)
+{
+
+}
 
 
 void Slime::MoveStart(const StateInfo& _Info)

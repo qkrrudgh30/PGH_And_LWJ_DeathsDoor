@@ -52,6 +52,11 @@ protected:
 	void AttUpdate(float _DeltaTime, const StateInfo& _Info);
 
 
+	void DeathStart(const StateInfo& _Info);
+	void DeathEnd(const StateInfo& _Info);
+	void DeathUpdate(float _DeltaTime, const StateInfo& _Info);
+
+
 	void AniSlime_Att(const GameEngineRenderingEvent& _Data);
 	void AniSlime_Idle(const GameEngineRenderingEvent& _Data);
 	void AniSlime_Move(const GameEngineRenderingEvent& _Data);

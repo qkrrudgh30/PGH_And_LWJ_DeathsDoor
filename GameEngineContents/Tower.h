@@ -78,6 +78,11 @@ protected:
 	void JumpUpdate(float _DeltaTime, const StateInfo& _Info);
 		 
 
+	void DeathStart(const StateInfo& _Info);
+	void DeathEnd(const StateInfo& _Info);
+	void DeathUpdate(float _DeltaTime, const StateInfo& _Info);
+
+
 	void End() {}
 
 	virtual void Update(float _DeltaTime) override;

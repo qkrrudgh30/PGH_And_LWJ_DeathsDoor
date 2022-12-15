@@ -139,7 +139,7 @@ void LoginLevel::LevelStartEvent()
 			NewPlayer.lock()->SetLevelOverOn();
 			NewPlayer.lock()->UIOff();
 			NewPlayer.lock()->m_bLogoLevelCheck = true;
-
+			NewPlayer.lock()->On();
 
 		}
 		else
