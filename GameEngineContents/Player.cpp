@@ -126,6 +126,14 @@ void Player::Start()
 	}
 
 
+	{
+		GameEngineRenderingEvent Event2;
+		Event2.ResourcesName = "Player_Magic.FBX";
+		Event2.Loop = false;
+		Event2.Inter = 0.02f;
+		FBXAnimationRenderer->CreateFBXAnimation("Player_Magic", Event2);
+	}
+
 
 	{
 		GameEngineRenderingEvent Event2;
@@ -753,15 +761,15 @@ void Player::ArrowAttStart(const StateInfo& _Info)
 
 	if (m_Info.Weapontype == WEAPONTYPE::Arrow)
 	{
-
+		FBXAnimationRenderer->ChangeAnimation("Player_Arrow");
 	}
 	else if (m_Info.Weapontype == WEAPONTYPE::Hook)
 	{
-
+		FBXAnimationRenderer->ChangeAnimation("Player_Arrow");
 	}
 	else if (m_Info.Weapontype == WEAPONTYPE::Fire)
 	{
-
+		FBXAnimationRenderer->ChangeAnimation("Player_Magic");
 	}
 
 	m_structSoundPlayer.Stop();

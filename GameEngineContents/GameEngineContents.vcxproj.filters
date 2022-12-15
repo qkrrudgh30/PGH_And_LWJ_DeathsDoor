@@ -208,6 +208,9 @@
     <Filter Include="01.Actor\02.Unit\06.Effect\05.SWEff">
       <UniqueIdentifier>{4e51eee2-6265-41c8-9448-2242f26d7aca}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\06.Effect\06.TowerMeteoEff">
+      <UniqueIdentifier>{c001a213-8571-449e-91b4-e3890ad28c17}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">

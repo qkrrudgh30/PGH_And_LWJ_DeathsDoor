@@ -19,6 +19,9 @@ public:
 	PalyerFireMgr& operator=(const PalyerFireMgr& _Other) = delete;
 	PalyerFireMgr& operator=(PalyerFireMgr&& _Other) noexcept = delete;
 
+	float RanSmall = 20.f;
+
+	float RanBig = 60.f;
 
 
 	bool	m_bColorBlue = false;
@@ -27,7 +30,6 @@ protected:
 	void Update(float _DeltaTime);
 	void End() {}
 private:
-
 
 
 

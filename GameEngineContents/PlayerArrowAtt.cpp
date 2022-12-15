@@ -49,8 +49,8 @@ void PlayerArrowAtt::Start()
 	{
 		FBXStaticRenderer = CreateComponent<GameEngineFBXStaticRenderer>();
 		FBXStaticRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 0.f, 0.f });
-		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 1.f, 1.f });
-		FBXStaticRenderer->SetFBXMesh("Arrow.FBX", "Texture");
+		FBXStaticRenderer->GetTransform().SetLocalScale(float4{ 0.5f, 0.5f, 0.5f });
+		FBXStaticRenderer->SetFBXMesh("Light.FBX", "Texture");
 		
 
 	}

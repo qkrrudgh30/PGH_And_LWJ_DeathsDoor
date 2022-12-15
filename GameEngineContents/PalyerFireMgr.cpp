@@ -60,7 +60,7 @@ void PalyerFireMgr::Update(float _DeltaTime)
 		}
 		
 		Bullet.lock()->GetTransform().SetWorldPosition(MyPos);
-		Bullet.lock()->m_fScaleMax = GameEngineRandom::MainRandom.RandomFloat(20.f, 60.f);
+		Bullet.lock()->m_fScaleMax = GameEngineRandom::MainRandom.RandomFloat(RanSmall, RanBig);
 
 
 		

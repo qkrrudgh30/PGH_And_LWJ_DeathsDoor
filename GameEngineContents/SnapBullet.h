@@ -6,6 +6,8 @@
 
 // Ό³Έν :
 class SnapTarGet;
+class BillboardRenderer;
+class FlowerBulletEff;
 class SnapBullet : public UnitBase
 {
 public:
@@ -24,12 +26,14 @@ protected:
 	void Update(float _DeltaTime);
 	void End() {}
 private:
-
-
+	std::shared_ptr<BillboardRenderer> sptrTestPicture;
+	std::vector<std::shared_ptr<FlowerBulletEff>> m_vFlowerEff = {};
 	CollisionReturn PlayerCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other);
 
 public:
-	std::weak_ptr<SnapTarGet> m_pTarget = {};
 
+	float m_fDownSpeed = 0.f;
+	std::weak_ptr<SnapTarGet> m_pTarget = {};
+	float m_fEffTime = 0.1f;
 };
 

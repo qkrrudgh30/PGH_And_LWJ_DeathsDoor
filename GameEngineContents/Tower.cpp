@@ -210,8 +210,6 @@ void Tower::Start()
 	);
 
 
-
-
 	StateManager.CreateStateMember("Att"
 		, std::bind(&Tower::AttUpdate,this, std::placeholders::_1, std::placeholders::_2)
 		, std::bind(&Tower::AttStart,this, std::placeholders::_1)
@@ -654,7 +652,7 @@ void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 	{
 		m_fAttCTime = 0.;
 		AttType =  GameEngineRandom::MainRandom.RandomInt(1, 3);
-		//AttType = 1;
+	//	AttType = 2;
 	}
 
 	
