@@ -146,9 +146,11 @@ private:
 
 	std::shared_ptr<class GameEngineRenderTarget> CameraForwardRenderTarget;
 
-	std::shared_ptr<GameEngineRenderUnit> LightUnit;
+	std::shared_ptr<GameEngineRenderUnit> DeferredCalLightUnit;
 
 	std::shared_ptr<class GameEngineRenderTarget> CameraDeferredGBufferRenderTarget;
+
+	std::shared_ptr<GameEngineRenderUnit> DeferredMergeUnit;
 
 	std::shared_ptr<class GameEngineRenderTarget> CameraDeferredLightRenderTarget;
 

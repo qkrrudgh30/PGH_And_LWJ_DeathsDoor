@@ -41,6 +41,11 @@ void TestLevel::LevelStartEvent()
 	// CreateActor<TestActor>()->GetTransform().SetLocalMove(float4{ 100.f, 100.f, 100.f, 0.f });
 
 
+
+	if (Player::GetMainPlayer())
+	{
+		Player::GetMainPlayer()->On();
+	}
 	 
 #pragma region EngineCode
 	msptrContentsBlur->InitializeContentsBlur(msptrContentsBlur);

@@ -32,6 +32,11 @@ float4 CalDeferredMerge_PS(Output _Input) : SV_Target0
     float4 SpacularLight = SpacularLightTex.Sample(POINTWRAP, _Input.Tex.xy);
     float4 AmbientLight = AmbientLightTex.Sample(POINTWRAP, _Input.Tex.xy);
     
+    if (0 == DiffuseColor.a)
+    {
+        clip(-1);
+    }
+    
     float4 LightEffectResult = DiffuseColor * (DiffuseLight + SpacularLight + AmbientLight);
     LightEffectResult.w = 1.0f;
     

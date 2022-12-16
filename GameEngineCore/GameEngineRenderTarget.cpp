@@ -134,11 +134,16 @@ void GameEngineRenderTarget::CreateRenderTargetTexture(D3D11_TEXTURE2D_DESC _Dat
 	CreateRenderTargetTexture(NewTexture, _Color);
 }
 
-void GameEngineRenderTarget::Clear()
+void GameEngineRenderTarget::Clear(bool _IsDepthClear /*= true*/)
 {
 	for (size_t i = 0; i < RenderTargetViews.size(); i++)
 	{
 		GameEngineDevice::GetContext()->ClearRenderTargetView(RenderTargetViews[i], ClearColors[i].Arr1D);
+	}
+
+	if (false == _IsDepthClear)
+	{
+		return;
 	}
 
 	if (nullptr != DepthStencilView)

@@ -47,6 +47,7 @@ void Tower::Start()
 
 
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
+	FBXAnimationRenderer->ChangeCamera(CAMERAORDER::USER1);
 	for (size_t i = 0; i < 10; ++i) 
 	{
 		if (8 == i ||  5 == i || 6 == i )
@@ -69,7 +70,6 @@ void Tower::Start()
 
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 100.5f, 100.5f, 100.5f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 225.f,0.f });
-	// FBXAnimationRenderer->ChangeCamera(CAMERAORDER::USER1);
 
 	{
 		Event.ResourcesName = "Tower_Idle.FBX";
