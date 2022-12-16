@@ -48,27 +48,42 @@ void TowerLaser::Update(float _DeltaTime)
 {
 	float4 TarGetPos = m_CLaserTarget.lock()->GetTransform().GetWorldPosition();
 	float4 MyPos = GetTransform().GetWorldPosition();
-	
+
 	float4 LenFloat = TarGetPos - MyPos;
 	float Len = LenFloat.Length();
 
-	float RandomF = GameEngineRandom::MainRandom.RandomFloat(0,50.f);
+	float RandomF = GameEngineRandom::MainRandom.RandomFloat(0, 50.f);
 
 
 	TexRenderer->GetTransform().SetLocalScale({ Len, RandomF, 1.f });
 	TexRenderer2->GetTransform().SetLocalScale({ Len, RandomF, 1.f });
 
 
-	float AngleY = DirToRotY(TarGetPos, MyPos);
-	
+
+
+	/*float AngleY = DirToRotY(TarGetPos, MyPos);
+
 
 	float AngleZ = DirToRotZ(TarGetPos, MyPos);
 
+
 	float AngleX = DirToRotX(TarGetPos, MyPos);
 
-	float Angle = 0.f;
 
-	if (AngleZ > AngleX)
+	if (AngleZ >= 180.f)
+	{
+		AngleZ -= 360.f;
+	}
+
+
+	if (AngleX >= 180.f)
+	{
+		AngleX -= 360.f;
+	}
+
+	float Angle = 0.f;
+	float Angle2 = 0.f;
+	if (abs(AngleZ) > abs(AngleX))
 	{
 		Angle = AngleZ;
 	
@@ -80,8 +95,13 @@ void TowerLaser::Update(float _DeltaTime)
 	}
 
 
-	GetTransform().SetLocalRotation(float4{ 0.f , AngleY, Angle });
+*/
 
 	
+	
+//	GetTransform().SetLocalRotation(float4{ 0.f , AngleY, Angle });
+
+	GetTransform().SetLocalRotation(GetDegree3D(MyPos, TarGetPos));
+
 }
 

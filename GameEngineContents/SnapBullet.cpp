@@ -187,7 +187,8 @@ CollisionReturn SnapBullet::PlayerCollision(std::shared_ptr <GameEngineCollision
 
 	}
 
-	
+	Player::GetMainPlayer()->m_bHitBackCheck = true;
+
 
 	Death();
 

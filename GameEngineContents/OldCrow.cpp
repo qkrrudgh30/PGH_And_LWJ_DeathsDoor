@@ -4,7 +4,8 @@
 #include "Player.h"
 #include "UnitBase.h"
 #include "OldCrowBullet.h"
-
+ 
+#include "FeatherMgr.h"
 
 #include "OldCrowUI.h"
 
@@ -27,6 +28,9 @@ void OldCrow::Start()
 {
 
 	MainUI = GetLevel()->CreateActor<OldCrowUI>(OBJECTORDER::UI);
+	m_FeatherMgr = GetLevel()->CreateActor<FeatherMgr>(OBJECTORDER::Eff);
+
+
 
 	m_Info.m_Hp = 10500;
 	m_Info.m_MaxHp = 10500;
@@ -338,6 +342,11 @@ void OldCrow::Update(float _DeltaTime)
 	//맞을때 이 함수만 추가해 주세요
 	HitUpdate(_DeltaTime, 0.5f);
 
+	float4 myPos = GetTransform().GetWorldPosition();
+	
+	//myPos.y = 200.f;
+	m_FeatherMgr.lock()->GetTransform().SetWorldPosition(myPos);
+
 
 	Collision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
 		std::bind(&OldCrow::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
@@ -362,6 +371,7 @@ void OldCrow::Update(float _DeltaTime)
 	if (m_Info.m_Hp <= 0)
 	{
 		m_bDeathEnd = true;
+		
 		StateManager.ChangeState("StandDeath");
 	}
 

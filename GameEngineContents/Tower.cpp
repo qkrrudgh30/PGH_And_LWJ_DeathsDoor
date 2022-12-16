@@ -497,11 +497,13 @@ void Tower::AniLaserEnd(const GameEngineRenderingEvent& _Data)
 	m_bLaserDown = true;
 	m_bLaserUP = false;
 	m_fLaserMoveTime = 0.f;
-	m_CLaserTarget.lock()->Death();
+
+	//레이저
+	/*m_CLaserTarget.lock()->Death();
 	m_CLaserTarget.reset();
 
 	m_CLaser.lock()->Death();
-	m_CLaser.reset();
+	m_CLaser.reset();*/
 
 	FBXAnimationRenderer->ChangeAnimation("Tower_Laser_E");
 
@@ -708,7 +710,9 @@ void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 	{
 		m_fAttCTime = 0.;
 		AttType =  GameEngineRandom::MainRandom.RandomInt(1, 3);
-	//	AttType = 2;
+
+		//레이저
+		AttType = 1;
 	}
 
 	
