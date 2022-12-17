@@ -452,7 +452,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			ContentsLevel* rptrContentsLevel = dynamic_cast<ContentsLevel*>(GEngine::GetCurrentLevel());
 			rptrContentsLevel->GetContentsBlur()->SetBlurInfo(s_uOnOffBlur, s_iCurrAppliedArea, s_fCurrIntence);
 			rptrContentsLevel->GetContentsBloom()->SetBloomInfo(s_uOnOffBloom, s_iAppliedAreaForBloom, s_fLuminanceForBloom, s_fIntenceForBloom);
-			rptrContentsLevel->SetLightData(s_uOnOffLight, s_fDiffuseLightIntensity, s_fAmbientLightIntensity, s_fSpecularLightIntensity, s_fSpecularLightPower);
+			rptrContentsLevel->SetLightData(s_fDiffuseLightIntensity, s_fAmbientLightIntensity, s_fSpecularLightIntensity, s_fSpecularLightPower);
 
 			s_mbStartingLevel = true;
 		}
@@ -601,7 +601,7 @@ void EditGUIWindow::OnGUI(GameEngineLevel* _Level, float _DeltaTime)
 			if (true == s_bAnyChangesForBloom)
 			{
 				ContentsLevel* rptrContentsLevel = dynamic_cast<ContentsLevel*>(GEngine::GetCurrentLevel());
-				rptrContentsLevel->SetLightData(s_uOnOffLight, s_fDiffuseLightIntensity, s_fAmbientLightIntensity, s_fSpecularLightIntensity, s_fSpecularLightPower);
+				rptrContentsLevel->SetLightData(s_fDiffuseLightIntensity, s_fAmbientLightIntensity, s_fSpecularLightIntensity, s_fSpecularLightPower);
 			}
 
 			s_bAnyChangesForBloom = false;

@@ -40,8 +40,16 @@ void WorldLight::Start()
 
 void WorldLight::Update(float _fDeltatime)
 {
-	if (false == EditGUIWindow::IsLightOn()) { FBXStaticRenderer->Off(); }
-	else { FBXStaticRenderer->On(); }
+	if (false == EditGUIWindow::IsLightOn()) 
+	{ 
+		FBXStaticRenderer->Off(); 
+		s_f4LightColor.a = 0.f;	
+	}
+	else 
+	{ 
+		FBXStaticRenderer->On();
+		s_f4LightColor.a = 1.f;
+	}
 
 #pragma region SelectedObjectMovement
 		if (false == GameEngineInput::GetInst()->IsPress("SelectedObjectRotate") && true == GameEngineInput::GetInst()->IsPress("LightU"))
