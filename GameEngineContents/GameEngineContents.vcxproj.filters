@@ -208,7 +208,7 @@
     <Filter Include="01.Actor\02.Unit\06.Effect\05.SWEff">
       <UniqueIdentifier>{4e51eee2-6265-41c8-9448-2242f26d7aca}</UniqueIdentifier>
     </Filter>
-    <Filter Include="01.Actor\02.Unit\06.Effect\06.TowerMeteoEff">
+    <Filter Include="01.Actor\02.Unit\06.Effect\06.Feather">
       <UniqueIdentifier>{c001a213-8571-449e-91b4-e3890ad28c17}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -492,6 +492,12 @@
     </ClInclude>
     <ClInclude Include="SWEffMgr.h">
       <Filter>01.Actor\02.Unit\06.Effect\05.SWEff</Filter>
+    </ClInclude>
+    <ClInclude Include="OldCrowFeather.h">
+      <Filter>01.Actor\02.Unit\06.Effect\06.Feather</Filter>
+    </ClInclude>
+    <ClInclude Include="FeatherMgr.h">
+      <Filter>01.Actor\02.Unit\06.Effect\06.Feather</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -780,6 +786,12 @@
     </ClCompile>
     <ClCompile Include="SWEffMgr.cpp">
       <Filter>01.Actor\02.Unit\06.Effect\05.SWEff</Filter>
+    </ClCompile>
+    <ClCompile Include="OldCrowFeather.cpp">
+      <Filter>01.Actor\02.Unit\06.Effect\06.Feather</Filter>
+    </ClCompile>
+    <ClCompile Include="FeatherMgr.cpp">
+      <Filter>01.Actor\02.Unit\06.Effect\06.Feather</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

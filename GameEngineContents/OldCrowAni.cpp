@@ -5,6 +5,7 @@
 #include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 #include "GameEngineCore/GameEngineFBXAnimationRenderer.h"
 #include "GameEngineBase/GameEngineRandom.h"
+#include "FeatherMgr.h"
 
 void OldCrow::AniDashEnd(const GameEngineRenderingEvent& _Data)
 {
@@ -17,10 +18,12 @@ void OldCrow::AniDashStartEnd(const GameEngineRenderingEvent& _Data)
 void OldCrow::AniDeathRunEnd(const GameEngineRenderingEvent& _Data)
 {
 	Death();
+	m_FeatherMgr.lock()->DeathCheck = true;
 }
 void OldCrow::AniDeathStandEnd(const GameEngineRenderingEvent& _Data)
 {
 	Death();
+	m_FeatherMgr.lock()->DeathCheck = true;
 }
 void OldCrow::AniIdleEnd(const GameEngineRenderingEvent& _Data)
 {

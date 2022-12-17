@@ -12,6 +12,8 @@
 // Ό³Έν :
 class Player;
 class OldCrowUI;
+
+class FeatherMgr;
 class DashBullet;
 class OldCrow : public UnitBase
 {
@@ -30,8 +32,9 @@ public:
 	CollisionReturn PlayerCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other);
 
 	std::weak_ptr < OldCrowUI>		MainUI;
+	std::weak_ptr < FeatherMgr>		m_FeatherMgr;
 
-
+	
 
 
 public:

@@ -49,11 +49,20 @@ public:
 public :
 	float4 GetDegree3D(const float4& _Left, const float4& _Right)
 	{
+
 		float4 v3 = _Right - _Left;
-	
+		if (v3.z > 0)
+		{
+			v3 *= -1;
+		}
+
+
+
 		float xAngle = atan2(v3.y, v3.z) * 180 / GameEngineMath::PI;
 		float yAngle = atan2(v3.x, -v3.z) * 180 / GameEngineMath::PI;
 		float zAngle = atan2(v3.y, -v3.x) * 180 / GameEngineMath::PI;
+
+
 
 
 		if (_Right.z < _Left.z)
