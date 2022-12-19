@@ -44,6 +44,9 @@
     <None Include="Shader\ContentsShader.hlsli">
       <Filter>Shader</Filter>
     </None>
+    <None Include="Shader\ContentsLight.hlsli">
+      <Filter>Shader\3DShader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\YEffect.hlsl">
@@ -75,6 +78,12 @@
     </FxCompile>
     <FxCompile Include="Shader\Wave.hlsl">
       <Filter>Shader\2DShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\ContentsColor.hlsl">
+      <Filter>Shader\3DShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\ContentsLightColor.hlsl">
+      <Filter>Shader\3DShader</Filter>
     </FxCompile>
   </ItemGroup>
 </Project>

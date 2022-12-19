@@ -91,7 +91,17 @@ void CreateContentsMaterial()
 	std::weak_ptr<GameEngineMaterial> ContentsWaveMaterial = GameEngineMaterial::Create("Wave");
 	ContentsWaveMaterial.lock()->SetVertexShader("Wave.hlsl");
 	ContentsWaveMaterial.lock()->SetPixelShader("Wave.hlsl");
+
+
+	std::weak_ptr<GameEngineMaterial> ContentsColorMaterial = GameEngineMaterial::Create("ContentsColor");
+	ContentsColorMaterial.lock()->SetVertexShader("ContentsColor.hlsl");
+	ContentsColorMaterial.lock()->SetPixelShader("ContentsColor.hlsl");
 	
+	std::weak_ptr<GameEngineMaterial> ContentsLightColorMaterial = GameEngineMaterial::Create("ContentsLightColor");
+	ContentsLightColorMaterial.lock()->SetVertexShader("ContentsLightColor.hlsl");
+	ContentsLightColorMaterial.lock()->SetPixelShader("ContentsLightColor.hlsl");
+
+
 	// std::weak_ptr<GameEngineMaterial> ContentsShaderMaterial = GameEngineMaterial::Create("ContentsShader");
 	// ContentsBlurMaterial.lock()->SetVertexShader("ContentsShader.hlsl");
 	// ContentsBlurMaterial.lock()->SetPixelShader("ContentsShader.hlsl");

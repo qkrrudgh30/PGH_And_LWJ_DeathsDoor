@@ -30,16 +30,8 @@ public:
 	std::shared_ptr<class ContentsBlur>	 GetContentsBlur() { return msptrContentsBlur; }
 	std::shared_ptr<class ContentsBloom> GetContentsBloom() { return msptrContentsBloom; }
 
-	void SetLightData(unsigned int _uOnOffLight, float _fDiffuseLightIntensity, float _fAmbientLightIntensity, float _fSpecularLightIntensity, float _fSpecularLightPower)
+	void SetLightData(float _fDiffuseLightIntensity, float _fAmbientLightIntensity, float _fSpecularLightIntensity, float _fSpecularLightPower)
 	{
-		if (1u == _uOnOffLight)
-		{
-			_fDiffuseLightIntensity = 1.f;
-			_fAmbientLightIntensity = 0.f;
-			_fSpecularLightIntensity = 0.f;
-			_fSpecularLightPower = 1.f;
-		}
-
 		mwptrLightForLevel.lock()->GetLightData().DifLightPower = _fDiffuseLightIntensity;
 		mwptrLightForLevel.lock()->GetLightData().AmbLightPower = _fAmbientLightIntensity;
 		mwptrLightForLevel.lock()->GetLightData().SpcLightPower = _fSpecularLightIntensity;

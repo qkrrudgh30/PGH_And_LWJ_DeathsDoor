@@ -15,7 +15,7 @@ void TestSphere::Start()
 {
 	Renderer = CreateComponent<GameEngineDefaultRenderer>();
 	Renderer->GetRenderUnit()->SetMesh("Sphere"); 
-	Renderer->SetMaterial("Color");
+	Renderer->SetMaterial("ContentsLightColor");
 	float4 ResultColor = { 1.f,1.f,1.f,1.f };
 	Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
 
