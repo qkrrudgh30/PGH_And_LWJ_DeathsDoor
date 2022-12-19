@@ -196,6 +196,7 @@ void FlowerMonster::Update(float _DeltaTime)
 	{
 		m_fAccTimeForPaperburn += (_DeltaTime);
 		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
+		Collision->Off();
 	}
 #pragma endregion
 

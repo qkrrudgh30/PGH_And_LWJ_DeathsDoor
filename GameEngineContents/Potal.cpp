@@ -18,7 +18,7 @@ void Potal::Start()
 	m_fSpeed = 2000.f;
 
 	Collision = CreateComponent<GameEngineCollision>();
-	Collision->GetTransform().SetLocalScale({ 100.0f, 500.0f, 100.0f });
+	Collision->GetTransform().SetLocalScale({ 100.0f, 00.0f, 100.0f });
 	Collision->ChangeOrder(OBJECTORDER::NPC);
 
 

@@ -289,7 +289,7 @@ void Tower::Update(float _DeltaTime)
 	if (m_Info.m_Hp <= 0 && true == mbOnDeath && true == m_bDeathEnd)
 	{
 		StateManager.ChangeState("Death");
-
+		Collision->Off();
 		m_fAccTimeForPaperburn += _DeltaTime;
 		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
 

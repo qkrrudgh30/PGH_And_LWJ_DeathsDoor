@@ -499,6 +499,12 @@
     <ClInclude Include="FeatherMgr.h">
       <Filter>01.Actor\02.Unit\06.Effect\06.Feather</Filter>
     </ClInclude>
+    <ClInclude Include="Elevator.h">
+      <Filter>01.Actor\02.Unit\05.Potal</Filter>
+    </ClInclude>
+    <ClInclude Include="OldCrowFog.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\02.CrowBullet</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -792,6 +798,12 @@
     </ClCompile>
     <ClCompile Include="FeatherMgr.cpp">
       <Filter>01.Actor\02.Unit\06.Effect\06.Feather</Filter>
+    </ClCompile>
+    <ClCompile Include="Elevator.cpp">
+      <Filter>01.Actor\02.Unit\05.Potal</Filter>
+    </ClCompile>
+    <ClCompile Include="OldCrowFog.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\02.CrowBullet</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

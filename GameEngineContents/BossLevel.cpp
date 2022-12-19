@@ -13,6 +13,7 @@
 #include "EditGUIWindow.h"
 #include "WorldLight.h"
 
+#include <GameEngineCore/GameEngineFBXAnimationRenderer.h>
 #include <GameEngineCore/GameEngineCameraActor.h>
 #include <GameEngineBase/GameEngineInput.h>
 
@@ -79,9 +80,12 @@ void BossLevel::LevelStartEvent()
 		}
 		else
 		{
+
+
 			Player* NewPlayer = Player::GetMainPlayer();
 			NewPlayer->On();
-			NewPlayer->GetTransform().SetWorldPosition({ 1.F,0.F,1.F });
+			NewPlayer->GetTransform().SetWorldPosition({ 1.F,0.F,-200.F });
+			NewPlayer->FBXAnimationRenderer->GetTransform().SetWorldRotation({ 0.F,0.F,0.F });
 			NewPlayer->UIOn();
 			//NewPlayer->m_bLogoLevelCheck = false;
 

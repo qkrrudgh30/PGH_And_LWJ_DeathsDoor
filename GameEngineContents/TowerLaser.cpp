@@ -61,7 +61,7 @@ void TowerLaser::Update(float _DeltaTime)
 
 
 
-	/*float AngleY = DirToRotY(TarGetPos, MyPos);
+	float AngleY = DirToRotY(TarGetPos, MyPos);
 
 
 	float AngleZ = DirToRotZ(TarGetPos, MyPos);
@@ -95,13 +95,12 @@ void TowerLaser::Update(float _DeltaTime)
 	}
 
 
-*/
+
 
 	
 	
-//	GetTransform().SetLocalRotation(float4{ 0.f , AngleY, Angle });
+	GetTransform().SetLocalRotation(float4{ 0.f , AngleY, Angle });
 
-	GetTransform().SetLocalRotation(GetDegree3D(MyPos, TarGetPos));
-
+	
 }
 
