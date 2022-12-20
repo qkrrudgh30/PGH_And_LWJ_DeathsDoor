@@ -95,12 +95,13 @@ void TowerLaser::Update(float _DeltaTime)
 	}
 
 
-
-
 	
 	
 	GetTransform().SetLocalRotation(float4{ 0.f , AngleY, Angle });
 
 	
 }
+
+
+
 

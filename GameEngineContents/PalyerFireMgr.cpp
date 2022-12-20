@@ -63,7 +63,17 @@ void PalyerFireMgr::Update(float _DeltaTime)
 		Bullet.lock()->m_fScaleMax = GameEngineRandom::MainRandom.RandomFloat(RanSmall, RanBig);
 
 
-		
+
+		Bullet = GetLevel()->CreateActor<PlayerFireEff>(OBJECTORDER::Eff);
+
+		if (m_bColorBlue)
+		{
+			Bullet.lock()->ChangeColorBlue();
+		}
+
+		Bullet.lock()->GetTransform().SetWorldPosition(MyPos);
+		Bullet.lock()->m_fScaleMax = GameEngineRandom::MainRandom.RandomFloat(RanSmall, RanBig);
+		Bullet.lock()->TexRenderer->GetTransform().SetLocalRotation({ 0.f,-90.f,0.f });
 	}
 	
 
@@ -71,4 +81,3 @@ void PalyerFireMgr::Update(float _DeltaTime)
 
 	Death();
 }
-

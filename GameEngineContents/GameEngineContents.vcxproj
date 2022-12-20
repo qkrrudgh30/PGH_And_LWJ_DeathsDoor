@@ -315,6 +315,18 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="RealLaser.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="RealLaserMgr.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="RealLaserTarget.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="ScreamBullet.h">
       <SubType>
       </SubType>
@@ -678,6 +690,18 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PlayerFireEff.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RealLaser.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RealLaserMgr.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RealLaserTarget.cpp">
       <SubType>
       </SubType>
     </ClCompile>

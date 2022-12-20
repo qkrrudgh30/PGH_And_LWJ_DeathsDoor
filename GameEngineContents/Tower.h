@@ -25,6 +25,7 @@ class Player;
 class TowerLaser;
 class TowerBossUI;
 class LaserTarget;
+class RealLaserMgr;
 class Tower : public UnitBase
 {
 public:
@@ -90,6 +91,10 @@ protected:
 private:
 	float4 Pos;
 	std::shared_ptr < GameEngineCollision> StartCollision;
+
+	std::shared_ptr < RealLaserMgr> m_RealLaserMgr;
+
+
 
 	bool m_bStartPause = false;
 	bool m_bIdleUpDown = false;
