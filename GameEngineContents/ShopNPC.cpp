@@ -25,7 +25,7 @@ void ShopNPC::Start()
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 50.f, 50.f, 50.f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ -90.f, 180.f,0.f });
 	FBXAnimationRenderer->GetTransform().SetLocalPosition(float4{ 0.f, 100.f,0.f });
-	FBXAnimationRenderer->SetFBXMesh("banker.fbx", "TextureAnimation");
+	FBXAnimationRenderer->SetFBXMesh("banker.fbx", "DeferredTextureAnimation");
 
 
 	Event.ResourcesName = "banker_S_R.FBX";
