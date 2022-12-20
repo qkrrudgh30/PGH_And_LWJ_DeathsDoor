@@ -6,6 +6,7 @@
 #include "UnitBase.h"
 
 // Ό³Έν :
+class OldCrowFog;
 class OldCrowBullet : public UnitBase
 {
 public:
@@ -24,9 +25,13 @@ protected:
 	void Update(float _DeltaTime);
 	void End() {}
 private:
-
+	int CorwCount = 0;
 	float4 MoveDir = {};
 	bool m_bAttCheck = false;
+
+	std::vector<std::shared_ptr<OldCrowFog>> m_vOldCrowFog = {};
+
+
 
 	CollisionReturn MonsterCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other);
 

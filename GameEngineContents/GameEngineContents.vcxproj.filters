@@ -211,6 +211,9 @@
     <Filter Include="01.Actor\02.Unit\06.Effect\06.Feather">
       <UniqueIdentifier>{c001a213-8571-449e-91b4-e3890ad28c17}</UniqueIdentifier>
     </Filter>
+    <Filter Include="01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser\00.RealLaser">
+      <UniqueIdentifier>{1ea87107-9305-4609-b88f-2b7ef8337883}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ContentsCore.h">
@@ -498,6 +501,21 @@
     </ClInclude>
     <ClInclude Include="FeatherMgr.h">
       <Filter>01.Actor\02.Unit\06.Effect\06.Feather</Filter>
+    </ClInclude>
+    <ClInclude Include="Elevator.h">
+      <Filter>01.Actor\02.Unit\05.Potal</Filter>
+    </ClInclude>
+    <ClInclude Include="OldCrowFog.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\02.CrowBullet</Filter>
+    </ClInclude>
+    <ClInclude Include="RealLaserMgr.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser\00.RealLaser</Filter>
+    </ClInclude>
+    <ClInclude Include="RealLaserTarget.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser\00.RealLaser</Filter>
+    </ClInclude>
+    <ClInclude Include="RealLaser.h">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser\00.RealLaser</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -792,6 +810,21 @@
     </ClCompile>
     <ClCompile Include="FeatherMgr.cpp">
       <Filter>01.Actor\02.Unit\06.Effect\06.Feather</Filter>
+    </ClCompile>
+    <ClCompile Include="Elevator.cpp">
+      <Filter>01.Actor\02.Unit\05.Potal</Filter>
+    </ClCompile>
+    <ClCompile Include="OldCrowFog.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\03.OldCrow\02.CrowBullet</Filter>
+    </ClCompile>
+    <ClCompile Include="RealLaserMgr.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser\00.RealLaser</Filter>
+    </ClCompile>
+    <ClCompile Include="RealLaserTarget.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser\00.RealLaser</Filter>
+    </ClCompile>
+    <ClCompile Include="RealLaser.cpp">
+      <Filter>01.Actor\02.Unit\03.Bullet\02.Tower\02.Laser\00.RealLaser</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

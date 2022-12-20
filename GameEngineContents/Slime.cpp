@@ -144,7 +144,7 @@ void Slime::Update(float _DeltaTime)
 		m_fAccTimeForPaperburn += _DeltaTime / mfPaperburnDeathTime;
 		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
 
-		
+		Collision->Off();
 
 		StateManager.ChangeState("Death");
 

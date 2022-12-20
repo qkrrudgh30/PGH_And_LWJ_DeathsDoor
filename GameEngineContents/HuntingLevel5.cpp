@@ -10,10 +10,11 @@
 #include "ContentsBlur.h"
 #include "EditGUIWindow.h"
 #include "WorldLight.h"
-
+#include "Elevator.h"
 
 #include "Firemgr.h"
 
+#include <GameEngineCore/GameEngineFBXStaticRenderer.h>
 
 
 #include <GameEngineCore/GameEngineCameraActor.h>
@@ -62,11 +63,22 @@ void HuntingLevel5::LevelStartEvent()
 
 		{
 
+			std::weak_ptr < Elevator> _Elevator = CreateActor<Elevator>(OBJECTORDER::MoveStatic);
+			_Elevator.lock()->GetTransform().SetWorldPosition({ -1997.F,0.F,-2317.F });
+			
+		}
+
+
+		{
+
 			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);
-			Potal_.lock()->GetTransform().SetWorldPosition({ -1997.F,0.F,-2317.F });
+			Potal_.lock()->GetTransform().SetWorldPosition({ -1997.F,-1300.F,-2317.F });
 			Potal_.lock()->m_PotalType = PotalType::Stage5ToStageBoss;
+			Potal_.lock()->FBXStaticRenderer->Off();
 
 		}
+
+
 
 		//Fire
 		{

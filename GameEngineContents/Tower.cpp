@@ -6,7 +6,7 @@
 #include"SnapCircle.h"
 #include"LaserTarget.h"
 #include "TowerLaser.h"
-
+#include "RealLaserMgr.h"
 
 #include "TowerBossUI.h"
 
@@ -237,21 +237,31 @@ void Tower::Start()
 void Tower::DeathStart(const StateInfo& _Info)
 {
 	FBXAnimationRenderer->ChangeAnimation("Tower_Laser_E");
+	//레이저
+	//if (m_CLaserTarget.lock())
+	//{
+	//	m_CLaserTarget.lock()->Death();
+	//	m_CLaserTarget.reset();
 
-	if (m_CLaserTarget.lock())
+
+	//}
+	//if (m_CLaser.lock())
+	//{
+	//	m_CLaser.lock()->Death();
+	//	m_CLaser.reset();
+
+
+	//}
+
+	if(m_RealLaserMgr)
 	{
-		m_CLaserTarget.lock()->Death();
-		m_CLaserTarget.reset();
 
-
+		m_RealLaserMgr->DeleteAll();
+		m_RealLaserMgr->Death();
+		m_RealLaserMgr = nullptr;
 	}
-	if (m_CLaser.lock())
-	{
-		m_CLaser.lock()->Death();
-		m_CLaser.reset();
 
 
-	}
 
 
 }
@@ -289,7 +299,7 @@ void Tower::Update(float _DeltaTime)
 	if (m_Info.m_Hp <= 0 && true == mbOnDeath && true == m_bDeathEnd)
 	{
 		StateManager.ChangeState("Death");
-
+		Collision->Off();
 		m_fAccTimeForPaperburn += _DeltaTime;
 		SetPaperBurnInfo(1u, m_fAccTimeForPaperburn);
 
@@ -474,6 +484,9 @@ void Tower::LaserUpdate(float _DeltaTime, const StateInfo& _Info)
 			m_bLaserUP = false;
 			m_fLaserMoveTime = 0.f;
 			FBXAnimationRenderer->ChangeAnimation("Tower_Laser");
+
+
+
 		}
 	}
 
@@ -499,40 +512,33 @@ void Tower::AniLaserEnd(const GameEngineRenderingEvent& _Data)
 	m_fLaserMoveTime = 0.f;
 
 	//레이저
-	/*m_CLaserTarget.lock()->Death();
-	m_CLaserTarget.reset();
+	//m_CLaserTarget.lock()->Death();
+	//m_CLaserTarget.reset();
 
-	m_CLaser.lock()->Death();
-	m_CLaser.reset();*/
-
+	//m_CLaser.lock()->Death();
+	//m_CLaser.reset();
+	//RealLaserMgr
 	FBXAnimationRenderer->ChangeAnimation("Tower_Laser_E");
-
-
+	m_RealLaserMgr->DeleteAll();
+	m_RealLaserMgr->Death();
+	m_RealLaserMgr = nullptr;
 }
 
 void Tower::AniLaserFrame(const GameEngineRenderingEvent& _Data)
 {
 
-	//if (_Data.CurFrame == 1)
+
+	if (m_RealLaserMgr == nullptr)
 	{
-		if (m_CLaserTarget.lock() == nullptr)
-		{
-			m_CLaserTarget = GetLevel()->CreateActor<LaserTarget>(OBJECTORDER::MonsterAtt);
-		}
+		m_RealLaserMgr = GetLevel()->CreateActor<RealLaserMgr>(OBJECTORDER::MonsterAtt);
+		m_RealLaserMgr->MakeTarget();
+		m_RealLaserMgr->MakeLaser();
 	}
 
 	if (_Data.CurFrame == 63)
 	{
 
-		if(m_CLaser.lock() == nullptr)
-		{
-			m_CLaser = GetLevel()->CreateActor<TowerLaser>(OBJECTORDER::MonsterAtt);
-			float4 mPos = GetTransform().GetWorldPosition();
-			mPos.y += 200.f;
-			m_CLaser.lock()->GetTransform().SetWorldPosition(mPos);
-			m_CLaser.lock()->m_CLaserTarget = m_CLaserTarget;
-		}
-
+		m_RealLaserMgr->StartLaser();
 	}
 
 }

@@ -216,6 +216,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="Elevator.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="Enums.h" />
     <ClInclude Include="FadeRenderer.h">
       <SubType>
@@ -275,6 +279,10 @@
       <SubType>
       </SubType>
     </ClInclude>
+    <ClInclude Include="OldCrowFog.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
     <ClInclude Include="OldCrowScreamBase.h">
       <SubType>
       </SubType>
@@ -304,6 +312,18 @@
       </SubType>
     </ClInclude>
     <ClInclude Include="PlayerFireEff.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="RealLaser.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="RealLaserMgr.h">
+      <SubType>
+      </SubType>
+    </ClInclude>
+    <ClInclude Include="RealLaserTarget.h">
       <SubType>
       </SubType>
     </ClInclude>
@@ -573,6 +593,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="Elevator.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="FadeRenderer.cpp">
       <SubType>
       </SubType>
@@ -632,6 +656,10 @@
       <SubType>
       </SubType>
     </ClCompile>
+    <ClCompile Include="OldCrowFog.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
     <ClCompile Include="OldCrowScreamBase.cpp">
       <SubType>
       </SubType>
@@ -662,6 +690,18 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PlayerFireEff.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RealLaser.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RealLaserMgr.cpp">
+      <SubType>
+      </SubType>
+    </ClCompile>
+    <ClCompile Include="RealLaserTarget.cpp">
       <SubType>
       </SubType>
     </ClCompile>

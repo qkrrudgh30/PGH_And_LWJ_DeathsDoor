@@ -41,6 +41,7 @@ enum class OBJECTORDER
 	CrowBullet,
 	LIGHT,
 	Eff,
+	MoveStatic,
 	UI = 1000,
 };
 
