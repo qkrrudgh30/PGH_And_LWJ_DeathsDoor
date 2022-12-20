@@ -30,6 +30,7 @@ public:
 	float m_fScaleMax = 0.f;
 	float m_fTime = 0.f;
 	bool  m_bScalecheck = false;
+	CollisionReturn PlayerCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other);
 
 
 	float4 m_fGoDir = {};

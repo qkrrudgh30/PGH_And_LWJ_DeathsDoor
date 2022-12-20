@@ -110,6 +110,24 @@ void HuntingLevel3::LevelStartEvent()
 		}
 
 
+		{
+			std::weak_ptr < Headroller> cMonster = CreateActor<Headroller>(OBJECTORDER::Monster);
+			cMonster.lock()->GetTransform().SetWorldPosition({ 1185.f,0.F,-901.f });
+
+
+		}
+
+
+
+
+		{
+			std::weak_ptr < Headroller> cMonster = CreateActor<Headroller>(OBJECTORDER::Monster);
+			cMonster.lock()->GetTransform().SetWorldPosition({ -708.f,0.F,742.f });
+
+
+		}
+
+
 		mbPrimitiveInitialized = true;
 	}
 	EditGUIWindow::OffStartingLevel();

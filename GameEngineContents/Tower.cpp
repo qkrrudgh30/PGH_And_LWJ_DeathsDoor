@@ -719,7 +719,7 @@ void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 		AttType =  GameEngineRandom::MainRandom.RandomInt(1, 3);
 
 		//∑π¿Ã¿˙
-		AttType = 1;
+		//AttType = 1;
 	}
 
 	

@@ -25,7 +25,7 @@ void RealLaser::Start()
 		TexRenderer = CreateComponent<GameEngineTextureRenderer>();
 		TexRenderer->ChangeCamera(CAMERAORDER::USER1);
 		TexRenderer->SetTexture("LightningBoltTexture.png");
-		//TexRenderer->SetPivot(PIVOTMODE::LEFT);
+		TexRenderer->SetPivot(PIVOTMODE::LEFT);
 		TexRenderer->GetTransform().SetLocalScale({ 100.f, 100.f, 1.f });
 		TexRenderer->GetTransform().SetLocalRotation({ 45.f,135.f,0.f });
 		TexRenderer->GetPixelData().MulColor = color;
@@ -39,12 +39,22 @@ void RealLaser::Start()
 		TexRenderer2 = CreateComponent<GameEngineTextureRenderer>();
 		TexRenderer2->ChangeCamera(CAMERAORDER::USER1);
 		TexRenderer2->SetTexture("LightningBoltTexture.png");
-		//TexRenderer2->SetPivot(PIVOTMODE::LEFT);
+		TexRenderer2->SetPivot(PIVOTMODE::LEFT);
 		TexRenderer2->GetTransform().SetLocalScale({ 2000.f, 100.f, 1.f });
 		TexRenderer2->GetTransform().SetLocalRotation({ 135.f,135.f,0.f });
 		TexRenderer2->GetPixelData().MulColor = color;
 
 	}
+
+	AttCollision = CreateComponent<GameEngineCollision>();
+	AttCollision->GetTransform().SetLocalScale({ 380.f, 400.0f, 4000.f });
+	AttCollision->GetTransform().SetLocalRotation({ -0.f,45.f,0.f });
+	AttCollision->ChangeOrder(OBJECTORDER::MonsterAtt);
+	AttCollision->SetCollisionMode(CollisionMode::Ex);
+	
+
+
+
 }
 
 void RealLaser::Update(float _DeltaTime)
@@ -52,12 +62,17 @@ void RealLaser::Update(float _DeltaTime)
 
 	if (m_bScalecheck)
 	{
-		float RandomF = GameEngineRandom::MainRandom.RandomFloat(0, 400.f);
-		TexRenderer->SetPivot(PIVOTMODE::LEFT);
-		TexRenderer2->SetPivot(PIVOTMODE::LEFT);
+		
 
-		TexRenderer->GetTransform().SetLocalRotation({ 45.f,135.f,0.f });
-		TexRenderer2->GetTransform().SetLocalRotation({ 135.f,135.f,0.f });
+
+		AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
+			std::bind(&RealLaser::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
+		);
+
+
+
+
+		float RandomF = GameEngineRandom::MainRandom.RandomFloat(0, 400.f);
 
 		TexRenderer->GetTransform().SetLocalScale({ 2000.f, RandomF, 1.f });
 		TexRenderer2->GetTransform().SetLocalScale({ 2000.f, RandomF, 1.f });
@@ -65,21 +80,25 @@ void RealLaser::Update(float _DeltaTime)
 	}
 	else
 	{
-		float RandomF = GameEngineRandom::MainRandom.RandomFloat(0, 100.f);
-		m_fScaleMax += 600.f * _DeltaTime;
+		float RandomF = GameEngineRandom::MainRandom.RandomFloat(0, 10.f);
 
-		TexRenderer->GetTransform().SetLocalScale({ RandomF, RandomF, RandomF });
-		TexRenderer2->GetTransform().SetLocalScale({ RandomF, RandomF, RandomF });
+		TexRenderer->GetTransform().SetLocalScale({ 2000.f, RandomF, 1.f });
+		TexRenderer2->GetTransform().SetLocalScale({ 2000.f, RandomF, 1.f });
 
-
-
-		TexRenderer->GetTransform().SetLocalRotation({ m_fScaleMax ,m_fScaleMax,m_fScaleMax });
-		TexRenderer2->GetTransform().SetLocalRotation({ m_fScaleMax , m_fScaleMax,m_fScaleMax });
 
 	}
 	
 
 	
+}
+
+CollisionReturn RealLaser::PlayerCollision(std::shared_ptr<GameEngineCollision> _This, std::shared_ptr<GameEngineCollision> _Other)
+{
+
+	Player::GetMainPlayer()->m_bHitBackCheck = true;
+
+
+	return CollisionReturn::Break;
 }
 
 //-436  218  43
