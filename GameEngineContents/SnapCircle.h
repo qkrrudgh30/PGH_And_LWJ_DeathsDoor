@@ -23,5 +23,7 @@ protected:
 private:
 	float m_fScale = 100.f;
 	std::weak_ptr<class WaveRenderer> m_wptrWaveRenderer;
+	CollisionReturn PlayerCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other);
+
 };
 

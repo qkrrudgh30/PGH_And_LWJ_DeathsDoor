@@ -32,7 +32,7 @@ void Tower::Start()
 {
 	
 
-	m_Info.m_Hp = 10;
+	m_Info.m_Hp = 30;
 	m_Info.m_MaxHp = 10;
 	m_Info.Dammage = 1;
 	m_fSpeed = 100.f;

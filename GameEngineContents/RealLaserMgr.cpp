@@ -61,7 +61,7 @@ void RealLaserMgr::MakeTarget()
 		
 		{
 			std::shared_ptr < RealLaserTarget> Bullet = GetLevel()->CreateActor<RealLaserTarget>(OBJECTORDER::Eff);
-			Bullet->GetTransform().SetWorldPosition(MyPos + ( PosDir * 160.f ) + (PosDir * 380.f * i));
+			Bullet->GetTransform().SetWorldPosition(MyPos + ( PosDir * 160.f ) + (PosDir * 380.f * float(i)));
 			m_vTarget.push_back(Bullet);
 
 		}
@@ -92,7 +92,7 @@ void RealLaserMgr::MakeLaser()
 
 		{
 			std::shared_ptr < RealLaser> Bullet = GetLevel()->CreateActor<RealLaser>(OBJECTORDER::Eff);
-			Bullet->GetTransform().SetWorldPosition(MyPos + (PosDir * 160.f) + (PosDir * 380.f * i));
+			Bullet->GetTransform().SetWorldPosition(MyPos + (PosDir * 160.f) + (PosDir * 380.f * float(i)));
 			m_vRealLaser.push_back(Bullet);
 
 		}

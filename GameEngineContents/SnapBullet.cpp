@@ -21,6 +21,11 @@ SnapBullet::SnapBullet()
 
 SnapBullet::~SnapBullet()
 {
+	if (m_pTarget.lock() != nullptr)
+	{
+		m_pTarget.lock()->Death();
+	}
+
 }
 
 void SnapBullet::Start()

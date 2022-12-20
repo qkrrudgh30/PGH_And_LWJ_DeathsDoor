@@ -26,6 +26,12 @@ void TowerJumpAtt::Start()
 	}
 	m_fSpeed = 100.f;
 
+	AttCollision = CreateComponent<GameEngineCollision>();
+	AttCollision->GetTransform().SetLocalScale({ 2000.f, 400.0f, 100.f });
+	AttCollision->GetTransform().SetLocalRotation({ 0.f,45.f,0.f });
+	AttCollision->ChangeOrder(OBJECTORDER::MonsterAtt);
+	AttCollision->SetCollisionMode(CollisionMode::Ex);
+
 
 	Death(3.f);
 
@@ -37,6 +43,9 @@ void TowerJumpAtt::Update(float _DeltaTime)
 	m_fSpeed += _DeltaTime * 40000.f;
 
 	TexRenderer->GetTransform().SetLocalScale({ m_fSpeed, m_fSpeed, 10.f });
+
+	AttCollision->GetTransform().SetWorldBackMove(40000.f,_DeltaTime);
+
 
 	//if (m_fSpeed >= 2000.f)
 

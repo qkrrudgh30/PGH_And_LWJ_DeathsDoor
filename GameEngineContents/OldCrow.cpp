@@ -342,6 +342,7 @@ void OldCrow::Update(float _DeltaTime)
 	//맞을때 이 함수만 추가해 주세요
 	HitUpdate(_DeltaTime, 0.5f);
 
+
 	float4 myPos = GetTransform().GetWorldPosition();
 	
 	//myPos.y = 200.f;
