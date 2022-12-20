@@ -135,8 +135,10 @@
     <FxCompile Include="Debug3D.hlsl" />
     <FxCompile Include="DeferredColor.hlsl" />
     <FxCompile Include="DeferredHeader.fx" />
+    <FxCompile Include="DeferredTextureAnimation.hlsl" />
     <FxCompile Include="LightHeader.fx" />
     <FxCompile Include="RenderOption.fx" />
+    <FxCompile Include="Shadow.hlsl" />
     <FxCompile Include="TargetMerge.hlsl" />
     <FxCompile Include="Texture.hlsl" />
     <FxCompile Include="TextureAnimation.hlsl" />

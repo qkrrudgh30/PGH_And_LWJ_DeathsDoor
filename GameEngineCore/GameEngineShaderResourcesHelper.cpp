@@ -61,6 +61,20 @@ void GameEngineShaderResourcesHelper::ResourcesCheck(std::shared_ptr<GameEngineM
 
 }
 
+GameEngineConstantBufferSetter* GameEngineShaderResourcesHelper::GetConstantsBuffer(const std::string& _Name)
+{
+	std::string Key = GameEngineString::ToUpperReturn(_Name);
+
+	std::multimap<std::string, GameEngineConstantBufferSetter>::iterator Find = ConstantBufferSettingMap.find(Key);
+
+	if (ConstantBufferSettingMap.end() != Find)
+	{
+		return &Find->second;
+	}
+
+	return &Find->second;
+}
+
 void GameEngineShaderResourcesHelper::ShaderCheck(std::shared_ptr < GameEngineShader> _Shader)
 {
 	// 픽셀쉐이더와 버텍스 쉐이더에서 transform데이터 같은 중요 상수버퍼의 이름을 똑같이 해서 사용하고 싶다면??????

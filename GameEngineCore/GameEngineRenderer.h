@@ -106,12 +106,32 @@ public:
 
 	inline bool GetIsOn()
 	{
+		if (nullptr == ParentRenderer)
+		{
+			MsgBoxAssert("랜더러가 세팅되지 않았습니다.");
+		}
+
 		return IsOn && ParentRenderer->IsUpdate();
 	}
 
 	inline bool IsDeath()
 	{
+		if (nullptr == ParentRenderer)
+		{
+			MsgBoxAssert("랜더러가 세팅되지 않았습니다.");
+		}
+
 		return ParentRenderer->IsDeath();
+	}
+
+	inline int Order()
+	{
+		if (nullptr == ParentRenderer)
+		{
+			MsgBoxAssert("랜더러가 세팅되지 않았습니다.");
+		}
+
+		return ParentRenderer->GetOrder();
 	}
 
 	inline void On()

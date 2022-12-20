@@ -1,5 +1,10 @@
 struct LightData
 {
+    float4x4 LightViewMatrix;
+    float4x4 LightProjectionMatrix;
+    float LightNear;
+    float LightFar;
+    
     float4      f4LightColor;            
     float4      f4AmbientLightColor;
     

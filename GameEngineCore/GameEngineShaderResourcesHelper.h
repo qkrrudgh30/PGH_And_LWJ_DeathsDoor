@@ -96,6 +96,8 @@ public:
 
 	bool IsConstantBuffer(const std::string& _Name);
 
+	GameEngineConstantBufferSetter* GetConstantsBuffer(const std::string& _Name);
+
 	bool IsStructuredBuffer(const std::string& _Name);
 
 	GameEngineStructuredBufferSetter* GetStructuredBuffer(const std::string& _Name);

@@ -47,6 +47,12 @@
     <None Include="Shader\ContentsLight.hlsli">
       <Filter>Shader\3DShader</Filter>
     </None>
+    <None Include="Deferred.hlsli">
+      <Filter>Shader</Filter>
+    </None>
+    <None Include="Shader\Deferred.hlsli">
+      <Filter>Shader\3DShader</Filter>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <FxCompile Include="Shader\YEffect.hlsl">
@@ -83,6 +89,12 @@
       <Filter>Shader\3DShader</Filter>
     </FxCompile>
     <FxCompile Include="Shader\ContentsLightColor.hlsl">
+      <Filter>Shader\3DShader</Filter>
+    </FxCompile>
+    <FxCompile Include="Shader\ContentsDeferredLightColor.hlsl">
+      <Filter>Shader\3DShader</Filter>
+    </FxCompile>
+    <FxCompile Include="ContentsFBXAnimationLight.hlsl">
       <Filter>Shader\3DShader</Filter>
     </FxCompile>
   </ItemGroup>

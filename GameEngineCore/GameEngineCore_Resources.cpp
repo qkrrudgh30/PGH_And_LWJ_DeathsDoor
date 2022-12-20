@@ -268,6 +268,11 @@ void ShaderCompile()
 
 void EngineRenderingPipeLine()
 {
+	{
+		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("Shadow");
+		NewPipe->SetVertexShader("Shadow.hlsl");
+		NewPipe->SetPixelShader("Shadow.hlsl");
+	}
 	
 	{
 		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("CalDeferredMerge");
@@ -291,6 +296,12 @@ void EngineRenderingPipeLine()
 		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("DeferredColor");
 		NewPipe->SetVertexShader("DeferredColor.hlsl");
 		NewPipe->SetPixelShader("DeferredColor.hlsl");
+	}
+
+	{
+		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("DeferredTextureAnimation");
+		NewPipe->SetVertexShader("DeferredTextureAnimation.hlsl");
+		NewPipe->SetPixelShader("DeferredTextureAnimation.hlsl");
 	}
 
 	{
@@ -447,16 +458,16 @@ void EngineMesh()
 		Vertex[15] = {float4::VectorRotationToDegreeYAxis(Vertex[3].POSITION, 90.f), float4(0.0f, 1.0f), float4(1.0f), float4(-1.0f, 0.0f, 0.0f) };
 
 		// À§
-		Vertex[16] = {float4::VectorRotationToDegreeXAxis(Vertex[0].POSITION, -90.f) , float4(0.0f, 0.0f) , float4(1.0f), float4(0.0f, 1.0f, 0.0f) };
-		Vertex[17] = {float4::VectorRotationToDegreeXAxis(Vertex[1].POSITION, -90.f) , float4(1.0f, 0.0f) , float4(1.0f), float4(0.0f, 1.0f, 0.0f) };
-		Vertex[18] = {float4::VectorRotationToDegreeXAxis(Vertex[2].POSITION, -90.f) , float4(1.0f, 1.0f) , float4(1.0f), float4(0.0f, 1.0f, 0.0f) };
-		Vertex[19] = { float4::VectorRotationToDegreeXAxis(Vertex[3].POSITION, -90.f), float4(0.0f, 1.0f) , float4(1.0f), float4(0.0f, 1.0f, 0.0f)  };
+		Vertex[16] = { float4::VectorRotationToDegreeXAxis(Vertex[0].POSITION, -90.f) , float4(0.0f, 0.0f) , float4(1.0f), float4(0.0f, -1.0f, 0.0f) };
+		Vertex[17] = { float4::VectorRotationToDegreeXAxis(Vertex[1].POSITION, -90.f) , float4(1.0f, 0.0f) , float4(1.0f), float4(0.0f, -1.0f, 0.0f) };
+		Vertex[18] = { float4::VectorRotationToDegreeXAxis(Vertex[2].POSITION, -90.f) , float4(1.0f, 1.0f) , float4(1.0f), float4(0.0f, -1.0f, 0.0f) };
+		Vertex[19] = { float4::VectorRotationToDegreeXAxis(Vertex[3].POSITION, -90.f), float4(0.0f, 1.0f) , float4(1.0f), float4(0.0f, -1.0f, 0.0f) };
 
 		// ¾Æ·¡
-		Vertex[20] = {float4::VectorRotationToDegreeXAxis(Vertex[0].POSITION, 90.f) , float4(0.0f, 0.0f), float4(1.0f), float4(0.0f, -1.0f, 0.0f) };
-		Vertex[21] = { float4::VectorRotationToDegreeXAxis(Vertex[1].POSITION, 90.f) , float4(1.0f, 0.0f), float4(1.0f), float4(0.0f, -1.0f, 0.0f) };
-		Vertex[22] = { float4::VectorRotationToDegreeXAxis(Vertex[2].POSITION, 90.f) , float4(1.0f, 1.0f), float4(1.0f), float4(0.0f, -1.0f, 0.0f) };
-		Vertex[23] = { float4::VectorRotationToDegreeXAxis(Vertex[3].POSITION, 90.f), float4(0.0f, 1.0f), float4(1.0f), float4(0.0f, -1.0f, 0.0f) };
+		Vertex[20] = { float4::VectorRotationToDegreeXAxis(Vertex[0].POSITION, 90.f) , float4(0.0f, 0.0f), float4(1.0f), float4(0.0f, 1.0f, 0.0f) };
+		Vertex[21] = { float4::VectorRotationToDegreeXAxis(Vertex[1].POSITION, 90.f) , float4(1.0f, 0.0f), float4(1.0f), float4(0.0f, 1.0f, 0.0f) };
+		Vertex[22] = { float4::VectorRotationToDegreeXAxis(Vertex[2].POSITION, 90.f) , float4(1.0f, 1.0f), float4(1.0f), float4(0.0f, 1.0f, 0.0f) };
+		Vertex[23] = { float4::VectorRotationToDegreeXAxis(Vertex[3].POSITION, 90.f), float4(0.0f, 1.0f), float4(1.0f), float4(0.0f, 1.0f, 0.0f) };
 
 
 		GameEngineVertexBuffer::Create("Box", Vertex);

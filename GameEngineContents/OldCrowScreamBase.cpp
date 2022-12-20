@@ -29,7 +29,7 @@ void OldCrowScreamBase::Update(float _DeltaTime)
 	float4 PlayerPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
 	float4 MyPos = GetTransform().GetWorldPosition();
 	float Angle = DirToRot(PlayerPos, MyPos);
-	float RandY = GameEngineRandom::MainRandom.RandomInt(Angle - 30.f, Angle + 30.f);
+	float RandY = GameEngineRandom::MainRandom.RandomFloat(Angle - 30.f, Angle + 30.f);
 	
 
 

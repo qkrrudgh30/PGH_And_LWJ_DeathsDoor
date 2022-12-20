@@ -15,6 +15,8 @@ public:
 	TestBox& operator=(const TestBox& _Other) = delete;
 	TestBox& operator=(TestBox&& _Other) noexcept = delete;
 
+	AdditionalInfoForLight& GetLightInfo(void) { return m_structLightInfo; }
+
 protected:
 	void Start() override;
 	void Update(float _fDeltatime) override;
@@ -27,7 +29,7 @@ public:
 protected:
 
 private:
-
+	AdditionalInfoForLight m_structLightInfo;
 
 };
 

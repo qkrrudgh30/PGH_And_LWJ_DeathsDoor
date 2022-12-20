@@ -134,15 +134,24 @@
     <Image Include="Texture\Test\4.png" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Deferred.hlsli" />
     <None Include="Shader\ContentsLight.hlsli" />
     <None Include="Shader\ContentsShader.hlsli" />
+    <None Include="Shader\Deferred.hlsli" />
     <None Include="Texture\Meta\death_anim_blood.png.meta" />
   </ItemGroup>
   <ItemGroup>
+    <FxCompile Include="ContentsFBXAnimationLight.hlsl">
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Vertex</ShaderType>
+      <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
+    </FxCompile>
     <FxCompile Include="Shader\Billboard.hlsl" />
     <FxCompile Include="Shader\ContentsBloom.hlsl" />
     <FxCompile Include="Shader\ContentsBlur.hlsl" />
     <FxCompile Include="Shader\ContentsColor.hlsl" />
+    <FxCompile Include="Shader\ContentsDeferredLightColor.hlsl" />
     <FxCompile Include="Shader\ContentsLightColor.hlsl" />
     <FxCompile Include="Shader\ContentsShader.hlsl" />
     <FxCompile Include="Shader\Fade.hlsl" />

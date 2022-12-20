@@ -101,6 +101,10 @@ void CreateContentsMaterial()
 	ContentsLightColorMaterial.lock()->SetVertexShader("ContentsLightColor.hlsl");
 	ContentsLightColorMaterial.lock()->SetPixelShader("ContentsLightColor.hlsl");
 
+	std::weak_ptr<GameEngineMaterial> ContentsDeferredLightColorMaterial = GameEngineMaterial::Create("ContentsDeferredLightColor");
+	ContentsDeferredLightColorMaterial.lock()->SetVertexShader("ContentsDeferredLightColor.hlsl");
+	ContentsDeferredLightColorMaterial.lock()->SetPixelShader("ContentsDeferredLightColor.hlsl");
+
 
 	// std::weak_ptr<GameEngineMaterial> ContentsShaderMaterial = GameEngineMaterial::Create("ContentsShader");
 	// ContentsBlurMaterial.lock()->SetVertexShader("ContentsShader.hlsl");

@@ -27,7 +27,7 @@ public:
 protected:
 
 private:
-
+	AdditionalInfoForLight m_structLightInfo;
 
 };
 

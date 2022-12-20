@@ -156,6 +156,12 @@ private:
 
 	std::shared_ptr<class GameEngineRenderTarget> CameraDeferredRenderTarget;
 
+	std::shared_ptr<GameEngineRenderUnit> ShadowRenderUnit;
+
+	TransformData ShadowTrans;
+
+	class GameEngineConstantBufferSetter* ShadowTransformSetter;
+
 	std::map<int, std::list<std::shared_ptr<class GameEngineRenderer>>> AllRenderer_;
 
 	std::map<RENDERINGPATHORDER, std::map<int, std::list<std::shared_ptr<class GameEngineRenderUnit>>>> AllRenderUnit_;

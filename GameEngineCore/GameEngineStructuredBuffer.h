@@ -152,7 +152,7 @@ public:
 	{
 		return ShaderDesc;
 	}
-
+	 
 protected:
 	void Release();
 

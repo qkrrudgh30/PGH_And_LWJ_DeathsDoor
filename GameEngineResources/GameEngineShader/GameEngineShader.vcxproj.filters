@@ -40,6 +40,12 @@
     <FxCompile Include="CalDeferredLight.hlsl">
       <Filter>Deferred</Filter>
     </FxCompile>
+    <FxCompile Include="DeferredTextureAnimation.hlsl">
+      <Filter>Deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="Shadow.hlsl">
+      <Filter>Deferred</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Debug">

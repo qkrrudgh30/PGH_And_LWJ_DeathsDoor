@@ -3,6 +3,7 @@
 #include "GameEngineUpdateObject.h"
 #include <list>
 #include "GameEngineTransformBase.h"
+#include "GameEngineComponent.h"
 
 
 // 설명 : 화면에 등장하는 모든것을 표현하기 위한 클래스
@@ -41,6 +42,7 @@ public:
 	template<typename ComponentType>
 	std::shared_ptr< ComponentType> CreateComponent(const std::string& _Name = "")
 	{
+		// std::shared_ptr<GameEngineComponent> NewComponent = std::make_shared<ComponentType>();
 		std::shared_ptr<GameEngineComponent> NewComponent = std::make_shared<ComponentType>();
 		NewComponent->SetName(_Name);
 		NewComponent->SetParent(shared_from_this());

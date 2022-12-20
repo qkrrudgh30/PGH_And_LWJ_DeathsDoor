@@ -10,7 +10,11 @@ struct PaperBurnInfo
 	float			mfPadding2;
 };
 
-
+struct AdditionalInfoForLight
+{
+	unsigned int uOnOffLight;
+	float4 f4Padding;
+};
 
 // Ό³Έν :
 class GameEngineFBXStaticRenderer;

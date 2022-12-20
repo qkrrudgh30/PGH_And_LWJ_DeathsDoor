@@ -132,11 +132,6 @@ void GameEngineRenderUnit::SetMaterial(const std::string& _Name)
 		InputLayOut = GameEngineInputLayOut::Create(Mesh->GetLayOutDesc(), Material->GetVertexShader());
 	}
 
-	//if (Material->GetPixelShader()->GetIsDeferred())
-	//{
-
-	//}
-
 	ShaderResources.ResourcesCheck(Material);
 
 	EngineShaderResourcesSetting(ParentRenderer);
