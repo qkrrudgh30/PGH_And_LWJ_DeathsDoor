@@ -39,6 +39,8 @@ public:
 	void DeleteAll();
 	void MakeTarget();
 	void MakeLaser();
+	void StartLaser();
+
 
 	bool m_bLaserEnd = false;
 	bool m_bTarGetStart = false;

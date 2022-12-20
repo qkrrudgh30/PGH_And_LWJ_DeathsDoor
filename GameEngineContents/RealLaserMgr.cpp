@@ -100,58 +100,16 @@ void RealLaserMgr::MakeLaser()
 	}
 
 
+}
 
-	//for (int i = 0; i <= 4; ++i)
-	//{
-	//	if (m_iCount == i)
-	//	{
-	//		continue;
-	//	}
+void RealLaserMgr::StartLaser()
+{
 
-	//	if (i == 0)
-	//	{
-	//		std::shared_ptr < RealLaser> Bullet = GetLevel()->CreateActor<RealLaser>(OBJECTORDER::Eff);
-	//		float4 MyPos = { -124.f,100.f,547.f };
-	//		Bullet->GetTransform().SetWorldPosition(MyPos);
-	//		m_vRealLaser.push_back(Bullet);
-
-	//	}
-	//	else if (i == 1)
-	//	{
-	//		std::shared_ptr < RealLaser> Bullet = GetLevel()->CreateActor<RealLaser>(OBJECTORDER::Eff);
-	//		float4 MyPos = { 112.f,100.f,305.f };
-	//		Bullet->GetTransform().SetWorldPosition(MyPos);
-	//		m_vRealLaser.push_back(Bullet);
-
-	//	}
-	//	else if (i == 2)
-	//	{
-	//		std::shared_ptr < RealLaser> Bullet = GetLevel()->CreateActor<RealLaser>(OBJECTORDER::Eff);
-	//		float4 MyPos = { 358.f,100.f,62.f };
-	//		Bullet->GetTransform().SetWorldPosition(MyPos);
-	//		m_vRealLaser.push_back(Bullet);
-
-	//	}
-	//	else if (i == 3)
-	//	{
-
-	//		std::shared_ptr < RealLaser> Bullet = GetLevel()->CreateActor<RealLaser>(OBJECTORDER::Eff);
-	//		float4 MyPos = { 673.f,100.f,269.f };
-	//		Bullet->GetTransform().SetWorldPosition(MyPos);
-	//		m_vRealLaser.push_back(Bullet);
-	//	}
-	//	else if (i == 4)
-	//	{
-
-	//		std::shared_ptr < RealLaser> Bullet = GetLevel()->CreateActor<RealLaser>(OBJECTORDER::Eff);
-	//		float4 MyPos = { 872.f,100.f,-468.f };
-	//		Bullet->GetTransform().SetWorldPosition(MyPos);
-	//		m_vRealLaser.push_back(Bullet);
-	//	}
+	for (size_t i = 0; i < m_vTarget.size(); i++)
+	{
+		m_vRealLaser[i]->m_bScalecheck = true;
+	}
 
 
-
-
-	//}
 }
 

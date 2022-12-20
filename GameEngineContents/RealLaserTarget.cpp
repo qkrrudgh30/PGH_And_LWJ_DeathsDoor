@@ -23,8 +23,8 @@ void RealLaserTarget::Start()
 	TexRenderer->GetTransform().SetLocalScale({ 10.f, 380.f, 1.f });
 	TexRenderer->SetPivot(PIVOTMODE::LEFT);
 	TexRenderer->GetTransform().SetLocalRotation({ 90.f, 135.f,0.f });
-	//TexRenderer->GetPixelData().MulColor.a = 0.1f;
-	
+	TexRenderer->GetPixelData().MulColor.a = 0.5f;
+	TexRenderer->SetRenderingOrder(10);
 
 	//Death(1.f);
 }

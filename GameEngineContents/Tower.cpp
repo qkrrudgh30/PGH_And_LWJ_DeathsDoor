@@ -253,6 +253,16 @@ void Tower::DeathStart(const StateInfo& _Info)
 
 	//}
 
+	if(m_RealLaserMgr)
+	{
+
+		m_RealLaserMgr->DeleteAll();
+		m_RealLaserMgr->Death();
+		m_RealLaserMgr = nullptr;
+	}
+
+
+
 
 }
 
@@ -522,12 +532,13 @@ void Tower::AniLaserFrame(const GameEngineRenderingEvent& _Data)
 	{
 		m_RealLaserMgr = GetLevel()->CreateActor<RealLaserMgr>(OBJECTORDER::MonsterAtt);
 		m_RealLaserMgr->MakeTarget();
+		m_RealLaserMgr->MakeLaser();
 	}
 
 	if (_Data.CurFrame == 63)
 	{
 
-		m_RealLaserMgr->MakeLaser();
+		m_RealLaserMgr->StartLaser();
 	}
 
 }
