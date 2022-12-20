@@ -100,8 +100,6 @@ float4 Texture_PS(Output _Input) : SV_Target0
         return f4Orignal;
     }
     
-    
-    
     if (f4Cloud.r <= mfEffectTime)
     {
         f4Orignal.a = 0;

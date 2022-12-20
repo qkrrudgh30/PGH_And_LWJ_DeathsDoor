@@ -83,7 +83,7 @@ void Player::Start()
 	FBXAnimationRenderer = CreateComponent<GameEngineFBXAnimationRenderer>();
 	FBXAnimationRenderer->GetTransform().SetLocalScale(float4{ 15.f, 15.f, 15.f });
 	FBXAnimationRenderer->GetTransform().SetLocalRotation(float4{ 0.f, 45.f, 0.f });
-	FBXAnimationRenderer->SetFBXMesh("Player.fbx", "TextureAnimation");
+	FBXAnimationRenderer->SetFBXMesh("Player.fbx", "DeferredTextureAnimation");
 	//Renderer->SetParent(FBXAnimationRenderer);
 
 
