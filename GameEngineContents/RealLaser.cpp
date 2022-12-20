@@ -32,8 +32,7 @@ void RealLaser::Start()
 
 	}
 
-	m_structSoundPlayer.Stop();
-	m_structSoundPlayer = GameEngineSound::SoundPlayControl("23_MiddleBossLaser.mp3");
+	
 	{
 		float4 color = { 1.f,0.f,0.f,1.f };
 

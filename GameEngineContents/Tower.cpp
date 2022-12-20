@@ -537,7 +537,8 @@ void Tower::AniLaserFrame(const GameEngineRenderingEvent& _Data)
 
 	if (_Data.CurFrame == 63)
 	{
-
+		m_structSoundPlayer.Stop();
+		m_structSoundPlayer = GameEngineSound::SoundPlayControl("23_MiddleBossLaser.mp3");
 		m_RealLaserMgr->StartLaser();
 	}
 
