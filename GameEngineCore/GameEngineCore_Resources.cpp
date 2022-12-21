@@ -269,9 +269,15 @@ void ShaderCompile()
 void EngineRenderingPipeLine()
 {
 	{
-		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("Shadow");
-		NewPipe->SetVertexShader("Shadow.hlsl");
-		NewPipe->SetPixelShader("Shadow.hlsl");
+		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("ShadowAnimation");
+		NewPipe->SetVertexShader("ShadowAnimation.hlsl");
+		NewPipe->SetPixelShader("ShadowAnimation.hlsl");
+	}
+
+	{
+		std::shared_ptr<GameEngineMaterial> NewPipe = GameEngineMaterial::Create("ShadowStatic");
+		NewPipe->SetVertexShader("ShadowStatic.hlsl");
+		NewPipe->SetPixelShader("ShadowStatic.hlsl");
 	}
 	
 	{

@@ -57,6 +57,12 @@ struct TransformData
 	float4x4 WorldViewMatrix;
 	float4x4 WorldViewProjectionMatrix;
 
+	void CalculateWorldViewProjection()
+	{
+		WorldViewMatrix = WorldWorldMatrix * ViewMatrix;
+		WorldViewProjectionMatrix = WorldViewMatrix * ProjectionMatrix;
+	}
+
 public:
 	TransformData() :
 		LocalScaling(float4::ONE)

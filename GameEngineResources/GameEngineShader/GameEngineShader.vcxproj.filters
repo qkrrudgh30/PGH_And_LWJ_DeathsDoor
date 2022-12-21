@@ -46,6 +46,13 @@
     <FxCompile Include="Shadow.hlsl">
       <Filter>Deferred</Filter>
     </FxCompile>
+    <FxCompile Include="AnimationHeader.fx" />
+    <FxCompile Include="ShadowAnimation.hlsl">
+      <Filter>Deferred</Filter>
+    </FxCompile>
+    <FxCompile Include="ShadowStatic.hlsl">
+      <Filter>Deferred</Filter>
+    </FxCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Debug">

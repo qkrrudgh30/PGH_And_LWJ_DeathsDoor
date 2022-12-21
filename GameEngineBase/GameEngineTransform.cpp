@@ -40,15 +40,7 @@ void GameEngineTransform::CalculateWorld()
 
 void GameEngineTransform::CalculateWorldViewProjection()
 {
-	Data.WorldViewMatrix = Data.WorldWorldMatrix * Data.ViewMatrix;
-	Data.WorldViewProjectionMatrix = Data.WorldViewMatrix * Data.ProjectionMatrix;
-
-	//float4 Pos = { 0.5f, 0.5f, 0.0f, 1.0f };
-
-	//Pos *= Data.WorldViewProjectionMatrix;
-
-	//Pos /= Pos.w;
-
+	Data.CalculateWorldViewProjection();
 }
 
 void GameEngineTransform::DetachTransform()

@@ -45,12 +45,14 @@ GameEngineCamera::GameEngineCamera()
 	DeferredMergeUnit->SetMesh("FullRect");
 	DeferredMergeUnit->SetMaterial("CalDeferredMerge");
 
-	ShadowRenderUnit = std::make_shared<GameEngineRenderUnit>();
+	ShadowRenderStaticUnit = std::make_shared<GameEngineRenderUnit>();
+	ShadowRenderStaticUnit->SetMaterial("ShadowStatic");
+	ShadowRenderStaticUnit->ShaderResources.SetConstantBufferLink("TransformData", ShadowTrans);
 
-	ShadowRenderUnit->SetMaterial("Shadow");
-
-	ShadowRenderUnit->ShaderResources.SetConstantBufferLink("TransformData", ShadowTrans);
-	
+	ShadowRenderAnimationUnit = std::make_shared<GameEngineRenderUnit>();
+	ShadowRenderAnimationUnit->SetMaterial("ShadowAnimation");
+	ShadowRenderAnimationUnit->ShaderResources.SetConstantBufferLink("TransformData", ShadowTrans);
+	ShadowRenderAnimationUnit->ShaderResources.SetConstantBufferLink("RenderOption", ShadowRenderOption);
 }
 
 GameEngineCamera::~GameEngineCamera() 
@@ -213,50 +215,83 @@ void GameEngineCamera::Render(float _DeltaTime)
 		}
 	}
 
-
 	{
-		std::map<RENDERINGPATHORDER, std::map<int, std::list<std::shared_ptr<class GameEngineRenderUnit>>>>::iterator ForwardIter
-			= AllRenderUnit_.find(RENDERINGPATHORDER::DEFERRED);
 
 		for (std::shared_ptr<class GameEngineLight> Light : AllLight)
 		{
+			GameEngineDevice::GetContext()->RSSetViewports(1, &Light->GetViewPortDesc());
 			Light->ShadowTargetSetting();
 
-			std::map<int, std::list<std::shared_ptr<class GameEngineRenderUnit>>>& OrderMap = ForwardIter->second;
-
-			std::map<int, std::list<std::shared_ptr<class GameEngineRenderUnit>>>::iterator OrderStartIter = OrderMap.begin();
-			std::map<int, std::list<std::shared_ptr<class GameEngineRenderUnit>>>::iterator OrderEndIter = OrderMap.end();
-
-			for (std::pair<const int, std::list<std::shared_ptr<GameEngineRenderUnit>>>& Group : OrderMap)
+			for (size_t i = 0; i < static_cast<size_t>(RENDERINGPATHORDER::MAX); i++)
 			{
-				float ScaleTime = GameEngineTime::GetInst()->GetDeltaTime(Group.first);
+				std::map<RENDERINGPATHORDER, std::map<int, std::list<std::shared_ptr<class GameEngineRenderUnit>>>>::iterator ForwardIter
+					= AllRenderUnit_.find(static_cast<RENDERINGPATHORDER>(i));
 
-				std::list<std::shared_ptr<GameEngineRenderUnit>>& RenderList = Group.second;
-				RenderList.sort(ZSortUnit);
+				std::map<int, std::list<std::shared_ptr<class GameEngineRenderUnit>>>& OrderMap = ForwardIter->second;
 
-				for (std::shared_ptr<GameEngineRenderUnit>& Unit : Group.second)
+				std::map<int, std::list<std::shared_ptr<class GameEngineRenderUnit>>>::iterator OrderStartIter = OrderMap.begin();
+				std::map<int, std::list<std::shared_ptr<class GameEngineRenderUnit>>>::iterator OrderEndIter = OrderMap.end();
+
+				for (std::pair<const int, std::list<std::shared_ptr<GameEngineRenderUnit>>>& Group : OrderMap)
 				{
-					if (false == Unit->GetIsOn())
+					float ScaleTime = GameEngineTime::GetInst()->GetDeltaTime(Group.first);
+
+					std::list<std::shared_ptr<GameEngineRenderUnit>>& RenderList = Group.second;
+					RenderList.sort(ZSortUnit);
+
+					for (std::shared_ptr<GameEngineRenderUnit>& Unit : Group.second)
 					{
-						continue;
+						if (false == Unit->GetIsOn())
+						{
+							continue;
+						}
+
+						// 인풋레이아웃이 만들어 지네요?????
+						// 확인해봐야할거 같습니다.
+						// Unit->ShaderResources.AllResourcesSetting();
+
+						ShadowRenderOption = Unit->GetRenderer()->RenderOptionInst;
+
+						ShadowTrans = Unit->GetRenderer()->GetTransform().GetTransformData();
+						ShadowTrans.ViewMatrix = Light->GetLightData().LightViewMatrix;
+						ShadowTrans.ProjectionMatrix = Light->GetLightData().LightProjectionMatrix;
+						ShadowTrans.CalculateWorldViewProjection();
+
+						if (0 != ShadowRenderOption.IsAnimation)
+						{
+							GameEngineStructuredBufferSetter* Setter = Unit->ShaderResources.GetStructuredBuffer("ArrAniMationMatrix");
+							GameEngineStructuredBufferSetter* ShadowSetter = ShadowRenderAnimationUnit->ShaderResources.GetStructuredBuffer("ArrAniMationMatrix");
+							ShadowSetter->Res = Setter->Res;
+							ShadowSetter->SetData = Setter->SetData;
+							ShadowSetter->Size = Setter->Size;
+							ShadowSetter->Count = Setter->Count;
+							ShadowSetter->SettingFunction = Setter->SettingFunction;
+							ShadowRenderAnimationUnit->SetMesh(Unit->GetMesh());
+							ShadowRenderAnimationUnit->Render(ScaleTime);
+						}
+						else {
+							ShadowRenderStaticUnit->SetMesh(Unit->GetMesh());
+							ShadowRenderStaticUnit->Render(ScaleTime);
+						}
 					}
-
-					// 인풋레이아웃이 만들어 지네요?????
-					// 확인해봐야할거 같습니다.
-					ShadowRenderUnit->SetMesh(Unit->GetMesh());
-
-					ShadowTrans = Unit->GetRenderer()->GetTransform().GetTransformData();
-
-					ShadowRenderUnit->Render(ScaleTime);
-
-					// 인스턴싱 정보 수집
-					// Unit->Render(ScaleTime);
 				}
-			}
 
+			}
 		}
 
+
 	}
+
+	GameEngineDevice::GetContext()->RSSetViewports(1, &ViewPortDesc);
+
+
+	CameraDeferredLightRenderTarget->Clear();
+	for (std::shared_ptr<class GameEngineLight> Light : AllLight)
+	{
+		DeferredCalLightUnit->ShaderResources.SetTexture("ShadowTex", Light->GetShadowTarget()->GetRenderTargetTexture(0));
+		CameraDeferredLightRenderTarget->Effect(DeferredCalLightUnit);
+	}
+
 
 	// 디퍼드의 결과물이 다 나왔다.
 
