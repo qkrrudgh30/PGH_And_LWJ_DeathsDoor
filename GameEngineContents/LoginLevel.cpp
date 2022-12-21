@@ -26,6 +26,11 @@
 
 #include "WorldLight.h"
 
+
+#include "TsetBackGround.h"
+
+#include "TestFog.h"
+
 LoginLevel::LoginLevel()	:
 	UI()
 {
@@ -43,11 +48,11 @@ void LoginLevel::Start()
 
 
 	GetMainCamera()->SetProjectionMode(CAMERAPROJECTIONMODE::PersPective);
-	GetMainCameraActorTransform().SetWorldRotation({ 12.f,11.f,0.f });
+	GetMainCameraActorTransform().SetWorldRotation({ 0.9f,2.9f,0.f });
 	float4 CameraWorldPos = GetMainCameraActorTransform().GetWorldPosition();
-	CameraWorldPos.x -= 880.f;
-	CameraWorldPos.y += 750.f;
-	CameraWorldPos.z -= 1900.f;;
+	CameraWorldPos.x = -643.f;
+	CameraWorldPos.y = 628.f;
+	CameraWorldPos.z = -2672.f;;
 	GetMainCameraActorTransform().SetWorldPosition(CameraWorldPos);
 
 
@@ -114,7 +119,30 @@ void LoginLevel::LevelStartEvent()
 			
 
 		}
+		//TsetBackGround
+		{
 
+			std::weak_ptr < TsetBackGround> BackGround = CreateActor<TsetBackGround>(OBJECTORDER::Eff);
+			BackGround.lock()->GetTransform().SetWorldPosition({ -429.F,2309.F,4869.F });
+			
+		}
+
+
+
+		{
+			
+			std::weak_ptr < TestFog> _TestFog = CreateActor<TestFog>(OBJECTORDER::UI);
+			//_TestFog.lock()->GetTransform().SetWorldPosition({ 2122.f,216.f,-767.f });
+
+		}
+
+
+		
+		
+
+
+		
+		
 		{
 
 			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);

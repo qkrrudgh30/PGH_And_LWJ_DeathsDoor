@@ -55,6 +55,8 @@ protected:
 	std::shared_ptr <GameEngineUIRenderer> RendererArrow4;
 
 
+	std::shared_ptr <GameEngineUIRenderer> FogRender;
+
 
 	public:
 		//std::weak_ptr < Player> m_Player;

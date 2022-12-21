@@ -24,6 +24,7 @@ PlayerMainUI::PlayerMainUI()	:
 	,RendererArrow2()
 	,RendererArrow3()
 	,RendererArrow4()
+	, FogRender()
 {
 }
 
@@ -361,7 +362,7 @@ void PlayerMainUI::Start()
 
 
 
-
+	
 
 
 

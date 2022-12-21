@@ -1,7 +1,14 @@
+
+
 #pragma once
+#include <GameEngineCore/CoreMinimal.h>
+
+#include "UnitBase.h"
 
 // Ό³Έν :
-class TsetBackGround : public GameEngineActor
+
+class BillboardRenderer;
+class TsetBackGround : public UnitBase
 {
 public:
 	// constrcuter destructer
@@ -14,16 +21,18 @@ public:
 	TsetBackGround& operator=(const TsetBackGround& _Other) = delete;
 	TsetBackGround& operator=(TsetBackGround&& _Other) noexcept = delete;
 
-
 protected:
 	void Start() override;
 	void Update(float _DeltaTime);
 	void End() {}
-
-//	GameEngineTextureRenderer* Renderer;
-
-
 private:
+	std::shared_ptr<BillboardRenderer> sptrTestPicture;
 
+
+
+//	std::shared_ptr<BillboardRenderer> Star1;
+public:
+	float m_fDownSpeed = 0.f;
+	float m_fEffTime = 0.1f;
 };
 
