@@ -15,11 +15,6 @@ OldCrowFeather::~OldCrowFeather()
 void OldCrowFeather::Start()
 {
 
-
-	//255	228
-	//255	94
-
-
 	m_fSpeed = 100.f;
 
 
@@ -27,7 +22,7 @@ void OldCrowFeather::Start()
 
 	float4 color = { 0.1f ,0.f,0.f,1.f };
 	TexRenderer = CreateComponent<GameEngineTextureRenderer>();
-	TexRenderer->SetTexture("fireparticle.png");
+	TexRenderer->SetTexture("grass_particle.png");
 	TexRenderer->GetTransform().SetLocalScale({ 10.f, 50.f, 1 });
 	TexRenderer->GetPixelData().MulColor = color;
 	TexRenderer->RenderOptionInst.Temp1 = 15;

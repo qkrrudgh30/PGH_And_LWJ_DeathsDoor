@@ -12,8 +12,9 @@
 #include "PlayerFireBullet.h"
 
 #include "ArrowEffMgr.h"
+#include "PlayerShadow.h"
 
-
+ 
 
 #include "PlayerMainUI.h"
 #include "PlayerUpgradeUI.h"
@@ -267,6 +268,7 @@ void Player::Start()
 	FBXAnimationRenderer->ChangeAnimation("Player_Idle2");
 
 
+
 	//ui주석 풀어야함
 	MainUI = GetLevel()->CreateActor<PlayerMainUI>(OBJECTORDER::UI);
 	
@@ -275,7 +277,7 @@ void Player::Start()
 
 	UpgradeUI.lock()->SetLevelOverOn();
 	MainUI.lock()->SetLevelOverOn();
-	 
+
 	 
 	 
 
@@ -910,7 +912,7 @@ void Player::ArrowAttUpdate(float _DeltaTime, const StateInfo& _Info)
 
 	A2 += " : ANGLE";
 
-	GameEngineDebug::OutPutString(A2);
+	//GameEngineDebug::OutPutString(A2);
 
 
 
@@ -1501,19 +1503,13 @@ void Player::AniIdleEnd(const GameEngineRenderingEvent& _Data)
 {
 
 
-	std::string A = " 아이들 끝 ";
 
-	GameEngineDebug::OutPutString(A);
 
 
 
 }
 void Player::AniPlayer_Att_Left(const GameEngineRenderingEvent& _Data)
 {
-
-	std::string A = " 3타 끝 ";
-
-	GameEngineDebug::OutPutString(A);
 
 
 	
@@ -1585,9 +1581,7 @@ void Player::AniPlayer_Roll(const GameEngineRenderingEvent& _Data)
 void Player::AniPlayer_Idle2(const GameEngineRenderingEvent& _Data)
 {
 
-	std::string A = " 아이들 끝 ";
-
-	GameEngineDebug::OutPutString(A);
+	
 
 }
 void Player::AniPlayer_SlideAtt(const GameEngineRenderingEvent& _Data)

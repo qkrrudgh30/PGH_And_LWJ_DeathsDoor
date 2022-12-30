@@ -86,7 +86,7 @@ void UnitBase::BaseUpdate(float _DeltaTime)
 			ShakeDirCheck = false;
 			ShakeForce = 1000.f;
 			ShakeTCheck = 0.f;
-			//GetLevel()->GetMainCameraActorTransform().SetWorldRotation(CameraLastDir);
+			
 		}
 	}
 
@@ -102,8 +102,7 @@ void UnitBase::CameraShake(float _Time)
 	ShakeMaxTime = _Time;
 	ShakeTime = 0.f;
 	ShakeCheck = true;
-	//CameraLastDir = GetLevel()->GetMainCameraActorTransform().GetWorldRotation();
-
+	
 }
 
 void UnitBase::InitializePaperBurn(std::shared_ptr<GameEngineFBXAnimationRenderer>& _sptrFBXAnimationRenderer)

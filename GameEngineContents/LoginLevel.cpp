@@ -136,13 +136,7 @@ void LoginLevel::LevelStartEvent()
 
 		}
 
-
-		
-		
-
-
-		
-		
+				
 		{
 
 			std::weak_ptr < Potal> Potal_ = CreateActor<Potal>(OBJECTORDER::NPC);

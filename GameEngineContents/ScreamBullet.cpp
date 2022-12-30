@@ -56,28 +56,20 @@ void ScreamBullet::Update(float _DeltaTime)
 		float4 PlayerPos = Player::GetMainPlayer()->GetTransform().GetWorldPosition();
 		float4 MyPos = GetTransform().GetWorldPosition();
 
-		PlayerPos.y = 50.f;
-		MyPos.y = 50.f;
-
-
 		float4 TarGetDir = (PlayerPos - MyPos).Normalize3DReturn();
-
 		float4 MoveDir = GetTransform().GetForwardVector();
-
 
 		float4 Cross = float4::Cross3D(MoveDir, TarGetDir);
 
-		// ¿ÞÂÊ 
+	
 		if (Cross.y > 0)
 		{
 			GetTransform().SetAddWorldRotation(float4(0.0f, 160.f * _DeltaTime, 0.0f));
 		}
-		// ¿À¸¥ÂÊ
 		else
 		{
 			GetTransform().SetAddWorldRotation(float4(0.0f, -160.f * _DeltaTime, 0.0f));
 		}
-
 
 		GetTransform().SetWorldMove(MoveDir * m_fSpeed * _DeltaTime);
 
