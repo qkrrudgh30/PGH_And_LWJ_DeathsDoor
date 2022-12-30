@@ -25,7 +25,14 @@ void GameEngineLight::Start()
 {
 	ShadowTarget = GameEngineRenderTarget::Create();
 
-	ShadowTarget->CreateRenderTargetTexture({ Data.LightTargetSizeX, Data.LightTargetSizeY }, DXGI_FORMAT_R32_FLOAT, { 0.0f, 0.0f, 0.0f });
+	ViewPortDesc.TopLeftX = 0;
+	ViewPortDesc.TopLeftY = 0;
+	ViewPortDesc.Width = Data.LightTargetSizeX;
+	ViewPortDesc.Height = Data.LightTargetSizeY;
+	ViewPortDesc.MinDepth = 0.0f;
+	ViewPortDesc.MaxDepth = 1.0f;
+
+	ShadowTarget->CreateRenderTargetTexture({ Data.LightTargetSizeX, Data.LightTargetSizeY }, DXGI_FORMAT_R32_FLOAT, { 1.0f, 1.0f, 1.0f, 1.0f });
 	ShadowTarget->CreateDepthTexture();
 }
 
@@ -42,7 +49,12 @@ void GameEngineLight::Update(float _DeltaTime)
 		GetTransform().GetForwardVector(),
 		GetTransform().GetUpVector());
 
+	Data.LightViewInverseMatrix = Data.LightViewMatrix.InverseReturn();
+
 	Data.LightProjectionMatrix.OrthographicLH(Data.LightTargetSizeX, Data.LightTargetSizeY, Data.LightNear, Data.LightFar);
+
+	Data.LightProjectionInverseMatrix = Data.LightProjectionMatrix.InverseReturn();
+	Data.LightViewProjectionMatrix = Data.LightViewMatrix * Data.LightProjectionMatrix;
 }
 
 void GameEngineLight::LightDataUpdate(GameEngineCamera* _Camera)
@@ -60,5 +72,6 @@ void GameEngineLight::LightDataUpdate(GameEngineCamera* _Camera)
 	Data.ViewLightRevDir = Data.LightRevDir * GetTransform().GetViewMatrix();
 	Data.ViewLightRevDir.Normalize3D();
 	Data.ViewLightRevDir.w = 0.0f;
+	Data.CameraViewInverseMatrix = _Camera->GetViewMatrix().InverseReturn();
 	Data.CameraPosition = _Camera->GetTransform().GetWorldPosition() * GetTransform().GetViewMatrix();
 }
