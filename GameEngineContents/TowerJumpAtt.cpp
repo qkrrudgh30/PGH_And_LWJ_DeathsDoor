@@ -18,6 +18,8 @@ void TowerJumpAtt::Start()
 
 		TexRenderer = CreateComponent<GameEngineTextureRenderer>();
 		TexRenderer->SetTexture("iridecent.png");
+		TexRenderer->SetRenderingOrder(10);
+		TexRenderer->GetPixelData().MulColor.a = 0.3f;
 		TexRenderer->GetTransform().SetLocalScale({ 500.f, 500.f, 10.f });
 		TexRenderer->GetTransform().SetLocalRotation({ -90.f,0.f,0.f });
 		//TexRenderer->GetPixelData().MulColor = color;
@@ -44,7 +46,7 @@ void TowerJumpAtt::Update(float _DeltaTime)
 
 	TexRenderer->GetTransform().SetLocalScale({ m_fSpeed, m_fSpeed, 10.f });
 
-	AttCollision->GetTransform().SetWorldBackMove(40000.f,_DeltaTime);
+	AttCollision->GetTransform().SetWorldBackMove(40000.f, _DeltaTime);
 
 
 	//if (m_fSpeed >= 2000.f)
