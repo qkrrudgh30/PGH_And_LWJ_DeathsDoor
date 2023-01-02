@@ -86,8 +86,9 @@ void PlayerHookAtt::Update(float _DeltaTime)
 			std::bind(&PlayerHookAtt::MonsterCollision, this, std::placeholders::_1, std::placeholders::_2)
 		);
 
-		if (m_ftrailTime >= 0.1f)
+		if (m_ftrailTime >= 0.01f)
 		{
+			m_ftrailTime -= 0.01f;
 			std::weak_ptr< PlayerHookTrail> HookTrail = GetLevel()->CreateActor<PlayerHookTrail>(OBJECTORDER::PlayerHookTrail);
 			HookTrail.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
 			HookTrail.lock()->GetTransform().SetLocalRotation(GetTransform().GetLocalRotation());

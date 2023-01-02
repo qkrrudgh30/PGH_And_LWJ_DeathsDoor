@@ -23,7 +23,7 @@ void RealLaser::Start()
 		float4 color = { 1.f,0.f,0.f,1.f };
 
 		TexRenderer = CreateComponent<GameEngineTextureRenderer>();
-		TexRenderer->ChangeCamera(CAMERAORDER::USER1);
+		
 		TexRenderer->SetTexture("LightningBoltTexture.png");
 		TexRenderer->SetPivot(PIVOTMODE::LEFT);
 		TexRenderer->GetTransform().SetLocalScale({ 100.f, 100.f, 1.f });
@@ -37,7 +37,7 @@ void RealLaser::Start()
 		float4 color = { 1.f,0.f,0.f,1.f };
 
 		TexRenderer2 = CreateComponent<GameEngineTextureRenderer>();
-		TexRenderer2->ChangeCamera(CAMERAORDER::USER1);
+		
 		TexRenderer2->SetTexture("LightningBoltTexture.png");
 		TexRenderer2->SetPivot(PIVOTMODE::LEFT);
 		TexRenderer2->GetTransform().SetLocalScale({ 2000.f, 100.f, 1.f });
