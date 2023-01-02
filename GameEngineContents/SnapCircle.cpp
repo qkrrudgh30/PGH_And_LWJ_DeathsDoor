@@ -17,7 +17,7 @@ void SnapCircle::Start()
 	TexRenderer = CreateComponent<GameEngineTextureRenderer>();
 	TexRenderer->SetTexture("Circle.png");
 	TexRenderer->GetTransform().SetLocalScale({ 100.f, 100.f, 10.f });
-	TexRenderer->SetRenderingOrder(10);
+	
 	TexRenderer->GetTransform().SetLocalRotation({ -90.f,0.f,0.f });
 	TexRenderer->GetPixelData().MulColor = color;
 

@@ -520,9 +520,6 @@
     <ClInclude Include="TestFog.h">
       <Filter>01.Actor\02.Unit\00.BackGround</Filter>
     </ClInclude>
-    <ClInclude Include="PlayerShadow.h">
-      <Filter>01.Actor\02.Unit\01.Player</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ContentsCore.cpp">
@@ -834,9 +831,6 @@
     </ClCompile>
     <ClCompile Include="TestFog.cpp">
       <Filter>01.Actor\02.Unit\00.BackGround</Filter>
-    </ClCompile>
-    <ClCompile Include="PlayerShadow.cpp">
-      <Filter>01.Actor\02.Unit\01.Player</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

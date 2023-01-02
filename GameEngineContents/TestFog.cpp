@@ -61,9 +61,9 @@ void TestFog::Update(float _DeltaTime)
 
 	m_fSpeed += _DeltaTime;
 
-	if (m_fSpeed >= 20.f)
+	if (m_fSpeed >= 30.f)
 	{
-		m_fSpeed -= 20.f;
+		m_fSpeed -= 30.f;
 		FogRender->GetTransform().SetLocalPosition(StartPos1);
 
 		FogRender2->GetTransform().SetLocalPosition(StartPos2);
@@ -75,8 +75,8 @@ void TestFog::Update(float _DeltaTime)
 
 	float4 Pos2 = FogRender2->GetTransform().GetLocalPosition();
 
-	Pos1.x -= 200.f * _DeltaTime;
-	Pos2.x -= 200.f * _DeltaTime;
+	Pos1.x -= 100.f * _DeltaTime;
+	Pos2.x -= 100.f * _DeltaTime;
 
 	FogRender->GetTransform().SetLocalPosition(Pos1);
 
@@ -84,8 +84,6 @@ void TestFog::Update(float _DeltaTime)
 
 
 
-	if (Player::GetMainPlayer()->m_bLogoLevelCheck == false)
-	{
-		Death();
-	}
+
+
 }

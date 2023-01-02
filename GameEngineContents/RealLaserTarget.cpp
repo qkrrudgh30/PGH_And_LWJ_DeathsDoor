@@ -19,12 +19,12 @@ void RealLaserTarget::Start()
 	m_fSpeed = 1200.f;
 
 	TexRenderer = CreateComponent<GameEngineTextureRenderer>();
-	TexRenderer->SetTexture("redfade.png");
+	TexRenderer->SetTexture("sword_slash_texture 1.png");
 	TexRenderer->GetTransform().SetLocalScale({ 10.f, 380.f, 1.f });
 	TexRenderer->SetPivot(PIVOTMODE::LEFT);
 	TexRenderer->SetRenderingOrder(10);
 	TexRenderer->GetTransform().SetLocalRotation({ 90.f, 135.f,0.f });
-	TexRenderer->GetPixelData().MulColor.a = 0.3f;
+	TexRenderer->GetPixelData().MulColor.a = 0.5f;
 
 
 	//Death(1.f);

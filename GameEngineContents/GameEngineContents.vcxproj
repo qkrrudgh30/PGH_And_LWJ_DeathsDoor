@@ -315,10 +315,6 @@
       <SubType>
       </SubType>
     </ClInclude>
-    <ClInclude Include="PlayerShadow.h">
-      <SubType>
-      </SubType>
-    </ClInclude>
     <ClInclude Include="RealLaser.h">
       <SubType>
       </SubType>
@@ -698,10 +694,6 @@
       </SubType>
     </ClCompile>
     <ClCompile Include="PlayerFireEff.cpp">
-      <SubType>
-      </SubType>
-    </ClCompile>
-    <ClCompile Include="PlayerShadow.cpp">
       <SubType>
       </SubType>
     </ClCompile>
