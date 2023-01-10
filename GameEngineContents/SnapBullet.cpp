@@ -79,6 +79,20 @@ void SnapBullet::Update(float _DeltaTime)
 {
 	m_fEffTime += _DeltaTime;
 
+
+	m_fTime += _DeltaTime;
+
+	if (m_fTime >= 10.f)
+	{
+
+
+		Death();
+		m_pTarget.lock()->Death();
+		return;
+	}
+
+
+
 	if (m_fEffTime >= 0.01f)
 	{
 		m_fEffTime -= 0.01f;

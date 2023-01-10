@@ -36,7 +36,10 @@ void SnapTarGet::Update(float _DeltaTime)
 
 	m_fTime += _DeltaTime;
 
-
+	if (m_fTime >= 10.f)
+	{
+	//	Death();
+	}
 
 	if (!m_bMakeCheck)
 	{

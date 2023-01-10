@@ -31,7 +31,7 @@ private:
 	CollisionReturn PlayerCollision(std::shared_ptr <GameEngineCollision> _This, std::shared_ptr <GameEngineCollision> _Other);
 
 public:
-
+	float m_fTime = 0.f;
 	float m_fDownSpeed = 0.f;
 	std::weak_ptr<SnapTarGet> m_pTarget = {};
 	float m_fEffTime = 0.1f;

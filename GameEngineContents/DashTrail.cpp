@@ -16,8 +16,6 @@ DashTrail::~DashTrail()
 void DashTrail::Start()
 {
 
-
-
 	{
 		float4 color = { 0.f,0.f,0.f,1.f };
 
@@ -28,14 +26,6 @@ void DashTrail::Start()
 		TexRenderer->GetPixelData().MulColor = color;
 
 	}
-
-
-
-
-	AttCollision = CreateComponent<GameEngineCollision>();
-	AttCollision->GetTransform().SetLocalScale({ 20.f, 500.0f, 50.0f });
-	AttCollision->ChangeOrder(OBJECTORDER::PlayerHookTrail);
-
 
 
 }

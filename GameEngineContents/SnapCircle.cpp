@@ -28,8 +28,9 @@ void SnapCircle::Start()
 	AttCollision->ChangeOrder(OBJECTORDER::MonsterAtt);
 	AttCollision->SetCollisionMode(CollisionMode::Ex);
 
-
-
+	
+		Death(1.f);
+	
 }
 
 void SnapCircle::Update(float _DeltaTime)
@@ -46,10 +47,7 @@ void SnapCircle::Update(float _DeltaTime)
 	
 	TexRenderer->GetTransform().SetLocalScale({ m_fScale ,m_fScale ,10.f});
 
-	if (1.f < GetAccTime())
-	{
-		Death();
-	}
+
 }
 
 CollisionReturn SnapCircle::PlayerCollision(std::shared_ptr<GameEngineCollision> _This, std::shared_ptr<GameEngineCollision> _Other)

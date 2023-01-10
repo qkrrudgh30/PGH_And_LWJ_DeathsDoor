@@ -26,6 +26,8 @@ protected:
 private:
 	bool	m_bHitCheck = false;
 	float m_ftrailTime = 0.f;
+
+	int A = 0;
 	CollisionReturn MonsterCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other);
 	CollisionReturn PlayerCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other);
 	CollisionReturn TrailCollision(std::shared_ptr < GameEngineCollision> _This, std::shared_ptr < GameEngineCollision> _Other);

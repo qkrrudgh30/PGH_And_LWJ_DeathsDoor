@@ -11,6 +11,7 @@ DashBullet::DashBullet()
 
 DashBullet::~DashBullet()
 {
+	int A = 0;
 }
 
 void DashBullet::Start()
@@ -29,10 +30,6 @@ void DashBullet::Start()
 
 
 
-	AttCollision = CreateComponent<GameEngineCollision>();
-	AttCollision->GetTransform().SetLocalScale({ 20.f, 500.0f, 50.0f });
-	AttCollision->ChangeOrder(OBJECTORDER::PlayerHook);
-
 
 
 }
@@ -44,6 +41,7 @@ void DashBullet::Update(float _DeltaTime)
 
 	if (m_OldCorw.lock() == nullptr)
 	{
+
 		Death();
 		return;
 
@@ -51,36 +49,16 @@ void DashBullet::Update(float _DeltaTime)
 
 	float4 TarGetPos = m_OldCorw.lock()->GetTransform().GetWorldPosition();
 	float4 myPos = GetTransform().GetWorldPosition();
-
-
 	float Len = (TarGetPos - myPos).Length();
-
-	m_ftrailTime += _DeltaTime;
-
-	AttCollision->IsCollision(CollisionType::CT_OBB, OBJECTORDER::Player, CollisionType::CT_OBB,
-		std::bind(&DashBullet::PlayerCollision, this, std::placeholders::_1, std::placeholders::_2)
-	);
 
 	float4 MoveDir = GetTransform().GetForwardVector();
 
 
 
-	if (m_ftrailTime >= 0.005f)
-	{
-		if (Len >= 150.f)
-		{
-			m_ftrailTime -= 0.005f;
-			std::weak_ptr< DashTrail> HookTrail = GetLevel()->CreateActor<DashTrail>(OBJECTORDER::PlayerHookTrail);
-			HookTrail.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
-			HookTrail.lock()->GetTransform().SetLocalRotation(GetTransform().GetLocalRotation());
-			HookTrail.lock()->m_cHook = std::dynamic_pointer_cast<DashBullet>(shared_from_this());
-			HookTrail.lock()->m_OldCorw = m_OldCorw;
 
 
-		}
-		
-	
-	}
+
+
 
 	if(!m_bGoCheck)
 	{
@@ -88,6 +66,18 @@ void DashBullet::Update(float _DeltaTime)
 		{
 			GetTransform().SetWorldMove(MoveDir * m_fSpeed * _DeltaTime);
 			
+
+			if (Len >= 150.f)
+			{
+  				std::weak_ptr< DashTrail> HookTrail = GetLevel()->CreateActor<DashTrail>(OBJECTORDER::CrowDash);
+				HookTrail.lock()->GetTransform().SetWorldPosition(GetTransform().GetWorldPosition());
+				HookTrail.lock()->GetTransform().SetLocalRotation(GetTransform().GetLocalRotation());
+				HookTrail.lock()->m_cHook = std::dynamic_pointer_cast<DashBullet>(shared_from_this());
+				HookTrail.lock()->m_OldCorw = m_OldCorw;
+				
+			}
+
+
 		}
 		else
 		{
@@ -98,7 +88,7 @@ void DashBullet::Update(float _DeltaTime)
 	else
 	{
 
-		if (Len <= 70.f)
+		if (Len <= 150.f)
 		{
 			
 			m_OldCorw.lock()->DashEndCheck = true;

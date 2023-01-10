@@ -29,7 +29,7 @@ public:
 
 	std::weak_ptr<OldCrow> m_OldCorw;
 
-	
+	int A = 0;
 
 
 	bool m_bGoCheck = false;
