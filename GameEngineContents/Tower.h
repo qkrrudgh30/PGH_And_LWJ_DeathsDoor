@@ -101,7 +101,7 @@ private:
 	float m_fUpDownTime = 0.f;
 	float m_fAttCTime = 0.f;
 	int AttType = 0;
-
+	int AttType2= 0;
 
 	bool ShakeOneCheck = false;
 	bool m_bLaserUP = false;

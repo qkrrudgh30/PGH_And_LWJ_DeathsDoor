@@ -671,7 +671,7 @@ void Tower::IdleStart(const StateInfo& _Info)
 	FBXAnimationRenderer->ChangeAnimation("Tower_Idle");
 	m_bIdleUpDown = false;
 	m_fUpDownTime = 0.f;
-	AttType = 0;
+	//AttType = 0;
 
 	float4 MyPos = GetTransform().GetWorldPosition();
 	MyPos.y = 25.f;
@@ -716,12 +716,21 @@ void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 	if (m_fAttCTime >= 3.f)
 	{
 		m_fAttCTime = 0.;
-		AttType =  GameEngineRandom::MainRandom.RandomInt(1, 3);
+		//++AttType;// = GameEngineRandom::MainRandom.RandomInt(1, 3);
+		++AttType2;
 
+
+		if (AttType2 > 3)
+		{
+			AttType2 = 1;
+		}
+
+
+		AttType = AttType2;
 		//∑π¿Ã¿˙
 		//AttType = 1;
 	}
-
+	
 	
 	if (AttType == 1)
 	{
@@ -730,12 +739,12 @@ void Tower::IdleUpdate(float _DeltaTime, const StateInfo& _Info)
 	}
 	else if (AttType == 2)
 	{
-		StateManager.ChangeState("Att");
+		StateManager.ChangeState("Jump");
 		AttType = 0;
 	}
 	else if (AttType == 3)
 	{
-		StateManager.ChangeState("Jump");
+		StateManager.ChangeState("Att");
 		AttType = 0;
 	}
 

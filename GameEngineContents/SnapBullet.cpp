@@ -150,14 +150,15 @@ void SnapBullet::Update(float _DeltaTime)
 		Bullet.lock()->RanBig = 100.f;
 
 
-
-		m_pTarget.lock()->Death();
-		m_pTarget.reset();
-		for (size_t i = 0; i < m_vFlowerEff.size(); i++)
+		if (m_pTarget.lock())
 		{
-			m_vFlowerEff[i]->Death();
+			m_pTarget.lock()->Death();
+			m_pTarget.reset();
+			for (size_t i = 0; i < m_vFlowerEff.size(); i++)
+			{
+				m_vFlowerEff[i]->Death();
+			}
 		}
-
 
 
 

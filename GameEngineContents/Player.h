@@ -120,6 +120,7 @@ public:
 	float4	m_fHookPoint;
 
 
+
 	bool m_bShopCameraActionCheck = false;
 
 	std::weak_ptr < PlayerUpgradeUI> UpgradeUI;
