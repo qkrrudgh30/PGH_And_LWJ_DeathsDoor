@@ -51,13 +51,21 @@ void PlayerUpgradeUI::Start()
 	//오른쪽 틀
 	{
 		std::shared_ptr < GameEngineUIRenderer> Renderer = CreateComponent<GameEngineUIRenderer>();
-		Renderer->SetTexture("Info Frame.png");
+		Renderer->SetTexture("sadasdad.png");
 		Renderer->GetTransform().SetLocalScale({ 300.f, 400.f, 1 });
-		Renderer->GetPixelData().MulColor.a = 0.5f;
 		Renderer->GetTransform().SetLocalPosition({ 300.f,0.f, -220.f });
 		Renderer->ChangeCamera(CAMERAORDER::UICAMERA);
 	}
 
+
+	//오른쪽 틀 위
+	{
+		std::shared_ptr < GameEngineUIRenderer> Renderer = CreateComponent<GameEngineUIRenderer>();
+		Renderer->SetTexture("emblem_death.png");
+		Renderer->GetTransform().SetLocalScale({ 200.f, 100.f, 1 });
+		Renderer->GetTransform().SetLocalPosition({ 300.f,170.f, -270.f });
+		Renderer->ChangeCamera(CAMERAORDER::UICAMERA);
+	}
 
 
 
@@ -65,7 +73,7 @@ void PlayerUpgradeUI::Start()
 	//칼
 	{
 		RendererSword = CreateComponent<GameEngineUIRenderer>();
-		RendererSword->SetTexture("cutCursor.png");
+		RendererSword->SetTexture("icon_dexterity.png");
 		RendererSword->GetTransform().SetLocalScale({ 50, 50, 1 });
 		RendererSword->GetTransform().SetLocalPosition({ -320.f,140.f, -200.f });
 		RendererSword->ChangeCamera(CAMERAORDER::UICAMERA);
@@ -85,7 +93,7 @@ void PlayerUpgradeUI::Start()
 	//화살
 	{
 		RendererArrow = CreateComponent<GameEngineUIRenderer>();
-		RendererArrow->SetTexture("Icon_Arrow.png");
+		RendererArrow->SetTexture("icon_strenght.png");
 		RendererArrow->ScaleToTexture();
 		RendererArrow->GetTransform().SetLocalScale({ 50, 50, 1 });
 		RendererArrow->GetTransform().SetLocalPosition({ -320.f,50.f, -200.f });
@@ -106,7 +114,7 @@ void PlayerUpgradeUI::Start()
 	//후크
 	{
 		RendererHook = CreateComponent<GameEngineUIRenderer>();
-		RendererHook->SetTexture("Icon_Hook.png");
+		RendererHook->SetTexture("icon_haste.png");
 		RendererHook->ScaleToTexture();
 		RendererHook->GetTransform().SetLocalScale({ 50, 50, 1 });
 		RendererHook->GetTransform().SetLocalPosition({ -320.f,-40.f, -200.f });
@@ -128,7 +136,7 @@ void PlayerUpgradeUI::Start()
 	//마법
 	{
 		RendererFire = CreateComponent<GameEngineUIRenderer>();
-		RendererFire->SetTexture("Icon_Fireball.png");
+		RendererFire->SetTexture("icon_magic.png");
 		RendererFire->ScaleToTexture();
 		RendererFire->GetTransform().SetLocalScale({ 50, 50, 1 });
 		RendererFire->GetTransform().SetLocalPosition({ -320.f,-130.f, -200.f });

@@ -123,8 +123,9 @@ void SnapBullet::Update(float _DeltaTime)
 	GetTransform().SetWorldDownMove(m_fDownSpeed, _DeltaTime);
 
 
+	float4 AAAAMyPos = m_pTarget.lock()->GetTransform().GetWorldPosition();
+	float4 TarGetDir = AAAAMyPos - GetTransform().GetWorldPosition();
 
-	float4 TarGetDir = m_pTarget.lock()->GetTransform().GetWorldPosition() - GetTransform().GetWorldPosition();
 	float Len = TarGetDir.Length();
 
 	if (Len <= 40.f)
@@ -143,7 +144,7 @@ void SnapBullet::Update(float _DeltaTime)
 		m_structSoundPlayer = GameEngineSound::SoundPlayControl("21-1_MeteorHit.mp3");
 
 		std::weak_ptr < PalyerFireMgr> Bullet = GetLevel()->CreateActor<PalyerFireMgr>(OBJECTORDER::Eff);
-		float4 MyPos = m_pTarget.lock()->GetTransform().GetWorldPosition();
+		float4 MyPos = AAAAMyPos;
 		Bullet.lock()->GetTransform().SetWorldPosition(MyPos);
 		Bullet.lock()->RanSmall = 60.f;
 		Bullet.lock()->RanBig = 100.f;
