@@ -82,7 +82,7 @@ void HuntingLevel3::LevelStartEvent()
 
 
 		//Fire
-		{
+	/*	{
 
 			std::weak_ptr < Firemgr> Fire = CreateActor<Firemgr>(OBJECTORDER::Eff);
 			Fire.lock()->GetTransform().SetWorldPosition({ 1418.f,280.f,-706.f });
@@ -97,7 +97,7 @@ void HuntingLevel3::LevelStartEvent()
 			Fire.lock()->GetTransform().SetWorldPosition({ -342.f,280.f,971.f });
 
 
-		}
+		}*/
 
 
 

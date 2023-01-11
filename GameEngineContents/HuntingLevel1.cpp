@@ -70,21 +70,21 @@ void HuntingLevel1::LevelStartEvent()
 		}
 
 
-		{
+		//{
 
-			std::weak_ptr < Firemgr> Fire = CreateActor<Firemgr>(OBJECTORDER::Eff);
-			Fire.lock()->GetTransform().SetWorldPosition({ -436.f,280.f,43.f });
-		
+		//	std::weak_ptr < Firemgr> Fire = CreateActor<Firemgr>(OBJECTORDER::Eff);
+		//	Fire.lock()->GetTransform().SetWorldPosition({ -436.f,280.f,43.f });
+		//
 
-		}
+		//}
 
-		{
+		//{
 
-			std::weak_ptr < Firemgr> Fire = CreateActor<Firemgr>(OBJECTORDER::Eff);
-			Fire.lock()->GetTransform().SetWorldPosition({ -1109.f,280.f,-636.f });
+		//	std::weak_ptr < Firemgr> Fire = CreateActor<Firemgr>(OBJECTORDER::Eff);
+		//	Fire.lock()->GetTransform().SetWorldPosition({ -1109.f,280.f,-636.f });
 
 
-		}
+		//}
 
 
 

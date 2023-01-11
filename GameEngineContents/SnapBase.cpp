@@ -44,10 +44,6 @@ void SnapBase::Update(float _DeltaTime)
 		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
 		Bullet.lock()->GetTransform().SetWorldPosition({ Rand2X ,10.f, Rand2Z });
 
-		
-		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
-		PlayerPos.y = 10.f;
-		Bullet.lock()->GetTransform().SetWorldPosition( PlayerPos);
 	}
 	else if (m_fMakeTime >= 0.4f && m_bBulletcheck[1] == false)
 	{
@@ -60,9 +56,7 @@ void SnapBase::Update(float _DeltaTime)
 		Bullet.lock()->GetTransform().SetWorldPosition({ Rand2X ,10.f, Rand2Z });
 
 
-		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
-		PlayerPos.y = 10.f;
-		Bullet.lock()->GetTransform().SetWorldPosition(PlayerPos);
+	
 	}
 	else if (m_fMakeTime >= 0.8f && m_bBulletcheck[2] == false)
 	{
@@ -73,10 +67,7 @@ void SnapBase::Update(float _DeltaTime)
 		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
 		Bullet.lock()->GetTransform().SetWorldPosition({ Rand2X ,10.f, Rand2Z });
 
-		
-		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
-		PlayerPos.y = 10.f;
-		Bullet.lock()->GetTransform().SetWorldPosition(PlayerPos);
+
 	}
 
 	else if (m_fMakeTime >= 1.2f && m_bBulletcheck[3] == false)
@@ -89,9 +80,7 @@ void SnapBase::Update(float _DeltaTime)
 		Bullet.lock()->GetTransform().SetWorldPosition({ Rand2X ,10.f, Rand2Z });
 
 		
-		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
-		PlayerPos.y = 10.f;
-		Bullet.lock()->GetTransform().SetWorldPosition(PlayerPos);
+	
 	}
 
 	else if (m_fMakeTime >= 1.6f && m_bBulletcheck[4] == false)
@@ -103,9 +92,7 @@ void SnapBase::Update(float _DeltaTime)
 		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
 		Bullet.lock()->GetTransform().SetWorldPosition({ Rand2X ,10.f, Rand2Z });
 
-		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
-		PlayerPos.y = 10.f;
-		Bullet.lock()->GetTransform().SetWorldPosition(PlayerPos);
+	
 	}
 	else if (m_fMakeTime >= 2.f && m_bBulletcheck[5] == false)
 	{
@@ -116,10 +103,7 @@ void SnapBase::Update(float _DeltaTime)
 		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
 		Bullet.lock()->GetTransform().SetWorldPosition({ Rand2X ,10.f, Rand2Z });
 
-		
-		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
-		PlayerPos.y = 10.f;
-		Bullet.lock()->GetTransform().SetWorldPosition(PlayerPos);
+	
 
 
 	}
@@ -132,9 +116,7 @@ void SnapBase::Update(float _DeltaTime)
 		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
 		Bullet.lock()->GetTransform().SetWorldPosition({ Rand2X ,10.f, Rand2Z });
 
-		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
-		PlayerPos.y = 10.f;
-		Bullet.lock()->GetTransform().SetWorldPosition(PlayerPos);
+	
 
 
 	}
@@ -147,10 +129,7 @@ void SnapBase::Update(float _DeltaTime)
 		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
 		Bullet.lock()->GetTransform().SetWorldPosition({ Rand2X ,10.f, Rand2Z });
 
-		
-		Bullet = GetLevel()->CreateActor<SnapTarGet>(OBJECTORDER::MonsterAtt);
-		PlayerPos.y = 10.f;
-		Bullet.lock()->GetTransform().SetWorldPosition(PlayerPos);
+	
 
 
 	}
