@@ -19,6 +19,7 @@ void TestBox::Start()
 	Renderer->SetMaterial("ContentsDeferredLightColor");
 	float4 ResultColor = { 1.f,1.f,1.f,1.f };
 	Renderer->GetShaderResources().SetConstantBufferNew("ResultColor", ResultColor);
+	m_structLightInfo.uOnOffLight = 1u;
 	Renderer->GetShaderResources().SetConstantBufferLink("AdditionalInfoForLight", m_structLightInfo);
 
 	Renderer->GetTransform().SetLocalScale(float4{ 300.f, 300.f, 300.f });
