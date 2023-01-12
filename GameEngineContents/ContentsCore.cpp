@@ -19,7 +19,9 @@
 int ContentsCore::m_nCurrentLevel = -1;
 int ContentsCore::m_nNextLevel = -1;
 
-// #define ONDEBUG
+
+//µð¹ö±×
+ //#define ONDEBUG
 
 enum
 {
