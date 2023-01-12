@@ -36,6 +36,17 @@ void WorldLight::Start()
 		GameEngineInput::GetInst()->CreateKey("LightU", VK_INSERT);
 		GameEngineInput::GetInst()->CreateKey("LightD", VK_PRIOR);
 	}
+
+	if (false == GameEngineInput::GetInst()->IsKey("SelectedObjectUp"))
+	{
+		GameEngineInput::GetInst()->CreateKey("SelectedObjectUp", 'T');
+		GameEngineInput::GetInst()->CreateKey("SelectedObjectDown", 'G');
+		GameEngineInput::GetInst()->CreateKey("SelectedObjectLeft", 'F');
+		GameEngineInput::GetInst()->CreateKey("SelectedObjectRight", 'H');
+		GameEngineInput::GetInst()->CreateKey("SelectedObjectForward", 'R');
+		GameEngineInput::GetInst()->CreateKey("SelectedObjectBackward", 'Y');
+		GameEngineInput::GetInst()->CreateKey("SelectedObjectRotate", MK_LBUTTON);
+	}
 }
 
 void WorldLight::Update(float _fDeltatime)

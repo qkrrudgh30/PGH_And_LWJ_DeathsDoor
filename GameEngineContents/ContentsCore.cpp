@@ -19,6 +19,8 @@
 int ContentsCore::m_nCurrentLevel = -1;
 int ContentsCore::m_nNextLevel = -1;
 
+// #define ONDEBUG
+
 enum
 {
 	LOGIN_LEVEL = 0,
@@ -72,10 +74,10 @@ void ContentsCore::Start()
 
 #pragma region CreateContentsGUI
 
-// #ifdef _DEBUG
+#ifdef ONDEBUG
 	GameEngineGUI::CreateGUIWindow<GameEngineStatusWindow>("EngineStatus", nullptr);
 	GameEngineGUI::CreateGUIWindow<EditGUIWindow>("EditGUIWindow", nullptr);
-// #endif
+#endif
 
 #pragma endregion
 
